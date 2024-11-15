@@ -134,7 +134,7 @@ console.log("Firebase inicializado");
 //***********************************************************************************************************************************************************************
 
 // Função para buscar a versão mais recente e redirecionar
-const VersaoSistema = '1.0'; // Versão atual do sistema
+const VersaoSistema = '1.1'; // Versão atual do sistema
 
 
 
@@ -558,18 +558,22 @@ function excluirReserva(horaIndex, diaIndex) {
         // Exclusão no Firebase ocorre sem afetar a visualização do usuário
         excluirReservaFirebase(horaIndex + 6, diaIndex, quadraSelecionada);
         excluirReservaFirebase(horaIndex + 7, diaIndex, quadraSelecionada);
-        
     } else if (duracao === "1") {
         // Reserva de 1 hora
         requestAnimationFrame(() => {
             limparCelula(primeiraCelula);
         });
-        
+
         excluirReservaFirebase(horaIndex + 6, diaIndex, quadraSelecionada);
     }
 
     celulasExcluidas.add(celulaId);
+
+    // Atualizar a interface após a exclusão
+    carregarReservas(quadraSelecionada);
 }
+
+
 
 function limparCelula(celula) {
     if (celula) {
@@ -622,7 +626,11 @@ function excluirReservaFirebase(horaSelecionada, diaIndex, quadra) {
 const reservasRef = database.ref('reservas/' + quadraSelecionada);
 reservasRef.on('value', (snapshot) => {
 
+console.log("Atualização recebida do Firebase:", snapshot.val());
+
     const reservas = snapshot.val();
+	
+limparTabela(); // Limpa toda a tabela antes de preencher com dados atualizados
 
     if (reservas) {
         for (const key in reservas) {
@@ -824,6 +832,7 @@ function LimparDiasAnteriores() {
 window.onload = function() {
     verificarVersao(); 
     selecionarQuadra('Quadra 1 - Coberta'); // Define a quadra inicial
+	
     atualizarDatas();
     atualizarOpcoesHorario();
 };
