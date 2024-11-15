@@ -135,44 +135,18 @@ console.log("Firebase inicializado");
 
 // Função para buscar a versão mais recente e redirecionar
 const VersaoSistema = '1.0'; // Versão atual do sistema
-// https://www.dropbox.com/scl/fi/al1j7u6p8h0cd2uy5dt5a/Clube-Olimpico-Reservas.html?rlkey=ozqgs1bn7li57njfnx4vl7i8k&st=8q8jtvgm&dl=0
+
+
 
 // constante global para definir os dias permitidos para fazer reserva
 window.DiasParaLimpar = 4; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se DiasParaLimpar = 4, então só é permitido fazer reserva em até 2 dias de antecedencia
 		
 //************************************************************************************************************************************************************************
 
+// Função para buscar a versão mais recente e redirecionar
 function verificarVersao() {
-    const elementoVersao = document.getElementById('versaoSistema');
-    if (elementoVersao) {
-        elementoVersao.innerText = `Versão: ${VersaoSistema}`;
-    } else {
-        console.error('Elemento com id "versaoSistema" não encontrado.');
-    }
-
-    const versaoRef = database.ref('versions/latest'); // Referência ao caminho da versão no Firebase
-
-    versaoRef.once('value').then((snapshot) => {
-        const dados = snapshot.val();
-        if (dados && dados.version && dados.url) {
-            if (dados.version !== VersaoSistema) {
-                alert(`Nova versão disponível: ${dados.version}. Carregando nova versão...`);
-
-                window.location.href = dados.url.replace("?dl=0", "?dl=1");
-		
-                // Salva a nova versão no armazenamento local
-                localStorage.setItem('VersaoSistema', dados.version);
-            } else {
-                console.log('Você já está usando a versão mais recente.');
-            }
-        } else {
-            console.log('Nenhuma versão encontrada.');
-        }
-    }).catch((error) => {
-        console.error('Erro ao buscar a versão:', error);
-    });
+    document.getElementById('versaoSistema').innerHTML += ` ${VersaoSistema}`;
 }
-
 
 
 		
@@ -848,7 +822,7 @@ function LimparDiasAnteriores() {
 
 
 window.onload = function() {
-    verificarVersao();
+    verificarVersao(); 
     selecionarQuadra('Quadra 1 - Coberta'); // Define a quadra inicial
     atualizarDatas();
     atualizarOpcoesHorario();
@@ -868,7 +842,7 @@ window.onload = function() {
 </div>
 
 <div id="versaoSistema" style="text-align: right; margin-bottom: 10px; font-size: 1rem; color: #555;">
-    Versão: 1.0
+    Versão:
 </div>
 
 
