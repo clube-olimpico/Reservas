@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Clube Olímpico - Sistema de Reservas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            padding: 10px;
+            margin: 0 auto;
+            max-width: 500px;
+        }
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+        }
+
+        input, select {
+            flex-grow: 1;
+            min-width: 100px; /* Ensure minimum width for inputs on small screens */
+        }
+
+        label {
+            width: 100%; /* Labels on mobile take full width to avoid misalignment */
+            margin-bottom: 5px; /* Add space below labels for better appearance */
+        }
+
+        @media (min-width: 600px) {
+            label {
+                width: 80px; /* On wider screens, set the width for proper alignment */
+            }
+        }
+        label {
+            font-size: 1rem;
+            margin-right: 10px;
+            width: 160px; /* ajusta o tamanho do label */
+        }
+        input, select, button {
+            flex-grow: 1;
+            padding: 5px;
+            font-size: 1rem;
+	        }
+        .jogadores-container {
+            display: flex;
+            flex-direction: column; /* Altera a direção para coluna */
+            margin-top: 10px; /* Adiciona espaço entre os campos */
+        }
+        .add-jogador {
+    font-size: 2rem;
+            cursor: pointer;
+            color: blue;
+            margin-top: 5px; /* Espaço acima do botão de adicionar */
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .header {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+		 /* Novo estilo para negrito no botão selecionado */
+        .selected {
+            font-weight: bold;
+			background-color: #228B22; /* Fundo verde escuro */
+            color: white; /* Texto branco */
+        }
+		.fade-out {
+			transition: opacity 0.3s ease-out;
+			opacity: 0;
+		}
+		#currentVersion {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
+	
+	
+	<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+
+
+	<script>
+	
+
+	
+	// Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "SUA_API_KEY",
+    authDomain: "agenda-5ce95.firebaseapp.com",
+    projectId: "agenda-5ce95",
+    storageBucket: "agenda-5ce95.appspot.com",
+    messagingSenderId: "852007565195",
+    appId: "1:852007565195:web:d7bd789d140858f53f618e"
+};
+
+// Inicializando o Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+console.log("Firebase inicializado");
+
+
+//***********************************************************************************************************************************************************************
+
+// Função para buscar a versão mais recente e redirecionar
+const VersaoSistema = '1.0'; // Versão atual do sistema
+// https://www.dropbox.com/scl/fi/al1j7u6p8h0cd2uy5dt5a/Clube-Olimpico-Reservas.html?rlkey=ozqgs1bn7li57njfnx4vl7i8k&st=8q8jtvgm&dl=0
+
+// constante global para definir os dias permitidos para fazer reserva
+window.DiasParaLimpar = 4; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se DiasParaLimpar = 4, então só é permitido fazer reserva em até 2 dias de antecedencia
+		
+//************************************************************************************************************************************************************************
+
+function verificarVersao() {
+    const elementoVersao = document.getElementById('versaoSistema');
+    if (elementoVersao) {
+        elementoVersao.innerText = `Versão: ${VersaoSistema}`;
+    } else {
+        console.error('Elemento com id "versaoSistema" não encontrado.');
+    }
+
+    const versaoRef = database.ref('versions/latest'); // Referência ao caminho da versão no Firebase
+
+    versaoRef.once('value').then((snapshot) => {
+        const dados = snapshot.val();
+        if (dados && dados.version && dados.url) {
+            if (dados.version !== VersaoSistema) {
+                alert(`Nova versão disponível: ${dados.version}. Carregando nova versão...`);
+
+                window.location.href = dados.url.replace("?dl=0", "?dl=1");
+		
+                // Salva a nova versão no armazenamento local
+                localStorage.setItem('VersaoSistema', dados.version);
+            } else {
+                console.log('Você já está usando a versão mais recente.');
+            }
+        } else {
+            console.log('Nenhuma versão encontrada.');
+        }
+    }).catch((error) => {
+        console.error('Erro ao buscar a versão:', error);
+    });
+}
+
+
+
+		
+   	  let quadraSelecionada = 'Quadra 1 - Coberta'; // Quadra inicial padrão
+
+
+	
+	    // constante global para definir os dias permitidos para fazer reserva
+	    //window.DiasParaLimpar = 4; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se DiasParaLimpar = 4, então só é permitido fazer reserva em até 2 dias de antecedencia
+	   
+		
+
+        
+
+        let jogadorCount = 1;
+		
+		
+		
+// Função para limpar a tabela antes de exibir as reservas da quadra selecionada
+function limparTabela() {
+    const tabela = document.getElementById('tabelaCorpo');
+    for (let i = 0; i < tabela.rows.length; i++) {
+        for (let j = 1; j < tabela.rows[i].cells.length - 1; j++) { // Ignora a primeira e última coluna
+            tabela.rows[i].cells[j].innerHTML = '';
+            tabela.rows[i].cells[j].style.backgroundColor = '';
+            tabela.rows[i].cells[j].style.border = '1px solid #ddd'; // Restaura a borda padrão
+        }
+    }
+}
+
+// Função para selecionar a quadra e carregar suas reservas
+function selecionarQuadra(quadra) {
+    console.log("Quadra selecionada:", quadra);
+    quadraSelecionada = quadra; // Atualiza a quadra selecionada
+    document.querySelector('.header').innerText = quadra; // Atualiza o título da quadra
+
+    // Remove a classe 'selected' de todos os botões e adiciona ao botão clicado
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.toggle('selected', button.innerText === quadra);
+    });
+
+    // Atualiza e exibe reservas para a quadra selecionada
+    carregarReservas(quadra);
+}
+	
+
+
+function carregarReservas(quadra) {
+    console.log("Carregando reservas para:", quadra);
+
+    celulasExcluidas.clear();
+    reservasExcluidasFirebase.clear();
+
+    const reservasRef = database.ref('reservas/' + quadra);
+
+    reservasRef.once('value', (snapshot) => {
+        const reservas = snapshot.val();
+        limparTabela();
+
+        if (reservas) {
+            const tabela = document.getElementById('tabelaCorpo');
+            const totalRows = tabela.rows.length;
+            const totalCols = tabela.rows[0]?.cells.length || 0;
+
+            for (const key in reservas) {
+                const { jogadores, dia, hora, duracao, borda } = reservas[key];
+                const rowIndex = hora - 6;
+                const colIndex = dia;
+
+                // Confirma se a célula está dentro dos limites da tabela
+                if (rowIndex >= 0 && rowIndex < totalRows && colIndex >= 0 && colIndex < totalCols) {
+                    const cell = tabela.rows[rowIndex].cells[colIndex];
+                    cell.innerHTML = jogadores;
+                    cell.setAttribute("data-duracao", duracao);
+
+                    // Define a cor de fundo baseada na reserva
+                    let corFundo;
+                    if (jogadores.toLowerCase().includes('aula') || jogadores.toLowerCase().includes('interditada')) {
+                        corFundo = 'lightcoral';
+                    } else {
+                        corFundo = duracao === 1 ? 'lightgreen' : 'lightblue';
+                    }
+                    cell.style.backgroundColor = corFundo;
+
+                    // Configura as bordas para reservas de 1h ou 2h
+                    if (borda === '1h') {
+                        cell.style.border = '2px solid black';
+                    } else if (borda === '2h') {
+                        cell.style.borderTop = '2px solid black';
+                        cell.style.borderLeft = '2px solid black';
+                        cell.style.borderRight = '2px solid black';
+                        cell.style.borderBottom = 'none';
+
+                        const cellNext = tabela.rows[rowIndex + 1]?.cells[colIndex];
+                        if (cellNext) {
+                            cellNext.style.borderTop = 'none';
+                            cellNext.style.borderLeft = '2px solid black';
+                            cellNext.style.borderRight = '2px solid black';
+                            cellNext.style.borderBottom = '2px solid black';
+                            cellNext.style.backgroundColor = corFundo;
+                            cellNext.setAttribute("data-duracao", duracao);
+                        }
+                    }
+                }
+            }
+        }
+        adicionarEventoClique(); // Adiciona eventos de clique para exclusão
+    });
+}
+		
+		
+     console.log(" vai entrar na função validarDiaReserva DiasParaLimpar:",DiasParaLimpar);
+
+         // Função para validar o dia da reserva
+    function validarDiaReserva(jogadores) {
+    // Verifica se é uma reserva de "aula" ou "interditada"
+    if (jogadores.some(jogador => jogador.toLowerCase().includes('aula') || jogador.toLowerCase().includes('interditada'))) {
+        console.log('Reserva de "aula" ou "interditada" detectada. Validação de dia ignorada.');
+        return true; // Permite a reserva sem validação
+    }
+
+    const diasParaLimpar = window.DiasParaLimpar || 4; // Usar a constante global
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0); // Zerando horas para evitar problemas de comparação
+
+    const diaSelecionado = parseInt(document.getElementById('dia').value); // Valor do select
+    console.log('DiasParaLimpar:', diasParaLimpar);
+    console.log('Dia selecionado:', diaSelecionado);
+
+    let maxDiasPermitidos;
+    switch (diasParaLimpar) {
+        case 1: maxDiasPermitidos = 5; break;
+        case 2: maxDiasPermitidos = 4; break;
+        case 3: maxDiasPermitidos = 3; break;
+        case 4: maxDiasPermitidos = 2; break;
+        case 5: maxDiasPermitidos = 1; break;
+        case 6: maxDiasPermitidos = 0; break; // Apenas para o dia atual
+        default:
+            console.error("Valor de DiasParaLimpar inválido.");
+            return false;
+    }
+    console.log('Máximo de dias permitido para reserva:', maxDiasPermitidos);
+
+    const ultimoDiaPermitido = new Date(hoje);
+    ultimoDiaPermitido.setDate(hoje.getDate() + maxDiasPermitidos);
+    console.log('Último dia permitido:', ultimoDiaPermitido);
+
+    const diferencaDias = (diaSelecionado - hoje.getDay() + 7) % 7;
+    const dataSelecionada = new Date(hoje);
+    dataSelecionada.setDate(hoje.getDate() + diferencaDias);
+    console.log('Data selecionada:', dataSelecionada);
+
+    if (dataSelecionada > ultimoDiaPermitido || dataSelecionada < hoje) {
+        const msg = gerarMensagemErro(diasParaLimpar);
+        alert(msg);
+        console.error('Reserva fora do intervalo permitido.');
+        return false;
+    }
+
+    console.log('Reserva permitida.');
+    return true;
+}
+
+
+
+// Função para gerar a mensagem de erro com base no DiasParaLimpar
+function gerarMensagemErro(diasParaLimpar) {
+    let diasAntecedencia;
+    switch (diasParaLimpar) {
+        case 1:
+            diasAntecedencia = 5;
+            break;
+        case 2:
+            diasAntecedencia = 4;
+            break;
+        case 3:
+            diasAntecedencia = 3;
+            break;
+        case 4:
+            diasAntecedencia = 2;
+            break;
+        case 5:
+            diasAntecedencia = 1;
+            break;
+        case 6:
+            return "Só é permitido fazer reservas para o dia atual.";
+        default:
+            return "Valor de DiasParaLimpar inválido.";
+    }
+    return `Não é permitido fazer reservas com mais de ${diasAntecedencia} dias de antecedência.`;
+	 
+}
+
+
+
+        // Atualiza as opções de horário de acordo com a duração escolhida
+    window.atualizarOpcoesHorario = function() {
+    const duracao = document.getElementById('duracao').value;
+    const hora = document.getElementById('hora');
+    hora.innerHTML = ''; // Limpa opções anteriores
+
+    if (duracao === '1') {
+        for (let i = 6; i <= 22; i++) { // Horário de 06:00 a 22:00
+            hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 1}:00</option>`;
+        }
+    } else if (duracao === '2') {
+        for (let i = 6; i <= 21; i++) { // Horário de 06:00 a 21:00 para 2 horas de duração
+            hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
+        }
+    }
+}
+
+        // Adiciona um novo campo para jogador
+        window.adicionarJogador = function() {
+            if (jogadorCount < 4) {
+                jogadorCount++;
+                const jogadoresContainer = document.getElementById('jogadoresContainer');
+
+                const newDiv = document.createElement('div');
+                newDiv.className = 'form-row'; // Para garantir o alinhamento
+
+                const label = document.createElement('label');
+                label.setAttribute('for', `jogador${jogadorCount}`);
+                label.textContent = 'Jogador:';
+
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.id = `jogador${jogadorCount}`;
+                input.placeholder = `Nome do Jogador ${jogadorCount}`;
+                input.maxLength = 20;
+
+                newDiv.appendChild(label);
+                newDiv.appendChild(input);
+                jogadoresContainer.appendChild(newDiv);
+                
+                // Define foco no novo campo de jogador
+                input.focus();
+            }
+        }
+
+
+        // Atualiza a tabela com a nova reserva
+atualizarTabela = function() {
+    console.log('Iniciando a função AtualizarTabela');
+
+    const jogadores = [];
+    for (let i = 1; i <= jogadorCount; i++) {
+        const jogador = document.getElementById(`jogador${i}`).value;
+        if (jogador) {
+            jogadores.push(jogador);
+        }
+    }
+
+    if (jogadores.length === 0) {
+        alert('Insira pelo menos 1 jogador.');
+        return;
+    }
+
+    const quadra = document.getElementById('quadra').value;
+    const dia = document.getElementById('dia').value;
+    const horaSelecionada = parseInt(document.getElementById('hora').value);
+    const duracao = parseInt(document.getElementById('duracao').value);
+
+    // Verifica se a reserva é de "aula" ou "interditada" e pula a validação de data se for o caso
+    if (!validarDiaReserva(jogadores)) {
+        return; // Sai da função se a reserva não for permitida (exceto para "aula" ou "interditada")
+    }
+
+    if (horaSelecionada < 6 || horaSelecionada > 22) {
+        alert('Horário selecionado deve ser entre 6 e 22.');
+        return;
+    }
+
+    const tabela = document.getElementById('tabelaCorpo');
+    let horarioInicial = horaSelecionada - 6;
+
+    console.log('Inserindo dados na tabela na linha:', horarioInicial);
+
+    const reservasRef = database.ref(`reservas/${quadra}`);
+    reservasRef.once('value').then(snapshot => {
+        const reservas = snapshot.val() || {};
+        let horariosLivres = true;
+
+        for (let i = 0; i < duracao; i++) {
+            const horarioChave = `${dia}_${horaSelecionada + i}`;
+            if (reservas[horarioChave]) {
+                horariosLivres = false;
+                break;
+            }
+        }
+
+        if (!horariosLivres) {
+            alert('Um ou mais horários já estão reservados para essa quadra!');
+            return;
+        }
+
+        let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula') || jogador.toLowerCase().includes('interditada')) ? 'lightcoral' : (duracao === 1 ? 'lightgreen' : 'lightblue');
+
+        if (duracao === 1) {
+            tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores.join(', ');
+            tabela.rows[horarioInicial].cells[dia].style.backgroundColor = corFundo;
+            tabela.rows[horarioInicial].cells[dia].setAttribute("data-duracao", "1");
+            tabela.rows[horarioInicial].cells[dia].style.border = '2px solid black';
+
+            const key = `${dia}_${horaSelecionada}`;
+            const reservaData = {
+                jogadores: jogadores.join(', '),
+                dia: dia,
+                hora: horaSelecionada,
+                duracao: 1,
+                borda: '1h'
+            };
+
+            reservasRef.child(key).set(reservaData)
+                .then(() => console.log("Reserva salva com sucesso!"))
+                .catch(error => console.error("Erro ao salvar a reserva:", error));
+
+        } else if (duracao === 2) {
+            tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores[0];
+            tabela.rows[horarioInicial + 1].cells[dia].innerHTML = jogadores.length > 1 ? jogadores[1] : jogadores[0];
+
+            tabela.rows[horarioInicial].cells[dia].style.backgroundColor = corFundo;
+            tabela.rows[horarioInicial + 1].cells[dia].style.backgroundColor = corFundo;
+            tabela.rows[horarioInicial].cells[dia].style.border = '2px solid black';
+
+            const key1 = `${dia}_${horaSelecionada}`;
+            const key2 = `${dia}_${horaSelecionada + 1}`;
+
+            const reservaData1 = {
+                jogadores: tabela.rows[horarioInicial].cells[dia].innerHTML,
+                dia: dia,
+                hora: horaSelecionada,
+                duracao: 2,
+                borda: '2h'
+            };
+
+            const reservaData2 = {
+                jogadores: tabela.rows[horarioInicial + 1].cells[dia].innerHTML,
+                dia: dia,
+                hora: horaSelecionada + 1
+            };
+
+            reservasRef.child(key1).set(reservaData1)
+                .then(() => console.log("Reserva para 1º horário salva com sucesso!"))
+                .catch(error => console.error("Erro ao salvar a reserva:", error));
+
+            reservasRef.child(key2).set(reservaData2)
+                .then(() => console.log("Reserva para 2º horário salva com sucesso!"))
+                .catch(error => console.error("Erro ao salvar a reserva:", error));
+        }
+
+        selecionarQuadra(quadra);
+    });
+};
+
+
+
+// Função para adicionar evento de clique nas células
+function adicionarEventoClique() {
+    const tabela = document.getElementById('tabelaCorpo');
+
+    for (let i = 0; i < tabela.rows.length; i++) {
+        for (let j = 0; j < tabela.rows[i].cells.length; j++) {
+            const celula = tabela.rows[i].cells[j];
+
+            // Remover qualquer evento de clique anterior
+            celula.onclick = null;
+
+            // Adicionar novo evento de clique
+            celula.onclick = function() {
+                if (celula.innerHTML !== "") {
+                    const confirmacao = confirm("Você quer excluir esta reserva?");
+                    if (confirmacao) {
+                        excluirReserva(i, j); // Passa a posição da célula
+                    }
+                }
+            };
+        }
+    }
+}
+
+
+
+// Variável global para rastrear células já excluídas
+const celulasExcluidas = new Set();
+
+function excluirReserva(horaIndex, diaIndex) {
+    const tabela = document.getElementById('tabelaCorpo');
+    const celulaId = `${horaIndex}_${diaIndex}`;
+
+    // Evita duplicidade de exclusão
+    if (celulasExcluidas.has(celulaId)) {
+        return;
+    }
+
+    const primeiraCelula = tabela.rows[horaIndex].cells[diaIndex];
+    const duracao = primeiraCelula.getAttribute('data-duracao');
+
+    // Verifica se é uma reserva de 2 horas para limpar duas células ao mesmo tempo
+    if (duracao === "2") {
+        const segundaCelula = tabela.rows[horaIndex + 1]?.cells[diaIndex];
+
+        // Utiliza requestAnimationFrame para garantir que ambas as células sejam atualizadas imediatamente
+        requestAnimationFrame(() => {
+            limparCelula(primeiraCelula);
+            limparCelula(segundaCelula);
+        });
+
+        // Exclusão no Firebase ocorre sem afetar a visualização do usuário
+        excluirReservaFirebase(horaIndex + 6, diaIndex, quadraSelecionada);
+        excluirReservaFirebase(horaIndex + 7, diaIndex, quadraSelecionada);
+        
+    } else if (duracao === "1") {
+        // Reserva de 1 hora
+        requestAnimationFrame(() => {
+            limparCelula(primeiraCelula);
+        });
+        
+        excluirReservaFirebase(horaIndex + 6, diaIndex, quadraSelecionada);
+    }
+
+    celulasExcluidas.add(celulaId);
+}
+
+function limparCelula(celula) {
+    if (celula) {
+        celula.innerHTML = "";
+        celula.style.backgroundColor = "";
+        celula.style.border = "1px solid #ddd";
+        celula.removeAttribute('data-duracao');
+    }
+}
+
+
+const reservasExcluidasFirebase = new Set();
+
+function excluirReservaFirebase(horaSelecionada, diaIndex, quadra) {
+    const key = `${diaIndex}_${horaSelecionada}`;
+
+    if (!reservasExcluidasFirebase.has(key)) {
+        reservasExcluidasFirebase.add(key);
+        database.ref(`reservas/${quadra}/${key}`).remove()
+            .then(() => {
+                console.log(`Reserva removida com sucesso do Firebase para ${quadra}, chave=${key}`);
+                reservasExcluidasFirebase.delete(key);
+
+                // Atualiza a interface após a exclusão
+                carregarReservas(quadra);
+            })
+            .catch((error) => console.error(`Erro ao remover a reserva do Firebase: ${error}`));
+    }
+}
+
+
+
+
+        function limparCampos() {
+            // Não reseta o campo "Jogador 1" e mantém o seu valor
+            const jogadoresContainer = document.getElementById('jogadoresContainer');
+            while (jogadoresContainer.children.length > 1) {
+                jogadoresContainer.removeChild(jogadoresContainer.lastChild); // Remove apenas os campos de jogador adicionais
+            }
+            jogadorCount = 1; // Reseta o contador de jogadores para 1
+            document.getElementById('dataForm').reset(); // Reseta o formulário
+            document.getElementById('jogador1').value = ''; // Mantém o campo "Jogador 1"
+            document.getElementById('duracao').value = '1'; // Reseta a duração para 1 hora
+            atualizarOpcoesHorario(); // Atualiza as opções de horário
+        }
+
+
+   
+// Monitora as alterações no Firebase
+const reservasRef = database.ref('reservas/' + quadraSelecionada);
+reservasRef.on('value', (snapshot) => {
+
+    const reservas = snapshot.val();
+
+    if (reservas) {
+        for (const key in reservas) {
+            const { jogadores, dia, hora, duracao, borda } = reservas[key];
+            const rowIndex = hora - 6;
+
+            // Atualiza a célula com os jogadores recuperados do Firebase
+            document.getElementById('tabelaCorpo').rows[rowIndex].cells[dia].innerHTML = jogadores;
+
+            // Aplicar a cor de fundo e bordas com base nos dados
+            let corFundo;
+			if (jogadores.toLowerCase().includes('aula') || jogadores.toLowerCase().includes('interditada')) {
+				corFundo = 'lightcoral';
+			} else {
+				corFundo = duracao === 1 ? 'lightgreen' : 'lightblue';
+			}
+			const cell = document.getElementById('tabelaCorpo').rows[rowIndex]?.cells[dia]; // Encontre a célula específica
+			if (cell) { // Verifique se a célula foi encontrada
+				cell.style.backgroundColor = corFundo;
+			}
+
+
+
+            document.getElementById('tabelaCorpo').rows[rowIndex].cells[dia].style.backgroundColor = corFundo;
+
+            // Aplicar bordas
+            if (borda === '1h') {
+                document.getElementById('tabelaCorpo').rows[rowIndex].cells[dia].style.border = '2px solid black';
+            } else if (borda === '2h') {
+                document.getElementById('tabelaCorpo').rows[rowIndex].cells[dia].style.borderTop = '2px solid black';
+                document.getElementById('tabelaCorpo').rows[rowIndex].cells[dia].style.borderLeft = '2px solid black';
+                document.getElementById('tabelaCorpo').rows[rowIndex].cells[dia].style.borderRight = '2px solid black';
+                document.getElementById('tabelaCorpo').rows[rowIndex].cells[dia].style.borderBottom = 'none';
+
+                document.getElementById('tabelaCorpo').rows[rowIndex + 1].cells[dia].style.borderTop = 'none';
+                document.getElementById('tabelaCorpo').rows[rowIndex + 1].cells[dia].style.borderLeft = '2px solid black';
+                document.getElementById('tabelaCorpo').rows[rowIndex + 1].cells[dia].style.borderRight = '2px solid black';
+                document.getElementById('tabelaCorpo').rows[rowIndex + 1].cells[dia].style.borderBottom = '2px solid black';
+            }
+        }
+
+        // Após recuperar as reservas, adicionar eventos de clique nas células
+        adicionarEventoClique();
+    }
+});
+
+
+
+
+
+function atualizarDatas() {
+    console.log("atualizarDatas foi chamada"); 
+	
+    const dataInicio = new Date();
+    let diaDaSemana = dataInicio.getDay(); 
+    const dias = document.querySelectorAll("th");
+    console.log("Células selecionadas:", dias);
+
+    const linhaDatas = dias[0].parentNode.nextElementSibling;
+
+    // Limpa os dados dos dias anteriores com base em `DiasParaLimpar`
+    try {
+        LimparDiasAnteriores(); // Chama a função de limpeza com log para analisar a execução
+    } catch (error) {
+        console.error("Erro ao chamar LimparDiasAnteriores:", error);
+    }
+	
+    switch (DiasParaLimpar) {
+        case 1:
+            switch (diaDaSemana) {
+                case 0: preencherCeldas(dataInicio, [1, 2, 3, 4, 5, -1, 0], linhaDatas); break;
+                case 1: preencherCeldas(dataInicio, [0, 1, 2, 3, 4, 5, -1], linhaDatas); break;
+                case 2: preencherCeldas(dataInicio, [-1, 0, 1, 2, 3, 4, 5], linhaDatas); break;
+                case 3: preencherCeldas(dataInicio, [5, -1, 0, 1, 2, 3, 4], linhaDatas); break;
+                case 4: preencherCeldas(dataInicio, [4, 5, -1, 0, 1, 2, 3], linhaDatas); break;
+                case 5: preencherCeldas(dataInicio, [3, 4, 5, -1, 0, 1, 2], linhaDatas); break;
+                case 6: preencherCeldas(dataInicio, [2, 3, 4, 5, -1, 0, 1], linhaDatas); break;
+            }
+            break;
+        case 2:
+            switch (diaDaSemana) {
+                case 0: preencherCeldas(dataInicio, [1, 2, 3, 4, -2, -1, 0], linhaDatas); break;
+                case 1: preencherCeldas(dataInicio, [0, 1, 2, 3, 4, -2, -1], linhaDatas); break;
+                case 2: preencherCeldas(dataInicio, [-1, 0, 1, 2, 3, 4, -2], linhaDatas); break;
+                case 3: preencherCeldas(dataInicio, [-2, -1, 0, 1, 2, 3, 4], linhaDatas); break;
+                case 4: preencherCeldas(dataInicio, [4, -2, -1, 0, 1, 2, 3], linhaDatas); break;
+                case 5: preencherCeldas(dataInicio, [3, 4, -2, -1, 0, 1, 2], linhaDatas); break;
+                case 6: preencherCeldas(dataInicio, [2, 3, 4, -2, -1, 0, 1], linhaDatas); break;
+            }
+            break;
+        case 3:
+            switch (diaDaSemana) {
+                case 0: preencherCeldas(dataInicio, [1, 2, 3, -3, -2, -1, 0], linhaDatas); break;
+                case 1: preencherCeldas(dataInicio, [0, 1, 2, 3, -3, -2, -1], linhaDatas); break;
+                case 2: preencherCeldas(dataInicio, [-1, 0, 1, 2, 3, -3, -2], linhaDatas); break;
+                case 3: preencherCeldas(dataInicio, [-2, -1, 0, 1, 2, 3, -3], linhaDatas); break;
+                case 4: preencherCeldas(dataInicio, [-3, -2, -1, 0, 1, 2, 3], linhaDatas); break;
+                case 5: preencherCeldas(dataInicio, [3, -3, -2, -1, 0, 1, 2], linhaDatas); break;
+                case 6: preencherCeldas(dataInicio, [2, 3, -3, -2, -1, 0, 1], linhaDatas); break;
+            }
+            break;
+        case 4:
+            switch (diaDaSemana) {
+                case 0: preencherCeldas(dataInicio, [1, 2, -4, -3, -2, -1, 0], linhaDatas); break;
+                case 1: preencherCeldas(dataInicio, [0, 1, 2, -4, -3, -2, -1], linhaDatas); break;
+                case 2: preencherCeldas(dataInicio, [-1, 0, 1, 2, -4, -3, -2], linhaDatas); break;
+                case 3: preencherCeldas(dataInicio, [-2, -1, 0, 1, 2, -4, -3], linhaDatas); break;
+                case 4: preencherCeldas(dataInicio, [-3, -2, -1, 0, 1, 2, -4], linhaDatas); break;
+                case 5: preencherCeldas(dataInicio, [-4, -3, -2, -1, 0, 1, 2], linhaDatas); break;
+                case 6: preencherCeldas(dataInicio, [2, -4, -3, -2, -1, 0, 1], linhaDatas); break;
+            }
+            break;
+        case 5:
+            switch (diaDaSemana) {
+                case 0: preencherCeldas(dataInicio, [1, -5, -4, -3, -2, -1, 0], linhaDatas); break;
+                case 1: preencherCeldas(dataInicio, [0, 1, -5, -4, -3, -2, -1], linhaDatas); break;
+                case 2: preencherCeldas(dataInicio, [-1, 0, 1, -5, -4, -3, -2], linhaDatas); break;
+                case 3: preencherCeldas(dataInicio, [-2, -1, 0, 1, -5, -4, -3], linhaDatas); break;
+                case 4: preencherCeldas(dataInicio, [-3, -2, -1, 0, 1, -5, -4], linhaDatas); break;
+                case 5: preencherCeldas(dataInicio, [-4, -3, -2, -1, 0, 1, -5], linhaDatas); break;
+                case 6: preencherCeldas(dataInicio, [-5, -4, -3, -2, -1, 0, 1], linhaDatas); break;
+            }
+            break;
+        case 6:
+            switch (diaDaSemana) {
+                case 0: preencherCeldas(dataInicio, [-6, -5, -4, -3, -2, -1, 0], linhaDatas); break;
+                case 1: preencherCeldas(dataInicio, [0, -6, -5, -4, -3, -2, -1], linhaDatas); break;
+                case 2: preencherCeldas(dataInicio, [-1, 0, -6, -5, -4, -3, -2], linhaDatas); break;
+                case 3: preencherCeldas(dataInicio, [-2, -1, 0, -6, -5, -4, -3], linhaDatas); break;
+                case 4: preencherCeldas(dataInicio, [-3, -2, -1, 0, -6, -5, -4], linhaDatas); break;
+                case 5: preencherCeldas(dataInicio, [-4, -3, -2, -1, 0, -6, -5], linhaDatas); break;
+                case 6: preencherCeldas(dataInicio, [-5, -4, -3, -2, -1, 0, -6], linhaDatas); break;
+            }
+            break;
+    }
+}
+
+// Função para preencher as células de datas, ignorando a primeira célula
+function preencherCeldas(dataInicio, ajustes, linhaDatas) {
+    for (let i = 0; i < ajustes.length; i++) {
+        let novaData = new Date(dataInicio);
+        novaData.setDate(dataInicio.getDate() + ajustes[i]);
+		
+		// Adiciona log para verificar a célula sendo preenchida
+        console.log(`Preenchendo célula ${i + 1} com a data: ${novaData.toLocaleDateString('pt-BR')}`);
+		
+        linhaDatas.children[i].innerHTML = novaData.toLocaleDateString('pt-BR');
+    }
+}
+
+function LimparDiasAnteriores() {
+    console.log("Executando LimparDiasAnteriores para as três quadras");
+
+    const dataAtual = new Date();
+    dataAtual.setHours(0, 0, 0, 0); // Zerando horas para comparação exata
+
+    const quadras = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"];
+    const tabela = document.getElementById('tabelaCorpo'); // Acessa a tabela
+
+    quadras.forEach(quadra => {
+        console.log(`Limpando dados da ${quadra}`);
+        for (let dia = 1; dia <= DiasParaLimpar; dia++) {
+            const dataParaLimpar = new Date(dataAtual);
+            dataParaLimpar.setDate(dataAtual.getDate() - dia);
+            const diaIndex = dataParaLimpar.getDay() || 7; // Trata domingo como 7
+
+            for (let hora = 6; hora < 22; hora++) {
+                const horaIndex = hora - 6; // Calcula o índice correto da linha
+                const key = `${diaIndex}_${hora}`;
+
+                // Verifica a reserva no Firebase antes de remover
+                const reservaRef = database.ref(`reservas/${quadra}/${key}`);
+                reservaRef.once('value').then(snapshot => {
+                    const reserva = snapshot.val();
+                    if (reserva) {
+                        const { jogadores } = reserva;
+                        // Verifica se a reserva contém "aula" ou "interditada"
+                        if (jogadores && (jogadores.toLowerCase().includes('aula') || jogadores.toLowerCase().includes('interditada'))) {
+                            console.log(`Reserva de "${jogadores}" não será removida.`);
+                            return; // Pula a exclusão dessa reserva
+                        }
+                        // Remove a célula da interface e do Firebase
+                        const celula = tabela.rows[horaIndex]?.cells[diaIndex];
+                        if (celula) {
+                            limparCelula(celula);
+                        }
+                        reservaRef.remove()
+                            .then(() => console.log(`Reserva removida com sucesso do Firebase para ${quadra}, chave=${key}`))
+                            .catch(error => console.error(`Erro ao remover a reserva do Firebase: ${error}`));
+                    }
+                }).catch(error => console.error(`Erro ao verificar a reserva do Firebase: ${error}`));
+            }
+        }
+    });
+}
+
+
+
+window.onload = function() {
+    verificarVersao();
+    selecionarQuadra('Quadra 1 - Coberta'); // Define a quadra inicial
+    atualizarDatas();
+    atualizarOpcoesHorario();
+};
+
+
+</script>
+
+
+
+<body>
+
+<div class="tab-container" style="display: flex; justify-content: center; margin-bottom: 10px;">
+    <button class="tab-button" onclick="selecionarQuadra('Quadra 1 - Coberta')">Quadra 1 - Coberta</button>
+    <button class="tab-button" onclick="selecionarQuadra('Quadra 2 - Aberta')">Quadra 2 - Aberta</button>
+    <button class="tab-button" onclick="selecionarQuadra('Quadra 3 - Coberta')">Quadra 3 - Coberta</button>
+</div>
+
+<div id="versaoSistema" style="text-align: right; margin-bottom: 10px; font-size: 1rem; color: #555;">
+    Versão: 1.0
+</div>
+
+
+<div class="form-container">
+    <form id="dataForm">
+	
+	    <div class="form-row">
+			<label for="quadra">Quadra:</label>
+			<select id="quadra">
+				<option value="Quadra 1 - Coberta">Quadra 1 - Coberta</option>
+				<option value="Quadra 2 - Aberta">Quadra 2 - Aberta</option>
+				<option value="Quadra 3 - Coberta">Quadra 3 - Coberta</option>
+			</select>
+		</div>
+
+
+        <div class="form-row">
+            <label for="dia">Dia:</label>
+            <select id="dia" style="width: 5px !important;">
+                <option value="1">Segunda-Feira</option>
+                <option value="2">Terça-Feira</option>
+                <option value="3">Quarta-Feira</option>
+                <option value="4">Quinta-Feira</option>
+                <option value="5">Sexta-Feira</option>
+                <option value="6">Sábado</option>
+                <option value="7">Domingo</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label for="duracao">Duração:</label>
+            <select id="duracao" onchange="atualizarOpcoesHorario()">
+                <option value="1">1 hora</option>
+                <option value="2">2 horas</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label for="hora">Horário:</label>
+            <select id="hora">
+                <!-- As opções de horário serão ajustadas pelo JavaScript -->
+            </select>
+        </div>
+
+        <div class="jogadores-container" id="jogadoresContainer">
+            <div class="form-row">
+                <label for="jogador1">Jogador:</label>
+                <input type="text" id="jogador1" name="jogador" placeholder="Nome do Jogador 1" maxlength="20" required>
+                <span class="add-jogador" onclick="adicionarJogador()">+</span>
+            </div>
+        </div>
+
+        <button type="button" onclick="atualizarTabela()">Agendar</button>
+    </form>
+</div>
+
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2 class="header" style="margin: 1;">Quadra 1 - Coberta</h2> <!-- Título à esquerda -->
+    
+    <!-- Legenda de Cores -->
+    <div style="margin-left: 20px; text-align: left;">
+        <strong>Legenda:</strong>
+        <ul style="list-style-type: none; padding: 0; margin: 0;">
+            <li>
+                <span style="display: inline-block; width: 20px; height: 20px; background-color: lightgreen; margin-right: 5px;"></span>
+                1 Hora
+            </li>
+            <li>
+                <span style="display: inline-block; width: 20px; height: 20px; background-color: lightblue; margin-right: 5px;"></span>
+                2 Horas
+            </li>
+			<li>
+                <span style="display: inline-block; width: 20px; height: 20px; background-color: lightcoral; margin-right: 5px;"></span>
+                bloqueado
+            </li>
+        </ul>
+    </div>
+</div>
+
+<table id="tabelaQuadra" style="width: 100%; margin-top: 10px;">
+    <tr>
+        <th rowspan="2" style="text-align: center;">Horários</th>
+        <th>Segunda-Feira</th>
+        <th>Terça-Feira</th>
+        <th>Quarta-Feira</th>
+        <th>Quinta-Feira</th>
+        <th>Sexta-Feira</th>
+        <th>Sábado</th>
+        <th>Domingo</th>
+        <th rowspan="2" style="text-align: center;">Horários</th>
+    </tr>
+
+    <tr style="background-color: #f2f2f2;">
+        <!-- Célula vazia à esquerda para alinhar a linha de datas -->
+        <td style="font-weight: bold; font-size: 0.9em;">09/10/24</td>
+        <td style="font-weight: bold; font-size: 0.9em;">10/10/24</td>
+        <td style="font-weight: bold; font-size: 0.9em;">11/10/24</td>
+        <td style="font-weight: bold; font-size: 0.9em;">12/10/24</td>
+        <td style="font-weight: bold; font-size: 0.9em;">13/10/24</td>
+        <td style="font-weight: bold; font-size: 0.9em;">14/10/24</td>
+        <td style="font-weight: bold; font-size: 0.9em;">15/10/24</td>
+    </tr>
+    <tbody id="tabelaCorpo">
+	    <tr>
+            <td>06:00 - 07:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>06:00 - 07:00</td>
+        </tr>
+	    <tr>
+            <td>07:00 - 08:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>07:00 - 08:00</td>
+        </tr>
+        <tr>
+            <td>08:00 - 09:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>08:00 - 09:00</td>
+        </tr>
+        <tr>
+            <td>09:00 - 10:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>09:00 - 10:00</td>
+        </tr>
+        <tr>
+            <td>10:00 - 11:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>10:00 - 11:00</td>
+        </tr>
+        <tr>
+            <td>11:00 - 12:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>11:00 - 12:00</td>
+        </tr>
+        <tr>
+            <td>12:00 - 13:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>12:00 - 13:00</td>
+        </tr>
+        <tr>
+            <td>13:00 - 14:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>13:00 - 14:00</td>
+        </tr>
+        <tr>
+            <td>14:00 - 15:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>14:00 - 15:00</td>
+        </tr>
+        <tr>
+            <td>15:00 - 16:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>15:00 - 16:00</td>
+        </tr>
+        <tr>
+            <td>16:00 - 17:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>16:00 - 17:00</td>
+        </tr>
+        <tr>
+            <td>17:00 - 18:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>17:00 - 18:00</td>
+        </tr>
+        <tr>
+            <td>18:00 - 19:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>18:00 - 19:00</td>
+        </tr>
+        <tr>
+            <td>19:00 - 20:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>19:00 - 20:00</td>
+        </tr>
+        <tr>
+            <td>20:00 - 21:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>20:00 - 21:00</td>
+        </tr>
+        <tr>
+            <td>21:00 - 22:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>21:00 - 22:00</td>
+        </tr>
+        <tr>
+            <td>22:00 - 23:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>22:00 - 23:00</td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
