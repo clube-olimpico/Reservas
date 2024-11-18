@@ -113,6 +113,12 @@
 
 	<script>
 	
+	 // Força o recarregamento completo da página ao acessá-la
+        if (!window.performance || window.performance.navigation.type !== 1) {
+            // Recarrega a página ignorando o cache
+            window.location.reload(true);
+        }
+	
 
 	
 	// Configuração do Firebase
@@ -134,7 +140,7 @@ console.log("Firebase inicializado");
 //***********************************************************************************************************************************************************************
 
 // Função para buscar a versão mais recente e redirecionar
-const VersaoSistema = '1.3'; // Versão atual do sistema
+const VersaoSistema = '2.0'; // Versão atual do sistema
 
 
 
@@ -465,8 +471,23 @@ atualizarTabela = function() {
                 .catch(error => console.error("Erro ao salvar a reserva:", error));
 
         } else if (duracao === 2) {
-            tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores[0];
-            tabela.rows[horarioInicial + 1].cells[dia].innerHTML = jogadores.length > 1 ? jogadores[1] : jogadores[0];
+            if (jogadores.length === 1) {
+                tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores[0];
+                tabela.rows[horarioInicial + 1].cells[dia].innerHTML = jogadores[0];
+            } else {
+                if (jogadores.length >= 1) {
+                    tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores[0];
+                }
+                if (jogadores.length >= 2) {
+                    tabela.rows[horarioInicial + 1].cells[dia].innerHTML = jogadores[1];
+                }
+                if (jogadores.length >= 3) {
+                    tabela.rows[horarioInicial].cells[dia].innerHTML += `, ${jogadores[2]}`;
+                }
+                if (jogadores.length === 4) {
+                    tabela.rows[horarioInicial + 1].cells[dia].innerHTML += `, ${jogadores[3]}`;
+                }
+            }
 
             tabela.rows[horarioInicial].cells[dia].style.backgroundColor = corFundo;
             tabela.rows[horarioInicial + 1].cells[dia].style.backgroundColor = corFundo;
@@ -499,6 +520,7 @@ atualizarTabela = function() {
         }
 
         selecionarQuadra(quadra);
+		limparCampos();
     });
 };
 
@@ -832,8 +854,7 @@ function LimparDiasAnteriores() {
 window.onload = function() {
     verificarVersao(); 
     selecionarQuadra('Quadra 1 - Coberta'); // Define a quadra inicial
-	
-    atualizarDatas();
+	atualizarDatas();
     atualizarOpcoesHorario();
 };
 
