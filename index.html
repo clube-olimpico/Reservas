@@ -116,7 +116,7 @@
 //***********************************************************************************************************************************************************************
 
 // Função para buscar a versão mais recente e redirecionar
-const VersaoSistema = '1.2'; // Versão atual do sistema
+const VersaoSistema = '2.2'; // Versão atual do sistema
 
 
 // constante global para definir os dias permitidos para fazer reserva
@@ -126,24 +126,28 @@ window.DiasParaLimpar = 4; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se D
 
 	
 	// Função para validar o referer (origem do acesso)
-	function validarOrigem() {
+function validarOrigem() {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
     console.log("User-Agent detectado:", userAgent);
 
-    // Verifica se o acesso é pelo WhatsApp Web ou pelo aplicativo (WebView)
-    const isWhatsApp =
-        (window.opener === null && window.top !== window.self) || // A página está sendo carregada em um iframe
-        userAgent.includes("wv") || // Detecta WebView no Android (WhatsApp)
-        userAgent.includes("FBAV"); // Detecta navegadores embutidos de apps
+    // Verifica se é uma WebView ou WhatsApp
+    const isWebView = 
+        userAgent.includes("wv") || // WebView Android
+        userAgent.includes("WhatsApp") || // WhatsApp específico
+        userAgent.includes("FBAV") || // Aplicativo do Facebook
+        userAgent.includes("FBAN") || // Outro identificador de app embutido
+        /WebView/i.test(navigator.userAgent); // Geral para WebViews
 
-    if (!isWhatsApp) {
-        alert("Acesso negado: o sistema só pode ser acessado pelo WhatsApp.");
+    if (!isWebView) {
+        alert("Acesso negado: o sistema só pode ser acessado via WhatsApp.");
         setTimeout(() => {
             //window.location.href = "about:blank";
         }, 100);
     }
 }
+
+
 	
 	// descomentar quando publicar 
 /*	 
