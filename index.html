@@ -129,8 +129,13 @@ window.DiasParaLimpar = 4; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se D
 	function validarOrigem() {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-    // Verifica se o acesso é pelo navegador embutido do WhatsApp ou WhatsApp Web
-    const isWhatsApp = userAgent.includes("WhatsApp");
+    console.log("User-Agent detectado:", userAgent); // Adicione este log para testar o User-Agent
+
+    // Verifica se o acesso é pelo WhatsApp (web ou mobile)
+    const isWhatsApp =
+        userAgent.includes("WhatsApp") || // Detecta navegador do WhatsApp
+        userAgent.includes("wv") || // Detecta WebView no Android (usado pelo WhatsApp)
+        userAgent.includes("FBAV"); // Detecta navegadores embutidos de apps (opcional)
 
     if (!isWhatsApp) {
         alert("Acesso negado: o sistema só pode ser acessado pelo WhatsApp.");
@@ -145,14 +150,14 @@ window.DiasParaLimpar = 4; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se D
 }
 	
 	// descomentar quando publicar 
-	 
+/*	 
 		 document.addEventListener('contextmenu', event => event.preventDefault());
   document.addEventListener('keydown', event => {
     if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I")) {
       event.preventDefault();
     }
   });
-  
+*/  
 
 	
 	// Configuração do Firebase
