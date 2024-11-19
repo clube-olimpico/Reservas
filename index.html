@@ -116,7 +116,7 @@
 //***********************************************************************************************************************************************************************
 
 // Função para buscar a versão mais recente e redirecionar
-const VersaoSistema = '2.5'; // Versão atual do sistema
+const VersaoSistema = '2.6'; // Versão atual do sistema
 
 
 // constante global para definir os dias permitidos para fazer reserva
@@ -129,24 +129,33 @@ window.DiasParaLimpar = 4; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se D
 function validarOrigem() {
     console.log("Iniciando verificação do ambiente...");
 
-    // Verifica presença de objetos específicos de WebView no Android ou iOS
-    const isWebView = /wv|WebView/i.test(navigator.userAgent);
+    // Testa a disponibilidade de copiar para área de transferência (frequentemente bloqueado em WebViews)
+    let canAccessClipboard = false;
 
-    // Verifica características adicionais de ambientes embutidos
-    const isEmbedded = !!window.opener || !!window.ReactNativeWebView;
+    try {
+        navigator.clipboard.writeText("Teste").then(() => {
+            canAccessClipboard = true;
+        }).catch(() => {
+            canAccessClipboard = false;
+        });
+    } catch (e) {
+        canAccessClipboard = false;
+    }
 
-    // Combina as verificações
-    const isWhatsAppWeb = isWebView || isEmbedded;
+    // Testa se a página está em uma WebView (limitação de APIs específicas)
+    const isWebView = !("ontouchstart" in window && canAccessClipboard);
 
-    console.log("Ambiente WhatsApp detectado:", isWhatsAppWeb);
+    console.log("Clipboard Access:", canAccessClipboard);
+    console.log("Is WebView:", isWebView);
 
-    if (!isWhatsAppWeb) {
+    if (!isWebView) {
         alert("Acesso negado: o sistema só pode ser acessado via WhatsApp.");
         setTimeout(() => {
             //window.location.href = "about:blank";
         }, 100);
     }
 }
+
 
 
 
