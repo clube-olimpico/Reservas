@@ -128,24 +128,19 @@ window.DiasParaLimpar = 4; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se D
 	// Função para validar o referer (origem do acesso)
 function validarOrigem() {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
     console.log("User-Agent detectado:", userAgent);
 
-    // Verifica se é uma WebView ou WhatsApp
-    const isWebView = 
-        userAgent.includes("wv") || // WebView Android
-        userAgent.includes("WhatsApp") || // WhatsApp específico
-        userAgent.includes("FBAV") || // Aplicativo do Facebook
-        userAgent.includes("FBAN") || // Outro identificador de app embutido
-        /WebView/i.test(navigator.userAgent); // Geral para WebViews
+    // Verificação alternativa com base no comportamento
+    const isWhatsAppWeb = document.referrer.includes("web.whatsapp.com");
 
-    if (!isWebView) {
-        alert("Acesso negado: o sistema só pode ser acessado via WhatsApp.");
+    if (!isWhatsAppWeb) {
+        alert("Acesso negado: o sistema só pode ser acessado via WhatsApp Web.");
         setTimeout(() => {
             //window.location.href = "about:blank";
         }, 100);
     }
 }
+
 
 
 	
