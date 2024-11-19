@@ -127,14 +127,22 @@ window.DiasParaLimpar = 4; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se D
 	
 	// Função para validar o referer (origem do acesso)
 	function validarOrigem() {
-    const referer = document.referrer; // Obtém o referer enviado pelo navegador
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-    // Verifica se o referer contém "web.whatsapp.com"
-    if (!referer.includes("web.whatsapp.com")) {
+    // Verifica se o acesso é pelo navegador embutido do WhatsApp ou WhatsApp Web
+    const isWhatsApp = userAgent.includes("WhatsApp");
+
+    if (!isWhatsApp) {
         alert("Acesso negado: o sistema só pode ser acessado pelo WhatsApp.");
-        window.location.href = "https://clube-olimpico.github.io/Reservas/erro.html"; // Redireciona para a página de erro
+        // Fecha a página após o alerta
+        window.close();
+
+        // Caso o navegador bloqueie `window.close`, redireciona para uma página em branco
+        setTimeout(() => {
+            window.location.href = "about:blank";
+        }, 100);
     }
-	}
+}
 	
 	// descomentar quando publicar 
 	 
