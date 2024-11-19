@@ -116,7 +116,7 @@
 //***********************************************************************************************************************************************************************
 
 // Função para buscar a versão mais recente e redirecionar
-const VersaoSistema = '5.0'; // Versão atual do sistema
+const VersaoSistema = '1.1'; // Versão atual do sistema
 
 
 // constante global para definir os dias permitidos para fazer reserva
@@ -135,11 +135,11 @@ window.DiasParaLimpar = 4; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se D
     if (!isWhatsApp) {
         alert("Acesso negado: o sistema só pode ser acessado pelo WhatsApp.");
         // Fecha a página após o alerta
-        window.close();
+        //window.close();
 
         // Caso o navegador bloqueie `window.close`, redireciona para uma página em branco
         setTimeout(() => {
-            window.location.href = "about:blank";
+            //window.location.href = "about:blank";
         }, 100);
     }
 }
@@ -875,8 +875,8 @@ function LimparDiasAnteriores() {
 
 
 window.onload = function() {
-    validarOrigem(); // Verifica a origem
     verificarVersao(); 
+	validarOrigem(); // Verifica a origem
     selecionarQuadra('Quadra 1 - Coberta'); // Define a quadra inicial
 	atualizarDatas();
     atualizarOpcoesHorario();
