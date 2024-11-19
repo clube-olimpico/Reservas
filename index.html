@@ -116,7 +116,7 @@
 //***********************************************************************************************************************************************************************
 
 // Função para buscar a versão mais recente e redirecionar
-const VersaoSistema = '2.2'; // Versão atual do sistema
+const VersaoSistema = '2.3'; // Versão atual do sistema
 
 
 // constante global para definir os dias permitidos para fazer reserva
@@ -130,16 +130,22 @@ function validarOrigem() {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     console.log("User-Agent detectado:", userAgent);
 
-    // Verificação alternativa com base no comportamento
-    const isWhatsAppWeb = document.referrer.includes("web.whatsapp.com");
+    // Tentativa 1: Verifica se está dentro de um iframe (comum em apps como WhatsApp)
+    const isIframe = window.self !== window.top;
+
+    // Tentativa 2: Verifica permissões específicas
+    const isWhatsAppWeb = isIframe || userAgent.includes("WhatsApp");
+
+    console.log("Ambiente WhatsApp detectado:", isWhatsAppWeb);
 
     if (!isWhatsAppWeb) {
-        alert("Acesso negado: o sistema só pode ser acessado via WhatsApp Web.");
+        alert("Acesso negado: o sistema só pode ser acessado via WhatsApp.");
         setTimeout(() => {
             //window.location.href = "about:blank";
         }, 100);
     }
 }
+
 
 
 
