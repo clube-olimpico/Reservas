@@ -129,40 +129,33 @@ window.DiasParaLimpar = 4; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se D
 function validarOrigem() {
     console.log("Iniciando verificação do ambiente...");
 
-    // Obter informações do User-Agent
+    // Obter o User-Agent
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     console.log("User-Agent:", userAgent);
 
-    // Verifica se o navegador é o WhatsApp ou está em um WebView
-    const isWhatsApp =
-        userAgent.includes("WhatsApp") || userAgent.includes("wv");
-    
-    // Verifica se é um dispositivo móvel
-    const isMobile =
-        /Android|iPhone|iPad|iPod/i.test(userAgent) || "ontouchstart" in window;
+    // Detecta se o ambiente é um WebView
+    const isWebView = /wv/.test(userAgent) || /WhatsApp/.test(userAgent);
 
-    console.log("Is WhatsApp:", isWhatsApp);
+    // Detecta se é um dispositivo móvel (Android/iOS)
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(userAgent) || 'ontouchstart' in window;
+
+    console.log("Is WebView:", isWebView);
     console.log("Is Mobile:", isMobile);
 
-    // Lógica para garantir que o link foi acessado no WhatsApp no celular
-    if (!isWhatsApp) {
-        alert("Erro: O sistema deve ser acessado pelo aplicativo WhatsApp no celular.");
+    // Verifica se a página está sendo acessada no WhatsApp WebView no celular
+    if (!isMobile || !isWebView) {
+        alert("Acesso negado: o sistema só pode ser acessado pelo WhatsApp no celular.");
         redirecionar();
         return;
     }
 
-    if (!isMobile) {
-        alert("Erro: Este sistema só pode ser usado em dispositivos móveis. Acesse via WhatsApp no seu celular.");
-        redirecionar();
-        return;
-    }
-
-    alert("Bem-vindo! Ambiente compatível detectado.");
+    alert("Bem-vindo! O ambiente foi verificado e está adequado.");
 }
 
 function redirecionar() {
+    // Redireciona para uma página em branco para bloquear o acesso
     setTimeout(() => {
-       // window.location.href = "about:blank"; // Fecha a página
+        //window.location.href = "about:blank";
     }, 100);
 }
 
