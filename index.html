@@ -153,7 +153,7 @@ function validarOrigem() {
 
     if (!isMobile) {
         alert(
-            "Erro: Este sistema só pode ser usado em dispositivos móveis. Por favor, acesse através do aplicativo WhatsApp no seu celular."
+            "Erro: Este sistema só pode ser usado em dispositivos móveis. Acesse via WhatsApp no seu celular."
         );
         redirecionar();
         return;
@@ -164,7 +164,7 @@ function validarOrigem() {
 
 function redirecionar() {
     setTimeout(() => {
-        //window.location.href = "about:blank"; // Fecha a página
+        window.location.href = "about:blank"; // Fecha a página
     }, 100);
 }
 
