@@ -99,6 +99,14 @@
 			transition: opacity 0.3s ease-out;
 			opacity: 0;
 		}
+		.tab-button {
+			transition: background-color 0.3s ease;
+		}
+
+		.tab-button[style*="background-color: red"] {
+			cursor: not-allowed;
+		}
+
 		#currentVersion {
             font-size: 1.2em;
             color: #333;
@@ -227,6 +235,12 @@ function limparTabela() {
 // Função para selecionar a quadra e carregar suas reservas
 function selecionarQuadra(quadra) {
     console.log("Quadra selecionada:", quadra);
+	
+	 if (quadrasInativas.has(quadra)) {
+        alert(`A ${quadra} está interditada provisoriamente.`);
+        return;
+    }
+	
     quadraSelecionada = quadra; // Atualiza a quadra selecionada
     document.querySelector('.header').innerText = quadra; // Atualiza o título da quadra
 
@@ -435,6 +449,8 @@ function gerarMensagemErro(diasParaLimpar) {
         }
 
 
+let quadrasInativas = new Set(); // Armazena as quadras interditadas
+
         // Atualiza a tabela com a nova reserva
 atualizarTabela = function() {
     console.log('Iniciando a função AtualizarTabela');
@@ -456,6 +472,50 @@ atualizarTabela = function() {
     const dia = document.getElementById('dia').value;
     const horaSelecionada = parseInt(document.getElementById('hora').value);
     const duracao = parseInt(document.getElementById('duracao').value);
+	
+	
+	// Verifica "interditada" ou "liberada"
+    if (jogadores.some(jogador => jogador.toLowerCase().includes('interditada'))) {
+        quadrasInativas.add(quadra);
+        salvarEstadoQuadras(); // Salva o estado atualizado
+        document.querySelectorAll('.tab-button').forEach(button => {
+            if (button.innerText === quadra) {
+                button.style.backgroundColor = "red";
+            }
+        });
+
+        alert(`${quadra} foi interditada.`);
+		limparCampos(); // Limpa os campos
+		
+
+        // Verifica se a quadra interditada é a atual e redireciona para outra
+        if (quadraSelecionada === quadra) {
+            const proximasQuadras = Array.from(document.querySelectorAll('.tab-button'))
+                .filter(button => !quadrasInativas.has(button.innerText)); // Apenas quadras ativas
+
+            if (proximasQuadras.length > 0) {
+                selecionarQuadra(proximasQuadras[0].innerText); // Muda para a próxima quadra ativa
+            } else {
+                alert("Todas as quadras estão interditadas.");
+            }
+        }
+        return;
+    }
+
+    if (jogadores.some(jogador => jogador.toLowerCase().includes('liberada'))) {
+        quadrasInativas.delete(quadra);
+		salvarEstadoQuadras(); // Salva o estado atualizado
+        document.querySelectorAll('.tab-button').forEach(button => {
+            if (button.innerText === quadra) {
+                button.style.backgroundColor = "";
+            }
+        });
+
+        alert(`${quadra} foi liberada.`);
+		limparCampos(); // Limpa os campos
+		selecionarQuadra(quadra); // Foco vai para a quadra liberada
+		return;
+    }
 
     // Verifica se a reserva é de "aula" e pula a validação de data se for o caso
     if (!validarDiaReserva(jogadores)) {
@@ -666,6 +726,14 @@ function excluirReservaFirebase(horaSelecionada, diaIndex, quadra) {
             .catch((error) => console.error(`Erro ao remover a reserva do Firebase: ${error}`));
     }
 }
+
+function salvarEstadoQuadras() {
+    const estado = Array.from(quadrasInativas); // Converte o Set em Array para salvar no Firebase
+    database.ref('estadoQuadras/').set({ interditadas: estado })
+        .then(() => console.log("Estado das quadras salvo com sucesso no Firebase!"))
+        .catch(error => console.error("Erro ao salvar estado das quadras:", error));
+}
+
 
 
 
@@ -890,12 +958,32 @@ function LimparDiasAnteriores() {
     });
 }
 
+function carregarEstadoQuadras() {
+    database.ref('estadoQuadras/interditadas').once('value')
+        .then(snapshot => {
+            const estado = snapshot.val() || [];
+            quadrasInativas = new Set(estado); // Atualiza o Set com o estado recuperado
+
+            // Atualiza a interface com o estado carregado
+            document.querySelectorAll('.tab-button').forEach(button => {
+                if (quadrasInativas.has(button.innerText)) {
+                    button.style.backgroundColor = "red";
+                }
+            });
+
+            console.log("Estado das quadras carregado do Firebase:", estado);
+        })
+        .catch(error => console.error("Erro ao carregar estado das quadras:", error));
+}
+
+
 
 
 window.onload = function() {
     verificarVersao(); 
-	validarOrigem(); // Verifica a origem
+	//validarOrigem(); // Verifica a origem
     selecionarQuadra('Quadra 1 - Coberta'); // Define a quadra inicial
+	carregarEstadoQuadras(); // Carrega o estado salvo
 	atualizarDatas();
     atualizarOpcoesHorario();
 };
@@ -988,7 +1076,7 @@ window.onload = function() {
             </li>
 			<li>
                 <span style="display: inline-block; width: 20px; height: 20px; background-color: lightcoral; margin-right: 5px;"></span>
-                bloqueado
+                aula
             </li>
 			<li>
               <a href="regras.html" class="regras-link">
