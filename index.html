@@ -133,52 +133,66 @@ function validarOrigem() {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     console.log("User-Agent:", userAgent);
 
-    // Verifica se está no WhatsApp WebView ou em dispositivos móveis
+    // Verifica se está no WhatsApp ou em dispositivos móveis
     const isWhatsApp =
         userAgent.includes("WhatsApp") || userAgent.includes("wv");
 
     const isMobile =
         /Android|iPhone|iPad|iPod/i.test(userAgent) || "ontouchstart" in window;
 
-    // Testa a disponibilidade de APIs que normalmente são limitadas em WebViews
+    // Exibe mensagens claras no console
+    console.log("Is WhatsApp:", isWhatsApp);
+    console.log("Is Mobile:", isMobile);
+
+    if (!isWhatsApp) {
+        alert("Atenção: O link deve ser aberto diretamente pelo WhatsApp.");
+        redirecionar();
+        return;
+    }
+
+    if (!isMobile) {
+        alert("Atenção: Este sistema funciona apenas em dispositivos móveis.");
+        redirecionar();
+        return;
+    }
+
+    // Testa a disponibilidade de APIs bloqueadas em WebViews
     let canAccessClipboard = false;
     try {
         navigator.clipboard.writeText("Teste")
             .then(() => {
                 canAccessClipboard = true;
-                executarVerificacao(isWhatsApp, isMobile, canAccessClipboard);
+                finalizarVerificacao(isWhatsApp, isMobile, canAccessClipboard);
             })
             .catch(() => {
                 canAccessClipboard = false;
-                executarVerificacao(isWhatsApp, isMobile, canAccessClipboard);
+                finalizarVerificacao(isWhatsApp, isMobile, canAccessClipboard);
             });
     } catch (e) {
         canAccessClipboard = false;
-        executarVerificacao(isWhatsApp, isMobile, canAccessClipboard);
+        finalizarVerificacao(isWhatsApp, isMobile, canAccessClipboard);
     }
 }
 
-function executarVerificacao(isWhatsApp, isMobile, canAccessClipboard) {
-    // Verifica se o ambiente atende aos critérios esperados
+function finalizarVerificacao(isWhatsApp, isMobile, canAccessClipboard) {
     const isWebView = isWhatsApp && isMobile && !canAccessClipboard;
 
-    console.log("Is WhatsApp:", isWhatsApp);
-    console.log("Is Mobile:", isMobile);
     console.log("Clipboard Access:", canAccessClipboard);
     console.log("Is WhatsApp WebView:", isWebView);
 
     if (!isWebView) {
-        alert("Acesso negado: o sistema só pode ser acessado via WhatsApp WebView.");
-        setTimeout(() => {
-            //window.location.href = "about:blank"; // Fecha a página
-        }, 100);
+        alert("Atenção: O sistema precisa ser aberto no WebView do WhatsApp.");
+        redirecionar();
     } else {
-        alert("Bem-vindo! Ambiente WhatsApp detectado.");
+        alert("Bem-vindo! Ambiente compatível detectado.");
     }
 }
 
-
-
+function redirecionar() {
+    setTimeout(() => {
+        //window.location.href = "about:blank"; // Fecha a página
+    }, 100);
+}
 
 
 
