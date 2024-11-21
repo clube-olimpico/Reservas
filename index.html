@@ -116,7 +116,7 @@
 //***********************************************************************************************************************************************************************
 
 // Função para buscar a versão mais recente e redirecionar
-const VersaoSistema = '1.0'; // Versão atual do sistema
+const VersaoSistema = ''; // Versão atual do sistema
 
 
 // constante global para definir os dias permitidos para fazer reserva
@@ -129,32 +129,42 @@ window.DiasParaLimpar = 4; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se D
 function validarOrigem() {
     console.log("Iniciando verificação do ambiente...");
 
-    // Testa a disponibilidade de copiar para área de transferência (frequentemente bloqueado em WebViews)
+    // Verifica se o User-Agent contém o identificador do WhatsApp
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    console.log("User-Agent:", userAgent);
+
+    const isWhatsApp =
+        userAgent.includes("WhatsApp") || userAgent.includes("wv");
+
+    // Testa a disponibilidade de APIs que normalmente são limitadas em WebViews
     let canAccessClipboard = false;
 
     try {
-        navigator.clipboard.writeText("Teste").then(() => {
-            canAccessClipboard = true;
-        }).catch(() => {
-            canAccessClipboard = false;
-        });
+        navigator.clipboard.writeText("Teste")
+            .then(() => {
+                canAccessClipboard = true;
+            })
+            .catch(() => {
+                canAccessClipboard = false;
+            });
     } catch (e) {
         canAccessClipboard = false;
     }
 
-    // Testa se a página está em uma WebView (limitação de APIs específicas)
-    const isWebView = !("ontouchstart" in window && canAccessClipboard);
+    // Testa se está em uma WebView genérica (limitação de APIs específicas)
+    const isWebView = isWhatsApp && !canAccessClipboard;
 
     console.log("Clipboard Access:", canAccessClipboard);
     console.log("Is WebView:", isWebView);
 
-    if (!isWebView) {
+    if (!isWhatsApp || !isWebView) {
         alert("Acesso negado: o sistema só pode ser acessado via WhatsApp.");
         setTimeout(() => {
-            //window.location.href = "about:blank";
+            //window.location.href = "about:blank"; // Fecha a página
         }, 100);
     }
 }
+
 
 
 
@@ -272,7 +282,7 @@ function carregarReservas(quadra) {
 
                     // Define a cor de fundo baseada na reserva
                     let corFundo;
-                    if (jogadores.toLowerCase().includes('aula') || jogadores.toLowerCase().includes('interditada')) {
+                    if (jogadores.toLowerCase().includes('aula') ) {
                         corFundo = 'lightcoral';
                     } else {
                         corFundo = duracao === 1 ? 'lightgreen' : 'lightblue';
@@ -310,9 +320,9 @@ function carregarReservas(quadra) {
 
          // Função para validar o dia da reserva
     function validarDiaReserva(jogadores) {
-    // Verifica se é uma reserva de "aula" ou "interditada"
-    if (jogadores.some(jogador => jogador.toLowerCase().includes('aula') || jogador.toLowerCase().includes('interditada'))) {
-        console.log('Reserva de "aula" ou "interditada" detectada. Validação de dia ignorada.');
+    // Verifica se é uma reserva de "aula" 
+    if (jogadores.some(jogador => jogador.toLowerCase().includes('aula'))) {
+        console.log('Reserva de "aula"  detectada. Validação de dia ignorada.');
         return true; // Permite a reserva sem validação
     }
 
@@ -458,9 +468,9 @@ atualizarTabela = function() {
     const horaSelecionada = parseInt(document.getElementById('hora').value);
     const duracao = parseInt(document.getElementById('duracao').value);
 
-    // Verifica se a reserva é de "aula" ou "interditada" e pula a validação de data se for o caso
+    // Verifica se a reserva é de "aula" e pula a validação de data se for o caso
     if (!validarDiaReserva(jogadores)) {
-        return; // Sai da função se a reserva não for permitida (exceto para "aula" ou "interditada")
+        return; // Sai da função se a reserva não for permitida (exceto para "aula")
     }
 
     if (horaSelecionada < 6 || horaSelecionada > 22) {
@@ -491,7 +501,7 @@ atualizarTabela = function() {
             return;
         }
 
-        let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula') || jogador.toLowerCase().includes('interditada')) ? 'lightcoral' : (duracao === 1 ? 'lightgreen' : 'lightblue');
+        let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula') ) ? 'lightcoral' : (duracao === 1 ? 'lightgreen' : 'lightblue');
 
         if (duracao === 1) {
             tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores.join(', ');
@@ -706,7 +716,7 @@ limparTabela(); // Limpa toda a tabela antes de preencher com dados atualizados
 
             // Aplicar a cor de fundo e bordas com base nos dados
             let corFundo;
-			if (jogadores.toLowerCase().includes('aula') || jogadores.toLowerCase().includes('interditada')) {
+			if (jogadores.toLowerCase().includes('aula') ) {
 				corFundo = 'lightcoral';
 			} else {
 				corFundo = duracao === 1 ? 'lightgreen' : 'lightblue';
@@ -871,8 +881,8 @@ function LimparDiasAnteriores() {
                     const reserva = snapshot.val();
                     if (reserva) {
                         const { jogadores } = reserva;
-                        // Verifica se a reserva contém "aula" ou "interditada"
-                        if (jogadores && (jogadores.toLowerCase().includes('aula') || jogadores.toLowerCase().includes('interditada'))) {
+                        // Verifica se a reserva contém "aula" 
+                        if (jogadores && (jogadores.toLowerCase().includes('aula') )) {
                             console.log(`Reserva de "${jogadores}" não será removida.`);
                             return; // Pula a exclusão dessa reserva
                         }
@@ -895,7 +905,7 @@ function LimparDiasAnteriores() {
 
 window.onload = function() {
     verificarVersao(); 
-	//validarOrigem(); // Verifica a origem
+	validarOrigem(); // Verifica a origem
     selecionarQuadra('Quadra 1 - Coberta'); // Define a quadra inicial
 	atualizarDatas();
     atualizarOpcoesHorario();
