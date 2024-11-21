@@ -133,28 +133,26 @@ function validarOrigem() {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     console.log("User-Agent:", userAgent);
 
-    // Verifica se está no WhatsApp ou em dispositivos móveis
+    // Verifica se o navegador é o WhatsApp ou está em um WebView
     const isWhatsApp =
         userAgent.includes("WhatsApp") || userAgent.includes("wv");
-
+    
+    // Verifica se é um dispositivo móvel
     const isMobile =
         /Android|iPhone|iPad|iPod/i.test(userAgent) || "ontouchstart" in window;
 
     console.log("Is WhatsApp:", isWhatsApp);
     console.log("Is Mobile:", isMobile);
 
+    // Lógica para garantir que o link foi acessado no WhatsApp no celular
     if (!isWhatsApp) {
-        alert(
-            "Erro: O sistema deve ser acessado pelo aplicativo WhatsApp em um dispositivo móvel."
-        );
+        alert("Erro: O sistema deve ser acessado pelo aplicativo WhatsApp no celular.");
         redirecionar();
         return;
     }
 
     if (!isMobile) {
-        alert(
-            "Erro: Este sistema só pode ser usado em dispositivos móveis. Acesse via WhatsApp no seu celular."
-        );
+        alert("Erro: Este sistema só pode ser usado em dispositivos móveis. Acesse via WhatsApp no seu celular.");
         redirecionar();
         return;
     }
@@ -164,7 +162,7 @@ function validarOrigem() {
 
 function redirecionar() {
     setTimeout(() => {
-        window.location.href = "about:blank"; // Fecha a página
+       // window.location.href = "about:blank"; // Fecha a página
     }, 100);
 }
 
