@@ -140,52 +140,26 @@ function validarOrigem() {
     const isMobile =
         /Android|iPhone|iPad|iPod/i.test(userAgent) || "ontouchstart" in window;
 
-    // Exibe mensagens claras no console
     console.log("Is WhatsApp:", isWhatsApp);
     console.log("Is Mobile:", isMobile);
 
     if (!isWhatsApp) {
-        alert("Atenção: O link deve ser aberto diretamente pelo WhatsApp.");
+        alert(
+            "Erro: O sistema deve ser acessado pelo aplicativo WhatsApp em um dispositivo móvel."
+        );
         redirecionar();
         return;
     }
 
     if (!isMobile) {
-        alert("Atenção: Este sistema funciona apenas em dispositivos móveis.");
+        alert(
+            "Erro: Este sistema só pode ser usado em dispositivos móveis."
+        );
         redirecionar();
         return;
     }
 
-    // Testa a disponibilidade de APIs bloqueadas em WebViews
-    let canAccessClipboard = false;
-    try {
-        navigator.clipboard.writeText("Teste")
-            .then(() => {
-                canAccessClipboard = true;
-                finalizarVerificacao(isWhatsApp, isMobile, canAccessClipboard);
-            })
-            .catch(() => {
-                canAccessClipboard = false;
-                finalizarVerificacao(isWhatsApp, isMobile, canAccessClipboard);
-            });
-    } catch (e) {
-        canAccessClipboard = false;
-        finalizarVerificacao(isWhatsApp, isMobile, canAccessClipboard);
-    }
-}
-
-function finalizarVerificacao(isWhatsApp, isMobile, canAccessClipboard) {
-    const isWebView = isWhatsApp && isMobile && !canAccessClipboard;
-
-    console.log("Clipboard Access:", canAccessClipboard);
-    console.log("Is WhatsApp WebView:", isWebView);
-
-    if (!isWebView) {
-        alert("Atenção: O sistema precisa ser aberto no WebView do WhatsApp.");
-        redirecionar();
-    } else {
-        alert("Bem-vindo! Ambiente compatível detectado.");
-    }
+    alert("Bem-vindo! Ambiente compatível detectado.");
 }
 
 function redirecionar() {
@@ -193,6 +167,7 @@ function redirecionar() {
         //window.location.href = "about:blank"; // Fecha a página
     }, 100);
 }
+
 
 
 
