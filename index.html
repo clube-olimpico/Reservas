@@ -124,7 +124,7 @@
 //***********************************************************************************************************************************************************************
 
 // Função para buscar a versão mais recente e redirecionar
-const VersaoSistema = ''; // Versão atual do sistema
+const VersaoSistema = '1.0'; // Versão atual do sistema
 
 
 // constante global para definir os dias permitidos para fazer reserva
@@ -467,8 +467,37 @@ atualizarTabela = function() {
         alert('Insira pelo menos 1 jogador.');
         return;
     }
+	
+	
 
     const quadra = document.getElementById('quadra').value;
+	
+	 // Verifica se "liberada" está entre os jogadores, permitindo a liberação da quadra
+    if (jogadores.includes('liberada')) {
+        // Libera a quadra
+        quadrasInativas.delete(quadra);
+        salvarEstadoQuadras();
+
+        // Atualiza visualmente a interface
+        document.querySelectorAll('.tab-button').forEach(button => {
+            if (button.innerText === quadra) {
+                button.style.backgroundColor = ""; // Remove a marcação de interditada
+            }
+        });
+
+        alert(`${quadra} foi liberada.`);
+        limparCampos();  // Limpa os campos de reserva
+        selecionarQuadra(quadra);  // Re-seleciona a quadra liberada
+        return;  // Interrompe a execução para não continuar verificando
+    }
+
+    // Agora, verifica se a quadra está interditada e exibe o alerta
+    if (quadrasInativas.has(quadra)) {
+        alert(`A ${quadra} está interditada provisoriamente. Por favor, selecione outra quadra.`);
+        return;
+    }
+	
+	
     const dia = document.getElementById('dia').value;
     const horaSelecionada = parseInt(document.getElementById('hora').value);
     const duracao = parseInt(document.getElementById('duracao').value);
