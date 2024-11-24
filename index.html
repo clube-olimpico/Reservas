@@ -6,10 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+    position: relative;
+	font-family: Arial, sans-serif;
+    background-image: url('imagens/papel-de-parede.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.97); /* Cor branca com opacidade de 70% */
+    z-index: -1; /* Coloca a camada atrás do conteúdo */
+}
+
         .form-container {
             padding: 10px;
             margin: 0 auto;
@@ -32,11 +47,16 @@
             margin-bottom: 5px; /* Add space below labels for better appearance */
         }
 
-        @media (min-width: 600px) {
-            label {
-                width: 80px; /* On wider screens, set the width for proper alignment */
-            }
-        }
+        @media (max-width: 768px) {
+    body {
+        background-image: url('imagens/papel-de-parede.webp');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin: 0;
+        height: 100vh; /* Garantir que o fundo ocupe toda a altura */
+    }
+}
         label {
             font-size: 1rem;
             margin-right: 10px;
@@ -171,14 +191,14 @@ function redirecionar() {
 
 	
 	// descomentar quando publicar 
-/*	 
+	 
 		 document.addEventListener('contextmenu', event => event.preventDefault());
   document.addEventListener('keydown', event => {
     if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I")) {
       event.preventDefault();
     }
   });
-*/  
+  
 
 	
 	// Configuração do Firebase
@@ -1005,6 +1025,10 @@ function carregarEstadoQuadras() {
         .catch(error => console.error("Erro ao carregar estado das quadras:", error));
 }
 
+function abrirManual() {
+    window.open('manual.html', '_blank');
+}
+
 
 
 
@@ -1030,7 +1054,7 @@ window.onload = function() {
     <button class="tab-button" onclick="selecionarQuadra('Quadra 3 - Coberta')">Quadra 3 - Coberta</button>
 </div>
 
-<div id="versaoSistema" style="text-align: right; margin-bottom: 10px; font-size: 1rem; color: #555;">
+<div id="versaoSistema" style="text-align: right; margin-bottom: 10px; font-size: 1rem; color: #555; cursor: pointer;" onclick="abrirManual()">
     Versão:
 </div>
 
@@ -1330,4 +1354,7 @@ window.onload = function() {
     </tbody>
 </table>
 </body>
+<footer style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #555;">
+        Desenvolvido por Ronaldo Taborda
+    </footer>
 </html>
