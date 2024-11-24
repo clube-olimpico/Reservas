@@ -6,25 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
         body {
-    position: relative;
-	font-family: Arial, sans-serif;
-    background-image: url('imagens/papel-de-parede.webp');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-body::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0.97); /* Cor branca com opacidade de 70% */
-    z-index: -1; /* Coloca a camada atrás do conteúdo */
-}
-
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
         .form-container {
             padding: 10px;
             margin: 0 auto;
@@ -47,16 +32,11 @@ body::after {
             margin-bottom: 5px; /* Add space below labels for better appearance */
         }
 
-        @media (max-width: 768px) {
-    body {
-        background-image: url('imagens/papel-de-parede.webp');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        margin: 0;
-        height: 100vh; /* Garantir que o fundo ocupe toda a altura */
-    }
-}
+        @media (min-width: 600px) {
+            label {
+                width: 80px; /* On wider screens, set the width for proper alignment */
+            }
+        }
         label {
             font-size: 1rem;
             margin-right: 10px;
