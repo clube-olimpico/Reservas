@@ -127,77 +127,13 @@
 const VersaoSistema = 'v1.0.0'; // Versão atual do sistema
 
 
-// constante global para definir os dias permitidos para fazer reserva
-window.DiasParaLimpar = 4; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se DiasParaLimpar = 4, então só é permitido fazer reserva em até 2 dias de antecedencia
 
-let vDomingo = 'fechado'; // Valor padrão fechado, pois o clube nao abre aos domingos (aberto,fechado)
+// variáveis globais que são configurada em configuracoes.html
+window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se DiasParaLimpar = 4, então só é permitido fazer reserva em até 2 dias de antecedencia
+
+window.vDomingo = undefined; // Valor padrão fechado, pois o clube nao abre aos domingos (aberto,fechado)
 		
 //************************************************************************************************************************************************************************
-
-function atualizarEstadoDomingo() {
-    const tabela = document.getElementById('tabelaCorpo');
-    const diaDomingo = 7; // Índice da coluna correspondente ao domingo
-
-    for (let i = 0; i < tabela.rows.length; i++) {
-        const horario = i + 6; // Calcula o horário (06:00 corresponde à linha 0)
-        const celulaDomingo = tabela.rows[i].cells[diaDomingo];
-
-        if (vDomingo === 'aberto') {
-            // Limpa o bloqueio
-            if (horario >= 12 && horario <= 23) {
-                celulaDomingo.style.backgroundColor = ''; // Remove a cor de fundo
-                celulaDomingo.style.pointerEvents = ''; // Reativa interação
-                celulaDomingo.style.cursor = ''; // Restaura o cursor padrão
-            }
-        } else if (vDomingo === 'fechado') {
-            // Reaplica o bloqueio
-            if (horario >= 12 && horario <= 23) {
-                celulaDomingo.style.backgroundColor = '#f2f2f2'; // Cor cinza
-                celulaDomingo.style.pointerEvents = 'none'; // Desativa interação
-                celulaDomingo.style.cursor = 'not-allowed'; // Cursor indicando bloqueio
-            }
-        }
-    }
-}
-
-
-
-	
-	// Função para validar o referer (origem do acesso)
-function validarOrigem() {
-    console.log("Iniciando verificação do ambiente...");
-
-    // Obter o User-Agent
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    console.log("User-Agent:", userAgent);
-
-    // Detecta se o ambiente é um WebView
-    const isWebView = /wv/.test(userAgent) || /WhatsApp/.test(userAgent);
-
-    // Detecta se é um dispositivo móvel (Android/iOS)
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(userAgent) || 'ontouchstart' in window;
-
-    console.log("Is WebView:", isWebView);
-    console.log("Is Mobile:", isMobile);
-
-    // Verifica se a página está sendo acessada no WhatsApp WebView no celular
-    if (!isMobile || !isWebView) {
-        alert("Acesso negado: o sistema só pode ser acessado pelo WhatsApp no celular.");
-        redirecionar();
-        return;
-    }
-
-    alert("Bem-vindo! O ambiente foi verificado e está adequado.");
-}
-
-function redirecionar() {
-    // Redireciona para uma página em branco para bloquear o acesso
-    setTimeout(() => {
-        window.location.href = "about:blank";
-    }, 100);
-}
-
-
 
 	
 	// descomentar quando publicar 
@@ -227,6 +163,29 @@ const database = firebase.database();
 console.log("Firebase inicializado");
 
 
+// Mostrar um alerta com os valores das variáveis
+//alert(`Configurações carregadas:\nvDomingo: ${vDomingo}\nDiasParaLimpar: ${window.DiasParaLimpar}`);                
+
+
+function carregarVariaveis() {
+    return database.ref("config/configDoc").once("value").then((snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            window.DiasParaLimpar = data.DiasParaLimpar || 4;
+            window.vDomingo = data.vDomingo || 'fechado';
+
+            //alert(`Configurações carregadas:\nvDomingo: ${vDomingo}\nDiasParaLimpar: ${window.DiasParaLimpar}`);
+        } else {
+            console.error("Erro: Dados não encontrados no banco.");
+        }
+    }).catch((error) => {
+        console.error("Erro ao carregar variáveis do Firebase:", error);
+    });
+}
+
+
+
+
 
 // Função para buscar a versão mais recente e redirecionar
 function verificarVersao() {
@@ -247,7 +206,33 @@ function verificarVersao() {
         
 
         let jogadorCount = 1;
-		
+
+
+function atualizarEstadoDomingo() {
+    const tabela = document.getElementById('tabelaCorpo');
+    const diaDomingo = 7; // Índice da coluna correspondente ao domingo
+
+    for (let i = 0; i < tabela.rows.length; i++) {
+        const horario = i + 6; // Calcula o horário (06:00 corresponde à linha 0)
+        const celulaDomingo = tabela.rows[i].cells[diaDomingo];
+
+        if (vDomingo === 'aberto') {
+            // Limpa o bloqueio
+            if (horario >= 12 && horario <= 23) {
+                celulaDomingo.style.backgroundColor = ''; // Remove a cor de fundo
+                celulaDomingo.style.pointerEvents = ''; // Reativa interação
+                celulaDomingo.style.cursor = ''; // Restaura o cursor padrão
+            }
+        } else if (vDomingo === 'fechado') {
+            // Reaplica o bloqueio
+            if (horario >= 12 && horario <= 23) {
+                celulaDomingo.style.backgroundColor = '#f2f2f2'; // Cor cinza
+                celulaDomingo.style.pointerEvents = 'none'; // Desativa interação
+                celulaDomingo.style.cursor = 'not-allowed'; // Cursor indicando bloqueio
+            }
+        }
+    }
+}		
 		
 		
 // Função para limpar a tabela antes de exibir as reservas da quadra selecionada
@@ -907,6 +892,9 @@ function atualizarDatas() {
         console.error("Erro ao chamar LimparDiasAnteriores:", error);
     }
 	
+	
+	//alert(`atualizarDatas:\nvDomingo: ${vDomingo}\nDiasParaLimpar: ${window.DiasParaLimpar}`);
+	
     switch (DiasParaLimpar) {
         case 1:
             switch (diaDaSemana) {
@@ -1060,15 +1048,18 @@ function abrirManual() {
 
 
 
-
 window.onload = function() {
     verificarVersao(); 
 	//validarOrigem(); // Verifica a origem
+	carregarVariaveis().then(() => {
+        atualizarDatas(); // Só será chamada após carregarVariaveis concluir
+		atualizarEstadoDomingo(); // Aplica o estado inicial de domingo
+    });
     selecionarQuadra('Quadra 1 - Coberta'); // Define a quadra inicial
 	carregarEstadoQuadras(); // Carrega o estado salvo
-	atualizarDatas();
+	//atualizarDatas();
     atualizarOpcoesHorario();
-	atualizarEstadoDomingo(); // Aplica o estado inicial de domingo
+	//atualizarEstadoDomingo(); // Aplica o estado inicial de domingo
 };
 
 
