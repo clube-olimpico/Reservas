@@ -237,7 +237,7 @@ function selecionarQuadra(quadra) {
     console.log("Quadra selecionada:", quadra);
 	
 	 if (quadrasInativas.has(quadra)) {
-        alert(`A ${quadra} está interditada provisoriamente.`);
+        alert(`A ${quadra} está interditada provisóriamente.`);
         return;
     }
 	
@@ -467,18 +467,13 @@ atualizarTabela = function() {
         alert('Insira pelo menos 1 jogador.');
         return;
     }
-	
-	
 
     const quadra = document.getElementById('quadra').value;
-	
-	 // Verifica se "liberada" está entre os jogadores, permitindo a liberação da quadra
-    if (jogadores.includes('liberada')) {
-        // Libera a quadra
+
+    // Verifica se a quadra deve ser liberada
+    if (jogadores.some(jogador => jogador.toLowerCase().includes('liberada'))) {
         quadrasInativas.delete(quadra);
         salvarEstadoQuadras();
-
-        // Atualiza visualmente a interface
         document.querySelectorAll('.tab-button').forEach(button => {
             if (button.innerText === quadra) {
                 button.style.backgroundColor = ""; // Remove a marcação de interditada
@@ -491,22 +486,10 @@ atualizarTabela = function() {
         return;  // Interrompe a execução para não continuar verificando
     }
 
-    // Agora, verifica se a quadra está interditada e exibe o alerta
-    if (quadrasInativas.has(quadra)) {
-        alert(`A ${quadra} está interditada provisoriamente. Por favor, selecione outra quadra.`);
-        return;
-    }
-	
-	
-    const dia = document.getElementById('dia').value;
-    const horaSelecionada = parseInt(document.getElementById('hora').value);
-    const duracao = parseInt(document.getElementById('duracao').value);
-	
-	
-	// Verifica "interditada" ou "liberada"
+    // Verifica se a quadra está interditada e atualiza o estado
     if (jogadores.some(jogador => jogador.toLowerCase().includes('interditada'))) {
         quadrasInativas.add(quadra);
-        salvarEstadoQuadras(); // Salva o estado atualizado
+        salvarEstadoQuadras();
         document.querySelectorAll('.tab-button').forEach(button => {
             if (button.innerText === quadra) {
                 button.style.backgroundColor = "red";
@@ -514,8 +497,7 @@ atualizarTabela = function() {
         });
 
         alert(`${quadra} foi interditada.`);
-		limparCampos(); // Limpa os campos
-		
+        limparCampos();
 
         // Verifica se a quadra interditada é a atual e redireciona para outra
         if (quadraSelecionada === quadra) {
@@ -530,25 +512,21 @@ atualizarTabela = function() {
         }
         return;
     }
-
-    if (jogadores.some(jogador => jogador.toLowerCase().includes('liberada'))) {
-        quadrasInativas.delete(quadra);
-		salvarEstadoQuadras(); // Salva o estado atualizado
-        document.querySelectorAll('.tab-button').forEach(button => {
-            if (button.innerText === quadra) {
-                button.style.backgroundColor = "";
-            }
-        });
-
-        alert(`${quadra} foi liberada.`);
-		limparCampos(); // Limpa os campos
-		selecionarQuadra(quadra); // Foco vai para a quadra liberada
-		return;
+	
+	// Verifica se a quadra está interditada
+    if (quadrasInativas.has(quadra)) {
+        alert(`A ${quadra} está interditada provisóriamente.`);
+		limparCampos(); // Limpa os campos após exibir a mensagem
+        return; // Sai imediatamente para evitar agendamento
     }
 
-    // Verifica se a reserva é de "aula" e pula a validação de data se for o caso
+    const dia = document.getElementById('dia').value;
+    const horaSelecionada = parseInt(document.getElementById('hora').value);
+    const duracao = parseInt(document.getElementById('duracao').value);
+
+    // Validações adicionais
     if (!validarDiaReserva(jogadores)) {
-        return; // Sai da função se a reserva não for permitida (exceto para "aula")
+        return; // Sai da função se a reserva não for permitida
     }
 
     if (horaSelecionada < 6 || horaSelecionada > 22) {
@@ -650,7 +628,7 @@ atualizarTabela = function() {
         }
 
         selecionarQuadra(quadra);
-		limparCampos();
+        limparCampos();
     });
 };
 
