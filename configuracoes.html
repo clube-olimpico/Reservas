@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações do Sistema</title>
+
+    <!-- Adiciona as versões compatíveis do Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        select {
+            margin-top: 10px;
+            padding: 5px;
+            width: 100px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Configurações do Clube Olímpico - Sistema de Reservas</h1>
+
+    <!-- Configuração de vDomingo -->
+    <div class="container">
+        <label for="vDomingo">Estado de Domingo:</label>
+        <select id="vDomingo">
+            <option value="aberto">Aberto</option>
+            <option value="fechado">Fechado</option>
+        </select>
+    </div>
+
+    <!-- Configuração de DiasParaLimpar -->
+    <div class="container">
+        <label for="diasParaLimpar">Dias para Limpar:</label>
+        <select id="diasParaLimpar">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
+    </div>
+
+    <button onclick="salvarConfiguracoes()">Salvar Configurações</button>
+
+    <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",  // Substitua com sua API Key do Firebase
+            authDomain: "agenda-5ce95.firebaseapp.com",
+            databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com/",  // URL do seu Firebase Realtime Database
+            projectId: "agenda-5ce95",
+            storageBucket: "agenda-5ce95.appspot.com",
+            messagingSenderId: "852007565195",
+            appId: "1:852007565195:web:d7bd789d140858f53f618e"
+        };
+
+        // Inicializa o Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();  // Usando o Realtime Database compatível
+
+        // Função para salvar as configurações no Firebase Realtime Database
+        function salvarConfiguracoes() {
+            const vDomingo = document.getElementById('vDomingo').value;
+            const diasParaLimpar = document.getElementById('diasParaLimpar').value;
+
+            // Validação simples para garantir que os dados sejam válidos
+            if (!vDomingo || !diasParaLimpar) {
+                alert("Por favor, preencha todos os campos antes de salvar.");
+                return;
+            }
+
+            const diasLimparNum = parseInt(diasParaLimpar);
+            if (isNaN(diasLimparNum) || diasLimparNum < 1 || diasLimparNum > 6) {
+                alert("Selecione um valor válido para 'Dias para Limpar'.");
+                return;
+            }
+
+            // Salva as configurações no Realtime Database
+            db.ref("config/configDoc").set({
+                vDomingo: vDomingo,
+                DiasParaLimpar: diasLimparNum
+            })
+            .then(() => {
+                alert("Configurações salvas com sucesso!");
+            })
+            .catch((error) => {
+                console.error("Erro ao salvar configurações: ", error);
+                alert("Erro ao salvar configurações. Veja o console para mais detalhes.");
+            });
+        }
+
+        // Função para carregar as configurações do Firebase e preencher os campos
+        function carregarConfiguracoes() {
+            db.ref("config/configDoc").once("value", (snapshot) => {
+                const data = snapshot.val();
+
+                if (data) {
+                    const vDomingo = data.vDomingo;
+                    const diasParaLimpar = data.DiasParaLimpar;
+
+                    // Preencher os campos com os dados do Firebase
+                    document.getElementById('vDomingo').value = vDomingo || "aberto";  // Valor padrão é "aberto" se não houver dado
+                    document.getElementById('diasParaLimpar').value = diasParaLimpar || "1";  // Valor padrão é "1" se não houver dado
+                }
+            });
+        }
+
+        // Garantir que a página seja carregada com os dados do Firebase
+        window.onload = function() {
+            carregarConfiguracoes();  // Carrega as configurações quando a página for aberta
+        };
+    </script>
+</body>
+</html>
