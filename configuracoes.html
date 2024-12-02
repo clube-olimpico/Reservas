@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -63,6 +64,29 @@
         </select>
     </div>
 
+    <!-- Configuração das quadras -->
+    <div class="container">
+        <label for="estadoQuadra1">Estado da Quadra 1 - Coberta:</label>
+        <select id="estadoQuadra1">
+            <option value="liberada">Liberada</option>
+            <option value="interditada">Interditada</option>
+        </select>
+    </div>
+    <div class="container">
+        <label for="estadoQuadra2">Estado da Quadra 2 - Aberta:</label>
+        <select id="estadoQuadra2">
+            <option value="liberada">Liberada</option>
+            <option value="interditada">Interditada</option>
+        </select>
+    </div>
+    <div class="container">
+        <label for="estadoQuadra3">Estado da Quadra 3 - Coberta:</label>
+        <select id="estadoQuadra3">
+            <option value="liberada">Liberada</option>
+            <option value="interditada">Interditada</option>
+        </select>
+    </div>
+
     <button onclick="salvarConfiguracoes()">Salvar Configurações</button>
 
     <script>
@@ -85,9 +109,11 @@
         function salvarConfiguracoes() {
             const vDomingo = document.getElementById('vDomingo').value;
             const diasParaLimpar = document.getElementById('diasParaLimpar').value;
+            const estadoQuadra1 = document.getElementById('estadoQuadra1').value;
+            const estadoQuadra2 = document.getElementById('estadoQuadra2').value;
+            const estadoQuadra3 = document.getElementById('estadoQuadra3').value;
 
-            // Validação simples para garantir que os dados sejam válidos
-            if (!vDomingo || !diasParaLimpar) {
+            if (!vDomingo || !diasParaLimpar || !estadoQuadra1 || !estadoQuadra2 || !estadoQuadra3) {
                 alert("Por favor, preencha todos os campos antes de salvar.");
                 return;
             }
@@ -98,10 +124,14 @@
                 return;
             }
 
-            // Salva as configurações no Realtime Database
-            db.ref("config/configDoc").set({
+            db.ref("sistema/config").set({
                 vDomingo: vDomingo,
-                DiasParaLimpar: diasLimparNum
+                DiasParaLimpar: diasLimparNum,
+                Quadras: {
+                    Quadra1: estadoQuadra1,
+                    Quadra2: estadoQuadra2,
+                    Quadra3: estadoQuadra3
+                }
             })
             .then(() => {
                 alert("Configurações salvas com sucesso!");
@@ -114,16 +144,17 @@
 
         // Função para carregar as configurações do Firebase e preencher os campos
         function carregarConfiguracoes() {
-            db.ref("config/configDoc").once("value", (snapshot) => {
+            db.ref("sistema/config").once("value", (snapshot) => {
                 const data = snapshot.val();
 
                 if (data) {
-                    const vDomingo = data.vDomingo;
-                    const diasParaLimpar = data.DiasParaLimpar;
+                    document.getElementById('vDomingo').value = data.vDomingo || "aberto";
+                    document.getElementById('diasParaLimpar').value = data.DiasParaLimpar || "1";
 
-                    // Preencher os campos com os dados do Firebase
-                    document.getElementById('vDomingo').value = vDomingo || "aberto";  // Valor padrão é "aberto" se não houver dado
-                    document.getElementById('diasParaLimpar').value = diasParaLimpar || "1";  // Valor padrão é "1" se não houver dado
+                    const quadras = data.Quadras || {};
+                    document.getElementById('estadoQuadra1').value = quadras.Quadra1 || "liberada";
+                    document.getElementById('estadoQuadra2').value = quadras.Quadra2 || "liberada";
+                    document.getElementById('estadoQuadra3').value = quadras.Quadra3 || "liberada";
                 }
             });
         }
