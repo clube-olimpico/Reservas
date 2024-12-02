@@ -102,6 +102,17 @@
 		.tab-button {
 			transition: background-color 0.3s ease;
 		}
+		
+		.tab-button[disabled] {
+			cursor: not-allowed; /* Cursor de bloqueio */
+			background-color: red; /* Cor de fundo para interditado */
+		}
+
+		.tab-button.selected {
+			font-weight: bold; /* Fonte em negrito */
+			background-color: #228B22 !important; /* Fundo verde escuro */
+			color: white; /* Texto branco */
+		}
 
 		.tab-button[style*="background-color: red"] {
 			cursor: not-allowed;
@@ -113,6 +124,7 @@
             margin-bottom: 20px;
         }
     </style>
+	
 	
 	
 	<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
@@ -132,6 +144,11 @@ const VersaoSistema = 'v1.0.0'; // Versão atual do sistema
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se DiasParaLimpar = 4, então só é permitido fazer reserva em até 2 dias de antecedencia
 
 window.vDomingo = undefined; // Valor padrão fechado, pois o clube nao abre aos domingos (aberto,fechado)
+
+
+let quadrasInativas = new Set();
+let reservasPorQuadra = {};
+let quadraSelecionada = 'Quadra 1 - Coberta';
 		
 //************************************************************************************************************************************************************************
 
@@ -163,25 +180,155 @@ const database = firebase.database();
 console.log("Firebase inicializado");
 
 
+// Nova estrutura inicial do banco de dados
+function inicializarEstruturaInicial() {
+    const estruturaInicial = {
+        config: {
+            DiasParaLimpar: 4, // Valor padrão
+            vDomingo: "fechado", // Padrão fechado
+            Quadras: {
+                Quadra1: "liberada",
+                Quadra2: "liberada",
+                Quadra3: "liberada",
+            },
+        },
+        reservas: {
+            "Quadra 1 - Coberta": {},
+            "Quadra 2 - Aberta": {},
+            "Quadra 3 - Coberta": {},
+        },
+    };
+
+    // Configurar o nó "sistema"
+    database.ref("sistema").set(estruturaInicial)
+        .then(() => {
+            console.log("Estrutura inicial criada com sucesso no Firebase.");
+        })
+        .catch((error) => {
+            console.error("Erro ao criar estrutura inicial no Firebase:", error);
+        });
+}
+
+// Carregar dados iniciais do banco de dados
+function InicializarSistema() {
+    return new Promise((resolve, reject) => {
+        const sistemaRef = database.ref("sistema");
+
+        sistemaRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+
+            if (data) {
+                const config = data.config;
+
+                if (config) {
+                    window.DiasParaLimpar = config.DiasParaLimpar || 4;
+                    window.vDomingo = config.vDomingo || "fechado";
+
+                    // Atualizar estado das quadras
+                    quadrasInativas.clear();
+                    const quadras = config.Quadras || {};
+                    if (quadras.Quadra1 === "interditada") quadrasInativas.add("Quadra 1 - Coberta");
+                    if (quadras.Quadra2 === "interditada") quadrasInativas.add("Quadra 2 - Aberta");
+                    if (quadras.Quadra3 === "interditada") quadrasInativas.add("Quadra 3 - Coberta");
+					
+                    atualizarDatas();
+                    atualizarEstadoQuadras();
+                }
+
+                console.log("Configurações carregadas:", config);
+            } else {
+                console.log("Dados não encontrados. Inicializando estrutura...");
+                inicializarEstruturaInicial();
+            }
+
+            // Após carregar os dados, verificar o estado das quadras
+            if (quadrasInativas.has('Quadra 1 - Coberta')) {
+                console.log('Quadra 1 está interditada.');
+
+                // Se a Quadra 1 estiver interditada, seleciona a próxima quadra ativa
+                const proximasQuadras = Array.from(document.querySelectorAll('.tab-button'))
+                    .filter(button => !quadrasInativas.has(button.innerText.trim())); // Filtra as quadras não interditadas
+
+                if (proximasQuadras.length > 0) {
+                    // Se houver quadras ativas, seleciona a primeira disponível
+                    const quadraDisponivel = proximasQuadras[0].innerText.trim();
+                    console.log('Quadra selecionada automaticamente:', quadraDisponivel);
+                    selecionarQuadra(quadraDisponivel); // Seleciona a próxima quadra ativa
+                } else {
+                    // Caso todas as quadras estejam interditadas, exibe alerta
+                    alert("Todas as quadras estão interditadas.");
+                }
+            } else {
+                // Se a Quadra 1 não estiver interditada, seleciona ela
+                console.log('Quadra 1 está disponível.');
+                selecionarQuadra('Quadra 1 - Coberta');
+            }
+
+            resolve();
+        }, (error) => {
+            console.error("Erro ao carregar dados iniciais:", error);
+            reject(error);
+        });
+    });
+}
+
+
+
+
+
+
+function atualizarReservasQuadra(quadra) {
+    console.log(`Atualizando reservas para a quadra: ${quadra}`);
+    limparTabela();
+    const reservas = reservasPorQuadra[quadra];
+    if (reservas) {
+        const tabela = document.getElementById('tabelaCorpo');
+        for (const key in reservas) {
+            const { jogadores, dia, hora, duracao, borda } = reservas[key];
+            const rowIndex = hora - 6;
+            const colIndex = dia;
+
+            const cell = tabela.rows[rowIndex]?.cells[colIndex];
+            if (cell) {
+                cell.innerHTML = jogadores;
+                cell.setAttribute("data-duracao", duracao);
+                cell.style.backgroundColor = jogadores.toLowerCase().includes('aula') ? 'lightcoral' :
+                    (duracao === 1 ? 'lightgreen' : 'lightblue');
+
+                // Configurar bordas para reservas de 1h ou 2h
+                if (borda === '1h') {
+                    cell.style.border = '2px solid black';
+                } else if (borda === '2h') {
+                    configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
+                }
+            }
+        }
+    }
+}
+
+
+
+function configurarBordasDuracao2(cell, tabela, rowIndex, colIndex) {
+    cell.style.borderTop = '2px solid black';
+    cell.style.borderLeft = '2px solid black';
+    cell.style.borderRight = '2px solid black';
+    cell.style.borderBottom = 'none';
+
+    const cellNext = tabela.rows[rowIndex + 1]?.cells[colIndex];
+    if (cellNext) {
+        cellNext.style.borderTop = 'none';
+        cellNext.style.borderLeft = '2px solid black';
+        cellNext.style.borderRight = '2px solid black';
+        cellNext.style.borderBottom = '2px solid black';
+    }
+}
+
+
+
 // Mostrar um alerta com os valores das variáveis
 //alert(`Configurações carregadas:\nvDomingo: ${vDomingo}\nDiasParaLimpar: ${window.DiasParaLimpar}`);                
 
 
-function carregarVariaveis() {
-    return database.ref("config/configDoc").once("value").then((snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            window.DiasParaLimpar = data.DiasParaLimpar || 4;
-            window.vDomingo = data.vDomingo || 'fechado';
-
-            //alert(`Configurações carregadas:\nvDomingo: ${vDomingo}\nDiasParaLimpar: ${window.DiasParaLimpar}`);
-        } else {
-            console.error("Erro: Dados não encontrados no banco.");
-        }
-    }).catch((error) => {
-        console.error("Erro ao carregar variáveis do Firebase:", error);
-    });
-}
 
 
 
@@ -193,8 +340,7 @@ function verificarVersao() {
 }
 
 
-		
-   	  let quadraSelecionada = 'Quadra 1 - Coberta'; // Quadra inicial padrão
+
 
 
 	
@@ -206,6 +352,35 @@ function verificarVersao() {
         
 
         let jogadorCount = 1;
+
+
+function atualizarEstadoQuadras() {
+    document.querySelectorAll('.tab-button').forEach(button => {
+        const quadraNome = button.innerText.trim();
+
+        if (quadrasInativas.has(quadraNome)) {
+            button.style.backgroundColor = "red"; // Fundo vermelho
+            button.style.cursor = "not-allowed"; // Cursor bloqueado
+          
+            // Adiciona um evento de clique para mostrar o alerta sem permitir interação
+            button.onclick = () => {
+                alert(`A ${quadraNome} está interditada provisoriamente.`);
+            };
+        } else {
+            button.style.backgroundColor = "#4CAF50"; // Fundo verde claro para quadras ativas
+            button.style.cursor = "pointer"; // Cursor padrão
+            
+            // Limpa o evento de clique se não for interditada
+            button.onclick = () => {
+                selecionarQuadra(quadraNome); // Permite a seleção normal da quadra ativa
+            };
+        }
+    });
+}
+
+
+
+
 
 
 function atualizarEstadoDomingo() {
@@ -237,58 +412,55 @@ function atualizarEstadoDomingo() {
 		
 // Função para limpar a tabela antes de exibir as reservas da quadra selecionada
 function limparTabela() {
-    console.log('Executando limparTabela...');
+    console.log('Limpando tabela...');
     const tabela = document.getElementById('tabelaCorpo');
     for (let i = 0; i < tabela.rows.length; i++) {
-        for (let j = 1; j < tabela.rows[i].cells.length - 1; j++) { // Ignora a primeira e última coluna
-            const celula = tabela.rows[i].cells[j];
-            
-            // Verifica se é uma célula de domingo (coluna 7) entre 12:00 e 23:00
-            if (j === 7 && i + 6 >= 12 && i + 6 <= 23) {
-                if (vDomingo === 'fechado') {
-                    // Bloqueia a célula se vDomingo for 'fechado'
-                    celula.style.backgroundColor = '#f2f2f2'; // Cor cinza
-                    celula.style.pointerEvents = 'none'; // Desativa interação
-                    celula.style.cursor = 'not-allowed'; // Cursor indicando bloqueio
-                    celula.innerHTML = ''; // Apaga o conteúdo
-                } else if (vDomingo === 'aberto') {
-                    // Se vDomingo for 'aberto', mantém a célula desbloqueada e limpa
-                    celula.style.backgroundColor = ''; // Remove a cor de fundo
-                    celula.style.pointerEvents = ''; // Restaura a interação
-                    celula.style.cursor = ''; // Restaura o cursor
-                    celula.innerHTML = ''; // Limpa o conteúdo
-                }
-            } else {
-                // Para as outras células, restaura a borda e limpa o conteúdo normalmente
-                celula.innerHTML = '';
-                celula.style.backgroundColor = '';
-                celula.style.border = '1px solid #ddd'; // Restaura a borda padrão
-            }
+        for (let j = 1; j < tabela.rows[i].cells.length - 1; j++) {
+            const cell = tabela.rows[i].cells[j];
+            cell.innerHTML = '';
+            cell.style.backgroundColor = '';
+            cell.style.border = '1px solid #ddd';
         }
     }
 }
 
 
+
 // Função para selecionar a quadra e carregar suas reservas
 function selecionarQuadra(quadra) {
     console.log("Quadra selecionada:", quadra);
-	
-	 if (quadrasInativas.has(quadra)) {
-        alert(`A ${quadra} está interditada provisóriamente.`);
-        return;
+
+    // Verifica se a quadra está interditada
+    if (quadrasInativas.has(quadra)) {
+        alert(`A ${quadra} está interditada provisoriamente.`);
+        return; // Impede a seleção da quadra interditada
     }
-	
+
+    // Se a quadra não estiver interditada, continua com a seleção
     quadraSelecionada = quadra; // Atualiza a quadra selecionada
     document.querySelector('.header').innerText = quadra; // Atualiza o título da quadra
 
-    // Remove a classe 'selected' de todos os botões e adiciona ao botão clicado
+    // Remove a classe 'selected' de todos os botões
     document.querySelectorAll('.tab-button').forEach(button => {
-        button.classList.toggle('selected', button.innerText === quadra);
+        button.classList.remove('selected');
     });
 
-    // Atualiza e exibe reservas para a quadra selecionada
+    // Adiciona a classe 'selected' ao botão correspondente
+    const botaoSelecionado = Array.from(document.querySelectorAll('.tab-button')).find(button => button.innerText.trim() === quadra);
+    if (botaoSelecionado) {
+        botaoSelecionado.classList.add('selected');
+    }
+	
+	
+	// Atualiza o estado do domingo após selecionar a quadra
+    atualizarEstadoDomingo(); // <- Adicionado aqui
+	
+	// Atualiza e exibe reservas para a quadra selecionada
     carregarReservas(quadra);
 }
+
+
+
 	
 
 
@@ -298,9 +470,10 @@ function carregarReservas(quadra) {
     celulasExcluidas.clear();
     reservasExcluidasFirebase.clear();
 
-    const reservasRef = database.ref('reservas/' + quadra);
+    const reservasRef = database.ref(`sistema/reservas/${quadra}`);
 
-    reservasRef.once('value', (snapshot) => {
+    reservasRef.off('value'); // Remove ouvintes antigos
+    reservasRef.on('value', (snapshot) => {
         const reservas = snapshot.val();
         limparTabela();
 
@@ -314,44 +487,44 @@ function carregarReservas(quadra) {
                 const rowIndex = hora - 6;
                 const colIndex = dia;
 
-                // Confirma se a célula está dentro dos limites da tabela
                 if (rowIndex >= 0 && rowIndex < totalRows && colIndex >= 0 && colIndex < totalCols) {
                     const cell = tabela.rows[rowIndex].cells[colIndex];
                     cell.innerHTML = jogadores;
                     cell.setAttribute("data-duracao", duracao);
 
-                    // Define a cor de fundo baseada na reserva
                     let corFundo;
-                    if (jogadores.toLowerCase().includes('aula') ) {
+                    if (jogadores.toLowerCase().includes('aula')) {
                         corFundo = 'lightcoral';
                     } else {
                         corFundo = duracao === 1 ? 'lightgreen' : 'lightblue';
                     }
                     cell.style.backgroundColor = corFundo;
 
-                    // Configura as bordas para reservas de 1h ou 2h
                     if (borda === '1h') {
                         cell.style.border = '2px solid black';
                     } else if (borda === '2h') {
-                        cell.style.borderTop = '2px solid black';
-                        cell.style.borderLeft = '2px solid black';
-                        cell.style.borderRight = '2px solid black';
-                        cell.style.borderBottom = 'none';
-
-                        const cellNext = tabela.rows[rowIndex + 1]?.cells[colIndex];
-                        if (cellNext) {
-                            cellNext.style.borderTop = 'none';
-                            cellNext.style.borderLeft = '2px solid black';
-                            cellNext.style.borderRight = '2px solid black';
-                            cellNext.style.borderBottom = '2px solid black';
-                            cellNext.style.backgroundColor = corFundo;
-                            cellNext.setAttribute("data-duracao", duracao);
-                        }
+                        configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
                     }
                 }
             }
         }
-        adicionarEventoClique(); // Adiciona eventos de clique para exclusão
+
+        // Adicionar lógica para bloquear horários de domingo
+        if (vDomingo === 'fechado') {
+            const diaDomingo = 7; // Índice do domingo
+            const tabela = document.getElementById('tabelaCorpo');
+            for (let i = 0; i < tabela.rows.length; i++) {
+                const horario = i + 6; // Calcula o horário baseado na linha
+                const celulaDomingo = tabela.rows[i].cells[diaDomingo];
+                if (horario >= 12 && horario <= 23) {
+                    celulaDomingo.style.backgroundColor = '#f2f2f2'; // Cor cinza
+                    celulaDomingo.style.pointerEvents = 'none'; // Desativa interação
+                    celulaDomingo.style.cursor = 'not-allowed'; // Cursor bloqueado
+                }
+            }
+        }
+
+        adicionarEventoClique();
     });
 }
 		
@@ -366,7 +539,7 @@ function carregarReservas(quadra) {
         return true; // Permite a reserva sem validação
     }
 
-    const diasParaLimpar = window.DiasParaLimpar || 4; // Usar a constante global
+    const diasParaLimpar = window.DiasParaLimpar; // Usar a constante global
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0); // Zerando horas para evitar problemas de comparação
 
@@ -434,8 +607,8 @@ function gerarMensagemErro(diasParaLimpar) {
         default:
             return "Valor de DiasParaLimpar inválido.";
     }
+	limparCampos();
     return `Não é permitido fazer reservas com mais de ${diasAntecedencia} dias de antecedência.`;
-	 
 }
 
 
@@ -446,6 +619,11 @@ function gerarMensagemErro(diasParaLimpar) {
     const dia = document.getElementById('dia').value; // Obtemos o valor do campo "Dia"
     const hora = document.getElementById('hora');
     hora.innerHTML = ''; // Limpa opções anteriores
+
+    if (!duracao || !dia) {
+        console.log("Erro: Duração ou dia não definidos.");
+        return; // Se o dia ou a duração não estiverem definidos, sai da função
+    }
 
     // Verifica se o dia selecionado é Domingo e se vDomingo é 'fechado'
     if (dia == 7 && vDomingo === 'fechado') {
@@ -473,7 +651,11 @@ function gerarMensagemErro(diasParaLimpar) {
             }
         }
     }
+
+    // Log para verificar o que está acontecendo
+    console.log(`Horários atualizados para Dia: ${dia}, Duração: ${duracao}`);
 };
+
 
 
         // Adiciona um novo campo para jogador
@@ -505,7 +687,7 @@ function gerarMensagemErro(diasParaLimpar) {
         }
 
 
-let quadrasInativas = new Set(); // Armazena as quadras interditadas
+//let quadrasInativas = new Set(); // Armazena as quadras interditadas
 
         // Atualiza a tabela com a nova reserva
 atualizarTabela = function() {
@@ -527,52 +709,11 @@ atualizarTabela = function() {
     const quadra = document.getElementById('quadra').value;
 
     // Verifica se a quadra deve ser liberada
-    if (jogadores.some(jogador => jogador.toLowerCase().includes('liberada'))) {
-        quadrasInativas.delete(quadra);
-        salvarEstadoQuadras();
-        document.querySelectorAll('.tab-button').forEach(button => {
-            if (button.innerText === quadra) {
-                button.style.backgroundColor = ""; // Remove a marcação de interditada
-            }
-        });
-
-        alert(`${quadra} foi liberada.`);
-        limparCampos();  // Limpa os campos de reserva
-        selecionarQuadra(quadra);  // Re-seleciona a quadra liberada
-        return;  // Interrompe a execução para não continuar verificando
-    }
-
-    // Verifica se a quadra está interditada e atualiza o estado
-    if (jogadores.some(jogador => jogador.toLowerCase().includes('interditada'))) {
-        quadrasInativas.add(quadra);
-        salvarEstadoQuadras();
-        document.querySelectorAll('.tab-button').forEach(button => {
-            if (button.innerText === quadra) {
-                button.style.backgroundColor = "red";
-            }
-        });
-
-        alert(`${quadra} foi interditada.`);
-        limparCampos();
-
-        // Verifica se a quadra interditada é a atual e redireciona para outra
-        if (quadraSelecionada === quadra) {
-            const proximasQuadras = Array.from(document.querySelectorAll('.tab-button'))
-                .filter(button => !quadrasInativas.has(button.innerText)); // Apenas quadras ativas
-
-            if (proximasQuadras.length > 0) {
-                selecionarQuadra(proximasQuadras[0].innerText); // Muda para a próxima quadra ativa
-            } else {
-                alert("Todas as quadras estão interditadas.");
-            }
-        }
-        return;
-    }
-	
-	// Verifica se a quadra está interditada
+    
+    // Verifica se a quadra está interditada
     if (quadrasInativas.has(quadra)) {
         alert(`A ${quadra} está interditada provisóriamente.`);
-		limparCampos(); // Limpa os campos após exibir a mensagem
+        limparCampos(); // Limpa os campos após exibir a mensagem
         return; // Sai imediatamente para evitar agendamento
     }
 
@@ -595,26 +736,32 @@ atualizarTabela = function() {
 
     console.log('Inserindo dados na tabela na linha:', horarioInicial);
 
-    const reservasRef = database.ref(`reservas/${quadra}`);
-    reservasRef.once('value').then(snapshot => {
-        const reservas = snapshot.val() || {};
+    const reservasRef = database.ref(`sistema/reservas/${quadra}`);
+    reservasRef.once('value', (snapshot) => { 
+        const reservas = snapshot.val() || {}; // Pega os dados mais recentes
+        console.log('Reservas recuperadas do Firebase:', reservas); // Log para depuração
         let horariosLivres = true;
 
+        // Valida os horários
         for (let i = 0; i < duracao; i++) {
             const horarioChave = `${dia}_${horaSelecionada + i}`;
+            console.log(`Chave: ${horarioChave}, Ocupado?:`, !!reservas[horarioChave]);
             if (reservas[horarioChave]) {
                 horariosLivres = false;
                 break;
             }
         }
 
+        // Se algum horário estiver ocupado, exibe o erro e interrompe
         if (!horariosLivres) {
             alert('Um ou mais horários já estão reservados para essa quadra!');
+            limparCampos();
             return;
         }
 
-        let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula') ) ? 'lightcoral' : (duracao === 1 ? 'lightgreen' : 'lightblue');
+        let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula')) ? 'lightcoral' : (duracao === 1 ? 'lightgreen' : 'lightblue');
 
+        // Se for 1 hora de duração
         if (duracao === 1) {
             tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores.join(', ');
             tabela.rows[horarioInicial].cells[dia].style.backgroundColor = corFundo;
@@ -635,6 +782,7 @@ atualizarTabela = function() {
                 .catch(error => console.error("Erro ao salvar a reserva:", error));
 
         } else if (duracao === 2) {
+            // Se for 2 horas de duração
             if (jogadores.length === 1) {
                 tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores[0];
                 tabela.rows[horarioInicial + 1].cells[dia].innerHTML = jogadores[0];
@@ -684,7 +832,7 @@ atualizarTabela = function() {
         }
 
         selecionarQuadra(quadra);
-        limparCampos();
+        limparCampos(); 
     });
 };
 
@@ -778,13 +926,13 @@ function excluirReservaFirebase(horaSelecionada, diaIndex, quadra) {
 
     if (!reservasExcluidasFirebase.has(key)) {
         reservasExcluidasFirebase.add(key);
-        database.ref(`reservas/${quadra}/${key}`).remove()
+        database.ref(`sistema/reservas/${quadra}/${key}`).remove()
             .then(() => {
                 console.log(`Reserva removida com sucesso do Firebase para ${quadra}, chave=${key}`);
                 reservasExcluidasFirebase.delete(key);
 
                 // Atualiza a interface após a exclusão
-                carregarReservas(quadra);
+                //carregarReservas(quadra);
             })
             .catch((error) => console.error(`Erro ao remover a reserva do Firebase: ${error}`));
     }
@@ -817,7 +965,8 @@ function salvarEstadoQuadras() {
 
    
 // Monitora as alterações no Firebase
-const reservasRef = database.ref('reservas/' + quadraSelecionada);
+const reservasRef = database.ref('sistema/reservas/' + quadraSelecionada);
+reservasRef.off('value'); // Remove ouvintes anteriores
 reservasRef.on('value', (snapshot) => {
 
 console.log("Atualização recebida do Firebase:", snapshot.val());
@@ -999,67 +1148,50 @@ function LimparDiasAnteriores() {
                 const key = `${diaIndex}_${hora}`;
 
                 // Verifica a reserva no Firebase antes de remover
-                const reservaRef = database.ref(`reservas/${quadra}/${key}`);
-                reservaRef.once('value').then(snapshot => {
-                    const reserva = snapshot.val();
+                const reservaRef = database.ref(`sistema/reservas/${quadra}/${key}`);
+                reservaRef.once('value', (snapshot) => { // Usamos .once() para uma leitura única
+				const reserva = snapshot.val();
                     if (reserva) {
                         const { jogadores } = reserva;
                         // Verifica se a reserva contém "aula" 
-                        if (jogadores && (jogadores.toLowerCase().includes('aula') )) {
+                        if (jogadores && (jogadores.toLowerCase().includes('aula'))) {
                             console.log(`Reserva de "${jogadores}" não será removida.`);
                             return; // Pula a exclusão dessa reserva
                         }
                         // Remove a célula da interface e do Firebase
                         const celula = tabela.rows[horaIndex]?.cells[diaIndex];
                         if (celula) {
-                            limparCelula(celula);
+                            limparCelula(celula); // Função que limpa a célula na interface
                         }
                         reservaRef.remove()
                             .then(() => console.log(`Reserva removida com sucesso do Firebase para ${quadra}, chave=${key}`))
                             .catch(error => console.error(`Erro ao remover a reserva do Firebase: ${error}`));
                     }
-                }).catch(error => console.error(`Erro ao verificar a reserva do Firebase: ${error}`));
+                }, (error) => {
+                    console.error(`Erro ao verificar a reserva do Firebase para ${key}: ${error}`);
+                });
             }
         }
     });
 }
 
-function carregarEstadoQuadras() {
-    database.ref('estadoQuadras/interditadas').once('value')
-        .then(snapshot => {
-            const estado = snapshot.val() || [];
-            quadrasInativas = new Set(estado); // Atualiza o Set com o estado recuperado
 
-            // Atualiza a interface com o estado carregado
-            document.querySelectorAll('.tab-button').forEach(button => {
-                if (quadrasInativas.has(button.innerText)) {
-                    button.style.backgroundColor = "red";
-                }
-            });
-
-            console.log("Estado das quadras carregado do Firebase:", estado);
-        })
-        .catch(error => console.error("Erro ao carregar estado das quadras:", error));
-}
 
 function abrirManual() {
     window.open('manual.html', '_blank');
+	
 }
 
 
-
 window.onload = function() {
-    verificarVersao(); 
-	//validarOrigem(); // Verifica a origem
-	carregarVariaveis().then(() => {
-        atualizarDatas(); // Só será chamada após carregarVariaveis concluir
-		atualizarEstadoDomingo(); // Aplica o estado inicial de domingo
-    });
-    selecionarQuadra('Quadra 1 - Coberta'); // Define a quadra inicial
-	carregarEstadoQuadras(); // Carrega o estado salvo
-	//atualizarDatas();
-    atualizarOpcoesHorario();
-	//atualizarEstadoDomingo(); // Aplica o estado inicial de domingo
+    verificarVersao();
+    InicializarSistema()
+        .then(() => {
+            atualizarOpcoesHorario(); // Atualiza os horários iniciais
+        })
+        .catch(error => {
+            console.error("Erro ao inicializar o sistema:", error);
+        });
 };
 
 
@@ -1068,7 +1200,6 @@ window.onload = function() {
 
 
 <body>
-
 <div class="tab-container" style="display: flex; justify-content: center; margin-bottom: 10px;">
     <button class="tab-button" onclick="selecionarQuadra('Quadra 1 - Coberta')">Quadra 1 - Coberta</button>
     <button class="tab-button" onclick="selecionarQuadra('Quadra 2 - Aberta')">Quadra 2 - Aberta</button>
@@ -1091,6 +1222,7 @@ window.onload = function() {
 				<option value="Quadra 3 - Coberta">Quadra 3 - Coberta</option>
 			</select>
 		</div>
+
 
 
         <div class="form-row">
