@@ -70,6 +70,12 @@
         button:hover {
             background-color: #45a049;
         }
+		
+		.tabela-container {
+			overflow-x: auto; /* Permite rolar horizontalmente */
+			width: 100%; /* Garante que o contêiner ocupe toda a largura da tela */
+		}
+		
         table {
             width: 100%;
             margin-top: 20px;
@@ -161,7 +167,7 @@ let quadraSelecionada = 'Quadra 1 - Coberta';
 		
 //************************************************************************************************************************************************************************
 
-/*	
+	
 	// descomentar quando publicar 
 	 
 		 document.addEventListener('contextmenu', event => event.preventDefault());
@@ -170,7 +176,7 @@ let quadraSelecionada = 'Quadra 1 - Coberta';
       event.preventDefault();
     }
   });
-*/  
+  
 
 	
 	// Configuração do Firebase
@@ -1333,6 +1339,7 @@ window.onload = function() {
     </div>
 </div>
 
+<div class="tabela-container">
 <table id="tabelaQuadra" style="width: 100%; margin-top: 10px;">
     <tr>
         <th rowspan="2" style="text-align: center;">Horários</th>
@@ -1448,6 +1455,7 @@ window.onload = function() {
         </tr>
     </tbody>
 </table>
+</div>
 </div>
 </body>
 <footer style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #555;">
