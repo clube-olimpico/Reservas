@@ -173,6 +173,12 @@
             const diasSelecionados = parseInt(this.value);
             alert(mensagensDiasParaLimpar[diasSelecionados]);
         });
+		
+		// Garantir que a página seja carregada com os dados do Firebase
+        window.onload = function() {
+            carregarConfiguracoes();  // Carrega as configurações quando a página for aberta
+        };
+		
     </script>
 </body>
 </html>
