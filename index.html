@@ -123,6 +123,15 @@
             color: #333;
             margin-bottom: 20px;
         }
+		#loading {
+			display: block;
+			text-align: center;
+			font-size: 1.5rem;
+		}
+
+		#content {
+			display: none;
+		}
     </style>
 	
 	
@@ -152,7 +161,7 @@ let quadraSelecionada = 'Quadra 1 - Coberta';
 		
 //************************************************************************************************************************************************************************
 
-	
+/*	
 	// descomentar quando publicar 
 	 
 		 document.addEventListener('contextmenu', event => event.preventDefault());
@@ -161,7 +170,7 @@ let quadraSelecionada = 'Quadra 1 - Coberta';
       event.preventDefault();
     }
   });
-  
+*/  
 
 	
 	// Configuração do Firebase
@@ -1184,13 +1193,34 @@ function abrirManual() {
 
 
 window.onload = function() {
-    verificarVersao();
+    const loadingElement = document.getElementById('loading');
+    const contentElement = document.getElementById('content');
+
+    // Verifique se os elementos existem
+    if (!loadingElement || !contentElement) {
+        console.error('Erro: elementos não encontrados!');
+        return;
+    }
+
+    // Exibe a tela de carregamento
+    loadingElement.style.display = 'block';
+    contentElement.style.display = 'none';
+
+    console.log('Inicializando sistema...');
+    
+    // Inicializa o sistema
     InicializarSistema()
         .then(() => {
+            console.log('Sistema inicializado, exibindo conteúdo...');
+            // Esconde a tela de "Carregando" e exibe o conteúdo
+            loadingElement.style.display = 'none';
+            contentElement.style.display = 'block';
+
             atualizarOpcoesHorario(); // Atualiza os horários iniciais
         })
         .catch(error => {
             console.error("Erro ao inicializar o sistema:", error);
+            // Exibe uma mensagem de erro se a Promise for rejeitada
         });
 };
 
@@ -1200,6 +1230,15 @@ window.onload = function() {
 
 
 <body>
+
+<div id="loading" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem;">
+    Carregando... Aguarde.
+</div>
+
+
+<!-- Conteúdo da página (inicialmente oculto) -->
+<div id="content" style="display: none;">
+
 <div class="tab-container" style="display: flex; justify-content: center; margin-bottom: 10px;">
     <button class="tab-button" onclick="selecionarQuadra('Quadra 1 - Coberta')">Quadra 1 - Coberta</button>
     <button class="tab-button" onclick="selecionarQuadra('Quadra 2 - Aberta')">Quadra 2 - Aberta</button>
@@ -1409,6 +1448,7 @@ window.onload = function() {
         </tr>
     </tbody>
 </table>
+</div>
 </body>
 <footer style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #555;">
         Desenvolvido por Ronaldo Taborda
