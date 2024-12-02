@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -90,6 +89,16 @@
     <button onclick="salvarConfiguracoes()">Salvar Configurações</button>
 
     <script>
+        // Mensagens de acordo com o valor de diasParaLimpar
+        const mensagensDiasParaLimpar = {
+            1: "Permite a reserva de até 5 dias de antecedência. Limpará os dados do dia anterior.",
+            2: "Permite a reserva de até 4 dias de antecedência. Limpará os dados de 2 dias anteriores.",
+            3: "Permite a reserva de até 3 dias de antecedência. Limpará os dados de 3 dias anteriores.",
+            4: "Permite a reserva de até 2 dias de antecedência. Limpará os dados de 4 dias anteriores.",
+            5: "Permite a reserva de até 1 dia de antecedência. Limpará os dados de 5 dias anteriores.",
+            6: "Permite a reserva somente do dia atual. Limpará os dados de 6 dias anteriores."
+        };
+        
         // Configuração do Firebase
         const firebaseConfig = {
             apiKey: "YOUR_API_KEY",  // Substitua com sua API Key do Firebase
@@ -159,10 +168,11 @@
             });
         }
 
-        // Garantir que a página seja carregada com os dados do Firebase
-        window.onload = function() {
-            carregarConfiguracoes();  // Carrega as configurações quando a página for aberta
-        };
+        // Exibir a mensagem somente quando o valor de diasParaLimpar for alterado
+        document.getElementById('diasParaLimpar').addEventListener('change', function () {
+            const diasSelecionados = parseInt(this.value);
+            alert(mensagensDiasParaLimpar[diasSelecionados]);
+        });
     </script>
 </body>
 </html>
