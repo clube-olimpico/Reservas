@@ -169,14 +169,14 @@ let quadraSelecionada = 'Quadra 1 - Coberta';
 
 	
 	// descomentar quando publicar 
-	 
+/*	 
 		 document.addEventListener('contextmenu', event => event.preventDefault());
   document.addEventListener('keydown', event => {
     if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I")) {
       event.preventDefault();
     }
   });
-  
+*/  
 
 	
 	// Configuração do Firebase
@@ -291,8 +291,6 @@ function InicializarSistema() {
 
 
 
-
-
 function atualizarReservasQuadra(quadra) {
     console.log(`Atualizando reservas para a quadra: ${quadra}`);
     limparTabela();
@@ -304,8 +302,8 @@ function atualizarReservasQuadra(quadra) {
             const rowIndex = hora - 6;
             const colIndex = dia;
 
-            // Ignorar sábado (coluna 6) das 06:00 às 07:00 e domingo (coluna 7) das 06:00 às 08:00
-            if ((colIndex === 6 && hora === 6) || (colIndex === 7 && hora >= 6 && hora <= 8)) {
+             // Ignorar sábado (coluna 6) das 21:00 às 23:00 e domingo (coluna 7) das 06:00 às 08:00
+            if ((colIndex === 6 && hora >= 21 && hora <= 23) || (colIndex === 7 && hora >= 6 && hora <= 8)) {
                 continue; // Pule estas células
             }
 
@@ -440,7 +438,7 @@ function limparTabela() {
         for (let j = 1; j < tabela.rows[i].cells.length - 1; j++) {
             const horario = i + 6; // Calcula o horário com base na linha
             // Ignorar sábado (coluna 6) das 06:00 às 07:00 e domingo (coluna 7) das 06:00 às 08:00
-            if ((j === 6 && horario === 6) || (j === 7 && horario >= 6 && horario <= 8)) {
+             if ((j === 6 && horario === 6) || (j === 7 && horario >= 6 && horario <= 8) || (j === 6 && horario >= 21 && horario <= 23)) {
                 continue; // Pule estas células
             }
             const cell = tabela.rows[i].cells[j];
@@ -674,13 +672,13 @@ window.atualizarOpcoesHorario = function() {
     } else if (dia == 6) { // Caso para sábado (dia == 6)
         // Para sábado, se a duração for de 1 hora, exclui 06:00-07:00
         if (duracao === '1') {
-            for (let i = 7; i < 23; i++) { // Inicia a partir de 07:00 e vai até 23:00
+            for (let i = 7; i < 21; i++) { // Inicia a partir de 07:00 e vai até 23:00
                 hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 1}:00</option>`;
             }
         }
         // Para sábado, se a duração for de 2 horas, exclui 06:00-08:00
         else if (duracao === '2') {
-            for (let i = 7; i < 22; i++) { // Inicia a partir de 07:00 e vai até 22:00 para 2 horas
+            for (let i = 7; i < 20; i++) { // Inicia a partir de 07:00 e vai até 22:00 para 2 horas
                 hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
             }
         }
@@ -1192,8 +1190,8 @@ function LimparDiasAnteriores() {
                 const horaIndex = hora - 6; // Calcula o índice correto da linha
                 const key = `${diaIndex}_${hora}`;
 
-                // Ignorar sábado (coluna 6) das 06:00 às 07:00 e domingo (coluna 7) das 06:00 às 08:00
-	if ((diaIndex === 6 && hora === 6) || (diaIndex === 7 && hora >= 6 && hora <= 8)) {
+    // Ignorar sábado (coluna 6) das 06:00 às 07:00 e das 21:00 às 23:00 e domingo (coluna 7) das 06:00 às 08:00
+	if ((diaIndex === 6 && hora === 6) || (diaIndex === 7 && hora >= 6 && hora <= 8) || (diaIndex === 6 && hora >= 21 && hora <= 23)) {
     // Pule estas células sem realizar qualquer operação
     console.log(`Ignorando célula: dia ${diaIndex}, hora ${hora}`);
     continue; 
@@ -1487,17 +1485,19 @@ window.onload = function() {
             <td>20:00 - 21:00</td>
         </tr>
         <tr>
-            <td>21:00 - 22:00</td>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
-            <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td>
-            <td>21:00 - 22:00</td>
-        </tr>
+			<td>21:00 - 22:00</td>
+			<td></td><td></td><td></td><td></td><td></td>
+			<td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Sábado -->
+			<td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+			<td>21:00 - 22:00</td>
+		</tr>
         <tr>
-            <td>22:00 - 23:00</td>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
-            <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td>
-            <td>22:00 - 23:00</td>
-        </tr>
+			<td>22:00 - 23:00</td>
+			<td></td><td></td><td></td><td></td><td></td>
+			<td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Sábado -->
+			<td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+			<td>22:00 - 23:00</td>
+		</tr>
     </tbody>
 </table>
 </div>
