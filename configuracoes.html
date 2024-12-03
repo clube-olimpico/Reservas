@@ -10,37 +10,99 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        .container {
-            margin-bottom: 20px;
-        }
-        label {
-            font-weight: bold;
-        }
-        select {
-            margin-top: 10px;
-            padding: 5px;
-            width: 100px;
-        }
-        button {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-			width: 250px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    body {
+    font-family: Arial, sans-serif;
+    padding: 10px; /* Reduz o espaço para telas pequenas */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    overflow-y: auto; /* Evita rolagem horizontal e controla rolagem vertical */
+    box-sizing: border-box; /* Inclui padding/margin no cálculo de tamanho */
+}
+    .container {
+        margin-bottom: 20px;
+        text-align: left; /* Alinhamento interno dos campos */
+    }
+    .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+    max-width: 90%; /* Usa até 90% da largura da tela */
+    max-height: 90vh; /* Usa até 90% da altura da tela */
+    overflow-y: auto; /* Habilita rolagem interna, se necessário */
+    box-sizing: border-box;
+}
+.title-container {
+    display: flex;
+    flex-direction: column; /* Organiza o texto em linhas */
+    align-items: center; /* Centraliza horizontalmente */
+    text-align: center; /* Centraliza o conteúdo de cada linha */
+    margin-bottom: 20px; /* Espaço abaixo do título */
+}
+
+.title-container span {
+    font-size: 1.5em; /* Ajuste o tamanho da fonte */
+    font-weight: bold; /* Deixa o texto em negrito */
+    line-height: 1.5em; /* Espaçamento entre linhas */
+}
+    .form-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        flex-wrap: wrap; /* Permite quebra em telas pequenas */
+    }
+    label {
+        font-weight: bold;
+    }
+    select {
+        margin-top: 10px;
+        padding: 5px;
+        width: 100%;
+    }
+    button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4CAF50; /* Cor verde original */
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 250px; /* Largura fixa restaurada */
+    max-width: 100%; /* Permite adaptação em telas menores */
+    align-self: center; /* Centraliza o botão no formulário */
+}
+
+button:hover {
+    background-color: #45a049; /* Cor ao passar o mouse */
+}
+	@media (max-width: 600px) {
+    .title-container span {
+        font-size: 1.2em; /* Reduz o tamanho do título em telas pequenas */
+    }
+
+    .form-container {
+        gap: 8px; /* Reduz o espaço entre os elementos */
+    }
+
+    select, label {
+        font-size: 0.9em; /* Ajusta o tamanho da fonte */
+    }
+
+   
+}
+</style>
+
 </head>
 <body>
-    <h1>Configurações do Clube Olímpico - Sistema de Reservas</h1>
+<div class="form-container">
+    <div class="title-container">
+    <span>Clube Olímpico</span>
+    <span>Sistema de Reservas</span>
+    <span>Configurações</span>
+	</div>
+
 
     <!-- Configuração de vDomingo -->
     <div class="container">
@@ -181,5 +243,7 @@
         };
 		
     </script>
+	
+</div>
 </body>
 </html>
