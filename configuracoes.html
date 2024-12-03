@@ -14,6 +14,7 @@
     font-family: Arial, sans-serif;
     padding: 10px; /* Reduz o espaço para telas pequenas */
     display: flex;
+	font-size: 18px; /* Define o tamanho base das fontes */
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
@@ -21,10 +22,13 @@
     overflow-y: auto; /* Evita rolagem horizontal e controla rolagem vertical */
     box-sizing: border-box; /* Inclui padding/margin no cálculo de tamanho */
 }
-    .container {
-        margin-bottom: 20px;
-        text-align: left; /* Alinhamento interno dos campos */
-    }
+   .container {
+    display: flex; /* Torna o contêiner um flexbox */
+    align-items: center; /* Alinha verticalmente o conteúdo */
+    justify-content: space-between; /* Espaço uniforme entre label e campo */
+    margin-bottom: 15px; /* Espaço entre as linhas */
+    gap: 10px; /* Espaço horizontal entre o label e o campo */
+}
     .form-container {
     display: flex;
     flex-direction: column;
@@ -54,25 +58,31 @@
         margin-bottom: 10px;
         flex-wrap: wrap; /* Permite quebra em telas pequenas */
     }
-    label {
-        font-weight: bold;
-    }
-    select {
-        margin-top: 10px;
-        padding: 5px;
-        width: 100%;
-    }
+ label {
+    font-weight: bold;
+    width: 200px; /* Largura fixa consistente */
+    white-space: nowrap; /* Impede quebra de linha */
+    text-align: left; /* Alinha o texto à esquerda */
+}
+   select {
+    flex: 1; /* Faz o campo ocupar o espaço restante */
+    padding: 5px;
+    width: auto; /* Remove a largura fixa anterior */
+}
     button {
     margin-top: 20px;
     padding: 10px;
+	font-size: 17px; /* Ajuste conforme necessário */
     background-color: #4CAF50; /* Cor verde original */
     color: white;
     border: none;
     cursor: pointer;
-    width: 250px; /* Largura fixa restaurada */
-    max-width: 100%; /* Permite adaptação em telas menores */
-    align-self: center; /* Centraliza o botão no formulário */
+    width: 250px; /* Largura fixa */
+    max-width: 100%; /* Adapta em telas menores */
+    align-self: center; /* Centraliza o botão dentro do formulário */
+    display: block; /* Garante que ocupe sua própria linha */
 }
+
 
 button:hover {
     background-color: #45a049; /* Cor ao passar o mouse */
