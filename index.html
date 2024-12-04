@@ -741,12 +741,18 @@ atualizarTabela = function() {
     console.log('Iniciando a função AtualizarTabela');
 
     const jogadores = [];
-    for (let i = 1; i <= jogadorCount; i++) {
-        const jogador = document.getElementById(`jogador${i}`).value;
-        if (jogador) {
-            jogadores.push(jogador);
-        }
-    }
+	for (let i = 1; i <= jogadorCount; i++) {
+		let jogador = document.getElementById(`jogador${i}`).value;
+
+		// Substituir qualquer variação de "aula" por "aula"
+		if (jogador.toLowerCase().includes('aula')) {
+        jogador = 'aula';
+		}
+
+		if (jogador) {
+        jogadores.push(jogador);
+		}
+	}
 
     if (jogadores.length === 0) {
         alert('Insira pelo menos 1 jogador.');
