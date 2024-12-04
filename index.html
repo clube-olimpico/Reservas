@@ -169,14 +169,14 @@ let quadraSelecionada = 'Quadra 1 - Coberta';
 
 	
 	// descomentar quando publicar 
-/*	 
+	 
 		 document.addEventListener('contextmenu', event => event.preventDefault());
   document.addEventListener('keydown', event => {
     if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I")) {
       event.preventDefault();
     }
   });
-*/  
+  
 
 	
 	// Configuração do Firebase
@@ -248,7 +248,7 @@ function InicializarSistema() {
 					
                     atualizarDatas();
                     atualizarEstadoQuadras();
-					atualizarOpcoesHorario(); 
+					atualizarOpcoesHorario();  
                 }
 
                 console.log("Configurações carregadas:", config);
@@ -378,25 +378,29 @@ function atualizarEstadoQuadras() {
     document.querySelectorAll('.tab-button').forEach(button => {
         const quadraNome = button.innerText.trim();
 
+        // Gerenciar abas
         if (quadrasInativas.has(quadraNome)) {
             button.style.backgroundColor = "red"; // Fundo vermelho
             button.style.cursor = "not-allowed"; // Cursor bloqueado
-          
-            // Adiciona um evento de clique para mostrar o alerta sem permitir interação
-            button.onclick = () => {
-                alert(`A ${quadraNome} está interditada provisoriamente.`);
-            };
+            button.onclick = () => alert(`A ${quadraNome} está interditada provisoriamente.`);
         } else {
             button.style.backgroundColor = "#4CAF50"; // Fundo verde claro para quadras ativas
             button.style.cursor = "pointer"; // Cursor padrão
-            
-            // Limpa o evento de clique se não for interditada
-            button.onclick = () => {
-                selecionarQuadra(quadraNome); // Permite a seleção normal da quadra ativa
-            };
+            button.onclick = () => selecionarQuadra(quadraNome);
+        }
+    });
+
+    // Atualizar menu de seleção
+    const selectQuadra = document.getElementById('quadra');
+    Array.from(selectQuadra.options).forEach(option => {
+        if (quadrasInativas.has(option.value)) {
+            option.style.display = 'none'; // Ocultar a opção
+        } else {
+            option.style.display = ''; // Mostrar a opção
         }
     });
 }
+
 
 
 
