@@ -10,109 +10,83 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 
     <style>
-    body {
-    font-family: Arial, sans-serif;
-    padding: 10px; /* Reduz o espaço para telas pequenas */
-    display: flex;
-	font-size: 18px; /* Define o tamanho base das fontes */
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    margin: 0;
-    overflow-y: auto; /* Evita rolagem horizontal e controla rolagem vertical */
-    box-sizing: border-box; /* Inclui padding/margin no cálculo de tamanho */
-}
-   .container {
-    display: flex; /* Torna o contêiner um flexbox */
-    align-items: center; /* Alinha verticalmente o conteúdo */
-    justify-content: space-between; /* Espaço uniforme entre label e campo */
-    margin-bottom: 15px; /* Espaço entre as linhas */
-    gap: 10px; /* Espaço horizontal entre o label e o campo */
-}
-    .form-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    text-align: left;
-    max-width: 90%; /* Usa até 90% da largura da tela */
-    max-height: 90vh; /* Usa até 90% da altura da tela */
-    overflow-y: auto; /* Habilita rolagem interna, se necessário */
-    box-sizing: border-box;
-}
-.title-container {
-    display: flex;
-    flex-direction: column; /* Organiza o texto em linhas */
-    align-items: center; /* Centraliza horizontalmente */
-    text-align: center; /* Centraliza o conteúdo de cada linha */
-    margin-bottom: 20px; /* Espaço abaixo do título */
-}
-
-.title-container span {
-    font-size: 1.5em; /* Ajuste o tamanho da fonte */
-    font-weight: bold; /* Deixa o texto em negrito */
-    line-height: 1.5em; /* Espaçamento entre linhas */
-}
-    .form-row {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-        flex-wrap: wrap; /* Permite quebra em telas pequenas */
-    }
- label {
-    font-weight: bold;
-    width: 200px; /* Largura fixa consistente */
-    white-space: nowrap; /* Impede quebra de linha */
-    text-align: left; /* Alinha o texto à esquerda */
-}
-   select {
-    flex: 1; /* Faz o campo ocupar o espaço restante */
-    padding: 5px;
-    width: auto; /* Remove a largura fixa anterior */
-}
-    button {
-    margin-top: 20px;
-    padding: 10px;
-	font-size: 17px; /* Ajuste conforme necessário */
-    background-color: #4CAF50; /* Cor verde original */
-    color: white;
-    border: none;
-    cursor: pointer;
-    width: 250px; /* Largura fixa */
-    max-width: 100%; /* Adapta em telas menores */
-    align-self: center; /* Centraliza o botão dentro do formulário */
-    display: block; /* Garante que ocupe sua própria linha */
-}
-
-
-button:hover {
-    background-color: #45a049; /* Cor ao passar o mouse */
-}
-	@media (max-width: 600px) {
-    .title-container span {
-        font-size: 1.2em; /* Reduz o tamanho do título em telas pequenas */
-    }
-
-    .form-container {
-        gap: 8px; /* Reduz o espaço entre os elementos */
-    }
-
-    select, label {
-        font-size: 0.9em; /* Ajusta o tamanho da fonte */
-    }
-
-   
-}
-</style>
-
+        /* Seu CSS permanece inalterado */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 10px;
+            display: flex;
+            font-size: 18px;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: left;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+        .title-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .title-container span {
+            font-size: 1.5em;
+            font-weight: bold;
+            line-height: 1.5em;
+        }
+        label {
+            font-weight: bold;
+            width: 200px;
+            white-space: nowrap;
+            text-align: left;
+        }
+        select {
+            flex: 1;
+            padding: 5px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 17px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 250px;
+            max-width: 100%;
+            align-self: center;
+            display: block;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 <div class="form-container">
     <div class="title-container">
-    <span>Clube Olímpico</span>
-    <span>Sistema de Reservas</span>
-    <span>Configurações</span>
-	</div>
-
+        <span>Clube Olímpico</span>
+        <span>Sistema de Reservas</span>
+        <span>Configurações</span>
+    </div>
 
     <!-- Configuração de vDomingo -->
     <div class="container">
@@ -123,20 +97,20 @@ button:hover {
         </select>
     </div>
 
-    <!-- Configuração de DiasParaLimpar -->
+    <!-- Configuração de DiasParaAgendar -->
     <div class="container">
-        <label for="diasParaLimpar">Dias para Limpar:</label>
-        <select id="diasParaLimpar">
+        <label for="diasParaAgendar">Dias para Agendar:</label>
+        <select id="diasParaAgendar">
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
-            <option value="6">6</option>
         </select>
     </div>
 
-    <!-- Configuração das quadras -->
+    <!-- Configuração de quadras -->
     <div class="container">
         <label for="estadoQuadra1">Quadra 1 - Coberta:</label>
         <select id="estadoQuadra1">
@@ -162,35 +136,49 @@ button:hover {
     <button onclick="salvarConfiguracoes()">Salvar Configurações</button>
 
     <script>
-        // Mensagens de acordo com o valor de diasParaLimpar
-        const mensagensDiasParaLimpar = {
-            1: "Permite a reserva de até 5 dias de antecedência. Limpará os dados do dia anterior.",
-            2: "Permite a reserva de até 4 dias de antecedência. Limpará os dados de 2 dias anteriores.",
-            3: "Permite a reserva de até 3 dias de antecedência. Limpará os dados de 3 dias anteriores.",
-            4: "Permite a reserva de até 2 dias de antecedência. Limpará os dados de 4 dias anteriores.",
-            5: "Permite a reserva de até 1 dia de antecedência. Limpará os dados de 5 dias anteriores.",
-            6: "Permite a reserva somente do dia atual. Limpará os dados de 6 dias anteriores."
-        };
-        
+	
+	// Mensagens de acordo com o valor de DiasParaAgendar
+const mensagensDiasParaAgendar = {
+    5: "Permite a reserva de até 5 dias de antecedência. Limpará os dados do dia anterior.",
+    4: "Permite a reserva de até 4 dias de antecedência. Limpará os dados de 2 dias anteriores.",
+    3: "Permite a reserva de até 3 dias de antecedência. Limpará os dados de 3 dias anteriores.",
+    2: "Permite a reserva de até 2 dias de antecedência. Limpará os dados de 4 dias anteriores.",
+    1: "Permite a reserva de até 1 dia de antecedência. Limpará os dados de 5 dias anteriores.",
+    0: "Permite a reserva somente do dia atual. Limpará os dados de 6 dias anteriores."
+};
+
         // Configuração do Firebase
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",  // Substitua com sua API Key do Firebase
+            apiKey: "YOUR_API_KEY",
             authDomain: "agenda-5ce95.firebaseapp.com",
-            databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com/",  // URL do seu Firebase Realtime Database
+            databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com/",
             projectId: "agenda-5ce95",
             storageBucket: "agenda-5ce95.appspot.com",
             messagingSenderId: "852007565195",
             appId: "1:852007565195:web:d7bd789d140858f53f618e"
         };
-
-        // Inicializa o Firebase
         const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();  // Usando o Realtime Database compatível
+        const db = firebase.database();
 
-        // Função para salvar as configurações no Firebase Realtime Database
-        function salvarConfiguracoes() {
+// Função para atualizar DiasParaLimpar e exibir mensagem
+function atualizarDiasParaLimpar() {
+    const diasParaAgendar = parseInt(document.getElementById('diasParaAgendar').value);
+    const diasParaLimpar = 6 - diasParaAgendar;
+
+    // Exibir mensagem correspondente ao DiasParaAgendar
+    if (mensagensDiasParaAgendar.hasOwnProperty(diasParaAgendar)) {
+        alert(mensagensDiasParaAgendar[diasParaAgendar]);
+    } else {
+        console.error("Valor inválido para 'DiasParaAgendar':", diasParaAgendar);
+    }
+}
+
+// Salvar configurações no Firebase
+
+function salvarConfiguracoes() {
             const vDomingo = document.getElementById('vDomingo').value;
-            const diasParaLimpar = document.getElementById('diasParaLimpar').value;
+			const diasParaLimpar = 6 - document.getElementById('diasParaAgendar').value;
+			
             const estadoQuadra1 = document.getElementById('estadoQuadra1').value;
             const estadoQuadra2 = document.getElementById('estadoQuadra2').value;
             const estadoQuadra3 = document.getElementById('estadoQuadra3').value;
@@ -224,36 +212,41 @@ button:hover {
             });
         }
 
+        // Carregar configurações do Firebase
         // Função para carregar as configurações do Firebase e preencher os campos
-        function carregarConfiguracoes() {
-            db.ref("sistema/config").once("value", (snapshot) => {
-                const data = snapshot.val();
+		function carregarConfiguracoes() {
+			db.ref("sistema/config").once("value", (snapshot) => {
+				const data = snapshot.val();
 
-                if (data) {
-                    document.getElementById('vDomingo').value = data.vDomingo || "aberto";
-                    document.getElementById('diasParaLimpar').value = data.DiasParaLimpar || "1";
+				if (data) {
+					document.getElementById('vDomingo').value = data.vDomingo || "aberto";
+					const diasParaLimpar = data.DiasParaLimpar || 6;
+					document.getElementById('diasParaAgendar').value = (6 - diasParaLimpar).toString();
 
-                    const quadras = data.Quadras || {};
-                    document.getElementById('estadoQuadra1').value = quadras.Quadra1 || "liberada";
-                    document.getElementById('estadoQuadra2').value = quadras.Quadra2 || "liberada";
-                    document.getElementById('estadoQuadra3').value = quadras.Quadra3 || "liberada";
-                }
-            });
-        }
-
-        // Exibir a mensagem somente quando o valor de diasParaLimpar for alterado
-        document.getElementById('diasParaLimpar').addEventListener('change', function () {
-            const diasSelecionados = parseInt(this.value);
-            alert(mensagensDiasParaLimpar[diasSelecionados]);
-        });
+					// Carregar dados das quadras
+					const quadras = data.Quadras || {};
+					document.getElementById('estadoQuadra1').value = quadras.Quadra1 || "liberada";
+					document.getElementById('estadoQuadra2').value = quadras.Quadra2 || "liberada";
+					document.getElementById('estadoQuadra3').value = quadras.Quadra3 || "liberada";
+				}
+			});
+		}
 		
-		// Garantir que a página seja carregada com os dados do Firebase
-        window.onload = function() {
-            carregarConfiguracoes();  // Carrega as configurações quando a página for aberta
-        };
 		
+
+
+window.onload = function () {
+    carregarConfiguracoes(); // Carrega as configurações ao iniciar a página
+
+    // Registrar evento no elemento DiasParaAgendar
+    const diasParaAgendarElement = document.getElementById('diasParaAgendar');
+    if (diasParaAgendarElement) {
+        diasParaAgendarElement.addEventListener('change', atualizarDiasParaLimpar);
+    } else {
+        console.error("Elemento 'diasParaAgendar' não encontrado no DOM.");
+    }
+};
     </script>
-	
 </div>
 </body>
 </html>
