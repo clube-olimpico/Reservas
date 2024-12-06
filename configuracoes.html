@@ -137,6 +137,17 @@
 
     <script>
 	
+	// descomentar quando publicar 
+	 
+		 document.addEventListener('contextmenu', event => event.preventDefault());
+  document.addEventListener('keydown', event => {
+    if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I")) {
+      event.preventDefault();
+    }
+  });
+ 
+
+	
 	// Mensagens de acordo com o valor de DiasParaAgendar
 const mensagensDiasParaAgendar = {
     5: "Permite a reserva de até 5 dias de antecedência. Limpará os dados do dia anterior.",
@@ -212,13 +223,18 @@ function salvarConfiguracoes() {
             });
         }
 
-        // Carregar configurações do Firebase
+
         // Função para carregar as configurações do Firebase e preencher os campos
 		function carregarConfiguracoes() {
 			db.ref("sistema/config").once("value", (snapshot) => {
 				const data = snapshot.val();
 
 				if (data) {
+				     if (data.Abrir === false) {
+					  window.close();
+					  return;
+					 }
+	
 					document.getElementById('vDomingo').value = data.vDomingo || "aberto";
 					const diasParaLimpar = data.DiasParaLimpar || 6;
 					document.getElementById('diasParaAgendar').value = (6 - diasParaLimpar).toString();
