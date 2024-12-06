@@ -186,7 +186,7 @@ let quadraSelecionada = 'Quadra 1 - Coberta';
       event.preventDefault();
     }
   });
-  
+   
 
 	
 	// Configuração do Firebase
@@ -244,6 +244,11 @@ function InicializarSistema() {
 
             if (data) {
                 const config = data.config;
+				
+				    if (config.Abrir === false) {
+					  window.close();
+					  return;
+					}
 
                 if (config) {
                     window.DiasParaLimpar = config.DiasParaLimpar || 4;
