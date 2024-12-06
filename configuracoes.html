@@ -10,7 +10,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 
     <style>
-        /* Seu CSS permanece inalterado */
         body {
             font-family: Arial, sans-serif;
             padding: 10px;
@@ -78,65 +77,84 @@
         button:hover {
             background-color: #45a049;
         }
+        #loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            text-align: center;
+            z-index: 1000;
+        }
+        #content {
+            display: none;
+        }
     </style>
 </head>
 <body>
-<div class="form-container">
-    <div class="title-container">
-        <span>Clube Olímpico</span>
-        <span>Sistema de Reservas</span>
-        <span>Configurações</span>
-    </div>
+<div id="loading">
+    Carregando... Aguarde.
+</div>
 
-    <!-- Configuração de vDomingo -->
-    <div class="container">
-        <label for="vDomingo">Estado de Domingo:</label>
-        <select id="vDomingo">
-            <option value="aberto">Aberto</option>
-            <option value="fechado">Fechado</option>
-        </select>
-    </div>
+<div id="content">
+    <div class="form-container">
+        <div class="title-container">
+            <span>Clube Olímpico</span>
+            <span>Sistema de Reservas</span>
+            <span>Configurações</span>
+        </div>
 
-    <!-- Configuração de DiasParaAgendar -->
-    <div class="container">
-        <label for="diasParaAgendar">Dias para Agendar:</label>
-        <select id="diasParaAgendar">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-    </div>
+        <!-- Configuração de vDomingo -->
+        <div class="container">
+            <label for="vDomingo">Estado de Domingo:</label>
+            <select id="vDomingo">
+                <option value="aberto">Aberto</option>
+                <option value="fechado">Fechado</option>
+            </select>
+        </div>
 
-    <!-- Configuração de quadras -->
-    <div class="container">
-        <label for="estadoQuadra1">Quadra 1 - Coberta:</label>
-        <select id="estadoQuadra1">
-            <option value="liberada">Liberada</option>
-            <option value="interditada">Interditada</option>
-        </select>
-    </div>
-    <div class="container">
-        <label for="estadoQuadra2">Quadra 2 - Aberta :</label>
-        <select id="estadoQuadra2">
-            <option value="liberada">Liberada</option>
-            <option value="interditada">Interditada</option>
-        </select>
-    </div>
-    <div class="container">
-        <label for="estadoQuadra3">Quadra 3 - Coberta:</label>
-        <select id="estadoQuadra3">
-            <option value="liberada">Liberada</option>
-            <option value="interditada">Interditada</option>
-        </select>
-    </div>
+        <!-- Configuração de DiasParaAgendar -->
+        <div class="container">
+            <label for="diasParaAgendar">Dias para Agendar:</label>
+            <select id="diasParaAgendar">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
 
-    <button onclick="salvarConfiguracoes()">Salvar Configurações</button>
+        <!-- Configuração de quadras -->
+        <div class="container">
+            <label for="estadoQuadra1">Quadra 1 - Coberta:</label>
+            <select id="estadoQuadra1">
+                <option value="liberada">Liberada</option>
+                <option value="interditada">Interditada</option>
+            </select>
+        </div>
+        <div class="container">
+            <label for="estadoQuadra2">Quadra 2 - Aberta:</label>
+            <select id="estadoQuadra2">
+                <option value="liberada">Liberada</option>
+                <option value="interditada">Interditada</option>
+            </select>
+        </div>
+        <div class="container">
+            <label for="estadoQuadra3">Quadra 3 - Coberta:</label>
+            <select id="estadoQuadra3">
+                <option value="liberada">Liberada</option>
+                <option value="interditada">Interditada</option>
+            </select>
+        </div>
 
-    <script>
-	
+        <button onclick="salvarConfiguracoes()">Salvar Configurações</button>
+    </div>
+</div>
+
+<script>
+
 	// descomentar quando publicar 
 	 
 		 document.addEventListener('contextmenu', event => event.preventDefault());
@@ -147,122 +165,89 @@
   });
  
 
-	
-	// Mensagens de acordo com o valor de DiasParaAgendar
-const mensagensDiasParaAgendar = {
-    5: "Permite a reserva de até 5 dias de antecedência. Limpará os dados do dia anterior.",
-    4: "Permite a reserva de até 4 dias de antecedência. Limpará os dados de 2 dias anteriores.",
-    3: "Permite a reserva de até 3 dias de antecedência. Limpará os dados de 3 dias anteriores.",
-    2: "Permite a reserva de até 2 dias de antecedência. Limpará os dados de 4 dias anteriores.",
-    1: "Permite a reserva de até 1 dia de antecedência. Limpará os dados de 5 dias anteriores.",
-    0: "Permite a reserva somente do dia atual. Limpará os dados de 6 dias anteriores."
-};
+    // Configuração do Firebase
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "agenda-5ce95.firebaseapp.com",
+        databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com/",
+        projectId: "agenda-5ce95",
+        storageBucket: "agenda-5ce95.appspot.com",
+        messagingSenderId: "852007565195",
+        appId: "1:852007565195:web:d7bd789d140858f53f618e"
+    };
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-        // Configuração do Firebase
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "agenda-5ce95.firebaseapp.com",
-            databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com/",
-            projectId: "agenda-5ce95",
-            storageBucket: "agenda-5ce95.appspot.com",
-            messagingSenderId: "852007565195",
-            appId: "1:852007565195:web:d7bd789d140858f53f618e"
-        };
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
+    // Função para carregar as configurações do Firebase
+    function carregarConfiguracoes() {
+        return new Promise((resolve, reject) => {
+            db.ref("sistema/config").once("value")
+                .then(snapshot => {
+                    const data = snapshot.val();
+                    if (data) {
+					    if (data.Abrir === false) {
+							window.close();
+							return;
+						}
+                        document.getElementById('vDomingo').value = data.vDomingo || "aberto";
+                        const diasParaLimpar = data.DiasParaLimpar || 6;
+                        document.getElementById('diasParaAgendar').value = (6 - diasParaLimpar).toString();
 
-// Função para atualizar DiasParaLimpar e exibir mensagem
-function atualizarDiasParaLimpar() {
-    const diasParaAgendar = parseInt(document.getElementById('diasParaAgendar').value);
-    const diasParaLimpar = 6 - diasParaAgendar;
-
-    // Exibir mensagem correspondente ao DiasParaAgendar
-    if (mensagensDiasParaAgendar.hasOwnProperty(diasParaAgendar)) {
-        alert(mensagensDiasParaAgendar[diasParaAgendar]);
-    } else {
-        console.error("Valor inválido para 'DiasParaAgendar':", diasParaAgendar);
+                        const quadras = data.Quadras || {};
+                        document.getElementById('estadoQuadra1').value = quadras.Quadra1 || "liberada";
+                        document.getElementById('estadoQuadra2').value = quadras.Quadra2 || "liberada";
+                        document.getElementById('estadoQuadra3').value = quadras.Quadra3 || "liberada";
+                    }
+                    resolve();
+                })
+                .catch(error => {
+                    console.error("Erro ao carregar configurações:", error);
+                    reject(error);
+                });
+        });
     }
-}
 
-// Salvar configurações no Firebase
+    // Função para salvar configurações no Firebase
+    function salvarConfiguracoes() {
+        const vDomingo = document.getElementById('vDomingo').value;
+        const diasParaLimpar = 6 - parseInt(document.getElementById('diasParaAgendar').value);
+        const estadoQuadra1 = document.getElementById('estadoQuadra1').value;
+        const estadoQuadra2 = document.getElementById('estadoQuadra2').value;
+        const estadoQuadra3 = document.getElementById('estadoQuadra3').value;
 
-function salvarConfiguracoes() {
-            const vDomingo = document.getElementById('vDomingo').value;
-			const diasParaLimpar = 6 - document.getElementById('diasParaAgendar').value;
-			
-            const estadoQuadra1 = document.getElementById('estadoQuadra1').value;
-            const estadoQuadra2 = document.getElementById('estadoQuadra2').value;
-            const estadoQuadra3 = document.getElementById('estadoQuadra3').value;
-
-            if (!vDomingo || !diasParaLimpar || !estadoQuadra1 || !estadoQuadra2 || !estadoQuadra3) {
-                alert("Por favor, preencha todos os campos antes de salvar.");
-                return;
+        db.ref("sistema/config").set({
+            vDomingo,
+            DiasParaLimpar: diasParaLimpar,
+            Quadras: {
+                Quadra1: estadoQuadra1,
+                Quadra2: estadoQuadra2,
+                Quadra3: estadoQuadra3
             }
+        })
+        .then(() => alert("Configurações salvas com sucesso!"))
+        .catch(error => {
+            console.error("Erro ao salvar configurações:", error);
+            alert("Erro ao salvar configurações. Verifique o console para mais detalhes.");
+        });
+    }
 
-            const diasLimparNum = parseInt(diasParaLimpar);
-            if (isNaN(diasLimparNum) || diasLimparNum < 1 || diasLimparNum > 6) {
-                alert("Selecione um valor válido para 'Dias para Limpar'.");
-                return;
-            }
+    // Exibe a tela de carregamento enquanto carrega as configurações
+    window.onload = function() {
+        const loadingElement = document.getElementById('loading');
+        const contentElement = document.getElementById('content');
 
-            db.ref("sistema/config").set({
-                vDomingo: vDomingo,
-                DiasParaLimpar: diasLimparNum,
-                Quadras: {
-                    Quadra1: estadoQuadra1,
-                    Quadra2: estadoQuadra2,
-                    Quadra3: estadoQuadra3
-                }
-            })
+        loadingElement.style.display = 'block';
+        contentElement.style.display = 'none';
+
+        carregarConfiguracoes()
             .then(() => {
-                alert("Configurações salvas com sucesso!");
+                loadingElement.style.display = 'none';
+                contentElement.style.display = 'block';
             })
-            .catch((error) => {
-                console.error("Erro ao salvar configurações: ", error);
-                alert("Erro ao salvar configurações. Veja o console para mais detalhes.");
+            .catch(error => {
+                console.error("Erro ao carregar configurações:", error);
             });
-        }
-
-
-        // Função para carregar as configurações do Firebase e preencher os campos
-		function carregarConfiguracoes() {
-			db.ref("sistema/config").once("value", (snapshot) => {
-				const data = snapshot.val();
-
-				if (data) {
-				     if (data.Abrir === false) {
-					  window.close();
-					  return;
-					 }
-	
-					document.getElementById('vDomingo').value = data.vDomingo || "aberto";
-					const diasParaLimpar = data.DiasParaLimpar || 6;
-					document.getElementById('diasParaAgendar').value = (6 - diasParaLimpar).toString();
-
-					// Carregar dados das quadras
-					const quadras = data.Quadras || {};
-					document.getElementById('estadoQuadra1').value = quadras.Quadra1 || "liberada";
-					document.getElementById('estadoQuadra2').value = quadras.Quadra2 || "liberada";
-					document.getElementById('estadoQuadra3').value = quadras.Quadra3 || "liberada";
-				}
-			});
-		}
-		
-		
-
-
-window.onload = function () {
-    carregarConfiguracoes(); // Carrega as configurações ao iniciar a página
-
-    // Registrar evento no elemento DiasParaAgendar
-    const diasParaAgendarElement = document.getElementById('diasParaAgendar');
-    if (diasParaAgendarElement) {
-        diasParaAgendarElement.addEventListener('change', atualizarDiasParaLimpar);
-    } else {
-        console.error("Elemento 'diasParaAgendar' não encontrado no DOM.");
-    }
-};
-    </script>
-</div>
+    };
+</script>
 </body>
 </html>
