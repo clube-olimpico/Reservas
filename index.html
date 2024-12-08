@@ -949,7 +949,12 @@ function adicionarEventoClique() {
             if (j !== 0 && j !== 8) {
                 celula.onclick = function () {
                     if (celula.innerHTML !== "") {
-                        const confirmacao = confirm("Você quer excluir esta reserva?");
+                        // Verifica se o conteúdo da célula é "aula"
+                        const mensagem = celula.innerHTML.trim().toLowerCase() === "aula"
+                            ? "Você quer excluir esta aula?"
+                            : "Você quer excluir esta reserva?";
+
+                        const confirmacao = confirm(mensagem);
                         if (confirmacao) {
                             excluirReserva(i, j); // Passa a posição da célula
                         }
