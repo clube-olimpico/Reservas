@@ -148,6 +148,22 @@ th {
 #content {
     display: none;
 }
+.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white; /* Para garantir uma boa visualização */
+    z-index: 9999;
+    overflow: auto; /* Permite rolar caso necessário */
+}
+
+.fullscreen table {
+    width: 100%; /* Garante que a tabela se ajuste ao contêiner */
+    height: auto; /* Preserva o aspecto da tabela */
+}
+
 </style>
 	
 	
@@ -178,7 +194,7 @@ let quadraSelecionada = 'Quadra 1 - Coberta';
 //************************************************************************************************************************************************************************
 
 	
-	// descomentar quando publicar 
+	// descomentar quando publicar  
 	 
 		 document.addEventListener('contextmenu', event => event.preventDefault());
   document.addEventListener('keydown', event => {
@@ -926,21 +942,25 @@ function adicionarEventoClique() {
         for (let j = 0; j < tabela.rows[i].cells.length; j++) {
             const celula = tabela.rows[i].cells[j];
 
-            // Remover qualquer evento de clique anterior
+            // Remove qualquer evento de clique anterior
             celula.onclick = null;
 
-            // Adicionar novo evento de clique
-            celula.onclick = function() {
-                if (celula.innerHTML !== "") {
-                    const confirmacao = confirm("Você quer excluir esta reserva?");
-                    if (confirmacao) {
-                        excluirReserva(i, j); // Passa a posição da célula
+            // Ignora as células das colunas 0 e 8 (que contêm os horários)
+            if (j !== 0 && j !== 8) {
+                celula.onclick = function () {
+                    if (celula.innerHTML !== "") {
+                        const confirmacao = confirm("Você quer excluir esta reserva?");
+                        if (confirmacao) {
+                            excluirReserva(i, j); // Passa a posição da célula
+                        }
                     }
-                }
-            };
+                };
+            }
         }
     }
 }
+
+
 
 
 
@@ -1304,6 +1324,21 @@ window.onload = function() {
             // Exibe uma mensagem de erro se a Promise for rejeitada
         });
 };
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tabelaContainer = document.querySelector('.tabela-container');
+
+    tabelaContainer.addEventListener('dblclick', (event) => {
+        // Verifica se o elemento clicado é uma célula (TH ou TD)
+        const target = event.target;
+
+        if ((target.tagName === 'TH' || target.tagName === 'TD') && target.innerText.includes('Horários')) {
+            // Alternar a classe 'fullscreen' no contêiner da tabela
+            tabelaContainer.classList.toggle('fullscreen');
+        }
+    });
+});
 
 
 </script>
