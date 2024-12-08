@@ -215,7 +215,7 @@
         const estadoQuadra2 = document.getElementById('estadoQuadra2').value;
         const estadoQuadra3 = document.getElementById('estadoQuadra3').value;
 
-        db.ref("sistema/config").set({
+        db.ref("sistema/config").update({
             vDomingo,
             DiasParaLimpar: diasParaLimpar,
             Quadras: {
