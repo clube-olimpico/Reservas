@@ -12,9 +12,10 @@ body {
 }
 
 .form-container {
-    padding: 10px;
+    padding: 20px;
     margin: 0 auto;
     max-width: 500px;
+    margin-top: -10px; /* Espaçamento para evitar sobreposição com a barra fixa */
 }
 
 .form-row {
@@ -79,9 +80,24 @@ button:hover {
     background-color: #45a049;
 }
 
+.tab-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    position: fixed; /* Fixa os botões no topo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white; /* Fundo branco para destacar */
+    z-index: 1000; /* Garante que fique acima de outros elementos */
+    padding: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para realce */
+}
+
 .tabela-container {
     overflow-x: auto; /* Permite rolar horizontalmente */
     width: 100%; /* Garante que o contêiner ocupe toda a largura da tela */
+    margin-top: 10px; /* Espaço para não sobrepor os botões fixos */
 }
 
 table {
@@ -120,6 +136,15 @@ th {
 
 .tab-button {
     transition: background-color 0.3s ease;
+    background-color: #4CAF50; /* Cor padrão */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+}
+.tab-button:hover {
+    background-color: #45a049; /* Cor ao passar o mouse */
 }
 
 .tab-button[disabled] {
@@ -128,15 +153,10 @@ th {
 }
 
 .tab-button.selected {
-    font-weight: bold; /* Fonte em negrito */
+    font-weight: bold;
     background-color: #228B22 !important; /* Fundo verde escuro */
-    color: white; /* Texto branco */
-}
-
-#currentVersion {
-    font-size: 1.2em;
-    color: #333;
-    margin-bottom: 20px;
+    color: white !important; /* Texto branco */
+    border: 2px solid #1A6418 !important; /* Borda mais escura */
 }
 
 #loading {
@@ -148,6 +168,7 @@ th {
 #content {
     display: none;
 }
+
 .fullscreen {
     position: fixed;
     top: 0;
@@ -162,11 +183,10 @@ th {
 .fullscreen table {
     width: 100%; /* Garante que a tabela se ajuste ao contêiner */
     height: auto; /* Preserva o aspecto da tabela */
+	
 }
 
-</style>
-	
-	
+</style>	
 	
 	<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
@@ -176,7 +196,7 @@ th {
 	
 //***********************************************************************************************************************************************************************
 
-// Função para buscar a versão mais recente e redirecionar
+// Ajuste manual da versão do Sistema
 const VersaoSistema = 'v1.0.0'; // Versão atual do sistema
 
  
@@ -189,7 +209,7 @@ window.vDomingo = undefined; // Valor padrão fechado, pois o clube nao abre aos
 
 let quadrasInativas = new Set();
 let reservasPorQuadra = {};
-let quadraSelecionada = 'Quadra 1 - Coberta';
+let quadraSelecionada = 'Quadra 1 - Coberta'; 
 		
 //************************************************************************************************************************************************************************
 
@@ -250,6 +270,8 @@ function inicializarEstruturaInicial() {
         });
 }
 
+
+
 // Carregar dados iniciais do banco de dados
 function InicializarSistema() {
     return new Promise((resolve, reject) => {
@@ -260,11 +282,6 @@ function InicializarSistema() {
 
             if (data) {
                 const config = data.config;
-				
-				    if (config.Abrir === false) {
-					  window.close();
-					  return;
-					}
 
                 if (config) {
                     window.DiasParaLimpar = config.DiasParaLimpar || 4;
@@ -276,10 +293,9 @@ function InicializarSistema() {
                     if (quadras.Quadra1 === "interditada") quadrasInativas.add("Quadra 1 - Coberta");
                     if (quadras.Quadra2 === "interditada") quadrasInativas.add("Quadra 2 - Aberta");
                     if (quadras.Quadra3 === "interditada") quadrasInativas.add("Quadra 3 - Coberta");
-					
+
                     atualizarDatas();
-                    atualizarEstadoQuadras();
-					atualizarOpcoesHorario();  
+                    atualizarOpcoesHorario();
                 }
 
                 console.log("Configurações carregadas:", config);
@@ -288,34 +304,125 @@ function InicializarSistema() {
                 inicializarEstruturaInicial();
             }
 
-            // Após carregar os dados, verificar o estado das quadras
-            if (quadrasInativas.has('Quadra 1 - Coberta')) {
-                console.log('Quadra 1 está interditada.');
+            // Determinar qual quadra será selecionada por padrão
+            let quadraInicial = "Quadra 1 - Coberta"; // Padrão inicial
+            if (quadrasInativas.has(quadraInicial)) {
+                console.log(`${quadraInicial} está interditada.`);
 
-                // Se a Quadra 1 estiver interditada, seleciona a próxima quadra ativa
-                const proximasQuadras = Array.from(document.querySelectorAll('.tab-button'))
-                    .filter(button => !quadrasInativas.has(button.innerText.trim())); // Filtra as quadras não interditadas
+                // Selecionar a próxima quadra ativa
+                const proximasQuadras = ["Quadra 2 - Aberta", "Quadra 3 - Coberta"]
+                    .filter(quadra => !quadrasInativas.has(quadra));
 
                 if (proximasQuadras.length > 0) {
-                    // Se houver quadras ativas, seleciona a primeira disponível
-                    const quadraDisponivel = proximasQuadras[0].innerText.trim();
-                    console.log('Quadra selecionada automaticamente:', quadraDisponivel);
-                    selecionarQuadra(quadraDisponivel); // Seleciona a próxima quadra ativa
-                } else {
-                    // Caso todas as quadras estejam interditadas, exibe alerta
-                    alert("Todas as quadras estão interditadas.");
-                }
-            } else {
-                // Se a Quadra 1 não estiver interditada, seleciona ela
-                console.log('Quadra 1 está disponível.');
-                selecionarQuadra('Quadra 1 - Coberta');
+    quadraInicial = proximasQuadras[0]; // Pega a primeira quadra ativa
+} else {
+    console.log("Todas as quadras estão interditadas.");
+
+    // **1. Sincronize quadrasInativas com todas as quadras antes de atualizar**
+    quadrasInativas.clear(); // Limpa qualquer estado antigo
+    quadrasInativas.add("Quadra 1 - Coberta");
+    quadrasInativas.add("Quadra 2 - Aberta");
+    quadrasInativas.add("Quadra 3 - Coberta");
+
+    // **2. Atualize os botões visualmente antes de qualquer outra ação**
+    atualizarEstadoQuadras();
+
+    // Limpar o campo de seleção de quadras
+    const selectQuadra = document.getElementById('quadra');
+    if (selectQuadra) {
+        selectQuadra.innerHTML = ""; // Remove todas as opções
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.textContent = "Nenhuma quadra disponível";
+        selectQuadra.appendChild(defaultOption);
+    }
+
+    // Ocultar a interface da planilha
+    const tabelaContainer = document.querySelector('.tabela-container');
+    const header = document.querySelector('.header');
+    if (tabelaContainer) tabelaContainer.style.display = 'none';
+    if (header) header.style.display = 'none';
+
+    // Exibir o alerta informando que todas as quadras estão interditadas
+    alert("Todas as quadras estão interditadas no momento.");
+    resolve();
+    return; // Interrompe a execução caso todas as quadras estejam interditadas
+}
+
             }
+
+            console.log("Quadra selecionada automaticamente:", quadraInicial);
+
+            // Atualiza o botão ativo na interface
+            document.querySelectorAll('.tab-button').forEach(button => {
+                if (button.innerText.trim() === quadraInicial) {
+                    button.classList.add('selected');
+                } else {
+                    button.classList.remove('selected');
+                }
+            });
+
+            // Atualiza o campo de seleção de quadras
+            const selectQuadra = document.getElementById('quadra');
+            if (selectQuadra) {
+                selectQuadra.innerHTML = ""; // Limpa as opções
+                ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"].forEach(quadra => {
+                    if (!quadrasInativas.has(quadra)) {
+                        const option = document.createElement('option');
+                        option.value = quadra;
+                        option.textContent = quadra;
+                        selectQuadra.appendChild(option);
+                    }
+                });
+                selectQuadra.value = quadraInicial; // Define a quadra inicial
+            }
+
+            // Exibir a interface da planilha
+            const tabelaContainer = document.querySelector('.tabela-container');
+            const header = document.querySelector('.header');
+            if (tabelaContainer) tabelaContainer.style.display = 'block';
+            if (header) {
+                header.style.display = 'block';
+                header.innerText = quadraInicial; // Atualiza o título da quadra
+            }
+
+            // **FORÇAR** atualização visual dos botões das quadras interditadas
+            atualizarEstadoQuadras();
+
+            // Seleciona a quadra inicial
+            selecionarQuadra(quadraInicial);
 
             resolve();
         }, (error) => {
             console.error("Erro ao carregar dados iniciais:", error);
             reject(error);
         });
+    });
+}
+
+ 
+
+function atualizarEstadoQuadras() {
+    console.log("Atualizando estado visual das quadras...");
+
+    // Verifica se o conjunto quadrasInativas está atualizado
+    console.log("Quadras inativas:", Array.from(quadrasInativas));
+
+    // Atualiza os botões de quadra
+    document.querySelectorAll('.tab-button').forEach(button => {
+        const quadraNome = button.innerText.trim();
+
+        if (quadrasInativas.has(quadraNome)) {
+            console.log(`Interditando visualmente: ${quadraNome}`);
+            button.style.setProperty("background-color", "red", "important"); // Prioriza a cor
+            button.style.setProperty("cursor", "not-allowed", "important"); // Prioriza o cursor
+            button.onclick = () => alert(`A ${quadraNome} está interditada provisoriamente.`);
+        } else {
+            console.log(`Liberando visualmente: ${quadraNome}`);
+            button.style.setProperty("background-color", "#4CAF50", "important"); // Prioriza a cor padrão
+            button.style.setProperty("cursor", "pointer", "important"); // Prioriza o cursor padrão
+            button.onclick = () => selecionarQuadra(quadraNome); // Permitir seleção de quadra ativa
+        }
     });
 }
 
@@ -387,8 +494,14 @@ function configurarBordasDuracao2(cell, tabela, rowIndex, colIndex) {
 
 // Função para buscar a versão mais recente e redirecionar
 function verificarVersao() {
-    document.getElementById('versaoSistema').innerHTML += ` ${VersaoSistema}`;
-}
+            const elementoVersao = document.getElementById('VersaoSistema');
+            if (elementoVersao) {
+                elementoVersao.textContent = `Versão: ${VersaoSistema}`;
+                console.log("Versão atualizada para: ", VersaoSistema);
+            } else {
+                console.error('Elemento para exibir a versão não encontrado!');
+            }
+        }
 
 
 
@@ -403,39 +516,6 @@ function verificarVersao() {
         
 
         let jogadorCount = 1;
-
-
-function atualizarEstadoQuadras() {
-    document.querySelectorAll('.tab-button').forEach(button => {
-        const quadraNome = button.innerText.trim();
-
-        // Gerenciar abas
-        if (quadrasInativas.has(quadraNome)) {
-            button.style.backgroundColor = "red"; // Fundo vermelho
-            button.style.cursor = "not-allowed"; // Cursor bloqueado
-            button.onclick = () => alert(`A ${quadraNome} está interditada provisoriamente.`);
-        } else {
-            button.style.backgroundColor = "#4CAF50"; // Fundo verde claro para quadras ativas
-            button.style.cursor = "pointer"; // Cursor padrão
-            button.onclick = () => selecionarQuadra(quadraNome);
-        }
-    });
-
-    // Atualizar menu de seleção
-    const selectQuadra = document.getElementById('quadra');
-    Array.from(selectQuadra.options).forEach(option => {
-        if (quadrasInativas.has(option.value)) {
-            option.style.display = 'none'; // Ocultar a opção
-        } else {
-            option.style.display = ''; // Mostrar a opção
-        }
-    });
-}
-
-
-
-
-
 
 
 function atualizarEstadoDomingo() {
@@ -492,33 +572,53 @@ function selecionarQuadra(quadra) {
     console.log("Quadra selecionada:", quadra);
 
     // Verifica se a quadra está interditada
-    if (quadrasInativas.has(quadra)) {
+    const isQuadraInterditada = quadrasInativas.has(quadra);
+
+    if (isQuadraInterditada) {
         alert(`A ${quadra} está interditada provisoriamente.`);
-        return; // Impede a seleção da quadra interditada
     }
 
-    // Se a quadra não estiver interditada, continua com a seleção
-    quadraSelecionada = quadra; // Atualiza a quadra selecionada
-    document.querySelector('.header').innerText = quadra; // Atualiza o título da quadra
+    // Atualiza a quadra selecionada
+    quadraSelecionada = quadra;
+    document.querySelector('.header').innerText = quadra;
 
-    // Remove a classe 'selected' de todos os botões
-    document.querySelectorAll('.tab-button').forEach(button => {
+    // Remove a classe 'selected' e estilo inline de todos os botões
+    const botoes = document.querySelectorAll('.tab-button');
+    botoes.forEach(button => {
         button.classList.remove('selected');
+        button.style.backgroundColor = ''; // Remove estilo inline
+        button.style.color = ''; // Remove estilo inline
+        button.style.border = ''; // Remove estilo inline
     });
 
-    // Adiciona a classe 'selected' ao botão correspondente
-    const botaoSelecionado = Array.from(document.querySelectorAll('.tab-button')).find(button => button.innerText.trim() === quadra);
-    if (botaoSelecionado) {
-        botaoSelecionado.classList.add('selected');
-    }
-	
-	
-	// Atualiza o estado do domingo após selecionar a quadra
-    atualizarEstadoDomingo(); // <- Adicionado aqui
-	
-	// Atualiza e exibe reservas para a quadra selecionada
+    // Adiciona a classe 'selected' e estilo inline ao botão correspondente
+    botoes.forEach(button => {
+        const textoBotao = button.textContent.trim();
+        console.log(`Comparando "${textoBotao}" com "${quadra}"`);
+
+        if (textoBotao === quadra) {
+            button.classList.add('selected'); // Aplica a classe 'selected' para quadra selecionada
+            button.style.backgroundColor = '#228B22'; // Cor verde escuro para quadra selecionada
+            button.style.color = 'white'; // Texto branco
+            button.style.border = '2px solid #1A6418'; // Borda escura para quadra selecionada (apenas para a verde)
+        }
+
+        // Verifica se a quadra está interditada e aplica o estilo vermelho
+        if (quadrasInativas.has(button.textContent.trim())) {
+            button.style.backgroundColor = 'red'; // Botão vermelho para quadras interditadas
+            button.style.color = 'white'; // Texto branco
+            button.style.border = ''; // Remove a borda para o botão vermelho
+        }
+    });
+
+    // Atualiza o estado do domingo após selecionar a quadra
+    atualizarEstadoDomingo();
+
+    // Atualiza e exibe reservas para a quadra selecionada
     carregarReservas(quadra);
 }
+
+
 
 
 
@@ -1297,6 +1397,7 @@ function abrirManual() {
 }
 
 
+
 window.onload = function() {
     verificarVersao();
 	
@@ -1314,7 +1415,7 @@ window.onload = function() {
     contentElement.style.display = 'none';
 
     console.log('Inicializando sistema...');
-    
+
     // Inicializa o sistema
     InicializarSistema()
         .then(() => {
@@ -1333,17 +1434,33 @@ window.onload = function() {
 
 document.addEventListener('DOMContentLoaded', () => {
     const tabelaContainer = document.querySelector('.tabela-container');
+    
+    // Variável para controlar o estado de expansão
+    let isExpanded = false;  // Inicia como falso, o que significa que o valor é 10px inicialmente
 
     tabelaContainer.addEventListener('dblclick', (event) => {
         // Verifica se o elemento clicado é uma célula (TH ou TD)
         const target = event.target;
 
         if ((target.tagName === 'TH' || target.tagName === 'TD') && target.innerText.includes('Horários')) {
-            // Alternar a classe 'fullscreen' no contêiner da tabela
+            // Alterna o estado de expansão
+            if (isExpanded) {
+                // Se já estiver expandido, restaura para 10px
+                tabelaContainer.style.marginTop = "10px";
+            } else {
+                // Se não estiver expandido, coloca margin-top em 70px
+                tabelaContainer.style.marginTop = "70px";
+            }
+
+            // Alterna o estado
+            isExpanded = !isExpanded;
+            
+            // Opcional: Se quiser adicionar uma classe para efeito de expansão, pode usar
             tabelaContainer.classList.toggle('fullscreen');
         }
     });
 });
+
 
 
 </script>
@@ -1366,9 +1483,15 @@ document.addEventListener('DOMContentLoaded', () => {
     <button class="tab-button" onclick="selecionarQuadra('Quadra 3 - Coberta')">Quadra 3 - Coberta</button>
 </div>
 
-<div id="versaoSistema" style="text-align: right; margin-bottom: 10px; font-size: 1rem; color: #555; cursor: pointer;" onclick="abrirManual()">
+
+
+<div id="VersaoSistema" style="text-align: right; margin-top: 80px; font-size: 1rem; color: #555; cursor: pointer; position: relative; z-index: 9999;" onclick="abrirManual()">
     Versão:
 </div>
+
+
+
+
 
 
 <div class="form-container">
