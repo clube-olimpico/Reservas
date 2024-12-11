@@ -483,20 +483,12 @@ function configurarBordasDuracao2(cell, tabela, rowIndex, colIndex) {
 
 
 
-// Mostrar um alerta com os valores das variáveis
-//alert(`Configurações carregadas:\nvDomingo: ${vDomingo}\nDiasParaLimpar: ${window.DiasParaLimpar}`);                
-
-
-
-
-
-
 
 // Função para buscar a versão mais recente e redirecionar
 function verificarVersao() {
             const elementoVersao = document.getElementById('VersaoSistema');
             if (elementoVersao) {
-                elementoVersao.textContent = `Versão: ${VersaoSistema}`;
+                elementoVersao.textContent = `${VersaoSistema}`;
                 console.log("Versão atualizada para: ", VersaoSistema);
             } else {
                 console.error('Elemento para exibir a versão não encontrado!');
@@ -504,18 +496,7 @@ function verificarVersao() {
         }
 
 
-
-
-
-	
-	    // constante global para definir os dias permitidos para fazer reserva
-	    //window.DiasParaLimpar = 4; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se DiasParaLimpar = 4, então só é permitido fazer reserva em até 2 dias de antecedencia
-	   
-		
-
-        
-
-        let jogadorCount = 1;
+let jogadorCount = 1;
 
 
 function atualizarEstadoDomingo() {
@@ -618,11 +599,6 @@ function selecionarQuadra(quadra) {
     carregarReservas(quadra);
 }
 
-
-
-
-
-	
 
 
 function carregarReservas(quadra) {
@@ -1486,7 +1462,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 <div id="VersaoSistema" style="text-align: right; margin-top: 80px; font-size: 1rem; color: #555; cursor: pointer; position: relative; z-index: 9999;" onclick="abrirManual()">
-    Versão:
+    
 </div>
 
 
