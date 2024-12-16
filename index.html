@@ -296,6 +296,7 @@ function InicializarSistema() {
 
                     atualizarDatas();
                     atualizarOpcoesHorario();
+					
                 }
 
                 console.log("Configurações carregadas:", config);
@@ -404,6 +405,7 @@ function InicializarSistema() {
 
 function atualizarEstadoQuadras() {
     console.log("Atualizando estado visual das quadras...");
+	
 
     // Verifica se o conjunto quadrasInativas está atualizado
     console.log("Quadras inativas:", Array.from(quadrasInativas));
@@ -467,17 +469,27 @@ function atualizarReservasQuadra(quadra) {
 
 
 function configurarBordasDuracao2(cell, tabela, rowIndex, colIndex) {
-    cell.style.borderTop = '2px solid black';
-    cell.style.borderLeft = '2px solid black';
-    cell.style.borderRight = '2px solid black';
-    cell.style.borderBottom = 'none';
+    // Verifica se a célula está mesclada
+    if (cell.rowSpan > 1) {
+        // Para células mescladas, aplica bordas completas
+        cell.style.borderTop = '2px solid black';
+        cell.style.borderLeft = '2px solid black';
+        cell.style.borderRight = '2px solid black';
+        cell.style.borderBottom = '2px solid black'; // Mantém a borda inferior
+    } else {
+        // Configuração padrão para células não mescladas
+        cell.style.borderTop = '2px solid black';
+        cell.style.borderLeft = '2px solid black';
+        cell.style.borderRight = '2px solid black';
+        cell.style.borderBottom = 'none';
 
-    const cellNext = tabela.rows[rowIndex + 1]?.cells[colIndex];
-    if (cellNext) {
-        cellNext.style.borderTop = 'none';
-        cellNext.style.borderLeft = '2px solid black';
-        cellNext.style.borderRight = '2px solid black';
-        cellNext.style.borderBottom = '2px solid black';
+        const cellNext = tabela.rows[rowIndex + 1]?.cells[colIndex];
+        if (cellNext) {
+            cellNext.style.borderTop = 'none';
+            cellNext.style.borderLeft = '2px solid black';
+            cellNext.style.borderRight = '2px solid black';
+            cellNext.style.borderBottom = '2px solid black';
+        }
     }
 }
 
@@ -534,7 +546,7 @@ function limparTabela() {
         for (let j = 1; j < tabela.rows[i].cells.length - 1; j++) {
             const horario = i + 6; // Calcula o horário com base na linha
             // Ignorar sábado (coluna 6) das 06:00 às 07:00 e domingo (coluna 7) das 06:00 às 08:00
-             if ((j === 6 && horario === 6) || (j === 7 && horario >= 6 && horario <= 8) || (j === 6 && horario >= 21 && horario <= 23)) {
+             if ((j === 6 && horario === 6) || (j === 7 && horario >= 6 && horario <= 7) || (j === 6 && horario >= 21 && horario <= 23)) {
                 continue; // Pule estas células
             }
             const cell = tabela.rows[i].cells[j];
@@ -597,6 +609,7 @@ function selecionarQuadra(quadra) {
 
     // Atualiza e exibe reservas para a quadra selecionada
     carregarReservas(quadra);
+	carregarReservas(quadra);
 }
 
 
@@ -626,7 +639,6 @@ function carregarReservas(quadra) {
 
                 if (rowIndex >= 0 && rowIndex < totalRows && colIndex >= 0 && colIndex < totalCols) {
                     const cell = tabela.rows[rowIndex].cells[colIndex];
-                    cell.innerHTML = jogadores;
                     cell.setAttribute("data-duracao", duracao);
 
                     let corFundo;
@@ -641,6 +653,26 @@ function carregarReservas(quadra) {
                         cell.style.border = '2px solid black';
                     } else if (borda === '2h') {
                         configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
+                    }
+
+                    if (duracao === 2) {
+                        const cellNext = tabela.rows[rowIndex + 1]?.cells[colIndex];
+                        if (cellNext) {
+                            const proxJogadores = reservas[`${key.split('_')[0]}_${hora + 1}`]?.jogadores;
+
+                            // Verifica se o jogador atual é o mesmo da próxima célula
+                            if (proxJogadores === jogadores) {
+                                cell.rowSpan = 2; // Une as duas células
+                                cell.style.verticalAlign = 'middle';
+                                cell.innerHTML = jogadores; // Exibe os jogadores na célula unida
+                                cellNext.style.display = 'none'; // Oculta a próxima célula
+                            } else {
+                                cell.innerHTML = jogadores; // Exibe os jogadores diretamente na célula
+                            }
+                        }
+                    } else {
+                        // Reserva normal: Exibe o nome diretamente na célula
+                        cell.innerHTML = jogadores;
                     }
                 }
             }
@@ -660,11 +692,16 @@ function carregarReservas(quadra) {
                 }
             }
         }
-
+		
         adicionarEventoClique();
+		
     });
 }
-		
+
+
+
+
+
 		
      console.log(" vai entrar na função validarDiaReserva DiasParaLimpar:",DiasParaLimpar);
 
@@ -745,7 +782,7 @@ function gerarMensagemErro(diasParaLimpar) {
             return "Valor de DiasParaLimpar inválido.";
     }
 	limparCampos();
-    return `Não é permitido fazer reservas com mais de ${diasAntecedencia} dias de antecedência.`;
+    return `Não é permitido fazer reservas com mais de ${diasAntecedencia} dias de antecedência.`; 
 }
 
 
@@ -858,6 +895,7 @@ window.adicionarJogador = function() {
         // Atualiza a tabela com a nova reserva
 atualizarTabela = function() {
     console.log('Iniciando a função AtualizarTabela');
+	//alert("atualizarTabela");
 
     const jogadores = [];
 	for (let i = 1; i <= jogadorCount; i++) {
@@ -935,11 +973,6 @@ atualizarTabela = function() {
 
         // Se for 1 hora de duração
         if (duracao === 1) {
-            tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores.join(', ');
-            tabela.rows[horarioInicial].cells[dia].style.backgroundColor = corFundo;
-            tabela.rows[horarioInicial].cells[dia].setAttribute("data-duracao", "1");
-            tabela.rows[horarioInicial].cells[dia].style.border = '2px solid black';
-
             const key = `${dia}_${horaSelecionada}`;
             const reservaData = {
                 jogadores: jogadores.join(', '),
@@ -959,6 +992,7 @@ atualizarTabela = function() {
                 tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores[0];
                 tabela.rows[horarioInicial + 1].cells[dia].innerHTML = jogadores[0];
             } else {
+			    //alert("atualizarTabela")
                 if (jogadores.length >= 1) {
                     tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores[0];
                 }
@@ -1083,8 +1117,8 @@ function excluirReserva(horaIndex, diaIndex) {
     }
 
     celulasExcluidas.add(celulaId);
-
-    // Atualizar a interface após a exclusão
+	
+	// Atualizar a interface após a exclusão
     carregarReservas(quadraSelecionada);
 }
 
@@ -1096,6 +1130,10 @@ function limparCelula(celula) {
         celula.style.backgroundColor = ""; // Restaura a cor de fundo
         celula.style.border = "1px solid #ddd"; // Restaura a borda padrão
         celula.removeAttribute('data-duracao'); // Remove o atributo de duração
+		 // Remover rowSpan apenas se a reserva for de 2 horas e tiver apenas um jogador
+        if (celula.rowSpan === 2) {
+           celula.removeAttribute('rowSpan'); // Remove o rowSpan para restaurar as células separadas
+        }
     }
 }
 
@@ -1407,7 +1445,7 @@ window.onload = function() {
         });
 };
 
-
+ 
 document.addEventListener('DOMContentLoaded', () => {
     const tabelaContainer = document.querySelector('.tabela-container');
     
