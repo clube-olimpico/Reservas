@@ -272,11 +272,11 @@ function inicializarEstruturaInicial() {
 
 
 
-// Carregar dados iniciais do banco de dados
+// Função para inicializar o sistema
 function InicializarSistema() {
     return new Promise((resolve, reject) => {
         const sistemaRef = database.ref("sistema");
-
+		
         sistemaRef.on('value', (snapshot) => {
             const data = snapshot.val();
 
@@ -296,7 +296,6 @@ function InicializarSistema() {
 
                     atualizarDatas();
                     atualizarOpcoesHorario();
-					
                 }
 
                 console.log("Configurações carregadas:", config);
@@ -305,8 +304,8 @@ function InicializarSistema() {
                 inicializarEstruturaInicial();
             }
 
-            // Determinar qual quadra será selecionada por padrão
-            let quadraInicial = "Quadra 1 - Coberta"; // Padrão inicial
+            // Verifique se já existe uma quadra selecionada antes de determinar a quadra inicial
+            let quadraInicial = quadraSelecionada || "Quadra 1 - Coberta";  // Usa quadraSelecionada se definida
             if (quadrasInativas.has(quadraInicial)) {
                 console.log(`${quadraInicial} está interditada.`);
 
@@ -315,41 +314,40 @@ function InicializarSistema() {
                     .filter(quadra => !quadrasInativas.has(quadra));
 
                 if (proximasQuadras.length > 0) {
-    quadraInicial = proximasQuadras[0]; // Pega a primeira quadra ativa
-} else {
-    console.log("Todas as quadras estão interditadas.");
+                    quadraInicial = proximasQuadras[0]; // Pega a primeira quadra ativa
+                } else {
+                    console.log("Todas as quadras estão interditadas.");
 
-    // **1. Sincronize quadrasInativas com todas as quadras antes de atualizar**
-    quadrasInativas.clear(); // Limpa qualquer estado antigo
-    quadrasInativas.add("Quadra 1 - Coberta");
-    quadrasInativas.add("Quadra 2 - Aberta");
-    quadrasInativas.add("Quadra 3 - Coberta");
+                    // **1. Sincronize quadrasInativas com todas as quadras antes de atualizar**
+                    quadrasInativas.clear(); // Limpa qualquer estado antigo
+                    quadrasInativas.add("Quadra 1 - Coberta");
+                    quadrasInativas.add("Quadra 2 - Aberta");
+                    quadrasInativas.add("Quadra 3 - Coberta");
 
-    // **2. Atualize os botões visualmente antes de qualquer outra ação**
-    atualizarEstadoQuadras();
+                    // **2. Atualize os botões visualmente antes de qualquer outra ação**
+                    atualizarEstadoQuadras();
 
-    // Limpar o campo de seleção de quadras
-    const selectQuadra = document.getElementById('quadra');
-    if (selectQuadra) {
-        selectQuadra.innerHTML = ""; // Remove todas as opções
-        const defaultOption = document.createElement('option');
-        defaultOption.value = "";
-        defaultOption.textContent = "Nenhuma quadra disponível";
-        selectQuadra.appendChild(defaultOption);
-    }
+                    // Limpar o campo de seleção de quadras
+                    const selectQuadra = document.getElementById('quadra');
+                    if (selectQuadra) {
+                        selectQuadra.innerHTML = ""; // Remove todas as opções
+                        const defaultOption = document.createElement('option');
+                        defaultOption.value = "";
+                        defaultOption.textContent = "Nenhuma quadra disponível";
+                        selectQuadra.appendChild(defaultOption);
+                    }
 
-    // Ocultar a interface da planilha
-    const tabelaContainer = document.querySelector('.tabela-container');
-    const header = document.querySelector('.header');
-    if (tabelaContainer) tabelaContainer.style.display = 'none';
-    if (header) header.style.display = 'none';
+                    // Ocultar a interface da planilha
+                    const tabelaContainer = document.querySelector('.tabela-container');
+                    const header = document.querySelector('.header');
+                    if (tabelaContainer) tabelaContainer.style.display = 'none';
+                    if (header) header.style.display = 'none';
 
-    // Exibir o alerta informando que todas as quadras estão interditadas
-    alert("Todas as quadras estão interditadas no momento.");
-    resolve();
-    return; // Interrompe a execução caso todas as quadras estejam interditadas
-}
-
+                    // Exibir o alerta informando que todas as quadras estão interditadas
+                    alert("Todas as quadras estão interditadas no momento.");
+                    resolve();
+                    return; // Interrompe a execução caso todas as quadras estejam interditadas
+                }
             }
 
             console.log("Quadra selecionada automaticamente:", quadraInicial);
@@ -392,7 +390,7 @@ function InicializarSistema() {
 
             // Seleciona a quadra inicial
             selecionarQuadra(quadraInicial);
-
+			
             resolve();
         }, (error) => {
             console.error("Erro ao carregar dados iniciais:", error);
@@ -400,6 +398,7 @@ function InicializarSistema() {
         });
     });
 }
+
 
  
 
@@ -1107,49 +1106,74 @@ function excluirReserva(horaIndex, diaIndex) {
     const tabela = document.getElementById('tabelaCorpo');
     const celulaId = `${horaIndex}_${diaIndex}`;
 
+    // Armazenar a quadra selecionada localmente para evitar qualquer interferência
+    const quadraAtual = quadraSelecionada;
+
     // Evita duplicidade de exclusão
     if (celulasExcluidas.has(celulaId)) {
         return;
     }
 
-    const primeiraCelula = tabela.rows[horaIndex].cells[diaIndex];
+    // Primeira célula
+    const primeiraCelula = tabela.rows[horaIndex]?.cells[diaIndex];
+    if (!primeiraCelula) {
+        return;
+    }
+
     const duracao = primeiraCelula.getAttribute('data-duracao');
 
-    // Verifica se é uma reserva de 2 horas para limpar duas células ao mesmo tempo
     if (duracao === "2") {
+        // Segunda célula
         const segundaCelula = tabela.rows[horaIndex + 1]?.cells[diaIndex];
 
-        // Utiliza requestAnimationFrame para garantir que ambas as células sejam atualizadas imediatamente
+        // Limpa as células
         requestAnimationFrame(() => {
             limparCelula(primeiraCelula);
             limparCelula(segundaCelula);
         });
-		
-		  // Restaurar células mescladas e limpar corretamente
+
+        // Restaura o rowSpan
         if (primeiraCelula.rowSpan === 2) {
-            primeiraCelula.rowSpan = 1; // Remove a mesclagem
-            if (segundaCelula) {
-                segundaCelula.style.display = ''; // Restaura a visibilidade da célula oculta
-            }
+            primeiraCelula.rowSpan = 1;
+            if (segundaCelula) segundaCelula.style.display = ''; // Torna a segunda célula visível novamente
         }
 
-        // Exclusão no Firebase ocorre sem afetar a visualização do usuário
-        excluirReservaFirebase(horaIndex + 6, diaIndex, quadraSelecionada);
-        excluirReservaFirebase(horaIndex + 7, diaIndex, quadraSelecionada);
-    } else if (duracao === "1") {
-        // Reserva de 1 hora
+        // Exclusão no Firebase, garantindo que a quadra correta seja usada
+        excluirReservaFirebase(horaIndex + 6, diaIndex, quadraAtual);
+        excluirReservaFirebase(horaIndex + 7, diaIndex, quadraAtual);
+    } 
+    else if (duracao === "1") {
         requestAnimationFrame(() => {
             limparCelula(primeiraCelula);
         });
 
-        excluirReservaFirebase(horaIndex + 6, diaIndex, quadraSelecionada);
+        excluirReservaFirebase(horaIndex + 6, diaIndex, quadraAtual);
+    } 
+    else {
+        return;
     }
 
+    // Marca a célula como excluída
     celulasExcluidas.add(celulaId);
-	
-	// Atualizar a interface após a exclusão
-    carregarReservas(quadraSelecionada);
+
+    // Atualiza a interface para a quadra atual, sem alterar o foco
+    carregarReservas(quadraAtual);
 }
+
+
+
+
+
+
+// Função customizada para atualizar a interface sem interferir na quadra atual
+function atualizarInterfaceQuadra(quadraAtual) {
+    console.log(`Atualizando a interface para a quadra ${quadraAtual} sem mudar o foco.`);
+    // Atualiza a interface visual para a quadra correta
+    carregarReservas(quadraAtual);
+}
+
+
+
 
 
 // Função para limpar o conteúdo da célula
