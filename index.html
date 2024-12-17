@@ -534,7 +534,7 @@ function atualizarEstadoDomingo() {
                 celulaDomingo.style.cursor = 'not-allowed'; // Cursor indicando bloqueio
             }
         }
-    }
+    } 
 }		
 		
 		
@@ -545,17 +545,34 @@ function limparTabela() {
     for (let i = 0; i < tabela.rows.length; i++) {
         for (let j = 1; j < tabela.rows[i].cells.length - 1; j++) {
             const horario = i + 6; // Calcula o horário com base na linha
+            
             // Ignorar sábado (coluna 6) das 06:00 às 07:00 e domingo (coluna 7) das 06:00 às 08:00
-             if ((j === 6 && horario === 6) || (j === 7 && horario >= 6 && horario <= 7) || (j === 6 && horario >= 21 && horario <= 23)) {
+            if ((j === 6 && horario === 6) || (j === 7 && horario >= 6 && horario <= 7) || (j === 6 && horario >= 21 && horario <= 23)) {
                 continue; // Pule estas células
             }
+
             const cell = tabela.rows[i].cells[j];
-            cell.innerHTML = '';
-            cell.style.backgroundColor = '';
-            cell.style.border = '1px solid #ddd';
+            if (cell.rowSpan > 1) {
+                // Restaurar células mescladas
+                const nextCell = tabela.rows[i + 1]?.cells[j];
+                if (nextCell) {
+                    nextCell.style.display = ''; // Reexibir a próxima célula
+                }
+                cell.rowSpan = 1; // Resetar o rowSpan
+            }
+
+            // Restaurar bordas padrão
+            cell.style.borderTop = "1px solid #ddd";
+            cell.style.borderBottom = "1px solid #ddd";
+            cell.style.borderLeft = "1px solid #ddd";
+            cell.style.borderRight = "1px solid #ddd";
+            cell.style.backgroundColor = ""; // Restaurar cor de fundo padrão
+            cell.innerHTML = ""; // Limpar conteúdo da célula
         }
     }
 }
+
+
 
 
 
@@ -609,13 +626,15 @@ function selecionarQuadra(quadra) {
 
     // Atualiza e exibe reservas para a quadra selecionada
     carregarReservas(quadra);
-	carregarReservas(quadra);
+	//carregarReservas(quadra);
 }
 
 
 
 function carregarReservas(quadra) {
     console.log("Carregando reservas para:", quadra);
+	
+	
 
     celulasExcluidas.clear();
     reservasExcluidasFirebase.clear();
@@ -662,10 +681,12 @@ function carregarReservas(quadra) {
 
                             // Verifica se o jogador atual é o mesmo da próxima célula
                             if (proxJogadores === jogadores) {
+							    //alert("2 jogadores iguais");
                                 cell.rowSpan = 2; // Une as duas células
                                 cell.style.verticalAlign = 'middle';
                                 cell.innerHTML = jogadores; // Exibe os jogadores na célula unida
                                 cellNext.style.display = 'none'; // Oculta a próxima célula
+								configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
                             } else {
                                 cell.innerHTML = jogadores; // Exibe os jogadores diretamente na célula
                             }
@@ -1103,6 +1124,14 @@ function excluirReserva(horaIndex, diaIndex) {
             limparCelula(primeiraCelula);
             limparCelula(segundaCelula);
         });
+		
+		  // Restaurar células mescladas e limpar corretamente
+        if (primeiraCelula.rowSpan === 2) {
+            primeiraCelula.rowSpan = 1; // Remove a mesclagem
+            if (segundaCelula) {
+                segundaCelula.style.display = ''; // Restaura a visibilidade da célula oculta
+            }
+        }
 
         // Exclusão no Firebase ocorre sem afetar a visualização do usuário
         excluirReservaFirebase(horaIndex + 6, diaIndex, quadraSelecionada);
@@ -1132,7 +1161,8 @@ function limparCelula(celula) {
         celula.removeAttribute('data-duracao'); // Remove o atributo de duração
 		 // Remover rowSpan apenas se a reserva for de 2 horas e tiver apenas um jogador
         if (celula.rowSpan === 2) {
-           celula.removeAttribute('rowSpan'); // Remove o rowSpan para restaurar as células separadas
+           ////celula.removeAttribute('rowSpan'); // Remove o rowSpan para restaurar as células separadas
+		   celula.rowSpan = 1; // Restaura o rowSpan para o padrão
         }
     }
 }
