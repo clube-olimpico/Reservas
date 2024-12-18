@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <title>Clube Olímpico - Sistema de Reservas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
 <style>
+/* Estilos globais */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
+/* Contêiner principal do formulário */
 .form-container {
     padding: 20px;
     margin: 0 auto;
@@ -18,54 +21,60 @@ body {
     margin-top: -10px; /* Espaçamento para evitar sobreposição com a barra fixa */
 }
 
+/* Configuração das linhas do formulário */
 .form-row {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-    flex-wrap: nowrap; /* Garante que o label e o input fiquem na mesma linha */
+    flex-wrap: nowrap; /* Mantém label e input na mesma linha */
 }
 
+/* Estilização dos labels */
 label {
     margin-right: 10px;
-    width: 160px; /* Ajusta o tamanho do label */
+    width: 160px; /* Tamanho fixo do label para alinhamento */
     font-size: 1rem;
 }
 
-/* Ajuste a largura do campo de entrada para todos os campos "Nome do Jogador" */
+/* Configuração do campo "Nome do Jogador" */
 .jogador-input {
-    width: 300px; /* Largura fixa de 300px para todos os campos */
+    width: 300px; /* Largura fixa para manter consistência */
     box-sizing: border-box; /* Inclui padding e bordas no cálculo da largura */
-    margin: 0; /* Garante que não haja margem extra */
-    padding: 5px; /* Garante um padding consistente */
+    margin: 0;
+    padding: 5px;
 }
 
-/* Responsividade para dispositivos móveis */
+/* Responsividade: ajuste para dispositivos móveis */
 @media (max-width: 600px) {
     .jogador-input {
-        width: 100% !important; /* No celular, o campo ocupa 100% da largura disponível */
-        max-width: 190px; /* No celular, não ultrapassa 300px */
+        width: 100% !important; /* Campo ocupa toda a largura disponível */
+        max-width: 190px; /* Limita a largura máxima */
     }
 }
 
+/* Estilização geral para inputs, selects e botões */
 input, select, button {
     flex-grow: 1;
     padding: 5px;
     font-size: 1rem;
 }
 
+/* Contêiner de jogadores (campos dinâmicos) */
 .jogadores-container {
     display: flex;
-    flex-direction: column; /* Coloca os campos em coluna */
-    margin-top: 10px; /* Espaço entre os campos */
+    flex-direction: column;
+    margin-top: 10px;
 }
 
+/* Botão de adicionar jogador */
 .add-jogador {
     font-size: 2rem;
     cursor: pointer;
     color: blue;
-    margin-top: 5px; /* Espaço acima do botão de adicionar */
+    margin-top: 5px;
 }
 
+/* Estilização dos botões */
 button {
     background-color: #4CAF50;
     color: white;
@@ -80,24 +89,26 @@ button:hover {
     background-color: #45a049;
 }
 
+/* Contêiner para as abas de navegação */
 .tab-container {
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
-    position: fixed; /* Fixa os botões no topo */
+    position: fixed; /* Fixa as abas no topo */
     top: 0;
     left: 0;
     width: 100%;
-    background-color: white; /* Fundo branco para destacar */
-    z-index: 1000; /* Garante que fique acima de outros elementos */
+    background-color: white; /* Destaque visual */
+    z-index: 1000;
     padding: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para realce */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra */
 }
 
+/* Configuração para tabelas */
 .tabela-container {
-    overflow-x: auto; /* Permite rolar horizontalmente */
-    width: 100%; /* Garante que o contêiner ocupe toda a largura da tela */
-    margin-top: 10px; /* Espaço para não sobrepor os botões fixos */
+    overflow-x: auto; /* Permite rolagem horizontal */
+    width: 100%;
+    margin-top: 10px;
 }
 
 table {
@@ -116,6 +127,7 @@ th {
     background-color: #f2f2f2;
 }
 
+/* Estilo para cabeçalho */
 .header {
     text-align: center;
     font-size: 1.5rem;
@@ -123,42 +135,49 @@ th {
     margin-bottom: 10px;
 }
 
+/* Classe para aba selecionada */
 .selected {
     font-weight: bold;
-    background-color: #228B22; /* Fundo verde escuro */
-    color: white; /* Texto branco */
+    background-color: #228B22;
+    color: white;
 }
 
+/* Transição de opacidade */
 .fade-out {
     transition: opacity 0.3s ease-out;
     opacity: 0;
 }
 
+/* Estilização dos botões de aba */
 .tab-button {
     transition: background-color 0.3s ease;
-    background-color: #4CAF50; /* Cor padrão */
+    background-color: #4CAF50;
     color: white;
     border: none;
     padding: 10px 20px;
     margin: 5px;
     cursor: pointer;
 }
+
 .tab-button:hover {
-    background-color: #45a049; /* Cor ao passar o mouse */
+    background-color: #45a049;
 }
 
+/* Botão de aba desabilitado */
 .tab-button[disabled] {
-    cursor: not-allowed; /* Cursor de bloqueio */
-    background-color: red; /* Cor de fundo para interditado */
+    cursor: not-allowed;
+    background-color: red;
 }
 
+/* Aba selecionada */
 .tab-button.selected {
     font-weight: bold;
-    background-color: #228B22 !important; /* Fundo verde escuro */
-    color: white !important; /* Texto branco */
-    border: 2px solid #1A6418 !important; /* Borda mais escura */
+    background-color: #228B22 !important;
+    color: white !important;
+    border: 2px solid #1A6418 !important;
 }
 
+/* Indicadores de carregamento */
 #loading {
     display: block;
     text-align: center;
@@ -169,63 +188,57 @@ th {
     display: none;
 }
 
+/* Estilização para tela cheia */
 .fullscreen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: white; /* Para garantir uma boa visualização */
+    background-color: white;
     z-index: 9999;
-    overflow: auto; /* Permite rolar caso necessário */
+    overflow: auto;
 }
 
 .fullscreen table {
-    width: 100%; /* Garante que a tabela se ajuste ao contêiner */
-    height: auto; /* Preserva o aspecto da tabela */
-	
+    width: 100%;
+    height: auto;
 }
 
-</style>	
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 	
-	<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
-
-
-	<script>
+	
+<script>
 	
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
 const VersaoSistema = 'v1.0.0'; // Versão atual do sistema
 
- 
-
-// variáveis globais que são configurada em configuracoes.html
-window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6) ex: se DiasParaLimpar = 4, então só é permitido fazer reserva em até 2 dias de antecedencia
-
-window.vDomingo = undefined; // Valor padrão fechado, pois o clube nao abre aos domingos (aberto,fechado)
-
+// Variáveis globais que são configuradas em configuracoes.html
+window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
+window.vDomingo = undefined; // Valor padrão: fechado, pois o clube não abre aos domingos ("aberto", "fechado").
 
 let quadrasInativas = new Set();
 let reservasPorQuadra = {};
-let quadraSelecionada = 'Quadra 1 - Coberta'; 
-		
-//************************************************************************************************************************************************************************
+let quadraSelecionada = 'Quadra 1 - Coberta';
 
-	
-	// descomentar quando publicar  
-	 
-		 document.addEventListener('contextmenu', event => event.preventDefault());
-  document.addEventListener('keydown', event => {
+//***********************************************************************************************************************************************************************
+
+// Bloqueia o menu de contexto e o acesso ao console (descomentar quando publicar)
+
+document.addEventListener('contextmenu', event => event.preventDefault());
+document.addEventListener('keydown', event => {
     if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I")) {
-      event.preventDefault();
+        event.preventDefault();
     }
-  });
-   
+});
 
-	
-	// Configuração do Firebase
+
+// Configuração do Firebase
 const firebaseConfig = {
     apiKey: "SUA_API_KEY",
     authDomain: "agenda-5ce95.firebaseapp.com",
@@ -235,13 +248,11 @@ const firebaseConfig = {
     appId: "1:852007565195:web:d7bd789d140858f53f618e"
 };
 
-// Inicializando o Firebase
+// Inicialização do Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
-console.log("Firebase inicializado");
 
-
-// Nova estrutura inicial do banco de dados
+// Configuração inicial do banco de dados
 function inicializarEstruturaInicial() {
     const estruturaInicial = {
         config: {
@@ -260,34 +271,40 @@ function inicializarEstruturaInicial() {
         },
     };
 
-    // Configurar o nó "sistema"
-    database.ref("sistema").set(estruturaInicial)
+    database.ref("sistemas").set(estruturaInicial)
         .then(() => {
-            console.log("Estrutura inicial criada com sucesso no Firebase.");
+            console.info("Estrutura inicial criada com sucesso no Firebase.");
         })
         .catch((error) => {
             console.error("Erro ao criar estrutura inicial no Firebase:", error);
         });
 }
 
-
-
-// Função para inicializar o sistema
+// Inicialização do sistema
 function InicializarSistema() {
     return new Promise((resolve, reject) => {
-        const sistemaRef = database.ref("sistema");
-		
+        const sistemaRef = database.ref("sistemas");
+
         sistemaRef.on('value', (snapshot) => {
             const data = snapshot.val();
 
             if (data) {
+                const minVersion = data.version;
+                if (VersaoSistema !== minVersion) {
+                    alert("Sua versão está desatualizada. Atualize o aplicativo para continuar.");
+                    window.close();
+                }
+
                 const config = data.config;
+                if (config && config.Abrir === false) {
+                    window.close();
+                    return;
+                }
 
                 if (config) {
                     window.DiasParaLimpar = config.DiasParaLimpar || 4;
                     window.vDomingo = config.vDomingo || "fechado";
 
-                    // Atualizar estado das quadras
                     quadrasInativas.clear();
                     const quadras = config.Quadras || {};
                     if (quadras.Quadra1 === "interditada") quadrasInativas.add("Quadra 1 - Coberta");
@@ -297,62 +314,43 @@ function InicializarSistema() {
                     atualizarDatas();
                     atualizarOpcoesHorario();
                 }
-
-                console.log("Configurações carregadas:", config);
             } else {
-                console.log("Dados não encontrados. Inicializando estrutura...");
                 inicializarEstruturaInicial();
             }
 
-            // Verifique se já existe uma quadra selecionada antes de determinar a quadra inicial
-            let quadraInicial = quadraSelecionada || "Quadra 1 - Coberta";  // Usa quadraSelecionada se definida
+            let quadraInicial = quadraSelecionada || "Quadra 1 - Coberta";
             if (quadrasInativas.has(quadraInicial)) {
-                console.log(`${quadraInicial} está interditada.`);
-
-                // Selecionar a próxima quadra ativa
-                const proximasQuadras = ["Quadra 2 - Aberta", "Quadra 3 - Coberta"]
-                    .filter(quadra => !quadrasInativas.has(quadra));
-
+                const proximasQuadras = ["Quadra 2 - Aberta", "Quadra 3 - Coberta"].filter(quadra => !quadrasInativas.has(quadra));
                 if (proximasQuadras.length > 0) {
-                    quadraInicial = proximasQuadras[0]; // Pega a primeira quadra ativa
+                    quadraInicial = proximasQuadras[0];
                 } else {
-                    console.log("Todas as quadras estão interditadas.");
-
-                    // **1. Sincronize quadrasInativas com todas as quadras antes de atualizar**
-                    quadrasInativas.clear(); // Limpa qualquer estado antigo
+                    quadrasInativas.clear();
                     quadrasInativas.add("Quadra 1 - Coberta");
                     quadrasInativas.add("Quadra 2 - Aberta");
                     quadrasInativas.add("Quadra 3 - Coberta");
 
-                    // **2. Atualize os botões visualmente antes de qualquer outra ação**
                     atualizarEstadoQuadras();
 
-                    // Limpar o campo de seleção de quadras
                     const selectQuadra = document.getElementById('quadra');
                     if (selectQuadra) {
-                        selectQuadra.innerHTML = ""; // Remove todas as opções
+                        selectQuadra.innerHTML = "";
                         const defaultOption = document.createElement('option');
                         defaultOption.value = "";
                         defaultOption.textContent = "Nenhuma quadra disponível";
                         selectQuadra.appendChild(defaultOption);
                     }
 
-                    // Ocultar a interface da planilha
                     const tabelaContainer = document.querySelector('.tabela-container');
                     const header = document.querySelector('.header');
                     if (tabelaContainer) tabelaContainer.style.display = 'none';
                     if (header) header.style.display = 'none';
 
-                    // Exibir o alerta informando que todas as quadras estão interditadas
                     alert("Todas as quadras estão interditadas no momento.");
                     resolve();
-                    return; // Interrompe a execução caso todas as quadras estejam interditadas
+                    return;
                 }
             }
 
-            console.log("Quadra selecionada automaticamente:", quadraInicial);
-
-            // Atualiza o botão ativo na interface
             document.querySelectorAll('.tab-button').forEach(button => {
                 if (button.innerText.trim() === quadraInicial) {
                     button.classList.add('selected');
@@ -361,10 +359,9 @@ function InicializarSistema() {
                 }
             });
 
-            // Atualiza o campo de seleção de quadras
             const selectQuadra = document.getElementById('quadra');
             if (selectQuadra) {
-                selectQuadra.innerHTML = ""; // Limpa as opções
+                selectQuadra.innerHTML = "";
                 ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"].forEach(quadra => {
                     if (!quadrasInativas.has(quadra)) {
                         const option = document.createElement('option');
@@ -373,25 +370,21 @@ function InicializarSistema() {
                         selectQuadra.appendChild(option);
                     }
                 });
-                selectQuadra.value = quadraInicial; // Define a quadra inicial
+                selectQuadra.value = quadraInicial;
             }
 
-            // Exibir a interface da planilha
             const tabelaContainer = document.querySelector('.tabela-container');
             const header = document.querySelector('.header');
             if (tabelaContainer) tabelaContainer.style.display = 'block';
             if (header) {
                 header.style.display = 'block';
-                header.innerText = quadraInicial; // Atualiza o título da quadra
+                header.innerText = quadraInicial;
             }
 
-            // **FORÇAR** atualização visual dos botões das quadras interditadas
             atualizarEstadoQuadras();
-
-            // Seleciona a quadra inicial
             selecionarQuadra(quadraInicial);
-			
             resolve();
+
         }, (error) => {
             console.error("Erro ao carregar dados iniciais:", error);
             reject(error);
@@ -399,39 +392,24 @@ function InicializarSistema() {
     });
 }
 
-
- 
-
 function atualizarEstadoQuadras() {
-    console.log("Atualizando estado visual das quadras...");
-	
-
-    // Verifica se o conjunto quadrasInativas está atualizado
-    console.log("Quadras inativas:", Array.from(quadrasInativas));
-
-    // Atualiza os botões de quadra
+    // Atualiza o estado visual das quadras com base no conjunto quadrasInativas
     document.querySelectorAll('.tab-button').forEach(button => {
         const quadraNome = button.innerText.trim();
 
         if (quadrasInativas.has(quadraNome)) {
-            console.log(`Interditando visualmente: ${quadraNome}`);
-            button.style.setProperty("background-color", "red", "important"); // Prioriza a cor
-            button.style.setProperty("cursor", "not-allowed", "important"); // Prioriza o cursor
+            button.style.setProperty("background-color", "red", "important");
+            button.style.setProperty("cursor", "not-allowed", "important");
             button.onclick = () => alert(`A ${quadraNome} está interditada provisoriamente.`);
         } else {
-            console.log(`Liberando visualmente: ${quadraNome}`);
-            button.style.setProperty("background-color", "#4CAF50", "important"); // Prioriza a cor padrão
-            button.style.setProperty("cursor", "pointer", "important"); // Prioriza o cursor padrão
-            button.onclick = () => selecionarQuadra(quadraNome); // Permitir seleção de quadra ativa
+            button.style.setProperty("background-color", "#4CAF50", "important");
+            button.style.setProperty("cursor", "pointer", "important");
+            button.onclick = () => selecionarQuadra(quadraNome);
         }
     });
 }
 
-
-
-
 function atualizarReservasQuadra(quadra) {
-    console.log(`Atualizando reservas para a quadra: ${quadra}`);
     limparTabela();
     const reservas = reservasPorQuadra[quadra];
     if (reservas) {
@@ -441,9 +419,9 @@ function atualizarReservasQuadra(quadra) {
             const rowIndex = hora - 6;
             const colIndex = dia;
 
-             // Ignorar sábado (coluna 6) das 21:00 às 23:00 e domingo (coluna 7) das 06:00 às 08:00
+            // Ignorar sábado (coluna 6) das 21:00 às 23:00 e domingo (coluna 7) das 06:00 às 08:00
             if ((colIndex === 6 && hora >= 21 && hora <= 23) || (colIndex === 7 && hora >= 6 && hora <= 8)) {
-                continue; // Pule estas células
+                continue;
             }
 
             const cell = tabela.rows[rowIndex]?.cells[colIndex];
@@ -464,19 +442,13 @@ function atualizarReservasQuadra(quadra) {
     }
 }
 
-
-
-
 function configurarBordasDuracao2(cell, tabela, rowIndex, colIndex) {
-    // Verifica se a célula está mesclada
     if (cell.rowSpan > 1) {
-        // Para células mescladas, aplica bordas completas
         cell.style.borderTop = '2px solid black';
         cell.style.borderLeft = '2px solid black';
         cell.style.borderRight = '2px solid black';
-        cell.style.borderBottom = '2px solid black'; // Mantém a borda inferior
+        cell.style.borderBottom = '2px solid black';
     } else {
-        // Configuração padrão para células não mescladas
         cell.style.borderTop = '2px solid black';
         cell.style.borderLeft = '2px solid black';
         cell.style.borderRight = '2px solid black';
@@ -492,23 +464,16 @@ function configurarBordasDuracao2(cell, tabela, rowIndex, colIndex) {
     }
 }
 
-
-
-
-// Função para buscar a versão mais recente e redirecionar
 function verificarVersao() {
-            const elementoVersao = document.getElementById('VersaoSistema');
-            if (elementoVersao) {
-                elementoVersao.textContent = `${VersaoSistema}`;
-                console.log("Versão atualizada para: ", VersaoSistema);
-            } else {
-                console.error('Elemento para exibir a versão não encontrado!');
-            }
-        }
-
+    const elementoVersao = document.getElementById('VersaoSistema');
+    if (elementoVersao) {
+        elementoVersao.textContent = `${VersaoSistema}`;
+    } else {
+        console.error('Elemento para exibir a versão não encontrado!');
+    }
+}
 
 let jogadorCount = 1;
-
 
 function atualizarEstadoDomingo() {
     const tabela = document.getElementById('tabelaCorpo');
@@ -519,67 +484,52 @@ function atualizarEstadoDomingo() {
         const celulaDomingo = tabela.rows[i].cells[diaDomingo];
 
         if (vDomingo === 'aberto') {
-            // Limpa o bloqueio
             if (horario >= 12 && horario <= 23) {
-                celulaDomingo.style.backgroundColor = ''; // Remove a cor de fundo
-                celulaDomingo.style.pointerEvents = ''; // Reativa interação
-                celulaDomingo.style.cursor = ''; // Restaura o cursor padrão
+                celulaDomingo.style.backgroundColor = '';
+                celulaDomingo.style.pointerEvents = '';
+                celulaDomingo.style.cursor = '';
             }
         } else if (vDomingo === 'fechado') {
-            // Reaplica o bloqueio
             if (horario >= 12 && horario <= 23) {
-                celulaDomingo.style.backgroundColor = '#f2f2f2'; // Cor cinza
-                celulaDomingo.style.pointerEvents = 'none'; // Desativa interação
-                celulaDomingo.style.cursor = 'not-allowed'; // Cursor indicando bloqueio
+                celulaDomingo.style.backgroundColor = '#f2f2f2';
+                celulaDomingo.style.pointerEvents = 'none';
+                celulaDomingo.style.cursor = 'not-allowed';
             }
-        }
-    } 
-}		
-		
-		
-// Função para limpar a tabela antes de exibir as reservas da quadra selecionada
-function limparTabela() {
-    console.log('Limpando tabela...');
-    const tabela = document.getElementById('tabelaCorpo');
-    for (let i = 0; i < tabela.rows.length; i++) {
-        for (let j = 1; j < tabela.rows[i].cells.length - 1; j++) {
-            const horario = i + 6; // Calcula o horário com base na linha
-            
-            // Ignorar sábado (coluna 6) das 06:00 às 07:00 e domingo (coluna 7) das 06:00 às 08:00
-            if ((j === 6 && horario === 6) || (j === 7 && horario >= 6 && horario <= 7) || (j === 6 && horario >= 21 && horario <= 23)) {
-                continue; // Pule estas células
-            }
-
-            const cell = tabela.rows[i].cells[j];
-            if (cell.rowSpan > 1) {
-                // Restaurar células mescladas
-                const nextCell = tabela.rows[i + 1]?.cells[j];
-                if (nextCell) {
-                    nextCell.style.display = ''; // Reexibir a próxima célula
-                }
-                cell.rowSpan = 1; // Resetar o rowSpan
-            }
-
-            // Restaurar bordas padrão
-            cell.style.borderTop = "1px solid #ddd";
-            cell.style.borderBottom = "1px solid #ddd";
-            cell.style.borderLeft = "1px solid #ddd";
-            cell.style.borderRight = "1px solid #ddd";
-            cell.style.backgroundColor = ""; // Restaurar cor de fundo padrão
-            cell.innerHTML = ""; // Limpar conteúdo da célula
         }
     }
 }
 
+function limparTabela() {
+    const tabela = document.getElementById('tabelaCorpo');
+    for (let i = 0; i < tabela.rows.length; i++) {
+        for (let j = 1; j < tabela.rows[i].cells.length - 1; j++) {
+            const horario = i + 6;
 
+            if ((j === 6 && horario === 6) || (j === 7 && horario >= 6 && horario <= 7) || (j === 6 && horario >= 21 && horario <= 23)) {
+                continue;
+            }
 
+            const cell = tabela.rows[i].cells[j];
+            if (cell.rowSpan > 1) {
+                const nextCell = tabela.rows[i + 1]?.cells[j];
+                if (nextCell) {
+                    nextCell.style.display = '';
+                }
+                cell.rowSpan = 1;
+            }
 
-
+            cell.style.borderTop = "1px solid #ddd";
+            cell.style.borderBottom = "1px solid #ddd";
+            cell.style.borderLeft = "1px solid #ddd";
+            cell.style.borderRight = "1px solid #ddd";
+            cell.style.backgroundColor = "";
+            cell.innerHTML = "";
+        }
+    }
+}
 
 // Função para selecionar a quadra e carregar suas reservas
 function selecionarQuadra(quadra) {
-    console.log("Quadra selecionada:", quadra);
-
     // Verifica se a quadra está interditada
     const isQuadraInterditada = quadrasInativas.has(quadra);
 
@@ -603,7 +553,6 @@ function selecionarQuadra(quadra) {
     // Adiciona a classe 'selected' e estilo inline ao botão correspondente
     botoes.forEach(button => {
         const textoBotao = button.textContent.trim();
-        console.log(`Comparando "${textoBotao}" com "${quadra}"`);
 
         if (textoBotao === quadra) {
             button.classList.add('selected'); // Aplica a classe 'selected' para quadra selecionada
@@ -625,20 +574,13 @@ function selecionarQuadra(quadra) {
 
     // Atualiza e exibe reservas para a quadra selecionada
     carregarReservas(quadra);
-	//carregarReservas(quadra);
 }
 
-
-
 function carregarReservas(quadra) {
-    console.log("Carregando reservas para:", quadra);
-	
-	
-
     celulasExcluidas.clear();
     reservasExcluidasFirebase.clear();
 
-    const reservasRef = database.ref(`sistema/reservas/${quadra}`);
+    const reservasRef = database.ref(`sistemas/reservas/${quadra}`);
 
     reservasRef.off('value'); // Remove ouvintes antigos
     reservasRef.on('value', (snapshot) => {
@@ -680,12 +622,11 @@ function carregarReservas(quadra) {
 
                             // Verifica se o jogador atual é o mesmo da próxima célula
                             if (proxJogadores === jogadores) {
-							    //alert("2 jogadores iguais");
                                 cell.rowSpan = 2; // Une as duas células
                                 cell.style.verticalAlign = 'middle';
                                 cell.innerHTML = jogadores; // Exibe os jogadores na célula unida
                                 cellNext.style.display = 'none'; // Oculta a próxima célula
-								configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
+                                configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
                             } else {
                                 cell.innerHTML = jogadores; // Exibe os jogadores diretamente na célula
                             }
@@ -698,7 +639,7 @@ function carregarReservas(quadra) {
             }
         }
 
-        // Adicionar lógica para bloquear horários de domingo
+        // Bloqueia horários de domingo, se aplicável
         if (vDomingo === 'fechado') {
             const diaDomingo = 7; // Índice do domingo
             const tabela = document.getElementById('tabelaCorpo');
@@ -712,34 +653,22 @@ function carregarReservas(quadra) {
                 }
             }
         }
-		
+
         adicionarEventoClique();
-		
     });
 }
 
-
-
-
-
-		
-     console.log(" vai entrar na função validarDiaReserva DiasParaLimpar:",DiasParaLimpar);
-
-         // Função para validar o dia da reserva
-    function validarDiaReserva(jogadores) {
-    // Verifica se é uma reserva de "aula" 
+function validarDiaReserva(jogadores) {
+    // Verifica se é uma reserva de "aula"
     if (jogadores.some(jogador => jogador.toLowerCase().includes('aula'))) {
-        console.log('Reserva de "aula"  detectada. Validação de dia ignorada.');
         return true; // Permite a reserva sem validação
     }
 
-    const diasParaLimpar = window.DiasParaLimpar; // Usar a constante global
+    const diasParaLimpar = window.DiasParaLimpar;
     const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0); // Zerando horas para evitar problemas de comparação
+    hoje.setHours(0, 0, 0, 0);
 
-    const diaSelecionado = parseInt(document.getElementById('dia').value); // Valor do select
-    console.log('DiasParaLimpar:', diasParaLimpar);
-    console.log('Dia selecionado:', diaSelecionado);
+    const diaSelecionado = parseInt(document.getElementById('dia').value);
 
     let maxDiasPermitidos;
     switch (diasParaLimpar) {
@@ -748,188 +677,123 @@ function carregarReservas(quadra) {
         case 3: maxDiasPermitidos = 3; break;
         case 4: maxDiasPermitidos = 2; break;
         case 5: maxDiasPermitidos = 1; break;
-        case 6: maxDiasPermitidos = 0; break; // Apenas para o dia atual
-        default:
-            console.error("Valor de DiasParaLimpar inválido.");
-            return false;
+        case 6: maxDiasPermitidos = 0; break;
+        default: return false;
     }
-    console.log('Máximo de dias permitido para reserva:', maxDiasPermitidos);
 
     const ultimoDiaPermitido = new Date(hoje);
     ultimoDiaPermitido.setDate(hoje.getDate() + maxDiasPermitidos);
-    console.log('Último dia permitido:', ultimoDiaPermitido);
 
     const diferencaDias = (diaSelecionado - hoje.getDay() + 7) % 7;
     const dataSelecionada = new Date(hoje);
     dataSelecionada.setDate(hoje.getDate() + diferencaDias);
-    console.log('Data selecionada:', dataSelecionada);
 
     if (dataSelecionada > ultimoDiaPermitido || dataSelecionada < hoje) {
         const msg = gerarMensagemErro(diasParaLimpar);
         alert(msg);
-        console.error('Reserva fora do intervalo permitido.');
         return false;
     }
 
-    console.log('Reserva permitida.');
     return true;
 }
 
-
-
-// Função para gerar a mensagem de erro com base no DiasParaLimpar
 function gerarMensagemErro(diasParaLimpar) {
     let diasAntecedencia;
     switch (diasParaLimpar) {
-        case 1:
-            diasAntecedencia = 5;
-            break;
-        case 2:
-            diasAntecedencia = 4;
-            break;
-        case 3:
-            diasAntecedencia = 3;
-            break;
-        case 4:
-            diasAntecedencia = 2;
-            break;
-        case 5:
-            diasAntecedencia = 1;
-            break;
-        case 6:
-            return "Só é permitido fazer reservas para o dia atual.";
-        default:
-            return "Valor de DiasParaLimpar inválido.";
+        case 1: diasAntecedencia = 5; break;
+        case 2: diasAntecedencia = 4; break;
+        case 3: diasAntecedencia = 3; break;
+        case 4: diasAntecedencia = 2; break;
+        case 5: diasAntecedencia = 1; break;
+        case 6: return "Só é permitido fazer reservas para o dia atual.";
+        default: return "Valor de DiasParaLimpar inválido.";
     }
-	limparCampos();
+    limparCampos();
     return `Não é permitido fazer reservas com mais de ${diasAntecedencia} dias de antecedência.`; 
 }
 
-
-
-        // Atualiza as opções de horário de acordo com a duração escolhida
 window.atualizarOpcoesHorario = function() {
     const duracao = document.getElementById('duracao').value;
-    const dia = document.getElementById('dia').value; // Obtém o valor do campo "Dia"
+    const dia = document.getElementById('dia').value;
     const hora = document.getElementById('hora');
-    hora.innerHTML = ''; // Limpa as opções anteriores
+    hora.innerHTML = '';
 
     if (!duracao || !dia) {
-        console.log("Erro: Duração ou dia não definidos.");
-        return; // Se o dia ou a duração não estiverem definidos, sai da função
+        return;
     }
 
-    // Verifica se o dia selecionado é domingo (dia == 7) e deve ser fechado
     if (dia == 7 && vDomingo === 'fechado') {
-        // Para domingo, se a duração for de 1 hora, exclui 06:00-07:00 e 07:00-08:00
         if (duracao === '1') {
             for (let i = 8; i <= 11; i++) {
-                if (i !== 6) { // Exclui 06:00-07:00
-                    hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 1}:00</option>`;
-                }
-            }
-        }
-        // Para domingo, se a duração for de 2 horas, exclui 06:00-08:00
-        else if (duracao === '2') {
-            for (let i = 8; i <= 10; i++) {
-                if (i !== 6) { // Exclui 06:00-08:00
-                    hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
-                }
-            }
-        }
-    } else if (dia == 6) { // Caso para sábado (dia == 6)
-        // Para sábado, se a duração for de 1 hora, exclui 06:00-07:00
-        if (duracao === '1') {
-            for (let i = 7; i < 21; i++) { // Inicia a partir de 07:00 e vai até 23:00
-                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 1}:00</option>`;
-            }
-        }
-        // Para sábado, se a duração for de 2 horas, exclui 06:00-08:00
-        else if (duracao === '2') {
-            for (let i = 7; i < 20; i++) { // Inicia a partir de 07:00 e vai até 22:00 para 2 horas
-                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
-            }
-        }
-    } else { // Caso para outros dias da semana
-        // Caso para outros dias da semana, como segunda a sexta-feira e domingo
-        if (duracao === '1') {
-            for (let i = 6; i <= 22; i++) { // Horário de 06:00 até 22:00 para 1 hora
                 hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 1}:00</option>`;
             }
         } else if (duracao === '2') {
-            for (let i = 6; i <= 21; i++) { // Horário de 06:00 até 21:00 para 2 horas
+            for (let i = 8; i <= 10; i++) {
+                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
+            }
+        }
+    } else if (dia == 6) {
+        if (duracao === '1') {
+            for (let i = 7; i < 21; i++) {
+                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 1}:00</option>`;
+            }
+        } else if (duracao === '2') {
+            for (let i = 7; i < 20; i++) {
+                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
+            }
+        }
+    } else {
+        if (duracao === '1') {
+            for (let i = 6; i <= 22; i++) {
+                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 1}:00</option>`;
+            }
+        } else if (duracao === '2') {
+            for (let i = 6; i <= 21; i++) {
                 hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
             }
         }
     }
-
-    // Log para verificar o que está acontecendo
-    console.log(`Horários atualizados para Dia: ${dia}, Duração: ${duracao}`);
 };
 
-
-
-// Adiciona um novo campo para jogador
 window.adicionarJogador = function() {
     if (jogadorCount < 4) {
-        jogadorCount++; // Incrementa o contador de jogadores
+        jogadorCount++;
         const jogadoresContainer = document.getElementById('jogadoresContainer');
 
-        // Cria um novo div para o novo campo de entrada
         const newDiv = document.createElement('div');
-        newDiv.className = 'form-row'; // Garante o alinhamento correto
+        newDiv.className = 'form-row';
 
-        // Cria o label do campo
         const label = document.createElement('label');
         label.setAttribute('for', `jogador${jogadorCount}`);
         label.textContent = 'Jogador:';
 
-        // Cria o campo de entrada
         const input = document.createElement('input');
         input.type = 'text';
         input.id = `jogador${jogadorCount}`;
         input.placeholder = `Nome do Jogador ${jogadorCount}`;
         input.maxLength = 20;
         input.required = true;
+        input.classList.add('jogador-input');
 
-        // Aplica a classe 'jogador-input' para garantir o tamanho correto
-        input.classList.add('jogador-input'); // Aplica o mesmo estilo
-
-        // Adiciona o label e o input na nova linha
         newDiv.appendChild(label);
         newDiv.appendChild(input);
-
-        // Adiciona a nova linha com o campo ao contêiner de jogadores
         jogadoresContainer.appendChild(newDiv);
-		 // Define o foco no novo campo de entrada
+
         input.focus();
     }
 };
 
-
-
-
-
-//let quadrasInativas = new Set(); // Armazena as quadras interditadas
-
-        // Atualiza a tabela com a nova reserva
 atualizarTabela = function() {
-    console.log('Iniciando a função AtualizarTabela');
-	//alert("atualizarTabela");
-
     const jogadores = [];
-	for (let i = 1; i <= jogadorCount; i++) {
-		let jogador = document.getElementById(`jogador${i}`).value;
-
-		// Substituir qualquer variação de "aula" por "aula"
-		if (jogador.toLowerCase().includes('aula')) {
-        jogador = 'aula';
-		}
-
-		if (jogador) {
-        jogadores.push(jogador);
-		}
-	}
+    for (let i = 1; i <= jogadorCount; i++) {
+        let jogador = document.getElementById(`jogador${i}`).value;
+        if (jogador.toLowerCase().includes('aula')) {
+            jogador = 'aula';
+        }
+        if (jogador) {
+            jogadores.push(jogador);
+        }
+    }
 
     if (jogadores.length === 0) {
         alert('Insira pelo menos 1 jogador.');
@@ -938,22 +802,18 @@ atualizarTabela = function() {
 
     const quadra = document.getElementById('quadra').value;
 
-    // Verifica se a quadra deve ser liberada
-    
-    // Verifica se a quadra está interditada
     if (quadrasInativas.has(quadra)) {
         alert(`A ${quadra} está interditada provisóriamente.`);
-        limparCampos(); // Limpa os campos após exibir a mensagem
-        return; // Sai imediatamente para evitar agendamento
+        limparCampos();
+        return;
     }
 
     const dia = document.getElementById('dia').value;
     const horaSelecionada = parseInt(document.getElementById('hora').value);
     const duracao = parseInt(document.getElementById('duracao').value);
 
-    // Validações adicionais
     if (!validarDiaReserva(jogadores)) {
-        return; // Sai da função se a reserva não for permitida
+        return;
     }
 
     if (horaSelecionada < 6 || horaSelecionada > 22) {
@@ -964,34 +824,29 @@ atualizarTabela = function() {
     const tabela = document.getElementById('tabelaCorpo');
     let horarioInicial = horaSelecionada - 6;
 
-    console.log('Inserindo dados na tabela na linha:', horarioInicial);
-
-    const reservasRef = database.ref(`sistema/reservas/${quadra}`);
-    reservasRef.once('value', (snapshot) => { 
-        const reservas = snapshot.val() || {}; // Pega os dados mais recentes
-        console.log('Reservas recuperadas do Firebase:', reservas); // Log para depuração
+    const reservasRef = database.ref(`sistemas/reservas/${quadra}`);
+    reservasRef.once('value', (snapshot) => {
+        const reservas = snapshot.val() || {};
         let horariosLivres = true;
 
-        // Valida os horários
         for (let i = 0; i < duracao; i++) {
             const horarioChave = `${dia}_${horaSelecionada + i}`;
-            console.log(`Chave: ${horarioChave}, Ocupado?:`, !!reservas[horarioChave]);
             if (reservas[horarioChave]) {
                 horariosLivres = false;
                 break;
             }
         }
 
-        // Se algum horário estiver ocupado, exibe o erro e interrompe
         if (!horariosLivres) {
             alert('Um ou mais horários já estão reservados para essa quadra!');
             limparCampos();
             return;
         }
 
-        let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula')) ? 'lightcoral' : (duracao === 1 ? 'lightgreen' : 'lightblue');
+        let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula'))
+            ? 'lightcoral'
+            : (duracao === 1 ? 'lightgreen' : 'lightblue');
 
-        // Se for 1 hora de duração
         if (duracao === 1) {
             const key = `${dia}_${horaSelecionada}`;
             const reservaData = {
@@ -1003,16 +858,13 @@ atualizarTabela = function() {
             };
 
             reservasRef.child(key).set(reservaData)
-                .then(() => console.log("Reserva salva com sucesso!"))
                 .catch(error => console.error("Erro ao salvar a reserva:", error));
 
         } else if (duracao === 2) {
-            // Se for 2 horas de duração
             if (jogadores.length === 1) {
                 tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores[0];
                 tabela.rows[horarioInicial + 1].cells[dia].innerHTML = jogadores[0];
             } else {
-			    //alert("atualizarTabela")
                 if (jogadores.length >= 1) {
                     tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores[0];
                 }
@@ -1049,20 +901,16 @@ atualizarTabela = function() {
             };
 
             reservasRef.child(key1).set(reservaData1)
-                .then(() => console.log("Reserva para 1º horário salva com sucesso!"))
                 .catch(error => console.error("Erro ao salvar a reserva:", error));
 
             reservasRef.child(key2).set(reservaData2)
-                .then(() => console.log("Reserva para 2º horário salva com sucesso!"))
                 .catch(error => console.error("Erro ao salvar a reserva:", error));
         }
 
         selecionarQuadra(quadra);
-        limparCampos(); 
+        limparCampos();
     });
 };
-
-
 
 // Função para adicionar evento de clique nas células
 function adicionarEventoClique() {
@@ -1094,10 +942,6 @@ function adicionarEventoClique() {
         }
     }
 }
-
-
-
-
 
 // Variável global para rastrear células já excluídas
 const celulasExcluidas = new Set();
@@ -1160,22 +1004,6 @@ function excluirReserva(horaIndex, diaIndex) {
     carregarReservas(quadraAtual);
 }
 
-
-
-
-
-
-// Função customizada para atualizar a interface sem interferir na quadra atual
-function atualizarInterfaceQuadra(quadraAtual) {
-    console.log(`Atualizando a interface para a quadra ${quadraAtual} sem mudar o foco.`);
-    // Atualiza a interface visual para a quadra correta
-    carregarReservas(quadraAtual);
-}
-
-
-
-
-
 // Função para limpar o conteúdo da célula
 function limparCelula(celula) {
     if (celula) {
@@ -1183,14 +1011,13 @@ function limparCelula(celula) {
         celula.style.backgroundColor = ""; // Restaura a cor de fundo
         celula.style.border = "1px solid #ddd"; // Restaura a borda padrão
         celula.removeAttribute('data-duracao'); // Remove o atributo de duração
-		 // Remover rowSpan apenas se a reserva for de 2 horas e tiver apenas um jogador
+
+        // Remover rowSpan apenas se a reserva for de 2 horas e tiver apenas um jogador
         if (celula.rowSpan === 2) {
-           ////celula.removeAttribute('rowSpan'); // Remove o rowSpan para restaurar as células separadas
-		   celula.rowSpan = 1; // Restaura o rowSpan para o padrão
+            celula.rowSpan = 1; // Restaura o rowSpan para o padrão
         }
     }
 }
-
 
 const reservasExcluidasFirebase = new Set();
 
@@ -1199,54 +1026,35 @@ function excluirReservaFirebase(horaSelecionada, diaIndex, quadra) {
 
     if (!reservasExcluidasFirebase.has(key)) {
         reservasExcluidasFirebase.add(key);
-        database.ref(`sistema/reservas/${quadra}/${key}`).remove()
+        database.ref(`sistemas/reservas/${quadra}/${key}`).remove()
             .then(() => {
-                console.log(`Reserva removida com sucesso do Firebase para ${quadra}, chave=${key}`);
                 reservasExcluidasFirebase.delete(key);
-
-                // Atualiza a interface após a exclusão
-                //carregarReservas(quadra);
             })
             .catch((error) => console.error(`Erro ao remover a reserva do Firebase: ${error}`));
     }
 }
 
-function salvarEstadoQuadras() {
-    const estado = Array.from(quadrasInativas); // Converte o Set em Array para salvar no Firebase
-    database.ref('estadoQuadras/').set({ interditadas: estado })
-        .then(() => console.log("Estado das quadras salvo com sucesso no Firebase!"))
-        .catch(error => console.error("Erro ao salvar estado das quadras:", error));
+function limparCampos() {
+    // Não reseta o campo "Jogador 1" e mantém o seu valor
+    const jogadoresContainer = document.getElementById('jogadoresContainer');
+    while (jogadoresContainer.children.length > 1) {
+        jogadoresContainer.removeChild(jogadoresContainer.lastChild); // Remove apenas os campos de jogador adicionais
+    }
+    jogadorCount = 1; // Reseta o contador de jogadores para 1
+    document.getElementById('dataForm').reset(); // Reseta o formulário
+    document.getElementById('jogador1').value = ''; // Mantém o campo "Jogador 1"
+    document.getElementById('duracao').value = '1'; // Reseta a duração para 1 hora
+    atualizarOpcoesHorario(); // Atualiza as opções de horário
 }
 
-
-
-
-
-        function limparCampos() {
-            // Não reseta o campo "Jogador 1" e mantém o seu valor
-            const jogadoresContainer = document.getElementById('jogadoresContainer');
-            while (jogadoresContainer.children.length > 1) {
-                jogadoresContainer.removeChild(jogadoresContainer.lastChild); // Remove apenas os campos de jogador adicionais
-            }
-            jogadorCount = 1; // Reseta o contador de jogadores para 1
-            document.getElementById('dataForm').reset(); // Reseta o formulário
-            document.getElementById('jogador1').value = ''; // Mantém o campo "Jogador 1"
-            document.getElementById('duracao').value = '1'; // Reseta a duração para 1 hora
-            atualizarOpcoesHorario(); // Atualiza as opções de horário
-        }
-
-
-   
 // Monitora as alterações no Firebase
-const reservasRef = database.ref('sistema/reservas/' + quadraSelecionada);
+const reservasRef = database.ref('sistemas/reservas/' + quadraSelecionada);
 reservasRef.off('value'); // Remove ouvintes anteriores
+
 reservasRef.on('value', (snapshot) => {
-
-console.log("Atualização recebida do Firebase:", snapshot.val());
-
     const reservas = snapshot.val();
-	
-limparTabela(); // Limpa toda a tabela antes de preencher com dados atualizados
+
+    limparTabela(); // Limpa toda a tabela antes de preencher com dados atualizados
 
     if (reservas) {
         for (const key in reservas) {
@@ -1256,23 +1064,20 @@ limparTabela(); // Limpa toda a tabela antes de preencher com dados atualizados
             // Atualiza a célula com os jogadores recuperados do Firebase
             document.getElementById('tabelaCorpo').rows[rowIndex].cells[dia].innerHTML = jogadores;
 
-            // Aplicar a cor de fundo e bordas com base nos dados
+            // Aplica a cor de fundo com base na reserva
             let corFundo;
-			if (jogadores.toLowerCase().includes('aula') ) {
-				corFundo = 'lightcoral';
-			} else {
-				corFundo = duracao === 1 ? 'lightgreen' : 'lightblue';
-			}
-			const cell = document.getElementById('tabelaCorpo').rows[rowIndex]?.cells[dia]; // Encontre a célula específica
-			if (cell) { // Verifique se a célula foi encontrada
-				cell.style.backgroundColor = corFundo;
-			}
+            if (jogadores.toLowerCase().includes('aula')) {
+                corFundo = 'lightcoral';
+            } else {
+                corFundo = duracao === 1 ? 'lightgreen' : 'lightblue';
+            }
 
+            const cell = document.getElementById('tabelaCorpo').rows[rowIndex]?.cells[dia];
+            if (cell) {
+                cell.style.backgroundColor = corFundo;
+            }
 
-
-            document.getElementById('tabelaCorpo').rows[rowIndex].cells[dia].style.backgroundColor = corFundo;
-
-            // Aplicar bordas
+            // Aplica bordas dependendo da duração da reserva
             if (borda === '1h') {
                 document.getElementById('tabelaCorpo').rows[rowIndex].cells[dia].style.border = '2px solid black';
             } else if (borda === '2h') {
@@ -1293,178 +1098,141 @@ limparTabela(); // Limpa toda a tabela antes de preencher com dados atualizados
     }
 });
 
-
-
-
-
 function atualizarDatas() {
-    console.log("atualizarDatas foi chamada"); 
-	
-    const dataInicio = new Date();
-    let diaDaSemana = dataInicio.getDay(); 
-    const dias = document.querySelectorAll("th");
-    console.log("Células selecionadas:", dias);
+  const dataInicio = new Date();
+  let diaDaSemana = dataInicio.getDay(); 
+  const dias = document.querySelectorAll("th");
 
-    const linhaDatas = dias[0].parentNode.nextElementSibling;
+  const linhaDatas = dias[0].parentNode.nextElementSibling;
 
-    // Limpa os dados dos dias anteriores com base em `DiasParaLimpar`
-    try {
-        LimparDiasAnteriores(); // Chama a função de limpeza com log para analisar a execução
-    } catch (error) {
-        console.error("Erro ao chamar LimparDiasAnteriores:", error);
-    }
-	
-	
-	//alert(`atualizarDatas:\nvDomingo: ${vDomingo}\nDiasParaLimpar: ${window.DiasParaLimpar}`);
-	
-    switch (DiasParaLimpar) {
-        case 1:
-            switch (diaDaSemana) {
-                case 0: preencherCeldas(dataInicio, [1, 2, 3, 4, 5, -1, 0], linhaDatas); break;
-                case 1: preencherCeldas(dataInicio, [0, 1, 2, 3, 4, 5, -1], linhaDatas); break;
-                case 2: preencherCeldas(dataInicio, [-1, 0, 1, 2, 3, 4, 5], linhaDatas); break;
-                case 3: preencherCeldas(dataInicio, [5, -1, 0, 1, 2, 3, 4], linhaDatas); break;
-                case 4: preencherCeldas(dataInicio, [4, 5, -1, 0, 1, 2, 3], linhaDatas); break;
-                case 5: preencherCeldas(dataInicio, [3, 4, 5, -1, 0, 1, 2], linhaDatas); break;
-                case 6: preencherCeldas(dataInicio, [2, 3, 4, 5, -1, 0, 1], linhaDatas); break;
-            }
-            break;
-        case 2:
-            switch (diaDaSemana) {
-                case 0: preencherCeldas(dataInicio, [1, 2, 3, 4, -2, -1, 0], linhaDatas); break;
-                case 1: preencherCeldas(dataInicio, [0, 1, 2, 3, 4, -2, -1], linhaDatas); break;
-                case 2: preencherCeldas(dataInicio, [-1, 0, 1, 2, 3, 4, -2], linhaDatas); break;
-                case 3: preencherCeldas(dataInicio, [-2, -1, 0, 1, 2, 3, 4], linhaDatas); break;
-                case 4: preencherCeldas(dataInicio, [4, -2, -1, 0, 1, 2, 3], linhaDatas); break;
-                case 5: preencherCeldas(dataInicio, [3, 4, -2, -1, 0, 1, 2], linhaDatas); break;
-                case 6: preencherCeldas(dataInicio, [2, 3, 4, -2, -1, 0, 1], linhaDatas); break;
-            }
-            break;
-        case 3:
-            switch (diaDaSemana) {
-                case 0: preencherCeldas(dataInicio, [1, 2, 3, -3, -2, -1, 0], linhaDatas); break;
-                case 1: preencherCeldas(dataInicio, [0, 1, 2, 3, -3, -2, -1], linhaDatas); break;
-                case 2: preencherCeldas(dataInicio, [-1, 0, 1, 2, 3, -3, -2], linhaDatas); break;
-                case 3: preencherCeldas(dataInicio, [-2, -1, 0, 1, 2, 3, -3], linhaDatas); break;
-                case 4: preencherCeldas(dataInicio, [-3, -2, -1, 0, 1, 2, 3], linhaDatas); break;
-                case 5: preencherCeldas(dataInicio, [3, -3, -2, -1, 0, 1, 2], linhaDatas); break;
-                case 6: preencherCeldas(dataInicio, [2, 3, -3, -2, -1, 0, 1], linhaDatas); break;
-            }
-            break;
-        case 4:
-            switch (diaDaSemana) {
-                case 0: preencherCeldas(dataInicio, [1, 2, -4, -3, -2, -1, 0], linhaDatas); break;
-                case 1: preencherCeldas(dataInicio, [0, 1, 2, -4, -3, -2, -1], linhaDatas); break;
-                case 2: preencherCeldas(dataInicio, [-1, 0, 1, 2, -4, -3, -2], linhaDatas); break;
-                case 3: preencherCeldas(dataInicio, [-2, -1, 0, 1, 2, -4, -3], linhaDatas); break;
-                case 4: preencherCeldas(dataInicio, [-3, -2, -1, 0, 1, 2, -4], linhaDatas); break;
-                case 5: preencherCeldas(dataInicio, [-4, -3, -2, -1, 0, 1, 2], linhaDatas); break;
-                case 6: preencherCeldas(dataInicio, [2, -4, -3, -2, -1, 0, 1], linhaDatas); break;
-            }
-            break;
-        case 5:
-            switch (diaDaSemana) {
-                case 0: preencherCeldas(dataInicio, [1, -5, -4, -3, -2, -1, 0], linhaDatas); break;
-                case 1: preencherCeldas(dataInicio, [0, 1, -5, -4, -3, -2, -1], linhaDatas); break;
-                case 2: preencherCeldas(dataInicio, [-1, 0, 1, -5, -4, -3, -2], linhaDatas); break;
-                case 3: preencherCeldas(dataInicio, [-2, -1, 0, 1, -5, -4, -3], linhaDatas); break;
-                case 4: preencherCeldas(dataInicio, [-3, -2, -1, 0, 1, -5, -4], linhaDatas); break;
-                case 5: preencherCeldas(dataInicio, [-4, -3, -2, -1, 0, 1, -5], linhaDatas); break;
-                case 6: preencherCeldas(dataInicio, [-5, -4, -3, -2, -1, 0, 1], linhaDatas); break;
-            }
-            break;
-        case 6:
-            switch (diaDaSemana) {
-                case 0: preencherCeldas(dataInicio, [-6, -5, -4, -3, -2, -1, 0], linhaDatas); break;
-                case 1: preencherCeldas(dataInicio, [0, -6, -5, -4, -3, -2, -1], linhaDatas); break;
-                case 2: preencherCeldas(dataInicio, [-1, 0, -6, -5, -4, -3, -2], linhaDatas); break;
-                case 3: preencherCeldas(dataInicio, [-2, -1, 0, -6, -5, -4, -3], linhaDatas); break;
-                case 4: preencherCeldas(dataInicio, [-3, -2, -1, 0, -6, -5, -4], linhaDatas); break;
-                case 5: preencherCeldas(dataInicio, [-4, -3, -2, -1, 0, -6, -5], linhaDatas); break;
-                case 6: preencherCeldas(dataInicio, [-5, -4, -3, -2, -1, 0, -6], linhaDatas); break;
-            }
-            break;
-    }
+  try {
+    LimparDiasAnteriores();
+  } catch (error) {}
+
+  switch (DiasParaLimpar) {
+    case 1:
+      switch (diaDaSemana) {
+        case 0: preencherCeldas(dataInicio, [1, 2, 3, 4, 5, -1, 0], linhaDatas); break;
+        case 1: preencherCeldas(dataInicio, [0, 1, 2, 3, 4, 5, -1], linhaDatas); break;
+        case 2: preencherCeldas(dataInicio, [-1, 0, 1, 2, 3, 4, 5], linhaDatas); break;
+        case 3: preencherCeldas(dataInicio, [5, -1, 0, 1, 2, 3, 4], linhaDatas); break;
+        case 4: preencherCeldas(dataInicio, [4, 5, -1, 0, 1, 2, 3], linhaDatas); break;
+        case 5: preencherCeldas(dataInicio, [3, 4, 5, -1, 0, 1, 2], linhaDatas); break;
+        case 6: preencherCeldas(dataInicio, [2, 3, 4, 5, -1, 0, 1], linhaDatas); break;
+      }
+      break;
+    case 2:
+      switch (diaDaSemana) {
+        case 0: preencherCeldas(dataInicio, [1, 2, 3, 4, -2, -1, 0], linhaDatas); break;
+        case 1: preencherCeldas(dataInicio, [0, 1, 2, 3, 4, -2, -1], linhaDatas); break;
+        case 2: preencherCeldas(dataInicio, [-1, 0, 1, 2, 3, 4, -2], linhaDatas); break;
+        case 3: preencherCeldas(dataInicio, [-2, -1, 0, 1, 2, 3, 4], linhaDatas); break;
+        case 4: preencherCeldas(dataInicio, [4, -2, -1, 0, 1, 2, 3], linhaDatas); break;
+        case 5: preencherCeldas(dataInicio, [3, 4, -2, -1, 0, 1, 2], linhaDatas); break;
+        case 6: preencherCeldas(dataInicio, [2, 3, 4, -2, -1, 0, 1], linhaDatas); break;
+      }
+      break;
+    case 3:
+      switch (diaDaSemana) {
+        case 0: preencherCeldas(dataInicio, [1, 2, 3, -3, -2, -1, 0], linhaDatas); break;
+        case 1: preencherCeldas(dataInicio, [0, 1, 2, 3, -3, -2, -1], linhaDatas); break;
+        case 2: preencherCeldas(dataInicio, [-1, 0, 1, 2, 3, -3, -2], linhaDatas); break;
+        case 3: preencherCeldas(dataInicio, [-2, -1, 0, 1, 2, 3, -3], linhaDatas); break;
+        case 4: preencherCeldas(dataInicio, [-3, -2, -1, 0, 1, 2, 3], linhaDatas); break;
+        case 5: preencherCeldas(dataInicio, [3, -3, -2, -1, 0, 1, 2], linhaDatas); break;
+        case 6: preencherCeldas(dataInicio, [2, 3, -3, -2, -1, 0, 1], linhaDatas); break;
+      }
+      break;
+    case 4:
+      switch (diaDaSemana) {
+        case 0: preencherCeldas(dataInicio, [1, 2, -4, -3, -2, -1, 0], linhaDatas); break;
+        case 1: preencherCeldas(dataInicio, [0, 1, 2, -4, -3, -2, -1], linhaDatas); break;
+        case 2: preencherCeldas(dataInicio, [-1, 0, 1, 2, -4, -3, -2], linhaDatas); break;
+        case 3: preencherCeldas(dataInicio, [-2, -1, 0, 1, 2, -4, -3], linhaDatas); break;
+        case 4: preencherCeldas(dataInicio, [-3, -2, -1, 0, 1, 2, -4], linhaDatas); break;
+        case 5: preencherCeldas(dataInicio, [-4, -3, -2, -1, 0, 1, 2], linhaDatas); break;
+        case 6: preencherCeldas(dataInicio, [2, -4, -3, -2, -1, 0, 1], linhaDatas); break;
+      }
+      break;
+    case 5:
+      switch (diaDaSemana) {
+        case 0: preencherCeldas(dataInicio, [1, -5, -4, -3, -2, -1, 0], linhaDatas); break;
+        case 1: preencherCeldas(dataInicio, [0, 1, -5, -4, -3, -2, -1], linhaDatas); break;
+        case 2: preencherCeldas(dataInicio, [-1, 0, 1, -5, -4, -3, -2], linhaDatas); break;
+        case 3: preencherCeldas(dataInicio, [-2, -1, 0, 1, -5, -4, -3], linhaDatas); break;
+        case 4: preencherCeldas(dataInicio, [-3, -2, -1, 0, 1, -5, -4], linhaDatas); break;
+        case 5: preencherCeldas(dataInicio, [-4, -3, -2, -1, 0, 1, -5], linhaDatas); break;
+        case 6: preencherCeldas(dataInicio, [-5, -4, -3, -2, -1, 0, 1], linhaDatas); break;
+      }
+      break;
+    case 6:
+      switch (diaDaSemana) {
+        case 0: preencherCeldas(dataInicio, [-6, -5, -4, -3, -2, -1, 0], linhaDatas); break;
+        case 1: preencherCeldas(dataInicio, [0, -6, -5, -4, -3, -2, -1], linhaDatas); break;
+        case 2: preencherCeldas(dataInicio, [-1, 0, -6, -5, -4, -3, -2], linhaDatas); break;
+        case 3: preencherCeldas(dataInicio, [-2, -1, 0, -6, -5, -4, -3], linhaDatas); break;
+        case 4: preencherCeldas(dataInicio, [-3, -2, -1, 0, -6, -5, -4], linhaDatas); break;
+        case 5: preencherCeldas(dataInicio, [-4, -3, -2, -1, 0, -6, -5], linhaDatas); break;
+        case 6: preencherCeldas(dataInicio, [-5, -4, -3, -2, -1, 0, -6], linhaDatas); break;
+      }
+      break;
+  }
 }
 
-// Função para preencher as células de datas, ignorando a primeira célula
 function preencherCeldas(dataInicio, ajustes, linhaDatas) {
-    for (let i = 0; i < ajustes.length; i++) {
-        let novaData = new Date(dataInicio);
-        novaData.setDate(dataInicio.getDate() + ajustes[i]);
-		
-		// Adiciona log para verificar a célula sendo preenchida
-        console.log(`Preenchendo célula ${i + 1} com a data: ${novaData.toLocaleDateString('pt-BR')}`);
-		
-        linhaDatas.children[i].innerHTML = novaData.toLocaleDateString('pt-BR');
-    }
+  for (let i = 0; i < ajustes.length; i++) {
+    let novaData = new Date(dataInicio);
+    novaData.setDate(dataInicio.getDate() + ajustes[i]);
+
+    linhaDatas.children[i].innerHTML = novaData.toLocaleDateString('pt-BR');
+  }
 }
 
 function LimparDiasAnteriores() {
-    console.log("Executando LimparDiasAnteriores para as três quadras");
+  const dataAtual = new Date();
+  dataAtual.setHours(0, 0, 0, 0);
 
-    const dataAtual = new Date();
-    dataAtual.setHours(0, 0, 0, 0); // Zerando horas para comparação exata
+  const quadras = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"];
+  const tabela = document.getElementById('tabelaCorpo');
 
-    const quadras = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"];
-    const tabela = document.getElementById('tabelaCorpo'); // Acessa a tabela
+  quadras.forEach(quadra => {
+    for (let dia = 1; dia <= DiasParaLimpar; dia++) {
+      const dataParaLimpar = new Date(dataAtual);
+      dataParaLimpar.setDate(dataAtual.getDate() - dia);
+      const diaIndex = dataParaLimpar.getDay() || 7;
 
-    quadras.forEach(quadra => {
-        console.log(`Limpando dados da ${quadra}`);
-        for (let dia = 1; dia <= DiasParaLimpar; dia++) {
-            const dataParaLimpar = new Date(dataAtual);
-            dataParaLimpar.setDate(dataAtual.getDate() - dia);
-            const diaIndex = dataParaLimpar.getDay() || 7; // Trata domingo como 7
+      for (let hora = 6; hora < 22; hora++) {
+        const horaIndex = hora - 6;
+        const key = `${diaIndex}_${hora}`;
 
-            for (let hora = 6; hora < 22; hora++) {
-                const horaIndex = hora - 6; // Calcula o índice correto da linha
-                const key = `${diaIndex}_${hora}`;
-
-    // Ignorar sábado (coluna 6) das 06:00 às 07:00 e das 21:00 às 23:00 e domingo (coluna 7) das 06:00 às 08:00
-	if ((diaIndex === 6 && hora === 6) || (diaIndex === 7 && hora >= 6 && hora <= 8) || (diaIndex === 6 && hora >= 21 && hora <= 23)) {
-    // Pule estas células sem realizar qualquer operação
-    console.log(`Ignorando célula: dia ${diaIndex}, hora ${hora}`);
-    continue; 
-}
-
-
-                // Verifica a reserva no Firebase antes de remover
-                const reservaRef = database.ref(`sistema/reservas/${quadra}/${key}`);
-                reservaRef.once('value', (snapshot) => {
-                    const reserva = snapshot.val();
-                    if (reserva) {
-                        const { jogadores } = reserva;
-                        // Verifica se a reserva contém "aula"
-                        if (jogadores && (jogadores.toLowerCase().includes('aula'))) {
-                            console.log(`Reserva de "${jogadores}" não será removida.`);
-                            return; // Sai da função de callback
-                        }
-                        // Remove a célula da interface e do Firebase
-                        const celula = tabela.rows[horaIndex]?.cells[diaIndex];
-                        if (celula) {
-                            limparCelula(celula); // Função que limpa a célula na interface
-                        }
-                        reservaRef.remove()
-                            .then(() => console.log(`Reserva removida com sucesso do Firebase para ${quadra}, chave=${key}`))
-                            .catch(error => console.error(`Erro ao remover a reserva do Firebase: ${error}`));
-                    }
-                }, (error) => {
-                    console.error(`Erro ao verificar a reserva do Firebase para ${key}: ${error}`);
-                });
-            }
+        if ((diaIndex === 6 && hora === 6) || (diaIndex === 7 && hora >= 6 && hora <= 8) || (diaIndex === 6 && hora >= 21 && hora <= 23)) {
+          continue; 
         }
-    });
+
+        const reservaRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
+        reservaRef.once('value', (snapshot) => {
+          const reserva = snapshot.val();
+          if (reserva) {
+            const { jogadores } = reserva;
+            if (jogadores && (jogadores.toLowerCase().includes('aula'))) {
+              return;
+            }
+            const celula = tabela.rows[horaIndex]?.cells[diaIndex];
+            if (celula) {
+              limparCelula(celula);
+            }
+            reservaRef.remove()
+              .catch(error => {});
+          }
+        }, (error) => {});
+      }
+    }
+  });
 }
-
-
-
 
 function abrirManual() {
-    window.open('manual.html', '_blank');
-	
+  window.open('manual.html', '_blank');
 }
-
-
 
 window.onload = function() {
     verificarVersao();
@@ -1472,58 +1240,39 @@ window.onload = function() {
     const loadingElement = document.getElementById('loading');
     const contentElement = document.getElementById('content');
 
-    // Verifique se os elementos existem
     if (!loadingElement || !contentElement) {
-        console.error('Erro: elementos não encontrados!');
         return;
     }
 
-    // Exibe a tela de carregamento
     loadingElement.style.display = 'block';
     contentElement.style.display = 'none';
 
-    console.log('Inicializando sistema...');
-
-    // Inicializa o sistema
     InicializarSistema()
         .then(() => {
-            console.log('Sistema inicializado, exibindo conteúdo...');
-            // Esconde a tela de "Carregando" e exibe o conteúdo
             loadingElement.style.display = 'none';
             contentElement.style.display = 'block';
-    
         })
         .catch(error => {
-            console.error("Erro ao inicializar o sistema:", error);
             // Exibe uma mensagem de erro se a Promise for rejeitada
         });
 };
 
- 
 document.addEventListener('DOMContentLoaded', () => {
     const tabelaContainer = document.querySelector('.tabela-container');
     
-    // Variável para controlar o estado de expansão
-    let isExpanded = false;  // Inicia como falso, o que significa que o valor é 10px inicialmente
+    let isExpanded = false;
 
     tabelaContainer.addEventListener('dblclick', (event) => {
-        // Verifica se o elemento clicado é uma célula (TH ou TD)
         const target = event.target;
 
         if ((target.tagName === 'TH' || target.tagName === 'TD') && target.innerText.includes('Horários')) {
-            // Alterna o estado de expansão
             if (isExpanded) {
-                // Se já estiver expandido, restaura para 10px
                 tabelaContainer.style.marginTop = "10px";
             } else {
-                // Se não estiver expandido, coloca margin-top em 70px
                 tabelaContainer.style.marginTop = "70px";
             }
 
-            // Alterna o estado
             isExpanded = !isExpanded;
-            
-            // Opcional: Se quiser adicionar uma classe para efeito de expansão, pode usar
             tabelaContainer.classList.toggle('fullscreen');
         }
     });
