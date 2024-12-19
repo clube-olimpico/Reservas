@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Clube Olímpico - Sistema de Reservas</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<!-- Configurações para evitar cache -->
     <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
-    <link rel="stylesheet" href="style.css"> 
 
 <style>
 /* Estilos globais */
@@ -42,7 +42,7 @@ label {
 
 /* Configuração do campo "Nome do Jogador" */
 .jogador-input {
-    width: 50px; /* Largura fixa para manter consistência */
+    width: 300px; /* Largura fixa para manter consistência */
     box-sizing: border-box; /* Inclui padding e bordas no cálculo da largura */
     margin: 0;
     padding: 5px;
@@ -52,7 +52,7 @@ label {
 @media (max-width: 600px) {
     .jogador-input {
         width: 100% !important; /* Campo ocupa toda a largura disponível */
-        max-width: 175px; /* Limita a largura máxima */
+        max-width: 190px; /* Limita a largura máxima */
     }
 }
 
@@ -210,6 +210,8 @@ th {
 }
 
 </style>
+
+</head>
 
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
