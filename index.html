@@ -208,7 +208,7 @@ th {
     width: 100%;
     height: auto;
 }
-
+ 
 </style>
 
 </head>
@@ -222,7 +222,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.0.1'; // Versão atual do sistema
+const VersaoSistema = 'v1.0.0'; // Versão atual do sistema
 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
@@ -1211,7 +1211,7 @@ function LimparDiasAnteriores() {
         const horaIndex = hora - 6;
         const key = `${diaIndex}_${hora}`;
 
-        if ((diaIndex === 6 && hora === 6) || (diaIndex === 7 && hora >= 6 && hora <= 8) || (diaIndex === 6 && hora >= 21 && hora <= 23)) {
+        if ((diaIndex === 6 && hora === 6) || (diaIndex === 7 && hora >= 6 && hora < 8) || (diaIndex === 6 && hora >= 21 && hora <= 23)) {
           continue; 
         }
 
@@ -1265,9 +1265,27 @@ window.onload = function() {
 
 document.addEventListener('DOMContentLoaded', () => {
     const tabelaContainer = document.querySelector('.tabela-container');
-    
+    const horariosColuna = document.querySelectorAll('#tabelaCorpo td:first-child, #tabelaCorpo td:last-child');
     let isExpanded = false;
 
+    // Ajusta os horários em telas pequenas
+    const ajustarHorariosCelular = () => {
+        const larguraTela = window.innerWidth;
+
+        if (larguraTela <= 600) { // Verifica se a tela é pequena
+            horariosColuna.forEach(celula => {
+                if (celula.textContent.includes(' - ')) {
+                    const horarios = celula.textContent.split(' - ');
+                    celula.innerHTML = `${horarios[0]}<br>${horarios[1]}`; // Quebra os horários em linhas
+                }
+            });
+        }
+    };
+
+    // Chamada inicial ao carregar a página
+    ajustarHorariosCelular();
+
+    // Listener para alterar layout ao clicar duas vezes
     tabelaContainer.addEventListener('dblclick', (event) => {
         const target = event.target;
 
@@ -1283,6 +1301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
 
 
 
