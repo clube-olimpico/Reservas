@@ -222,7 +222,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.0.0'; // Versão atual do sistema
+const VersaoSistema = 'v1.0.0'; // Versão atual do sistema 
 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
@@ -536,19 +536,62 @@ function limparTabela() {
 
 // Função para selecionar a quadra e carregar suas reservas
 function selecionarQuadra(quadra) {
+    // Obtém o nome original da quadra
+    const botoes = document.querySelectorAll('.tab-button');
+    let nomeOriginal = null;
+
+    botoes.forEach(button => {
+        // Verifica se o botão corresponde ao nome exibido ou ao nome original
+        if (
+            button.getAttribute('data-nome-original') === quadra ||
+            button.innerHTML.replace('<br>', '').trim() === quadra
+        ) {
+            nomeOriginal = button.getAttribute('data-nome-original');
+            
+            // Alerta com o label do botão clicado
+            const labelBotao = button.textContent.trim(); // Obtém o texto do botão
+            //alert(`Label do botão clicado: ${labelBotao}`);
+        }
+    });
+
+    // alert(`quadra: ${quadra}`);
+    if (!nomeOriginal) {
+        // Substitui quebras de linha e espaços múltiplos por um único espaço
+        const quadraNormalized = quadra.replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
+        //console.log(`Valor ajustado de quadra: "${quadraNormalized}"`);
+        //alert(`Valor ajustado de quadra: "${quadraNormalized}"`);
+        // Verifica o nome normalizado
+        if (quadraNormalized === "Quadra 1 - Coberta" || quadraNormalized === "Quadra 1 Coberta") {
+            nomeOriginal = "Quadra 1 - Coberta";
+        } else if (quadraNormalized === "Quadra 2 - Aberta" || quadraNormalized === "Quadra 2 Aberta") {
+            nomeOriginal = "Quadra 2 - Aberta";
+        } else if (quadraNormalized === "Quadra 3 - Coberta" || quadraNormalized === "Quadra 3 Coberta") {
+            nomeOriginal = "Quadra 3 - Coberta";
+        }
+    }
+	
+    //nomeOriginal = "Quadra 3 - Coberta";
+	
+    //alert(`Quadra selecionada: ${nomeOriginal}`); // Alerta com o nome da quadra
+
+    if (!nomeOriginal) {
+        console.error('Quadra não encontrada:', quadra);
+        return;
+    }
+
     // Verifica se a quadra está interditada
-    const isQuadraInterditada = quadrasInativas.has(quadra);
+    const isQuadraInterditada = quadrasInativas.has(nomeOriginal);
 
     if (isQuadraInterditada) {
-        alert(`A ${quadra} está interditada provisoriamente.`);
+        alert(`A ${nomeOriginal} está interditada provisoriamente.`);
+        return;
     }
 
     // Atualiza a quadra selecionada
-    quadraSelecionada = quadra;
-    document.querySelector('.header').innerText = quadra;
+    quadraSelecionada = nomeOriginal;
+    document.querySelector('.header').innerText = nomeOriginal;
 
     // Remove a classe 'selected' e estilo inline de todos os botões
-    const botoes = document.querySelectorAll('.tab-button');
     botoes.forEach(button => {
         button.classList.remove('selected');
         button.style.backgroundColor = ''; // Remove estilo inline
@@ -558,9 +601,7 @@ function selecionarQuadra(quadra) {
 
     // Adiciona a classe 'selected' e estilo inline ao botão correspondente
     botoes.forEach(button => {
-        const textoBotao = button.textContent.trim();
-
-        if (textoBotao === quadra) {
+        if (button.getAttribute('data-nome-original') === nomeOriginal) {
             button.classList.add('selected'); // Aplica a classe 'selected' para quadra selecionada
             button.style.backgroundColor = '#228B22'; // Cor verde escuro para quadra selecionada
             button.style.color = 'white'; // Texto branco
@@ -568,7 +609,7 @@ function selecionarQuadra(quadra) {
         }
 
         // Verifica se a quadra está interditada e aplica o estilo vermelho
-        if (quadrasInativas.has(button.textContent.trim())) {
+        if (quadrasInativas.has(button.getAttribute('data-nome-original'))) {
             button.style.backgroundColor = 'red'; // Botão vermelho para quadras interditadas
             button.style.color = 'white'; // Texto branco
             button.style.border = ''; // Remove a borda para o botão vermelho
@@ -579,8 +620,11 @@ function selecionarQuadra(quadra) {
     atualizarEstadoDomingo();
 
     // Atualiza e exibe reservas para a quadra selecionada
-    carregarReservas(quadra);
+    carregarReservas(nomeOriginal);
 }
+
+
+
 
 function carregarReservas(quadra) {
     celulasExcluidas.clear();
@@ -1255,7 +1299,7 @@ window.onload = function() {
 
     InicializarSistema()
         .then(() => {
-            loadingElement.style.display = 'none';
+            loadingElement.style.display = 'none'; 
             contentElement.style.display = 'block';
         })
         .catch(error => {
@@ -1264,6 +1308,7 @@ window.onload = function() {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+//alert('entrei no addEventListener');
     const tabelaContainer = document.querySelector('.tabela-container');
     const horariosColuna = document.querySelectorAll('#tabelaCorpo td:first-child, #tabelaCorpo td:last-child');
     let isExpanded = false;
@@ -1300,7 +1345,36 @@ document.addEventListener('DOMContentLoaded', () => {
             tabelaContainer.classList.toggle('fullscreen');
         }
     });
+
+    // Nova funcionalidade: Ajusta os nomes dos botões para celular
+    const ajustarNomesBotoes = () => {
+        const larguraTela = window.innerWidth;
+        const botoes = document.querySelectorAll('.tab-button');
+
+        botoes.forEach(botao => {
+            const nomeOriginal = botao.getAttribute('data-nome-original'); // Recupera o nome original
+            if (!nomeOriginal) {
+                botao.setAttribute('data-nome-original', botao.innerHTML); // Armazena o nome original uma única vez
+            }
+
+            if (larguraTela <= 600) {
+                // Ajuste para celular: quebra o texto em duas linhas
+                const partesNome = botao.getAttribute('data-nome-original').split(' - ');
+                if (partesNome.length === 2) {
+                    botao.innerHTML = `${partesNome[0]}<br>${partesNome[1]}`;
+                }
+            } else {
+                // Ajuste para computador: restaura o nome original
+                botao.innerHTML = botao.getAttribute('data-nome-original');
+            }
+        });
+    };
+
+    // Ajuste inicial e ao redimensionar a tela
+    ajustarNomesBotoes();
+    window.addEventListener('resize', ajustarNomesBotoes);
 });
+
 
 
 
@@ -1332,7 +1406,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 
-
+ 
 
 
 
