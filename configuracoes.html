@@ -77,6 +77,17 @@
         button:hover {
             background-color: #45a049;
         }
+        #sistema {
+            font-weight: bold;
+        }
+        #sistema.on {
+            color: white;
+            background-color: green;
+        }
+        #sistema.off {
+            color: white;
+            background-color: red;
+        }
         #loading {
             position: fixed;
             top: 50%;
@@ -102,6 +113,15 @@
             <span>Clube Olímpico</span>
             <span>Sistema de Reservas</span>
             <span>Configurações</span>
+        </div>
+
+        <!-- Campo Sistema -->
+        <div class="container">
+            <label for="sistema">Sistema:</label>
+            <select id="sistema" onchange="atualizarEstadoSistema()">
+                <option value="ON">ON</option>
+                <option value="OFF">OFF</option>
+            </select>
         </div>
 
         <!-- Configuração de vDomingo -->
@@ -154,56 +174,6 @@
 </div>
 
 <script>
-
- // Ajuste manual da versão do Sistema
-    const VersaoSistema = 'v1.0.0'; // Versão atual do sistema
-
-
-	 
-		 document.addEventListener('contextmenu', event => event.preventDefault());
-  document.addEventListener('keydown', event => {
-    if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I")) {
-      event.preventDefault();
-    }
-  });
-
-   
-    // Adiciona o evento ao campo Dias para Agendar
-    document.getElementById('diasParaAgendar').addEventListener('change', function () {
-        const diasParaAgendar = parseInt(this.value); // Obtém o valor selecionado como número
-
-        // Define as mensagens com base no valor
-        let mensagem;
-        switch (diasParaAgendar) {
-            case 0:
-                mensagem = "Será permitida a reserva somente no dia corrente. Os dados dos 6 dias anteriores serão limpos automaticamente.";
-                break;
-            case 1:
-                mensagem = "Será permitida a reserva com 1 dia de antecedência. Os dados dos 5 dias anteriores serão limpos automaticamente.";
-                break;
-            case 2:
-                mensagem = "Será permitida a reserva com 2 dias de antecedência. Os dados dos 4 dias anteriores serão limpos automaticamente.";
-                break;
-            case 3:
-                mensagem = "Será permitida a reserva com 3 dias de antecedência. Os dados dos 3 dias anteriores serão limpos automaticamente.";
-                break;
-            case 4:
-                mensagem = "Será permitida a reserva com 4 dias de antecedência. Os dados dos 2 dias anteriores serão limpos automaticamente.";
-                break;
-            case 5:
-                mensagem = "Será permitida a reserva com 5 dias de antecedência. Os dados do dia anterior serão limpos automaticamente.";
-                break;
-            default:
-                mensagem = "Seleção inválida.";
-        }
-
-        // Exibe o alerta com a mensagem correspondente
-        alert(mensagem);
-    });
-	
-	
-
-    // Configuração do Firebase
     const firebaseConfig = {
         apiKey: "YOUR_API_KEY",
         authDomain: "agenda-5ce95.firebaseapp.com",
@@ -215,41 +185,24 @@
     };
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-	
-	
-	
-	// Função para verificar a versão do app
-        function verificarVersao() {
-            //const appVersion = "v1.0.0"; // Versão atual do app
-            db.ref("sistemas/version").once("value")
-                .then((snapshot) => {
-                    const minVersion = snapshot.val();
-					//alert(minVersion);
-                    if (VersaoSistema !== minVersion) {
-                        alert("Sua versão está desatualizada. Atualize o aplicativo para continuar.");
-                        window.close(); // Fecha a janela se a versão não for compatível
-                    } else {
-                        console.log("Versão compatível. Acesso liberado.");
-                    }
-                })
-                .catch((error) => {
-                    console.error("Erro ao verificar a versão:", error);
-                });
-        }
 
-    // Função para carregar as configurações do Firebase
+    function atualizarEstadoSistema() {
+        const sistema = document.getElementById('sistema');
+        if (sistema.value === 'ON') {
+            sistema.className = 'on';
+        } else {
+            sistema.className = 'off';
+        }
+    }
+
     function carregarConfiguracoes() {
         return new Promise((resolve, reject) => {
             db.ref("sistemas/config").once("value")
                 .then(snapshot => {
                     const data = snapshot.val();
                     if (data) {
-					
-					    // se Abrir=false no banco, sai do sistema
-                        if (data.Abrir === false) {
-                            window.close();
-                            return;
-                        }
+                        document.getElementById('sistema').value = data.Abrir ? 'ON' : 'OFF';
+                        atualizarEstadoSistema();
                         document.getElementById('vDomingo').value = data.vDomingo || "aberto";
                         const diasParaLimpar = data.DiasParaLimpar || 6;
                         document.getElementById('diasParaAgendar').value = (6 - diasParaLimpar).toString();
@@ -268,8 +221,8 @@
         });
     }
 
-    // Função para salvar configurações no Firebase
     function salvarConfiguracoes() {
+        const abrir = document.getElementById('sistema').value === 'ON';
         const vDomingo = document.getElementById('vDomingo').value;
         const diasParaLimpar = 6 - parseInt(document.getElementById('diasParaAgendar').value);
         const estadoQuadra1 = document.getElementById('estadoQuadra1').value;
@@ -277,6 +230,7 @@
         const estadoQuadra3 = document.getElementById('estadoQuadra3').value;
 
         db.ref("sistemas/config").update({
+            Abrir: abrir,
             vDomingo,
             DiasParaLimpar: diasParaLimpar,
             Quadras: {
@@ -300,9 +254,6 @@
         loadingElement.style.display = 'block';
         contentElement.style.display = 'none';
 
-         // Verifica a versão do app
-            verificarVersao();
-			
         carregarConfiguracoes()
             .then(() => {
                 loadingElement.style.display = 'none';
