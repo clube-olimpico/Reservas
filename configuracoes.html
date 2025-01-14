@@ -44,7 +44,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 1px;
         }
         .title-container span {
             font-size: 1.5em;
@@ -100,6 +100,14 @@
         #content {
             display: none;
         }
+		.hr-line {
+			border: 0;
+			height: 6px;
+			background: linear-gradient(to bottom, #cccccc, #dddddd, #eeeeee, #ffffff); /* De cinza claro ao branco */
+			width: 100%;
+			max-width: 99%;
+			margin: 10px auto;
+		}
     </style>
 </head>
 <body>
@@ -114,7 +122,9 @@
             <span>Sistema de Reservas</span>
             <span>Configurações</span>
         </div>
-
+		
+        <hr class="hr-line">
+		
         <!-- Campo Sistema -->
         <div class="container">
             <label for="sistema">Sistema:</label>
@@ -216,7 +226,7 @@
                 })
                 .catch(error => {
                     console.error("Erro ao carregar configurações:", error);
-                    reject(error);
+                    reject(error); 
                 });
         });
     }
