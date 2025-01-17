@@ -1282,9 +1282,6 @@ function LimparDiasAnteriores() {
   });
 }
 
-function abrirManual() {
-  window.open('manual.html', '_blank');
-}
 
 window.onload = function() {
     verificarVersao();
@@ -1403,7 +1400,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-<div id="VersaoSistema" style="text-align: right; margin-top: 60px; font-size: 1rem; color: #555; cursor: pointer; position: relative; z-index: 9999;" onclick="abrirManual()">
+<div id="VersaoSistema" style="text-align: right; margin-top: 60px; font-size: 1rem; color: #555; cursor: default; position: relative; z-index: 9999;">
     
 </div>
 
@@ -1486,11 +1483,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span style="display: inline-block; width: 20px; height: 20px; background-color: lightcoral; margin-right: 5px;"></span>
                 aula
             </li>
-			<li>
-              <a href="regras.html" class="regras-link">
-               Regras
-              </a>
-           </li>
+			
         </ul>
     </div>
 </div>
