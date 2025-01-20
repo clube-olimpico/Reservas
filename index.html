@@ -1335,9 +1335,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if ((target.tagName === 'TH' || target.tagName === 'TD') && target.innerText.includes('Horários')) {
             if (isExpanded) {
-                tabelaContainer.style.marginTop = "10px";
+                tabelaContainer.style.marginTop = "-10px";
             } else {
-                tabelaContainer.style.marginTop = "70px";
+                tabelaContainer.style.marginTop = "55px";
             }
 
             isExpanded = !isExpanded;
@@ -1496,7 +1496,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <th>Terça-Feira</th>
         <th>Quarta-Feira</th>
         <th>Quinta-Feira</th>
-        <th>Sexta-Feira</th>
+        <th>Sexta-Feira</th> 
         <th>Sábado</th>
         <th>Domingo</th>
         <th rowspan="2" style="text-align: center;">Horários</th>
