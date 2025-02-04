@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Jogadores</title>
+    <!-- Inclusão do Firebase App e Database -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <style>
+        /* Estilos gerais da página */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+        }
+
+        /* Estilo do container das abas */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            background-color: white;
+            padding: 5px 0;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid #ccc;
+            position: relative;
+        }
+
+        /* Estilo dos botões das abas */
+        .tab-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        /* Estilo do botão selecionado */
+        .tab-button.selected {
+            background-color: #228B22;
+            border: 2px solid black;
+        }
+
+        /* Linha inferior do botão selecionado */
+        .tab-button.selected::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #228B22;
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+        }
+
+        /* Estilo do container do formulário */
+        .form-container {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Estilo dos grupos de campos do formulário */
+        .form-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        /* Estilo dos rótulos dos campos */
+        label {
+            flex: 1;
+            text-align: left;
+            min-width: 100px;
+        }
+
+        /* Estilo dos campos de entrada */
+        input {
+            flex: 3;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            text-align: left;
+        }
+
+        /* Estilo do botão de ação */
+        button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        /* Estilo da tabela de jogadores */
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        /* Estilo das células da tabela */
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        /* Estilo do cabeçalho da tabela */
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Alinhamento das células da tabela */
+        td:first-child {
+            text-align: center;
+        }
+
+        td:nth-child(2),
+        td:nth-child(3) {
+            text-align: left;
+        }
+
+        /* Estilos responsivos para telas menores */
+        @media (max-width: 480px) {
+            .form-container {
+                width: 80%; /* Ajusta a largura para ocupar até 90% da tela */
+                max-width: 350px; /* Define um limite máximo */
+            }
+            .form-group {
+                position: relative;
+                width: 100%;
+            }
+
+            input {
+                width: calc(100% + 50px); /* Aumenta o input para a esquerda */
+                margin-left: -50px; /* Move o input para a esquerda mantendo alinhamento */
+                max-width: 220px; /* Remove limite de largura */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Container das abas -->
+    <div class="tab-container">
+        <button class="tab-button selected" onclick="mostrarCadastro(event)">Cadastro</button>
+        <button class="tab-button" onclick="mostrarConsulta(event)">Consulta</button>
+    </div>
+
+    <!-- Container do formulário -->
+    <div class="form-container">
+        <h2 id="titulo">Cadastro de Jogadores</h2>
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" placeholder="Digite o nome" required>
+        </div>
+        <div class="form-group">
+            <label for="apelido">Apelido:</label>
+            <input type="text" id="apelido" placeholder="Digite o apelido" required>
+        </div>
+        <button id="botaoAcao" onclick="acaoFormulario()">Cadastrar</button>
+    </div>
+
+    <!-- Tabela de jogadores -->
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Apelido</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-jogadores"></tbody>
+    </table>
+
+    <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "SUA_API_KEY",
+            authDomain: "agenda-5ce95.firebaseapp.com",
+            databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com/",
+            projectId: "agenda-5ce95",
+            storageBucket: "agenda-5ce95.appspot.com",
+            messagingSenderId: "852007565195",
+            appId: "1:852007565195:web:d7bd789d140858f53f618e"
+        };
+
+        // Inicialização do Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        let modoCadastro = true; // Variável para alternar entre cadastro e consulta
+
+        // Função para determinar a ação do formulário (cadastrar ou consultar)
+        function acaoFormulario() {
+            if (modoCadastro) {
+                cadastrarJogador();
+            } else {
+                consultarJogador();
+            }
+        }
+
+        // Função para cadastrar um jogador
+function cadastrarJogador() {
+    const nome = document.getElementById("nome").value.trim().toUpperCase();
+    let apelido = document.getElementById("apelido").value.trim();
+
+    // Validação dos campos
+    if (nome === "" || apelido === "") {
+        alert("Preencha todos os campos.");
+        return;
+    }
+
+    // Validação adicional para o nome
+    if (!/^[A-Z\s]+$/.test(nome)) {
+        alert("O nome deve conter apenas letras e espaços.");
+        return;
+    }
+
+    // Formata o apelido para ter a primeira letra maiúscula
+    apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
+
+    const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
+    const apelidoRef = database.ref("sistemas/cadastro/apelidos/" + apelido);
+
+    // Verifica se o nome já existe
+    jogadorRef.get().then(snapshot => {
+        if (snapshot.exists()) {
+            alert("Já existe um jogador com esse Nome.");
+            limparCampos();
+            return;
+        }
+
+        // Verifica se o apelido já existe
+        apelidoRef.get().then(snapshot => {
+            if (snapshot.exists()) {
+                alert("Já existe um jogador com esse Apelido.");
+                limparCampos();
+            } else {
+                // Salva o jogador no banco de dados
+                jogadorRef.set({ apelido })
+                    .then(() => {
+                        // Salva o apelido como chave única
+                        apelidoRef.set(true)
+                            .then(() => {
+                                alert("Jogador cadastrado com sucesso!");
+                                limparCampos();
+                                carregarJogadores();
+                            })
+                            .catch(error => {
+                                console.error("Erro ao salvar apelido:", error);
+                                alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
+                            });
+                    })
+                    .catch(error => {
+                        console.error("Erro ao cadastrar jogador:", error);
+                        alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
+                    });
+            }
+        }).catch(error => {
+            console.error("Erro ao verificar apelido:", error);
+            alert("Ocorreu um erro ao verificar o apelido. Tente novamente.");
+        });
+    }).catch(error => {
+        console.error("Erro ao verificar jogador:", error);
+        alert("Ocorreu um erro ao verificar o jogador. Tente novamente.");
+    });
+}
+
+        // Função para limpar os campos do formulário
+        function limparCampos() {
+            document.getElementById("nome").value = "";
+            document.getElementById("apelido").value = "";
+        }
+
+        // Função para consultar jogadores
+        function consultarJogador() {
+            const nome = document.getElementById("nome").value.trim().toUpperCase();
+            const apelido = document.getElementById("apelido").value.trim().toLowerCase();
+
+            // Validação dos critérios de consulta
+            if (nome === "" && apelido === "") {
+                alert("Digite pelo menos um critério para consulta.");
+                return;
+            }
+
+            const tabela = document.getElementById("tabela-jogadores");
+            tabela.innerHTML = ""; // Limpa a tabela antes de exibir os resultados
+
+            // Consulta os jogadores no banco de dados
+            database.ref("sistemas/jogadores").once("value", snapshot => {
+                let encontrado = false;
+                let contador = 1;
+
+                snapshot.forEach(childSnapshot => {
+                    const jogadorNome = childSnapshot.key; // O nome é a chave
+                    const jogadorApelido = childSnapshot.val().apelido.toLowerCase();
+
+                    // Verifica se o jogador corresponde aos critérios de consulta
+                    if (
+                        (nome && jogadorNome.includes(nome)) || 
+                        (apelido && jogadorApelido.includes(apelido))
+                    ) {
+                        encontrado = true;
+                        tabela.innerHTML += `<tr><td>${String(contador++).padStart(3, '0')}</td><td>${jogadorNome}</td><td>${jogadorApelido}</td></tr>`;
+                    }
+                });
+
+                // Exibe mensagem se nenhum jogador for encontrado
+                if (!encontrado) {
+                    alert("Nenhum jogador encontrado.");
+                }
+            });
+        }
+		
+		
+// Função para carregar todos os jogadores na tabela
+function carregarJogadores() {
+    const tabela = document.getElementById("tabela-jogadores");
+
+    database.ref("sistemas/cadastro/jogadores").on("value", snapshot => {
+        tabela.innerHTML = ""; // Limpa a tabela antes de adicionar novos registros
+        let contador = 1;
+        snapshot.forEach(childSnapshot => {
+            const nome = childSnapshot.key; // O nome agora é a chave
+            const jogador = childSnapshot.val();
+
+            // Cria uma nova linha na tabela
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${String(contador++).padStart(3, '0')}</td>
+                <td>${nome}</td>
+                <td>${jogador.apelido}</td>
+            `;
+
+            // Adiciona um evento de clique para excluir o jogador
+            row.addEventListener("click", () => excluirJogador(nome, jogador.apelido));
+
+            // Adiciona a linha à tabela
+            tabela.appendChild(row);
+        });
+    });
+}
+
+function excluirJogador(nome, apelido) {
+    // Confirmação antes de excluir
+    const confirmacao = confirm(`Tem certeza que deseja excluir o jogador ${nome} (${apelido})?`);
+    if (!confirmacao) return;
+
+    // Referência ao jogador e ao apelido no banco de dados
+    const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
+    const apelidoRef = database.ref("sistemas/cadastro/apelidos/" + apelido);
+
+    // Remove o jogador e o apelido
+    jogadorRef.remove()
+        .then(() => {
+            apelidoRef.remove()
+                .then(() => {
+                    alert("Jogador excluído com sucesso!");
+                    carregarJogadores(); // Atualiza a tabela após a exclusão
+                })
+                .catch(error => {
+                    console.error("Erro ao excluir apelido:", error);
+                    alert("Ocorreu um erro ao excluir o apelido. Tente novamente.");
+                });
+        })
+        .catch(error => {
+            console.error("Erro ao excluir jogador:", error);
+            alert("Ocorreu um erro ao excluir o jogador. Tente novamente.");
+        });
+}
+
+
+        // Função para mostrar a aba de cadastro
+        function mostrarCadastro(event) {
+            atualizarAba("Cadastro de Jogadores", "Cadastrar");
+            modoCadastro = true;
+            limparCampos(); // Limpa os campos ao mudar para a aba Cadastro
+            carregarJogadores(); // Recarrega todos os jogadores
+        }
+
+        // Função para mostrar a aba de consulta
+        function mostrarConsulta(event) {
+            atualizarAba("Consulta de Jogadores", "Consultar");
+            modoCadastro = false;
+            limparCampos(); // Limpa os campos ao mudar para a aba Consulta
+        }
+
+        // Função para atualizar a aba selecionada
+        function atualizarAba(titulo, textoBotao) {
+            document.getElementById("titulo").textContent = titulo;
+            document.getElementById("botaoAcao").textContent = textoBotao;
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('selected'));
+            event.target.classList.add('selected');
+        }
+
+        // Carrega os jogadores ao carregar a página
+        window.onload = carregarJogadores;
+    </script>
+</body>
+</html>
