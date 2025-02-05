@@ -22,7 +22,7 @@ body {
     padding: 10px;
     margin: 0 auto;
     max-width: 500px;
-    margin-top: -10px; /* Espaçamento para evitar sobreposição com a barra fixa */
+    margin-top: -5px; /* Espaçamento para evitar sobreposição com a barra fixa */
 }
 
 /* Configuração das linhas do formulário */
@@ -156,6 +156,7 @@ th {
 
 /* Estilização dos botões de aba */
 .tab-button {
+    position: relative; /* Adiciona posicionamento relativo para o efeito da linha */
     transition: background-color 0.3s ease;
     background-color: #4CAF50;
     color: white;
@@ -164,6 +165,18 @@ th {
     margin: 5px;
     cursor: pointer;
 	
+}
+
+/* Linha inferior do botão selecionado */
+.tab-button.selected::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #228B22;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
 }
 
 .tab-button:hover {
@@ -305,10 +318,13 @@ function InicializarSistema() {
                 }
 
                 const config = data.config;
-                if (config && config.Abrir === false) {
+				//permissao para abrir o sistema
+				 
+				if (config && config.Abrir === false) {
                     window.close();
                     return;
                 }
+			   
 
                 if (config) {
                     window.DiasParaLimpar = config.DiasParaLimpar || 4;
@@ -379,7 +395,7 @@ function InicializarSistema() {
                         selectQuadra.appendChild(option);
                     }
                 });
-                selectQuadra.value = quadraInicial;
+                selectQuadra.value = quadraInicial; 
             }
 
             const tabelaContainer = document.querySelector('.tabela-container');
@@ -557,7 +573,7 @@ function selecionarQuadra(quadra) {
         }
     });
 
-    // alert(`quadra: ${quadra}`);
+    // alert(`quadra: ${quadra}`); 
     if (!nomeOriginal) {
         // Substitui quebras de linha e espaços múltiplos por um único espaço
         const quadraNormalized = quadra.replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
@@ -569,7 +585,7 @@ function selecionarQuadra(quadra) {
         } else if (quadraNormalized === "Quadra 2 - Aberta" || quadraNormalized === "Quadra 2 Aberta") {
             nomeOriginal = "Quadra 2 - Aberta";
         } else if (quadraNormalized === "Quadra 3 - Coberta" || quadraNormalized === "Quadra 3 Coberta") {
-            nomeOriginal = "Quadra 3 - Coberta";
+            nomeOriginal = "Quadra 3 - Coberta"; 
         }
     }
 	
@@ -1401,7 +1417,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-<div id="VersaoSistema" style="text-align: right; margin-top: 60px; margin-right: 10px; font-size: 1rem; color: #555; cursor: default; position: relative; z-index: 9999;">
+<div id="VersaoSistema" style="text-align: right; margin-top: 70px; margin-right: 10px; font-size: 1rem; color: #555; cursor: default; position: relative; z-index: 9999;">
     
 </div>
 
