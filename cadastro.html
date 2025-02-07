@@ -318,50 +318,48 @@
 
         // Função para consultar jogadores
         function consultarJogador() {
-            const nome = document.getElementById("nome").value.trim().toUpperCase();
-            const apelido = document.getElementById("apelido").value.trim().toLowerCase();
+    const nome = document.getElementById("nome").value.trim().toUpperCase();
+    const apelido = document.getElementById("apelido").value.trim().toLowerCase();
 
-            if (nome === "" && apelido === "") {
-                alert("Digite pelo menos um critério para consulta.");
-                return;
+    if (nome === "" && apelido === "") {
+        alert("Digite pelo menos um critério para consulta.");
+        return;
+    }
+
+    const tabela = document.getElementById("tabela-jogadores");
+    tabela.innerHTML = ""; // Limpa a tabela antes de exibir os resultados
+
+    database.ref("sistemas/cadastro/jogadores").once("value", snapshot => {
+        let encontrado = false;
+        let contador = 1;
+
+        snapshot.forEach(childSnapshot => {
+            const jogadorNome = childSnapshot.key;
+            const jogadorApelido = childSnapshot.val().apelido.toLowerCase(); // Converte o apelido para minúsculas
+
+            if (
+                (nome && jogadorNome.includes(nome)) || 
+                (apelido && jogadorApelido.includes(apelido)) // Compara diretamente em minúsculas
+            ) {
+                encontrado = true;
+                tabela.innerHTML += `
+                    <tr>
+                        <td>${String(contador++).padStart(3, '0')}</td>
+                        <td>${jogadorNome}</td>
+                        <td>${jogadorApelido.replace(/\b\w/g, letra => letra.toUpperCase())}</td>
+                    </tr>
+                `;
             }
+        });
 
-            const tabela = document.getElementById("tabela-jogadores");
-            tabela.innerHTML = ""; // Limpa a tabela antes de exibir os resultados
-
-            database.ref("sistemas/cadastro/jogadores").once("value", snapshot => {
-                let encontrado = false;
-                let contador = 1;
-
-                snapshot.forEach(childSnapshot => {
-                    const jogadorNome = childSnapshot.key;
-                    const jogadorApelido = childSnapshot.val().apelido
-                        .toLowerCase()
-                        .replace(/\b\w/g, letra => letra.toUpperCase()); // Formata o apelido
-
-                    if (
-                        (nome && jogadorNome.includes(nome)) || 
-                        (apelido && jogadorApelido.includes(apelido))
-                    ) {
-                        encontrado = true;
-                        tabela.innerHTML += `
-                            <tr>
-                                <td>${String(contador++).padStart(3, '0')}</td>
-                                <td>${jogadorNome}</td>
-                                <td>${jogadorApelido}</td>
-                            </tr>
-                        `;
-                    }
-                });
-
-                if (!encontrado) {
-                    alert("Nenhum jogador encontrado.");
-                }
-            }).catch(error => {
-                console.error("Erro ao consultar jogadores:", error);
-                alert("Ocorreu um erro ao consultar os jogadores. Tente novamente.");
-            });
+        if (!encontrado) {
+            alert("Nenhum jogador encontrado.");
         }
+    }).catch(error => {
+        console.error("Erro ao consultar jogadores:", error);
+        alert("Ocorreu um erro ao consultar os jogadores. Tente novamente.");
+    });
+}
 
         // Função para carregar todos os jogadores na tabela
         function carregarJogadores() {
