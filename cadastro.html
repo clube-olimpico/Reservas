@@ -109,6 +109,7 @@
             padding: 10px;
             background-color: #4CAF50;
             color: white;
+			font-size: 16px; /* Ajuste o tamanho da fonte se necessário */
             font-weight: bold;
             border: none;
             cursor: pointer;
@@ -161,9 +162,29 @@
                 max-width: 220px; /* Remove limite de largura */
             }
         }
+
+        /* Estilo da tela de carregamento */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
+    <!-- Tela de carregamento -->
+    <div id="loadingOverlay" class="loading-overlay">
+        Carregando... Aguarde.
+    </div>
+
     <!-- Container das abas -->
     <div class="tab-container">
         <button class="tab-button selected" onclick="mostrarCadastro(event)">Cadastro</button>
@@ -223,71 +244,71 @@
         }
 
         // Função para cadastrar um jogador
-function cadastrarJogador() {
-    const nome = document.getElementById("nome").value.trim().toUpperCase();
-    let apelido = document.getElementById("apelido").value.trim();
+        function cadastrarJogador() {
+            const nome = document.getElementById("nome").value.trim().toUpperCase();
+            let apelido = document.getElementById("apelido").value.trim();
 
-    // Validação dos campos
-    if (nome === "" || apelido === "") {
-        alert("Preencha todos os campos.");
-        return;
-    }
+            // Validação dos campos
+            if (nome === "" || apelido === "") {
+                alert("Preencha todos os campos.");
+                return;
+            }
 
-    // Validação adicional para o nome
-    if (!/^[A-Z\s]+$/.test(nome)) {
-        alert("O nome deve conter apenas letras e espaços.");
-        return;
-    }
+            // Validação adicional para o nome
+            if (!/^[A-Z\s]+$/.test(nome)) {
+                alert("O nome deve conter apenas letras e espaços.");
+                return;
+            }
 
-    // Formata o apelido para ter a primeira letra maiúscula
-    apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
+            // Formata o apelido para ter a primeira letra maiúscula
+            apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
 
-    const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
-    const apelidoRef = database.ref("sistemas/cadastro/apelidos/" + apelido);
+            const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
+            const apelidoRef = database.ref("sistemas/cadastro/apelidos/" + apelido);
 
-    // Verifica se o nome já existe
-    jogadorRef.get().then(snapshot => {
-        if (snapshot.exists()) {
-            alert("Já existe um jogador com esse Nome.");
-            limparCampos();
-            return;
-        }
+            // Verifica se o nome já existe
+            jogadorRef.get().then(snapshot => {
+                if (snapshot.exists()) {
+                    alert("Já existe um jogador com esse Nome.");
+                    limparCampos();
+                    return;
+                }
 
-        // Verifica se o apelido já existe
-        apelidoRef.get().then(snapshot => {
-            if (snapshot.exists()) {
-                alert("Já existe um jogador com esse Apelido.");
-                limparCampos();
-            } else {
-                // Salva o jogador no banco de dados
-                jogadorRef.set({ apelido })
-                    .then(() => {
-                        // Salva o apelido como chave única
-                        apelidoRef.set(true)
+                // Verifica se o apelido já existe
+                apelidoRef.get().then(snapshot => {
+                    if (snapshot.exists()) {
+                        alert("Já existe um jogador com esse Apelido.");
+                        limparCampos();
+                    } else {
+                        // Salva o jogador no banco de dados
+                        jogadorRef.set({ apelido })
                             .then(() => {
-                                alert("Jogador cadastrado com sucesso!");
-                                limparCampos();
-                                carregarJogadores();
+                                // Salva o apelido como chave única
+                                apelidoRef.set(true)
+                                    .then(() => {
+                                        alert("Jogador cadastrado com sucesso!");
+                                        limparCampos();
+                                        carregarJogadores();
+                                    })
+                                    .catch(error => {
+                                        console.error("Erro ao salvar apelido:", error);
+                                        alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
+                                    });
                             })
                             .catch(error => {
-                                console.error("Erro ao salvar apelido:", error);
+                                console.error("Erro ao cadastrar jogador:", error);
                                 alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
                             });
-                    })
-                    .catch(error => {
-                        console.error("Erro ao cadastrar jogador:", error);
-                        alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
-                    });
-            }
-        }).catch(error => {
-            console.error("Erro ao verificar apelido:", error);
-            alert("Ocorreu um erro ao verificar o apelido. Tente novamente.");
-        });
-    }).catch(error => {
-        console.error("Erro ao verificar jogador:", error);
-        alert("Ocorreu um erro ao verificar o jogador. Tente novamente.");
-    });
-}
+                    }
+                }).catch(error => {
+                    console.error("Erro ao verificar apelido:", error);
+                    alert("Ocorreu um erro ao verificar o apelido. Tente novamente.");
+                });
+            }).catch(error => {
+                console.error("Erro ao verificar jogador:", error);
+                alert("Ocorreu um erro ao verificar o jogador. Tente novamente.");
+            });
+        }
 
         // Função para limpar os campos do formulário
         function limparCampos() {
@@ -296,110 +317,110 @@ function cadastrarJogador() {
         }
 
         // Função para consultar jogadores
-function consultarJogador() {
-    const nome = document.getElementById("nome").value.trim().toUpperCase();
-    const apelido = document.getElementById("apelido").value.trim().toLowerCase();
+        function consultarJogador() {
+            const nome = document.getElementById("nome").value.trim().toUpperCase();
+            const apelido = document.getElementById("apelido").value.trim().toLowerCase();
 
-    // Validação dos critérios de consulta
-    if (nome === "" && apelido === "") {
-        alert("Digite pelo menos um critério para consulta.");
-        return;
-    }
-
-    const tabela = document.getElementById("tabela-jogadores");
-    tabela.innerHTML = ""; // Limpa a tabela antes de exibir os resultados
-
-    // Consulta os jogadores no banco de dados
-    database.ref("sistemas/cadastro/jogadores").once("value", snapshot => {
-        let encontrado = false;
-        let contador = 1;
-
-        snapshot.forEach(childSnapshot => {
-            const jogadorNome = childSnapshot.key; // O nome é a chave
-            const jogadorApelido = childSnapshot.val().apelido.toLowerCase();
-
-            // Verifica se o jogador corresponde aos critérios de consulta
-            if (
-                (nome && jogadorNome.includes(nome)) || 
-                (apelido && jogadorApelido.includes(apelido))
-            ) {
-                encontrado = true;
-                tabela.innerHTML += `
-                    <tr>
-                        <td>${String(contador++).padStart(3, '0')}</td>
-                        <td>${jogadorNome}</td>
-                        <td>${jogadorApelido}</td>
-                    </tr>
-                `;
+            if (nome === "" && apelido === "") {
+                alert("Digite pelo menos um critério para consulta.");
+                return;
             }
-        });
 
-        // Exibe mensagem se nenhum jogador for encontrado
-        if (!encontrado) {
-            alert("Nenhum jogador encontrado.");
+            const tabela = document.getElementById("tabela-jogadores");
+            tabela.innerHTML = ""; // Limpa a tabela antes de exibir os resultados
+
+            database.ref("sistemas/cadastro/jogadores").once("value", snapshot => {
+                let encontrado = false;
+                let contador = 1;
+
+                snapshot.forEach(childSnapshot => {
+                    const jogadorNome = childSnapshot.key;
+                    const jogadorApelido = childSnapshot.val().apelido
+                        .toLowerCase()
+                        .replace(/\b\w/g, letra => letra.toUpperCase()); // Formata o apelido
+
+                    if (
+                        (nome && jogadorNome.includes(nome)) || 
+                        (apelido && jogadorApelido.includes(apelido))
+                    ) {
+                        encontrado = true;
+                        tabela.innerHTML += `
+                            <tr>
+                                <td>${String(contador++).padStart(3, '0')}</td>
+                                <td>${jogadorNome}</td>
+                                <td>${jogadorApelido}</td>
+                            </tr>
+                        `;
+                    }
+                });
+
+                if (!encontrado) {
+                    alert("Nenhum jogador encontrado.");
+                }
+            }).catch(error => {
+                console.error("Erro ao consultar jogadores:", error);
+                alert("Ocorreu um erro ao consultar os jogadores. Tente novamente.");
+            });
         }
-    }).catch(error => {
-        console.error("Erro ao consultar jogadores:", error);
-        alert("Ocorreu um erro ao consultar os jogadores. Tente novamente.");
-    });
-}		
-		
-// Função para carregar todos os jogadores na tabela
-function carregarJogadores() {
-    const tabela = document.getElementById("tabela-jogadores");
 
-    database.ref("sistemas/cadastro/jogadores").on("value", snapshot => {
-        tabela.innerHTML = ""; // Limpa a tabela antes de adicionar novos registros
-        let contador = 1;
-        snapshot.forEach(childSnapshot => {
-            const nome = childSnapshot.key; // O nome agora é a chave
-            const jogador = childSnapshot.val();
+        // Função para carregar todos os jogadores na tabela
+        function carregarJogadores() {
+            const tabela = document.getElementById("tabela-jogadores");
 
-            // Cria uma nova linha na tabela
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${String(contador++).padStart(3, '0')}</td>
-                <td>${nome}</td>
-                <td>${jogador.apelido}</td>
-            `;
+            database.ref("sistemas/cadastro/jogadores").on("value", snapshot => {
+                tabela.innerHTML = ""; // Limpa a tabela antes de adicionar novos registros
+                let contador = 1;
+                snapshot.forEach(childSnapshot => {
+                    const nome = childSnapshot.key; // O nome agora é a chave
+                    const jogador = childSnapshot.val();
 
-            // Adiciona um evento de clique para excluir o jogador
-            row.addEventListener("click", () => excluirJogador(nome, jogador.apelido));
+                    // Cria uma nova linha na tabela
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${String(contador++).padStart(3, '0')}</td>
+                        <td>${nome}</td>
+                        <td>${jogador.apelido}</td>
+                    `;
 
-            // Adiciona a linha à tabela
-            tabela.appendChild(row);
-        });
-    });
-}
+                    // Adiciona um evento de clique para excluir o jogador
+                    row.addEventListener("click", () => excluirJogador(nome, jogador.apelido));
 
-function excluirJogador(nome, apelido) {
-    // Confirmação antes de excluir
-    const confirmacao = confirm(`Tem certeza que deseja excluir o jogador ${nome} (${apelido})?`);
-    if (!confirmacao) return;
+                    // Adiciona a linha à tabela
+                    tabela.appendChild(row);
+                });
 
-    // Referência ao jogador e ao apelido no banco de dados
-    const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
-    const apelidoRef = database.ref("sistemas/cadastro/apelidos/" + apelido);
+                // Esconde a tela de carregamento após os dados serem carregados
+                document.getElementById("loadingOverlay").style.display = "none";
+            });
+        }
 
-    // Remove o jogador e o apelido
-    jogadorRef.remove()
-        .then(() => {
-            apelidoRef.remove()
+        function excluirJogador(nome, apelido) {
+            // Confirmação antes de excluir
+            const confirmacao = confirm(`Tem certeza que deseja excluir o jogador ${nome} (${apelido})?`);
+            if (!confirmacao) return;
+
+            // Referência ao jogador e ao apelido no banco de dados
+            const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
+            const apelidoRef = database.ref("sistemas/cadastro/apelidos/" + apelido);
+
+            // Remove o jogador e o apelido
+            jogadorRef.remove()
                 .then(() => {
-                    alert("Jogador excluído com sucesso!");
-                    carregarJogadores(); // Atualiza a tabela após a exclusão
+                    apelidoRef.remove()
+                        .then(() => {
+                            alert("Jogador excluído com sucesso!");
+                            carregarJogadores(); // Atualiza a tabela após a exclusão
+                        })
+                        .catch(error => {
+                            console.error("Erro ao excluir apelido:", error);
+                            alert("Ocorreu um erro ao excluir o apelido. Tente novamente.");
+                        });
                 })
                 .catch(error => {
-                    console.error("Erro ao excluir apelido:", error);
-                    alert("Ocorreu um erro ao excluir o apelido. Tente novamente.");
+                    console.error("Erro ao excluir jogador:", error);
+                    alert("Ocorreu um erro ao excluir o jogador. Tente novamente.");
                 });
-        })
-        .catch(error => {
-            console.error("Erro ao excluir jogador:", error);
-            alert("Ocorreu um erro ao excluir o jogador. Tente novamente.");
-        });
-}
-
+        }
 
         // Função para mostrar a aba de cadastro
         function mostrarCadastro(event) {
@@ -425,7 +446,9 @@ function excluirJogador(nome, apelido) {
         }
 
         // Carrega os jogadores ao carregar a página
-        window.onload = carregarJogadores;
+        window.onload = function() {
+            carregarJogadores();
+        };
     </script>
 </body>
 </html>
