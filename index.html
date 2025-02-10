@@ -15,7 +15,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-} 
+}
 
 /* Contêiner principal do formulário */
 .form-container {
@@ -54,6 +54,54 @@ label {
         width: 100% !important; /* Campo ocupa toda a largura disponível */
         max-width: 175px; /* Limita a largura máxima */
     }
+
+    /* Aumenta a largura dos campos de entrada em dispositivos móveis */
+    input, select, button {
+        width: 100% !important; /* Faz com que os campos ocupem toda a largura disponível */
+        max-width: 400px; /* Define uma largura máxima para evitar que fiquem muito largos */
+    }
+
+    /* Ajusta o tamanho do select de jogadores */
+    #jogador1 {
+        width: 100% !important;
+        max-width: 193px;
+    }
+	#jogador2 {
+        width: 100% !important;
+        max-width: 210px;
+    }
+	#jogador3 {
+        width: 100% !important;
+        max-width: 210px;
+    }
+	#jogador4 {
+        width: 100% !important;
+        max-width: 210px;
+    }
+
+    /* Ajusta o tamanho do select de quadra */
+    #quadra {
+        width: 100% !important;
+        max-width: 210px;
+    }
+
+    /* Ajusta o tamanho do select de dia */
+    #dia {
+        width: 100% !important;
+        max-width: 210px;
+    }
+
+    /* Ajusta o tamanho do select de duração */
+    #duracao {
+        width: 100% !important;
+        max-width: 210px;
+    }
+
+    /* Ajusta o tamanho do select de horário */
+    #hora {
+        width: 100% !important;
+        max-width: 210px;
+    }
 }
 
 /* Estilização geral para inputs, selects e botões */
@@ -87,7 +135,7 @@ button {
     width: 100%;
     padding: 9px;
     margin-top: 1px;
-	margin-bottom: -10px;
+    margin-bottom: -10px;
 }
 
 button:hover {
@@ -138,7 +186,7 @@ th {
     font-size: 1.5rem;
     margin-top: 20px;
     margin-bottom: 10px;
-	text-indent: 10px; /* Ajuste o valor para o espaçamento desejado */
+    text-indent: 10px; /* Ajuste o valor para o espaçamento desejado */
 }
 
 /* Classe para aba selecionada */
@@ -164,7 +212,6 @@ th {
     padding: 5px 20px;
     margin: 5px;
     cursor: pointer;
-	
 }
 
 /* Linha inferior do botão selecionado */
@@ -224,9 +271,7 @@ th {
     width: 100%;
     height: auto;
 }
- 
 </style>
-
 </head>
 
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
@@ -836,36 +881,65 @@ window.adicionarJogador = function() {
         label.setAttribute('for', `jogador${jogadorCount}`);
         label.textContent = 'Jogador:';
 
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.id = `jogador${jogadorCount}`;
-        input.placeholder = `Nome do Jogador ${jogadorCount}`;
-        input.maxLength = 20;
-        input.required = true;
-        input.classList.add('jogador-input');
+        const select = document.createElement('select');
+        select.id = `jogador${jogadorCount}`;
+        select.name = `jogador${jogadorCount}`;
+
+        // Carrega os jogadores no novo campo de seleção
+        const jogadoresRef = database.ref("sistemas/cadastro/jogadores");
+        jogadoresRef.on('value', (snapshot) => {
+            const jogadores = snapshot.val();
+            select.innerHTML = '<option value="">Selecione um jogador</option>'; // Limpa as opções existentes
+
+            if (jogadores) {
+                Object.keys(jogadores).forEach((nome) => {
+                    const apelido = jogadores[nome].apelido;
+
+                    // Verifica se o jogador já foi selecionado em algum campo anterior
+                    let jaSelecionado = false;
+                    for (let i = 1; i < jogadorCount; i++) {
+                        const jogadorSelect = document.getElementById(`jogador${i}`);
+                        if (jogadorSelect && jogadorSelect.value === apelido) {
+                            jaSelecionado = true;
+                            break;
+                        }
+                    }
+
+                    // Se o jogador não foi selecionado, adiciona como opção
+                    if (!jaSelecionado) {
+                        const option = document.createElement('option');
+                        option.value = apelido; // Usa o apelido como valor
+                        option.textContent = nome; // Exibe o nome do jogador
+                        select.appendChild(option);
+                    }
+                });
+            }
+        });
 
         newDiv.appendChild(label);
-        newDiv.appendChild(input);
+        newDiv.appendChild(select);
         jogadoresContainer.appendChild(newDiv);
 
-        input.focus();
+        select.focus();
     }
 };
+
+
 
 atualizarTabela = function() {
     const jogadores = [];
     for (let i = 1; i <= jogadorCount; i++) {
-        let jogador = document.getElementById(`jogador${i}`).value;
-        if (jogador.toLowerCase().includes('aula')) {
-            jogador = 'aula';
-        }
-        if (jogador) {
-            jogadores.push(jogador);
+        let jogadorSelect = document.getElementById(`jogador${i}`);
+        if (jogadorSelect) {
+            let apelido = jogadorSelect.value; // Obtém o apelido do jogador selecionado
+            if (apelido) {
+                jogadores.push(apelido); // Usa o apelido na reserva
+            }
         }
     }
 
     if (jogadores.length === 0) {
-        alert('Insira pelo menos 1 jogador.');
+        alert('Selecione pelo menos 1 jogador.');
         return;
     }
 
@@ -980,6 +1054,7 @@ atualizarTabela = function() {
         limparCampos();
     });
 };
+
 
 // Função para adicionar evento de clique nas células
 function adicionarEventoClique() {
@@ -1299,10 +1374,32 @@ function LimparDiasAnteriores() {
   });
 }
 
+function carregarJogadores() {
+    const jogadorSelect = document.getElementById('jogador1');
+    const jogadoresRef = database.ref("sistemas/cadastro/jogadores");
 
+    jogadoresRef.on('value', (snapshot) => {
+        const jogadores = snapshot.val();
+        jogadorSelect.innerHTML = '<option value="">Selecione um jogador</option>'; // Limpa as opções existentes
+
+        if (jogadores) {
+            Object.keys(jogadores).forEach((nome) => {
+                const apelido = jogadores[nome].apelido;
+                const option = document.createElement('option');
+                option.value = apelido; // Usa o apelido como valor
+                option.textContent = nome; // Exibe o nome do jogador
+                jogadorSelect.appendChild(option);
+            });
+        }
+    });
+}
+
+
+// Chame a função para carregar os jogadores ao carregar a página
 window.onload = function() {
     verificarVersao();
-	
+    carregarJogadores(); // Carrega os jogadores ao carregar a página
+
     const loadingElement = document.getElementById('loading');
     const contentElement = document.getElementById('content');
 
@@ -1442,7 +1539,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <div class="form-row">
             <label for="dia">Dia:</label>
-            <select id="dia" style="width: 5px !important;" onchange="atualizarOpcoesHorario()">
+            <select id="dia"  onchange="atualizarOpcoesHorario()">
 				<option value="1">Segunda-Feira</option>
 				<option value="2">Terça-Feira</option>
 				<option value="3">Quarta-Feira</option>
@@ -1470,12 +1567,14 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <div class="jogadores-container" id="jogadoresContainer">
-            <div class="form-row">
-                <label for="jogador1">Jogador:</label>
-                <input type="text" id="jogador1" name="jogador" placeholder="Nome do Jogador 1" maxlength="20" required style="width: 100px;" >
-                <span class="add-jogador" onclick="adicionarJogador()">+</span>
-            </div>
-        </div>
+			<div class="form-row">
+				<label for="jogador1">Jogador:</label>
+				<select id="jogador1" name="jogador" required style="width: 100px;">
+					<option value="">Selecione um jogador</option>
+				</select>
+				<span class="add-jogador" onclick="adicionarJogador()">+</span>
+			</div>
+		</div>
 
         <button type="button" onclick="atualizarTabela()">Agendar</button>
     </form>
