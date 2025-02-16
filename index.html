@@ -283,7 +283,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.0.1'; // Versão atual do sistema 
+const VersaoSistema = 'v1.0.0'; // Versão atual do sistema 
 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
@@ -811,76 +811,6 @@ function validarDiaReserva(jogadores) {
     return true;
 }
 
-
-async function validarSeTemReserva(jogadores) {
-    console.log("Iniciando validação de reservas...");
-    return new Promise((resolve) => {
-        let conflito = false;
-        let jogadoresComConflito = [];
-
-        const reservasRef = database.ref("sistemas/reservas");
-        reservasRef.once("value").then((snapshot) => {
-            const reservas = snapshot.val() || {};
-            console.log("Reservas carregadas do banco de dados:", reservas);
-
-            const agora = new Date();
-            const diaSelecionado = parseInt(document.getElementById('dia').value, 10);
-            const horaSelecionada = parseInt(document.getElementById('hora').value, 10);
-            const duracaoSelecionada = parseInt(document.getElementById('duracao').value, 10);
-
-            // Criando a data/hora inicial da nova reserva
-            const novaReservaDataHora = new Date();
-            novaReservaDataHora.setDate(agora.getDate() + (diaSelecionado - agora.getDay()));
-            novaReservaDataHora.setHours(horaSelecionada, 0, 0, 0);
-
-            for (const quadra in reservas) {
-                console.log("Verificando quadra:", quadra);
-                for (const key in reservas[quadra]) {
-                    const reserva = reservas[quadra][key];
-                    console.log("Verificando reserva:", reserva); 
-
-                    jogadores.forEach(jogador => {
-                        if (reserva.jogadores.includes(jogador)) {
-                            const reservaDia = parseInt(reserva.dia, 10);
-                            const reservaHora = parseInt(reserva.hora, 10);
-                            const reservaDuracao = parseInt(reserva.duracao, 10) || 1;
-
-                            // Criando a data/hora final da reserva existente
-                            const reservaDataHoraFinal = new Date();
-                            reservaDataHoraFinal.setDate(agora.getDate() + (reservaDia - agora.getDay()));
-                            reservaDataHoraFinal.setHours(reservaHora + reservaDuracao, 0, 0, 0);
-
-                            console.log(`Comparando: Nova Reserva (${novaReservaDataHora}) com Reserva Existente (${reservaDataHoraFinal})`);
-
-                            // Bloqueia se ainda não jogou a reserva ativa
-                            if (agora < reservaDataHoraFinal) {
-                                conflito = true;
-                                if (!jogadoresComConflito.includes(jogador)) {
-                                    jogadoresComConflito.push(jogador);
-                                }
-                            }
-                        }
-                    });
-                }
-                if (conflito) break;
-            }
-
-            if (conflito) {
-                const mensagem = jogadoresComConflito.length > 1 
-                    ? `Os jogadores ${jogadoresComConflito.join(", ")} ainda têm uma reserva ativa e não podem agendar outra antes de finalizá-la.`
-                    : `O jogador ${jogadoresComConflito[0]} ainda tem uma reserva ativa e não pode agendar outra antes de finalizá-la.`;
-                alert(mensagem);
-                resolve(false);
-            } else {
-                resolve(true);
-            }
-        });
-    });
-}
-
-
-
-
 function gerarMensagemErro(diasParaLimpar) {
     let diasAntecedencia;
     switch (diasParaLimpar) {
@@ -996,10 +926,7 @@ window.adicionarJogador = function() {
 
 
 
-async function atualizarTabela() {
-
-    console.log("Iniciando atualização da tabela...");
-	
+atualizarTabela = function() {
     const jogadores = [];
     for (let i = 1; i <= jogadorCount; i++) {
         let jogadorSelect = document.getElementById(`jogador${i}`);
@@ -1010,8 +937,6 @@ async function atualizarTabela() {
             }
         }
     }
-	
-	console.log("Jogadores selecionados:", jogadores);
 
     if (jogadores.length === 0) {
         alert('Selecione pelo menos 1 jogador.');
@@ -1030,35 +955,14 @@ async function atualizarTabela() {
     const horaSelecionada = parseInt(document.getElementById('hora').value);
     const duracao = parseInt(document.getElementById('duracao').value);
 
-    console.log("Dia selecionado:", dia, "Hora selecionada:", horaSelecionada, "Duração:", duracao);
-
     if (!validarDiaReserva(jogadores)) {
-        console.log("Validação de dia falhou.");
         return;
     }
-
-    console.log("Verificando se já existe uma reserva ativa...");
-
-    // Aguarda o resultado da validação ANTES de continuar
-    const reservaValida = await validarSeTemReserva(jogadores);
-
-    if (!reservaValida) {
-        console.log("Validação de reserva falhou. Bloqueando agendamento.");
-		limparCampos();
-        return; // Impede o agendamento se houver conflito
-    }
-
-    console.log("Reserva liberada, prosseguir com o agendamento.");
-		
-		
-		
 
     if (horaSelecionada < 6 || horaSelecionada > 22) {
         alert('Horário selecionado deve ser entre 6 e 22.');
         return;
     }
-	
-	console.log("Reserva liberada, prosseguir com o agendamento.");
 
     const tabela = document.getElementById('tabelaCorpo');
     let horarioInicial = horaSelecionada - 6;
