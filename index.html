@@ -10,12 +10,162 @@
     <meta http-equiv="expires" content="0">
 
 <style>
-/* Estilos globais */
-body {
+    /* Estilos globais */
+   body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
+
+    /* Container da tela de login */
+    #loginScreen {
+	box-sizing: border-box; /* Garantir que padding e borda sejam incluídos na largura */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    width: 95%;
+    max-width: 350px;
+    text-align: center; 
+}
+
+/* Cabeçalho da tela de login */
+#loginHeader {
+    margin-bottom: 30px;
+}
+
+#loginHeader h1 {
+    font-size: 32px;
+    color: #333;
+    margin: 0;
+}
+
+#loginHeader h2 {
+    font-size: 24px;
+    color: #555;
+    margin: 10px 0;
+}
+
+#loginHeader h3 {
+    font-size: 24px;
+    color: #777;
+    margin: 40px 0;
+}
+
+.input-group {
+    display: flex;
+    align-items: center; /* Alinha os elementos verticalmente */
+    gap: 10px;
+    width: 100%;
+}
+
+.label-senha {
+    white-space: nowrap; /* Impede que o texto do label quebre em várias linhas */
+    font-weight: bold;
+}
+
+
+.input-container {
+    position: relative; /* Permite posicionamento absoluto do botão */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%; /* Ocupa toda a largura disponível */
+}
+
+
+/* Campo de entrada de senha */
+.input-container input {
+    width: 280%;
+    padding-right: 150px; /* Espaço para o botão à direita */
+	padding: 12px 16px; /* Padding vertical e horizontal */
+    box-sizing: border-box;
+	height: 35px; /* Altura menor */
+}
+
+/* Botão de alternar senha */
+#toggleSenha {
+    position: right; /* Posicionamento absoluto dentro do container */
+    top: 50%; /* Centraliza verticalmente */
+    right: 100px; /* Ajuste este valor para mover o botão mais para a esquerda */
+    transform: translateY(-50%); /* Centraliza verticalmente */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	max-width: 10%;
+}
+
+
+    /* Título */
+    #loginScreen h2 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333; 
+    }
+
+    /* Dropdown de seleção de jogadores */
+    #jogadorSelect {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    /* Botão de entrar */
+    #loginScreen button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+		margin-top: 20px; /* Adiciona espaço entre o último campo e o botão */
+    }
+
+    #loginScreen button:hover {
+        background-color: #45a049;
+    }
+
+    /* Conteúdo principal (inicialmente oculto) */
+    #mainContent {
+        display: none;
+        text-align: center;
+    }
+
+    /* Mensagem de boas-vindas */
+    #nomeJogador {
+        font-weight: bold;
+        color: #4CAF50;
+    }
+
+    /* Botão de sair */
+    #mainContent button {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    #mainContent button:hover {
+        background-color: #d32f2f;
+    }
 
 /* Contêiner principal do formulário */
 .form-container {
@@ -50,6 +200,35 @@ label {
 
 /* Responsividade: ajuste para dispositivos móveis */
 @media (max-width: 600px) {
+
+label {
+    margin-left: -10px;
+     
+}
+
+.input-container {
+    position: relative; /* Permite posicionamento absoluto do botão */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%; /* Ocupa toda a largura disponível */
+}
+    #toggleSenha {
+        position: right; /* Posicionamento absoluto dentro do container */
+        right: 10px; /* Posiciona o botão à direita */
+        top: 50%; /* Centraliza verticalmente */
+        transform: translateY(-50%); /* Ajuste fino para centralização */
+        font-size: 14px; /* Tamanho menor do ícone */
+        height: 30px; /* Altura menor */
+        width: -24px; /* Largura menor */
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+	 
     .jogador-input {
         width: 100% !important; /* Campo ocupa toda a largura disponível */
         max-width: 175px; /* Limita a largura máxima */
@@ -283,7 +462,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.0.2'; // Versão atual do sistema 
+const VersaoSistema = 'v1.0.3'; // Versão atual do sistema 
 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
@@ -1022,9 +1201,8 @@ window.adicionarJogador = function() {
 
 
 async function atualizarTabela() {
-
     console.log("Iniciando atualização da tabela...");
-    
+
     const jogadores = [];
     for (let i = 1; i <= jogadorCount; i++) {
         let jogadorSelect = document.getElementById(`jogador${i}`);
@@ -1035,7 +1213,7 @@ async function atualizarTabela() {
             }
         }
     }
-    
+
     console.log("Jogadores selecionados:", jogadores);
 
     if (jogadores.length === 0) {
@@ -1053,24 +1231,74 @@ async function atualizarTabela() {
         alert('O máximo permitido são 4 jogadores.');
         return;
     }
-    
+
     const quadra = document.getElementById('quadra').value;
     if (quadrasInativas.has(quadra)) {
         alert(`A ${quadra} está interditada provisoriamente.`);
         limparCampos();
         return;
     }
-    
-    const dia = document.getElementById('dia').value;
-    const horaSelecionada = parseInt(document.getElementById('hora').value);
-    
+
+    const dia = parseInt(document.getElementById('dia').value, 10);
+    const horaSelecionada = parseInt(document.getElementById('hora').value, 10);
+
     console.log("Dia selecionado:", dia, "Hora selecionada:", horaSelecionada, "Duração:", duracao);
-    
+
+    // Verifica se algum dos jogadores é "Convidado"
+    const isConvidado = jogadores.includes("Convidado");
+    if (isConvidado) {
+        // Acessa as configurações do convidado
+        const configRef = database.ref("sistemas/config/Convidados");
+        const snapshot = await configRef.once('value');
+        const convidadoConfig = snapshot.val();
+
+        if (!convidadoConfig) {
+            alert("Configurações do convidado não encontradas.");
+            return;
+        }
+
+        // Verifica se a quadra selecionada é permitida para o convidado
+        const quadraPermitida = convidadoConfig[`Quadra${quadra.split(' ')[1]}`];
+        if (!quadraPermitida) {
+            // Monta a mensagem informando quais quadras são permitidas
+            const quadrasPermitidas = [];
+            if (convidadoConfig.Quadra1) quadrasPermitidas.push("Quadra 1 - Coberta");
+            if (convidadoConfig.Quadra2) quadrasPermitidas.push("Quadra 2 - Aberta");
+            if (convidadoConfig.Quadra3) quadrasPermitidas.push("Quadra 3 - Coberta");
+
+            const mensagemQuadras = quadrasPermitidas.length > 0
+                ? `O convidado só pode utilizar as seguintes quadras: ${quadrasPermitidas.join(", ")}.`
+                : "O convidado não pode utilizar nenhuma quadra.";
+
+            alert(mensagemQuadras);
+            return;
+        }
+
+        // Verifica os dias permitidos para o convidado
+        const diaDaSemana = dia >= 1 && dia <= 5; // Segunda a sexta
+        const fimDeSemana = dia === 6 || dia === 7; // Sábado e domingo
+
+        if (!convidadoConfig.DiasDeSemana && !convidadoConfig.FimDeSemana) {
+            alert("O convidado não pode utilizar as quadras em nenhum dia.");
+            return;
+        }
+
+        if (!convidadoConfig.DiasDeSemana && diaDaSemana) {
+            alert("O convidado só pode utilizar as quadras no fim de semana (sábado e domingo).");
+            return;
+        }
+
+        if (!convidadoConfig.FimDeSemana && fimDeSemana) {
+            alert("O convidado só pode utilizar as quadras durante a semana (segunda a sexta).");
+            return;
+        }
+    }
+
     if (!validarDiaReserva(jogadores)) {
         console.log("Validação de dia falhou.");
         return;
     }
-    
+
     console.log("Verificando se já existe uma reserva ativa...");
     const reservaValida = await validarSeTemReserva(jogadores);
     if (!reservaValida) {
@@ -1078,14 +1306,14 @@ async function atualizarTabela() {
         limparCampos();
         return;
     }
-    
+
     console.log("Reserva liberada, prosseguir com o agendamento.");
-    
+
     if (horaSelecionada < 6 || horaSelecionada > 22) {
         alert('Horário selecionado deve ser entre 6 e 22.');
         return;
     }
-    
+
     const tabela = document.getElementById('tabelaCorpo');
     let horarioInicial = horaSelecionada - 6;
 
@@ -1173,6 +1401,7 @@ async function atualizarTabela() {
         limparCampos();
     });
 }
+
 
 
 // Função para adicionar evento de clique nas células
@@ -1493,51 +1722,120 @@ function LimparDiasAnteriores() {
   });
 }
 
-function carregarJogadores() {
-    const jogadorSelect = document.getElementById('jogador1');
-    const jogadoresRef = database.ref("sistemas/cadastro/jogadores");
 
-    jogadoresRef.on('value', (snapshot) => {
-        const jogadores = snapshot.val();
-        jogadorSelect.innerHTML = '<option value="">Selecione um jogador</option>'; // Limpa as opções existentes
 
-        if (jogadores) {
-            Object.keys(jogadores).forEach((nome) => {
-                const apelido = jogadores[nome].apelido;
-                const option = document.createElement('option');
-                option.value = apelido; // Usa o apelido como valor
-                option.textContent = nome; // Exibe o nome do jogador
-                jogadorSelect.appendChild(option);
+function carregarJogadores(jogadorLogado) {
+    return new Promise((resolve, reject) => {
+        console.log("🔄 Iniciando carregamento dos jogadores...");
+
+        const jogadoresRef = database.ref("sistemas/cadastro/jogadores");
+
+        jogadoresRef.once('value', (snapshot) => {
+            const jogadores = snapshot.val();
+            console.log("📥 Dados recebidos do Firebase:", jogadores);
+
+            if (!jogadores) {
+                console.warn("⚠️ Nenhum jogador encontrado no banco de dados.");
+                resolve();
+                return;
+            }
+
+            // Lista de IDs dos selects que devem ser preenchidos
+            let idsSelects = ["jogador1", "jogador2", "jogador3", "jogador4"]; // Apenas tela de entrada de dados
+
+            if (!jogadorLogado) {
+                // Se não estiver logado, também carrega jogadores na tela de login
+                idsSelects.push("jogadorSelect");
+            }
+
+            idsSelects.forEach(id => {
+                const select = document.getElementById(id);
+                if (select) {
+                    select.innerHTML = '<option value="">Selecione um jogador</option>'; // Reseta as opções
+                    
+                    Object.keys(jogadores).forEach((nome) => {
+                        const apelido = jogadores[nome].apelido;
+                        console.log(`✅ Adicionando jogador: ${nome} (${apelido})`);
+
+                        const option = document.createElement('option');
+                        option.value = apelido;
+                        option.textContent = nome;
+                        select.appendChild(option);
+                    });
+                } else {
+                    console.warn(`⚠️ Campo de seleção não encontrado: ${id}`);
+                }
             });
-        }
+
+            resolve();
+        }, (error) => {
+            console.error("❌ Erro ao carregar jogadores:", error);
+            reject(error);
+        });
     });
 }
 
 
+
+
+
 // Chame a função para carregar os jogadores ao carregar a página
-window.onload = function() {
+window.onload = function () {
+    console.log("✅ Página carregada - Chamando verificarVersao()");
     verificarVersao();
-    carregarJogadores(); // Carrega os jogadores ao carregar a página
 
-    const loadingElement = document.getElementById('loading');
-    const contentElement = document.getElementById('content');
+    let jogadorLogado = localStorage.getItem('jogadorLogado');
+    let loginScreen = document.getElementById('loginScreen');
+    let contentElement = document.getElementById('content');
+    let loadingElement = document.getElementById('loading');
 
-    if (!loadingElement || !contentElement) {
-        return;
-    }
+    console.log("🔄 Chamando carregarJogadores()");
 
-    loadingElement.style.display = 'block';
-    contentElement.style.display = 'none';
+    carregarJogadores(jogadorLogado).then(() => {
+        console.log("✅ Jogadores carregados com base no estado de login!");
+		
+		
+		//apagar esse trecho para liber o login do usuario
+		
+		jogadorLogado = 'LOGADO'; 
+		
+		// ***********************************************
+		
+		
 
-    InicializarSistema()
-        .then(() => {
-            loadingElement.style.display = 'none'; 
-            contentElement.style.display = 'block';
-        })
-        .catch(error => {
-            // Exibe uma mensagem de erro se a Promise for rejeitada
-        });
+        if (jogadorLogado) {
+            // O usuário já está autenticado, então esconde a tela de login
+            loginScreen.style.display = 'none';
+            contentElement.style.display = 'none';
+            console.log("✅ Jogador já autenticado, pulando tela de login.");
+
+            InicializarSistema().then(() => {
+                if (loadingElement) loadingElement.style.display = 'none';
+                contentElement.style.display = 'block';
+            }).catch(error => {
+                console.error("❌ Erro ao inicializar o sistema:", error);
+            });
+
+        } else {
+            // O usuário precisa fazer login
+            loginScreen.style.display = 'block';
+            contentElement.style.display = 'none';
+
+            InicializarSistema().then(() => {
+                console.log("✅ Sistema inicializado!");
+                if (loadingElement) loadingElement.style.display = 'none';
+            }).catch(error => {
+                console.error("❌ Erro ao inicializar o sistema:", error);
+            });
+        }
+    }).catch(error => {
+        console.error("❌ Erro ao carregar jogadores:", error);
+    });
 };
+
+
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
 //alert('entrei no addEventListener');
@@ -1577,6 +1875,31 @@ document.addEventListener('DOMContentLoaded', () => {
             tabelaContainer.classList.toggle('fullscreen');
         }
     });
+	
+	
+	const header = document.querySelector('.header'); // Seleciona o título da quadra
+    let tapCount = 0; // Contador de toques
+    let lastTapTime = 0; // Tempo do último toque
+
+    header.addEventListener('click', () => {
+        const currentTime = new Date().getTime();
+        const tapInterval = 300; // Intervalo máximo entre toques (em milissegundos)
+
+        // Verifica se o tempo entre os toques é menor que o intervalo definido
+        if (currentTime - lastTapTime < tapInterval) {
+            tapCount++;
+        } else {
+            tapCount = 1; // Reseta o contador se o intervalo for maior
+        }
+
+        lastTapTime = currentTime;
+
+        // Se o usuário tocar 3 vezes no título
+        if (tapCount === 3) {
+            tapCount = 0; // Reseta o contador
+            confirmarLogout(); // Chama a função de confirmação de logout
+        }
+    });
 
     // Nova funcionalidade: Ajusta os nomes dos botões para celular
     const ajustarNomesBotoes = () => {
@@ -1611,14 +1934,110 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+function fazerLogin() {
+    let jogadorSelect = document.getElementById('jogadorSelect');
+    let jogadorSelecionado = jogadorSelect.value; // Apelido selecionado
+    let loginScreen = document.getElementById('loginScreen');
+    let contentElement = document.getElementById('content');
+
+    if (jogadorSelecionado) {
+        // Busca o nome completo do jogador com base no apelido selecionado
+        const jogadoresRef = database.ref("sistemas/cadastro/jogadores");
+        jogadoresRef.once('value', (snapshot) => {
+            const jogadores = snapshot.val();
+            let nomeCompleto = '';
+
+            // Encontra o nome completo correspondente ao apelido selecionado
+            Object.keys(jogadores).forEach((nome) => {
+                if (jogadores[nome].apelido === jogadorSelecionado) {
+                    nomeCompleto = nome; // Armazena o nome completo
+                }
+            });
+
+            if (nomeCompleto) {
+                // Exibe o nome completo do jogador na mensagem de confirmação
+                const confirmacao = confirm(`Você selecionou o jogador: ${nomeCompleto}. Deseja continuar?`);
+
+                if (confirmacao) {
+                    // Grava o nome completo no localStorage
+                    localStorage.setItem('jogadorLogado', nomeCompleto); // Salva o nome completo
+                    loginScreen.style.display = 'none';
+                    contentElement.style.display = 'block';
+                } else {
+                    // Se o usuário cancelar, limpa a seleção
+                    jogadorSelect.value = '';
+                }
+            } else {
+                alert("Jogador não encontrado.");
+            }
+        });
+    } else {
+        alert("Selecione um jogador válido.");
+    }
+}
+
+
+ function confirmarLogout() {
+    const jogadorLogado = localStorage.getItem('jogadorLogado'); // Recupera o nome do jogador logado
+
+    // Mensagem personalizada com o nome do jogador
+    const confirmacao = confirm(`Você está logado como ${jogadorLogado}. Deseja realmente sair do sistema?`);
+
+    if (confirmacao) {
+        fazerLogout(); // Se o usuário confirmar, faz o logout
+    }
+}
+
+
+function fazerLogout() {
+    localStorage.removeItem('jogadorLogado'); // Remove o jogador logado do localStorage
+    window.location.reload(); // Recarrega a página para voltar à tela de login
+}
+
+
 </script>
 
 
 
 <body>
 
-<div id="loading" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem;">
-    Carregando... Aguarde.
+ <!-- Tela de carregamento -->
+    <div id="loading" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem; background-color: white; width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center; z-index: 9999;">
+        Carregando... Aguarde.
+    </div>
+
+<!-- Tela de Login -->
+<div id="loginScreen">
+    <!-- Cabeçalho com as informações do clube -->
+    <div id="loginHeader">
+        <h1>Clube Olímpico</h1>
+        <h2>Quadras de Tênis</h2>
+        <h3>Sistema de Reservas</h3>
+    </div>
+
+    <!-- Painel de seleção de jogadores -->
+    <div id="loginForm">
+        <h2>Selecione seu nome:</h2>
+        <div class="input-group">
+            <select id="jogadorSelect">
+                <option value="">Carregando jogadores...</option>
+            </select>
+        </div>
+        
+       <div class="input-container">
+    <label for="senha" class="label-senha">Senha:</label>
+    <input type="password" id="senha" placeholder="Digite sua senha" inputmode="numeric" pattern="[0-9]*" maxlength="8">
+    <button type="button" id="toggleSenha">👁️</button>
+</div>
+        
+        <button onclick="fazerLogin()">Entrar</button>
+    </div>
+</div>
+
+<!-- Conteúdo Principal -->
+<div id="mainContent" style="display: none; text-align: center;">
+    <h2>Bem-vindo, <span id="nomeJogador"></span>!</h2>
+    <button onclick="fazerLogout()">Sair</button>
 </div>
 
 
@@ -1849,6 +2268,17 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 </div>
 </body>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('toggleSenha').addEventListener('click', function () {
+                let senhaInput = document.getElementById('senha');
+                senhaInput.type = senhaInput.type === 'password' ? 'text' : 'password';
+            });
+        });
+</script>
+
+
 <footer style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #555;">
         Desenvolvido por Ronaldo Taborda
     </footer>
