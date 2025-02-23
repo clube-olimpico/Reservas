@@ -29,12 +29,19 @@
             margin-bottom: 15px;
             gap: 10px;
         }
-        .form-container {
+		
+		/* Ajustes específicos para os contêineres das quadras */
+.quadra-container {
+    margin-bottom: 5px; /* Reduz o espaçamento vertical entre as quadras */
+    gap: 10px; /* Reduz o espaçamento entre o label e o campo de entrada */
+}
+
+        .form-container {   
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            text-align: left;
-            max-width: 90%;
+            gap: 5px;
+            text-align: left; 
+            max-width: 95%;
             max-height: 90vh;
             overflow-y: auto;
             box-sizing: border-box;
@@ -108,6 +115,66 @@
 			max-width: 99%;
 			margin: 10px auto;
 		}
+		
+/* Ajustes para a seção de convidados */
+.convidados-container {
+    margin-top: 20px; /* Aumenta o espaço entre a Quadra 3 e a seção de convidados */
+}
+.convidados-quadras,
+.convidados-dias {
+    margin-left: 0; /* Remove margens laterais */
+    padding-left: 10px; /* Adiciona um pequeno padding para evitar corte */
+    padding-right: 10px; /* Adiciona um pequeno padding para evitar corte */
+    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+    width: 100%; /* Ocupa toda a largura da tela */
+}
+
+.convidados-options {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-left: 0; /* Remove margens laterais */
+    width: 100%; /* Ocupa toda a largura da tela */
+}
+
+.convidados-options label {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    white-space: nowrap; /* Mantém o texto em uma única linha */
+    width: 100%; /* Ocupa toda a largura da tela */
+}
+
+.convidados-options input {
+    margin-right: 5px;
+}
+
+/* Ajustes para dispositivos móveis */
+@media (max-width: 768px) {
+    select {
+        
+        width: 100%; /* Faz o campo de entrada ocupar toda a largura disponível */
+        max-width: 100%; /* Garante que não ultrapasse a largura da tela */
+        box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+    }
+
+    .convidados-container,
+    .convidados-quadras,
+    .convidados-dias {
+        padding-left: 5px; /* Reduz o padding no celular */
+        padding-right: 5px; /* Reduz o padding no celular */
+    }
+
+    .convidados-options {
+        margin-left: 0; /* Remove margens laterais no celular */
+    }
+
+    .convidados-options label {
+        max-width: 100%; /* Limita a largura dos labels */
+        white-space: normal; /* Permite que o texto quebre em várias linhas, se necessário */
+    }
+}
+		
     </style>
 </head>
 <body>
@@ -157,31 +224,66 @@
         </div>
 
         <!-- Configuração de quadras -->
-        <div class="container">
-            <label for="estadoQuadra1">Quadra 1 - Coberta:</label>
-            <select id="estadoQuadra1">
-                <option value="liberada">Liberada</option>
-                <option value="interditada">Interditada</option>
-            </select>
-        </div>
-        <div class="container">
-            <label for="estadoQuadra2">Quadra 2 - Aberta:</label>
-            <select id="estadoQuadra2">
-                <option value="liberada">Liberada</option>
-                <option value="interditada">Interditada</option>
-            </select>
-        </div>
-        <div class="container">
-            <label for="estadoQuadra3">Quadra 3 - Coberta:</label>
-            <select id="estadoQuadra3">
-                <option value="liberada">Liberada</option>
-                <option value="interditada">Interditada</option>
-            </select>
-        </div>
+<div class="container quadra-container">
+    <label for="estadoQuadra1">Quadra 1 - Coberta:</label>
+    <select id="estadoQuadra1">
+        <option value="liberada">Liberada</option>
+        <option value="interditada">Interditada</option>
+    </select>
+</div>
+<div class="container quadra-container">
+    <label for="estadoQuadra2">Quadra 2 - Aberta:</label>
+    <select id="estadoQuadra2">
+        <option value="liberada">Liberada</option>
+        <option value="interditada">Interditada</option>
+    </select>
+</div>
+<div class="container quadra-container">
+    <label for="estadoQuadra3">Quadra 3 - Coberta:</label>
+    <select id="estadoQuadra3">
+        <option value="liberada">Liberada</option>
+        <option value="interditada">Interditada</option>
+    </select>
+</div>
+		
+<!-- Adicionando configuração para convidados -->
+<div class="container convidados-container">
+    <label style="font-size: 1.2em; font-weight: bold;">Convidados:</label>
+</div>
 
-        <button onclick="salvarConfiguracoes()">Salvar Configurações</button>
+<div class="container convidados-quadras">
+    <label style="font-weight: bold;">Quadras:</label>
+    <div class="convidados-options">
+        <label style="font-weight: normal; display: flex; align-items: center;">
+            <input type="checkbox" id="convidadosQuadra1" style="margin-right: 5px;"> Quadra 1 - Coberta
+        </label>
+        <label style="font-weight: normal; display: flex; align-items: center;">
+            <input type="checkbox" id="convidadosQuadra2" style="margin-right: 5px;"> Quadra 2 - Aberta
+        </label>
+        <label style="font-weight: normal; display: flex; align-items: center;">
+            <input type="checkbox" id="convidadosQuadra3" style="margin-right: 5px;"> Quadra 3 - Coberta
+        </label>
     </div>
 </div>
+
+<div class="container convidados-dias">
+    <label style="font-weight: bold;">Dias:</label>
+    <div class="convidados-options">
+        <label style="font-weight: normal; display: flex; align-items: center;">
+            <input type="checkbox" id="convidadosSemana" style="margin-right: 5px;"> Durante a Semana
+        </label>
+        <label style="font-weight: normal; display: flex; align-items: center;">
+            <input type="checkbox" id="convidadosFimDeSemana" style="margin-right: 5px;"> Fim de Semana
+        </label>
+    </div>
+</div>
+
+
+<button onclick="salvarConfiguracoes()">Salvar Configurações</button>
+    </div>
+</div>
+
+
 
 <script>
     const firebaseConfig = {
@@ -205,56 +307,105 @@
         }
     }
 
-    function carregarConfiguracoes() {
-        return new Promise((resolve, reject) => {
-            db.ref("sistemas/config").once("value")
-                .then(snapshot => {
-                    const data = snapshot.val();
-                    if (data) {
-                        document.getElementById('sistema').value = data.Abrir ? 'ON' : 'OFF';
-                        atualizarEstadoSistema();
-                        document.getElementById('vDomingo').value = data.vDomingo || "aberto";
-                        const diasParaLimpar = data.DiasParaLimpar || 6;
-                        document.getElementById('diasParaAgendar').value = (6 - diasParaLimpar).toString();
+ function carregarConfiguracoes() {
+    return new Promise((resolve, reject) => {
+        // Carrega as configurações iniciais
+        db.ref("sistemas/config").once("value")
+            .then(snapshot => {
+                const data = snapshot.val();
+                if (data) {
+                    // Atualiza as configurações gerais
+                    document.getElementById('sistema').value = data.Abrir ? 'ON' : 'OFF';
+                    atualizarEstadoSistema();
+                    document.getElementById('vDomingo').value = data.vDomingo || "aberto";
+                    const diasParaLimpar = data.DiasParaLimpar || 6;
+                    document.getElementById('diasParaAgendar').value = (6 - diasParaLimpar).toString();
 
-                        const quadras = data.Quadras || {};
-                        document.getElementById('estadoQuadra1').value = quadras.Quadra1 || "liberada";
-                        document.getElementById('estadoQuadra2').value = quadras.Quadra2 || "liberada";
-                        document.getElementById('estadoQuadra3').value = quadras.Quadra3 || "liberada";
-                    }
-                    resolve();
-                })
-                .catch(error => {
-                    console.error("Erro ao carregar configurações:", error);
-                    reject(error); 
-                });
+                    // Atualiza o estado das quadras
+                    const quadras = data.Quadras || {};
+                    document.getElementById('estadoQuadra1').value = quadras.Quadra1 || "liberada";
+                    document.getElementById('estadoQuadra2').value = quadras.Quadra2 || "liberada";
+                    document.getElementById('estadoQuadra3').value = quadras.Quadra3 || "liberada";
+
+                    // Atualiza as configurações dos convidados
+                    const convidados = data.Convidados || {};
+                    document.getElementById('convidadosQuadra1').checked = convidados.Quadra1 || false;
+                    document.getElementById('convidadosQuadra2').checked = convidados.Quadra2 || false;
+                    document.getElementById('convidadosQuadra3').checked = convidados.Quadra3 || false;
+                    document.getElementById('convidadosSemana').checked = convidados.DiasDeSemana || false;
+                    document.getElementById('convidadosFimDeSemana').checked = convidados.FimDeSemana || false;
+                }
+                resolve();
+            })
+            .catch(error => {
+                console.error("Erro ao carregar configurações:", error);
+                reject(error);
+            });
+
+        // Escuta alterações em tempo real
+        db.ref("sistemas/config").on("value", (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                // Atualiza as configurações gerais
+                document.getElementById('sistema').value = data.Abrir ? 'ON' : 'OFF';
+                atualizarEstadoSistema();
+                document.getElementById('vDomingo').value = data.vDomingo || "aberto";
+                const diasParaLimpar = data.DiasParaLimpar || 6;
+                document.getElementById('diasParaAgendar').value = (6 - diasParaLimpar).toString();
+
+                // Atualiza o estado das quadras
+                const quadras = data.Quadras || {};
+                document.getElementById('estadoQuadra1').value = quadras.Quadra1 || "liberada";
+                document.getElementById('estadoQuadra2').value = quadras.Quadra2 || "liberada";
+                document.getElementById('estadoQuadra3').value = quadras.Quadra3 || "liberada";
+
+                // Atualiza as configurações dos convidados
+                const convidados = data.Convidados || {};
+                document.getElementById('convidadosQuadra1').checked = convidados.Quadra1 || false;
+                document.getElementById('convidadosQuadra2').checked = convidados.Quadra2 || false;
+                document.getElementById('convidadosQuadra3').checked = convidados.Quadra3 || false;
+                document.getElementById('convidadosSemana').checked = convidados.DiasDeSemana || false;
+                document.getElementById('convidadosFimDeSemana').checked = convidados.FimDeSemana || false;
+            }
         });
-    }
+    });
+}
 
     function salvarConfiguracoes() {
-        const abrir = document.getElementById('sistema').value === 'ON';
-        const vDomingo = document.getElementById('vDomingo').value;
-        const diasParaLimpar = 6 - parseInt(document.getElementById('diasParaAgendar').value);
-        const estadoQuadra1 = document.getElementById('estadoQuadra1').value;
-        const estadoQuadra2 = document.getElementById('estadoQuadra2').value;
-        const estadoQuadra3 = document.getElementById('estadoQuadra3').value;
+    const abrir = document.getElementById('sistema').value === 'ON';
+    const vDomingo = document.getElementById('vDomingo').value;
+    const diasParaLimpar = 6 - parseInt(document.getElementById('diasParaAgendar').value);
+    const estadoQuadra1 = document.getElementById('estadoQuadra1').value;
+    const estadoQuadra2 = document.getElementById('estadoQuadra2').value;
+    const estadoQuadra3 = document.getElementById('estadoQuadra3').value;
 
-        db.ref("sistemas/config").update({
-            Abrir: abrir,
-            vDomingo,
-            DiasParaLimpar: diasParaLimpar,
-            Quadras: {
-                Quadra1: estadoQuadra1,
-                Quadra2: estadoQuadra2,
-                Quadra3: estadoQuadra3
-            }
-        })
-        .then(() => alert("Configurações salvas com sucesso!"))
-        .catch(error => {
-            console.error("Erro ao salvar configurações:", error);
-            alert("Erro ao salvar configurações. Verifique o console para mais detalhes.");
-        });
-    }
+    // Captura os valores dos checkboxes de convidados
+    const convidados = {
+        Quadra1: document.getElementById('convidadosQuadra1').checked,
+        Quadra2: document.getElementById('convidadosQuadra2').checked,
+        Quadra3: document.getElementById('convidadosQuadra3').checked,
+        DiasDeSemana: document.getElementById('convidadosSemana').checked,
+        FimDeSemana: document.getElementById('convidadosFimDeSemana').checked
+    };
+
+    // Salva as configurações no Firebase
+    db.ref("sistemas/config").update({
+        Abrir: abrir,
+        vDomingo,
+        DiasParaLimpar: diasParaLimpar,
+        Quadras: {
+            Quadra1: estadoQuadra1,
+            Quadra2: estadoQuadra2,
+            Quadra3: estadoQuadra3
+        },
+        Convidados: convidados // Adiciona os dados dos convidados
+    })
+    .then(() => alert("Configurações salvas com sucesso!"))
+    .catch(error => {
+        console.error("Erro ao salvar configurações:", error);
+        alert("Erro ao salvar configurações. Verifique o console para mais detalhes.");
+    });
+}
 
     // Exibe a tela de carregamento enquanto carrega as configurações
     window.onload = function() {
