@@ -10,8 +10,8 @@
     <meta http-equiv="expires" content="0">
 
 <style>
-    /* Estilos globais */
-   body {
+/* Estilos globais */
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -167,6 +167,7 @@
         background-color: #d32f2f;
     }
 
+
 /* Contêiner principal do formulário */
 .form-container {
     padding: 10px;
@@ -200,35 +201,6 @@ label {
 
 /* Responsividade: ajuste para dispositivos móveis */
 @media (max-width: 600px) {
-
-label {
-    margin-left: -10px;
-     
-}
-
-.input-container {
-    position: relative; /* Permite posicionamento absoluto do botão */
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    width: 100%; /* Ocupa toda a largura disponível */
-}
-    #toggleSenha {
-        position: right; /* Posicionamento absoluto dentro do container */
-        right: 10px; /* Posiciona o botão à direita */
-        top: 50%; /* Centraliza verticalmente */
-        transform: translateY(-50%); /* Ajuste fino para centralização */
-        font-size: 14px; /* Tamanho menor do ícone */
-        height: 30px; /* Altura menor */
-        width: -24px; /* Largura menor */
-        background: none;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-	 
     .jogador-input {
         width: 100% !important; /* Campo ocupa toda a largura disponível */
         max-width: 175px; /* Limita a largura máxima */
@@ -1795,7 +1767,7 @@ window.onload = function () {
         console.log("✅ Jogadores carregados com base no estado de login!");
 		
 		
-		//apagar esse trecho para liber o login do usuario
+		//desmarccar esse trecho para canccelar o login do usuario
 		
 		jogadorLogado = 'LOGADO'; 
 		
