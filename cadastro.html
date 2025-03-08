@@ -526,12 +526,26 @@ function consultarJogador() {
     criteriosConsulta.classe = classeSelect.value === "" && classeSelect.selectedIndex === 0 ? null : classeSelect.value;
     
     criteriosConsulta.niver = document.getElementById("niver").value;
-    const piramide = document.getElementById("piramide").value; // Captura o valor do campo de entrada de texto
+    const piramide = document.getElementById("piramide").value.trim(); // Captura o valor do campo de entrada de texto
     const filtrarPiramide = document.getElementById("filtrarPiramide").checked; // Captura o estado do checkbox
 
     console.log("Critérios de consulta:", criteriosConsulta); // Debug: Mostra todos os critérios de consulta
     console.log("Valor de piramide:", piramide); // Debug: Mostra o valor de piramide
     console.log("Filtrar por piramide?", filtrarPiramide); // Debug: Mostra o estado do checkbox
+
+    // Verifica se todos os campos estão vazios e o checkbox não está marcado
+    const todosCamposVazios =
+        criteriosConsulta.nome === "" &&
+        criteriosConsulta.apelido === "" &&
+        criteriosConsulta.socio === "" &&
+        criteriosConsulta.classe === null &&
+        criteriosConsulta.niver === "" &&
+        !filtrarPiramide; // Considera o checkbox como um critério válido
+
+    if (todosCamposVazios) {
+        alert("Digite pelo menos um critério para consulta.");
+        return; // Interrompe a consulta se nenhum critério for preenchido
+    }
 
     const tabela = document.getElementById("tabela-jogadores");
     tabela.innerHTML = ""; // Limpa a tabela antes de exibir os resultados
@@ -621,8 +635,6 @@ function consultarJogador() {
         alert("Ocorreu um erro ao consultar os jogadores. Tente novamente.");
     });
 }
-
-
 
 
 function editarJogador(nome) {
