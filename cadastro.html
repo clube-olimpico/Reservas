@@ -17,17 +17,17 @@
             margin: 0;
             padding-bottom: 60px; /* Espaço para o rodapé */
             position: relative;
-            min-height: 100vh;
+            min-height: 100vh; 
         }
 
         /* Estilo do container das abas */
         .tab-container {
-            display: flex;
+            display: flex; 
             justify-content: center;
             width: 100%;
             background-color: white;
             padding: 5px 0;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
             border-bottom: 3px solid #ccc;
             position: relative;
         }
@@ -142,16 +142,27 @@
 
       
 
-        /* Estilos responsivos para telas menores */
-        @media (max-width: 480px) {
+/* Estilos responsivos para telas menores */
+@media (max-width: 480px) {
+
+.form-group label {
+    vertical-align: middle; /* Alinhamento vertical para o meio */
+    line-height: 30px;    /* Ajuste a altura da linha conforme necessário */
+    padding: 1px 0;       /* Adicione espaçamento superior e inferior */
+  }
+
+  .form-group input, .form-group select {
+    vertical-align: middle; /* Alinhamento vertical para o meio */
+  }
     .form-container {
         width: 85%; /* Ajusta a largura para ocupar até 90% da tela */
         max-width: 350px; /* Define um limite máximo */
-		margin-top: 5px;
+		margin-top: px;
 	    }
     .form-group {
         position: relative;
         width: 100%;
+		align-items: flex-start;
     }
 
     input, select {
@@ -159,6 +170,31 @@
         margin-left: 0; /* Remove o ajuste negativo */
         max-width: none; /* Remove o limite de largura */
     }
+
+  label[for="niver"] {
+    line-height: 1.1; /* Ajuste o valor conforme necessário */
+  }
+  
+  #classe {
+        width: 138px !important;/* Reduz a largura do campo "Escolha a Classe" */
+        margin-right: 10px; /* Ajusta a margem à direita */
+    }
+  
+   #piramide {
+        margin-left: -10px !important; /* Ajuste a posição para a esquerda */
+		width: 30px !important;
+    }
+
+    #simbolo_piramide {
+        margin-left: -10px !important; /* Move ainda mais para a esquerda */
+		align-items: center; /* Centraliza verticalmente */
+    }
+	
+	  #filtrarPiramide {
+        margin-left: 5px !important; /* Remove a margem à esquerda */
+        margin-top: 5px; /* Adiciona um espaçamento acima */
+    }
+
 }
 
         /* Estilo da tela de carregamento */
@@ -190,7 +226,33 @@
             font-weight: bold;
             box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2); /* Efeito de profundidade */
             z-index: 1000;
-        }
+        }/* Estiliza o select da classe */
+#classe {
+    width: 200px;
+    margin-right: 110px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+
+
+/* Estiliza o símbolo da pirâmide */
+#simbolo_piramide {
+    font-size: 24px; /* Aumenta o tamanho do símbolo */
+    color: black;
+    margin-left: 5px;
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center;
+    height: 100%; /* Faz com que ocupe toda a altura disponível */
+}
+
+
+
+		
+		
+		
     </style>
 </head>
 <body>
@@ -216,6 +278,11 @@
             <label for="apelido">Apelido:</label>
             <input type="text" id="apelido" placeholder="Digite o apelido" required>
         </div>
+		
+		<div class="form-group">
+            <label for="niver">Data de Nascimento:</label>
+            <input type="date" id="niver">
+        </div>
         <div class="form-group">
             <label for="socio">Sócio:</label>
             <select id="socio">
@@ -224,16 +291,26 @@
                 <option value="dependente">Dependente</option>
             </select>
         </div>
+		
+		
         <div class="form-group">
-            <label for="classe">Classe:</label>
-            <select id="classe">
-                <option value="" selected disabled>Escolha a Classe</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="">(Sem classe)</option>
-            </select>
-        </div>
+			<label for="classe">Classe:</label>
+			<select id="classe" style="width: 200px; margin-right: 20px;">
+				<option value="" selected disabled>Escolha a Classe</option>
+				<option value="A">A</option>
+				<option value="B">B</option>
+				<option value="C">C</option>
+				<option value="">(Sem classe)</option>
+			</select>
+			<span id="simbolo_piramide" style="margin-left: 10px; margin-right: 10px;">🔺</span>
+			<input type="text" id="piramide" maxlength="2" style="width: 40px; height: 35px; text-align: center; margin-left: 10px; font-size: 16px; padding: 5px; border: 1px solid #ccc; border-radius: 3px;" value="">
+			<input type="checkbox" id="filtrarPiramide" style="margin-left: 10px;"> 
+		</div>
+
+
+
+		
+		
         <button id="botaoAcao" onclick="acaoFormulario()">Cadastrar</button>
     </div>
 
@@ -247,7 +324,7 @@
             </tr>
         </thead>
         <tbody id="tabela-jogadores"></tbody>
-    </table>
+    </table> 
 
     <!-- Rodapé fixo com o total de jogadores -->
     <div class="footer" id="footer">
@@ -277,116 +354,184 @@
             document.getElementById("totalJogadores").textContent = totalJogadores;
         }
 
-        // Função para determinar a ação do formulário (cadastrar ou consultar)
-        function acaoFormulario() {
-            if (modoCadastro) {
-                cadastrarJogador();
-            } else {
-                consultarJogador();
-            }
+ function acaoFormulario() {
+    if (document.getElementById("botaoAcao").textContent === "Salvar") {
+        salvarJogador();
+    } else if (modoCadastro) {
+        cadastrarJogador();
+    } else {
+        consultarJogador();
+    }
+}
+
+		
+
+let placeholderSpan = null; // Torna a variável global para manipular depois
+
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+if (isMobile()) {
+    const niverInput = document.getElementById("niver");
+    const niverLabel = document.querySelector('label[for="niver"]');
+
+    placeholderSpan = document.createElement("span");
+    placeholderSpan.textContent = "dd/mm/aaaa";
+    placeholderSpan.style.color = "#999";
+    placeholderSpan.style.position = "absolute";
+    placeholderSpan.style.left = niverLabel.offsetWidth + 10 + "px";
+    placeholderSpan.style.top = "8px";
+    placeholderSpan.style.pointerEvents = "none";
+
+    niverInput.parentNode.insertBefore(placeholderSpan, niverInput.nextSibling);
+
+    niverInput.addEventListener("focus", () => placeholderSpan.style.display = "none");
+    niverInput.addEventListener("blur", () => {
+        if (niverInput.value === "") {
+            placeholderSpan.style.display = "inline";
         }
+    });
+}
 
-        // Função para cadastrar um jogador
-        function cadastrarJogador() {
-            const nome = document.getElementById("nome").value.trim().toUpperCase();
-            let apelido = document.getElementById("apelido").value.trim();
-            const socio = document.getElementById("socio").value;
-            const classe = document.getElementById("classe").value;
 
-            // Validação dos campos
-            if (nome === "" || apelido === "") {
-                alert("Preencha todos os campos obrigatórios.");
-                return;
-            }
-
-            // Validação adicional para o nome
-            if (!/^[A-Z\s]+$/.test(nome)) {
-                alert("O nome deve conter apenas letras e espaços.");
-                return;
-            }
-
-            // Validação para o campo Sócio
-            if (socio === "") {
-                alert("Escolha um tipo de sócio.");
-                return;
-            }
-
-            // Validação para o campo Classe
-            if (classe === "" && document.getElementById("classe").selectedIndex === 0) {
-                alert("Escolha uma classe ou selecione '(Sem classe)'.");
-                return;
-            }
-
-            // Formata o apelido para ter a primeira letra maiúscula
-            apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
-
-            const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
-            const apelidoRef = database.ref("sistemas/cadastro/apelidos/" + apelido);
-
-            // Verifica se o nome já existe
-            jogadorRef.get().then(snapshot => {
-                if (snapshot.exists()) {
-                    alert("Já existe um jogador com esse Nome.");
-                    limparCampos();
-                    return;
-                }
-
-                // Verifica se o apelido já existe
-                apelidoRef.get().then(snapshot => {
-                    if (snapshot.exists()) {
-                        alert("Já existe um jogador com esse Apelido.");
-                        limparCampos();
-                    } else {
-                        // Salva o jogador no banco de dados
-                        jogadorRef.set({ apelido, socio, classe })
-                            .then(() => {
-                                // Salva o apelido como chave única
-                                apelidoRef.set(true)
-                                    .then(() => {
-                                        alert("Jogador cadastrado com sucesso!");
-                                        limparCampos();
-                                        carregarJogadores();
-                                    })
-                                    .catch(error => {
-                                        console.error("Erro ao salvar apelido:", error);
-                                        alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
-                                    });
-                            })
-                            .catch(error => {
-                                console.error("Erro ao cadastrar jogador:", error);
-                                alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
-                            });
-                    }
-                }).catch(error => {
-                    console.error("Erro ao verificar apelido:", error);
-                    alert("Ocorreu um erro ao verificar o apelido. Tente novamente.");
-                });
-            }).catch(error => {
-                console.error("Erro ao verificar jogador:", error);
-                alert("Ocorreu um erro ao verificar o jogador. Tente novamente.");
-            });
-        }
-
-        // Função para limpar os campos do formulário
-        function limparCampos() {
-            document.getElementById("nome").value = "";
-            document.getElementById("apelido").value = "";
-            document.getElementById("socio").value = "";
-            document.getElementById("classe").value = "";
-        }
-
-        // Função para consultar jogadores
-        function consultarJogador() {
+function cadastrarJogador() {
     const nome = document.getElementById("nome").value.trim().toUpperCase();
-    const apelido = document.getElementById("apelido").value.trim().toLowerCase();
+    let apelido = document.getElementById("apelido").value.trim();
     const socio = document.getElementById("socio").value;
     const classe = document.getElementById("classe").value;
+    let niver = document.getElementById("niver").value;
+    const piramide = document.getElementById("piramide").value.trim(); // Remove espaços em branco
 
-    // Verifica se pelo menos um critério de consulta foi preenchido
-    if (nome === "" && apelido === "" && socio === "" && classe === "" && document.getElementById("classe").selectedIndex !== 4) {
-        alert("Digite pelo menos um critério para consulta.");
+    // Validação dos campos
+    if (nome === "" || apelido === "" || niver === "") {
+        alert("Preencha todos os campos obrigatórios.");
         return;
     }
+
+    // Converte a data para o formato DD/MM/YYYY
+    const partesData = niver.split("-");
+    if (partesData.length === 3) {
+        niver = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
+    }
+
+    // Validação adicional para o nome
+    if (!/^[A-Z\s]+$/.test(nome)) {
+        alert("O nome deve conter apenas letras e espaços.");
+        return;
+    }
+
+    // Validação para o campo Sócio
+    if (socio === "") {
+        alert("Escolha um tipo de sócio.");
+        return;
+    }
+
+    // Validação para o campo Classe
+    if (classe === "" && document.getElementById("classe").selectedIndex === 0) {
+        alert("Escolha uma classe ou selecione '(Sem classe)'");
+        return;
+    }
+
+    // Formata o apelido para ter a primeira letra maiúscula
+    apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
+
+    // Determina o valor de piramide (remove espaços e garante que seja uma string vazia se não houver valor)
+    const piramideValue = piramide.trim() === "" ? "" : piramide;
+
+    const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
+    const apelidoRef = database.ref("sistemas/cadastro/apelidos/" + apelido);
+
+    // Verifica se o nome já existe
+    jogadorRef.get().then(snapshot => {
+        if (snapshot.exists()) {
+            alert("Já existe um jogador com esse Nome.");
+            limparCampos();
+            return;
+        }
+
+        // Verifica se o apelido já existe
+        apelidoRef.get().then(snapshot => {
+            if (snapshot.exists()) {
+                alert("Já existe um jogador com esse Apelido.");
+                limparCampos();
+            } else {
+                // Salva o jogador no banco de dados, incluindo o valor de piramide
+                jogadorRef.set({ apelido, socio, classe, niver, piramide: piramideValue })
+                    .then(() => {
+                        // Salva o apelido como chave única
+                        apelidoRef.set(true)
+                            .then(() => {
+                                alert("Jogador cadastrado com sucesso!");
+                                limparCampos();
+                                carregarJogadores();
+                            })
+                            .catch(error => {
+                                console.error("Erro ao salvar apelido:", error);
+                                alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
+                            });
+                    })
+                    .catch(error => {
+                        console.error("Erro ao cadastrar jogador:", error);
+                        alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
+                    });
+            }
+        }).catch(error => {
+            console.error("Erro ao verificar apelido:", error);
+            alert("Ocorreu um erro ao verificar o apelido. Tente novamente.");
+        });
+    }).catch(error => {
+        console.error("Erro ao verificar jogador:", error);
+        alert("Ocorreu um erro ao verificar o jogador. Tente novamente.");
+    });
+}
+
+
+// Função para limpar os campos do formulário
+function limparCampos() {
+    document.getElementById("nome").value = "";
+    document.getElementById("apelido").value = "";
+    document.getElementById("niver").value = "";
+    document.getElementById("socio").value = "";
+    document.getElementById("classe").value = "";
+    document.getElementById("piramide").value = "";
+
+
+    // Reativa o campo Nome e remove o efeito visual
+    const nomeInput = document.getElementById("nome");
+    nomeInput.disabled = false;
+    nomeInput.style.backgroundColor = ""; // Volta ao padrão
+    nomeInput.style.border = ""; // Volta ao padrão
+}
+
+
+
+let criteriosConsulta = {
+    nome: "",
+    apelido: "",
+    socio: "",
+    classe: "",
+    niver: ""
+};
+
+// Função para consultar jogadores
+function consultarJogador() {
+    // Atualiza os critérios de consulta com os valores atuais dos campos
+    criteriosConsulta.nome = document.getElementById("nome").value.trim().toUpperCase();
+    criteriosConsulta.apelido = document.getElementById("apelido").value.trim().toLowerCase();
+    criteriosConsulta.socio = document.getElementById("socio").value;
+    
+    // Verifica se o campo de classe foi alterado (não está na opção padrão)
+    const classeSelect = document.getElementById("classe");
+    criteriosConsulta.classe = classeSelect.value === "" && classeSelect.selectedIndex === 0 ? null : classeSelect.value;
+    
+    criteriosConsulta.niver = document.getElementById("niver").value;
+    const piramide = document.getElementById("piramide").value; // Captura o valor do campo de entrada de texto
+    const filtrarPiramide = document.getElementById("filtrarPiramide").checked; // Captura o estado do checkbox
+
+    console.log("Critérios de consulta:", criteriosConsulta); // Debug: Mostra todos os critérios de consulta
+    console.log("Valor de piramide:", piramide); // Debug: Mostra o valor de piramide
+    console.log("Filtrar por piramide?", filtrarPiramide); // Debug: Mostra o estado do checkbox
 
     const tabela = document.getElementById("tabela-jogadores");
     tabela.innerHTML = ""; // Limpa a tabela antes de exibir os resultados
@@ -397,27 +542,72 @@
         snapshot.forEach(childSnapshot => {
             const jogadorNome = childSnapshot.key;
             const jogador = childSnapshot.val();
+
+            // Ignora o jogador "Convidado"
+            if (jogadorNome.toUpperCase() === "CONVIDADO") {
+                return; // Sai da iteração atual sem processar o jogador
+            }
+
             const jogadorApelido = jogador.apelido.toLowerCase();
             const jogadorSocio = jogador.socio;
-            const jogadorClasse = jogador.classe;
+            const jogadorClasse = jogador.classe || ""; // Se não houver classe, define como vazio
+            const jogadorNiver = jogador.niver || "";
+            const jogadorPiramide = jogador.piramide || ""; // Se não houver piramide, define como vazio
+
+            console.log("Jogador:", jogadorNome, "Piramide:", jogadorPiramide); // Debug: Mostra o nome e o valor de piramide de cada jogador
 
             // Verifica se o jogador corresponde aos critérios de consulta
-            if (
-                (nome === "" || jogadorNome.includes(nome)) &&
-                (apelido === "" || jogadorApelido.includes(apelido)) &&
-                (socio === "" || jogadorSocio === socio) &&
-                (classe === "" || jogadorClasse === classe)
-            ) {
+            const filtroNome = criteriosConsulta.nome === "" || jogadorNome.includes(criteriosConsulta.nome);
+            const filtroApelido = criteriosConsulta.apelido === "" || jogadorApelido.includes(criteriosConsulta.apelido);
+            const filtroSocio = criteriosConsulta.socio === "" || jogadorSocio === criteriosConsulta.socio;
+            const filtroClasse = criteriosConsulta.classe === null || (criteriosConsulta.classe === "" ? jogadorClasse === "" : jogadorClasse === criteriosConsulta.classe);
+            const filtroNiver = criteriosConsulta.niver === "" || jogadorNiver === criteriosConsulta.niver;
+
+            // Aplica o filtro de piramide apenas se o checkbox estiver marcado
+            const filtroPiramide = !filtrarPiramide || (piramide === "" ? jogadorPiramide === "" : (piramide === "0" ? jogadorPiramide === "0" : jogadorPiramide === piramide));
+
+            console.log("Filtros aplicados:", {
+                nome: filtroNome,
+                apelido: filtroApelido,
+                socio: filtroSocio,
+                classe: filtroClasse,
+                niver: filtroNiver,
+                piramide: filtroPiramide
+            }); // Debug: Mostra o resultado de cada filtro
+
+            if (filtroNome && filtroApelido && filtroSocio && filtroClasse && filtroNiver && filtroPiramide) {
                 encontrado = true;
 
-                // Cria uma nova linha na tabela com Nome, Sócio e Apelido
-                tabela.innerHTML += `
-                    <tr>
-                        <td style="text-align: left;">${jogadorNome}</td>
-                        <td style="text-align: left;">${jogadorApelido.replace(/\b\w/g, letra => letra.toUpperCase())}</td>
-						<td style="text-align: center;">${jogadorSocio}</td>
-                    </tr>
+                console.log("Jogador encontrado:", jogadorNome, "Piramide:", jogadorPiramide); // Debug: Mostra o nome e o valor de piramide do jogador que passou no filtro
+
+                // Cria a linha da tabela
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td style="text-align: left;">${jogadorNome}</td>
+                    <td style="text-align: left;">${jogadorApelido.replace(/\b\w/g, letra => letra.toUpperCase())}</td>
+                    <td style="text-align: center;">${jogadorSocio}</td>
                 `;
+
+                // Adiciona eventos de clique e duplo clique
+                let clickTimeout;
+                let isDoubleClick = false;
+
+                row.addEventListener("click", (event) => {
+                    clickTimeout = setTimeout(() => {
+                        if (!isDoubleClick) {
+                            excluirJogador(jogadorNome, jogador.apelido);
+                        }
+                    }, 300);
+                });
+
+                row.addEventListener("dblclick", (event) => {
+                    isDoubleClick = true;
+                    clearTimeout(clickTimeout);
+                    editarJogador(jogadorNome);
+                    setTimeout(() => { isDoubleClick = false; }, 350);
+                });
+
+                tabela.appendChild(row);
             }
         });
 
@@ -425,7 +615,6 @@
             alert("Nenhum jogador encontrado.");
         }
 
-        // Atualiza o total de jogadores exibidos
         atualizarTotalJogadores();
     }).catch(error => {
         console.error("Erro ao consultar jogadores:", error);
@@ -433,19 +622,182 @@
     });
 }
 
-        // Função para carregar todos os jogadores na tabela
-        function carregarJogadores() {
+
+
+
+function editarJogador(nome) {
+    const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
+
+    jogadorRef.once("value").then((snapshot) => {
+        if (snapshot.exists()) {
+            const jogador = snapshot.val();
+
+            // Preenche os campos do formulário com os dados do jogador
+            document.getElementById("nome").value = nome;
+            document.getElementById("apelido").value = jogador.apelido;
+            document.getElementById("socio").value = jogador.socio || "";
+            document.getElementById("classe").value = jogador.classe || "";
+
+            // Preenche o campo de data de nascimento
+            const niverInput = document.getElementById("niver");
+            if (jogador.niver) {
+                niverInput.value = jogador.niver.split("/").reverse().join("-");
+                if (placeholderSpan) placeholderSpan.style.display = "none"; // Esconde o placeholder
+            } else {
+                niverInput.value = "";
+                if (placeholderSpan) placeholderSpan.style.display = "inline"; // Mostra o placeholder
+            }
+
+            // Preenche o campo de piramide com o valor correto
+            const piramideInput = document.getElementById("piramide");
+            piramideInput.value = jogador.piramide || ""; // Se não houver valor, define como vazio
+
+            // Desabilita o campo de nome e aplica estilo visual
+            const nomeInput = document.getElementById("nome");
+            nomeInput.disabled = true;
+            nomeInput.style.backgroundColor = "#e0e0e0";
+            nomeInput.style.border = "2px solid #888";
+
+            // Atualiza o texto do botão para "Salvar"
+            document.getElementById("botaoAcao").textContent = "Salvar";
+            modoCadastro = false; // Altera o modo para edição
+        } else {
+            alert("Jogador não encontrado.");
+        }
+    }).catch((error) => {
+        console.error("Erro ao carregar jogador:", error);
+    });
+}
+
+
+
+
+function salvarJogador() {
+    const nome = document.getElementById("nome").value.trim().toUpperCase();
+    let apelido = document.getElementById("apelido").value.trim();
+    const socio = document.getElementById("socio").value;
+    const classe = document.getElementById("classe").value;
+    let niver = document.getElementById("niver").value;
+    const piramide = document.getElementById("piramide").value.trim(); // Remove espaços em branco
+
+    console.log("Modo de cadastro:", modoCadastro);
+    console.log("Dados do jogador a serem salvos:", { nome, apelido, socio, classe, niver, piramide });
+
+    if (modoCadastro) {
+        // Validação completa para novo cadastro (todos obrigatórios)
+        if (nome === "" || apelido === "" || socio === "" || classe === "" || niver === "") {
+            alert("Preencha todos os campos obrigatórios.");
+            return;
+        }
+    } else {
+        // Validação no modo edição (apenas nome obrigatório)
+        if (nome === "") {
+            alert("O nome é obrigatório.");
+            return;
+        }
+    }
+
+    // Formatar data apenas se estiver preenchida
+    if (niver) {
+        const partesData = niver.split("-");
+        niver = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
+    } else {
+        niver = ""; // Se não informado, salva como vazio
+    }
+
+    // Formata o apelido para ter a primeira letra maiúscula
+    apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
+
+    // Determina o valor de piramide (remove espaços e garante que seja uma string vazia se não houver valor)
+    const piramideValue = piramide.trim() === "" ? "" : piramide;
+
+    // Exibe uma mensagem de confirmação com todos os dados do jogador
+    const mensagemConfirmacao = `
+        Confirme os dados do jogador:
+        Nome: ${nome}
+        Apelido: ${apelido}
+        Sócio: ${socio}
+        Classe: ${classe || "(Sem classe)"}
+        Data de Nascimento: ${niver || "(Não informada)"}
+        Pirâmide: ${piramideValue || "(Não informada)"}
+    `;
+
+    const confirmacao = confirm(mensagemConfirmacao);
+    if (!confirmacao) {
+        //alert("Edição cancelada pelo usuário.");
+        return; // Cancela a operação se o usuário não confirmar
+    }
+
+    const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
+
+    // Armazena os critérios de consulta originais antes de salvar
+    const criteriosOriginais = { ...criteriosConsulta };
+
+    jogadorRef.update({
+        apelido: apelido || "",   // Se vazio, salva como string vazia
+        socio: socio || "",        // Se vazio, salva como string vazia
+        classe: classe || "",      // Se vazio, salva como string vazia
+        niver: niver,               // Data já tratada
+        piramide: piramideValue     // Pirâmide já tratada
+    }).then(() => {
+        console.log("Jogador atualizado com sucesso!");
+        alert("Jogador atualizado com sucesso!");
+
+        // Limpa os campos do formulário
+        limparCampos();
+
+        // Reaplica os critérios de consulta originais e refaz a consulta
+        if (!modoCadastro) {
+            console.log("Reexecutando consulta após salvar...");
+
+            // Restaura os critérios de consulta originais
+            criteriosConsulta = { ...criteriosOriginais };
+
+            // Preenche os campos do formulário com os critérios originais
+            document.getElementById("nome").value = criteriosConsulta.nome;
+            document.getElementById("apelido").value = criteriosConsulta.apelido;
+            document.getElementById("socio").value = criteriosConsulta.socio;
+            document.getElementById("classe").value = criteriosConsulta.classe || "";
+            document.getElementById("niver").value = criteriosConsulta.niver;
+            document.getElementById("piramide").value = criteriosConsulta.piramide || "";
+
+            // Refaz a consulta com os critérios originais
+            consultarJogador();
+        } else {
+            console.log("Carregando todos os jogadores (modo cadastro)...");
+            carregarJogadores();
+        }
+
+        // Atualiza texto do botão conforme aba atual
+        const abaAtual = document.querySelector(".tab-button.selected").textContent;
+        if (abaAtual === "Cadastro") {
+            document.getElementById("botaoAcao").textContent = "Cadastrar";
+            modoCadastro = true;
+        } else {
+            document.getElementById("botaoAcao").textContent = "Consultar";
+            modoCadastro = false;
+        }
+    }).catch((error) => {
+        console.error("Erro ao atualizar jogador:", error);
+        alert("Ocorreu um erro ao atualizar o jogador.");
+    });
+}
+
+
+
+// Função para carregar todos os jogadores na tabela
+function carregarJogadores() {
     const tabela = document.getElementById("tabela-jogadores");
 
-    database.ref("sistemas/cadastro/jogadores").on("value", snapshot => {
+    database.ref("sistemas/cadastro/jogadores").on("value", (snapshot) => {
         tabela.innerHTML = ""; // Limpa a tabela antes de adicionar novos registros
-        snapshot.forEach(childSnapshot => {
-            const nome = childSnapshot.key; // O nome agora é a chave
+        snapshot.forEach((childSnapshot) => {
+            const nome = childSnapshot.key; // O nome é a chave
             const jogador = childSnapshot.val();
 
-            // Verifica se o nome do jogador é "Convidado" e ignora se for
+            // Ignora o jogador "Convidado"
             if (nome.toUpperCase() === "CONVIDADO") {
-                return; // Ignora este jogador e continua para o próximo
+                return;
             }
 
             // Cria uma nova linha na tabela
@@ -456,22 +808,44 @@
                 <td style="text-align: center;">${jogador.socio}</td>
             `;
 
-            // Adiciona um evento de clique para excluir o jogador
-            row.addEventListener("click", () => excluirJogador(nome, jogador.apelido));
+            let clickTimeout;
+            let isDoubleClick = false;
 
-            // Adiciona a linha à tabela
+            // Evento de clique para excluir
+            row.addEventListener("click", (event) => {
+                console.log(`Clique simples detectado em: ${nome}`);
+                clickTimeout = setTimeout(() => {
+                    if (!isDoubleClick) {
+                        console.log(`Excluindo jogador: ${nome}`);
+                        excluirJogador(nome, jogador.apelido);
+                    }
+                }, 300);
+            });
+
+            // Evento de duplo clique para editar
+            row.addEventListener("dblclick", (event) => {
+                console.log(`Duplo clique detectado em: ${nome}`);
+                isDoubleClick = true;
+                clearTimeout(clickTimeout); // Cancela o clique simples
+                editarJogador(nome);
+                setTimeout(() => { isDoubleClick = false; }, 350); // Reseta a variável após o tempo limite
+            });
+
+            // Adiciona a linha na tabela
             tabela.appendChild(row);
         });
 
         // Atualiza o total de jogadores exibidos
         atualizarTotalJogadores();
 
-        // Esconde a tela de carregamento após os dados serem carregados
+        // Esconde a tela de carregamento após carregar os dados
         document.getElementById("loadingOverlay").style.display = "none";
     });
 }
 
-        function excluirJogador(nome, apelido) {
+
+
+function excluirJogador(nome, apelido) {
             // Confirmação antes de excluir
             const confirmacao = confirm(`Tem certeza que deseja excluir o jogador ${nome} (${apelido})?`);
             if (!confirmacao) return;
@@ -499,23 +873,47 @@
                 });
         }
 
-        // Função para mostrar a aba de cadastro
-        function mostrarCadastro(event) {
-            atualizarAba("Cadastro de Jogadores", "Cadastrar");
-            modoCadastro = true;
-            limparCampos(); // Limpa os campos ao mudar para a aba Cadastro
-            carregarJogadores(); // Recarrega todos os jogadores
-        }
+
+// Função para mostrar a aba de cadastro
+function mostrarCadastro(event) {
+    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('selected'));
+    event.target.classList.add('selected');
+
+    atualizarAba("Cadastro de Jogadores", "Cadastrar");
+
+    modoCadastro = true;
+	
+	// Desmarca o checkbox "filtrarPiramide"
+	document.getElementById("filtrarPiramide").checked = false;
+
+    // Zera os critérios da consulta para evitar exibição filtrada
+    criteriosConsulta = {
+        nome: "",
+        apelido: "",
+        socio: "",
+        classe: "",
+        niver: ""
+    };
+
+    limparCampos();
+    carregarJogadores(); // Agora carregará todos os jogadores corretamente
+}
+
 
         // Função para mostrar a aba de consulta
         function mostrarConsulta(event) {
             atualizarAba("Consulta de Jogadores", "Consultar");
             modoCadastro = false;
+			
+			// Desmarca o checkbox "filtrarPiramide"
+			document.getElementById("filtrarPiramide").checked = false;
+			
             limparCampos(); // Limpa os campos ao mudar para a aba Consulta
+			carregarJogadores(); // Adiciona os eventos de clique para exclusão na aba Consulta
         }
 
         // Função para atualizar a aba selecionada
-        function atualizarAba(titulo, textoBotao) {
+        function atualizarAba(titulo, textoBotao) { 
             document.getElementById("titulo").textContent = titulo;
             document.getElementById("botaoAcao").textContent = textoBotao;
             document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('selected'));
