@@ -199,8 +199,29 @@ label {
     padding: 5px;
 }
 
+
+/* Ajusta o tamanho do select de jogadores */
+    #jogador1 {
+        width: 100% !important;
+        max-width: 313px;
+    }
+	#jogador2 {
+        width: 100% !important;
+        max-width: 330px;
+    }
+	#jogador3 {
+        width: 100% !important;
+        max-width: 330px;
+    }
+	#jogador4 {
+        width: 100% !important;
+        max-width: 300px;
+    }
+
 /* Responsividade: ajuste para dispositivos móveis */
 @media (max-width: 600px) {
+  
+
     .jogador-input {
         width: 100% !important; /* Campo ocupa toda a largura disponível */
         max-width: 175px; /* Limita a largura máxima */
@@ -254,6 +275,7 @@ label {
         max-width: 210px;
     }
 }
+
 
 /* Estilização geral para inputs, selects e botões */
 input, select, button {
@@ -434,10 +456,11 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.0.3'; // Versão atual do sistema 
+const VersaoSistema = 'v1.0.4'; // Versão atual do sistema 
 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
+let vLimparDiasAnteriores = false;
 window.vDomingo = undefined; // Valor padrão: fechado, pois o clube não abre aos domingos ("aberto", "fechado").
 
 let quadrasInativas = new Set();
@@ -498,13 +521,97 @@ function inicializarEstruturaInicial() {
         });
 }
 
+function atualizarLegenda(piramideAtiva) {
+    const legendaContainer = document.querySelector('#legenda');
+    if (!legendaContainer) {
+        console.error("Container da legenda não encontrado!");
+        return;
+    }
+
+    // Remove todas as linhas existentes antes de recriá-las
+    legendaContainer.innerHTML = '<strong style="font-size: 14px;">Legenda:</strong>';
+
+    if (!piramideAtiva) {
+        //alert('piramide nao ativa');
+        // Configura a legenda sem a pirâmide, com cada item em uma linha
+        const itens = [
+            { cor: 'lightgreen', texto: '1 Hora' },
+            { cor: 'lightblue', texto: '2 Horas' },
+            { cor: 'lightcoral', texto: 'Aula' }
+        ];
+
+        itens.forEach((item, index) => {
+            const linha = document.createElement('div');
+            linha.style.display = 'flex';
+            linha.style.alignItems = 'center';
+            linha.style.marginBottom = '2px'; // Espaçamento entre os itens
+
+            // Adiciona uma margem maior ao último item (Aula)
+            if (index === itens.length - 1) {
+                linha.style.marginBottom = '-5px'; // Aumenta o espaço entre a linha 2 e a planilha
+            }
+
+            const icone = document.createElement('span');
+            icone.style.display = 'inline-block';
+            icone.style.width = '15px';
+            icone.style.height = '17px';
+            icone.style.backgroundColor = item.cor;
+            icone.style.marginRight = '5px';
+
+            const texto = document.createElement('span');
+            texto.style.fontSize = '12px';
+            texto.textContent = item.texto;
+
+            linha.appendChild(icone);
+            linha.appendChild(texto);
+            legendaContainer.appendChild(linha);
+        });
+    } else {
+        //alert('piramide ativa');
+        // Configura a legenda com a pirâmide, em duas linhas
+        const linha1 = document.createElement('div');
+        linha1.id = 'linha-1';
+        linha1.style.display = 'flex';
+        linha1.style.alignItems = 'center';
+        linha1.style.gap = '2px'; // Espaçamento entre os itens
+		linha1.style.marginTop = '5px'; // Aumenta o espaço entre o Label "Legenda" e a linha 1
+        linha1.style.marginBottom = '5px'; // Aumenta o espaço entre a linha 1 e a linha 2
+
+        const linha2 = document.createElement('div');
+        linha2.id = 'linha-2';
+        linha2.style.display = 'flex';
+        linha2.style.alignItems = 'center';
+        linha2.style.gap = '2px'; // Espaçamento entre os itens
+
+        // Adiciona os itens à linha 1
+        linha1.innerHTML = `
+            <span style="display: inline-block; width: 15px; height: 17px; background-color: lightgreen; margin-right: 2px;"></span>
+            <span style="font-size: 12px;">1 Hora</span>
+            <span style="display: inline-block; width: 15px; height: 18px; background-color: lightblue; margin-right: 2px; margin-left: 10px;"></span>
+            <span style="font-size: 12px;">2 Horas</span>
+        `;
+
+        // Adiciona os itens à linha 2
+        linha2.innerHTML = `
+            <span style="display: inline-block; width: 15px; height: 18px; background-color: lightcoral; margin-right: 5px;"></span>
+            <span style="font-size: 12px;">Aula</span>
+            <span id="piramide-span" style="display: inline-block; width: 15px; height: 18px; background-color: #FFEB99 ; margin-left: 19px; margin-right: 1px;"></span>
+            <span id="piramide-text" style="font-size: 12px;">Pirâmide</span>
+        `;
+
+        // Adiciona as linhas ao container da legenda
+        legendaContainer.appendChild(linha1);
+        legendaContainer.appendChild(linha2);
+    }
+}
+
 // Inicialização do sistema
 function InicializarSistema() {
     return new Promise((resolve, reject) => {
-        const sistemaRef = database.ref("sistemas"); 
+        const sistemaRef = database.ref("sistemas");
 
         sistemaRef.on('value', (snapshot) => {
-            const data = snapshot.val(); 
+            const data = snapshot.val();
 
             if (data) {
                 const minVersion = data.version;
@@ -514,13 +621,29 @@ function InicializarSistema() {
                 }
 
                 const config = data.config;
-				//permissao para abrir o sistema
-				 
-				if (config && config.Abrir === false) {
+                
+                // Permissão para abrir o sistema
+                if (config && config.Abrir === false) {
                     window.close();
                     return;
                 }
-			   
+
+                // Verifica se a pirâmide está ativa (em tempo real)
+                const piramideAtiva = config?.Pirammide?.ativa || false; // Valor padrão: false
+                const duracaoSelect = document.getElementById('duracao');
+                const piramideOption = duracaoSelect?.querySelector('option[value="3-piramide"]');
+
+                if (piramideOption) {
+                    piramideOption.style.display = piramideAtiva ? 'block' : 'none'; // Mostra ou oculta a opção "Pirâmide"
+                }
+                
+                // Atualiza a legenda com base no estado da Pirâmide
+                atualizarLegenda(piramideAtiva);
+                
+                if (piramideAtiva) {
+                    window.config = window.config || {};
+                    window.config.Pirammide = config.Pirammide;
+                }
 
                 if (config) {
                     window.DiasParaLimpar = config.DiasParaLimpar || 4;
@@ -568,7 +691,7 @@ function InicializarSistema() {
 
                     alert("Todas as quadras estão interditadas no momento.");
                     resolve();
-                    return;
+                    return; 
                 }
             }
 
@@ -591,7 +714,7 @@ function InicializarSistema() {
                         selectQuadra.appendChild(option);
                     }
                 });
-                selectQuadra.value = quadraInicial; 
+                selectQuadra.value = quadraInicial;
             }
 
             const tabelaContainer = document.querySelector('.tabela-container');
@@ -612,6 +735,10 @@ function InicializarSistema() {
         });
     });
 }
+
+
+
+
 
 function atualizarEstadoQuadras() {
     // Atualiza o estado visual das quadras com base no conjunto quadrasInativas
@@ -684,6 +811,9 @@ function configurarBordasDuracao2(cell, tabela, rowIndex, colIndex) {
         }
     }
 }
+
+
+
 
 function verificarVersao() {
     const elementoVersao = document.getElementById('VersaoSistema');
@@ -840,7 +970,6 @@ function selecionarQuadra(quadra) {
 
 
 
-
 function carregarReservas(quadra) {
     celulasExcluidas.clear();
     reservasExcluidasFirebase.clear();
@@ -858,20 +987,38 @@ function carregarReservas(quadra) {
             const totalCols = tabela.rows[0]?.cells.length || 0;
 
             for (const key in reservas) {
-                const { jogadores, dia, hora, duracao, borda } = reservas[key];
+                let { jogadores, dia, hora, duracao, borda } = reservas[key];
                 const rowIndex = hora - 6;
                 const colIndex = dia;
 
                 if (rowIndex >= 0 && rowIndex < totalRows && colIndex >= 0 && colIndex < totalCols) {
                     const cell = tabela.rows[rowIndex].cells[colIndex];
-                    cell.setAttribute("data-duracao", duracao);
+                    cell.setAttribute("data-duracao", duracao || "segunda-celula");
 
                     let corFundo;
                     if (jogadores.toLowerCase().includes('aula')) {
                         corFundo = 'lightcoral';
+                    } else if (duracao === 3 || reservas[`${key.split('_')[0]}_${hora - 1}`]?.duracao === 3) {
+                        // Se for a primeira célula da Pirâmide OU a segunda, pinta de amarelo
+                        corFundo = '#FFEB99';
+
+                        // Formata os nomes dos jogadores com a posição na pirâmide
+                        const jogadoresArray = jogadores.split(', ');
+                        const jogadoresFormatados = jogadoresArray.map(jogador => {
+                            const jogadorInfo = jogadoresData[jogador];
+                            if (jogadorInfo && jogadorInfo.piramide) {
+                                return `${jogadorInfo.piramide} - ${jogador}`;
+                            } else {
+                                return jogador;
+                            }
+                        });
+
+                        cell.innerHTML = jogadoresFormatados.join(', ');
                     } else {
                         corFundo = duracao === 1 ? 'lightgreen' : 'lightblue';
+                        cell.innerHTML = jogadores;
                     }
+
                     cell.style.backgroundColor = corFundo;
 
                     if (borda === '1h') {
@@ -879,42 +1026,21 @@ function carregarReservas(quadra) {
                     } else if (borda === '2h') {
                         configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
                     }
-
-                    if (duracao === 2) {
-                        const cellNext = tabela.rows[rowIndex + 1]?.cells[colIndex];
-                        if (cellNext) {
-                            const proxJogadores = reservas[`${key.split('_')[0]}_${hora + 1}`]?.jogadores;
-
-                            // Verifica se o jogador atual é o mesmo da próxima célula
-                            if (proxJogadores === jogadores) {
-                                cell.rowSpan = 2; // Une as duas células
-                                cell.style.verticalAlign = 'middle';
-                                cell.innerHTML = jogadores; // Exibe os jogadores na célula unida
-                                cellNext.style.display = 'none'; // Oculta a próxima célula
-                                configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
-                            } else {
-                                cell.innerHTML = jogadores; // Exibe os jogadores diretamente na célula
-                            }
-                        }
-                    } else {
-                        // Reserva normal: Exibe o nome diretamente na célula
-                        cell.innerHTML = jogadores;
-                    }
                 }
             }
         }
 
         // Bloqueia horários de domingo, se aplicável
         if (vDomingo === 'fechado') {
-            const diaDomingo = 7; // Índice do domingo
+            const diaDomingo = 7;
             const tabela = document.getElementById('tabelaCorpo');
             for (let i = 0; i < tabela.rows.length; i++) {
-                const horario = i + 6; // Calcula o horário baseado na linha
+                const horario = i + 6;
                 const celulaDomingo = tabela.rows[i].cells[diaDomingo];
                 if (horario >= 12 && horario <= 23) {
-                    celulaDomingo.style.backgroundColor = '#f2f2f2'; // Cor cinza
-                    celulaDomingo.style.pointerEvents = 'none'; // Desativa interação
-                    celulaDomingo.style.cursor = 'not-allowed'; // Cursor bloqueado
+                    celulaDomingo.style.backgroundColor = '#f2f2f2';
+                    celulaDomingo.style.pointerEvents = 'none';
+                    celulaDomingo.style.cursor = 'not-allowed';
                 }
             }
         }
@@ -923,17 +1049,131 @@ function carregarReservas(quadra) {
     });
 }
 
+
+function bloquearDomingo() {
+    const tabela = document.getElementById('tabelaCorpo');
+    const diaDomingo = 7;
+
+    for (let i = 0; i < tabela.rows.length; i++) {
+        const horario = i + 6;
+        const cell = tabela.rows[i].cells[diaDomingo];
+        if (horario >= 12 && horario <= 23) {
+            cell.style.backgroundColor = '#f2f2f2';
+            cell.style.pointerEvents = 'none';
+            cell.style.cursor = 'not-allowed';
+        }
+    }
+    console.log('🚫 Domingo bloqueado');
+}
+
+
+
+
 function validarDiaReserva(jogadores) {
-    // Verifica se é uma reserva de "aula"
+    console.log("Iniciando validação da reserva...");
+    
     if (jogadores.some(jogador => jogador.toLowerCase().includes('aula'))) {
-        return true; // Permite a reserva sem validação
+        console.log("Reserva identificada como 'aula'. Validação ignorada.");
+        return true;
     }
 
+    const duracao = document.getElementById('duracao').value;
+    console.log("Duração selecionada:", duracao);
+
+    const diaSelecionado = parseInt(document.getElementById('dia').value);
+    const horaSelecionada = parseInt(document.getElementById('hora').value);
+    console.log("Dia selecionado:", diaSelecionado, "Hora selecionada:", horaSelecionada);
+
+    if (duracao === "3-piramide") {
+        console.log("Modo Pirâmide detectado. Aplicando regras especiais.");
+
+        if (jogadores.length !== 2) {
+            alert("Reservas da Pirâmide devem ter exatamente 2 jogadores.");
+            return false;
+        }
+
+        const configPirammide = window.config?.Pirammide;
+        if (!configPirammide || !configPirammide.ativa) {
+            alert("Configuração da Pirâmide não foi encontrada ou está desativada. Atualize a página.");
+            return false;
+        }
+
+        const quadraSelecionada = document.getElementById('quadra').value;
+
+        if (quadraSelecionada.includes("1") && !configPirammide.Quadra1) {
+            alert("Quadra 1 - Coberta está interditada para jogos da Pirâmide.");
+            return false;
+        }
+        if (quadraSelecionada.includes("2") && !configPirammide.Quadra2) {
+            alert("Quadra 2 - Aberta está interditada para jogos da Pirâmide.");
+            return false;
+        }
+        if (quadraSelecionada.includes("3") && !configPirammide.Quadra3) {
+            alert("Quadra 3 - Coberta está interditada para jogos da Pirâmide.");
+            return false;
+        }
+
+
+        const diasSemana = [1, 2, 3, 4, 5];
+		if (diasSemana.includes(diaSelecionado)) {
+			if (!configPirammide.DiasDeSemana) {
+				alert("Reservas para jogos da Pirâmide não são permitidas durante a semana.");
+				return false;
+			}
+
+			if (configPirammide["DiasDeSemana-exceto-17-19"]) {
+				const horaFim = horaSelecionada + 2;
+
+				// Bloqueia qualquer reserva que comece antes das 19h e termine depois das 17h
+				if (horaSelecionada < 19 && horaFim > 17) {
+					alert("Reservas da Pirâmide são proibidas de segunda a sexta entre 17:00 e 19:00 (horário exclusivo para sócios).");
+					return false;
+				}
+			}
+		}
+
+
+
+        if (diaSelecionado === 6) {
+            if (!configPirammide.Sabado) {
+                alert("Reservas para jogos da Pirâmide não são permitidas aos sábados.");
+                return false;
+            }
+            if (configPirammide["Sabado-exceto-7-12"] && horaSelecionada >= 7 && horaSelecionada < 12) {
+                alert("Reservas da Pirâmide são proibidas aos sábados entre 07:00 e 12:00 (horário exclusivo para sócios).");
+                return false;
+            }
+        }
+
+
+
+        if (diaSelecionado === 7) {
+            if (!configPirammide.Domingo) {
+                alert("Reservas para jogos da Pirâmide não são permitidas aos domingos.");
+                return false;
+            }
+            if (configPirammide["Domingo-exceto-8-12"] && horaSelecionada >= 8 && horaSelecionada < 12) {
+                alert("Reservas da Pirâmide são proibidas aos domingos entre 08:00 e 12:00 (horário exclusivo para sócios).");
+                return false;
+            }
+        }
+		
+		
+
+        
+		// se retun true, valem as regras daa piramide, liberado reserbas para ate 5 dias
+		// senao, valem as regras regras gerais
+        console.log("Todas as regras da Pirâmide foram validadas com sucesso.");
+        //return true;
+    }
+
+    console.log("Modo padrão detectado. Aplicando regras normais de reserva.");
+	
+	//alert('entre na validaçao');
+    
     const diasParaLimpar = window.DiasParaLimpar;
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0);
-
-    const diaSelecionado = parseInt(document.getElementById('dia').value);
 
     let maxDiasPermitidos;
     switch (diasParaLimpar) {
@@ -943,7 +1183,9 @@ function validarDiaReserva(jogadores) {
         case 4: maxDiasPermitidos = 2; break;
         case 5: maxDiasPermitidos = 1; break;
         case 6: maxDiasPermitidos = 0; break;
-        default: return false;
+        default:
+            alert("Erro: Configuração inválida de DiasParaLimpar.");
+            return false;
     }
 
     const ultimoDiaPermitido = new Date(hoje);
@@ -954,13 +1196,13 @@ function validarDiaReserva(jogadores) {
     dataSelecionada.setDate(hoje.getDate() + diferencaDias);
 
     if (dataSelecionada > ultimoDiaPermitido || dataSelecionada < hoje) {
-        const msg = gerarMensagemErro(diasParaLimpar);
-        alert(msg);
+        alert(gerarMensagemErro(diasParaLimpar));
         return false;
     }
 
     return true;
 }
+
 
 
 async function validarSeTemReserva(jogadores) {
@@ -1073,15 +1315,38 @@ function gerarMensagemErro(diasParaLimpar) {
 }
 
 window.atualizarOpcoesHorario = function() {
-    const duracao = document.getElementById('duracao').value;
-    const dia = document.getElementById('dia').value;
-    const hora = document.getElementById('hora');
-    hora.innerHTML = '';
+    const duracao = document.getElementById('duracao').value; // Captura o valor selecionado no campo "Duração"
+    const dia = document.getElementById('dia').value; // Captura o valor selecionado no campo "Dia"
+    const hora = document.getElementById('hora'); // Seleciona o campo "Horário"
+    hora.innerHTML = ''; // Limpa as opções de horário existentes
 
     if (!duracao || !dia) {
-        return;
+        return; // Se não houver duração ou dia selecionado, retorna sem fazer nada
     }
 
+    // Lógica para a opção "Pirâmide" (reservas de 2 horas)
+    if (duracao === "3-piramide") {
+        // Ajusta os horários para blocos de 2 horas
+        if (dia == 7 && vDomingo === 'fechado') {
+            // Domingo fechado: horários reduzidos
+            for (let i = 8; i <= 10; i++) { // 8:00 - 10:00 (último horário começa às 10:00 para terminar às 12:00)
+                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
+            }
+        } else if (dia == 6) {
+            // Sábado: horários reduzidos
+            for (let i = 7; i < 20; i++) { // 7:00 - 20:00 (último horário começa às 20:00 para terminar às 22:00)
+                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
+            }
+        } else {
+            // Dias da semana: horários normais
+            for (let i = 6; i <= 21; i++) { // 6:00 - 21:00 (último horário começa às 21:00 para terminar às 23:00)
+                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
+            }
+        }
+        return; // Retorna após preencher os horários para a pirâmide
+    }
+
+    // Restante da lógica para 1 hora e 2 horas
     if (dia == 7 && vDomingo === 'fechado') {
         if (duracao === '1') {
             for (let i = 8; i <= 11; i++) {
@@ -1114,7 +1379,6 @@ window.atualizarOpcoesHorario = function() {
         }
     }
 };
-
 window.adicionarJogador = function() {
     if (jogadorCount < 4) {
         jogadorCount++;
@@ -1131,6 +1395,9 @@ window.adicionarJogador = function() {
         select.id = `jogador${jogadorCount}`;
         select.name = `jogador${jogadorCount}`;
 
+        // 🚀 Obtém a opção de duração selecionada
+        const duracao = document.getElementById('duracao')?.value || "";  
+
         // Carrega os jogadores no novo campo de seleção
         const jogadoresRef = database.ref("sistemas/cadastro/jogadores");
         jogadoresRef.on('value', (snapshot) => {
@@ -1139,7 +1406,14 @@ window.adicionarJogador = function() {
 
             if (jogadores) {
                 Object.keys(jogadores).forEach((nome) => {
-                    const apelido = jogadores[nome].apelido;
+                    const jogador = jogadores[nome];
+                    const apelido = jogador.apelido;
+                    const piramide = jogador.piramide || "0"; // Garante um valor padrão
+
+                    // 🚨 **Filtro para Pirâmide** 🚨
+                    if (duracao === "3-piramide" && (piramide < 1 || piramide > 99)) {
+                        return; // Pula jogadores que não participam da pirâmide
+                    }
 
                     // Verifica se o jogador já foi selecionado em algum campo anterior
                     let jaSelecionado = false;
@@ -1173,7 +1447,9 @@ window.adicionarJogador = function() {
 
 
 async function atualizarTabela() {
-    console.log("Iniciando atualização da tabela...");
+   // console.log("Iniciando atualização da tabela...");
+	
+	//alert('atualizarTabela');
 
     const jogadores = [];
     for (let i = 1; i <= jogadorCount; i++) {
@@ -1198,6 +1474,11 @@ async function atualizarTabela() {
         alert('Reservas de 2 horas precisam ter no mínimo 2 e no máximo 4 jogadores.');
         return;
     }
+	
+	if (duracao === 3 && jogadores.length !== 2) {
+    alert('Reservas da Pirâmidede precisam ter exatamente 2 jogadores.');
+    return;
+}
 
     if (jogadores.length > 4) {
         alert('O máximo permitido são 4 jogadores.');
@@ -1229,6 +1510,15 @@ async function atualizarTabela() {
             return;
         }
 
+        // Verifica se todas as quadras estão desativadas OU todos os dias estão desativados
+        if (
+            (!convidadoConfig.Quadra1 && !convidadoConfig.Quadra2 && !convidadoConfig.Quadra3) || // Todas as quadras desativadas
+            (!convidadoConfig.DiasDeSemana && !convidadoConfig.FimDeSemana) // Todos os dias desativados
+        ) {
+            alert("Convidados não podem jogar, pois todas as quadras ou todos os dias estão desativados para não sócios.");
+            return;
+        }
+
         // Verifica se a quadra selecionada é permitida para o convidado
         const quadraPermitida = convidadoConfig[`Quadra${quadra.split(' ')[1]}`];
         if (!quadraPermitida) {
@@ -1239,10 +1529,10 @@ async function atualizarTabela() {
             if (convidadoConfig.Quadra3) quadrasPermitidas.push("Quadra 3 - Coberta");
 
             const mensagemQuadras = quadrasPermitidas.length > 0
-                ? `O convidado só pode utilizar as seguintes quadras: ${quadrasPermitidas.join(", ")}.`
-                : "O convidado não pode utilizar nenhuma quadra.";
+                ? `Convidados só podem utilizar as seguintes quadras: ${quadrasPermitidas.join(", ")}.`
+                : "Convidados não podem utilizar nenhuma quadra.";
 
-            alert(mensagemQuadras);
+            alert(mensagemQuadras); 
             return;
         }
 
@@ -1251,17 +1541,17 @@ async function atualizarTabela() {
         const fimDeSemana = dia === 6 || dia === 7; // Sábado e domingo
 
         if (!convidadoConfig.DiasDeSemana && !convidadoConfig.FimDeSemana) {
-            alert("O convidado não pode utilizar as quadras em nenhum dia.");
+            alert("Convidados não podem fazer reservas em nenhum dia.");
             return;
         }
 
         if (!convidadoConfig.DiasDeSemana && diaDaSemana) {
-            alert("O convidado só pode utilizar as quadras no fim de semana (sábado e domingo).");
+            alert("Convidados só podem fazer reservas no fim de semana (sábado e domingo).");
             return;
         }
 
         if (!convidadoConfig.FimDeSemana && fimDeSemana) {
-            alert("O convidado só pode utilizar as quadras durante a semana (segunda a sexta).");
+            alert("Convidados só podem fazer reservas durante a semana (segunda a sexta).");
             return;
         }
     }
@@ -1294,23 +1584,33 @@ async function atualizarTabela() {
         const reservas = snapshot.val() || {};
         let horariosLivres = true;
 
-        for (let i = 0; i < duracao; i++) {
-            const horarioChave = `${dia}_${horaSelecionada + i}`;
-            if (reservas[horarioChave]) {
-                horariosLivres = false;
-                break;
-            }
-        }
+        const loopDuracao = duracao === 3 ? duracao - 1 : duracao;
 
+		for (let i = 0; i < loopDuracao; i++) {
+			const horarioChave = `${dia}_${horaSelecionada + i}`;
+			//alert(`duraçao: ${duracao}  horarioChave: ${horarioChave}`);
+			if (reservas[horarioChave]) {
+				horariosLivres = false;
+				break;
+			}
+		}
+		
+        
         if (!horariosLivres) {
             alert('Um ou mais horários já estão reservados para essa quadra!');
             limparCampos();
             return;
         }
 
-        let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula'))
-            ? 'lightcoral'
-            : (duracao === 1 ? 'lightgreen' : 'lightblue');
+       let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula'))
+    ? 'lightcoral'
+    : duracao === 1 ? 'lightgreen'
+    : duracao === 2 ? 'lightblue'
+    : duracao === 3 ? '#FFEB99'
+    : 'white'; // Cor padrão caso nenhuma das condições seja atendida
+	
+	// Exibe o valor de corFundo em um alerta
+    // alert(`Cor de fundo definida: ${corFundo}`);
 
         if (duracao === 1) {
             const key = `${dia}_${horaSelecionada}`;
@@ -1323,7 +1623,7 @@ async function atualizarTabela() {
             };
             reservasRef.child(key).set(reservaData)
                 .catch(error => console.error("Erro ao salvar a reserva:", error));
-        } else if (duracao === 2) {
+        } else if (duracao === 2 || duracao === 3) {
             if (jogadores.length === 1) {
                 tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores[0];
                 tabela.rows[horarioInicial + 1].cells[dia].innerHTML = jogadores[0];
@@ -1353,7 +1653,7 @@ async function atualizarTabela() {
                 jogadores: tabela.rows[horarioInicial].cells[dia].innerHTML,
                 dia: dia,
                 hora: horaSelecionada,
-                duracao: 2,
+                duracao: duracao,
                 borda: '2h'
             };
 
@@ -1363,10 +1663,16 @@ async function atualizarTabela() {
                 hora: horaSelecionada + 1
             };
 
+            console.log("Gravando reserva de 2 horas no banco de dados:", reservaData1, "em key:", key1);
+            console.log("Gravando reserva de 2 horas no banco de dados:", reservaData2, "em key:", key2);
+
             reservasRef.child(key1).set(reservaData1)
-                .catch(error => console.error("Erro ao salvar a reserva:", error));
+                .then(() => console.log("Primeira parte da reserva de 2 horas gravada com sucesso!"))
+                .catch(error => console.error("Erro ao salvar a primeira parte da reserva de 2 horas:", error));
+
             reservasRef.child(key2).set(reservaData2)
-                .catch(error => console.error("Erro ao salvar a reserva:", error));
+                .then(() => console.log("Segunda parte da reserva de 2 horas gravada com sucesso!"))
+                .catch(error => console.error("Erro ao salvar a segunda parte da reserva de 2 horas:", error));
         }
 
         selecionarQuadra(quadra);
@@ -1430,7 +1736,7 @@ function excluirReserva(horaIndex, diaIndex) {
 
     const duracao = primeiraCelula.getAttribute('data-duracao');
 
-    if (duracao === "2") {
+    if (duracao === "2" || duracao === "3") {
         // Segunda célula
         const segundaCelula = tabela.rows[horaIndex + 1]?.cells[diaIndex];
 
@@ -1564,17 +1870,29 @@ reservasRef.on('value', (snapshot) => {
 
 function atualizarDatas() {
   const dataInicio = new Date();
+  
   let diaDaSemana = dataInicio.getDay(); 
   const dias = document.querySelectorAll("th");
+  //let vAtualizarDatas = 1; 
 
   const linhaDatas = dias[0].parentNode.nextElementSibling;
 
   try {
-    LimparDiasAnteriores();
-  } catch (error) {}
+    if (!vLimparDiasAnteriores) { 
+            LimparDiasAnteriores();
+            vLimparDiasAnteriores = true; // Define como falso após a primeira execução
+    }
+  } catch (error){
+        console.error("Erro ao limpar dias anteriores:", error);
+    }
 
+
+  
+  //alert(`dia da semana: ${diaDaSemana}`);
+  
   switch (DiasParaLimpar) {
-    case 1:
+  //switch (vAtualizarDatas) {
+    case 1: 
       switch (diaDaSemana) {
         case 0: preencherCeldas(dataInicio, [1, 2, 3, 4, 5, -1, 0], linhaDatas); break;
         case 1: preencherCeldas(dataInicio, [0, 1, 2, 3, 4, 5, -1], linhaDatas); break;
@@ -1640,7 +1958,19 @@ function atualizarDatas() {
         case 6: preencherCeldas(dataInicio, [-5, -4, -3, -2, -1, 0, -6], linhaDatas); break;
       }
       break;
+	  case 7:
+      switch (diaDaSemana) {
+        case 0: preencherCeldas(dataInicio, [-6, -5, -4, -3, -2, -1, 0], linhaDatas); break;
+        case 1: preencherCeldas(dataInicio, [0, -6, -5, -4, -3, -2, -1], linhaDatas); break;
+        case 2: preencherCeldas(dataInicio, [-1, 0, -6, -5, -4, -3, -2], linhaDatas); break;
+        case 3: preencherCeldas(dataInicio, [-2, -1, 0, -6, -5, -4, -3], linhaDatas); break;
+        case 4: preencherCeldas(dataInicio, [-3, -2, -1, 0, -6, -5, -4], linhaDatas); break;
+        case 5: preencherCeldas(dataInicio, [-4, -3, -2, -1, 0, -6, -5], linhaDatas); break;
+        case 6: preencherCeldas(dataInicio, [-5, -4, -3, -2, -1, 0, -6], linhaDatas); break;
+      }
+      break;
   }
+  
 }
 
 function preencherCeldas(dataInicio, ajustes, linhaDatas) {
@@ -1652,7 +1982,9 @@ function preencherCeldas(dataInicio, ajustes, linhaDatas) {
   }
 }
 
-function LimparDiasAnteriores() {
+function LimparDiasAnteriores() { 
+  console.log("🟢 Iniciando LimparDiasAnteriores...");
+
   const dataAtual = new Date();
   dataAtual.setHours(0, 0, 0, 0);
 
@@ -1660,35 +1992,58 @@ function LimparDiasAnteriores() {
   const tabela = document.getElementById('tabelaCorpo');
 
   quadras.forEach(quadra => {
+    console.log(`\n🏟️ Verificando quadra: ${quadra}`);
+
     for (let dia = 1; dia <= DiasParaLimpar; dia++) {
       const dataParaLimpar = new Date(dataAtual);
       dataParaLimpar.setDate(dataAtual.getDate() - dia);
       const diaIndex = dataParaLimpar.getDay() || 7;
 
-      for (let hora = 6; hora < 22; hora++) {
+      console.log(`📅 Verificando Dia ${diaIndex} (Data: ${dataParaLimpar.toLocaleDateString()})`);
+
+      for (let hora = 6; hora <= 22; hora++) {
         const horaIndex = hora - 6;
         const key = `${diaIndex}_${hora}`;
 
-        if ((diaIndex === 6 && hora === 6) || (diaIndex === 7 && hora >= 6 && hora < 8) || (diaIndex === 6 && hora >= 21 && hora <= 23)) {
+        // Log antes da verificação de horários ignorados
+        console.log(`🔍 Analisando Horário ${hora}:00 - Dia ${diaIndex}`);
+
+        if ((diaIndex === 6 && hora === 6) || 
+            (diaIndex === 7 && hora >= 6 && hora < 8) || 
+            (diaIndex === 6 && hora >= 21 && hora <= 23)) {
+          console.log(`⏭️ Ignorando horário ${hora}:00 no dia ${diaIndex}`);
           continue; 
         }
+
+        console.log(`📡 Buscando reserva: Quadra ${quadra}, Dia ${diaIndex}, Hora ${hora}`);
 
         const reservaRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
         reservaRef.once('value', (snapshot) => {
           const reserva = snapshot.val();
+
           if (reserva) {
             const { jogadores } = reserva;
+            console.log(`✅ Reserva encontrada: ${jogadores} | Hora: ${hora}`);
+
             if (jogadores && (jogadores.toLowerCase().includes('aula'))) {
+              console.log("🟡 Ignorando 'Aula' no horário", hora);
               return;
             }
+
             const celula = tabela.rows[horaIndex]?.cells[diaIndex];
             if (celula) {
+              console.log(`🧹 Limpando célula na interface: Dia ${diaIndex}, Hora ${hora}`);
               limparCelula(celula);
             }
+
+            console.log(`❌ Excluindo do Firebase: ${key} (Quadra: ${quadra})`);
             reservaRef.remove()
-              .catch(error => {});
+              .then(() => console.log(`✅ Reserva removida: ${key}`))
+              .catch(error => console.error("🚨 Erro ao remover reserva:", error));
+          } else {
+            console.log(`⚪ Nenhuma reserva encontrada para Dia ${diaIndex}, Hora ${hora}`);
           }
-        }, (error) => {});
+        }, (error) => console.error("🚨 Erro ao acessar reserva:", error));
       }
     }
   });
@@ -1696,13 +2051,27 @@ function LimparDiasAnteriores() {
 
 
 
+
+// Variável global para armazenar os dados dos jogadores
+let jogadoresData = {};
+
+// Referência para o listener (para poder removê-lo posteriormente)
+let jogadoresListener = null;
+
 function carregarJogadores(jogadorLogado) {
     return new Promise((resolve, reject) => {
         console.log("🔄 Iniciando carregamento dos jogadores...");
 
         const jogadoresRef = database.ref("sistemas/cadastro/jogadores");
+        const duracao = document.getElementById('duracao')?.value || ""; // Captura a duração selecionada
 
-        jogadoresRef.once('value', (snapshot) => {
+        // Remove o listener anterior, se existir
+        if (jogadoresListener) {
+            jogadoresRef.off('value', jogadoresListener);
+        }
+
+        // Adiciona um novo listener para atualizações em tempo real
+        jogadoresListener = jogadoresRef.on('value', (snapshot) => {
             const jogadores = snapshot.val();
             console.log("📥 Dados recebidos do Firebase:", jogadores);
 
@@ -1711,6 +2080,24 @@ function carregarJogadores(jogadorLogado) {
                 resolve();
                 return;
             }
+
+            // Limpa o objeto global antes de carregar novos dados
+            jogadoresData = {};
+
+            // Preenche o objeto global com os dados dos jogadores
+            Object.keys(jogadores).forEach((nome) => {
+                const jogador = jogadores[nome];
+                const apelido = jogador.apelido;
+                const piramide = jogador.piramide || "0"; // Garante um valor padrão
+
+                // Armazena os dados do jogador no objeto global
+                jogadoresData[apelido] = {
+                    nomeCompleto: nome,
+                    piramide: piramide
+                };
+            });
+
+            console.log("✅ Dados dos jogadores carregados e armazenados:", jogadoresData);
 
             // Lista de IDs dos selects que devem ser preenchidos
             let idsSelects = ["jogador1", "jogador2", "jogador3", "jogador4"]; // Apenas tela de entrada de dados
@@ -1724,10 +2111,17 @@ function carregarJogadores(jogadorLogado) {
                 const select = document.getElementById(id);
                 if (select) {
                     select.innerHTML = '<option value="">Selecione um jogador</option>'; // Reseta as opções
-                    
+
                     Object.keys(jogadores).forEach((nome) => {
-                        const apelido = jogadores[nome].apelido;
-                        console.log(`✅ Adicionando jogador: ${nome} (${apelido})`);
+                        const jogador = jogadores[nome];
+                        const apelido = jogador.apelido;
+                        const piramide = jogador.piramide || "0"; // Garante um valor padrão
+
+                        // 🔍 **Filtra jogadores conforme a opção de duração**
+                        if (duracao === "3-piramide" && (piramide < 1 || piramide > 99)) {
+                            console.log(`⏩ Ignorando jogador (fora da pirâmide): ${nome}`);
+                            return; // Pula jogadores que não participam da pirâmide
+                        }
 
                         const option = document.createElement('option');
                         option.value = apelido;
@@ -1749,8 +2143,6 @@ function carregarJogadores(jogadorLogado) {
 
 
 
-
-
 // Chame a função para carregar os jogadores ao carregar a página
 window.onload = function () {
     console.log("✅ Página carregada - Chamando verificarVersao()");
@@ -1769,7 +2161,7 @@ window.onload = function () {
 		
 		//desmarccar esse trecho para canccelar o login do usuario
 		
-		jogadorLogado = 'LOGADO'; 
+		//jogadorLogado = 'LOGADO'; 
 		
 		// ***********************************************
 		
@@ -1944,7 +2336,7 @@ function fazerLogin() {
             }
         });
     } else {
-        alert("Selecione um jogador válido.");
+        alert("Selecione um jogador válido."); 
     }
 }
 
@@ -1965,6 +2357,20 @@ function fazerLogout() {
     localStorage.removeItem('jogadorLogado'); // Remove o jogador logado do localStorage
     window.location.reload(); // Recarrega a página para voltar à tela de login
 }
+
+
+// 🚀 Atualiza a lista de jogadores quando a duração for alterada
+document.addEventListener("DOMContentLoaded", function () {
+    const duracaoSelect = document.getElementById('duracao');
+    
+    if (duracaoSelect) {
+        duracaoSelect.addEventListener('change', function() {
+            carregarJogadores(); // Recarrega os jogadores ao mudar a duração
+        });
+    } else {
+        console.warn("⚠️ Elemento #duracao não encontrado. O evento de mudança não foi adicionado.");
+    }
+});
 
 
 </script>
@@ -2062,12 +2468,14 @@ function fazerLogout() {
         </div>
 
         <div class="form-row">
-            <label for="duracao">Duração:</label>
-            <select id="duracao" onchange="atualizarOpcoesHorario()">
-                <option value="1">1 hora</option>
-                <option value="2">2 horas</option>
-            </select>
-        </div>
+			<label for="duracao">Duração:</label>
+			<select id="duracao" onchange="atualizarOpcoesHorario()">
+			<option value="1">1 hora</option>
+			<option value="2">2 horas</option>
+			<option value="3-piramide" style="display: none;">Pirâmide</option> <!-- Opção inicialmente oculta -->
+			</select>
+		</div>
+		
 
         <div class="form-row">
             <label for="hora">Horário:</label>
@@ -2091,31 +2499,32 @@ function fazerLogout() {
 </div>
 
 <div style="display: flex; justify-content: space-between; align-items: center;">
-    <h2 class="header" style="margin: 1;">Quadra 1 - Coberta</h2> <!-- Título à esquerda -->
+    <h2 class="header" style="margin: 1; font-size: 20px;">Quadra 1 - Coberta</h2> <!-- Título à esquerda -->
+
     
-    <!-- Legenda de Cores -->
-    <div style="margin-left: 20px;margin-right: 10px; text-align: left;">
-        <strong>Legenda:</strong>
-        <ul style="list-style-type: none; padding: 0; margin: 0;">
-            <li>
-                <span style="display: inline-block; width: 20px; height: 20px; background-color: lightgreen; margin-right: 5px;"></span>
-                1 Hora
-            </li>
-            <li>
-                <span style="display: inline-block; width: 20px; height: 20px; background-color: lightblue; margin-right: 5px;"></span>
-                2 Horas
-            </li>
-			<li>
-                <span style="display: inline-block; width: 20px; height: 20px; background-color: lightcoral; margin-right: 5px;"></span>
-                aula
-            </li>
-			
-        </ul>
+    <div id="legenda" style="margin-left: 20px; margin-right: 10px; text-align: left; margin-bottom: 10px;">
+    <strong style="font-size: 14px;">Legenda:</strong>
+    <div style="display: flex; flex-direction: column; gap: 5px;">
+        <!-- Primeira linha: 1 Hora e 2 Horas -->
+        <div id="linha-1" style="display: flex; align-items: center;">
+            <span style="display: inline-block; width: 15px; height: 17px; background-color: lightgreen; margin-right: 2px;"></span>
+            <span style="font-size: 12px;">1 Hora</span>
+            <span style="display: inline-block; width: 15px; height: 18px; background-color: lightblue; margin-right: 2px; margin-left: 10px;"></span>
+            <span style="font-size: 12px;">2 Horas</span>
+        </div>
+        <!-- Segunda linha: Aula e Pirâmide -->
+        <div id="linha-2" style="display: flex; align-items: center;">
+            <span style="display: inline-block; width: 15px; height: 18px; background-color: lightcoral; margin-right: 5px;"></span>
+            <span style="font-size: 12px;">Aula</span>
+            <span id="piramide-span" style="display: inline-block; width: 15px; height: 18px; background-color: #FFEB99 ; margin-left: 19px; margin-right: 1px;"></span>
+            <span id="piramide-text" style="font-size: 12px;">Pirâmide</span>
+        </div>
     </div>
+	</div>
 </div>
 
 <div class="tabela-container">
-<table id="tabelaQuadra" style="width: 100%; margin-top: 10px;">
+<table id="tabelaQuadra" style="width: 100%; margin-top: 10px;"> 
     <tr>
         <th rowspan="2" style="text-align: center;">Horários</th>
         <th>Segunda-Feira</th>
