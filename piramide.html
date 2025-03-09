@@ -2,7 +2,8 @@
 <html>
 <head>
   <title>Pirâmide de Jogadores</title>
-  <meta charset="UTF-8">  <style>
+  <meta charset="UTF-8">
+  <style>
     .pyramid {
       display: flex;
       flex-direction: column;
@@ -30,7 +31,7 @@
     }
 
     /* Tons de Azul e Roxo */
-    .row:nth-child(-n+3) .cell {
+    .row:nth-child(-n+3) .cell { 
       background-color: #e6e6fa; /* Lavanda */
     }
 
@@ -61,7 +62,7 @@
     }
   </style>
 </head>
-<body>
+<body onload="carregarDados()">
 
   <h1>Pirâmide de Jogadores</h1>
 
@@ -139,13 +140,48 @@
       var jogador = document.getElementById("jogador").value;
       var posicao = parseInt(document.getElementById("posicao").value);
 
+      if (!jogador || isNaN(posicao) || posicao < 1 || posicao > 36) {
+        alert("Preencha corretamente o nome do jogador e a posição.");
+        return;
+      }
+
       // Calcular o índice correto da célula
-      var cells = document.querySelectorAll(".cell");
-      var cell = cells[posicao - 1]; // Posicao - 1 para ajustar ao índice baseado em zero.
+      var cells = document.querySelectorAll(".cell input");
+      var input = cells[posicao - 1]; // Ajuste ao índice baseado em zero
 
       // Preencher o campo de entrada da célula com o nome do jogador
-      var input = cell.querySelector("input");
       input.value = jogador;
+
+      // Salvar os dados no LocalStorage
+      salvarDados();
+
+      // Limpar os campos de entrada
+      document.getElementById("jogador").value = "";
+      document.getElementById("posicao").value = "";
+    }
+
+    function salvarDados() {
+      var cells = document.querySelectorAll(".cell input");
+      var dados = [];
+
+      cells.forEach((input, index) => {
+        dados[index] = input.value;
+      });
+
+      localStorage.setItem("piramideJogadores", JSON.stringify(dados));
+    }
+
+    function carregarDados() {
+      var dados = localStorage.getItem("piramideJogadores");
+
+      if (dados) {
+        var cells = document.querySelectorAll(".cell input");
+        dados = JSON.parse(dados);
+
+        cells.forEach((input, index) => {
+          input.value = dados[index] || "";
+        });
+      }
     }
 
     function salvarImagem() {
