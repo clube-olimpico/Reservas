@@ -27,12 +27,12 @@
             width: 100%;
             background-color: white;
             padding: 5px 0;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  
             border-bottom: 3px solid #ccc;
-            position: relative;
+            position: relative; 
         }
 
-        /* Estilo dos botões das abas */
+        /* Estilo dos botões das abas */ 
         .tab-button {
             padding: 6px 20px;
             font-size: 16px;
@@ -181,12 +181,12 @@
     }
   
    #piramide {
-        margin-left: -10px !important; /* Ajuste a posição para a esquerda */
+        margin-left: -5px !important; /* Ajuste a posição para a esquerda */
 		width: 30px !important;
     }
 
     #simbolo_piramide {
-        margin-left: -10px !important; /* Move ainda mais para a esquerda */
+        margin-left: -12px !important; /* Move ainda mais para a esquerda */
 		align-items: center; /* Centraliza verticalmente */
     }
 	
@@ -248,6 +248,23 @@
     height: 100%; /* Faz com que ocupe toda a altura disponível */
 }
 
+/* Classe para a pirâmide vermelha */
+.piramide-vermelha {
+    color: red; /* Cor vermelha */
+}
+
+/* Classe para a pirâmide preta */
+.piramide-preta {
+    color: black; /* Cor preta */
+}
+
+.piramide-clicada {
+    color: blue !important; /* Muda a cor para azul */
+    font-weight: bold;
+    transform: scale(1.3) rotate(0deg); /* Aumenta e gira levemente */
+    text-shadow: 2px 2px 8px rgba(0, 0, 255, 0.6); /* Brilho azul */
+    transition: transform 0.2s ease-in-out, text-shadow 0.3s ease-in-out;
+}
 
 
 		
@@ -521,17 +538,22 @@ function consultarJogador() {
     criteriosConsulta.apelido = document.getElementById("apelido").value.trim().toLowerCase();
     criteriosConsulta.socio = document.getElementById("socio").value;
     
-    // Verifica se o campo de classe foi alterado (não está na opção padrão)
+    // Verifica se o campo de classe foi alterado
     const classeSelect = document.getElementById("classe");
     criteriosConsulta.classe = classeSelect.value === "" && classeSelect.selectedIndex === 0 ? null : classeSelect.value;
     
     criteriosConsulta.niver = document.getElementById("niver").value;
-    const piramide = document.getElementById("piramide").value.trim(); // Captura o valor do campo de entrada de texto
-    const filtrarPiramide = document.getElementById("filtrarPiramide").checked; // Captura o estado do checkbox
+    let piramide = document.getElementById("piramide").value.trim();
+    const filtrarPiramide = document.getElementById("filtrarPiramide").checked;
 
-    console.log("Critérios de consulta:", criteriosConsulta); // Debug: Mostra todos os critérios de consulta
-    console.log("Valor de piramide:", piramide); // Debug: Mostra o valor de piramide
-    console.log("Filtrar por piramide?", filtrarPiramide); // Debug: Mostra o estado do checkbox
+    // Verifica se o símbolo da pirâmide foi ativado no clique
+    const simboloPiramide = document.getElementById("simbolo_piramide");
+    const piramideAtivada = simboloPiramide.classList.contains("piramide-clicada");
+
+    console.log("Critérios de consulta:", criteriosConsulta);
+    console.log("Valor de piramide:", piramide);
+    console.log("Filtrar por piramide?", filtrarPiramide);
+    console.log("Pirâmide ativada pelo clique?", piramideAtivada);
 
     // Verifica se todos os campos estão vazios e o checkbox não está marcado
     const todosCamposVazios =
@@ -540,11 +562,13 @@ function consultarJogador() {
         criteriosConsulta.socio === "" &&
         criteriosConsulta.classe === null &&
         criteriosConsulta.niver === "" &&
-        !filtrarPiramide; // Considera o checkbox como um critério válido
+        piramide === "" &&
+        !filtrarPiramide &&
+        !piramideAtivada;
 
     if (todosCamposVazios) {
         alert("Digite pelo menos um critério para consulta.");
-        return; // Interrompe a consulta se nenhum critério for preenchido
+        return;
     }
 
     const tabela = document.getElementById("tabela-jogadores");
@@ -559,16 +583,16 @@ function consultarJogador() {
 
             // Ignora o jogador "Convidado"
             if (jogadorNome.toUpperCase() === "CONVIDADO") {
-                return; // Sai da iteração atual sem processar o jogador
+                return;
             }
 
             const jogadorApelido = jogador.apelido.toLowerCase();
             const jogadorSocio = jogador.socio;
-            const jogadorClasse = jogador.classe || ""; // Se não houver classe, define como vazio
+            const jogadorClasse = jogador.classe || "";
             const jogadorNiver = jogador.niver || "";
-            const jogadorPiramide = jogador.piramide || ""; // Se não houver piramide, define como vazio
+            const jogadorPiramide = jogador.piramide || "";
 
-            console.log("Jogador:", jogadorNome, "Piramide:", jogadorPiramide); // Debug: Mostra o nome e o valor de piramide de cada jogador
+            console.log("Jogador:", jogadorNome, "Piramide:", jogadorPiramide);
 
             // Verifica se o jogador corresponde aos critérios de consulta
             const filtroNome = criteriosConsulta.nome === "" || jogadorNome.includes(criteriosConsulta.nome);
@@ -577,8 +601,15 @@ function consultarJogador() {
             const filtroClasse = criteriosConsulta.classe === null || (criteriosConsulta.classe === "" ? jogadorClasse === "" : jogadorClasse === criteriosConsulta.classe);
             const filtroNiver = criteriosConsulta.niver === "" || jogadorNiver === criteriosConsulta.niver;
 
-            // Aplica o filtro de piramide apenas se o checkbox estiver marcado
-            const filtroPiramide = !filtrarPiramide || (piramide === "" ? jogadorPiramide === "" : (piramide === "0" ? jogadorPiramide === "0" : jogadorPiramide === piramide));
+            // Aplica o filtro de piramide corretamente
+            let filtroPiramide = true;
+            if (piramideAtivada && filtrarPiramide) {
+                filtroPiramide = (jogadorPiramide === piramide) && (jogadorPiramide >= 1 && jogadorPiramide <= 99);
+            } else if (piramideAtivada) {
+                filtroPiramide = jogadorPiramide >= 1 && jogadorPiramide <= 99;
+            } else if (filtrarPiramide) {
+                filtroPiramide = piramide === "" ? jogadorPiramide === "" : jogadorPiramide === piramide;
+            }
 
             console.log("Filtros aplicados:", {
                 nome: filtroNome,
@@ -587,12 +618,12 @@ function consultarJogador() {
                 classe: filtroClasse,
                 niver: filtroNiver,
                 piramide: filtroPiramide
-            }); // Debug: Mostra o resultado de cada filtro
+            });
 
             if (filtroNome && filtroApelido && filtroSocio && filtroClasse && filtroNiver && filtroPiramide) {
                 encontrado = true;
 
-                console.log("Jogador encontrado:", jogadorNome, "Piramide:", jogadorPiramide); // Debug: Mostra o nome e o valor de piramide do jogador que passou no filtro
+                console.log("Jogador encontrado:", jogadorNome, "Piramide:", jogadorPiramide);
 
                 // Cria a linha da tabela
                 const row = document.createElement("tr");
@@ -601,25 +632,6 @@ function consultarJogador() {
                     <td style="text-align: left;">${jogadorApelido.replace(/\b\w/g, letra => letra.toUpperCase())}</td>
                     <td style="text-align: center;">${jogadorSocio}</td>
                 `;
-
-                // Adiciona eventos de clique e duplo clique
-                let clickTimeout;
-                let isDoubleClick = false;
-
-                row.addEventListener("click", (event) => {
-                    clickTimeout = setTimeout(() => {
-                        if (!isDoubleClick) {
-                            excluirJogador(jogadorNome, jogador.apelido);
-                        }
-                    }, 300);
-                });
-
-                row.addEventListener("dblclick", (event) => {
-                    isDoubleClick = true;
-                    clearTimeout(clickTimeout);
-                    editarJogador(jogadorNome);
-                    setTimeout(() => { isDoubleClick = false; }, 350);
-                });
 
                 tabela.appendChild(row);
             }
@@ -635,6 +647,7 @@ function consultarJogador() {
         alert("Ocorreu um erro ao consultar os jogadores. Tente novamente.");
     });
 }
+
 
 
 function editarJogador(nome) {
@@ -662,7 +675,10 @@ function editarJogador(nome) {
 
             // Preenche o campo de piramide com o valor correto
             const piramideInput = document.getElementById("piramide");
-            piramideInput.value = jogador.piramide || ""; // Se não houver valor, define como vazio
+            piramideInput.value = jogador.piramide || ""; // Se não houver valor, mantém vazio
+            
+            // Habilita o campo piramide ao editar
+            piramideInput.disabled = false; 
 
             // Desabilita o campo de nome e aplica estilo visual
             const nomeInput = document.getElementById("nome");
@@ -684,13 +700,16 @@ function editarJogador(nome) {
 
 
 
+
 function salvarJogador() {
     const nome = document.getElementById("nome").value.trim().toUpperCase();
     let apelido = document.getElementById("apelido").value.trim();
     const socio = document.getElementById("socio").value;
     const classe = document.getElementById("classe").value;
     let niver = document.getElementById("niver").value;
-    const piramide = document.getElementById("piramide").value.trim(); // Remove espaços em branco
+    const piramideInput = document.getElementById("piramide");
+    const filtrarPiramideCheckbox = document.getElementById("filtrarPiramide");
+    const piramide = piramideInput.value.trim(); // Remove espaços em branco
 
     console.log("Modo de cadastro:", modoCadastro);
     console.log("Dados do jogador a serem salvos:", { nome, apelido, socio, classe, niver, piramide });
@@ -736,7 +755,6 @@ function salvarJogador() {
 
     const confirmacao = confirm(mensagemConfirmacao);
     if (!confirmacao) {
-        //alert("Edição cancelada pelo usuário.");
         return; // Cancela a operação se o usuário não confirmar
     }
 
@@ -758,14 +776,18 @@ function salvarJogador() {
         // Limpa os campos do formulário
         limparCampos();
 
-        // Reaplica os critérios de consulta originais e refaz a consulta
-        if (!modoCadastro) {
-            console.log("Reexecutando consulta após salvar...");
+        // Desabilita o campo piramide após salvar
+        piramideInput.disabled = true;
 
-            // Restaura os critérios de consulta originais
+        // Se o checkbox estiver marcado, desmarca ao salvar
+        filtrarPiramideCheckbox.checked = false;
+
+        // Reaplica os critérios de consulta originais e refaz a consulta
+        if (!modoCadastro && (criteriosOriginais.nome || criteriosOriginais.apelido || criteriosOriginais.socio || 
+                      criteriosOriginais.classe || criteriosOriginais.niver || criteriosOriginais.piramide)) {
+            console.log("Reexecutando consulta após salvar...");
             criteriosConsulta = { ...criteriosOriginais };
 
-            // Preenche os campos do formulário com os critérios originais
             document.getElementById("nome").value = criteriosConsulta.nome;
             document.getElementById("apelido").value = criteriosConsulta.apelido;
             document.getElementById("socio").value = criteriosConsulta.socio;
@@ -773,10 +795,8 @@ function salvarJogador() {
             document.getElementById("niver").value = criteriosConsulta.niver;
             document.getElementById("piramide").value = criteriosConsulta.piramide || "";
 
-            // Refaz a consulta com os critérios originais
             consultarJogador();
         } else {
-            console.log("Carregando todos os jogadores (modo cadastro)...");
             carregarJogadores();
         }
 
@@ -794,6 +814,7 @@ function salvarJogador() {
         alert("Ocorreu um erro ao atualizar o jogador.");
     });
 }
+
 
 
 
@@ -895,8 +916,12 @@ function mostrarCadastro(event) {
 
     modoCadastro = true;
 	
-	// Desmarca o checkbox "filtrarPiramide"
-	document.getElementById("filtrarPiramide").checked = false;
+	// Habilita o campo piramide ao clicar no botão Cadastro
+    const piramideInput = document.getElementById("piramide");
+    piramideInput.disabled = false;
+
+    // Desmarca o checkbox "filtrarPiramide"
+    document.getElementById("filtrarPiramide").checked = false;
 
     // Zera os critérios da consulta para evitar exibição filtrada
     criteriosConsulta = {
@@ -904,25 +929,74 @@ function mostrarCadastro(event) {
         apelido: "",
         socio: "",
         classe: "",
-        niver: ""
+        niver: "",
+        piramide: "" // Reseta critério da pirâmide
     };
 
     limparCampos();
     carregarJogadores(); // Agora carregará todos os jogadores corretamente
+
+    // Atualiza o símbolo da pirâmide para vermelho 🔺
+    const simboloPiramide = document.getElementById("simbolo_piramide");
+    if (simboloPiramide) {
+        simboloPiramide.textContent = "🔺"; // Pirâmide vermelha
+        simboloPiramide.dataset.cor = "vermelho"; // Armazena a cor atual
+        simboloPiramide.classList.remove("piramide-clicada"); // Remove o estado clicado
+        console.log("Pirâmide na aba Cadastro (vermelha)");
+    }
+
+    // Remove o evento de clique da pirâmide
+    simboloPiramide.removeEventListener("click", alternarCorPiramide);
+    document.getElementById("simbolo_piramide").style.cursor = "default";
+}
+
+// Função para mostrar a aba de consulta
+function mostrarConsulta(event) {
+    atualizarAba("Consulta de Jogadores", "Consultar");
+    modoCadastro = false;
+
+    // Desmarca o checkbox "filtrarPiramide"
+    document.getElementById("filtrarPiramide").checked = false;
+
+    // Zera os critérios da consulta para evitar exibição filtrada
+    criteriosConsulta = {
+        nome: "",
+        apelido: "",
+        socio: "",
+        classe: "",
+        niver: "",
+        piramide: "" // Reseta critério da pirâmide
+    };
+
+    limparCampos(); // Limpa os campos ao mudar para a aba Consulta
+    carregarJogadores(); // Adiciona os eventos de clique para exclusão na aba Consulta
+
+    // Mantém a pirâmide vermelha ao entrar na tela de consulta
+    const simboloPiramide = document.getElementById("simbolo_piramide");
+    if (simboloPiramide) {
+        simboloPiramide.textContent = "🔺"; // Pirâmide vermelha
+        simboloPiramide.dataset.cor = "vermelho"; // Armazena a cor atual
+        simboloPiramide.classList.remove("piramide-clicada"); // Remove o estado clicado
+        console.log("Pirâmide na aba Consulta (vermelha)");
+    }
+
+    // Adiciona o evento de clique na pirâmide para alternar entre vermelho e preto
+    simboloPiramide.addEventListener("click", alternarCorPiramide);
+    document.getElementById("simbolo_piramide").style.cursor = "pointer";
 }
 
 
-        // Função para mostrar a aba de consulta
-        function mostrarConsulta(event) {
-            atualizarAba("Consulta de Jogadores", "Consultar");
-            modoCadastro = false;
-			
-			// Desmarca o checkbox "filtrarPiramide"
-			document.getElementById("filtrarPiramide").checked = false;
-			
-            limparCampos(); // Limpa os campos ao mudar para a aba Consulta
-			carregarJogadores(); // Adiciona os eventos de clique para exclusão na aba Consulta
-        }
+function alternarCorPiramide() {
+    const simboloPiramide = document.getElementById("simbolo_piramide");
+
+    if (simboloPiramide) {
+        simboloPiramide.classList.toggle("piramide-clicada"); // Alterna o estado visual
+        console.log("Critério de pirâmide alterado:", simboloPiramide.classList.contains("piramide-clicada"));
+    }
+}
+
+
+
 
         // Função para atualizar a aba selecionada
         function atualizarAba(titulo, textoBotao) { 
@@ -936,6 +1010,50 @@ function mostrarCadastro(event) {
         window.onload = function() {
             carregarJogadores();
         };
+		
+document.addEventListener("DOMContentLoaded", function () {
+        const piramideInput = document.getElementById("piramide");
+        const filtrarPiramideCheckbox = document.getElementById("filtrarPiramide");
+        const cadastroTab = document.querySelector(".tab-button:nth-child(1)"); // Aba Cadastro
+        const consultaTab = document.querySelector(".tab-button:nth-child(2)"); // Aba Consulta
+
+        // Garante que o campo piramide e o checkbox começam desativados na aba Cadastro
+        function configurarCadastro() {
+            //piramideInput.disabled = true;
+            piramideInput.value = ""; // Limpa o campo ao mudar para Cadastro
+            filtrarPiramideCheckbox.checked = false;
+            filtrarPiramideCheckbox.disabled = true; // Desabilita o checkbox na aba Cadastro
+        }
+
+        // Quando o checkbox for marcado, habilita o campo e coloca o foco nele
+        filtrarPiramideCheckbox.addEventListener("change", function () {
+            if (this.checked) {
+                piramideInput.disabled = false;
+                piramideInput.focus(); // Coloca o foco no campo
+            } else {
+                piramideInput.value = ""; // Limpa o campo antes de desabilitar
+                piramideInput.disabled = true;
+            }
+        });
+
+        // Selecione a aba Cadastro ao carregar a página e configure os campos
+        configurarCadastro();
+
+        // Evento ao clicar na aba Cadastro
+        cadastroTab.addEventListener("click", function () {
+            configurarCadastro();
+        });
+
+        // Evento ao clicar na aba Consulta
+        consultaTab.addEventListener("click", function () {
+            piramideInput.disabled = true;
+            piramideInput.value = ""; // Limpa o campo ao mudar para Consulta
+            filtrarPiramideCheckbox.checked = false;
+            filtrarPiramideCheckbox.disabled = false; // Habilita o checkbox na aba Consulta
+        });
+    });
+	
+	
     </script>
 </body>
 </html>
