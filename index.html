@@ -14,7 +14,7 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    padding: 0; 
 }
 
     /* Container da tela de login */
@@ -220,7 +220,12 @@ label {
 
 /* Responsividade: ajuste para dispositivos móveis */
 @media (max-width: 600px) {
-  
+     th, td {
+        display: table-cell;
+		vertical-align: middle; /* Mantém o texto alinhado no meio */
+		padding: 20px 4px;
+        font-size: 18px; /* Opcional: reduz o tamanho da fonte para melhor ajuste */
+    }
 
     .jogador-input {
         width: 100% !important; /* Campo ocupa toda a largura disponível */
@@ -274,6 +279,13 @@ label {
         width: 100% !important;
         max-width: 210px;
     }
+	.horario {
+        padding: 5px 4px;
+        height: 25px;
+        line-height: 1;
+		font-size: 16px; /* Opcional: reduz o tamanho da fonte para melhor ajuste */
+    }
+	
 }
 
 
@@ -347,7 +359,13 @@ th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
+    white-space: nowrap; /* Impede a quebra de linha */
+    overflow: hidden; /* Evita que o conteúdo transborde */
+    text-overflow: ellipsis; /* Adiciona "..." caso o texto seja muito longo */
+	height: 10px; /* Ajuste a altura conforme necessário */
+	display: table-cell;
 }
+
 
 th {
     background-color: #f2f2f2;
@@ -409,8 +427,8 @@ th {
     background-color: red;
 }
 
-/* Aba selecionada */
 .tab-button.selected {
+/* Aba selecionada */
     font-weight: bold;
     background-color: #228B22 !important;
     color: white !important;
@@ -444,6 +462,8 @@ th {
     width: 100%;
     height: auto;
 }
+
+
 </style>
 </head>
 
@@ -456,7 +476,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.0.4'; // Versão atual do sistema 
+const VersaoSistema = 'v1.0.5'; // Versão atual do sistema 
 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
@@ -2579,105 +2599,110 @@ document.addEventListener("DOMContentLoaded", function () {
         <td style="font-weight: bold; font-size: 0.9em;">15/10/24</td>
     </tr>
     <tbody id="tabelaCorpo">
-        <tr>
-			<td>06:00 - 07:00</td>
-			<td></td><td></td><td></td><td></td><td></td>
-			<td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Sábado -->
-			<td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-			<td>06:00 - 07:00</td>
-		</tr>
-		<tr>
-			<td>07:00 - 08:00</td>
-			<td></td><td></td><td></td><td></td><td></td>
-			<td></td>
-			<td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-			<td>07:00 - 08:00</td>
-		<tr>
-            <td>08:00 - 09:00</td>
-            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>08:00 - 09:00</td>
-        </tr>
-        <tr>
-            <td>09:00 - 10:00</td>
-            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>09:00 - 10:00</td>
-        </tr>
-        <tr>
-            <td>10:00 - 11:00</td>
-            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>10:00 - 11:00</td>
-        </tr>
-        <tr>
-            <td>11:00 - 12:00</td>
-            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>11:00 - 12:00</td>
-        </tr>
-        <!-- Horários bloqueados para domingo -->
-        <tr>
-            <td>12:00 - 13:00</td>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
-            <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td>
-            <td>12:00 - 13:00</td>
-        </tr>
-        <tr>
-            <td>13:00 - 14:00</td>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
-            <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td>
-            <td>13:00 - 14:00</td>
-        </tr>
-        <tr>
-            <td>14:00 - 15:00</td>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
-            <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td>
-            <td>14:00 - 15:00</td>
-        </tr>
-        <tr>
-            <td>15:00 - 16:00</td>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
-            <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td>
-            <td>15:00 - 16:00</td>
-        </tr>
-        <tr>
-            <td>16:00 - 17:00</td>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
-            <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td>
-            <td>16:00 - 17:00</td>
-        </tr>
-        <tr>
-            <td>17:00 - 18:00</td>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
-            <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td>
-            <td>17:00 - 18:00</td>
-        </tr>
-        <tr>
-            <td>18:00 - 19:00</td>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
-            <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td>
-            <td>18:00 - 19:00</td>
-        </tr>
-        <tr>
-            <td>19:00 - 20:00</td>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
-            <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td>
-            <td>19:00 - 20:00</td>
-        </tr>
-        <tr>
-            <td>20:00 - 21:00</td>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
-            <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td>
-            <td>20:00 - 21:00</td>
-        </tr>
-        <tr>
-			<td>21:00 - 22:00</td>
-			<td></td><td></td><td></td><td></td><td></td>
-			<td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Sábado -->
-			<td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-			<td>21:00 - 22:00</td>
-		</tr>
-        <tr>
-			<td>22:00 - 23:00</td>
-			<td></td><td></td><td></td><td></td><td></td>
-			<td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Sábado -->
-			<td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-			<td>22:00 - 23:00</td>
-		</tr>
-    </tbody>
+    <tr>
+        <td class="horario">06:00 - 07:00</td>
+        <td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Sábado -->
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+        <td class="horario">06:00 - 07:00</td>
+    </tr>
+    <tr>
+        <td class="horario">07:00 - 08:00</td>
+        <td></td><td></td><td></td><td></td><td></td>
+        <td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+        <td class="horario">07:00 - 08:00</td>
+    </tr>
+    <tr>
+        <td class="horario">08:00 - 09:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="horario">08:00 - 09:00</td>
+    </tr>
+    <tr>
+        <td class="horario">09:00 - 10:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="horario">09:00 - 10:00</td>
+    </tr>
+    <tr>
+        <td class="horario">10:00 - 11:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="horario">10:00 - 11:00</td>
+    </tr>
+    <tr>
+        <td class="horario">11:00 - 12:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="horario">11:00 - 12:00</td>
+    </tr>
+    <tr>
+        <td class="horario">12:00 - 13:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+        <td class="horario">12:00 - 13:00</td>
+    </tr>
+    <tr>
+        <td class="horario">13:00 - 14:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+        <td class="horario">13:00 - 14:00</td>
+    </tr>
+    <tr>
+        <td class="horario">14:00 - 15:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+        <td class="horario">14:00 - 15:00</td>
+    </tr>
+    <tr>
+        <td class="horario">15:00 - 16:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+        <td class="horario">15:00 - 16:00</td>
+    </tr>
+    <tr>
+        <td class="horario">16:00 - 17:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+        <td class="horario">16:00 - 17:00</td>
+    </tr>
+    <tr>
+        <td class="horario">17:00 - 18:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+        <td class="horario">17:00 - 18:00</td>
+    </tr>
+    <tr>
+        <td class="horario">18:00 - 19:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+        <td class="horario">18:00 - 19:00</td>
+    </tr>
+    <tr>
+        <td class="horario">19:00 - 20:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+        <td class="horario">19:00 - 20:00</td>
+    </tr>
+    <tr>
+        <td class="horario">20:00 - 21:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+        <td class="horario">20:00 - 21:00</td>
+    </tr>
+    <tr>
+        <td class="horario">21:00 - 22:00</td>
+        <td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Sábado -->
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+        <td class="horario">21:00 - 22:00</td>
+    </tr>
+    <tr>
+        <td class="horario">22:00 - 23:00</td>
+        <td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Sábado -->
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+        <td class="horario">22:00 - 23:00</td>
+    </tr>
+</tbody>
+
 </table>
 </div>
 </div>
