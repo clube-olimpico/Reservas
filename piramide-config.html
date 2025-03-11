@@ -640,13 +640,7 @@ function consultarJogador() {
                 let clickTimeout;
                 let isDoubleClick = false;
 
-                row.addEventListener("click", (event) => {
-                    clickTimeout = setTimeout(() => {
-                        if (!isDoubleClick) {
-                            excluirJogador(jogadorNome, jogador.apelido);
-                        }
-                    }, 300);
-                });
+              
 
                 row.addEventListener("dblclick", (event) => {
                     isDoubleClick = true;
@@ -865,16 +859,7 @@ function carregarJogadores() {
             let clickTimeout;
             let isDoubleClick = false;
 
-            // Evento de clique para excluir
-            row.addEventListener("click", (event) => {
-                console.log(`Clique simples detectado em: ${nome}`);
-                clickTimeout = setTimeout(() => {
-                    if (!isDoubleClick) {
-                        console.log(`Excluindo jogador: ${nome}`);
-                        excluirJogador(nome, jogador.apelido);
-                    }
-                }, 300);
-            });
+           
 
             // Evento de duplo clique para editar
             row.addEventListener("dblclick", (event) => {
