@@ -633,6 +633,25 @@ function consultarJogador() {
                     <td style="text-align: center;">${jogadorSocio}</td>
                 `;
 
+                // Adiciona eventos de clique e duplo clique
+                let clickTimeout;
+                let isDoubleClick = false;
+
+                row.addEventListener("click", (event) => {
+                    clickTimeout = setTimeout(() => {
+                        if (!isDoubleClick) {
+                            excluirJogador(jogadorNome, jogador.apelido);
+                        }
+                    }, 300);
+                });
+
+                row.addEventListener("dblclick", (event) => {
+                    isDoubleClick = true;
+                    clearTimeout(clickTimeout);
+                    editarJogador(jogadorNome);
+                    setTimeout(() => { isDoubleClick = false; }, 350);
+                });
+
                 tabela.appendChild(row);
             }
         });
@@ -647,7 +666,6 @@ function consultarJogador() {
         alert("Ocorreu um erro ao consultar os jogadores. Tente novamente.");
     });
 }
-
 
 
 function editarJogador(nome) {
