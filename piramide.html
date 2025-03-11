@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const titulo = document.querySelector(".title-container");
 
   if (titulo) {
-    titulo.addEventListener("click", function() {
+    titulo.addEventListener("dblclick", function() {
       const confirmar = confirm("Deseja salvar a pirâmide?");
       if (confirmar) {
         salvarPiramide();
