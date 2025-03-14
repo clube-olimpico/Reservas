@@ -476,7 +476,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.0.5'; // Versão atual do sistema 
+const VersaoSistema = 'v1.0.6'; // Versão atual do sistema 
 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
@@ -1292,7 +1292,9 @@ async function validarSeTemReserva(jogadores) {
                     console.log("Verificando reserva existente:", reserva);
 
                     jogadores.forEach(jogador => {
-                        if (reserva.jogadores.includes(jogador)) {
+                        // Verifica se o jogador está na reserva (comparação exata)
+                        const jogadoresNaReserva = reserva.jogadores.split(', ');
+                        if (jogadoresNaReserva.includes(jogador)) {
                             const reservaDia = parseInt(reserva.dia, 10);
                             const reservaHora = parseInt(reserva.hora, 10);
                             const reservaDuracao = parseInt(reserva.duracao, 10) || 1;
@@ -1334,9 +1336,7 @@ async function validarSeTemReserva(jogadores) {
             // Se houver conflito, exibe mensagem de erro
             if (conflito) {
                 const mensagem = jogadoresComConflito.length > 1
-                    //? `Os jogadores ${jogadoresComConflito.join(", ")} já têm uma reserva futura ou em andamento e precisam esperar antes de agendar outra.`
-                    //: `O jogador ${jogadoresComConflito[0]} já tem uma reserva futura ou em andamento e precisa esperar antes de agendar outra.`;
-					? `Os jogadores ${jogadoresComConflito.join(", ")} ainda têm uma reserva ativa e não podem agendar outra antes de finalizá-la.`
+                    ? `Os jogadores ${jogadoresComConflito.join(", ")} ainda têm uma reserva ativa e não podem agendar outra antes de finalizá-la.`
                     : `O jogador ${jogadoresComConflito[0]} ainda tem uma reserva ativa e não pode agendar outra antes de finalizá-la.`;
                 console.log("Mensagem de erro: ", mensagem);
                 alert(mensagem);
@@ -1348,9 +1348,6 @@ async function validarSeTemReserva(jogadores) {
         });
     });
 }
-
-
-
 
 function gerarMensagemErro(diasParaLimpar) {
     let diasAntecedencia;
@@ -2206,7 +2203,7 @@ window.onload = function () {
     let contentElement = document.getElementById('content');
     let loadingElement = document.getElementById('loading');
 
-    console.log("🔄 Chamando carregarJogadores()");
+    console.log("🔄 Chamando carregarJogadores()"); 
 
     carregarJogadores(jogadorLogado).then(() => {
         console.log("✅ Jogadores carregados com base no estado de login!");
@@ -2247,7 +2244,7 @@ window.onload = function () {
         }
     }).catch(error => {
         console.error("❌ Erro ao carregar jogadores:", error);
-    });
+    }); 
 };
 
 
