@@ -476,7 +476,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.0.6'; // Versão atual do sistema 
+const VersaoSistema = 'v1.0.7'; // Versão atual do sistema 
 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
@@ -628,7 +628,7 @@ function atualizarLegenda(piramideAtiva) {
 // Inicialização do sistema
 function InicializarSistema() {
     return new Promise((resolve, reject) => {
-        const sistemaRef = database.ref("sistemas");
+        const sistemaRef = database.ref("sistemas"); 
 
         sistemaRef.on('value', (snapshot) => {
             const data = snapshot.val();
@@ -642,13 +642,15 @@ function InicializarSistema() {
 
                 const config = data.config;
                
+			   
+			    // fecha o sistema se mudar configuração para OFF
                 			   
                 // Permissão para abrir o sistema
                 if (config && config.Abrir === false) {
                     window.close();
                     return;
                 }
-		
+		        
 
                 // Verifica se a pirâmide está ativa (em tempo real)
                 const piramideAtiva = config?.Pirammide?.ativa || false; // Valor padrão: false
@@ -1125,10 +1127,14 @@ function bloquearDomingo() {
 function validarDiaReserva(jogadores) {
     console.log("Iniciando validação da reserva...");
     
-    if (jogadores.some(jogador => jogador.toLowerCase().includes('aula'))) {
-        console.log("Reserva identificada como 'aula'. Validação ignorada.");
-        return true;
-    }
+    if (jogadores.some(jogador => {
+		let nome = jogador.toLowerCase();
+		return nome.includes("aula") || nome.includes("convidado");
+	})) {
+		console.log("Reserva identificada como 'aula' ou 'convidado'. Validação ignorada.");
+		return true;
+	}
+
 
     const duracao = document.getElementById('duracao').value;
     console.log("Duração selecionada:", duracao);
@@ -1222,7 +1228,7 @@ function validarDiaReserva(jogadores) {
 
     console.log("Modo padrão detectado. Aplicando regras normais de reserva.");
 	
-	//alert('entre na validaçao');
+	//alert('entrei na validaçao');
     
     const diasParaLimpar = window.DiasParaLimpar;
     const hoje = new Date();
@@ -1260,6 +1266,18 @@ function validarDiaReserva(jogadores) {
 
 async function validarSeTemReserva(jogadores) {
     console.log("Iniciando validação de reservas...");
+	
+	// Se algum jogador for "aula" ou "convidado", retorna true imediatamente
+	if (jogadores.some(jogador => {
+		let nome = jogador.toLowerCase();
+		return nome === "aula" || nome === "convidado";
+	})) {
+		console.log("Reserva marcada como 'aula' ou 'convidado'. Validação interrompida.");
+		return true;
+	}
+	
+	
+		
     return new Promise((resolve) => {
         let conflito = false;
         let jogadoresComConflito = [];
@@ -1518,6 +1536,13 @@ async function atualizarTabela() {
         alert('Selecione pelo menos 1 jogador.');
         return;
     }
+	
+	// Verifica se a reserva contém apenas "Convidado"
+	const isApenasConvidado = jogadores.length === 1 && jogadores[0] === "Convidado";
+	if (isApenasConvidado) {
+		alert("Reservas não podem conter apenas um Convidado. É necessário um sócio acompanhando.");
+		return;
+	}
 
     const duracao = parseInt(document.getElementById('duracao').value);
     if (duracao === 2 && (jogadores.length < 2 || jogadores.length > 4)) {
@@ -1604,8 +1629,13 @@ async function atualizarTabela() {
             alert("Convidados só podem fazer reservas durante a semana (segunda a sexta).");
             return;
         }
+		
+		
+		
     }
 
+    
+	//alert(`Jogadores selecionados: ${jogadores.join(', ')}`);
     if (!validarDiaReserva(jogadores)) {
         console.log("Validação de dia falhou.");
         return;
@@ -1651,7 +1681,11 @@ async function atualizarTabela() {
             limparCampos();
             return;
         }
-
+		else
+		   if (isConvidado) { 
+		      exibirMensagemConvidado();
+           }
+		   
        let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula'))
     ? 'lightcoral'
     : duracao === 1 ? 'lightgreen'
@@ -2163,7 +2197,8 @@ function carregarJogadores(jogadorLogado) {
                     select.innerHTML = '<option value="">Selecione um jogador</option>'; // Reseta as opções
 
                     Object.keys(jogadores).forEach((nome) => {
-                        const jogador = jogadores[nome];
+					
+					    const jogador = jogadores[nome];
                         const apelido = jogador.apelido;
                         const piramide = jogador.piramide || "0"; // Garante um valor padrão
 
@@ -2412,7 +2447,7 @@ function fazerLogout() {
 // 🚀 Atualiza a lista de jogadores quando a duração for alterada
 document.addEventListener("DOMContentLoaded", function () {
     const duracaoSelect = document.getElementById('duracao');
-    
+
     if (duracaoSelect) {
         duracaoSelect.addEventListener('change', function() {
             carregarJogadores(); // Recarrega os jogadores ao mudar a duração
@@ -2420,7 +2455,37 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         console.warn("⚠️ Elemento #duracao não encontrado. O evento de mudança não foi adicionado.");
     }
+
+    // Adicionando verificação para "Rildo Santos"
+    const jogador1Select = document.getElementById("jogador1");
+
+    if (jogador1Select) {
+        jogador1Select.addEventListener("change", function () {
+            if (jogador1Select.value === "Rildo") {
+                const isAula = confirm("Essa reserva é para um jogo ou uma aula?\nOK para Aula, Cancelar para Jogo");
+
+                if (isAula) {
+                    let aulaOption = jogador1Select.querySelector("option[value='aula']");
+                    if (!aulaOption) {
+                        aulaOption = document.createElement("option");
+                        aulaOption.value = "aula";
+                        aulaOption.textContent = "Aula";
+                        jogador1Select.appendChild(aulaOption);
+                    }
+                    jogador1Select.value = "aula";
+                }
+            }
+        });
+    } else {
+        console.warn("⚠️ Elemento #jogador1 não encontrado. O evento de mudança não foi adicionado.");
+    }
 });
+
+// Função para exibir mensagem ao reservar com convidado
+function exibirMensagemConvidado() {
+    const mensagem = `Reserva de Convidado efetuada com sucesso!\n\n⚠️ Atenção!\n\nValor da taxa: R$ 50,00 por pessoa.\nPagamento: O pagamento deve ser realizado diretamente com o Toni.\nPrioridade dos sócios: Se um sócio quiser jogar, a reserva do convidado poderá ser cancelada em até, no máximo, 4 horas antes do jogo.`;
+    alert(mensagem);
+}
 
 
 </script>
