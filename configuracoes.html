@@ -288,6 +288,14 @@ label[for="piramideExceto8_12"] {
 }
 
 
+#usuariosOnline {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    /* Outros estilos, se necessário */
+    border: 1px solid black; 
+    padding: 5px; /* Adiciona um pequeno preenchimento para melhorar a aparência */
+} 
+
 		
     </style>
 </head>
@@ -314,6 +322,7 @@ label[for="piramideExceto8_12"] {
                 <option value="ON">ON</option>
                 <option value="OFF">OFF</option>
             </select>
+			<input type="text" id="usuariosOnline" placeholder="000" readonly  maxlength="3" style="width: 40px; height: 15px; text-align: center;" title="Número de usuários online (3 dígitos)">
         </div>
 
         <!-- Configuração de vDomingo -->
@@ -440,7 +449,15 @@ label[for="piramideExceto8_12"] {
     };
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-	
+
+
+  db.ref("sistemas/usuariosOnline").on("value", snapshot => {
+        const numUsuariosOnline = snapshot.numChildren();
+        console.log(`Usuários ativos: ${numUsuariosOnline}`);
+
+        // Atualiza o valor do campo de entrada
+        document.getElementById('usuariosOnline').value = numUsuariosOnline.toString().padStart(3, '0');
+    });	
 	
 function showTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
