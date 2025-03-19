@@ -476,7 +476,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.0.7'; // Versão atual do sistema 
+const VersaoSistema = 'v1.0.8'; // Versão atual do sistema 
 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
@@ -1518,6 +1518,8 @@ async function atualizarTabela() {
    // console.log("Iniciando atualização da tabela...");
 	
 	//alert('atualizarTabela');
+	
+	let isErro = false; // Inicializa como false
 
     const jogadores = [];
     for (let i = 1; i <= jogadorCount; i++) {
@@ -1677,15 +1679,14 @@ async function atualizarTabela() {
 		
         
         if (!horariosLivres) {
-            alert('Um ou mais horários já estão reservados para essa quadra!');
-            limparCampos();
-            return;
-        }
-		else
-		   if (isConvidado) { 
-		      exibirMensagemConvidado();
-           }
-		   
+			alert('Um ou mais horários já estão reservados para essa quadra!');
+			limparCampos();
+			return;
+		} 
+
+		
+
+
        let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula'))
     ? 'lightcoral'
     : duracao === 1 ? 'lightgreen'
@@ -1706,7 +1707,10 @@ async function atualizarTabela() {
                 borda: '1h'
             };
             reservasRef.child(key).set(reservaData)
-                .catch(error => console.error("Erro ao salvar a reserva:", error));
+				.catch(error => {
+					console.error("Erro ao salvar a reserva:", error);
+					isErro = true; // Marca erro
+				});
         } else if (duracao === 2 || duracao === 3) {
             if (jogadores.length === 1) {
                 tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores[0];
@@ -1751,16 +1755,38 @@ async function atualizarTabela() {
             console.log("Gravando reserva de 2 horas no banco de dados:", reservaData2, "em key:", key2);
 
             reservasRef.child(key1).set(reservaData1)
-                .then(() => console.log("Primeira parte da reserva de 2 horas gravada com sucesso!"))
-                .catch(error => console.error("Erro ao salvar a primeira parte da reserva de 2 horas:", error));
+				.catch(error => {
+					console.error("Erro ao salvar a primeira parte da reserva de 2 horas:", error);
+					isErro = true; // Marca erro
+				});
 
-            reservasRef.child(key2).set(reservaData2)
-                .then(() => console.log("Segunda parte da reserva de 2 horas gravada com sucesso!"))
-                .catch(error => console.error("Erro ao salvar a segunda parte da reserva de 2 horas:", error));
-        }
+			reservasRef.child(key2).set(reservaData2)
+				.catch(error => {
+					console.error("Erro ao salvar a segunda parte da reserva de 2 horas:", error);
+					isErro = true; // Marca erro
+				});
 
-        selecionarQuadra(quadra);
-        limparCampos();
+ 	   }
+
+		
+		// Aguarda um curto tempo para garantir que o Firebase processou as operações
+		setTimeout(() => {
+			if (!isErro) { // Só exibe as mensagens se NÃO houve erro
+				if (isConvidado) { 
+					exibirMensagemConvidado();
+				}
+				if (duracao === 3) {
+					exibirMensagemPiramide();
+				}
+			} else {
+				alert("Ocorreu um erro ao salvar a reserva. Tente novamente.");
+			}
+
+			selecionarQuadra(quadra);
+			limparCampos();
+		}, 500); // Pequeno atraso para garantir que as operações Firebase foram finalizadas
+		
+       
     });
 }
 
@@ -2486,6 +2512,12 @@ function exibirMensagemConvidado() {
     const mensagem = `Reserva de Convidado efetuada com sucesso!\n\n⚠️ Atenção!\n\nValor da taxa: R$ 50,00 por pessoa.\nPagamento: O pagamento deve ser realizado diretamente com o Toni.\nPrioridade dos sócios: Se um sócio quiser jogar, a reserva do convidado poderá ser cancelada em até, no máximo, 4 horas antes do jogo.`;
     alert(mensagem);
 }
+
+function exibirMensagemPiramide() {
+    const mensagem = `Reserva Pirâmide efetuada com sucesso!\n\n⚠️ Atenção!\n\n📢 Informar no grupo Data, horário e jogadores.\n💰 Valor da taxa: R$ 5,00 por jogador.\n📌 O pagamento deve ser realizado no PIX do Edemar:\n   - Chave: tedemar@hotmail.com\n   - CPF: 33359210972`;
+    alert(mensagem);
+}
+
 
 
 </script>
