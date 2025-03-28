@@ -12,7 +12,7 @@
             line-height: 1.6;
             background-color: #f9f9f9;
         }
-        h1, h2 {
+        h1, h2, h3 {
             color: #333;
         }
         h1 {
@@ -33,42 +33,87 @@
             border-radius: 5px;
             margin: 10px 0;
         }
+        .warning {
+            background-color: #ffebee;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #f44336;
+        }
+        .note {
+            background-color: #fff8e1;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+        }
         ul {
             padding-left: 20px;
         }
         li {
-            margin: 5px 0;
+            margin: 5px 0;   
+        }
+        .color-box {
+            padding: 5px 10px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-right: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Manual de Uso</h1>
-        <h2>Introdução</h2>
+        <h1>Manual de Uso - Sistema de Reservas</h1>
+        <h2>1. Introdução</h2>
         <p>Bem-vindo ao sistema de reservas do Clube Olímpico! Este manual vai te guiar passo a passo para realizar reservas de forma rápida e prática. Você poderá escolher entre as três quadras disponíveis, verificar horários livres e organizar suas partidas com facilidade.</p>
 
-        <h2>Horários do Clube</h2>
+        <div class="note">
+            <p><strong>Novidade:</strong> O sistema agora requer login com senha para maior segurança e controle das reservas.</p>
+        </div>
+
+        <h2>2. Acesso ao Sistema</h2>
+        <h3>Primeiro Acesso</h3>
+        <p>Na primeira vez que acessar o sistema:</p>
+        <ol>
+            <li>Acesse pelo link <strong> ☑ Reservas</strong> que está na descrição do grupo do WhatsApp</li>
+            <li>Na tela de login:
+                <ul>
+                    <li>Selecione seu nome na lista de jogadores</li>
+                    <li>Digite sua senha (sua data de nascimento no formato DDMMAAAA)</li>
+                    <li>Clique no ícone 👁️ para visualizar a senha digitada</li>
+                    <li>Clique em "Entrar"</li>
+                </ul>
+            </li>
+            <li>Confirme seus dados na mensagem que aparecerá</li>
+        </ol>
+
+        <div class="note">
+            <p><strong>Próximos acessos:</strong> Após o primeiro login, o sistema abrirá automaticamente sem pedir senha novamente.</p>
+        </div>
+
+        <div class="warning">
+            <p><strong>Importante:</strong> Caso tenha esquecido sua senha ou encontre problemas para acessar, entre em contato com o administrador do sistema (Ronaldo Taborda).</p>
+        </div>
+
+        <h2>3. Horários do Clube</h2>
         <p>Segunda a sexta: <strong>06:00 às 23:00</strong>.</p>
         <p>Sábados: <strong>07:00 às 21:00</strong>.</p>
         <p>Domingos: <strong>08:00 às 12:00</strong>.</p>
         <p style="font-style: italic; font-size: 0.9em;">* Sujeito a alterações.</p>
 
-        <h2>Como usar o sistema</h2>
-        <h3>1. Acessando o sistema</h3>
-        <p>Acesse pelo link que está na descrição do grupo do WhatsApp. Certifique-se de ter conexão à internet para acessar o sistema.</p>
-
-        <h3>2. Visualizando as quadras e os horários disponíveis</h3>
+        <h2>4. Visualizando as quadras e os horários disponíveis</h2>
         <p>No topo da página, clique em uma das quadras:</p>
         <ul>
-            <li><strong>Quadra 1 - Coberta</strong></li>
-            <li><strong>Quadra 2 - Aberta</strong></li>
-            <li><strong>Quadra 3 - Coberta</strong></li>
+            <li><strong>Quadra 1 - Coberta</strong> </li>
+            <li><strong>Quadra 2 - Aberta</strong> </li>
+            <li><strong>Quadra 3 - Coberta</strong> </li>
         </ul>
+        <div class="note">
+            <p><strong>Atenção:</strong> Quadras interditadas aparecem com o botão vermelho e não podem ser selecionadas.</p>
+        </div>
 
-        <h2>Como fazer uma reserva</h2>
+        <h2>5. Como fazer uma reserva</h2>
 
         <h3>1. Escolhendo a quadra</h3>
-        <p>No menu "Quadra", clique em uma das quadras disponíveis:</p>
+        <p>Selecione a quadra desejada no menu "Quadra":</p>
         <ul>
             <li><strong>Quadra 1 - Coberta</strong></li>
             <li><strong>Quadra 2 - Aberta</strong></li>
@@ -76,71 +121,102 @@
         </ul>
 
         <h3>2. Selecionando o dia</h3>
-        <p>Escolha o <strong>dia da semana</strong> no menu "Dia".</p>
+        <p>Escolha o <strong>dia da semana</strong> no menu "Dia". O sistema mostrará automaticamente a data correspondente.</p>
 
         <h3>3. Escolhendo a duração do jogo</h3>
-    <p>No menu "Duração", escolha a duração do jogo:</p>
-    <ul>
-        <li><strong>1 hora</strong></li>
-        <li><strong>2 horas</strong></li>
-        <li><strong>Pirâmide *</strong></li>
-    </ul>
-    <p style="font-size: 0.9em; font-style: italic;">* Pirâmide – Regras específicas:</p>
-<ul style="font-size: 0.9em; font-style: italic;">
-    <li>As reservas serão de 2 Horas.</li>
-    <li>Apenas 2 jogadores por reserva.</li>
-    <li>Disponibilidade por dia e horário conforme a configuração do sistema, sujeito a alterações.</li>
-    <li>Restrição para horários específicos em alguns dias.</li>
-</ul>
-
+        <p>No menu "Duração", escolha a duração do jogo:</p>
+        <ul>
+            <li><span class="color-box" style="background-color: lightgreen;">1 hora</span></li>
+            <li><span class="color-box" style="background-color: lightblue;">2 horas</span></li>
+            <li><span class="color-box" style="background-color: #FFEB99;">Pirâmide *</span></li>
+        </ul>
+        <div class="note">
+            <p><strong>* Regras da Pirâmide:</strong></p>
+            <ul>
+                <li>Reservas de 2 horas</li>
+                <li>Apenas 2 jogadores por reserva</li>
+                <li>Horários específicos conforme configuração</li>
+                <li>Taxa de R$ 5,00 por jogador (pagar via PIX para Edemar)</li>
+            </ul>
+        </div>
 
         <h3>4. Selecionando o horário</h3>
-        <p>Escolha o <strong>horário</strong> no menu "Horário".</p>
+        <p>Escolha o <strong>horário</strong> no menu "Horário". Os horários disponíveis são ajustados automaticamente conforme o dia e duração selecionados.</p>
 
         <h3>5. Adicionando jogadores</h3>
         <p>É obrigatório informar:</p>
         <ul>
-            <li><strong>Reserva de 1 hora:</strong> No mínimo <strong>1 jogador</strong> e no máximo <strong>4 jogadores</strong>.</li>
-            <li><strong>Reserva de 2 horas:</strong> No mínimo <strong>2 jogadores</strong> e no máximo <strong>4 jogadores</strong>.</li>
-            <li><strong>Reserva Pirâmide:</strong> Exatamente <strong>2 jogadores</strong>.</li>
+            <li><span class="color-box" style="background-color: lightgreen;">1 hora:</span> No mínimo <strong>1 jogador</strong> e no máximo <strong>4 jogadores</strong>.</li>
+            <li><span class="color-box" style="background-color: lightblue;">2 horas:</span> No mínimo <strong>2 jogadores</strong> e no máximo <strong>4 jogadores</strong>.</li>
+            <li><span class="color-box" style="background-color: #FFEB99;">Pirâmide:</span> Exatamente <strong>2 jogadores</strong>.</li>
         </ul>
-        <ul>
-            <li>Selecione o primeiro jogador no campo "Jogador".</li>
-            <li>Para adicionar mais jogadores, clique no botão <strong>+</strong> ao lado do campo de jogador.</li>
-            <li>Para cada novo jogador, clique no botão <strong>+</strong> novamente e selecione o jogador desejado na lista.</li>
-            <li>Caso algum dos jogadores seja convidado, selecione a opção "Convidado" na lista de jogadores.</li>
-        </ul>
+        <p>Como adicionar jogadores:</p>
+        <ol>
+            <li>Selecione o primeiro jogador no campo "Jogador"</li>
+            <li>Para adicionar mais jogadores, clique no botão <strong>+</strong> ao lado do campo</li>
+            <li>Repita para cada novo jogador (máximo 4)</li>
+            <li>Para convidados, selecione "Convidado" na lista</li>
+        </ol>
+
+        <div class="warning">
+            <p><strong>Restrições para convidados:</strong></p>
+            <ul>
+                <li>Não é permitido reservar apenas com convidados - deve haver pelo menos 1 sócio</li>
+                <li>Taxa de R$ 50,00 por convidado (pagar diretamente com o Toni)</li>
+                <li>Quadras e horários específicos podem estar restritos</li>
+            </ul>
+        </div>
 
         <h3>6. Finalizando a reserva</h3>
-        <p>Clique em <strong>Agendar</strong> para confirmar sua reserva. Ela aparecerá automaticamente na tabela.</p>
+        <p>Clique em <strong>Agendar</strong> para confirmar sua reserva. Ela aparecerá automaticamente na tabela com a cor correspondente.</p>
 
-        <h2>Gerenciamento de Reservas</h2>
-        <h3>1. Cancelando uma reserva</h3>
-        <p>Clique na reserva que deseja excluir. Confirme a exclusão na janela que aparecerá.</p>
+        <h2>6. Gerenciamento de Reservas</h2>
+        <h3>Cancelando uma reserva</h3>
+        <p>Para cancelar uma reserva que você fez:</p>
+        <ol>
+            <li>Clique na reserva que deseja cancelar (na tabela de horários)</li>
+            <li>Confirme o cancelamento na mensagem que aparecerá</li>
+        </ol>
 
-        <h3>2. Reservas de aula ou quadras interditadas</h3>
-        <p>Reservas de <strong>aula</strong> aparecem em vermelho na planilha. Quadras interditadas ficam com o botão superior destacado em vermelho.</p>
+        <div class="warning">
+            <p><strong>Atenção:</strong> Apenas os jogadores da reserva ou o Administrador podem excluí-la!.</p>
+        </div>
 
-        <h2>Legenda de Cores</h2>
+        <h3>Reservas especiais</h3>
         <ul>
-            <li><span style="background-color: lightgreen; padding: 5px; border-radius: 3px;">Reserva de 1 Hora</span></li> 
-            <li><span style="background-color: lightblue; padding: 5px; border-radius: 3px;">Reserva de 2 Horas</span></li> 
-			<li><span style="background-color: #FFEB99; padding: 5px; border-radius: 3px;">Reserva Pirâmide</span></li>
-            <li><span style="background-color: lightcoral; padding: 5px; border-radius: 3px;">Horário reservado para aulas</span></li> 
-             
+            <li><span class="color-box" style="background-color: lightcoral;">Aulas:</span> Aparecem em vermelho na tabela</li>
+            <li><span class="color-box" style="background-color: #FFEB99;">Pirâmide:</span> Aparecem em amarelo na tabela</li>
+            <li>Convidados: Aparecem na cor normal (verde ou azul) com o nome "Convidado"</li>
         </ul>
 
-        <h3>3. Expandindo a planilha de reservas</h3>
-        <p>Para facilitar a visualização de todas as reservas:</p>
+        <h2>7. Legenda de Cores</h2>
         <ul>
-            <li><strong>Clique duas vezes</strong> sobre a célula com o título <strong>"Horários"</strong> para <strong>expandir a planilha</strong>.</li>
-            <li><strong>Clique duas vezes novamente</strong> sobre a mesma célula para <strong>restaurar o tamanho original</strong>.</li>
+            <li><span class="color-box" style="background-color: lightgreen;">Reserva de 1 Hora</span></li> 
+            <li><span class="color-box" style="background-color: lightblue;">Reserva de 2 Horas</span></li>
+            <li><span class="color-box" style="background-color: #FFEB99;">Reserva Pirâmide</span></li>
+            <li><span class="color-box" style="background-color: lightcoral;">Horário reservado para aulas</span></li>
         </ul>
 
-        <p><strong>Bom jogo!</strong></p>
+        <h2>8. Dicas e Recursos Úteis</h2>
+        <h3>Visualização ampliada</h3>
+        <p>Para melhor visualização em dispositivos móveis:</p>
+        <ul>
+            <li><strong>Clique duas vezes</strong> sobre a célula com o título "Horários" para expandir a planilha</li>
+            <li><strong>Clique duas vezes novamente</strong> para voltar ao tamanho normal</li>
+        </ul>
+
+        <h3>Em caso de problemas</h3>
+        <p>Se encontrar qualquer dificuldade ou comportamento inesperado no sistema:</p>
+        <ol>
+            <li>Tente recarregar a página (F5 ou puxar para baixo em dispositivos móveis)</li>
+            <li>Verifique sua conexão com a internet</li>
+            <li>Caso o problema persista, entre em contato com o administrador (Ronaldo Taborda)</li>
+        </ol>
+
+        <p style="text-align: center; margin-top: 30px;"><strong>Bom jogo e aproveite as quadras do Clube Olímpico!</strong></p>
     </div>
     <footer style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #555;">
-        Desenvolvido por Ronaldo Taborda
+        Desenvolvido por Ronaldo Taborda | Atualizado em outubro/2023
     </footer>
 </body>
 </html>
