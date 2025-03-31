@@ -57,6 +57,11 @@
             display: inline-block;
             margin-right: 5px;
         }
+		.warning {
+			background-color: #fff8e1;
+			margin-bottom: 20px; /* Espaço abaixo de cada bloco */
+			margin-top: 20px; /* Espaço acima de cada bloco */
+		}
     </style>
 </head>
 <body>
@@ -157,6 +162,13 @@
             <li>Repita para cada novo jogador (máximo 4)</li>
             <li>Para convidados, selecione "Convidado" na lista</li>
         </ol>
+
+                <div class="warning">
+            <p><strong>Importante:</strong> O jogador que está fazendo a reserva DEVE estar incluído na lista de jogadores da reserva.</p>
+            <ul>
+                <li>O sistema não permitirá finalizar a reserva se o usuário logado não estiver na lista de jogadores</li>
+            </ul>
+        </div>
 
         <div class="warning">
             <p><strong>Restrições para convidados:</strong></p>
