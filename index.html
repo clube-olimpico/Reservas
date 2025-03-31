@@ -477,7 +477,9 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.1.0'; // Versão atual do sistema 
+const VersaoSistema = 'v1.1.1'; // Versão atual do sistema 
+let vDesabilitarF12 = false; // deixar false para fazer o deloy
+let vAbrirSistema = false; // deixar false para fazer o deloy
 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
@@ -490,14 +492,25 @@ let quadraSelecionada = 'Quadra 1 - Coberta';
 
 //***********************************************************************************************************************************************************************
 
-// Bloqueia o menu de contexto e o acesso ao console (descomentar quando publicar)
-
-document.addEventListener('contextmenu', event => event.preventDefault());
-document.addEventListener('keydown', event => {
+if (vDesabilitarF12) {
+  // Bloqueia o menu de contexto e o acesso ao console
+  document.addEventListener('contextmenu', event => event.preventDefault());
+  document.addEventListener('keydown', event => {
     if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I")) {
-        event.preventDefault();
+      event.preventDefault();
     }
-});
+  });
+} else {
+  // O código está comentado (não será executado)
+  /*
+  document.addEventListener('contextmenu', event => event.preventDefault());
+  document.addEventListener('keydown', event => {
+    if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I")) {
+      event.preventDefault();
+    }
+  });
+  */
+}
 
 
 // Configuração do Firebase
@@ -643,6 +656,8 @@ function atualizarLegenda(piramideAtiva) {
     }
 }
 
+let githubToken = ''; // Variável global para armazenar o token
+
 // Inicialização do sistema
 function InicializarSistema() {
     return new Promise((resolve, reject) => {
@@ -659,15 +674,29 @@ function InicializarSistema() {
                 }
 
                 const config = data.config;
+				
+				githubToken = config.githubToken;
+				
+				//alert(`token: ${githubToken}`);
+				
+				
                
 			   
-			    // fecha o sistema se mudar configuração para OFF
-                			   
-                // Permissão para abrir o sistema
-                if (config && config.Abrir === false) {
-                    window.close();
-                    return;
-                }
+			    if (vAbrirSistema) {
+				  // Permissão para abrir o sistema
+				  if (config && config.Abrir === false) {
+					window.close();
+					return;
+				  }
+				} else {
+				  // O código está comentado (não será executado)
+				  /*
+				  if (config && config.Abrir === false) {
+					window.close();
+					return;
+				  }
+				  */
+				}
 		        
 				
 
@@ -2690,7 +2719,7 @@ async function registrarExclusao(quadra, horario, jogadores, usuario, duracao, d
   }
 
   // 2. CÓDIGO ORIGINAL TOTALMENTE PRESERVADO (início)
-  const token = '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';
+  const token = githubToken;
   const usuarioGit = 'clube-olimpico';
   const repo = 'Reservas';
   const caminhoArquivo = 'logs/reservas-excluidas.json';
@@ -2784,7 +2813,7 @@ async function registrarExclusao(quadra, horario, jogadores, usuario, duracao, d
 
 // Função adicional (NOVA) - não substitui nada, apenas complementa
 async function registrarExclusaoEmLote(logs) {
-  const token = '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';
+  const token = githubToken;
   const usuarioGit = 'clube-olimpico';
   const repo = 'Reservas';
   const caminhoArquivo = 'logs/reservas-excluidas.json';
