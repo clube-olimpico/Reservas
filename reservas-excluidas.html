@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 10px;
-            background-color: #f4f4f4;
+            background-color: #f4f4f4; 
         }
 
         h1 {
@@ -121,14 +121,18 @@
     <script>
         let logs = [];
 
-        fetch('https://clube-olimpico.github.io/Reservas/logs/reservas-excluidas.json')
-            .then(r => r.json())
-            .then(data => {
-                logs = data;
-                preencherOpcoesQuadra();
-                exibirLogs(logs);
-            })
-            .catch(error => console.error('Erro ao carregar logs:', error));
+        let logsCarregados = false; // Adicione esta variável
+
+		fetch('https://clube-olimpico.github.io/Reservas/logs/reservas-excluidas.json')
+			.then(r => r.json())
+			.then(data => {
+				logs = data;
+				console.log("Dados carregados:", logs);
+				preencherOpcoesQuadra();
+				logsCarregados = true; // Atualize o estado
+				exibirLogs(logs);
+			})
+			.catch(error => console.error('Erro ao carregar logs:', error));
 
         function preencherOpcoesQuadra() {
             const quadras = [...new Set(logs.map(log => log.quadra))];
@@ -177,6 +181,11 @@
         function exibirLogs(lista) {
             const logsContainer = document.getElementById('logs');
             logsContainer.innerHTML = '';
+			
+			if (!logsCarregados) {
+				logsContainer.textContent = "Carregando reservas..."; // Ou um spinner
+				return;
+			}
 
             lista.forEach(log => {
                 let dataParts = log.exclusao.split(' ');
