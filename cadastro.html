@@ -263,7 +263,7 @@
     font-weight: bold;
     transform: scale(1.3) rotate(0deg); /* Aumenta e gira levemente */
     text-shadow: 2px 2px 8px rgba(0, 0, 255, 0.6); /* Brilho azul */
-    transition: transform 0.2s ease-in-out, text-shadow 0.3s ease-in-out;
+    transition: transform 0.2s ease-in-out, text-shadow 0.3s ease-in-out; 
 }
 
 
@@ -274,7 +274,7 @@
 </head>
 <body>
     <!-- Tela de carregamento -->
-    <div id="loadingOverlay" class="loading-overlay">
+    <div id="loadingOverlay" class="loading-overlay"> 
         Carregando... Aguarde.
     </div>
 
@@ -329,6 +329,7 @@
 		
 		
         <button id="botaoAcao" onclick="acaoFormulario()">Cadastrar</button>
+		
     </div>
 
     <!-- Tabela de jogadores -->
@@ -459,48 +460,116 @@ function cadastrarJogador() {
     const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
     const apelidoRef = database.ref("sistemas/cadastro/apelidos/" + apelido);
 
-    // Verifica se o nome já existe
-    jogadorRef.get().then(snapshot => {
-        if (snapshot.exists()) {
-            alert("Já existe um jogador com esse Nome.");
-            limparCampos();
-            return;
-        }
+    // Calcula a idade
+    const dataNascimento = new Date(partesData[2], partesData[1] - 1, partesData[0]); // Ano, Mês (0-11), Dia
+    const hoje = new Date();
+    let idade = hoje.getFullYear() - dataNascimento.getFullYear();
+    const m = hoje.getMonth() - dataNascimento.getMonth();
+    if (m < 0 || (m === 0 && hoje.getDate() < dataNascimento.getDate())) {
+        idade--;
+    }
 
-        // Verifica se o apelido já existe
-        apelidoRef.get().then(snapshot => {
-            if (snapshot.exists()) {
-                alert("Já existe um jogador com esse Apelido.");
-                limparCampos();
-            } else {
-                // Salva o jogador no banco de dados, incluindo o valor de piramide
-                jogadorRef.set({ apelido, socio, classe, niver, piramide: piramideValue })
-                    .then(() => {
-                        // Salva o apelido como chave única
-                        apelidoRef.set(true)
+    if (idade > 21 && socio === "dependente") {
+        // Se for dependente e maior que 21 anos, pergunta se é cônjuge ou filho
+        const relacionamento = prompt("Dependente maior de 21 anos. É cônjuge ou filho(a)?").trim().toLowerCase();
+        const conjugeAceito = ["conjuge", "cônjuge", "esposa", "esposo", "marido"].includes(relacionamento);
+
+        if (conjugeAceito) {
+            // Se for cônjuge, prossegue com o cadastro
+            // Verifica se o nome já existe
+            jogadorRef.get().then(snapshot => {
+                if (snapshot.exists()) {
+                    alert("Já existe um jogador com esse Nome.");
+                    limparCampos();
+                    return;
+                }
+
+                // Verifica se o apelido já existe
+                apelidoRef.get().then(snapshot => {
+                    if (snapshot.exists()) {
+                        alert("Já existe um jogador com esse Apelido.");
+                        limparCampos();
+                    } else {
+                        // Salva o jogador no banco de dados, incluindo o valor de piramide
+                        jogadorRef.set({ apelido, socio, classe, niver, piramide: piramideValue })
                             .then(() => {
-                                alert("Jogador cadastrado com sucesso!");
-                                limparCampos();
-                                carregarJogadores();
+                                // Salva o apelido como chave única
+                                apelidoRef.set(true)
+                                    .then(() => {
+                                        alert("Jogador cadastrado com sucesso!");
+                                        limparCampos();
+                                        carregarJogadores();
+                                    })
+                                    .catch(error => {
+                                        console.error("Erro ao salvar apelido:", error);
+                                        alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
+                                    });
                             })
                             .catch(error => {
-                                console.error("Erro ao salvar apelido:", error);
+                                console.error("Erro ao cadastrar jogador:", error);
                                 alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
                             });
-                    })
-                    .catch(error => {
-                        console.error("Erro ao cadastrar jogador:", error);
-                        alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
-                    });
+                    }
+                }).catch(error => {
+                    console.error("Erro ao verificar apelido:", error);
+                    alert("Ocorreu um erro ao verificar o apelido. Tente novamente.");
+                });
+            }).catch(error => {
+                console.error("Erro ao verificar jogador:", error);
+                alert("Ocorreu um erro ao verificar o jogador. Tente novamente.");
+            });
+        } else {
+            // Se for filho, não cadastra
+            alert("Não é possível cadastrar filho(a) maior de 21 anos como dependente.");
+            limparCampos();
+        }
+    } else if (socio === "dependente" || socio === "titular") {
+        // Se for titular ou dependente menor ou igual a 21, prossegue com o cadastro
+        // Verifica se o nome já existe
+        jogadorRef.get().then(snapshot => {
+            if (snapshot.exists()) {
+                alert("Já existe um jogador com esse Nome.");
+                limparCampos();
+                return;
             }
+
+            // Verifica se o apelido já existe
+            apelidoRef.get().then(snapshot => {
+                if (snapshot.exists()) {
+                    alert("Já existe um jogador com esse Apelido.");
+                    limparCampos();
+                } else {
+                    // Salva o jogador no banco de dados, incluindo o valor de piramide
+                    jogadorRef.set({ apelido, socio, classe, niver, piramide: piramideValue })
+                        .then(() => {
+                            // Salva o apelido como chave única
+                            apelidoRef.set(true)
+                                .then(() => {
+                                    alert("Jogador cadastrado com sucesso!");
+                                    limparCampos();
+                                    carregarJogadores();
+                                })
+                                .catch(error => {
+                                    console.error("Erro ao salvar apelido:", error);
+                                    alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
+                                });
+                        })
+                        .catch(error => {
+                            console.error("Erro ao cadastrar jogador:", error);
+                            alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
+                        });
+                }
+            }).catch(error => {
+                console.error("Erro ao verificar apelido:", error);
+                alert("Ocorreu um erro ao verificar o apelido. Tente novamente.");
+            });
         }).catch(error => {
-            console.error("Erro ao verificar apelido:", error);
-            alert("Ocorreu um erro ao verificar o apelido. Tente novamente.");
+            console.error("Erro ao verificar jogador:", error);
+            alert("Ocorreu um erro ao verificar o jogador. Tente novamente.");
         });
-    }).catch(error => {
-        console.error("Erro ao verificar jogador:", error);
-        alert("Ocorreu um erro ao verificar o jogador. Tente novamente.");
-    });
+    } else {
+        alert("Tipo de sócio inválido.");
+    }
 }
 
 
@@ -750,6 +819,25 @@ function salvarJogador() {
     if (niver) {
         const partesData = niver.split("-");
         niver = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
+
+        // Calcula a idade
+        const dataNascimento = new Date(partesData[2], partesData[1] - 1, partesData[0]);
+        const hoje = new Date();
+        let idade = hoje.getFullYear() - dataNascimento.getFullYear();
+        const m = hoje.getMonth() - dataNascimento.getMonth();
+        if (m < 0 || (m === 0 && hoje.getDate() < dataNascimento.getDate())) {
+            idade--;
+        }
+
+        if (idade > 21 && socio === "dependente") {
+            const relacionamento = prompt("Dependente maior de 21 anos. É cônjuge, esposo(a) ou filho(a)?").trim().toLowerCase();
+            const conjugeAceito = ["conjuge", "cônjuge", "esposa", "esposo", "marido"].includes(relacionamento);
+
+            if (!conjugeAceito) {
+                alert("Não é possível cadastrar filho(a) maior de 21 anos como dependente.");
+                return; // Impede o salvamento
+            }
+        }
     } else {
         niver = ""; // Se não informado, salva como vazio
     }
@@ -761,7 +849,7 @@ function salvarJogador() {
     const piramideValue = piramide.trim() === "" ? "" : piramide;
 
     // Exibe uma mensagem de confirmação com todos os dados do jogador
-    const mensagemConfirmacao = `
+    let mensagemConfirmacao = `
         Confirme os dados do jogador:
         Nome: ${nome}
         Apelido: ${apelido}
@@ -770,6 +858,9 @@ function salvarJogador() {
         Data de Nascimento: ${niver || "(Não informada)"}
         Pirâmide: ${piramideValue || "(Não informada)"}
     `;
+
+    // Adiciona informação sobre o modo de operação
+    mensagemConfirmacao += `\n\nModo de operação: ${modoCadastro ? "Cadastro" : "Edição"}`;
 
     const confirmacao = confirm(mensagemConfirmacao);
     if (!confirmacao) {
@@ -801,7 +892,7 @@ function salvarJogador() {
         filtrarPiramideCheckbox.checked = false;
 
         // Reaplica os critérios de consulta originais e refaz a consulta
-        if (!modoCadastro && (criteriosOriginais.nome || criteriosOriginais.apelido || criteriosOriginais.socio || 
+        if (!modoCadastro && (criteriosOriginais.nome || criteriosOriginais.apelido || criteriosOriginais.socio ||
                       criteriosOriginais.classe || criteriosOriginais.niver || criteriosOriginais.piramide)) {
             console.log("Reexecutando consulta após salvar...");
             criteriosConsulta = { ...criteriosOriginais };
@@ -832,7 +923,6 @@ function salvarJogador() {
         alert("Ocorreu um erro ao atualizar o jogador.");
     });
 }
-
 
 
 
@@ -1071,6 +1161,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 	
+
+
 	
     </script>
 </body>
