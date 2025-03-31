@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reservas Excluídas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            /* Adjust the 120px as needed */
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+            position: relative; /* Adicionado */
+        }
+
+        .filters label {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .filters input,
+        .filters select,
+        .filters button {
+            font-size: 16px;
+            padding: 8px;
+            box-sizing: border-box;
+            /* width: 100%;  No need for width: 100% anymore */
+        }
+
+        .filters input,
+        .filters select {
+            justify-self: end;
+            width: calc(100% - 10px);
+            /* Adjusted width */
+        }
+
+        .filters button {
+            grid-column: 1 / 3;
+            /* Span the button across both columns */
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .filters button:hover {
+            background-color: #0056b3;
+        }
+
+        .log-entry {
+            background: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+        }
+
+        .log-entry p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 20px;
+            }
+
+            .filters {
+                grid-template-columns: 1fr;
+                /* Stack on smaller screens */
+            }
+
+            .filters label,
+            .filters input,
+            .filters select,
+            .filters button {
+                width: 100%;
+                /* Full width on small screens */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Reservas Excluídas</h1>
+
+    <div class="filters">
+        <label for="quadra">Quadra:</label>
+        <select id="quadra">
+            <option value="">Todas</option>
+        </select>
+
+        <label for="data">Data da Reserva:</label>
+        <input type="date" id="data">
+
+        <label for="jogador">Jogador:</label>
+        <input type="text" id="jogador" placeholder="Digite um nome">
+
+        <button onclick="filtrarLogs()">Filtrar</button>
+    </div>
+
+    <div id="logs"></div>
+
+    <script>
+        let logs = [];
+
+        fetch('https://clube-olimpico.github.io/Reservas/logs/reservas-excluidas.json')
+            .then(r => r.json())
+            .then(data => {
+                logs = data;
+                preencherOpcoesQuadra();
+                exibirLogs(logs);
+            })
+            .catch(error => console.error('Erro ao carregar logs:', error));
+
+        function preencherOpcoesQuadra() {
+            const quadras = [...new Set(logs.map(log => log.quadra))];
+            const selectQuadra = document.getElementById('quadra');
+            quadras.forEach(q => {
+                const option = document.createElement('option');
+                option.value = q;
+                option.textContent = q;
+                selectQuadra.appendChild(option);
+            });
+        }
+
+
+        let placeholderSpan = null;
+
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        if (isMobile()) {
+			const dataInput = document.getElementById("data");
+
+			dataInput.type = "text"; // Inicialmente "text" para exibir o placeholder
+			dataInput.value = "dd/mm/aaaa"; // Define o valor padrão
+
+			dataInput.addEventListener("focus", () => {
+				if (dataInput.value === "dd/mm/aaaa") {
+					dataInput.value = "";
+					dataInput.type = "date"; // Muda para "date"
+					
+					// Pequeno atraso para garantir que o seletor de data seja ativado
+					setTimeout(() => dataInput.showPicker(), 10);
+				}
+			});
+
+			dataInput.addEventListener("blur", () => {
+				if (dataInput.value === "") {
+					dataInput.type = "text"; // Volta para "text" quando vazio
+					dataInput.value = "dd/mm/aaaa";
+				}
+			});
+		}
+
+
+
+        function exibirLogs(lista) {
+            const logsContainer = document.getElementById('logs');
+            logsContainer.innerHTML = '';
+
+            lista.forEach(log => {
+                let dataParts = log.exclusao.split(' ');
+                let dataFormatada = dataParts[0].split('/').reverse().join('-') + 'T' + dataParts[1] + ':00';
+                let date = new Date(dataFormatada);
+                let formattedDate = isNaN(date) ? 'Data inválida' : date.toLocaleString();
+
+                logsContainer.innerHTML += `
+                    <div class="log-entry">
+                        <p><strong>${formattedDate}</strong></p>
+                        <p><strong>Data da Reserva:</strong> ${log.data}</p>
+                        <p>${log.quadra} | ${log.horario}</p>
+                        <p>Jogadores: ${log.jogadores.join(', ')}</p>
+                        <p>Excluído por: ${log.usuario || 'N/A'}</p>
+                        <hr>
+                    </div>`;
+            });
+        }
+
+        function filtrarLogs() {
+			const quadra = document.getElementById('quadra').value;
+			const data = document.getElementById('data').value;
+			const jogador = document.getElementById('jogador').value.toLowerCase();
+
+			const logsFiltrados = logs.filter(log => {
+				const condQuadra = quadra === "" || quadra === "Todas" || log.quadra === quadra;
+				const condData = !data || log.data === data.split('-').reverse().join('-');
+				const condJogador = !jogador || log.jogadores.some(j => j.toLowerCase().includes(jogador));
+
+				return condQuadra && condData && condJogador;
+			});
+
+			exibirLogs(logsFiltrados);
+		}
+
+    </script>
+</body>
+
+</html>
