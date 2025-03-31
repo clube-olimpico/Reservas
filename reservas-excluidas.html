@@ -197,20 +197,29 @@
         }
 
         function filtrarLogs() {
-			const quadra = document.getElementById('quadra').value;
-			const data = document.getElementById('data').value;
-			const jogador = document.getElementById('jogador').value.toLowerCase();
+			const quadra = document.getElementById('quadra').value.trim();
+			const dataInput = document.getElementById('data');
+			const jogador = document.getElementById('jogador').value.toLowerCase().trim();
+
+			// Se o campo de data estiver com o valor de "dd/mm/aaaa", consideramos como vazio
+			const data = (dataInput.value === "dd/mm/aaaa" || dataInput.value === "") ? null : dataInput.value;
+
+			console.log("Valor do campo Quadra:", quadra); 
+			console.log("Valor do campo Data:", data); 
 
 			const logsFiltrados = logs.filter(log => {
-				const condQuadra = quadra === "" || quadra === "Todas" || log.quadra === quadra;
-				const condData = !data || log.data === data.split('-').reverse().join('-');
+				const condQuadra = quadra === "" || quadra.toLowerCase() === "todas" || log.quadra === quadra;
+				const condData = !data || log.data === data.split('-').reverse().join('-'); // Corrige a verificação da data
 				const condJogador = !jogador || log.jogadores.some(j => j.toLowerCase().includes(jogador));
 
 				return condQuadra && condData && condJogador;
 			});
 
+			console.log("Registros filtrados:", logsFiltrados);
 			exibirLogs(logsFiltrados);
 		}
+
+
 
     </script>
 </body>
