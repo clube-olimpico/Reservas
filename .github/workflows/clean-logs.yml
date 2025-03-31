@@ -1,0 +1,86 @@
+name: Limpar Logs Antigos
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Executa diariamente à meia-noite (UTC)
+  workflow_dispatch:      # Permite acionar manualmente
+
+jobs:
+  clean-logs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependências
+        run: npm install axios
+
+      - name: Limpar logs antigos
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Token automático do GitHub
+          REPO_OWNER: 'clube-olimpico'
+          REPO_NAME: 'Reservas'
+          LOGS_PATH: 'logs/reservas-excluidas.json'
+        run: |
+          node -e "
+            const axios = require('axios');
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+
+            // 1. Baixa o arquivo de logs do GitHub
+            async function fetchLogs() {
+              const response = await axios.get(
+                'https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/contents/$LOGS_PATH',
+                { headers: { 'Authorization': 'token $GITHUB_TOKEN' } }
+              );
+              return {
+                content: JSON.parse(Buffer.from(response.data.content, 'base64').toString('utf8')),
+                sha: response.data.sha
+              };
+            }
+
+            // 2. Filtra logs dos últimos 7 dias
+            function filterLogs(logs) {
+              const now = new Date();
+              return logs.filter(log => {
+                const [dia, mes, ano] = log.exclusao.split(' ')[0].split('/');
+                const logDate = new Date(`${ano}-${mes}-${dia}`);
+                return (now - logDate) <= (7 * 24 * 60 * 60 * 1000);
+              });
+            }
+
+            // 3. Atualiza o arquivo no GitHub
+            async function updateLogs(logs, sha) {
+              await axios.put(
+                'https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/contents/$LOGS_PATH',
+                {
+                  message: '[Automático] Limpeza de logs antigos',
+                  content: Buffer.from(JSON.stringify(logs, null, 2)).toString('base64'),
+                  sha: sha
+                },
+                { headers: { 'Authorization': 'token $GITHUB_TOKEN' } }
+              );
+            }
+
+            // Executa o processo
+            (async () => {
+              try {
+                const { content, sha } = await fetchLogs();
+                const logs = JSON.parse(content);
+                const updatedLogs = filterLogs(logs);
+                if (logs.length !== updatedLogs.length) {
+                  await updateLogs(updatedLogs, sha);
+                  console.log('Logs atualizados! Removidos:', logs.length - updatedLogs.length);
+                } else {
+                  console.log('Nada para limpar.');
+                }
+              } catch (error) {
+                console.error('Erro:', error.response?.data || error.message);
+                process.exit(1);
+              }
+            })();
+          "
