@@ -17,7 +17,7 @@ body {
     padding: 0; 
 }
 
-    /* Container da tela de login */
+    /* Container da tela de login */ 
     #loginScreen {
 	box-sizing: border-box; /* Garantir que padding e borda sejam incluídos na largura */
     position: absolute;
@@ -39,7 +39,7 @@ body {
 }
 
 #loginHeader h1 {
-    font-size: 32px;
+    font-size: 32px; 
     color: #333;
     margin: 0;
 }
@@ -477,7 +477,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.0.9'; // Versão atual do sistema 
+const VersaoSistema = 'v1.1.0'; // Versão atual do sistema 
 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
@@ -669,6 +669,7 @@ function InicializarSistema() {
                     return;
                 }
 		        
+				
 
                 // Verifica se a pirâmide está ativa (em tempo real)
                 const piramideAtiva = config?.Pirammide?.ativa || false; // Valor padrão: false
@@ -1013,7 +1014,7 @@ function selecionarQuadra(quadra) {
 
 
 function carregarReservas(quadra) {
-    console.log(`🔄 Iniciando carregamento de reservas para: ${quadra}`);
+    //console.log(`🔄 Iniciando carregamento de reservas para: ${quadra}`);
     
     celulasExcluidas.clear();
     reservasExcluidasFirebase.clear();
@@ -1023,7 +1024,7 @@ function carregarReservas(quadra) {
     reservasRef.off('value'); // Remove ouvintes antigos
     reservasRef.on('value', (snapshot) => {
         const reservas = snapshot.val();
-        console.log("📥 Dados brutos do Firebase:", reservas);
+        //console.log("📥 Dados brutos do Firebase:", reservas);
 
         limparTabela();
 
@@ -1303,7 +1304,7 @@ async function validarSeTemReserva(jogadores) {
         const reservasRef = database.ref("sistemas/reservas");
         reservasRef.once("value").then((snapshot) => {
             const reservas = snapshot.val() || {};
-            console.log("Reservas carregadas do banco de dados:", reservas);
+            //console.log("Reservas carregadas do banco de dados:", reservas);
 
             const agora = new Date();
             const diaSelecionado = parseInt(document.getElementById('dia').value, 10);
@@ -1314,18 +1315,18 @@ async function validarSeTemReserva(jogadores) {
             const novaReservaDataHoraInicio = new Date(agora);
             novaReservaDataHoraInicio.setDate(agora.getDate() + ((diaSelecionado + 7 - agora.getDay()) % 7));
             novaReservaDataHoraInicio.setHours(horaSelecionada, 0, 0, 0);
-            console.log(`Nova reserva: Início - ${novaReservaDataHoraInicio}`);
+            //console.log(`Nova reserva: Início - ${novaReservaDataHoraInicio}`);
 
             const novaReservaDataHoraFim = new Date(novaReservaDataHoraInicio);
             novaReservaDataHoraFim.setHours(novaReservaDataHoraInicio.getHours() + duracaoSelecionada);
-            console.log(`Nova reserva: Fim - ${novaReservaDataHoraFim}`);
+            //console.log(`Nova reserva: Fim - ${novaReservaDataHoraFim}`);
 
             // Verificando reservas existentes
             for (const quadra in reservas) {
-                console.log("Verificando quadra:", quadra);
+                //console.log("Verificando quadra:", quadra);
                 for (const key in reservas[quadra]) {
                     const reserva = reservas[quadra][key];
-                    console.log("Verificando reserva existente:", reserva);
+                    //console.log("Verificando reserva existente:", reserva);
 
                     jogadores.forEach(jogador => {
                         // Verifica se o jogador está na reserva (comparação exata)
@@ -1339,16 +1340,16 @@ async function validarSeTemReserva(jogadores) {
                             const reservaDataHoraInicio = new Date(agora);
                             reservaDataHoraInicio.setDate(agora.getDate() + ((reservaDia + 7 - agora.getDay()) % 7));
                             reservaDataHoraInicio.setHours(reservaHora, 0, 0, 0);
-                            console.log(`Reserva existente: Início - ${reservaDataHoraInicio}`);
+                            //console.log(`Reserva existente: Início - ${reservaDataHoraInicio}`);
 
                             const reservaDataHoraFim = new Date(reservaDataHoraInicio);
                             reservaDataHoraFim.setHours(reservaDataHoraInicio.getHours() + reservaDuracao);
-                            console.log(`Reserva existente: Fim - ${reservaDataHoraFim}`);
+                            //console.log(`Reserva existente: Fim - ${reservaDataHoraFim}`);
 
                             // **Regra definitiva:**
                             // Bloqueia reserva se houver qualquer reserva futura pendente (em qualquer dia)
                             if (reservaDataHoraInicio > agora) {
-                                console.log(`O jogador ${jogador} já tem uma reserva FUTURA e não pode criar outra.`);
+                                //console.log(`O jogador ${jogador} já tem uma reserva FUTURA e não pode criar outra.`);
                                 conflito = true;
                                 if (!jogadoresComConflito.includes(jogador)) {
                                     jogadoresComConflito.push(jogador);
@@ -1357,7 +1358,7 @@ async function validarSeTemReserva(jogadores) {
 
                             // Bloqueia reserva se o jogador já tem uma reserva em andamento
                             if (agora >= reservaDataHoraInicio && agora < reservaDataHoraFim) {
-                                console.log(`O jogador ${jogador} já tem uma reserva EM ANDAMENTO e não pode criar outra.`);
+                                //console.log(`O jogador ${jogador} já tem uma reserva EM ANDAMENTO e não pode criar outra.`);
                                 conflito = true;
                                 if (!jogadoresComConflito.includes(jogador)) {
                                     jogadoresComConflito.push(jogador);
@@ -1374,11 +1375,11 @@ async function validarSeTemReserva(jogadores) {
                 const mensagem = jogadoresComConflito.length > 1
                     ? `Os jogadores ${jogadoresComConflito.join(", ")} ainda têm uma reserva ativa e não podem agendar outra antes de finalizá-la.`
                     : `O jogador ${jogadoresComConflito[0]} ainda tem uma reserva ativa e não pode agendar outra antes de finalizá-la.`;
-                console.log("Mensagem de erro: ", mensagem);
+                //console.log("Mensagem de erro: ", mensagem);
                 alert(mensagem);
                 resolve(false);
             } else {
-                console.log("Nenhum conflito encontrado, reserva pode ser realizada.");
+                //console.log("Nenhum conflito encontrado, reserva pode ser realizada.");
                 resolve(true);
             }
         });
@@ -1556,6 +1557,24 @@ async function atualizarTabela() {
         alert('Selecione pelo menos 1 jogador.');
         return;
     }
+
+    // Nova validação: verifica se o jogador logado está na reserva
+    const jogadorLogado = localStorage.getItem('jogadorLogado');
+    const isAdmin = jogadorLogado === "RONALDO TABORDA";
+    const isAula = jogadores.some(j => j.toLowerCase() === "aula");
+    
+    if (!isAdmin && !isAula) {
+        const jogadorEstaNaReserva = jogadores.some(jogador => {
+            const nomeCompletoJogador = jogadoresData[jogador]?.nomeCompleto || "";
+            return nomeCompletoJogador.toLowerCase() === jogadorLogado.toLowerCase() || 
+                   jogador.toLowerCase() === jogadorLogado.toLowerCase();
+        });
+
+        if (!jogadorEstaNaReserva) {
+            alert("Você não pode fazer uma reserva sem constar nela. Por favor, inclua seu nome na lista de jogadores.");
+            return;
+        }
+    }
 	
 	// Verifica se a reserva contém apenas "Convidado"
 	const isApenasConvidado = jogadores.length === 1 && jogadores[0] === "Convidado";
@@ -1571,9 +1590,9 @@ async function atualizarTabela() {
     }
 	
 	if (duracao === 3 && jogadores.length !== 2) {
-    alert('Reservas da Pirâmidede precisam ter exatamente 2 jogadores.');
-    return;
-}
+        alert('Reservas da Pirâmide precisam ter exatamente 2 jogadores.');
+        return;
+    }
 
     if (jogadores.length > 4) {
         alert('O máximo permitido são 4 jogadores.');
@@ -1649,13 +1668,8 @@ async function atualizarTabela() {
             alert("Convidados só podem fazer reservas durante a semana (segunda a sexta).");
             return;
         }
-		
-		
-		
     }
 
-    
-	//alert(`Jogadores selecionados: ${jogadores.join(', ')}`);
     if (!validarDiaReserva(jogadores)) {
         console.log("Validação de dia falhou.");
         return;
@@ -1686,34 +1700,26 @@ async function atualizarTabela() {
 
         const loopDuracao = duracao === 3 ? duracao - 1 : duracao;
 
-		for (let i = 0; i < loopDuracao; i++) {
-			const horarioChave = `${dia}_${horaSelecionada + i}`;
-			//alert(`duraçao: ${duracao}  horarioChave: ${horarioChave}`);
-			if (reservas[horarioChave]) {
-				horariosLivres = false;
-				break;
-			}
-		}
-		
+        for (let i = 0; i < loopDuracao; i++) {
+            const horarioChave = `${dia}_${horaSelecionada + i}`;
+            if (reservas[horarioChave]) {
+                horariosLivres = false;
+                break;
+            }
+        }
         
         if (!horariosLivres) {
-			alert('Um ou mais horários já estão reservados para essa quadra!');
-			limparCampos();
-			return;
-		} 
+            alert('Um ou mais horários já estão reservados para essa quadra!');
+            limparCampos();
+            return;
+        } 
 
-		
-
-
-       let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula'))
-    ? 'lightcoral'
-    : duracao === 1 ? 'lightgreen'
-    : duracao === 2 ? 'lightblue'
-    : duracao === 3 ? '#FFEB99'
-    : 'white'; // Cor padrão caso nenhuma das condições seja atendida
-	
-	// Exibe o valor de corFundo em um alerta
-    // alert(`Cor de fundo definida: ${corFundo}`);
+        let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula'))
+            ? 'lightcoral'
+            : duracao === 1 ? 'lightgreen'
+            : duracao === 2 ? 'lightblue'
+            : duracao === 3 ? '#FFEB99'
+            : 'white';
 
         if (duracao === 1) {
             const key = `${dia}_${horaSelecionada}`;
@@ -1725,10 +1731,10 @@ async function atualizarTabela() {
                 borda: '1h'
             };
             reservasRef.child(key).set(reservaData)
-				.catch(error => {
-					console.error("Erro ao salvar a reserva:", error);
-					isErro = true; // Marca erro
-				});
+                .catch(error => {
+                    console.error("Erro ao salvar a reserva:", error);
+                    isErro = true;
+                });
         } else if (duracao === 2 || duracao === 3) {
             if (jogadores.length === 1) {
                 tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores[0];
@@ -1773,41 +1779,35 @@ async function atualizarTabela() {
             console.log("Gravando reserva de 2 horas no banco de dados:", reservaData2, "em key:", key2);
 
             reservasRef.child(key1).set(reservaData1)
-				.catch(error => {
-					console.error("Erro ao salvar a primeira parte da reserva de 2 horas:", error);
-					isErro = true; // Marca erro
-				});
+                .catch(error => {
+                    console.error("Erro ao salvar a primeira parte da reserva de 2 horas:", error);
+                    isErro = true;
+                });
 
-			reservasRef.child(key2).set(reservaData2)
-				.catch(error => {
-					console.error("Erro ao salvar a segunda parte da reserva de 2 horas:", error);
-					isErro = true; // Marca erro
-				});
+            reservasRef.child(key2).set(reservaData2)
+                .catch(error => {
+                    console.error("Erro ao salvar a segunda parte da reserva de 2 horas:", error);
+                    isErro = true;
+                });
+        }
 
- 	   }
+        setTimeout(() => {
+            if (!isErro) {
+                if (isConvidado) { 
+                    exibirMensagemConvidado();
+                }
+                if (duracao === 3) {
+                    exibirMensagemPiramide();
+                }
+            } else {
+                alert("Ocorreu um erro ao salvar a reserva. Tente novamente.");
+            }
 
-		
-		// Aguarda um curto tempo para garantir que o Firebase processou as operações
-		setTimeout(() => {
-			if (!isErro) { // Só exibe as mensagens se NÃO houve erro
-				if (isConvidado) { 
-					exibirMensagemConvidado();
-				}
-				if (duracao === 3) {
-					exibirMensagemPiramide();
-				}
-			} else {
-				alert("Ocorreu um erro ao salvar a reserva. Tente novamente.");
-			}
-
-			selecionarQuadra(quadra);
-			limparCampos();
-		}, 500); // Pequeno atraso para garantir que as operações Firebase foram finalizadas
-		
-       
+            selecionarQuadra(quadra);
+            limparCampos();
+        }, 500);
     });
 }
-
 
 
 // Função para adicionar evento de clique nas células
@@ -1841,66 +1841,171 @@ function adicionarEventoClique() {
     }
 }
 
+
+
 // Variável global para rastrear células já excluídas
 const celulasExcluidas = new Set();
 
 function excluirReserva(horaIndex, diaIndex) {
-    const tabela = document.getElementById('tabelaCorpo');
-    const celulaId = `${horaIndex}_${diaIndex}`;
+    console.log("🔹 Iniciando processo de exclusão...");
+    
+    try {
+        // Verificação do usuário logado
+        const jogadorLogado = localStorage.getItem('jogadorLogado');
+        console.log("🔹 Jogador logado:", jogadorLogado);
 
-    // Armazenar a quadra selecionada localmente para evitar qualquer interferência
-    const quadraAtual = quadraSelecionada;
-
-    // Evita duplicidade de exclusão
-    if (celulasExcluidas.has(celulaId)) {
-        return;
-    }
-
-    // Primeira célula
-    const primeiraCelula = tabela.rows[horaIndex]?.cells[diaIndex];
-    if (!primeiraCelula) {
-        return;
-    }
-
-    const duracao = primeiraCelula.getAttribute('data-duracao');
-
-    if (duracao === "2" || duracao === "3") {
-        // Segunda célula
-        const segundaCelula = tabela.rows[horaIndex + 1]?.cells[diaIndex];
-
-        // Limpa as células
-        requestAnimationFrame(() => {
-            limparCelula(primeiraCelula);
-            limparCelula(segundaCelula);
-        });
-
-        // Restaura o rowSpan
-        if (primeiraCelula.rowSpan === 2) {
-            primeiraCelula.rowSpan = 1;
-            if (segundaCelula) segundaCelula.style.display = ''; // Torna a segunda célula visível novamente
+        if (!jogadorLogado) {
+            console.error("⛔ Erro ao identificar o jogador logado.");
+            alert("⚠️ Atenção:\n\nNão conseguimos identificar o jogador logado!\nPor favor, faça o login novamente.");
+            return;
         }
 
-        // Exclusão no Firebase, garantindo que a quadra correta seja usada
-        excluirReservaFirebase(horaIndex + 6, diaIndex, quadraAtual);
-        excluirReservaFirebase(horaIndex + 7, diaIndex, quadraAtual);
-    } 
-    else if (duracao === "1") {
-        requestAnimationFrame(() => {
-            limparCelula(primeiraCelula);
-        });
+        // Obtenção segura dos elementos da tabela
+        const tabela = document.getElementById('tabelaCorpo');
+        if (!tabela) {
+            throw new Error("Tabela não encontrada");
+        }
 
-        excluirReservaFirebase(horaIndex + 6, diaIndex, quadraAtual);
-    } 
-    else {
-        return;
+        const celulaId = `${horaIndex}_${diaIndex}`;
+        console.log("🔹 Célula alvo:", celulaId);
+
+        // Verificação de duplicação de exclusão
+        if (celulasExcluidas.has(celulaId)) {
+            console.log("⚠️ Célula já foi excluída anteriormente.");
+            return;
+        }
+
+        const quadraAtual = quadraSelecionada;
+        console.log("🔹 Quadra atual:", quadraAtual);
+
+        // Obtenção segura da célula
+        const primeiraCelula = tabela.rows[horaIndex]?.cells[diaIndex];
+        if (!primeiraCelula) {
+            console.log("⚠️ Célula inválida ou inexistente.");
+            return;
+        }
+
+        // Obtenção da duração e jogadores
+        const duracao = primeiraCelula.getAttribute('data-duracao') || "1";
+        console.log("🔹 Duração da reserva:", duracao);
+        
+        let jogadoresArray = primeiraCelula.textContent.trim().split(',')
+            .map(j => j.replace(/^\d+\s*-\s*/, '').trim().toLowerCase())
+            .filter(j => j); // Remove entradas vazias
+
+        // Tratamento para reservas de longa duração
+        if (duracao === "2" || duracao === "3") {
+            const segundaCelula = tabela.rows[horaIndex + 1]?.cells[diaIndex];
+            if (segundaCelula) {
+                const jogadoresSegundaCelula = segundaCelula.textContent.trim().split(',')
+                    .map(j => j.replace(/^\d+\s*-\s*/, '').trim().toLowerCase())
+                    .filter(j => j);
+                jogadoresArray = [...new Set([...jogadoresArray, ...jogadoresSegundaCelula])];
+            }
+        }
+
+        console.log("🔹 Jogadores na reserva:", jogadoresArray);
+
+        // Verificação de permissões
+        const apelidoJogadorLogado = Object.keys(jogadoresData).find(
+            apelido => jogadoresData[apelido].nomeCompleto.toLowerCase() === jogadorLogado.toLowerCase()
+        ) || jogadorLogado;
+
+        const tipoReserva = primeiraCelula.textContent.trim().toLowerCase();
+        console.log("🔹 Tipo de reserva identificado:", tipoReserva);
+
+        if (tipoReserva.includes("aula")) {
+            if (jogadorLogado !== "RILDO SANTOS" && jogadorLogado !== "RONALDO TABORDA") {
+                alert("⛔ Atenção:\n\nApenas o professor RILDO SANTOS ou o Administrador podem excluir reservas do tipo 'aula'.");
+                console.log("⛔ Permissão negada: apenas RILDO SANTOS ou RONALDO TABORDA podem excluir 'aula'.");
+                return;
+            }
+        } else {
+            if (jogadorLogado !== "RONALDO TABORDA" && !jogadoresArray.includes(apelidoJogadorLogado.toLowerCase())) {
+                alert("⛔ Atenção:\n\nApenas jogadores da reserva podem excluí-la!\nVocê não tem permissão para excluir esta reserva.");
+                console.log("⛔ Jogador não tem permissão para excluir esta reserva.");
+                return;
+            }
+        }
+
+        console.log("✅ Permissão concedida para excluir a reserva.");
+
+        // CORREÇÃO: Pegar a data correta da tabela
+        const tabelaPrincipal = document.getElementById('tabelaQuadra');
+        let dataReserva = 'data-desconhecida';
+        
+        if (tabelaPrincipal && tabelaPrincipal.rows[1]) {
+            // A linha 1 contém as datas (Segunda=col1, Terça=col2, etc.)
+            const linhaDatas = tabelaPrincipal.rows[1];
+            const dataTabela = linhaDatas.cells[diaIndex-1]?.textContent.trim();
+            
+            if (dataTabela) {
+                console.log("🔹 Data bruta da tabela:", dataTabela);
+                const partes = dataTabela.split('/');
+                if (partes.length === 3) {
+                    const dia = partes[0].padStart(2, '0');
+                    const mes = partes[1].padStart(2, '0');
+                    const ano = partes[2].length === 2 ? `20${partes[2]}` : partes[2];
+                    dataReserva = `${dia}-${mes}-${ano}`;
+                    console.log("✅ Data formatada corretamente:", dataReserva);
+                }
+            }
+        }
+
+        // Processo de exclusão
+        if (duracao === "2" || duracao === "3") {
+            console.log("🔹 Exclusão de reserva de 2h ou 3h.");
+            const segundaCelula = tabela.rows[horaIndex + 1]?.cells[diaIndex];
+
+            requestAnimationFrame(() => {
+                limparCelula(primeiraCelula);
+                if (segundaCelula) limparCelula(segundaCelula);
+            });
+
+            if (primeiraCelula.rowSpan === 2) {
+                primeiraCelula.rowSpan = 1;
+                if (segundaCelula) segundaCelula.style.display = '';
+            }
+
+            excluirReservaFirebase(horaIndex + 6, diaIndex, quadraAtual);
+            excluirReservaFirebase(horaIndex + 7, diaIndex, quadraAtual);
+        } 
+        else if (duracao === "1") {
+            console.log("🔹 Exclusão de reserva de 1h.");
+            requestAnimationFrame(() => {
+                limparCelula(primeiraCelula);
+            });
+            excluirReservaFirebase(horaIndex + 6, diaIndex, quadraAtual);
+        } 
+        else {
+            console.log("⚠️ Duração inválida, não será excluído.");
+            return;
+        }
+
+        // Obter o horário formatado
+        const linhaHorario = tabela.rows[horaIndex];
+        const horario = linhaHorario.querySelector('.horario')?.textContent || 'Horário não encontrado';
+
+        // Registrar a exclusão com a data correta
+        registrarExclusao(
+            quadraAtual,
+            horario,
+            jogadoresArray,
+            jogadorLogado,
+            parseInt(duracao),
+            dataReserva
+        );
+
+        celulasExcluidas.add(celulaId);
+        console.log("✅ Reserva excluída com sucesso.");
+        carregarReservas(quadraAtual);
+
+    } catch (error) {
+        console.error("❌ Erro fatal durante a exclusão:", error);
+        alert("⚠️ Ocorreu um erro inesperado durante a exclusão. Por favor, tente novamente.");
     }
-
-    // Marca a célula como excluída
-    celulasExcluidas.add(celulaId);
-
-    // Atualiza a interface para a quadra atual, sem alterar o foco
-    carregarReservas(quadraAtual);
 }
+
 
 // Função para limpar o conteúdo da célula
 function limparCelula(celula) {
@@ -2110,74 +2215,106 @@ function preencherCeldas(dataInicio, ajustes, linhaDatas) {
   }
 }
 
-function LimparDiasAnteriores() { 
-  //console.log("🟢 Iniciando LimparDiasAnteriores...");
 
-  const dataAtual = new Date();
-  dataAtual.setHours(0, 0, 0, 0);
+async function LimparDiasAnteriores() {  
+    console.log("🟢 Iniciando LimparDiasAnteriores...");
 
-  const quadras = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"];
-  const tabela = document.getElementById('tabelaCorpo');
+    const dataAtual = new Date();
+    dataAtual.setHours(0, 0, 0, 0);
+    const quadras = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"];
+    const tabela = document.getElementById('tabelaCorpo');
+    const reservasParaExcluir = []; // Array para acumular logs
 
-  quadras.forEach(quadra => {
-    //console.log(`\n🏟️ Verificando quadra: ${quadra}`);
+    // Coletar todas as reservas primeiro (NOVO)
+    for (const quadra of quadras) {
+        console.log(`\n🏟️ Verificando quadra: ${quadra}`);
 
-    for (let dia = 1; dia <= DiasParaLimpar; dia++) {
-      const dataParaLimpar = new Date(dataAtual);
-      dataParaLimpar.setDate(dataAtual.getDate() - dia);
-      const diaIndex = dataParaLimpar.getDay() || 7;
+        for (let dia = 1; dia <= DiasParaLimpar; dia++) {
+            const dataParaLimpar = new Date(dataAtual);
+            dataParaLimpar.setDate(dataAtual.getDate() - dia);
+            const diaIndex = dataParaLimpar.getDay() || 7;
 
-      //console.log(`📅 Verificando Dia ${diaIndex} (Data: ${dataParaLimpar.toLocaleDateString()})`);
+            console.log(`📅 Verificando Dia ${diaIndex} (Data: ${dataParaLimpar.toLocaleDateString()})`);
 
-      for (let hora = 6; hora <= 22; hora++) {
-        const horaIndex = hora - 6;
-        const key = `${diaIndex}_${hora}`;
+            for (let hora = 6; hora <= 22; hora++) {
+                const horaIndex = hora - 6;
+                const key = `${diaIndex}_${hora}`;
 
-        // Log antes da verificação de horários ignorados
-        //console.log(`🔍 Analisando Horário ${hora}:00 - Dia ${diaIndex}`);
+                if ((diaIndex === 6 && hora === 6) || 
+                    (diaIndex === 7 && hora >= 6 && hora < 8) || 
+                    (diaIndex === 6 && hora >= 21 && hora <= 23)) {
+                    continue; 
+                }
 
-        if ((diaIndex === 6 && hora === 6) || 
-            (diaIndex === 7 && hora >= 6 && hora < 8) || 
-            (diaIndex === 6 && hora >= 21 && hora <= 23)) {
-          //console.log(`⏭️ Ignorando horário ${hora}:00 no dia ${diaIndex}`);
-          continue; 
+                const reservaRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
+                const snapshot = await reservaRef.once('value'); // Alterado para await
+                const reserva = snapshot.val();
+
+                if (reserva && !reserva.jogadores?.toLowerCase().includes('aula')) {
+                    // Formatar dados para o log (código original adaptado)
+                    let { jogadores, duracao } = reserva;
+                    
+                    // Para reservas de 2h, buscar jogadores da segunda hora (NOVO)
+                    if (duracao === 2 || duracao === 3) {
+                        const segundaHoraRef = database.ref(`sistemas/reservas/${quadra}/${diaIndex}_${hora + 1}`);
+                        const segundaSnapshot = await segundaHoraRef.once('value');
+                        const segundaReserva = segundaSnapshot.val();
+                        if (segundaReserva?.jogadores) {
+                            jogadores = `${jogadores}, ${segundaReserva.jogadores}`;
+                        }
+                    }
+
+                    const jogadoresArray = [...new Set( // Remover duplicados
+                        jogadores.split(',')
+                            .map(j => j.trim())
+                            .filter(j => j.length > 0)
+                    )];
+
+                    const dataReserva = dataParaLimpar.toLocaleDateString('pt-BR').split('/');
+                    const dataFormatada = `${dataReserva[0].padStart(2, '0')}-${dataReserva[1].padStart(2, '0')}-${dataReserva[2]}`;
+                    
+                    const horasParaAdicionar = duracao === 3 ? 2 : duracao;
+                    const horarioFormatado = `${hora.toString().padStart(2, '0')}:00 - ${(hora + horasParaAdicionar).toString().padStart(2, '0')}:00`;
+
+                    // Adicionar ao array de logs (NOVO)
+                    reservasParaExcluir.push({
+                        exclusao: new Date().toLocaleString('pt-BR', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }).replace(',', ''),
+                        quadra,
+                        data: dataFormatada,
+                        horario: horarioFormatado,
+                        duracao: duracao === 3 ? "2 Horas (Pirâmide)" : duracao === 2 ? "2 Horas" : "1 Hora",
+                        jogadores: jogadoresArray,
+                        usuario: "SISTEMA"
+                    });
+
+                    // Código original de remoção mantido
+                    await reservaRef.remove();
+                    console.log(`✅ Reserva removida: ${key}`);
+
+                    // Remover segunda hora se for reserva de 2h (NOVO)
+                    if (duracao === 2 || duracao === 3) {
+                        await database.ref(`sistemas/reservas/${quadra}/${diaIndex}_${hora + 1}`).remove();
+                        console.log(`✅ Reserva removida: ${diaIndex}_${hora + 1}`);
+                    }
+                }
+            }
         }
-
-        //console.log(`📡 Buscando reserva: Quadra ${quadra}, Dia ${diaIndex}, Hora ${hora}`);
-
-        const reservaRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
-        reservaRef.once('value', (snapshot) => {
-          const reserva = snapshot.val();
-
-          if (reserva) {
-            const { jogadores } = reserva;
-            //console.log(`✅ Reserva encontrada: ${jogadores} | Hora: ${hora}`);
-
-            if (jogadores && (jogadores.toLowerCase().includes('aula'))) {
-              //console.log("🟡 Ignorando 'Aula' no horário", hora);
-              return;
-            }
-
-            const celula = tabela.rows[horaIndex]?.cells[diaIndex];
-            if (celula) {
-              //console.log(`🧹 Limpando célula na interface: Dia ${diaIndex}, Hora ${hora}`);
-              limparCelula(celula);
-            }
-
-            //console.log(`❌ Excluindo do Firebase: ${key} (Quadra: ${quadra})`);
-            reservaRef.remove()
-              .then(() => console.log(`✅ Reserva removida: ${key}`))
-              .catch(error => console.error("🚨 Erro ao remover reserva:", error));
-          } else {
-            //console.log(`⚪ Nenhuma reserva encontrada para Dia ${diaIndex}, Hora ${hora}`);
-          }
-        }, (error) => console.error("🚨 Erro ao acessar reserva:", error));
-      }
     }
-  });
+
+    // Registrar todos os logs em uma única operação (NOVO)
+    if (reservasParaExcluir.length > 0) {
+        await registrarExclusao(reservasParaExcluir);
+        console.log(`📊 Total de reservas removidas: ${reservasParaExcluir.length}`);
+    } else {
+        console.log("ℹ️ Nenhuma reserva antiga para remover");
+    }
 }
-
-
 
 
 // Variável global para armazenar os dados dos jogadores
@@ -2188,68 +2325,59 @@ let jogadoresListener = null;
 
 function carregarJogadores(jogadorLogado) {
     return new Promise((resolve, reject) => {
-        console.log("🔄 Iniciando carregamento dos jogadores...");
-
         const jogadoresRef = database.ref("sistemas/cadastro/jogadores");
-        const duracao = document.getElementById('duracao')?.value || ""; // Captura a duração selecionada
+        const duracao = document.getElementById('duracao')?.value || "";
 
-        // Remove o listener anterior, se existir
         if (jogadoresListener) {
             jogadoresRef.off('value', jogadoresListener);
         }
 
-        // Adiciona um novo listener para atualizações em tempo real
         jogadoresListener = jogadoresRef.on('value', (snapshot) => {
             const jogadores = snapshot.val();
-            console.log("📥 Dados recebidos do Firebase:", jogadores);
 
             if (!jogadores) {
-                console.warn("⚠️ Nenhum jogador encontrado no banco de dados.");
                 resolve();
                 return;
             }
 
-            // Limpa o objeto global antes de carregar novos dados
             jogadoresData = {};
 
-            // Preenche o objeto global com os dados dos jogadores
+            // Preenche apenas os selects que existem
+            const selectsToFill = [];
+            
+            // Sempre preenche o jogador1
+            selectsToFill.push("jogador1");
+            
+            // Adiciona seletor de login se necessário
+            if (!jogadorLogado && document.getElementById("jogadorSelect")) {
+                selectsToFill.push("jogadorSelect");
+            }
+
+            // Processa os jogadores
             Object.keys(jogadores).forEach((nome) => {
                 const jogador = jogadores[nome];
                 const apelido = jogador.apelido;
-                const piramide = jogador.piramide || "0"; // Garante um valor padrão
+                const piramide = jogador.piramide || "0";
 
-                // Armazena os dados do jogador no objeto global
                 jogadoresData[apelido] = {
                     nomeCompleto: nome,
                     piramide: piramide
                 };
             });
 
-            console.log("✅ Dados dos jogadores carregados e armazenados:", jogadoresData);
-
-            // Lista de IDs dos selects que devem ser preenchidos
-            let idsSelects = ["jogador1", "jogador2", "jogador3", "jogador4"]; // Apenas tela de entrada de dados
-
-            if (!jogadorLogado) {
-                // Se não estiver logado, também carrega jogadores na tela de login
-                idsSelects.push("jogadorSelect");
-            }
-
-            idsSelects.forEach(id => {
+            // Preenche os selects
+            selectsToFill.forEach(id => {
                 const select = document.getElementById(id);
                 if (select) {
-                    select.innerHTML = '<option value="">Selecione um jogador</option>'; // Reseta as opções
+                    select.innerHTML = '<option value="">Selecione um jogador</option>';
 
                     Object.keys(jogadores).forEach((nome) => {
-					
-					    const jogador = jogadores[nome];
+                        const jogador = jogadores[nome];
                         const apelido = jogador.apelido;
-                        const piramide = jogador.piramide || "0"; // Garante um valor padrão
+                        const piramide = jogador.piramide || "0";
 
-                        // 🔍 **Filtra jogadores conforme a opção de duração**
                         if (duracao === "3-piramide" && (piramide < 1 || piramide > 99)) {
-                            console.log(`⏩ Ignorando jogador (fora da pirâmide): ${nome}`);
-                            return; // Pula jogadores que não participam da pirâmide
+                            return;
                         }
 
                         const option = document.createElement('option');
@@ -2257,19 +2385,15 @@ function carregarJogadores(jogadorLogado) {
                         option.textContent = nome;
                         select.appendChild(option);
                     });
-                } else {
-                    console.warn(`⚠️ Campo de seleção não encontrado: ${id}`);
                 }
             });
 
             resolve();
         }, (error) => {
-            console.error("❌ Erro ao carregar jogadores:", error);
             reject(error);
         });
     });
 }
-
 
 
 // Chame a função para carregar os jogadores ao carregar a página
@@ -2290,7 +2414,7 @@ window.onload = function () {
 		
 		//desmarccar esse trecho para canccelar o login do usuario
 		
-		jogadorLogado = 'LOGADO'; 
+		  //jogadorLogado = 'LOGADO'; 
 		
 		// ***********************************************
 		
@@ -2430,44 +2554,64 @@ document.addEventListener('DOMContentLoaded', () => {
 function fazerLogin() {
     let jogadorSelect = document.getElementById('jogadorSelect');
     let jogadorSelecionado = jogadorSelect.value; // Apelido selecionado
+    let senhaInput = document.getElementById("senha");
+    let senhaDigitada = senhaInput.value;
     let loginScreen = document.getElementById('loginScreen');
     let contentElement = document.getElementById('content');
 
-    if (jogadorSelecionado) {
-        // Busca o nome completo do jogador com base no apelido selecionado
-        const jogadoresRef = database.ref("sistemas/cadastro/jogadores");
-        jogadoresRef.once('value', (snapshot) => {
-            const jogadores = snapshot.val();
-            let nomeCompleto = '';
+    if (!jogadorSelecionado || !senhaDigitada) {
+        alert("Por favor, selecione um jogador e digite a senha.");
+        return;
+    }
 
-            // Encontra o nome completo correspondente ao apelido selecionado
-            Object.keys(jogadores).forEach((nome) => {
-                if (jogadores[nome].apelido === jogadorSelecionado) {
-                    nomeCompleto = nome; // Armazena o nome completo
-                }
-            });
+    // Busca o nome completo do jogador com base no apelido selecionado
+    const jogadoresRef = database.ref("sistemas/cadastro/jogadores");
+    jogadoresRef.once('value', (snapshot) => {
+        const jogadores = snapshot.val();
+        let nomeCompleto = '';
+        let dataNascimento = '';
 
-            if (nomeCompleto) {
-                // Exibe o nome completo do jogador na mensagem de confirmação
-                const confirmacao = confirm(`Você selecionou o jogador: ${nomeCompleto}. Deseja continuar?`);
-
-                if (confirmacao) {
-                    // Grava o nome completo no localStorage
-                    localStorage.setItem('jogadorLogado', nomeCompleto); // Salva o nome completo
-                    loginScreen.style.display = 'none';
-                    contentElement.style.display = 'block';
-                } else {
-                    // Se o usuário cancelar, limpa a seleção
-                    jogadorSelect.value = '';
-                }
-            } else {
-                alert("Jogador não encontrado.");
+        // Encontra o nome completo e a data de nascimento correspondente ao apelido selecionado
+        Object.keys(jogadores).forEach((nome) => {
+            if (jogadores[nome].apelido === jogadorSelecionado) {
+                nomeCompleto = nome; // Nome completo
+                dataNascimento = jogadores[nome].niver ? jogadores[nome].niver.replace(/\//g, "") : ""; // Formato ddmmyyyy
             }
         });
-    } else {
-        alert("Selecione um jogador válido."); 
-    }
+
+        if (!nomeCompleto) {
+            alert("Jogador não encontrado.");
+            return;
+        }
+
+        // Verifica se a senha digitada corresponde à data de nascimento
+        if (senhaDigitada !== dataNascimento) {
+            alert("🔒 Senha inválida! \nTente novamente ou entre em contato com o administrador.\nRonaldo Taborda.");
+            senhaInput.value = ""; // Limpa o campo senha
+            return;
+        }
+
+        // Exibe o nome completo do jogador na mensagem de confirmação
+        const confirmacao = confirm(`Você selecionou o jogador: ${nomeCompleto}. Deseja continuar?`);
+
+        if (confirmacao) {
+            // Grava o nome completo no localStorage
+            localStorage.setItem('jogadorLogado', nomeCompleto); // Salva o nome completo
+            loginScreen.style.display = 'none';
+            contentElement.style.display = 'block';
+        } else {
+            // Se o usuário cancelar, limpa os campos jogador e senha
+            jogadorSelect.value = '';
+            senhaInput.value = '';
+        }
+    }).catch(error => {
+        console.error("Erro ao acessar o banco de dados:", error);
+        alert("Erro ao acessar o banco de dados. Tente novamente mais tarde.");
+    });
 }
+
+
+
 
 
  function confirmarLogout() {
@@ -2532,11 +2676,162 @@ function exibirMensagemConvidado() {
 }
 
 function exibirMensagemPiramide() {
-    const mensagem = `Reserva Pirâmide efetuada com sucesso!\n\n⚠️ Atenção!\n\n📢 Informar no grupo Data, horário e jogadores.\n💰 Valor da taxa: R$ 5,00 por jogador.\n📌 O pagamento deve ser realizado no PIX do Edemar:\n   - Chave: tedemar@hotmail.com\n   - CPF: 33359210972`;
+    const mensagem = `Reserva Pirâmide efetuada com sucesso!\n\n⚠️ Atenção!\n\n📢 Informar no grupo Data, horário e jogadores.\n💰 Valor da taxa: R$ 5,00 por jogador.\n📌 O pagamento deve ser realizado no PIX do Edemar:\n   - Chave: tedemar@hotmail.com\n`;
     alert(mensagem);
 }
 
 
+
+// Função simplificada de log
+async function registrarExclusao(quadra, horario, jogadores, usuario, duracao, dataReserva) {
+  // 1. Compatibilidade com o processamento em lote (NOVO)
+  if (Array.isArray(quadra)) {
+    return registrarExclusaoEmLote(quadra); // quadra contém o array de logs
+  }
+
+  // 2. CÓDIGO ORIGINAL TOTALMENTE PRESERVADO (início)
+  const token = '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';
+  const usuarioGit = 'clube-olimpico';
+  const repo = 'Reservas';
+  const caminhoArquivo = 'logs/reservas-excluidas.json';
+  const url = `https://api.github.com/repos/${usuarioGit}/${repo}/contents/${caminhoArquivo}`;
+
+  try {
+    // Obter o arquivo atual
+    let response = await fetch(url, {
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erro ao buscar arquivo: ${response.status}`);
+    }
+
+    let fileData = await response.json();
+    let logs = [];
+    let sha = fileData.sha;
+
+    // Decodificar conteúdo existente
+    if (fileData.content) {
+      try {
+        logs = JSON.parse(atob(fileData.content.replace(/\s/g, ''))) || [];
+      } catch (e) {
+        console.warn('Falha ao decodificar logs existentes, iniciando novo', e);
+      }
+    }
+
+    // Adicionar novo registro
+    logs.push({
+      exclusao: new Date().toLocaleString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }).replace(',', ''),
+      quadra: quadra,
+      data: dataReserva,
+      horario: horario,
+      duracao: duracao === 3 ? "2 Horas (Pirâmide)" : duracao === 2 ? "2 Horas" : "1 Hora",
+      jogadores: jogadores,
+      usuario: usuario || 'SISTEMA'
+    });
+
+    // Enviar atualização
+    response = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: `Exclusão registrada: ${quadra} - ${dataReserva} ${horario}`,
+        content: btoa(JSON.stringify(logs, null, 2)),
+        sha: sha
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Falha no upload: ${response.status}`);
+    }
+
+    console.log('✅ Log registrado com sucesso');
+  } catch (erro) {
+    console.error('❌ Erro ao salvar log:', erro);
+    // Fallback local (original mantido)
+    const logsFallback = JSON.parse(localStorage.getItem('logs_fallback') || '[]');
+    logsFallback.push({
+      exclusao: new Date().toLocaleString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }).replace(',', ''),
+      quadra: quadra,
+      data: dataReserva,
+      horario: horario,
+      duracao: duracao === 3 ? "2 Horas (Pirâmide)" : duracao === 2 ? "2 Horas" : "1 Hora",
+      jogadores: jogadores,
+      usuario: usuario || 'SISTEMA'
+    });
+    localStorage.setItem('logs_fallback', JSON.stringify(logsFallback));
+  }
+  // FIM DO CÓDIGO ORIGINAL
+}
+
+// Função adicional (NOVA) - não substitui nada, apenas complementa
+async function registrarExclusaoEmLote(logs) {
+  const token = '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';
+  const usuarioGit = 'clube-olimpico';
+  const repo = 'Reservas';
+  const caminhoArquivo = 'logs/reservas-excluidas.json';
+  const url = `https://api.github.com/repos/${usuarioGit}/${repo}/contents/${caminhoArquivo}`;
+
+  try {
+    // Obter versão atual do arquivo
+    let response = await fetch(url, {
+      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    
+    if (!response.ok) throw new Error(`Erro ao buscar arquivo: ${response.status}`);
+    
+    const fileData = await response.json();
+    let logsExistentes = [];
+    if (fileData.content) {
+      try {
+        logsExistentes = JSON.parse(atob(fileData.content.replace(/\s/g, ''))) || [];
+      } catch (e) {
+        console.warn('Falha ao decodificar logs existentes', e);
+      }
+    }
+
+    // Combinar com os novos logs
+    const todosLogs = [...logsExistentes, ...logs];
+
+    // Enviar atualização
+    response = await fetch(url, {
+      method: 'PUT',
+      headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: `Exclusões em lote: ${logs.length} reservas`,
+        content: btoa(JSON.stringify(todosLogs, null, 2)),
+        sha: fileData.sha
+      })
+    });
+
+    if (!response.ok) throw new Error(`Falha no upload: ${response.status}`);
+    console.log(`✅ ${logs.length} logs registrados em lote`);
+  } catch (erro) {
+    console.error('❌ Erro ao salvar logs em lote:', erro);
+    // Fallback para localStorage
+    const logsFallback = JSON.parse(localStorage.getItem('logs_fallback') || '[]');
+    logs.forEach(log => logsFallback.push(log));
+    localStorage.setItem('logs_fallback', JSON.stringify(logsFallback));
+  }
+}
 
 </script>
 
