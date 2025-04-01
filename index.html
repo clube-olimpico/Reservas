@@ -477,7 +477,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.1.2'; // Versão atual do sistema 
+const VersaoSistema = 'v1.1.3'; // Versão atual do sistema 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
 
@@ -2328,7 +2328,7 @@ async function LimparDiasAnteriores() {
                         quadra,
                         data: dataFormatada,
                         horario: horarioFormatado,
-                        duracao: duracao === 3 ? "2 Horas (Pirâmide)" : duracao === 2 ? "2 Horas" : "1 Hora",
+                        duracao: duracao === 3 ? "2 Horas - Pirâmide" : duracao === 2 ? "2 Horas" : "1 Hora",
                         jogadores: jogadoresArray,
                         usuario: "SISTEMA"
                     });
@@ -2774,7 +2774,7 @@ async function registrarExclusao(quadra, horario, jogadores, usuario, duracao, d
       quadra: quadra,
       data: dataReserva,
       horario: horario,
-      duracao: duracao === 3 ? "2 Horas (Pirâmide)" : duracao === 2 ? "2 Horas" : "1 Hora",
+      duracao: duracao === 3 ? "2 Horas - Pirâmide" : duracao === 2 ? "2 Horas" : "1 Hora",
       jogadores: jogadores,
       usuario: usuario || 'SISTEMA'
     });
