@@ -191,10 +191,12 @@
 				let date = new Date(dataFormatada);
 				let formattedDate = isNaN(date) ? 'Data inválida' : date.toLocaleString();
 
-				// Formata a duração para exibição amigável
-				let duracaoDisplay = log.duracao === "2 Horas (PirÃ¢mide)" 
-								  ? "2 Horas - Pirâmide" 
-								  : log.duracao;
+				let duracaoDisplay = log.duracao;
+				if (duracaoDisplay &&
+					duracaoDisplay.includes("2 Horas") &&
+					duracaoDisplay.toLowerCase().includes("mide")) {
+					duracaoDisplay = "2 Horas - Pirâmide";
+				}
 
 				logsContainer.innerHTML += `
 					<div class="log-entry">
@@ -203,11 +205,13 @@
 						<p>${log.quadra} | ${log.horario}</p>
 						<p>Duração: ${duracaoDisplay || 'N/A'}</p>
 						<p>Jogadores: ${log.jogadores.join(', ')}</p>
-						<p>Excluído por: ${log.usuario || 'N/A'}</p>
+						<p>Excluído por: <strong>${log.usuario || 'N/A'}</strong></p>
 						<hr>
 					</div>`;
 			});
 		}
+
+
 
         function filtrarLogs() {
 			const quadra = document.getElementById('quadra').value.trim();
@@ -221,17 +225,18 @@
 				const condQuadra = quadra === "" || quadra.toLowerCase() === "todas" || log.quadra === quadra;
 				const condData = !data || log.data === data.split('-').reverse().join('-');
 				const condJogador = !jogador || log.jogadores.some(j => j.toLowerCase().includes(jogador));
-				
-				// Condição específica para "Pirâmide"
+
 				let condDuracao = true;
 				if (duracao === "2 Horas - Pirâmide") {
-					condDuracao = log.duracao && 
-								 (log.duracao.includes("2 Horas") && 
-								  (log.duracao.includes("Pirâmide") || 
-								   log.duracao.includes("PirÃ¢mide")));
-				} 
-				// Para outras durações
-				else if (duracao) {
+					condDuracao = log.duracao &&
+						log.duracao.includes("2 Horas") &&
+						log.duracao.toLowerCase().includes("mide") &&
+						!log.duracao.includes("1 Hora"); // Exclui "1 Hora"
+				} else if (duracao === "2 Horas") {
+					condDuracao = log.duracao === "2 Horas" && !log.duracao.includes("Pirâmide");
+				} else if (duracao === "1 Hora") {
+					condDuracao = log.duracao === duracao;
+				} else if (duracao) {
 					condDuracao = log.duracao === duracao;
 				}
 
