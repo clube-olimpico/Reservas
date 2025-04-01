@@ -477,9 +477,9 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.1.1'; // Versão atual do sistema 
-let vDesabilitarF12 = false; // deixar false para fazer o deloy
-let vAbrirSistema = false; // deixar false para fazer o deloy
+const VersaoSistema = 'v1.1.2'; // Versão atual do sistema 
+let vDesabilitarF12 = true; // deixar true para fazer o deploy
+let vAbrirSistema = true; // deixar true para fazer o deploy
 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
@@ -2011,19 +2011,30 @@ function excluirReserva(horaIndex, diaIndex) {
             return;
         }
 
-        // Obter o horário formatado
-        const linhaHorario = tabela.rows[horaIndex];
-        const horario = linhaHorario.querySelector('.horario')?.textContent || 'Horário não encontrado';
+        // Obter o horário inicial corretamente
+const horarioTexto = tabela.rows[horaIndex]?.querySelector('.horario')?.textContent.trim();
+const horaInicial = parseInt(horarioTexto.split(':')[0], 10); // Extrai a hora corretamente
 
-        // Registrar a exclusão com a data correta
-        registrarExclusao(
-            quadraAtual,
-            horario,
-            jogadoresArray,
-            jogadorLogado,
-            parseInt(duracao),
-            dataReserva
-        );
+// Garantir que a duração seja numérica e aplicar a lógica correta
+const duracaoNumerica = parseInt(duracao, 10);
+const horasParaAdicionar = duracaoNumerica >= 2 ? 2 : 1; // Se for 2 ou mais, adiciona 2 horas; se for 1, adiciona 1 hora
+
+// Calcular o horário final corretamente
+const horaFinal = horaInicial + horasParaAdicionar;
+
+// Formatar corretamente o horário
+const horarioFormatado = `${horaInicial.toString().padStart(2, '0')}:00 - ${horaFinal.toString().padStart(2, '0')}:00`;
+
+// Registrar a exclusão com a data correta
+registrarExclusao(
+    quadraAtual,
+    horarioFormatado,
+    jogadoresArray,
+    jogadorLogado,
+    duracaoNumerica, // Garantindo que a duração é numérica
+    dataReserva
+);
+
 
         celulasExcluidas.add(celulaId);
         console.log("✅ Reserva excluída com sucesso.");
