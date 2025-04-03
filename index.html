@@ -477,7 +477,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.1.4'; // Versão atual do sistema 
+const VersaoSistema = 'v1.1.5'; // Versão atual do sistema 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
 
@@ -1275,39 +1275,44 @@ function validarDiaReserva(jogadores) {
         }
 
         console.log("Todas as regras da Pirâmide foram validadas com sucesso.");
-    } else {
+    } 
+	
         console.log("Modo padrão detectado. Aplicando regras normais de reserva.");
+	
+	//alert('entrei na validaçao');
+    
+    const diasParaLimpar = window.DiasParaLimpar;
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
 
-        const diasParaLimpar = window.DiasParaLimpar;
-        const hoje = new Date();
-        hoje.setHours(0, 0, 0, 0);
-
-        let maxDiasPermitidos;
-        switch (diasParaLimpar) {
-            case 1: maxDiasPermitidos = 5; break;
-            case 2: maxDiasPermitidos = 4; break;
-            case 3: maxDiasPermitidos = 3; break;
-            case 4: maxDiasPermitidos = 2; break;
-            case 5: maxDiasPermitidos = 1; break;
-            case 6: maxDiasPermitidos = 0; break;
-            default: alert("Erro: Configuração inválida de DiasParaLimpar."); return false;
-        }
-
-        const ultimoDiaPermitido = new Date(hoje);
-        ultimoDiaPermitido.setDate(hoje.getDate() + maxDiasPermitidos);
-
-        const diferencaDias = (diaSelecionado - hoje.getDay() + 7) % 7;
-        const dataSelecionada = new Date(hoje);
-        dataSelecionada.setDate(hoje.getDate() + diferencaDias);
-
-        if (dataSelecionada > ultimoDiaPermitido || dataSelecionada < hoje) {
-            alert(gerarMensagemErro(diasParaLimpar));
+    let maxDiasPermitidos;
+    switch (diasParaLimpar) {
+        case 1: maxDiasPermitidos = 5; break;
+        case 2: maxDiasPermitidos = 4; break;
+        case 3: maxDiasPermitidos = 3; break;
+        case 4: maxDiasPermitidos = 2; break;
+        case 5: maxDiasPermitidos = 1; break;
+        case 6: maxDiasPermitidos = 0; break;
+        default:
+            alert("Erro: Configuração inválida de DiasParaLimpar.");
             return false;
-        }
+    }
+
+    const ultimoDiaPermitido = new Date(hoje);
+    ultimoDiaPermitido.setDate(hoje.getDate() + maxDiasPermitidos);
+
+    const diferencaDias = (diaSelecionado - hoje.getDay() + 7) % 7;
+    const dataSelecionada = new Date(hoje);
+    dataSelecionada.setDate(hoje.getDate() + diferencaDias);
+
+    if (dataSelecionada > ultimoDiaPermitido || dataSelecionada < hoje) {
+        alert(gerarMensagemErro(diasParaLimpar));
+        return false;
     }
 
     return true;
 }
+
 
 
 async function validarSeTemReserva(jogadores) {
@@ -1740,6 +1745,9 @@ async function atualizarTabela() {
             limparCampos();
             return;
         } 
+		
+		//alert('gravou');
+		//return;
 
         let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula'))
             ? 'lightcoral'
