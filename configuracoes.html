@@ -10,72 +10,175 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 
 <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 10px;
-            display: flex;
-            font-size: 18px;
-            justify-content: center;
-            align-items: flex-start; 
-            min-height: 100vh;
-            margin: 0;
-            overflow-y: auto;
-            box-sizing: border-box;
-        }
-        .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            gap: 10px;
-        }
-		
-		/* Ajustes específicos para os contêineres das quadras */
-.quadra-container {
-    margin-bottom: 5px; /* Reduz o espaçamento vertical entre as quadras */
-    gap: 10px; /* Reduz o espaçamento entre o label e o campo de entrada */
+body {
+    font-family: Arial, sans-serif;  
+    padding: 10px;
+    display: flex;
+    font-size: 18px;
+    justify-content: center;
+    align-items: flex-start; 
+    min-height: 100vh;
+    margin: 0;
+    overflow-y: auto;
+    box-sizing: border-box; 
 }
 
- .form-container {
+.container {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between;   Remova esta linha */
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.container label[for="Sistema"] {
+    width: auto; /* Deixa o label ocupar o espaço necessário */
+    margin-right: 10px; /* Espaçamento entre o label e o select */
+    font-weight: bold;
+    display: inline-block; /* Importante para o alinhamento */
+    text-align: left; /* Alinha o texto à esquerda */
+    min-width: 100px; /* Define uma largura mínima para o label */
+}
+
+#sistema {
+    font-weight: bold;
+}
+
+/* Configuração de vDomingo */
+.container label[for="vDomingo"] {
+    width: auto    
+	margin-right: 100px;
+    font-weight: bold;
+    display: inline-block;
+    text-align: left;
+    min-width: 180px; /* Ajuste a largura mínima conforme necessário */
+}
+
+#vDomingo {
+    flex: 1;
+    padding: 5px;
+    box-sizing: border-box;
+    width: 95px;
+}
+
+/* Configuração de DiasParaAgendar */
+.container label[for="diasParaAgendar"] {
+    width: auto;
+    margin-right: 17px;
+    font-weight: bold;
+    display: inline-block;
+    text-align: left;
+    min-width: 185px; /* Ajuste a largura mínima conforme necessário */
+}
+
+#diasParaAgendar {
+    flex: 1;
+    padding: 5px;
+    box-sizing: border-box;
+    width: 95px;
+    min-width: 10px; /* Ajuste a largura mínima conforme necessário */
+}
+
+/* Modificação para centralizar o item "Ativa" */
+#piramide .piramide-ativa-container {
+    justify-content: center;
+	width: auto; /* Deixe o label se ajustar ao conteúdo */
+}
+
+#piramide .piramide-ativa-container label {
+    width: auto; /* Deixe o label se ajustar ao conteúdo */
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+#piramide .piramide-ativa-container select {
+    width: 80px; /* Defina uma largura fixa para o select */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+	max-width: 4px; /* Mantenha a largura máxima */
+}
+
+/* Estilos para o container dos botões (ESPECÍFICO PARA A ABA PIRÂMIDE) */
+#piramide .piramide-botoes-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 400px; /* Mantenha a largura máxima */
+    width: 90%;
+    margin: 0 auto;
+	
+}
+
+/* Estilos para os botões (ESPECÍFICO PARA A ABA PIRÂMIDE) */
+#piramide .piramide-botao {
+    flex: 1;
+    margin: 0 5px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#piramide .piramide-botao:first-child {
+    margin-left: 0;
+}
+
+#piramide .piramide-botao:last-child {
+    margin-right: 0;
+}
+
+/* Ajustes específicos para os contêineres das quadras */
+.quadra-container {
+    margin-bottom: 5px;
+    gap: 10px;
+	
+}
+
+/* Estilo do container do formulário */
+        .form-container {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    width: 400px; /* Largura fixa */
+    text-align: center;
+    margin: 10px auto; /* Centraliza e adiciona margem */
+}
+
+.title-container {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    text-align: left;
-    max-width: 95%;
-    min-width: 95%; /* Garante que não diminua */
-    max-height: 90vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    box-sizing: border-box;
-    width: 100%;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.title-container span {
+    font-family: 'Arial', sans-serif; /* Ajusta a fonte */
+    font-size: 1.3em; /* Ajusta o tamanho da fonte */
+    font-weight: bold; /* Mantém o negrito */
+    line-height: 1.0em; /* Aumenta o espaçamento vertical entre as linhas */
+    letter-spacing: 3px; /* Aumenta o espaçamento entre as letras */
+    text-align: center; /* Centraliza o texto */
 }
 
 
-        .title-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            margin-bottom: -10px;
-        }
-        .title-container span {
-            font-size: 1.4em;
-            font-weight: bold;
-            line-height: 1.3em;
-        }
-        label {
-            font-weight: bold;
-            width: 200px;
-            white-space: nowrap;
-            text-align: left;
-        }
-        select {
-            flex: 1;
-            padding: 5px;
-        }
+label {
+    font-weight: bold;
+    width: 200px;
+    white-space: nowrap;
+    text-align: left;
+    display: inline-block; /* Alinhar labels e inputs */
+}
+
+select {
+    flex: 1;
+    padding: 5px;
+    box-sizing: border-box; /* Incluir padding na largura */
+    width: auto; /* Deixe o select se ajustar ao conteúdo */
+    min-width: 80px; /* Largura mínima para selects */
+}
+
 button {
-    margin-top: 15px;
-    margin-bottom: -15px;
+    margin-top: auto;
+    margin-bottom: 20px;
     padding: 10px;
     font-size: 17px;
     background-color: #4CAF50;
@@ -83,34 +186,30 @@ button {
     border: none;
     cursor: pointer;
     width: 250px;
-    max-width: 100%;
+    max-width: 90%;
     align-self: center;
     display: block;
-
-    /* Adicionado para fixar o botão */
-    position: fixed;
-    bottom: 20px; /* Distância do botão em relação ao fundo da tela */
-    left: 50%; /* Centraliza horizontalmente */
-    transform: translateX(-50%); /* Ajusta a centralização */
-    z-index: 1000; /* Garante que o botão fique acima de outros elementos */
 }
-        button:hover {
-            background-color: #45a049;
-        }
-        #sistema {
-            font-weight: bold;
-        }
-        #sistema.on {
-            color: white;
-            background-color: green;
-        }
-        #sistema.off {
-            color: white;
-            background-color: red;
-        }
-		
-      
-	  #piramideAtiva {
+
+button:hover {
+    background-color: #45a049;
+}
+
+#sistema {
+    font-weight: bold;
+}
+
+#sistema.on {
+    color: white;
+    background-color: green;
+}
+
+#sistema.off {
+    color: white;
+    background-color: red;
+}
+
+#piramideAtiva {
     font-weight: bold;
 }
 
@@ -122,182 +221,316 @@ button {
     color: red;
 }
 
+#loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    text-align: center;
+    z-index: 1000;
+}
 
-		
-        #loading {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2rem;
-            text-align: center;
-            z-index: 1000;
-        }
-        #content {
-            display: none;
-        }
-		.hr-line {
-			border: 0;
-			height: 6px;
-			background: linear-gradient(to bottom, #cccccc, #dddddd, #eeeeee, #ffffff); /* De cinza claro ao branco */
-			width: 100%;
-			max-width: 99%;
-			margin: 10px auto; 
-		}
-		
+#content {
+    display: none;
+}
+
+.hr-line {
+    border: 0;
+    height: 6px;
+    background: linear-gradient(to bottom, #cccccc, #dddddd, #eeeeee, #ffffff);
+    width: 90%;
+    max-width: 99%;
+    margin: 10px auto;
+}
+
 /* Ajustes para a seção de convidados */
 .convidados-container {
-    margin-top: 20px; /* Aumenta o espaço entre a Quadra 3 e a seção de convidados */
+    margin-top: 20px;
 }
-.convidados-container, .convidados-quadras, .convidados-dias, .convidados-options {
+
+.convidados-container,
+.convidados-quadras,
+.convidados-dias,
+.convidados-options {
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden; /* Garante que não haja rolagem horizontal */
+    overflow-x: hidden;
     box-sizing: border-box;
-    padding: 0 10px; /* Mantém um espaçamento interno controlado */
+    padding: 0 10px;
 }
 
 .convidados-options label {
     display: flex;
     align-items: center;
-    white-space: nowrap; /* Mantém os textos organizados */
+    white-space: nowrap;
     width: 100%;
 }
+
 #convidados {
-    overflow-x: hidden !important; /* Remove qualquer rolagem horizontal */
+    overflow-x: hidden !important;
     max-width: 100% !important;
     width: 100%;
 }
+
 body.convidados-ativo {
     overflow-x: hidden !important;
 }
 
+/* Ajustes para a seção de piramide */
 
-/* Ajustes específicos para o campo "Exceto 17:00 - 19:00" */
-#piramideExceto17_19 {
-    margin-left: 20px; /* Ajusta o espaçamento à esquerda do checkbox */
-}
-
-/* Ajustes para o texto do label associado ao checkbox */
-label[for="piramideExceto17_19"] {
-    font-weight: bold; /* Deixa o texto em negrito */
-    color: #ff0000; /* Muda a cor do texto (opcional) */
-    
+.piramde-container {
+    margin-top: 20px;
 }
 
-/* Ajustes para o checkbox */
-#piramideExceto17_19 {
-    margin-right: 10px; /* Ajusta o espaçamento entre o checkbox e o texto */
+.piramde-container,
+.piramde-quadras,
+.piramde-dias,
+.piramde-options {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    padding: 0 10px;
 }
 
-/* Ajustes específicos para o campo de sabado "Exceto 7:00 - 12:00" */
-#piramideExceto7_12 {
-    margin-left: 20px; /* Ajusta o espaçamento à esquerda */
-}
-/* Ajustes para o texto do label associado ao checkbox */
-label[for="piramideExceto7_12"] {
-    font-weight: bold; /* Deixa o texto em negrito */
-    color: #ff0000; /* Muda a cor do texto (opcional) */
-}
-/* Ajustes para o checkbox */
-#piramideExceto7_12 {
-    margin-right: 10px; /* Ajusta o espaçamento entre o checkbox e o texto */
+.piramde-options label {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    width: 100%;
+	
 }
 
-/* Ajustes específicos para o campo Domingo "Exceto 8:00 - 12:00" */
-#piramideExceto8_12 {
-    margin-left: 20px; /* Ajusta o espaçamento à esquerda */
+#piramde {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+    width: 100%;
 }
-/* Ajustes para o texto do label associado ao checkbox */
-label[for="piramideExceto8_12"] {
-    font-weight: bold; /* Deixa o texto em negrito */
-    color: #ff0000; /* Muda a cor do texto (opcional) */
+
+body.piramde-ativo {
+    overflow-x: hidden !important;
 }
-/* Ajustes para o checkbox */
-#piramideExceto8_12 {
-    margin-right: 10px; /* Ajusta o espaçamento entre o checkbox e o texto */
+
+
+.centraliza-checkbox {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    width: 100%; /* Ocupa toda a largura disponível */
+	margin-top: 10px;
+}
+
+#piramideQuadra1 {
+    margin-right: 7px;
+}
+#piramideQuadra2 {
+    margin-right: 7px;
+}
+#piramideQuadra3 {
+    margin-right: 7px;
+}
+
+
+#PiramideDiasQuadra1 {
+    margin-left: 7px;
+}
+#PiramideDiasQuadra2 {
+    margin-left: 7px;
+}
+#PiramideDiasQuadra3 {
+    margin-left: 7px;
 }
 
 
 
 /* Ajustes para dispositivos móveis */
 @media (max-width: 768px) {
-
-.form-container {
-    
-    overflow-y: hidden;
-   
-}
-
-    select {
-        
-        width: 100%; /* Faz o campo de entrada ocupar toda a largura disponível */
-        max-width: 100%; /* Garante que não ultrapasse a largura da tela */
-        box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+    .form-container {
+        width: 90%;
+        padding: 10px;
+        margin: 10px auto;
+        box-sizing: border-box;
     }
 
-    .convidados-container,
+    select {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+	
+	.convidados-container,
     .convidados-quadras,
     .convidados-dias {
-        padding-left: 0px; /* Reduz o padding no celular */
-        padding-right: 5px; /* Reduz o padding no celular */
+        padding-left: 0px;
+        padding-right: 5px;
     }
 
     .convidados-options {
-        margin-left: -20px; /* Remove margens laterais no celular */
-		white-space: nowrap; /* Garante que o texto não quebre */
+        margin-left: -20px;
+        white-space: nowrap;
     }
 
     .convidados-options label {
-        max-width: 100%; /* Limita a largura dos labels */
-        white-space: normal; /* Permite que o texto quebre em várias linhas, se necessário */
-        font-size:15px;
+        max-width: 100%;
+        white-space: normal;
+        font-size: 15px;
+    }
+	.piramde-options label {
+        max-width: 100%; /* Garante que funcione bem em telas pequenas */
+        white-space: normal;
+        font-size: 15px; /* Adicionamos o tamanho da fonte para telas pequenas */
+    }
+	
+	 #piramide .piramide-botoes-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%; /* Aumenta a largura para ocupar todo o espaço disponível */
+        margin: 0 auto;
+    }
+
+    #piramide .piramide-botao {
+        flex: 1;
+        margin: 5px; /* Reduz a margem para economizar espaço */
+        padding: 10px;
+		height: 35px; /* Altura para celulares */
+        box-sizing: border-box;
+        font-size: 16px; /* Reduz o tamanho da fonte se necessário */
+        white-space: nowrap; /* Impede que o texto quebre para a próxima linha */
+		align-items: center;    /* Centraliza verticalmente */
+		justify-content: center; /* Centraliza horizontalmente */
+    }
+	
+	.centraliza-checkbox {
+       margin-top: 7px;
+    }
+
+    .botao-salvar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background: white;
+        padding: 5px 0; /* Diminui o padding vertical */
+		margin-bottom: -15px; /* Remove a margem inferior */
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+	
+    #main-content {
+        min-height: 500px; /* Ajuste este valor conforme necessário */
+        position: relative; /* Importante para o posicionamento absoluto das abas */
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden; /* Esconde o conteúdo que ultrapassa a altura */
+        box-sizing: border-box;
+    }
+	
+	
+    .tab-content {
+        display: none;
+        padding: 10px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        position: absolute; /* Posiciona as abas dentro do #main-content */
+        top: 40px;       /* Ajuste conforme a altura das tabs */
+        left: 0;
+        bottom: 0;
+        overflow-y: auto; /* Adicione scroll se o conteúdo for longo */
+    }
+
+    .tab-content-active {
+        display: block;
     }
 }
 
+
 .tab-content {
-    display: none; /* Esconde todas as abas por padrão */
-    padding: 10px; /* Reduz o padding para evitar barra de rolagem */
+    display: none;
+    padding: 10px;
     width: 100%;
     max-width: 100%;
-    overflow: hidden; /* Evita barras de rolagem */
+    overflow: hidden;
     box-sizing: border-box;
 }
 
 .tab-content-active {
-    display: block; /* Exibe a aba ativa */
+    display: block;
 }
 
 .tabs {
     display: flex;
     justify-content: center;
-    margin-top: 0px;
+    margin-top: 10px;
+	
 }
 
 .tab {
-    padding: 10px 20px;
+    padding: 15px 20px; /* Ajuste a altura aumentando o padding vertical */
     cursor: pointer;
     background: #ddd;
     border: 1px solid #aaa;
     border-bottom: none;
+    height: 5px; /* Define uma altura fixa, ajuste conforme necessário */
+    display: flex; /* Mantém o conteúdo centralizado verticalmente */
+    align-items: center; /* Centraliza o texto no meio do botão */
 }
+
 
 .tab.active {
     background: #fff;
     font-weight: bold;
 }
 
-
 #usuariosOnline {
     background-color: #f2f2f2;
     font-weight: bold;
-    /* Outros estilos, se necessário */
-    border: 1px solid black; 
-    padding: 5px; /* Adiciona um pequeno preenchimento para melhorar a aparência */
-} 
+    border: 1px solid black;
+    padding: 5px;
+}
 
-		
-    </style>
+.botao-salvar { 
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: white; /* Garante que o botão não se sobreponha ao conteúdo */
+    padding: 10px 0; /* Espaçamento para melhor aparência */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+    z-index: 1000; /* Garante que o botão fique acima de outros elementos */
+}
+
+input[id$="Exceto17_19"] {
+    margin-left: 20px; /* Ajuste este valor conforme necessário */
+}
+input[id$="Exceto7_12"] {
+    margin-left: 20px; /* Ajuste este valor conforme necessário */
+}
+input[id$="Exceto8_12"] {
+    margin-left: 20px; /* Ajuste este valor conforme necessário */
+}
+
+#convidados {
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+        width: 100%;
+        margin-top: 30px; /* Adiciona margem superior */
+    }
+
+
+/* Estilo para elementos desabilitados */
+input:disabled, select:disabled, button:disabled {
+    cursor: not-allowed; /* Altera o cursor para 'não permitido' */
+    opacity: 0.7;       /* Opcional: Diminui a opacidade para indicar que está desabilitado */
+}
+
+</style>
+
 </head>
 <body>
 
@@ -308,24 +541,20 @@ label[for="piramideExceto8_12"] {
 <div id="content">
     <div class="form-container">
         <div class="title-container">
-            <span>Clube Olímpico</span>
-            <span>Sistema de Reservas</span>
-            <span>Configurações</span>
+           <span>Configurações</span>
         </div>
-		
+
         <hr class="hr-line">
-		
-        <!-- Campo Sistema -->
+
         <div class="container">
             <label for="sistema">Sistema:</label>
             <select id="sistema" onchange="atualizarEstadoSistema()">
                 <option value="ON">ON</option>
                 <option value="OFF">OFF</option>
             </select>
-			<input type="text" id="usuariosOnline" placeholder="000" readonly  maxlength="3" style="width: 40px; height: 15px; text-align: center;" title="Número de usuários online (3 dígitos)">
+            <input type="text" id="usuariosOnline" placeholder="000" readonly maxlength="3" style="width: 40px; height: 15px; text-align: center;" title="Número de usuários online (3 dígitos)">
         </div>
 
-        <!-- Configuração de vDomingo -->
         <div class="container">
             <label for="vDomingo">Estado de Domingo:</label>
             <select id="vDomingo">
@@ -334,7 +563,6 @@ label[for="piramideExceto8_12"] {
             </select>
         </div>
 
-        <!-- Configuração de DiasParaAgendar -->
         <div class="container">
             <label for="diasParaAgendar">Dias para Agendar:</label>
             <select id="diasParaAgendar">
@@ -347,96 +575,136 @@ label[for="piramideExceto8_12"] {
             </select>
         </div>
 
-        <!-- Configuração de quadras -->
-<div class="container quadra-container">
-    <label for="estadoQuadra1">Quadra 1 - Coberta:</label>
-    <select id="estadoQuadra1">
-        <option value="liberada">Liberada</option>
-        <option value="interditada">Interditada</option>
-    </select>
-</div>
-<div class="container quadra-container">
-    <label for="estadoQuadra2">Quadra 2 - Aberta:</label>
-    <select id="estadoQuadra2">
-        <option value="liberada">Liberada</option>
-        <option value="interditada">Interditada</option>
-    </select>
-</div>
-<div class="container quadra-container">
-    <label for="estadoQuadra3">Quadra 3 - Coberta:</label>
-    <select id="estadoQuadra3">
-        <option value="liberada">Liberada</option>
-        <option value="interditada">Interditada</option>
-    </select>
-</div>
+        <div class="container quadra-container">
+            <label for="estadoQuadra1">Quadra 1 - Coberta:</label>
+            <select id="estadoQuadra1">
+                <option value="liberada">Liberada</option>
+                <option value="interditada">Interditada</option>
+            </select>
+        </div>
+        <div class="container quadra-container">
+            <label for="estadoQuadra2">Quadra 2 - Aberta:</label>
+            <select id="estadoQuadra2">
+                <option value="liberada">Liberada</option>
+                <option value="interditada">Interditada</option>
+            </select>
+        </div>
+        <div class="container quadra-container">
+            <label for="estadoQuadra3">Quadra 3 - Coberta:</label>
+            <select id="estadoQuadra3">
+                <option value="liberada">Liberada</option>
+                <option value="interditada">Interditada</option>
+            </select>
+        </div>
+    </div>
 
+    <div id="main-content">
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('convidados')">Convidados</div>
+            <div class="tab" onclick="showTab('piramide')">Pirâmide</div>
+        </div>
 
+        <div id="convidados" class="tab-content tab-content-active">
+            <div class="container convidados-quadras">
+                <label style="font-weight: bold;">Quadras:</label>
+                <div class="convidados-options">
+                    <label style="font-weight: normal;"><input type="checkbox" id="convidadosQuadra1" style="margin-top: 5px;"> Quadra 1 - Coberta</label>
+                    <label style="font-weight: normal;"><input type="checkbox" id="convidadosQuadra2" style="margin-right: 5px;"> Quadra 2 - Aberta</label>
+                    <label style="font-weight: normal;"><input type="checkbox" id="convidadosQuadra3" style="margin-right: 5px;"> Quadra 3 - Coberta</label>
+                </div>
+            </div>
+            <div class="container convidados-dias">
+                <label style="font-weight: bold;">Dias:</label>
+                <div class="convidados-options">
+                    <label style="font-weight: normal;"><input type="checkbox" id="convidadosSemana" style="margin-right: 5px;"> Durante a Semana</label>
+                    <label style="font-weight: normal;"><input type="checkbox" id="convidadosFimDeSemana" style="margin-right: 5px;"> Fim de Semana</label>
+                </div>
+            </div>
+        </div>
+
+        <div id="piramide" class="tab-content">
+            <div class="container piramide-ativa-container">
+                <label for="piramideAtiva">Ativa:</label>
+                <select id="piramideAtiva" onchange="atualizarEstadoPiramide()">
+                    <option value="ON">ON</option>
+                    <option value="OFF">OFF</option>
+                </select>
+            </div>
+
+            <div class="container piramide-botoes-container">
+                <button class="piramide-botao" onclick="mostrarQuadra('quadra1')">Quadra - 1</button>
+                <button class="piramide-botao" onclick="mostrarQuadra('quadra2')">Quadra - 2</button>
+                <button class="piramide-botao" onclick="mostrarQuadra('quadra3')">Quadra - 3</button>
+            </div>
+
+            <div id="piramideQuadra1Container" class="piramide-quadra-container">
+                <div class="container piramide-quadras">
+                    <div class="piramde-options centraliza-checkbox">
+                        <input type="checkbox" id="piramideQuadra1">
+                        <span>Quadra 1 - Coberta</span>
+                    </div>
+                </div>
+                <div class="container piramide-dias">
+                    <label style="font-weight: bold;" id="PiramideDiasQuadra1">Dias:</label>
+                    <div class="piramde-options">
+                        <label style="font-weight: normal;"><input type="checkbox" id="1-piramideSemana" style="margin-right: 5px;"> Dias de Semana</label>
+                        <label style="font-weight: normal; color: red;"><input type="checkbox" id="1-piramideExceto17_19" style="margin-right: 5px;"> Exceto 17:00 - 19:00</label>
+                        <label style="font-weight: normal;"><input type="checkbox" id="1-piramideSabado" style="margin-right: 5px;"> Sábado</label>
+                        <label style="font-weight: normal; color: red;"><input type="checkbox" id="1-piramideExceto7_12" style="margin-right: 5px;"> Exceto 07:00 - 12:00</label>
+                        <label style="font-weight: normal;"><input type="checkbox" id="1-piramideDomingo" style="margin-right: 5px;"> Domingo</label>
+                        <label style="font-weight: normal; color: red;"><input type="checkbox" id="1-piramideExceto8_12" style="margin-right: 5px;"> Exceto 08:00 - 12:00</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="piramideQuadra2Container" class="piramide-quadra-container" style="display: none;">
+                <div class="container piramide-quadras">
+                    <div class="piramde-options centraliza-checkbox">
+                        <input type="checkbox" id="piramideQuadra2">
+                        <span>Quadra 2 - Aberta</span>
+                    </div>
+                </div>
+                <div class="container piramide-dias">
+                    <label style="font-weight: bold;" id="PiramideDiasQuadra2">Dias:</label>
+                    <div class="piramde-options">
+                        <label style="font-weight: normal;"><input type="checkbox" id="2-piramideSemana" style="margin-right: 5px;"> Dias de Semana</label>
+                        <label style="font-weight: normal; color: red;"><input type="checkbox" id="2-piramideExceto17_19" style="margin-right: 5px;"> Exceto 17:00 - 19:00</label>
+                        <label style="font-weight: normal;"><input type="checkbox" id="2-piramideSabado" style="margin-right: 5px;"> Sábado</label>
+                        <label style="font-weight: normal; color: red;"><input type="checkbox" id="2-piramideExceto7_12" style="margin-right: 5px;"> Exceto 07:00 - 12:00</label>
+                        <label style="font-weight: normal;"><input type="checkbox" id="2-piramideDomingo" style="margin-right: 5px;"> Domingo</label>
+                        <label style="font-weight: normal; color: red;"><input type="checkbox" id="2-piramideExceto8_12" style="margin-right: 5px;"> Exceto 08:00 - 12:00</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="piramideQuadra3Container" class="piramide-quadra-container" style="display: none;">
+                <div class="container piramide-quadras">
+                    <div class="piramde-options centraliza-checkbox">
+                        <input type="checkbox" id="piramideQuadra3">
+                        <span>Quadra 3 - Coberta</span>
+                    </div>
+                </div>
+                <div class="container piramide-dias">
+                    <label style="font-weight: bold;" id="PiramideDiasQuadra3">Dias:</label>
+                    <div class="piramde-options">
+                        <label style="font-weight: normal;"><input type="checkbox" id="3-piramideSemana" style="margin-right: 5px;"> Dias de Semana</label>
+                        <label style="font-weight: normal; color: red;"><input type="checkbox" id="3-piramideExceto17_19" style="margin-right: 5px;"> Exceto 17:00 - 19:00</label>
+                        <label style="font-weight: normal;"><input type="checkbox" id="3-piramideSabado" style="margin-right: 5px;"> Sábado</label>
+                        <label style="font-weight: normal; color: red;"><input type="checkbox" id="3-piramideExceto7_12" style="margin-right: 5px;"> Exceto 07:00 - 12:00</label>
+                        <label style="font-weight: normal;"><input type="checkbox" id="3-piramideDomingo" style="margin-right: 5px;"> Domingo</label>
+                        <label style="font-weight: normal; color: red;"><input type="checkbox" id="3-piramideExceto8_12" style="margin-right: 5px;"> Exceto 08:00 - 12:00</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 	
-<div class="tabs">
-    <div class="tab active" onclick="showTab('convidados')">Convidados</div>
-    <div class="tab" onclick="showTab('piramide')">Pirâmide</div>
+	
+    <div class="container botao-salvar">
+        <button onclick="salvarConfiguracoes()" id="button-piramide">Salvar Configurações</button>
+    </div>
+	
 </div>
-
-        <!-- Configuração de Convidados -->
-<div id="convidados" class="tab-content tab-content-active">
-    <div class="container convidados-quadras">
-        <label style="font-weight: bold;">Quadras:</label>
-        <div class="convidados-options">
-            <label style="font-weight: normal;"><input type="checkbox" id="convidadosQuadra1" style="margin-right: 5px;"> Quadra 1 - Coberta</label>
-            <label style="font-weight: normal;"><input type="checkbox" id="convidadosQuadra2" style="margin-right: 5px;"> Quadra 2 - Aberta</label>
-            <label style="font-weight: normal;"><input type="checkbox" id="convidadosQuadra3" style="margin-right: 5px;"> Quadra 3 - Coberta</label>
-        </div>
-    </div>
-    <div class="container convidados-dias">
-        <label style="font-weight: bold;">Dias:</label>
-        <div class="convidados-options">
-            <label style="font-weight: normal;"><input type="checkbox" id="convidadosSemana" style="margin-right: 5px;"> Durante a Semana</label>
-            <label style="font-weight: normal;"><input type="checkbox" id="convidadosFimDeSemana" style="margin-right: 5px;"> Fim de Semana</label>
-        </div>
-    </div>
-</div>
-
-
-
-
-<!-- Configuração de Pirâmide -->
-<div id="piramide" class="tab-content">
-    <!-- Campo Ativa -->
-    <div class="container">
-        <label for="piramideAtiva">Ativa:</label>
-        <select id="piramideAtiva" onchange="atualizarEstadoPiramide()">
-            <option value="ON">ON</option>
-            <option value="OFF">OFF</option>
-        </select>
-    </div>
-
-    <div class="container convidados-quadras">
-        <label style="font-weight: bold;">Quadras:</label>
-        <div class="convidados-options">
-            <label style="font-weight: normal;"><input type="checkbox" id="piramideQuadra1" style="margin-right: 5px;"> Quadra 1 - Coberta</label>
-            <label style="font-weight: normal;"><input type="checkbox" id="piramideQuadra2" style="margin-right: 5px;"> Quadra 2 - Aberta</label>
-            <label style="font-weight: normal;"><input type="checkbox" id="piramideQuadra3" style="margin-right: 5px;"> Quadra 3 - Coberta</label>
-        </div>
-    </div>
-    <div class="container convidados-dias">
-        <label style="font-weight: bold;">Dias:</label>
-        <div class="convidados-options">
-            <label style="font-weight: normal;"><input type="checkbox" id="piramideSemana" style="margin-right: 5px;"> Dias de Semana</label>
-            <label style="font-weight: normal; color: red;"><input type="checkbox" id="piramideExceto17_19" style="margin-right: 5px;"> Exceto 17:00 - 19:00</label>
-            <label style="font-weight: normal;"><input type="checkbox" id="piramideSabado" style="margin-right: 5px;"> Sábado</label>
-            <label style="font-weight: normal; color: red;"><input type="checkbox" id="piramideExceto7_12" style="margin-right: 5px;"> Exceto 07:00 - 12:00</label>
-            <label style="font-weight: normal;"><input type="checkbox" id="piramideDomingo" style="margin-right: 5px;"> Domingo</label>
-            <label style="font-weight: normal; color: red;"><input type="checkbox" id="piramideExceto8_12" style="margin-right: 5px;"> Exceto 08:00 - 12:00</label>
-        </div>
-    </div>
-</div>
-
-<button onclick="salvarConfiguracoes()">Salvar Configurações</button>
-    </div>
-</div>
-
-
-
 <script>
     const firebaseConfig = {
         apiKey: "YOUR_API_KEY",
@@ -451,7 +719,7 @@ label[for="piramideExceto8_12"] {
     const db = firebase.database();
 
 
-  db.ref("sistemas/usuariosOnline").on("value", snapshot => {
+  db.ref("sistemas/usuariosOnline").on("value", snapshot => { 
         const numUsuariosOnline = snapshot.numChildren();
         console.log(`Usuários ativos: ${numUsuariosOnline}`);
 
@@ -485,66 +753,222 @@ function showTab(tabId) {
 	
  function atualizarEstadoPiramide() {
     const piramideAtiva = document.getElementById("piramideAtiva");
+    const piramideTab = document.getElementById("piramide");
+    const piramideBotoes = document.querySelectorAll("#piramide .piramide-botao");
 
     if (piramideAtiva.value === "ON") {
         piramideAtiva.classList.remove("piramide-off");
         piramideAtiva.classList.add("piramide-on");
+        // Habilita os elementos
+        piramideTab.querySelectorAll('input, select, button').forEach(el => el.disabled = false);
+        piramideBotoes.forEach(botao => botao.disabled = false); // Habilita os botões
     } else {
         piramideAtiva.classList.remove("piramide-on");
         piramideAtiva.classList.add("piramide-off");
+        // Desabilita todos os elementos dentro da aba "Pirâmide"
+        piramideTab.querySelectorAll('input, select, button').forEach(el => el.disabled = true);
+        piramideAtiva.disabled = false; // Mantém o select "Ativa" habilitado para poder mudar o estado
+        piramideBotoes.forEach(botao => botao.disabled = true); // Desabilita os botões
     }
 
-    // Atualiza o estado dos campos da pirâmide
-    atualizarCamposPiramide();
+    // Atualiza o estado dos campos das quadras (já inclui a verificação de piramideAtiva)
+    atualizarCamposPiramideQuadra1();
+    atualizarCamposPiramideQuadra2();
+    atualizarCamposPiramideQuadra3();
 }
 
-function atualizarCamposPiramide() {
-    const piramideAtiva = document.getElementById('piramideAtiva').value === 'ON';
-    const piramideSemana = document.getElementById('piramideSemana');
-    const piramideExceto17_19 = document.getElementById('piramideExceto17_19');
-    const piramideSabado = document.getElementById('piramideSabado');
-    const piramideExceto7_12 = document.getElementById('piramideExceto7_12');
-    const piramideDomingo = document.getElementById('piramideDomingo');
-    const piramideExceto8_12 = document.getElementById('piramideExceto8_12');
 
-    // Desabilita ou habilita todos os campos da pirâmide, exceto o checkbox "Ativa"
-    const camposPiramide = document.querySelectorAll('#piramide input, #piramide select');
-    camposPiramide.forEach(campo => {
-        if (campo.id !== 'piramideAtiva') { // Não desabilita o próprio checkbox "Ativa"
-            campo.disabled = !piramideAtiva;
-        }
+function atualizarCamposPiramideQuadra1() {
+    const piramideAtiva = document.getElementById('piramideAtiva').value === 'ON';
+    const quadra1Ativa = document.getElementById('piramideQuadra1').checked; // Novo: Verifica se a quadra está ativa
+    const piramideSemana = document.getElementById('1-piramideSemana');
+    const piramideExceto17_19 = document.getElementById('1-piramideExceto17_19');
+    const piramideSabado = document.getElementById('1-piramideSabado');
+    const piramideExceto7_12 = document.getElementById('1-piramideExceto7_12');
+    const piramideDomingo = document.getElementById('1-piramideDomingo');
+    const piramideExceto8_12 = document.getElementById('1-piramideExceto8_12');
+
+    // Desabilita ou habilita os campos da Quadra 1
+    const quadra1Container = document.getElementById('piramideQuadra1Container');
+    const inputsQuadra1 = quadra1Container.querySelectorAll('input, select');
+    inputsQuadra1.forEach(input => {
+        input.disabled = !piramideAtiva || !quadra1Ativa; // Modificado: Desabilita se piramide não ativa OU quadra não ativa
     });
 
-    // Se a pirâmide estiver ativa, verifica o estado dos checkboxes
-    if (piramideAtiva) {
-        // Verifica o estado do checkbox "Dias de Semana"
+    // Habilita/desabilita 'piramideAtiva' e 'piramideQuadra1' sempre
+    document.getElementById('piramideAtiva').disabled = false;
+    document.getElementById('piramideQuadra1').disabled = !piramideAtiva; // Mantém habilitado se a pirâmide estiver ativa
+
+    // Verifica o estado do checkbox "Dias de Semana"
+    if (piramideSemana) {
         if (!piramideSemana.checked) {
-            piramideExceto17_19.disabled = true; // Desabilita o checkbox "Exceto 17:00 - 19:00"
-            piramideExceto17_19.checked = false; // Desmarca o checkbox "Exceto 17:00 - 19:00"
+            if (piramideExceto17_19) {
+                piramideExceto17_19.disabled = true;
+                piramideExceto17_19.checked = false;
+            }
         } else {
-            piramideExceto17_19.disabled = false; // Habilita o checkbox "Exceto 17:00 - 19:00"
+            if (piramideExceto17_19) {
+                piramideExceto17_19.disabled = !quadra1Ativa; // Modificado
+            }
         }
+    }
 
-        // Verifica o estado do checkbox "Sábado"
+    // Verifica o estado do checkbox "Sábado"
+    if (piramideSabado) {
         if (!piramideSabado.checked) {
-            piramideExceto7_12.disabled = true; // Desabilita o checkbox "Exceto 7:00 - 12:00"
-            piramideExceto7_12.checked = false; // Desmarca o checkbox "Exceto 7:00 - 12:00"
+            if (piramideExceto7_12) {
+                piramideExceto7_12.disabled = true;
+                piramideExceto7_12.checked = false;
+            }
         } else {
-            piramideExceto7_12.disabled = false; // Habilita o checkbox "Exceto 7:00 - 12:00"
+            if (piramideExceto7_12) {
+                piramideExceto7_12.disabled = !quadra1Ativa; // Modificado
+            }
         }
+    }
 
-        // Verifica o estado do checkbox "Domingo"
+    // Verifica o estado do checkbox "Domingo"
+    if (piramideDomingo) {
         if (!piramideDomingo.checked) {
-            piramideExceto8_12.disabled = true; // Desabilita o checkbox "Exceto 8:00 - 12:00"
-            piramideExceto8_12.checked = false; // Desmarca o checkbox "Exceto 8:00 - 12:00"
+            if (piramideExceto8_12) {
+                piramideExceto8_12.disabled = true;
+                piramideExceto8_12.checked = false;
+            }
         } else {
-            piramideExceto8_12.disabled = false; // Habilita o checkbox "Exceto 8:00 - 12:00"
+            if (piramideExceto8_12) {
+                piramideExceto8_12.disabled = !quadra1Ativa; // Modificado
+            }
         }
     }
 }
 
+function atualizarCamposPiramideQuadra2() {
+    const piramideAtiva = document.getElementById('piramideAtiva').value === 'ON';
+    const quadra2Ativa = document.getElementById('piramideQuadra2').checked; // Novo
+    const piramideSemana = document.getElementById('2-piramideSemana');
+    const piramideExceto17_19 = document.getElementById('2-piramideExceto17_19');
+    const piramideSabado = document.getElementById('2-piramideSabado');
+    const piramideExceto7_12 = document.getElementById('2-piramideExceto7_12');
+    const piramideDomingo = document.getElementById('2-piramideDomingo');
+    const piramideExceto8_12 = document.getElementById('2-piramideExceto8_12');
 
-	
+    // Desabilita ou habilita os campos da Quadra 2
+    const quadra2Container = document.getElementById('piramideQuadra2Container');
+    const inputsQuadra2 = quadra2Container.querySelectorAll('input, select');
+    inputsQuadra2.forEach(input => {
+        input.disabled = !piramideAtiva || !quadra2Ativa; // Modificado
+    });
+
+    // Habilita/desabilita 'piramideAtiva' e 'piramideQuadra2' sempre
+    document.getElementById('piramideAtiva').disabled = false;
+    document.getElementById('piramideQuadra2').disabled = !piramideAtiva; // Mantém habilitado se a pirâmide estiver ativa
+
+    // Verifica o estado do checkbox "Dias de Semana"
+    if (piramideSemana) {
+        if (!piramideSemana.checked) {
+            if (piramideExceto17_19) {
+                piramideExceto17_19.disabled = true;
+                piramideExceto17_19.checked = false;
+            }
+        } else {
+            if (piramideExceto17_19) {
+                piramideExceto17_19.disabled = !quadra2Ativa; // Modificado
+            }
+        }
+    }
+
+    // Verifica o estado do checkbox "Sábado"
+    if (piramideSabado) {
+        if (!piramideSabado.checked) {
+            if (piramideExceto7_12) {
+                piramideExceto7_12.disabled = true;
+                piramideExceto7_12.checked = false;
+            }
+        } else {
+            if (piramideExceto7_12) {
+                piramideExceto7_12.disabled = !quadra2Ativa; // Modificado
+            }
+        }
+    }
+
+    // Verifica o estado do checkbox "Domingo"
+    if (piramideDomingo) {
+        if (!piramideDomingo.checked) {
+            if (piramideExceto8_12) {
+                piramideExceto8_12.disabled = true;
+                piramideExceto8_12.checked = false;
+            }
+        } else {
+            if (piramideExceto8_12) {
+                piramideExceto8_12.disabled = !quadra2Ativa; // Modificado
+            }
+        }
+    }
+}
+
+function atualizarCamposPiramideQuadra3() {
+    const piramideAtiva = document.getElementById('piramideAtiva').value === 'ON';
+    const quadra3Ativa = document.getElementById('piramideQuadra3').checked; // Novo
+    const piramideSemana = document.getElementById('3-piramideSemana');
+    const piramideExceto17_19 = document.getElementById('3-piramideExceto17_19');
+    const piramideSabado = document.getElementById('3-piramideSabado');
+    const piramideExceto7_12 = document.getElementById('3-piramideExceto7_12');
+    const piramideDomingo = document.getElementById('3-piramideDomingo');
+    const piramideExceto8_12 = document.getElementById('3-piramideExceto8_12');
+
+    // Desabilita ou habilita os campos da Quadra 3
+    const quadra3Container = document.getElementById('piramideQuadra3Container');
+    const inputsQuadra3 = quadra3Container.querySelectorAll('input, select');
+    inputsQuadra3.forEach(input => {
+        input.disabled = !piramideAtiva || !quadra3Ativa; // Modificado
+    });
+
+    // Habilita/desabilita 'piramideAtiva' e 'piramideQuadra3' sempre
+    document.getElementById('piramideAtiva').disabled = false;
+    document.getElementById('piramideQuadra3').disabled = !piramideAtiva; // Mantém habilitado se a pirâmide estiver ativa
+
+    // Verifica o estado do checkbox "Dias de Semana"
+    if (piramideSemana) {
+        if (!piramideSemana.checked) {
+            if (piramideExceto17_19) {
+                piramideExceto17_19.disabled = true;
+                piramideExceto17_19.checked = false;
+            }
+        } else {
+            if (piramideExceto17_19) {
+                piramideExceto17_19.disabled = !quadra3Ativa; // Modificado
+            }
+        }
+    }
+
+    // Verifica o estado do checkbox "Sábado"
+    if (piramideSabado) {
+        if (!piramideSabado.checked) {
+            if (piramideExceto7_12) {
+                piramideExceto7_12.disabled = true;
+                piramideExceto7_12.checked = false;
+            }
+        } else {
+            if (piramideExceto7_12) {
+                piramideExceto7_12.disabled = !quadra3Ativa; // Modificado
+            }
+        }
+    }
+
+    // Verifica o estado do checkbox "Domingo"
+    if (piramideDomingo) {
+        if (!piramideDomingo.checked) {
+            if (piramideExceto8_12) {
+                piramideExceto8_12.disabled = true;
+                piramideExceto8_12.checked = false;
+            }
+        } else {
+            if (piramideExceto8_12) {
+                piramideExceto8_12.disabled = !quadra3Ativa; // Modificado
+            }
+        }
+    }
+}	
 
 
 
@@ -558,12 +982,12 @@ function carregarConfiguracoes() {
                     atualizarEstadoSistema();
                     document.getElementById('vDomingo').value = data.vDomingo || "aberto";
                     document.getElementById('diasParaAgendar').value = (6 - (data.DiasParaLimpar || 6)).toString();
-                    
+
                     // Atualiza o estado das quadras
                     document.getElementById('estadoQuadra1').value = data.Quadras?.Quadra1 || "liberada";
                     document.getElementById('estadoQuadra2').value = data.Quadras?.Quadra2 || "liberada";
                     document.getElementById('estadoQuadra3').value = data.Quadras?.Quadra3 || "liberada";
-                    
+
                     // Atualiza as configurações dos convidados
                     const convidados = data.Convidados || {};
                     document.getElementById('convidadosQuadra1').checked = convidados.Quadra1 || false;
@@ -571,32 +995,81 @@ function carregarConfiguracoes() {
                     document.getElementById('convidadosQuadra3').checked = convidados.Quadra3 || false;
                     document.getElementById('convidadosSemana').checked = convidados.DiasDeSemana || false;
                     document.getElementById('convidadosFimDeSemana').checked = convidados.FimDeSemana || false;
-                    
-                    // Configuração da Pirâmide (cria estrutura se não existir)
-                    const piramide = data.Pirammide || {
-                        ativa: false,
-                        Quadra1: false,
-                        Quadra2: false,
-                        Quadra3: false,
-                        DiasDeSemana: false,
-                        "DiasDeSemana-exceto-17-19": false,
-                        Sabado: false,
-                        "Sabado-exceto-7-12": false,
-                        Domingo: false,
-                        "Domingo-exceto-8-12": false
-                    };
 
-                    document.getElementById('piramideAtiva').value = piramide.ativa ? 'ON' : 'OFF';
-					atualizarEstadoPiramide();
-                    document.getElementById('piramideQuadra1').checked = piramide.Quadra1;
-                    document.getElementById('piramideQuadra2').checked = piramide.Quadra2;
-                    document.getElementById('piramideQuadra3').checked = piramide.Quadra3;
-                    document.getElementById('piramideSemana').checked = piramide.DiasDeSemana;
-                    document.getElementById('piramideExceto17_19').checked = piramide["DiasDeSemana-exceto-17-19"];
-                    document.getElementById('piramideSabado').checked = piramide.Sabado;
-                    document.getElementById('piramideExceto7_12').checked = piramide["Sabado-exceto-7-12"];
-                    document.getElementById('piramideDomingo').checked = piramide.Domingo;
-                    document.getElementById('piramideExceto8_12').checked = piramide["Domingo-exceto-8-12"];
+                    // Configuração da Pirâmide (cria estrutura se não existir)
+                    let piramide = data.Piramide;
+
+                    // Se piramide não existir, crie a estrutura inicial
+                    if (!piramide) {
+                        piramide = {
+                            ativa: false,
+                            "Quadra-1": {
+                                "Quadra-1-ativa": false,
+                                "1-DiasDeSemana": false,
+                                "1-DiasDeSemana-exceto-17-19": false,
+                                "1-Sabado": false,
+                                "1-Sabado-exceto-7-12": false,
+                                "1-Domingo": false,
+                                "1-Domingo-exceto-8-12": false
+                            },
+                            "Quadra-2": {
+                                "Quadra-2-ativa": false,
+                                "2-DiasDeSemana": false,
+                                "2-DiasDeSemana-exceto-17-19": false,
+                                "2-Sabado": false,
+                                "2-Sabado-exceto-7-12": false,
+                                "2-Domingo": false,
+                                "2-Domingo-exceto-8-12": false
+                            },
+                            "Quadra-3": {
+                                "Quadra-3-ativa": false,
+                                "3-DiasDeSemana": false,
+                                "3-DiasDeSemana-exceto-17-19": false,
+                                "3-Sabado": false,
+                                "3-Sabado-exceto-7-12": false,
+                                "3-Domingo": false,
+                                "3-Domingo-exceto-8-12": false
+                            }
+                        };
+
+                        // Se a Piramide não existe, já salva no banco para as próximas vezes
+                        db.ref("sistemas/config").update({ Piramide: piramide });
+                    }
+
+                    // *** Adicionando verificações de existência ***
+                    const quadra1 = piramide && piramide["Quadra-1"] ? piramide["Quadra-1"] : {}; 
+                    const quadra2 = piramide && piramide["Quadra-2"] ? piramide["Quadra-2"] : {};
+                    const quadra3 = piramide && piramide["Quadra-3"] ? piramide["Quadra-3"] : {};
+
+                    document.getElementById('piramideAtiva').value = piramide && piramide.ativa ? 'ON' : 'OFF';
+                    atualizarEstadoPiramide();
+
+                    // Atualiza os checkboxes das quadras com verificações
+                    document.getElementById('piramideQuadra1').checked = quadra1 && quadra1["Quadra-1-ativa"] || false;
+                    document.getElementById('piramideQuadra2').checked = quadra2 && quadra2["Quadra-2-ativa"] || false;
+                    document.getElementById('piramideQuadra3').checked = quadra3 && quadra3["Quadra-3-ativa"] || false;
+
+                    // Atualiza os checkboxes dos dias da semana para cada quadra com verificações
+                    document.getElementById('1-piramideSemana').checked = quadra1 && quadra1["1-DiasDeSemana"] || false;
+                    document.getElementById('1-piramideExceto17_19').checked = quadra1 && quadra1["1-DiasDeSemana-exceto-17-19"] || false;
+                    document.getElementById('1-piramideSabado').checked = quadra1 && quadra1["1-Sabado"] || false;
+                    document.getElementById('1-piramideExceto7_12').checked = quadra1 && quadra1["1-Sabado-exceto-7-12"] || false;
+                    document.getElementById('1-piramideDomingo').checked = quadra1 && quadra1["1-Domingo"] || false;
+                    document.getElementById('1-piramideExceto8_12').checked = quadra1 && quadra1["1-Domingo-exceto-8-12"] || false;
+					
+                    document.getElementById('2-piramideSemana').checked = quadra2 && quadra2["2-DiasDeSemana"] || false;
+                    document.getElementById('2-piramideExceto17_19').checked = quadra2 && quadra2["2-DiasDeSemana-exceto-17-19"] || false;
+                    document.getElementById('2-piramideSabado').checked = quadra2 && quadra2["2-Sabado"] || false;
+                    document.getElementById('2-piramideExceto7_12').checked = quadra2 && quadra2["2-Sabado-exceto-7-12"] || false;
+                    document.getElementById('2-piramideDomingo').checked = quadra2 && quadra2["2-Domingo"] || false;
+                    document.getElementById('2-piramideExceto8_12').checked = quadra2 && quadra2["2-Domingo-exceto-8-12"] || false;
+					
+                    document.getElementById('3-piramideSemana').checked = quadra3 && quadra3["3-DiasDeSemana"] || false;
+                    document.getElementById('3-piramideExceto17_19').checked = quadra3 && quadra3["3-DiasDeSemana-exceto-17-19"] || false;
+                    document.getElementById('3-piramideSabado').checked = quadra3 && quadra3["3-Sabado"] || false;
+                    document.getElementById('3-piramideExceto7_12').checked = quadra3 && quadra3["3-Sabado-exceto-7-12"] || false;
+                    document.getElementById('3-piramideDomingo').checked = quadra3 && quadra3["3-Domingo"] || false;
+                    document.getElementById('3-piramideExceto8_12').checked = quadra3 && quadra3["3-Domingo-exceto-8-12"] || false;
                 }
                 resolve();
             })
@@ -618,8 +1091,8 @@ function carregarConfiguracoes() {
                 document.getElementById('estadoQuadra1').value = data.Quadras?.Quadra1 || "liberada";
                 document.getElementById('estadoQuadra2').value = data.Quadras?.Quadra2 || "liberada";
                 document.getElementById('estadoQuadra3').value = data.Quadras?.Quadra3 || "liberada";
-				
-				// Atualiza as configurações dos convidados
+
+                // Atualiza as configurações dos convidados
                 const convidados = data.Convidados || {};
                 document.getElementById('convidadosQuadra1').checked = convidados.Quadra1 || false;
                 document.getElementById('convidadosQuadra2').checked = convidados.Quadra2 || false;
@@ -628,17 +1101,40 @@ function carregarConfiguracoes() {
                 document.getElementById('convidadosFimDeSemana').checked = convidados.FimDeSemana || false;
 
                 // Configuração da Pirâmide
-                const piramide = data.Pirammide || {};
-                document.getElementById('piramideAtiva').value = piramide.ativa ? 'ON' : 'OFF';
-                document.getElementById('piramideQuadra1').checked = piramide.Quadra1 || false;
-                document.getElementById('piramideQuadra2').checked = piramide.Quadra2 || false;
-                document.getElementById('piramideQuadra3').checked = piramide.Quadra3 || false;
-                document.getElementById('piramideSemana').checked = piramide.DiasDeSemana || false;
-                document.getElementById('piramideExceto17_19').checked = piramide["DiasDeSemana-exceto-17-19"] || false;
-                document.getElementById('piramideSabado').checked = piramide.Sabado || false;
-                document.getElementById('piramideExceto7_12').checked = piramide["Sabado-exceto-7-12"] || false;
-                document.getElementById('piramideDomingo').checked = piramide.Domingo || false;
-                document.getElementById('piramideExceto8_12').checked = piramide["Domingo-exceto-8-12"] || false;
+                //const piramide = data.config && data.config.Piramide || {};
+                const piramide = data.Piramide || {};
+
+                // *** Adicionando verificações de existência ***
+                const quadra1 = piramide && piramide["Quadra-1"] ? piramide["Quadra-1"] : {}; 
+                const quadra2 = piramide && piramide["Quadra-2"] ? piramide["Quadra-2"] : {};
+                const quadra3 = piramide && piramide["Quadra-3"] ? piramide["Quadra-3"] : {};
+
+                document.getElementById('piramideAtiva').value = piramide && piramide.ativa ? 'ON' : 'OFF';
+                atualizarEstadoPiramide(); // Chamada adicionada para atualizar a cor
+
+                document.getElementById('piramideQuadra1').checked = quadra1 && quadra1["Quadra-1-ativa"] || false;
+                document.getElementById('piramideQuadra2').checked = quadra2 && quadra2["Quadra-2-ativa"] || false;
+                document.getElementById('piramideQuadra3').checked = quadra3 && quadra3["Quadra-3-ativa"] || false;
+                document.getElementById('1-piramideSemana').checked = quadra1 && quadra1["1-DiasDeSemana"] || false;
+                document.getElementById('1-piramideExceto17_19').checked = quadra1 && quadra1["1-DiasDeSemana-exceto-17-19"] || false;
+                document.getElementById('1-piramideSabado').checked = quadra1 && quadra1["1-Sabado"] || false;
+                document.getElementById('1-piramideExceto7_12').checked = quadra1 && quadra1["1-Sabado-exceto-7-12"] || false;
+                document.getElementById('1-piramideDomingo').checked = quadra1 && quadra1["1-Domingo"] || false;
+                document.getElementById('1-piramideExceto8_12').checked = quadra1 && quadra1["1-Domingo-exceto-8-12"] || false;
+				
+                document.getElementById('2-piramideSemana').checked = quadra2 && quadra2["2-DiasDeSemana"] || false;
+                document.getElementById('2-piramideExceto17_19').checked = quadra2 && quadra2["2-DiasDeSemana-exceto-17-19"] || false;
+                document.getElementById('2-piramideSabado').checked = quadra2 && quadra2["2-Sabado"] || false;
+                document.getElementById('2-piramideExceto7_12').checked = quadra2 && quadra2["2-Sabado-exceto-7-12"] || false;
+				document.getElementById('2-piramideDomingo').checked = quadra2 && quadra2["2-Domingo"] || false;
+                document.getElementById('2-piramideExceto8_12').checked = quadra2 && quadra2["2-Domingo-exceto-8-12"] || false;
+				
+                document.getElementById('3-piramideSemana').checked = quadra3 && quadra3["3-DiasDeSemana"] || false;
+                document.getElementById('3-piramideExceto17_19').checked = quadra3 && quadra3["3-DiasDeSemana-exceto-17-19"] || false;
+                document.getElementById('3-piramideSabado').checked = quadra3 && quadra3["3-Sabado"] || false;
+                document.getElementById('3-piramideExceto7_12').checked = quadra3 && quadra3["3-Sabado-exceto-7-12"] || false;
+                document.getElementById('3-piramideDomingo').checked = quadra3 && quadra3["3-Domingo"] || false;
+                document.getElementById('3-piramideExceto8_12').checked = quadra3 && quadra3["3-Domingo-exceto-8-12"] || false;
             }
         });
     });
@@ -646,34 +1142,53 @@ function carregarConfiguracoes() {
 
 
 function salvarConfiguracoes() {
+    // Obtém os valores dos campos gerais
     const abrir = document.getElementById('sistema').value === 'ON';
     const vDomingo = document.getElementById('vDomingo').value;
     const diasParaLimpar = 6 - parseInt(document.getElementById('diasParaAgendar').value);
     const estadoQuadra1 = document.getElementById('estadoQuadra1').value;
     const estadoQuadra2 = document.getElementById('estadoQuadra2').value;
     const estadoQuadra3 = document.getElementById('estadoQuadra3').value;
-	
-	// Captura os valores dos checkboxes de convidados
+
+    // Captura os valores dos checkboxes de convidados
     const convidados = {
+        DiasDeSemana: document.getElementById('convidadosSemana').checked,
+        FimDeSemana: document.getElementById('convidadosFimDeSemana').checked,
         Quadra1: document.getElementById('convidadosQuadra1').checked,
         Quadra2: document.getElementById('convidadosQuadra2').checked,
-        Quadra3: document.getElementById('convidadosQuadra3').checked,
-        DiasDeSemana: document.getElementById('convidadosSemana').checked,
-        FimDeSemana: document.getElementById('convidadosFimDeSemana').checked
+        Quadra3: document.getElementById('convidadosQuadra3').checked
     };
 
-    // Captura os valores da pirâmide
+    // Captura os valores da Pirâmide
     const piramide = {
         ativa: document.getElementById('piramideAtiva').value === 'ON',
-        Quadra1: document.getElementById('piramideQuadra1').checked,
-        Quadra2: document.getElementById('piramideQuadra2').checked,
-        Quadra3: document.getElementById('piramideQuadra3').checked,
-        DiasDeSemana: document.getElementById('piramideSemana').checked,
-        "DiasDeSemana-exceto-17-19": document.getElementById('piramideExceto17_19').checked,
-        Sabado: document.getElementById('piramideSabado').checked,
-        "Sabado-exceto-7-12": document.getElementById('piramideExceto7_12').checked,
-        Domingo: document.getElementById('piramideDomingo').checked,
-        "Domingo-exceto-8-12": document.getElementById('piramideExceto8_12').checked
+        "Quadra-1": {
+            "Quadra-1-ativa": document.getElementById('piramideQuadra1').checked,
+            "1-DiasDeSemana": document.getElementById('1-piramideSemana').checked,
+            "1-DiasDeSemana-exceto-17-19": document.getElementById('1-piramideExceto17_19').checked,
+            "1-Sabado": document.getElementById('1-piramideSabado').checked,
+            "1-Sabado-exceto-7-12": document.getElementById('1-piramideExceto7_12').checked,
+            "1-Domingo": document.getElementById('1-piramideDomingo').checked,
+            "1-Domingo-exceto-8-12": document.getElementById('1-piramideExceto8_12').checked
+        },
+        "Quadra-2": {
+            "Quadra-2-ativa": document.getElementById('piramideQuadra2').checked,
+            "2-DiasDeSemana": document.getElementById('2-piramideSemana').checked,
+            "2-DiasDeSemana-exceto-17-19": document.getElementById('2-piramideExceto17_19').checked,
+            "2-Sabado": document.getElementById('2-piramideSabado').checked,
+            "2-Sabado-exceto-7-12": document.getElementById('2-piramideExceto7_12').checked,
+            "2-Domingo": document.getElementById('2-piramideDomingo').checked,
+            "2-Domingo-exceto-8-12": document.getElementById('2-piramideExceto8_12').checked
+        },
+        "Quadra-3": {
+            "Quadra-3-ativa": document.getElementById('piramideQuadra3').checked,
+            "3-DiasDeSemana": document.getElementById('3-piramideSemana').checked,
+            "3-DiasDeSemana-exceto-17-19": document.getElementById('3-piramideExceto17_19').checked,
+            "3-Sabado": document.getElementById('3-piramideSabado').checked,
+            "3-Sabado-exceto-7-12": document.getElementById('3-piramideExceto7_12').checked,
+            "3-Domingo": document.getElementById('3-piramideDomingo').checked,
+            "3-Domingo-exceto-8-12": document.getElementById('3-piramideExceto8_12').checked
+        }
     };
 
     // Salva as configurações no Firebase
@@ -687,7 +1202,7 @@ function salvarConfiguracoes() {
             Quadra3: estadoQuadra3
         },
         Convidados: convidados,
-        Pirammide: piramide
+        Piramide: piramide
     })
     .then(() => alert("Configurações salvas com sucesso!"))
     .catch(error => {
@@ -715,19 +1230,47 @@ function salvarConfiguracoes() {
             });
     };
 	
+	
 document.addEventListener("DOMContentLoaded", function() {
-    showTab('convidados'); // Exibe a aba "Convidados" por padrão
-    atualizarEstadoPiramide(); // Atualiza a cor do texto do checkbox "Ativa"
-    atualizarCamposPiramide(); // Desabilita os campos da pirâmide se "Ativa" estiver OFF
+    showTab('convidados');
+    atualizarEstadoPiramide();
 
-    // Adiciona o evento onchange ao checkbox "Ativa"
+    // Adiciona o evento onchange para o checkbox "Ativa"
     document.getElementById('piramideAtiva').onchange = atualizarEstadoPiramide;
 
-    // Adiciona o evento onchange aos checkboxes "Dias de Semana", "Sábado" e "Domingo"
-    document.getElementById('piramideSemana').onchange = atualizarCamposPiramide;
-    document.getElementById('piramideSabado').onchange = atualizarCamposPiramide;
-    document.getElementById('piramideDomingo').onchange = atualizarCamposPiramide;
+    // Adiciona os event listeners para os checkboxes das quadras
+    document.getElementById('piramideQuadra1').onchange = atualizarCamposPiramideQuadra1;
+    document.getElementById('piramideQuadra2').onchange = atualizarCamposPiramideQuadra2;
+    document.getElementById('piramideQuadra3').onchange = atualizarCamposPiramideQuadra3;
+
+    // Adiciona o evento onchange aos checkboxes "Dias de Semana", "Sábado" e "Domingo" para cada quadra
+    document.getElementById('1-piramideSemana').onchange = atualizarCamposPiramideQuadra1;
+    document.getElementById('1-piramideSabado').onchange = atualizarCamposPiramideQuadra1;
+    document.getElementById('1-piramideDomingo').onchange = atualizarCamposPiramideQuadra1;
+
+    document.getElementById('2-piramideSemana').onchange = atualizarCamposPiramideQuadra2;
+    document.getElementById('2-piramideSabado').onchange = atualizarCamposPiramideQuadra2;
+    document.getElementById('2-piramideDomingo').onchange = atualizarCamposPiramideQuadra2;
+
+    document.getElementById('3-piramideSemana').onchange = atualizarCamposPiramideQuadra3;
+    document.getElementById('3-piramideSabado').onchange = atualizarCamposPiramideQuadra3;
+    document.getElementById('3-piramideDomingo').onchange = atualizarCamposPiramideQuadra3;
+
+    // Chamadas iniciais para atualizar o estado dos campos
+    atualizarCamposPiramideQuadra1();
+    atualizarCamposPiramideQuadra2();
+    atualizarCamposPiramideQuadra3();
 });
+
+function mostrarQuadra(quadraId) {
+    // Esconde todos os containers de quadra
+    document.getElementById('piramideQuadra1Container').style.display = 'none';
+    document.getElementById('piramideQuadra2Container').style.display = 'none';
+    document.getElementById('piramideQuadra3Container').style.display = 'none';
+
+    // Exibe o container da quadra clicada
+    document.getElementById('piramide' + quadraId.charAt(0).toUpperCase() + quadraId.slice(1) + 'Container').style.display = 'block';
+}
 
 </script>
 </body>
