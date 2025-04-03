@@ -19,7 +19,7 @@
         }
 
         .filters {
-            display: grid;
+            display: grid;  
             grid-template-columns: 120px 1fr;
             gap: 10px;
             margin-bottom: 15px;
@@ -38,7 +38,7 @@
         .filters button {
             font-size: 16px;
             padding: 8px;
-            box-sizing: border-box;
+            box-sizing: border-box;  
         }
 
         .filters input,
@@ -89,6 +89,19 @@
                 width: 100%;
             }
         }
+		
+		#total-registros-container {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			background-color: #f8f9fa; /* Cor de fundo */
+			text-align: center;
+			font-weight: bold;
+			padding: 10px;
+			border-top: 2px solid #ccc; /* Linha separadora */
+		}
+
     </style>
 </head>
 
@@ -209,6 +222,9 @@
 						<hr>
 					</div>`;
 			});
+			
+			// Atualiza o total de registros
+			document.getElementById('total-registros').textContent = `Total de registros: ${lista.length}`;
 		}
 
 
@@ -248,6 +264,11 @@
 		
 		
     </script>
+	
+<div id="total-registros-container">
+    <span id="total-registros">Total de registros: 0</span>
+</div>
+
 </body>
 
 </html>
