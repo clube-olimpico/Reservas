@@ -19,7 +19,7 @@ body {
 
     /* Container da tela de login */ 
     #loginScreen {
-	box-sizing: border-box; /* Garantir que padding e borda sejam incluídos na largura */
+	box-sizing: border-box; /* Garantir que padding e borda sejam incluídos na largura */  
     position: absolute;
     top: 50%;
     left: 50%;
@@ -477,7 +477,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.1.3'; // Versão atual do sistema 
+const VersaoSistema = 'v1.1.4'; // Versão atual do sistema 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
 
@@ -701,7 +701,7 @@ function InicializarSistema() {
 				
 
                 // Verifica se a pirâmide está ativa (em tempo real)
-                const piramideAtiva = config?.Pirammide?.ativa || false; // Valor padrão: false
+                const piramideAtiva = config?.Piramide?.ativa || false; // Valor padrão: false
                 const duracaoSelect = document.getElementById('duracao');
                 const piramideOption = duracaoSelect?.querySelector('option[value="3-piramide"]');
 
@@ -714,7 +714,7 @@ function InicializarSistema() {
                 
                 if (piramideAtiva) {
                     window.config = window.config || {};
-                    window.config.Pirammide = config.Pirammide;
+                    window.config.Piramide = config.Piramide;
                 }
 
                 if (config) {
@@ -1174,15 +1174,15 @@ function bloquearDomingo() {
 
 function validarDiaReserva(jogadores) {
     console.log("Iniciando validação da reserva...");
-    
-    if (jogadores.some(jogador => {
-		let nome = jogador.toLowerCase();
-		return nome.includes("aula") || nome.includes("convidado");
-	})) {
-		console.log("Reserva identificada como 'aula' ou 'convidado'. Validação ignorada.");
-		return true;
-	}
 
+    // Se algum jogador for "aula" ou "convidado", retorna true imediatamente
+    if (jogadores.some(jogador => {
+        let nome = jogador.toLowerCase();
+        return nome.includes("aula") || nome.includes("convidado");
+    })) {
+        console.log("Reserva identificada como 'aula' ou 'convidado'. Validação ignorada.");
+        return true;
+    }
 
     const duracao = document.getElementById('duracao').value;
     console.log("Duração selecionada:", duracao);
@@ -1199,117 +1199,115 @@ function validarDiaReserva(jogadores) {
             return false;
         }
 
-        const configPirammide = window.config?.Pirammide;
-        if (!configPirammide || !configPirammide.ativa) {
+        const configPiramide = window.config?.Piramide;
+        if (!configPiramide || !configPiramide.ativa) {
             alert("Configuração da Pirâmide não foi encontrada ou está desativada. Atualize a página.");
             return false;
         }
 
         const quadraSelecionada = document.getElementById('quadra').value;
+        let quadraConfig;
+        let prefixoQuadra;
 
-        if (quadraSelecionada.includes("1") && !configPirammide.Quadra1) {
-            alert("Quadra 1 - Coberta está interditada para jogos da Pirâmide.");
-            return false;
-        }
-        if (quadraSelecionada.includes("2") && !configPirammide.Quadra2) {
-            alert("Quadra 2 - Aberta está interditada para jogos da Pirâmide.");
-            return false;
-        }
-        if (quadraSelecionada.includes("3") && !configPirammide.Quadra3) {
-            alert("Quadra 3 - Coberta está interditada para jogos da Pirâmide.");
-            return false;
+        if (quadraSelecionada.includes("1")) {
+            quadraConfig = configPiramide["Quadra-1"];
+            prefixoQuadra = "1-";
+            if (!quadraConfig || !quadraConfig["Quadra-1-ativa"]) {
+                alert("Quadra 1 - Coberta está interditada para jogos da Pirâmide.");
+                return false;
+            }
+        } else if (quadraSelecionada.includes("2")) {
+            quadraConfig = configPiramide["Quadra-2"];
+            prefixoQuadra = "2-";
+            if (!quadraConfig || !quadraConfig["Quadra-2-ativa"]) {
+                alert("Quadra 2 - Aberta está interditada para jogos da Pirâmide.");
+                return false;
+            }
+        } else if (quadraSelecionada.includes("3")) {
+            quadraConfig = configPiramide["Quadra-3"];
+            prefixoQuadra = "3-";
+            if (!quadraConfig || !quadraConfig["Quadra-3-ativa"]) {
+                alert("Quadra 3 - Coberta está interditada para jogos da Pirâmide.");
+                return false;
+            }
         }
 
+        if (!quadraConfig) {
+            alert("Configuração da quadra não encontrada.");
+            return false;
+        }
 
         const diasSemana = [1, 2, 3, 4, 5];
-		if (diasSemana.includes(diaSelecionado)) {
-			if (!configPirammide.DiasDeSemana) {
-				alert("Reservas para jogos da Pirâmide não são permitidas durante a semana.");
-				return false;
-			}
-
-			if (configPirammide["DiasDeSemana-exceto-17-19"]) {
-				const horaFim = horaSelecionada + 2;
-
-				// Bloqueia qualquer reserva que comece antes das 19h e termine depois das 17h
-				if (horaSelecionada < 19 && horaFim > 17) {
-					alert("Reservas da Pirâmide são proibidas de segunda a sexta entre 17:00 e 19:00 (horário exclusivo para sócios).");
-					return false;
-				}
-			}
-		}
-
-
+        if (diasSemana.includes(diaSelecionado)) {
+            if (!quadraConfig[prefixoQuadra + "DiasDeSemana"]) {
+                alert(`Reservas para jogos da Pirâmide na ${quadraSelecionada} não são permitidas durante a semana.`);
+                return false;
+            }
+            if (quadraConfig[prefixoQuadra + "DiasDeSemana-exceto-17-19"]) {
+                const horaFim = horaSelecionada + 2;
+                if (horaSelecionada < 19 && horaFim > 17) {
+                    alert(`Reservas da Pirâmide na ${quadraSelecionada} são proibidas de segunda a sexta entre 17:00 e 19:00 (horário exclusivo para sócios).`);
+                    return false;
+                }
+            }
+        }
 
         if (diaSelecionado === 6) {
-            if (!configPirammide.Sabado) {
-                alert("Reservas para jogos da Pirâmide não são permitidas aos sábados.");
+            if (!quadraConfig[prefixoQuadra + "Sabado"]) {
+                alert(`Reservas para jogos da Pirâmide na ${quadraSelecionada} não são permitidas aos sábados.`);
                 return false;
             }
-            if (configPirammide["Sabado-exceto-7-12"] && horaSelecionada >= 7 && horaSelecionada < 12) {
-                alert("Reservas da Pirâmide são proibidas aos sábados entre 07:00 e 12:00 (horário exclusivo para sócios).");
+            if (quadraConfig[prefixoQuadra + "Sabado-exceto-7-12"] && horaSelecionada >= 7 && horaSelecionada < 12) {
+                alert(`Reservas da Pirâmide na ${quadraSelecionada} são proibidas aos sábados entre 07:00 e 12:00 (horário exclusivo para sócios).`);
                 return false;
             }
         }
-
-
 
         if (diaSelecionado === 7) {
-            if (!configPirammide.Domingo) {
-                alert("Reservas para jogos da Pirâmide não são permitidas aos domingos.");
+            if (!quadraConfig[prefixoQuadra + "Domingo"]) {
+                alert(`Reservas para jogos da Pirâmide na ${quadraSelecionada} não são permitidas aos domingos.`);
                 return false;
             }
-            if (configPirammide["Domingo-exceto-8-12"] && horaSelecionada >= 8 && horaSelecionada < 12) {
-                alert("Reservas da Pirâmide são proibidas aos domingos entre 08:00 e 12:00 (horário exclusivo para sócios).");
+            if (quadraConfig[prefixoQuadra + "Domingo-exceto-8-12"] && horaSelecionada >= 8 && horaSelecionada < 12) {
+                alert(`Reservas da Pirâmide na ${quadraSelecionada} são proibidas aos domingos entre 08:00 e 12:00 (horário exclusivo para sócios).`);
                 return false;
             }
         }
-		
-		
 
-        
-		// se retun true, valem as regras daa piramide, liberado reserbas para ate 5 dias
-		// senao, valem as regras regras gerais
         console.log("Todas as regras da Pirâmide foram validadas com sucesso.");
-        //return true;
-    }
+    } else {
+        console.log("Modo padrão detectado. Aplicando regras normais de reserva.");
 
-    console.log("Modo padrão detectado. Aplicando regras normais de reserva.");
-	
-	//alert('entrei na validaçao');
-    
-    const diasParaLimpar = window.DiasParaLimpar;
-    const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0);
+        const diasParaLimpar = window.DiasParaLimpar;
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
 
-    let maxDiasPermitidos;
-    switch (diasParaLimpar) {
-        case 1: maxDiasPermitidos = 5; break;
-        case 2: maxDiasPermitidos = 4; break;
-        case 3: maxDiasPermitidos = 3; break;
-        case 4: maxDiasPermitidos = 2; break;
-        case 5: maxDiasPermitidos = 1; break;
-        case 6: maxDiasPermitidos = 0; break;
-        default:
-            alert("Erro: Configuração inválida de DiasParaLimpar.");
+        let maxDiasPermitidos;
+        switch (diasParaLimpar) {
+            case 1: maxDiasPermitidos = 5; break;
+            case 2: maxDiasPermitidos = 4; break;
+            case 3: maxDiasPermitidos = 3; break;
+            case 4: maxDiasPermitidos = 2; break;
+            case 5: maxDiasPermitidos = 1; break;
+            case 6: maxDiasPermitidos = 0; break;
+            default: alert("Erro: Configuração inválida de DiasParaLimpar."); return false;
+        }
+
+        const ultimoDiaPermitido = new Date(hoje);
+        ultimoDiaPermitido.setDate(hoje.getDate() + maxDiasPermitidos);
+
+        const diferencaDias = (diaSelecionado - hoje.getDay() + 7) % 7;
+        const dataSelecionada = new Date(hoje);
+        dataSelecionada.setDate(hoje.getDate() + diferencaDias);
+
+        if (dataSelecionada > ultimoDiaPermitido || dataSelecionada < hoje) {
+            alert(gerarMensagemErro(diasParaLimpar));
             return false;
-    }
-
-    const ultimoDiaPermitido = new Date(hoje);
-    ultimoDiaPermitido.setDate(hoje.getDate() + maxDiasPermitidos);
-
-    const diferencaDias = (diaSelecionado - hoje.getDay() + 7) % 7;
-    const dataSelecionada = new Date(hoje);
-    dataSelecionada.setDate(hoje.getDate() + diferencaDias);
-
-    if (dataSelecionada > ultimoDiaPermitido || dataSelecionada < hoje) {
-        alert(gerarMensagemErro(diasParaLimpar));
-        return false;
+        }
     }
 
     return true;
 }
-
 
 
 async function validarSeTemReserva(jogadores) {
