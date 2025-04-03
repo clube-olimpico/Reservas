@@ -15,7 +15,7 @@ body {
     padding: 10px;
     display: flex;
     font-size: 18px;
-    justify-content: center;
+    justify-content: center; 
     align-items: flex-start; 
     min-height: 100vh;
     margin: 0;
@@ -529,6 +529,18 @@ input:disabled, select:disabled, button:disabled {
     opacity: 0.7;       /* Opcional: Diminui a opacidade para indicar que está desabilitado */
 }
 
+/* Adicione isso na seção de estilos */
+.piramide-botao {
+    background-color: #4CAF50; /* Cor padrão */
+    color: white;
+}
+
+.piramide-botao.ativo {
+    background-color: #2E7D32; /* Verde mais escuro para o ativo */
+    font-weight: bold;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
 </style>
 
 </head>
@@ -759,22 +771,28 @@ function showTab(tabId) {
     if (piramideAtiva.value === "ON") {
         piramideAtiva.classList.remove("piramide-off");
         piramideAtiva.classList.add("piramide-on");
-        // Habilita os elementos
+        // Habilita os elementos básicos
         piramideTab.querySelectorAll('input, select, button').forEach(el => el.disabled = false);
-        piramideBotoes.forEach(botao => botao.disabled = false); // Habilita os botões
+        piramideBotoes.forEach(botao => botao.disabled = false);
+        
+        // Atualiza o estado dos campos das quadras (que vai lidar com os "Exceto")
+        atualizarCamposPiramideQuadra1();
+        atualizarCamposPiramideQuadra2();
+        atualizarCamposPiramideQuadra3();
     } else {
         piramideAtiva.classList.remove("piramide-on");
         piramideAtiva.classList.add("piramide-off");
-        // Desabilita todos os elementos dentro da aba "Pirâmide"
-        piramideTab.querySelectorAll('input, select, button').forEach(el => el.disabled = true);
-        piramideAtiva.disabled = false; // Mantém o select "Ativa" habilitado para poder mudar o estado
-        piramideBotoes.forEach(botao => botao.disabled = true); // Desabilita os botões
+        
+        // Desabilita TODOS os elementos dentro da aba "Pirâmide"
+        const todosElementos = piramideTab.querySelectorAll('input, select, button');
+        todosElementos.forEach(el => {
+            el.disabled = true; // Apenas desabilita, sem alterar o valor
+        });
+        
+        // Mantém o select "Ativa" habilitado para poder mudar o estado
+        piramideAtiva.disabled = false;
+        piramideBotoes.forEach(botao => botao.disabled = true);
     }
-
-    // Atualiza o estado dos campos das quadras (já inclui a verificação de piramideAtiva)
-    atualizarCamposPiramideQuadra1();
-    atualizarCamposPiramideQuadra2();
-    atualizarCamposPiramideQuadra3();
 }
 
 
@@ -1260,6 +1278,9 @@ document.addEventListener("DOMContentLoaded", function() {
     atualizarCamposPiramideQuadra1();
     atualizarCamposPiramideQuadra2();
     atualizarCamposPiramideQuadra3();
+    
+    // Define o primeiro botão como ativo por padrão
+    document.querySelector('.piramide-botao').classList.add('ativo');
 });
 
 function mostrarQuadra(quadraId) {
@@ -1267,6 +1288,17 @@ function mostrarQuadra(quadraId) {
     document.getElementById('piramideQuadra1Container').style.display = 'none';
     document.getElementById('piramideQuadra2Container').style.display = 'none';
     document.getElementById('piramideQuadra3Container').style.display = 'none';
+    
+    // Remove a classe 'ativo' de todos os botões
+    document.querySelectorAll('.piramide-botao').forEach(botao => {
+        botao.classList.remove('ativo');
+    });
+    
+    // Adiciona a classe 'ativo' ao botão clicado
+    const botaoClicado = document.querySelector(`.piramide-botao[onclick="mostrarQuadra('${quadraId}')"]`);
+    if (botaoClicado) {
+        botaoClicado.classList.add('ativo');
+    }
 
     // Exibe o container da quadra clicada
     document.getElementById('piramide' + quadraId.charAt(0).toUpperCase() + quadraId.slice(1) + 'Container').style.display = 'block';
