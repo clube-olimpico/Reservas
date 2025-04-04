@@ -470,6 +470,8 @@ th {
 
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script> 
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>  ```
+
 	
 	
 <script>
@@ -477,7 +479,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.1.6'; // Versão atual do sistema 
+const VersaoSistema = 'v1.1.7'; // Versão atual do sistema 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
 
@@ -2492,13 +2494,13 @@ window.onload = function () {
                 localStorage.setItem("sessionId", sessionId);
 
                 // Cria referência no Firebase para rastrear usuários ativos
-                const userStatusRef = database.ref(`sistemas/usuariosOnline/${sessionId}`);
+                const userStatusRef = database.ref(`sistemas/usuariosOnline/${sessionId}`); 
 
                 // Adiciona o usuário ao banco quando ele acessa
                 userStatusRef.set({
                     sessionId: sessionId,
                     timestamp: firebase.database.ServerValue.TIMESTAMP,
-                    usuario: jogadorLogado  // Adiciona o nome do jogador
+                    usuario: 'primeiro acesso'  // como ainda não fez o login, cadastra-se sem um usuario
                 });
 
                 // Remove automaticamente quando o usuário fechar a aba
@@ -2661,6 +2663,7 @@ function fazerLogin() {
             localStorage.setItem('jogadorLogado', nomeCompleto); // Salva o nome completo
             loginScreen.style.display = 'none';
             contentElement.style.display = 'block';
+			atualizarPrimeiroAcesso(nomeCompleto); 
         } else {
             // Se o usuário cancelar, limpa os campos jogador e senha
             jogadorSelect.value = '';
@@ -2893,6 +2896,20 @@ async function registrarExclusaoEmLote(logs) {
     logs.forEach(log => logsFallback.push(log));
     localStorage.setItem('logs_fallback', JSON.stringify(logsFallback));
   }
+}
+
+// Função para atualizar o valor "primeiro acesso"
+function atualizarPrimeiroAcesso(jogadorLogado) {
+    const sessionId = localStorage.getItem("sessionId");
+    if (sessionId) {
+        const userStatusRef = database.ref(`sistemas/usuariosOnline/${sessionId}`);
+        // Atualiza o valor do usuário para o nome do jogador
+        userStatusRef.update({ usuario: jogadorLogado })
+            .then(() => console.log("✅ Valor de 'primeiro acesso' atualizado para:", jogadorLogado))
+            .catch(error => console.error("❌ Erro ao atualizar 'primeiro acesso':", error));
+    } else {
+        console.error("❌ SessionId não encontrado. Não foi possível atualizar 'primeiro acesso'.");
+    }
 }
 
 </script>
