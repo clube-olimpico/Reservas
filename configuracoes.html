@@ -565,7 +565,14 @@ input:disabled, select:disabled, button:disabled {
                 <option value="OFF">OFF</option>
             </select>
             <input type="text" id="usuariosOnline" placeholder="000" readonly maxlength="3" style="width: 40px; height: 15px; text-align: center;" title="Número de usuários online (3 dígitos)">
-        </div>
+            <script>
+				document.getElementById('usuariosOnline').addEventListener('mousedown', function(event) {
+					event.preventDefault();
+					this.blur();
+					window.getSelection().removeAllRanges();
+				});
+			</script>
+		</div>
 
         <div class="container">
             <label for="vDomingo">Estado de Domingo:</label>
@@ -730,14 +737,34 @@ input:disabled, select:disabled, button:disabled {
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
+    const usuariosOnlineInput = document.getElementById('usuariosOnline'); // Declare fora do listener
+    let listaUsuariosOnline = []; // Se você for usar esta lista aqui, também declare fora
 
-  db.ref("sistemas/usuariosOnline").on("value", snapshot => { 
+  db.ref("sistemas/usuariosOnline").on("value", snapshot => {
         const numUsuariosOnline = snapshot.numChildren();
         console.log(`Usuários ativos: ${numUsuariosOnline}`);
+        usuariosOnlineInput.value = numUsuariosOnline.toString().padStart(3, '0');
 
-        // Atualiza o valor do campo de entrada
-        document.getElementById('usuariosOnline').value = numUsuariosOnline.toString().padStart(3, '0');
-    });	
+        // Atualiza a lista de usuários
+        listaUsuariosOnline = [];
+        snapshot.forEach(childSnapshot => {
+            const usuario = childSnapshot.val().usuario;
+            listaUsuariosOnline.push(usuario);
+        });
+    });
+
+    usuariosOnlineInput.addEventListener('click', function() {
+        exibirUsuariosLogados();
+    });
+
+    function exibirUsuariosLogados() {
+        if (listaUsuariosOnline.length > 0) {
+            const mensagem = "Usuários Logados:\n" + listaUsuariosOnline.join("\n");
+            alert(mensagem);
+        } else {
+            alert("Nenhum usuário logado no momento.");
+        }
+    }
 	
 function showTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -764,7 +791,7 @@ function showTab(tabId) {
 	
 	
  function atualizarEstadoPiramide() {
-    const piramideAtiva = document.getElementById("piramideAtiva");
+    const piramideAtiva = document.getElementById("piramideAtiva"); 
     const piramideTab = document.getElementById("piramide");
     const piramideBotoes = document.querySelectorAll("#piramide .piramide-botao");
 
