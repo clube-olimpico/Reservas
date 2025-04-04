@@ -469,7 +469,7 @@ th {
 </head>
 
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script> 
 	
 	
 <script>
@@ -477,7 +477,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.1.5'; // Versão atual do sistema 
+const VersaoSistema = 'v1.1.6'; // Versão atual do sistema 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
 
@@ -526,22 +526,6 @@ const firebaseConfig = {
 // Inicialização do Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
-
-// Gera um identificador único para a sessão do usuário
-const sessionId = localStorage.getItem("sessionId") || Math.random().toString(36).substr(2, 9);
-localStorage.setItem("sessionId", sessionId);
-
-// Cria referência no Firebase para rastrear usuários ativos
-const userStatusRef = database.ref(`sistemas/usuariosOnline/${sessionId}`);
-
-// Adiciona o usuário ao banco quando ele acessa
-userStatusRef.set({
-    sessionId: sessionId,
-    timestamp: firebase.database.ServerValue.TIMESTAMP
-});
-
-// Remove automaticamente quando o usuário fechar a aba
-userStatusRef.onDisconnect().remove();
 
 
 // Configuração inicial do banco de dados
@@ -2452,19 +2436,16 @@ window.onload = function () {
     let contentElement = document.getElementById('content');
     let loadingElement = document.getElementById('loading');
 
-    console.log("🔄 Chamando carregarJogadores()"); 
+    console.log("🔄 Chamando carregarJogadores()");
 
     carregarJogadores(jogadorLogado).then(() => {
         console.log("✅ Jogadores carregados com base no estado de login!");
-		
-		
-		//desmarccar esse trecho para canccelar o login do usuario
-		
-		  //jogadorLogado = 'LOGADO'; 
-		
-		// ***********************************************
-		
-		
+
+        //desmarccar esse trecho para canccelar o login do usuario
+
+        //jogadorLogado = 'LOGADO'; 
+
+        // ***********************************************
 
         if (jogadorLogado) {
             // O usuário já está autenticado, então esconde a tela de login
@@ -2475,6 +2456,24 @@ window.onload = function () {
             InicializarSistema().then(() => {
                 if (loadingElement) loadingElement.style.display = 'none';
                 contentElement.style.display = 'block';
+
+                // Gera um identificador único para a sessão do usuário
+                const sessionId = localStorage.getItem("sessionId") || Math.random().toString(36).substr(2, 9);
+                localStorage.setItem("sessionId", sessionId);
+
+                // Cria referência no Firebase para rastrear usuários ativos
+                const userStatusRef = database.ref(`sistemas/usuariosOnline/${sessionId}`);
+
+                // Adiciona o usuário ao banco quando ele acessa
+                userStatusRef.set({
+                    sessionId: sessionId,
+                    timestamp: firebase.database.ServerValue.TIMESTAMP,
+                    usuario: jogadorLogado  // Adiciona o nome do jogador
+                });
+
+                // Remove automaticamente quando o usuário fechar a aba
+                userStatusRef.onDisconnect().remove();
+
             }).catch(error => {
                 console.error("❌ Erro ao inicializar o sistema:", error);
             });
@@ -2487,15 +2486,32 @@ window.onload = function () {
             InicializarSistema().then(() => {
                 console.log("✅ Sistema inicializado!");
                 if (loadingElement) loadingElement.style.display = 'none';
+
+                // Gera um identificador único para a sessão do usuário
+                const sessionId = localStorage.getItem("sessionId") || Math.random().toString(36).substr(2, 9);
+                localStorage.setItem("sessionId", sessionId);
+
+                // Cria referência no Firebase para rastrear usuários ativos
+                const userStatusRef = database.ref(`sistemas/usuariosOnline/${sessionId}`);
+
+                // Adiciona o usuário ao banco quando ele acessa
+                userStatusRef.set({
+                    sessionId: sessionId,
+                    timestamp: firebase.database.ServerValue.TIMESTAMP,
+                    usuario: jogadorLogado  // Adiciona o nome do jogador
+                });
+
+                // Remove automaticamente quando o usuário fechar a aba
+                userStatusRef.onDisconnect().remove();
+
             }).catch(error => {
                 console.error("❌ Erro ao inicializar o sistema:", error);
             });
         }
     }).catch(error => {
         console.error("❌ Erro ao carregar jogadores:", error);
-    }); 
+    });
 };
-
 
 
 
