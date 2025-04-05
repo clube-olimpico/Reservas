@@ -26,7 +26,7 @@ body {
 .container {
     display: flex;
     align-items: center;
-    /* justify-content: space-between;   Remova esta linha */
+    /* justify-content: space-between;   Remova esta linha */ 
     margin-bottom: 10px;
     gap: 10px;
 }
@@ -211,6 +211,29 @@ button:hover {
 
 #piramideAtiva {
     font-weight: bold;
+    margin-top: 0; /* Garante que não há margem indesejada */
+}
+
+#piramide .piramide-ativa-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;   /* Centraliza horizontalmente */
+    width: 100%;               /* Garante que ocupa toda a largura disponível */
+    margin-top: 5px;
+}
+
+#piramide .piramide-ativa-container label {
+    width: auto;               /* Largura automática para o label */
+    margin-right: 10px;       /* Espaço à direita do label */
+    font-weight: bold;        /* Negrito para o texto "Ativa:" */
+}
+
+#piramide .piramide-ativa-container select {
+    width: 80px;               /* Largura fixa para o select */
+    border: 1px solid #ccc;   /* Borda */
+    border-radius: 5px;       /* Borda arredondada */
+    max-width: 4px;           /* Largura máxima (pode ser ajustado) */
+    font-weight: bold;        /* Negrito para "ON/OFF" */
 }
 
 .piramide-on {
@@ -349,7 +372,7 @@ body.piramde-ativo {
     .form-container {
         width: 90%;
         padding: 10px;
-        margin: 10px auto;
+        margin: 1px auto;
         box-sizing: border-box;
     }
 
@@ -392,8 +415,10 @@ body.piramde-ativo {
     #piramide .piramide-botao {
         flex: 1;
         margin: 5px; /* Reduz a margem para economizar espaço */
+		margin-top: 0px;
         padding: 10px;
 		height: 35px; /* Altura para celulares */
+		line-height: 15px; /* Adicionado */
         box-sizing: border-box;
         font-size: 16px; /* Reduz o tamanho da fonte se necessário */
         white-space: nowrap; /* Impede que o texto quebre para a próxima linha */
@@ -445,6 +470,7 @@ body.piramde-ativo {
     .tab-content-active {
         display: block;
     }
+
 }
 
 
