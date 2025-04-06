@@ -20,7 +20,7 @@ body {
     min-height: 100vh;
     margin: 0;
     overflow-y: auto;
-    box-sizing: border-box; 
+    box-sizing: border-box;  
 }
 
 .container {
@@ -645,8 +645,8 @@ input:disabled, select:disabled, button:disabled {
 
     <div id="main-content">
         <div class="tabs">
-            <div class="tab active" onclick="showTab('convidados')">Convidados</div>
             <div class="tab" onclick="showTab('piramide')">Pirâmide</div>
+			<div class="tab active" onclick="showTab('convidados')">Convidados</div>
         </div>
 
         <div id="convidados" class="tab-content tab-content-active">
@@ -1303,7 +1303,7 @@ function salvarConfiguracoes() {
 	
 	
 document.addEventListener("DOMContentLoaded", function() {
-    showTab('convidados');
+    showTab('piramide');
     atualizarEstadoPiramide();
 
     // Adiciona o evento onchange para o checkbox "Ativa"
