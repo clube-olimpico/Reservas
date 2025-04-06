@@ -4,6 +4,9 @@ on:
     - cron: '0 0 * * *'  # Executa diariamente à meia-noite (UTC)
   workflow_dispatch:      # Permite acionar manualmente
 
+permissions:
+  contents: write  # Adiciona permissão de escrita para o conteúdo do repositório
+
 jobs:
   clean-logs:
     runs-on: ubuntu-latest
