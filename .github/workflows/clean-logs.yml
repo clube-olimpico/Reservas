@@ -29,18 +29,24 @@ jobs:
           node -e "
             const axios = require('axios');
             const fs = require('fs');
-            const { execSync } = require('child_process');
 
             // 1. Baixa o arquivo de logs do GitHub
             async function fetchLogs() {
-              const response = await axios.get(
-                'https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/contents/$LOGS_PATH',
-                { headers: { 'Authorization': 'token $GITHUB_TOKEN' } }
-              );
-              return {
-                content: JSON.parse(Buffer.from(response.data.content, 'base64').toString('utf8')),
-                sha: response.data.sha
-              };
+              try {
+                const response = await axios.get(
+                  'https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/contents/$LOGS_PATH',
+                  { headers: { 'Authorization': 'token $GITHUB_TOKEN' } }
+                );
+                const content = Buffer.from(response.data.content, 'base64').toString('utf8');
+                console.log('Conteúdo do arquivo:', content); // Adicionado log
+                return {
+                  content: content,
+                  sha: response.data.sha
+                };
+              } catch (error) {
+                console.error('Erro ao buscar logs:', error.response ? error.response.status : error.message);
+                throw error;
+              }
             }
 
             // 2. Filtra logs dos últimos 7 dias
@@ -48,22 +54,29 @@ jobs:
               const now = new Date();
               return logs.filter(log => {
                 const [dia, mes, ano] = log.exclusao.split(' ')[0].split('/');
-                const logDate = new Date(`${ano}-${mes}-${dia}`);
+                const logDate = new Date(\`$ {ano}-${mes}-${dia}\`);
                 return (now - logDate) <= (7 * 24 * 60 * 60 * 1000);
               });
             }
 
             // 3. Atualiza o arquivo no GitHub
             async function updateLogs(logs, sha) {
-              await axios.put(
-                'https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/contents/$LOGS_PATH',
-                {
-                  message: '[Automático] Limpeza de logs antigos',
-                  content: Buffer.from(JSON.stringify(logs, null, 2)).toString('base64'),
-                  sha: sha
-                },
-                { headers: { 'Authorization': 'token $GITHUB_TOKEN' } }
-              );
+              try {
+                const content = Buffer.from(JSON.stringify(logs, null, 2)).toString('base64');
+                await axios.put(
+                  'https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/contents/$LOGS_PATH',
+                  {
+                    message: '[Automático] Limpeza de logs antigos',
+                    content: content,
+                    sha: sha
+                  },
+                  { headers: { 'Authorization': 'token $GITHUB_TOKEN' } }
+                );
+                console.log('Logs atualizados com sucesso.');
+              } catch (error) {
+                console.error('Erro ao atualizar logs:', error.response ? error.response.status : error.message);
+                throw error;
+              }
             }
 
             // Executa o processo
@@ -79,7 +92,7 @@ jobs:
                   console.log('Nada para limpar.');
                 }
               } catch (error) {
-                console.error('Erro:', error.response?.data || error.message);
+                console.error('Erro geral:', error.message);
                 process.exit(1);
               }
             })();
