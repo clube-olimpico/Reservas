@@ -1,11 +1,11 @@
 name: Limpar Logs Antigos
 on:
   schedule:
-    - cron: '0 0 * * *'  # Executa diariamente à meia-noite (UTC)
-  workflow_dispatch:      # Permite acionar manualmente
+    - cron: '0 0 * * *'
+  workflow_dispatch:
 
 permissions:
-  contents: write  # Adiciona permissão de escrita para o conteúdo do repositório
+  contents: write
 
 jobs:
   clean-logs:
@@ -24,7 +24,7 @@ jobs:
 
       - name: Limpar logs antigos
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Token automático do GitHub
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO_OWNER: 'clube-olimpico'
           REPO_NAME: 'Reservas'
           LOGS_PATH: 'logs/reservas-excluidas.json'
@@ -33,7 +33,6 @@ jobs:
             const axios = require('axios');
             const fs = require('fs');
 
-            // 1. Baixa o arquivo de logs do GitHub
             async function fetchLogs() {
               try {
                 const response = await axios.get(
@@ -41,7 +40,7 @@ jobs:
                   { headers: { 'Authorization': 'token $GITHUB_TOKEN' } }
                 );
                 const content = Buffer.from(response.data.content, 'base64').toString('utf8');
-                console.log('Conteúdo do arquivo:', content); // Adicionado log
+                console.log('Conteúdo do arquivo:', content);
                 return {
                   content: content,
                   sha: response.data.sha
@@ -52,17 +51,17 @@ jobs:
               }
             }
 
-            // 2. Filtra logs dos últimos 7 dias
             function filterLogs(logs) {
               const now = new Date();
+              now.setHours(0, 0, 0, 0);
               return logs.filter(log => {
-                const [dia, mes, ano] = log.exclusao.split(' ')[0].split('/');
-                const logDate = new Date(\`$ {ano}-${mes}-${dia}\`);
+                const [dia, mes, ano] = log.exclusao.split(' ')[0].split('-'); // Alterado para '-'
+                const logDate = new Date(ano, mes - 1, parseInt(dia, 10));
+                logDate.setHours(0, 0, 0, 0);
                 return (now - logDate) <= (7 * 24 * 60 * 60 * 1000);
               });
             }
 
-            // 3. Atualiza o arquivo no GitHub
             async function updateLogs(logs, sha) {
               try {
                 const content = Buffer.from(JSON.stringify(logs, null, 2)).toString('base64');
@@ -82,7 +81,6 @@ jobs:
               }
             }
 
-            // Executa o processo
             (async () => {
               try {
                 const { content, sha } = await fetchLogs();
