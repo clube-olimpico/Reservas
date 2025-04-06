@@ -55,8 +55,8 @@ jobs:
               const now = new Date();
               now.setHours(0, 0, 0, 0);
               return logs.filter(log => {
-                const [dia, mes, ano] = log.exclusao.split(' ')[0].split('-'); // Alterado para '-'
-                const logDate = new Date(ano, mes - 1, parseInt(dia, 10));
+                const [dia, mes, ano] = log.exclusao.split(' ')[0].split('/'); // Correto para 'DD/MM/AAAA'
+                const logDate = new Date(ano, mes - 1, parseInt(dia, 10)); // Mês é 0-indexado
                 logDate.setHours(0, 0, 0, 0);
                 return (now - logDate) <= (7 * 24 * 60 * 60 * 1000);
               });
