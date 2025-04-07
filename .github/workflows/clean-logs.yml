@@ -1,7 +1,7 @@
 name: Limpar Logs Antigos
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 7 * * *'
   workflow_dispatch:
 
 permissions:
