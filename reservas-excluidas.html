@@ -7,7 +7,7 @@
     <title>Reservas Excluídas</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Arial, sans-serif;  
             margin: 0;
             padding: 10px;
             background-color: #f4f4f4;
@@ -146,15 +146,31 @@
             .catch(error => console.error('Erro ao carregar logs:', error));
 
         function preencherOpcoesQuadra() {
-            const quadras = [...new Set(logs.map(log => log.quadra))];
-            const selectQuadra = document.getElementById('quadra');
-            quadras.forEach(q => {
-                const option = document.createElement('option');
-                option.value = q;
-                option.textContent = q;
-                selectQuadra.appendChild(option);
-            });
-        }
+			const quadras = [...new Set(logs.map(log => log.quadra))];
+
+			// Ordena as quadras numericamente, considerando o texto adicional
+			quadras.sort((a, b) => {
+				// Extrai a parte numérica do início da string
+				const numA = parseInt(a.match(/\d+/), 10);
+				const numB = parseInt(b.match(/\d+/), 10);
+
+				// Se a parte numérica for válida, compara os números
+				if (!isNaN(numA) && !isNaN(numB)) {
+					return numA - numB;
+				}
+				// Se a parte numérica não for válida em alguma das strings,
+				// volta a comparar as strings completas (ordem alfabética)
+				return a.localeCompare(b);
+			});
+
+			const selectQuadra = document.getElementById('quadra');
+			quadras.forEach(q => {
+				const option = document.createElement('option');
+				option.value = q;
+				option.textContent = q;
+				selectQuadra.appendChild(option);
+			});
+		}
 
         function isMobile() {
             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -182,18 +198,7 @@
             });
         }
 		
-		/*
-		function normalizarDuracao(texto) {
-			if (!texto) return '';
-			// Remove todos os espaços extras, hífens e parênteses
-			return texto.toLowerCase()
-					   .replace(/\s+/g, ' ')
-					   .replace(/[-()]/g, ' ')
-					   .replace(/pirã¢mide/g, 'pirâmide')
-					   .trim();
-		}
-*/
-
+		
         function exibirLogs(lista) {
 			const logsContainer = document.getElementById('logs');
 			logsContainer.innerHTML = '';
