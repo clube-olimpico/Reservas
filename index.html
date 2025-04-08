@@ -479,7 +479,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.1.9'; // Versão atual do sistema 
+const VersaoSistema = 'v1.2.0'; // Versão atual do sistema 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
 
@@ -1864,6 +1864,14 @@ function adicionarEventoClique() {
 
 
 
+function capitalizarNome(nome) {
+    if (!nome) return ""; // Retorno seguro para strings vazias ou nulas
+
+    return nome.split(' ')
+               .map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1))
+               .join(' ');
+}
+
 // Variável global para rastrear células já excluídas
 const celulasExcluidas = new Set();
 
@@ -2021,8 +2029,8 @@ const horarioFormatado = `${horaInicial.toString().padStart(2, '0')}:00 - ${hora
 registrarExclusao(
     quadraAtual,
     horarioFormatado,
-    jogadoresArray,
-    jogadorLogado,
+    jogadoresArray.map(capitalizarNome), // Usando a função correta aqui
+	jogadorLogado,
     duracaoNumerica, // Garantindo que a duração é numérica
     dataReserva
 );
