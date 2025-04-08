@@ -479,7 +479,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.1.8'; // Versão atual do sistema 
+const VersaoSistema = 'v1.1.9'; // Versão atual do sistema 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
 
@@ -1910,17 +1910,16 @@ function excluirReserva(horaIndex, diaIndex) {
         const duracao = primeiraCelula.getAttribute('data-duracao') || "1";
         console.log("🔹 Duração da reserva:", duracao);
         
-       	
-		let jogadoresArray = primeiraCelula.textContent.trim().split(',')
-			.map(j => j.replace(/^\d+\s*-\s*/, '').trim()) // Removido toLowerCase()
-			.filter(j => j); // Remove entradas vazias
+        let jogadoresArray = primeiraCelula.textContent.trim().split(',')
+            .map(j => j.replace(/^\d+\s*-\s*/, '').trim().toLowerCase())
+            .filter(j => j); // Remove entradas vazias
 
         // Tratamento para reservas de longa duração
         if (duracao === "2" || duracao === "3") {
             const segundaCelula = tabela.rows[horaIndex + 1]?.cells[diaIndex];
             if (segundaCelula) {
                 const jogadoresSegundaCelula = segundaCelula.textContent.trim().split(',')
-                    .map(j => j.replace(/^\d+\s*-\s*/, '').trim())
+                    .map(j => j.replace(/^\d+\s*-\s*/, '').trim().toLowerCase())
                     .filter(j => j);
                 jogadoresArray = [...new Set([...jogadoresArray, ...jogadoresSegundaCelula])];
             }
