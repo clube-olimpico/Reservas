@@ -3,32 +3,35 @@ name: Firebase Backup
 
 on:
   schedule:
-    - cron: '0 4 * * *'  # Executa todos os dias às 04:00 UTC (~01:00 no horário de Brasília)
+    - cron: '0 4 * * *'  # Executa diariamente às 04:00 UTC
+
+  workflow_dispatch:  # Permite executar manualmente também
 
 jobs:
   backup:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repositório
+      - name: 📥 Checkout do repositório
         uses: actions/checkout@v3
 
-      - name: Configurar Node.js
+      - name: ⚙️ Configurar Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Instalar dependências
+      - name: 📦 Instalar dependências
         run: npm install firebase-admin
 
-      - name: Executar backup
-        run: node scripts/backup-firebase.js
+      - name: 🧠 Executar backup do Firebase
+        run: node reservas/scripts/backup-firebase.js
         env:
           FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
 
-      - name: Commit e Push do backup
+      - name: 💾 Commit e push do arquivo de backup
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add agenda-5ce95-default-rtdb-export.json
-          git commit -m "Backup diário do Firebase em $(date +'%Y-%m-%d %H:%M:%S')" || echo "Nenhuma alteração para commit"
+          git commit -m "Backup automático do Firebase em $(date +'%Y-%m-%d %H:%M:%S')" || echo "⚠️ Nada para commitar"
           git push
