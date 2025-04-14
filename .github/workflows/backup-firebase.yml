@@ -25,14 +25,8 @@ jobs:
       - name: 📦 Instalar dependências
         run: npm install firebase-admin
 
-      - name: 🔍 Debug - Diretório de trabalho
-        run: pwd
-
-      - name: 🔍 Debug - Listar arquivos
-        run: ls -laR
-
       - name: 🧠 Executar backup do Firebase
-        run: node reservas/scripts/backup-firebase.js
+        run: node scripts/backup-firebase.js  # 👈 Caminho corrigido
         env:
           FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
 
