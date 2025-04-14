@@ -3,37 +3,91 @@ name: Firebase Backup
 
 on:
   schedule:
-    - cron: '0 4 * * *'
-
+    - cron: '0 4 * * *' # Executa diariamente às 04:00 UTC
   workflow_dispatch:
+
+permissions:
+  contents: write # Permissão para escrever no repositório
 
 jobs:
   backup:
     runs-on: ubuntu-latest
-
     steps:
       - name: 📥 Checkout do repositório
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v4 # Use v4 para consistência
 
       - name: ⚙️ Configurar Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4 # Use v4 para consistência
         with:
-          node-version: '18'
+          node-version: '20' # Use v20 para consistência
 
       - name: 📦 Instalar dependências
-        run: npm install firebase-admin
+        run: npm install firebase-admin axios
 
-      - name: 🧠 Executar backup do Firebase
-        run: node scripts/backup-firebase.js  # 👈 Caminho corrigido
+      - name: 🧠 Executar backup do Firebase e atualizar arquivo
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_OWNER: 'clube-olimpico' # Substitua pelo nome do dono do repositório
+          REPO_NAME: 'Reservas' # Substitua pelo nome do repositório
+          BACKUP_FILE_PATH: 'backups/firebase-backup.json' # Caminho para o arquivo de backup
           FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
-
-      - name: 💾 Commit e push do arquivo de backup
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add agenda-5ce95-default-rtdb-export.json
-          git commit -m "Backup automático do Firebase em $(date +'%Y-%m-%d %H:%M:%S')" || echo "⚠️ Nada para commitar"
-          git push
+          node -e '
+            const axios = require("axios");
+            const backupFirebase = require("./backup-firebase.js"); // Importa a função de backup
+
+            const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+            const REPO_OWNER = process.env.REPO_OWNER;
+            const REPO_NAME = process.env.REPO_NAME;
+            const BACKUP_FILE_PATH = process.env.BACKUP_FILE_PATH;
+
+            async function getFileSHA(filePath) {
+              try {
+                const response = await axios.get(
+                  `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`,
+                  {
+                    headers: {
+                      Authorization: `Bearer ${GITHUB_TOKEN}`,
+                      Accept: "application/vnd.github.v3+json",
+                    },
+                  }
+                );
+                return response.data.sha;
+              } catch (error) {
+                // Se o arquivo não existir, o erro 404 é esperado e está tudo bem.
+                if (error.response && error.response.status === 404) {
+                  return null;
+                }
+                throw error;
+              }
+            }
+
+            (async () => {
+              try {
+                const backupData = await backupFirebase();
+                const sha = await getFileSHA(BACKUP_FILE_PATH);
+
+                const content = Buffer.from(backupData).toString("base64");
+
+                const response = await axios.put(
+                  `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${BACKUP_FILE_PATH}`,
+                  {
+                    message: "[Automated] Firebase Backup",
+                    content: content,
+                    sha: sha,
+                  },
+                  {
+                    headers: {
+                      Authorization: `Bearer ${GITHUB_TOKEN}`,
+                      Accept: "application/vnd.github.v3+json",
+                    },
+                  }
+                );
+
+                console.log("Arquivo de backup atualizado com sucesso:", response.data.content.sha);
+              } catch (error) {
+                console.error("Erro durante o processo de backup:", error);
+                process.exit(1);
+              }
+            })();
+          '
