@@ -25,6 +25,7 @@ jobs:
 
       - name: 🧠 Executar backup do Firebase
         run: node reservas/scripts/backup-firebase.js
+        working-directory: ${{ github.workspace }}
         env:
           FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
 
