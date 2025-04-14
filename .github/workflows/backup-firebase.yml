@@ -2,8 +2,8 @@
 name: Firebase Backup
 
 on:
-  schedule:
-    - cron: '0 4 * * *' # Executa diariamente às 04:00 UTC
+  # schedule:
+  #   - cron: '0 4 * * *' # Executa diariamente às 04:00 UTC
   workflow_dispatch:
 
 permissions:
