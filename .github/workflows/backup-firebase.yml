@@ -29,7 +29,7 @@ jobs:
         run: npm install firebase-admin
 
       - name: 🧠 Executar backup do Firebase
-        run: node scripts/backup-firebase.js  # 👈 Caminho corrigido
+        run: node scripts/backup-firebase.js
         env:
           FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
 
@@ -38,5 +38,14 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add agenda-5ce95-default-rtdb-export.json
-          git commit -m "Backup automático do Firebase em $(date +'%Y-%m-%d %H:%M:%S')" || echo "⚠️ Nada para commitar"
-          git push
+          git commit -m "Backup automático do Firebase em $(date +'%Y-%m-%d %H:%M:%S')"
+          
+          # Adicione este log para debug
+          git status
+          echo "Verificando se há alterações para commitar..."
+          if ! git diff --quiet --cached; then
+            echo "Há alterações para commitar."
+            git push
+          else
+            echo "⚠️ Nada para commitar."
+          fi
