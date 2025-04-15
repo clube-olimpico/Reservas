@@ -37,6 +37,10 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+          # Definir o fuso horário para Brasil (São Paulo) - que geralmente é o mesmo de Curitiba
+          export TZ='America/Sao_Paulo' 
+          
           git add agenda-5ce95-default-rtdb-export.json
           
           # Verifique se há alterações antes de commitar
