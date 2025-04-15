@@ -15,12 +15,31 @@ console.log("🚀 Iniciando backup...");
 
 db.ref("/").once("value").then(snapshot => {
   console.log("💾 Dados lidos do Firebase.");
-  fs.writeFileSync("agenda-5ce95-default-rtdb-export.json", JSON.stringify(snapshot.val(), null, 2));
+  let data = snapshot.val();
+
+  // Função para filtrar dados sensíveis
+  function filterSensitiveData(obj) {
+    if (!obj || typeof obj !== 'object') {
+      return obj;
+    }
+
+    for (const key in obj) {
+      if (key === 'githubToken') {
+        obj[key] = '***SEGREDO_REMOVIDO***'; // Ou delete obj[key];
+      } else if (typeof obj[key] === 'object') {
+        filterSensitiveData(obj[key]);
+      }
+    }
+    return obj;
+  }
+
+  const filteredData = filterSensitiveData(data);
+  fs.writeFileSync("agenda-5ce95-default-rtdb-export.json", JSON.stringify(filteredData, null, 2));
   console.log("✅ Backup concluído.");
-  return admin.app().delete(); // Adicione esta linha para encerrar a conexão
+  return admin.app().delete();
 }).then(() => {
-  console.log("🔥 Conexão com o Firebase encerrada."); // Log opcional
+  console.log("🔥 Conexão com o Firebase encerrada.");
 }).catch(error => {
   console.error("❌ Erro durante o backup:", error);
-  process.exit(1); // Encerre o processo com código de erro
+  process.exit(1);
 });
