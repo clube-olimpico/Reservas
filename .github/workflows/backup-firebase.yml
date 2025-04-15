@@ -3,9 +3,9 @@ name: Firebase Backup
 
 on:
   schedule:
-    - cron: '0 4 * * *'  # Executa diariamente às 04:00 UTC
+    - cron: '0 4 * * *'
 
-  workflow_dispatch:  # Permite executar manualmente também
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: 📥 Checkout do repositório
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: ⚙️ Configurar Node.js
         uses: actions/setup-node@v3
@@ -27,7 +29,7 @@ jobs:
         run: npm install firebase-admin
 
       - name: 🧠 Executar backup do Firebase
-        run: node reservas/scripts/backup-firebase.js
+        run: node scripts/backup-firebase.js  # 👈 Caminho corrigido
         env:
           FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
 
