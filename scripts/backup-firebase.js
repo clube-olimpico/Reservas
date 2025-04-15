@@ -34,7 +34,7 @@ db.ref("/").once("value").then(snapshot => {
   }
 
   const filteredData = filterSensitiveData(data);
-  fs.writeFileSync("agenda-5ce95-default-rtdb-export.json", JSON.stringify(filteredData, null, 2));
+  fs.writeFileSync("Reservas/scripts/agenda-5ce95-default-rtdb-export.json", JSON.stringify(filteredData, null, 2));
   console.log("✅ Backup concluído.");
   return admin.app().delete();
 }).then(() => {
