@@ -40,12 +40,7 @@ jobs:
           git add agenda-5ce95-default-rtdb-export.json
           git commit -m "Backup automático do Firebase em $(date +'%Y-%m-%d %H:%M:%S')"
           
-          # Adicione este log para debug
-          git status
-          echo "Verificando se há alterações para commitar..."
-          if ! git diff --quiet --cached; then
-            echo "Há alterações para commitar."
-            git push
-          else
-            echo "⚠️ Nada para commitar."
-          fi
+          # Remova o git status e git diff --quiet --cached
+          # Eles não são necessários agora, pois estamos no mesmo bloco
+          
+          git push
