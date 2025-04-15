@@ -38,9 +38,11 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add agenda-5ce95-default-rtdb-export.json
-          git commit -m "Backup automático do Firebase em $(date +'%Y-%m-%d %H:%M:%S')"
           
-          # Remova o git status e git diff --quiet --cached
-          # Eles não são necessários agora, pois estamos no mesmo bloco
-          
-          git push
+          # Verifique se há alterações antes de commitar
+          if ! git diff --quiet --cached; then
+            git commit -m "Backup automático do Firebase em $(date +'%Y-%m-%d %H:%M:%S')"
+            git push
+          else
+            echo "⚠️ Nenhum alteração no backup, pulando commit e push."
+          fi
