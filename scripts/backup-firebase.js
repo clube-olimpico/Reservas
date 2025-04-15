@@ -11,12 +11,16 @@ admin.initializeApp({
 
 const db = admin.database();
 
-console.log("🚀 Iniciando backup..."); // Adicione esta linha
+console.log("🚀 Iniciando backup...");
 
 db.ref("/").once("value").then(snapshot => {
-  console.log("💾 Dados lidos do Firebase."); // Adicione esta linha
+  console.log("💾 Dados lidos do Firebase.");
   fs.writeFileSync("agenda-5ce95-default-rtdb-export.json", JSON.stringify(snapshot.val(), null, 2));
-  console.log("✅ Backup concluído."); // Mantenha esta linha
+  console.log("✅ Backup concluído.");
+  return admin.app().delete(); // Adicione esta linha para encerrar a conexão
+}).then(() => {
+  console.log("🔥 Conexão com o Firebase encerrada."); // Log opcional
 }).catch(error => {
-  console.error("❌ Erro durante o backup:", error); // Adicione esta linha para tratar erros
+  console.error("❌ Erro durante o backup:", error);
+  process.exit(1); // Encerre o processo com código de erro
 });
