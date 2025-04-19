@@ -20,7 +20,7 @@
 
         .filters {
             display: grid;  
-            grid-template-columns: 120px 1fr;
+            grid-template-columns: 120px 1fr; 
             gap: 10px;
             margin-bottom: 15px;
             align-items: center;
@@ -88,6 +88,24 @@
             .filters button {
                 width: 100%;
             }
+			
+			.botoes-acoes {
+				flex-wrap: nowrap;
+			}
+
+			.botoes-acoes button {
+				font-size: 14px !important;
+				padding: 8px !important;
+			}
+
+			.botoes-acoes .pdf-button {
+				font-size: 12px !important;
+				padding: 6px 8px !important;
+				max-width: 50px !important;
+				flex: 0 0 50px !important;
+			}
+			
+			
         }
 		
 		#total-registros-container {
@@ -101,6 +119,31 @@
 			padding: 10px;
 			border-top: 2px solid #ccc; /* Linha separadora */
 		}
+		
+		.botoes-acoes {
+			grid-column: 1 / 3;
+			display: flex;
+			justify-content: space-between;
+			gap: 10px;
+		}
+
+		.botoes-acoes button {
+			font-size: 16px;
+			padding: 10px;
+			font-weight: bold;
+			border: none;
+			cursor: pointer;
+			flex: 1;
+			box-sizing: border-box;
+		}
+
+		.botoes-acoes .pdf-button {
+			background-color: #28a745;
+			color: white;
+			max-width: 100px;
+			flex: none;
+		}
+
 
     </style>
 </head>
@@ -126,12 +169,20 @@
             <option value="1 Hora">1 Hora</option>
             <option value="2 Horas">2 Horas</option>
             <option value="2 Horas - Pirâmide">2 Horas - Pirâmide</option>
+			<option value="Convidado">Convidado</option>
         </select>
 
-        <button onclick="filtrarLogs()">Filtrar</button>
+        <div class="botoes-acoes">
+			<button onclick="filtrarLogs()">Filtrar</button>
+			<button onclick="gerarPDF()" class="pdf-button">PDF</button>
+		</div>
+
     </div>
 
     <div id="logs"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <script>
         let logs = [];
@@ -252,20 +303,94 @@
 					condDuracao = log.duracao &&
 						log.duracao.includes("2 Horas") &&
 						log.duracao.toLowerCase().includes("mide") &&
-						!log.duracao.includes("1 Hora"); // Exclui "1 Hora"
+						!log.duracao.includes("1 Hora");
 				} else if (duracao === "2 Horas") {
 					condDuracao = log.duracao === "2 Horas" && !log.duracao.includes("Pirâmide");
 				} else if (duracao === "1 Hora") {
 					condDuracao = log.duracao === duracao;
+				} else if (duracao === "Convidado") {
+					condDuracao = log.jogadores.some(j => j.toLowerCase().includes("convidado"));
 				} else if (duracao) {
 					condDuracao = log.duracao === duracao;
 				}
+
 
 				return condQuadra && condData && condJogador && condDuracao;
 			});
 
 			exibirLogs(logsFiltrados);
 		}
+		
+		
+function gerarPDF() {
+	const { jsPDF } = window.jspdf;
+	const pdf = new jsPDF("p", "mm", "a4");
+	const pageHeight = 297;
+	const margin = 10;
+	let y = margin;
+
+	const totalContainer = document.getElementById("total-registros-container");
+	totalContainer.style.display = "none";
+
+	const logEntries = document.querySelectorAll('.log-entry');
+	const total = document.getElementById("total-registros").textContent;
+
+	let nomeArquivo = "Reservas";
+	switch (document.getElementById("duracao").value) {
+		case "1 Hora":
+			nomeArquivo = "Reservas-1-Hora";
+			break;
+		case "2 Horas":
+			nomeArquivo = "Reservas-2-Horas";
+			break;
+		case "2 Horas - Pirâmide":
+			nomeArquivo = "Reservas-Piramide";
+			break;
+		case "Convidado":
+			nomeArquivo = "Reservas-Convidados";
+			break;
+		default:
+			nomeArquivo = "Reservas-Filtradas";
+	}
+
+	// Função auxiliar para processar logs de forma assíncrona
+	const processarLogs = async () => {
+		for (let i = 0; i < logEntries.length; i++) {
+			const entry = logEntries[i];
+			await html2canvas(entry, { scale: 2 }).then(canvas => {
+				const imgData = canvas.toDataURL('image/png');
+				const imgWidth = 190; // largura com margens
+				const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+				// Se passar do limite da página, adiciona uma nova
+				if (y + imgHeight > pageHeight - margin) {
+					pdf.addPage();
+					y = margin;
+				}
+
+				pdf.addImage(imgData, 'PNG', margin, y, imgWidth, imgHeight);
+				y += imgHeight + 5; // espaçamento entre entradas
+			});
+		}
+
+		// Após todos os logs, adiciona o total de registros no final
+		if (y + 10 > pageHeight - margin) {
+			pdf.addPage();
+			y = margin;
+		}
+		const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+		pdf.setFontSize(isMobile ? 30 : 12);
+		pdf.text(total, margin, pageHeight - 10);
+
+
+		pdf.save(`${nomeArquivo}.pdf`);
+		totalContainer.style.display = "block";
+	};
+
+	processarLogs();
+}
+
+
 		
 		
     </script>
