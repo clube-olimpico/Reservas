@@ -18,6 +18,7 @@
         "Avila": true,
         "Ben August": true,
         "Bernardo": true,
+        "Bianca": true,
         "Caio Teixeira": true,
         "Ceccon": true,
         "Claudio Warkentin": true,
@@ -27,6 +28,7 @@
         "Davi Voj": true,
         "Diego Paraiso": true,
         "Diosnei": true,
+        "Dudu": true,
         "Edemar": true,
         "Elenilson": true,
         "Elisa Voj": true,
@@ -52,6 +54,7 @@
         "Luciane Vieira": true,
         "Luis Warkentin": true,
         "Makoto": true,
+        "Manu": true,
         "Marcelo Silva": true,
         "Marcelo Zoti": true,
         "Marco Ribeiro": true,
@@ -78,7 +81,9 @@
         "Timo": true,
         "Vania": true,
         "Veridiane Voj": true,
-        "Vivianne Laverde": true
+        "Vivianne Laverde": true,
+        "Wilmar": true,
+        "Yuri": true
       },
       "jogadores": {
         "AIRTON SANTOS": {
@@ -193,6 +198,13 @@
           "piramide": "1",
           "socio": "dependente"
         },
+        "BIANCA KROKER": {
+          "apelido": "Bianca",
+          "classe": "C",
+          "niver": "17/05/2002",
+          "piramide": "",
+          "socio": "dependente"
+        },
         "CAIO TEIXEIRA": {
           "apelido": "Caio Teixeira",
           "classe": "B",
@@ -254,6 +266,13 @@
           "classe": "A",
           "niver": "07/10/1957",
           "piramide": "7",
+          "socio": "titular"
+        },
+        "EDUARDO BERGMAN": {
+          "apelido": "Dudu",
+          "classe": "C",
+          "niver": "30/07/1999",
+          "piramide": "",
           "socio": "titular"
         },
         "ELENILSON CARVALHO": {
@@ -423,6 +442,13 @@
           "niver": "06/09/1978",
           "piramide": "12",
           "socio": "titular"
+        },
+        "MANUELA KROKER": {
+          "apelido": "Manu",
+          "classe": "C",
+          "niver": "28/06/2000",
+          "piramide": "",
+          "socio": "dependente"
         },
         "MARCELO DA SILVA": {
           "apelido": "Marcelo Silva",
@@ -619,6 +645,20 @@
           "niver": "26/03/1990",
           "piramide": "",
           "socio": "dependente"
+        },
+        "WILMAR KROKER": {
+          "apelido": "Wilmar",
+          "classe": "C",
+          "niver": "28/06/1971",
+          "piramide": "",
+          "socio": "titular"
+        },
+        "YURI HARDER": {
+          "apelido": "Yuri",
+          "classe": "C",
+          "niver": "13/09/1999",
+          "piramide": "",
+          "socio": "titular"
         }
       }
     },
@@ -727,6 +767,13 @@
           "duracao": 1,
           "hora": 21,
           "jogadores": "aula"
+        },
+        "1_9": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 9,
+          "jogadores": "Vania"
         },
         "2_14": {
           "borda": "1h",
@@ -1106,24 +1153,17 @@
         }
       },
       "Quadra 2 - Aberta": {
-        "5_16": {
+        "5_18": {
           "borda": "2h",
           "dia": 5,
           "duracao": 2,
-          "hora": 16,
-          "jogadores": "Vivianne Laverde"
+          "hora": 18,
+          "jogadores": "Avila, Convidado"
         },
-        "5_17": {
+        "5_19": {
           "dia": 5,
-          "hora": 17,
-          "jogadores": "Natan"
-        },
-        "5_8": {
-          "borda": "1h",
-          "dia": 5,
-          "duracao": 1,
-          "hora": 8,
-          "jogadores": "Alessandro Xavier"
+          "hora": 19,
+          "jogadores": "Alexa, Convidado"
         },
         "5_9": {
           "borda": "1h",
@@ -1143,6 +1183,18 @@
           "dia": 6,
           "hora": 11,
           "jogadores": "Convidado"
+        },
+        "6_8": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 8,
+          "jogadores": "Alessandro Xavier"
+        },
+        "6_9": {
+          "dia": 6,
+          "hora": 9,
+          "jogadores": "Edemar"
         }
       },
       "Quadra 3 - Coberta": {
@@ -1158,29 +1210,29 @@
           "hora": 11,
           "jogadores": "Taborda"
         },
-        "5_14": {
+        "5_16": {
           "borda": "2h",
           "dia": 5,
           "duracao": 2,
-          "hora": 14,
-          "jogadores": "Arthur Amorim"
-        },
-        "5_15": {
-          "dia": 5,
-          "hora": 15,
-          "jogadores": "Isa"
-        },
-        "5_17": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 17,
+          "hora": 16,
           "jogadores": "Flavio Ferraz"
         },
-        "5_18": {
+        "5_17": {
           "dia": 5,
-          "hora": 18,
+          "hora": 17,
           "jogadores": "Gustavo Ferraz"
+        },
+        "5_18": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 18,
+          "jogadores": "Natan"
+        },
+        "5_19": {
+          "dia": 5,
+          "hora": 19,
+          "jogadores": "Vivianne Laverde"
         },
         "5_7": {
           "borda": "1h",
@@ -1201,6 +1253,25 @@
           "hora": 9,
           "jogadores": "Paulinho"
         },
+        "6_10": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 10,
+          "jogadores": "Arthur Amorim"
+        },
+        "6_11": {
+          "dia": 6,
+          "hora": 11,
+          "jogadores": "Isa"
+        },
+        "6_14": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 14,
+          "jogadores": "Jaison"
+        },
         "6_8": {
           "borda": "2h",
           "dia": 6,
@@ -1212,14 +1283,14 @@
           "dia": 6,
           "hora": 9,
           "jogadores": "Marco Ribeiro"
+        },
+        "7_8": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "Ceccon"
         }
-      }
-    },
-    "usuariosOnline": {
-      "kippiq2xe": {
-        "sessionId": "kippiq2xe",
-        "timestamp": 1744914470825,
-        "usuario": "RONALDO TABORDA"
       }
     },
     "version": "v1.2.0"
