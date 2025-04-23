@@ -479,9 +479,10 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.2.0'; // Versão atual do sistema 
+const VersaoSistema = 'v1.2.1'; // Versão atual do sistema 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
+let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário
 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
@@ -714,7 +715,11 @@ function InicializarSistema() {
                     if (quadras.Quadra3 === "interditada") quadrasInativas.add("Quadra 3 - Coberta");
 
                     atualizarDatas();
-                    atualizarOpcoesHorario();
+					
+					if (vatualizarOpcoesHorario) {
+			          atualizarOpcoesHorario();
+					  vatualizarOpcoesHorario = false;
+					}
                 }
             } else {
                 inicializarEstruturaInicial();
@@ -1051,7 +1056,7 @@ function carregarReservas(quadra) {
             for (const key in reservas) {
                 let { jogadores, dia, hora, duracao, borda } = reservas[key];
 
-                //console.log(`🎾 Processando reserva: ${key}`);
+                //console.log(`🎾 Processando reserva: ${key}`); 
                 //console.log(`   ➡ Jogadores: ${jogadores}`);
                 //console.log(`   ➡ Dia: ${dia}, Hora: ${hora}, Duração: ${duracao}`);
 
@@ -1161,12 +1166,12 @@ function bloquearDomingo() {
 function validarDiaReserva(jogadores) {
     console.log("Iniciando validação da reserva...");
 
-    // Se algum jogador for "aula" ou "convidado", retorna true imediatamente
+    // Se algum jogador for "aula" , retorna true imediatamente
     if (jogadores.some(jogador => {
         let nome = jogador.toLowerCase();
-        return nome.includes("aula") || nome.includes("convidado");
+        return nome.includes("aula");
     })) {
-        console.log("Reserva identificada como 'aula' ou 'convidado'. Validação ignorada.");
+        console.log("Reserva identificada como 'aula'. Validação ignorada.");
         return true;
     }
 
@@ -1182,6 +1187,7 @@ function validarDiaReserva(jogadores) {
 
         if (jogadores.length !== 2) {
             alert("Reservas da Pirâmide devem ter exatamente 2 jogadores.");
+			limparCampos();
             return false;
         }
 
@@ -1214,7 +1220,7 @@ function validarDiaReserva(jogadores) {
             prefixoQuadra = "3-";
             if (!quadraConfig || !quadraConfig["Quadra-3-ativa"]) {
                 alert("Quadra 3 - Coberta está interditada para jogos da Pirâmide.");
-                return false;
+                return false; 
             }
         }
 
@@ -1232,7 +1238,7 @@ function validarDiaReserva(jogadores) {
             if (quadraConfig[prefixoQuadra + "DiasDeSemana-exceto-17-19"]) {
                 const horaFim = horaSelecionada + 2;
                 if (horaSelecionada < 19 && horaFim > 17) {
-                    alert(`Reservas da Pirâmide na ${quadraSelecionada} são proibidas de segunda a sexta entre 17:00 e 19:00 (horário exclusivo para sócios).`);
+                    alert(`Reservas da Pirâmide na ${quadraSelecionada} são proibidas de segunda a sexta entre 17:00 e 19:00 (horário exclusivo para todos os sócios).`);
                     return false;
                 }
             }
@@ -1244,7 +1250,7 @@ function validarDiaReserva(jogadores) {
                 return false;
             }
             if (quadraConfig[prefixoQuadra + "Sabado-exceto-7-12"] && horaSelecionada >= 7 && horaSelecionada < 12) {
-                alert(`Reservas da Pirâmide na ${quadraSelecionada} são proibidas aos sábados entre 07:00 e 12:00 (horário exclusivo para sócios).`);
+                alert(`Reservas da Pirâmide na ${quadraSelecionada} são proibidas aos sábados entre 07:00 e 12:00 (horário exclusivo para todos os sócios).`);
                 return false;
             }
         }
@@ -1255,7 +1261,7 @@ function validarDiaReserva(jogadores) {
                 return false;
             }
             if (quadraConfig[prefixoQuadra + "Domingo-exceto-8-12"] && horaSelecionada >= 8 && horaSelecionada < 12) {
-                alert(`Reservas da Pirâmide na ${quadraSelecionada} são proibidas aos domingos entre 08:00 e 12:00 (horário exclusivo para sócios).`);
+                alert(`Reservas da Pirâmide na ${quadraSelecionada} são proibidas aos domingos entre 08:00 e 12:00 (horário exclusivo para todos os sócios).`);
                 return false;
             }
         }
@@ -1304,12 +1310,12 @@ function validarDiaReserva(jogadores) {
 async function validarSeTemReserva(jogadores) {
     console.log("Iniciando validação de reservas...");
 	
-	// Se algum jogador for "aula" ou "convidado", retorna true imediatamente
+	// Se algum jogador for "aula" , retorna true imediatamente
 	if (jogadores.some(jogador => {
 		let nome = jogador.toLowerCase();
-		return nome === "aula" || nome === "convidado";
+		return nome === "aula";
 	})) {
-		console.log("Reserva marcada como 'aula' ou 'convidado'. Validação interrompida.");
+		console.log("Reserva marcada como 'aula'. Validação interrompida.");
 		return true;
 	}
 	
@@ -1551,12 +1557,9 @@ window.adicionarJogador = function() {
 
 
 
+// Função original, apenas atualizada para usar transações Firebase
 async function atualizarTabela() {
-   // console.log("Iniciando atualização da tabela...");
-	
-	//alert('atualizarTabela');
-	
-	let isErro = false; // Inicializa como false
+    let isErro = false;
 
     const jogadores = [];
     for (let i = 1; i <= jogadorCount; i++) {
@@ -1568,71 +1571,64 @@ async function atualizarTabela() {
             }
         }
     }
-
-    console.log("Jogadores selecionados:", jogadores);
+	
+	console.log("Jogadores selecionados:", jogadores);
 
     if (jogadores.length === 0) {
         alert('Selecione pelo menos 1 jogador.');
         return;
     }
 
-    // Nova validação: verifica se o jogador logado está na reserva
+
+    // Nova validação: verifica se o jogador logado está na reserva 
     const jogadorLogado = localStorage.getItem('jogadorLogado');
     const isAdmin = jogadorLogado === "RONALDO TABORDA";
     const isAula = jogadores.some(j => j.toLowerCase() === "aula");
-    
+
     if (!isAdmin && !isAula) {
         const jogadorEstaNaReserva = jogadores.some(jogador => {
             const nomeCompletoJogador = jogadoresData[jogador]?.nomeCompleto || "";
-            return nomeCompletoJogador.toLowerCase() === jogadorLogado.toLowerCase() || 
-                   jogador.toLowerCase() === jogadorLogado.toLowerCase();
+            return nomeCompletoJogador.toLowerCase() === jogadorLogado.toLowerCase() ||
+                jogador.toLowerCase() === jogadorLogado.toLowerCase();
         });
 
         if (!jogadorEstaNaReserva) {
             alert("Você não pode fazer uma reserva sem constar nela. Por favor, inclua seu nome na lista de jogadores.");
+            //limparCampos();
             return;
         }
     }
-	
-	// Verifica se a reserva contém apenas "Convidado"
-	const isApenasConvidado = jogadores.length === 1 && jogadores[0] === "Convidado";
-	if (isApenasConvidado) {
-		alert("Reservas não podem conter apenas um Convidado. É necessário um sócio acompanhando.");
-		return;
-	}
 
-    const duracao = parseInt(document.getElementById('duracao').value);
-    if (duracao === 2 && (jogadores.length < 2 || jogadores.length > 4)) {
-        alert('Reservas de 2 horas precisam ter no mínimo 2 e no máximo 4 jogadores.');
-        return;
-    }
-	
-	if (duracao === 3 && jogadores.length !== 2) {
-        alert('Reservas da Pirâmide precisam ter exatamente 2 jogadores.');
-        return;
-    }
-
-    if (jogadores.length > 4) {
-        alert('O máximo permitido são 4 jogadores.');
-        return;
-    }
-
-    const quadra = document.getElementById('quadra').value;
-    if (quadrasInativas.has(quadra)) {
-        alert(`A ${quadra} está interditada provisoriamente.`);
+    // Verifica se a reserva contém apenas "Convidado"
+    const isApenasConvidado = jogadores.length === 1 && jogadores[0] === "Convidado";
+    if (isApenasConvidado) {
+        alert("Reservas não podem conter apenas um Convidado. É necessário um sócio acompanhando.");
         limparCampos();
         return;
     }
 
+    const duracao = parseInt(document.getElementById('duracao').value);
+	 if (duracao === 2 && (jogadores.length < 2 || jogadores.length > 4)) {
+        alert('Reservas de 2 horas precisam ter no mínimo 2 e no máximo 4 jogadores.');
+        return;
+    }
+	
+
+    const quadra = document.getElementById('quadra').value;
+	if (quadrasInativas.has(quadra)) {
+        alert(`A ${quadra} está interditada provisoriamente.`);
+        limparCampos();
+        return;
+    }
+	
+	
     const dia = parseInt(document.getElementById('dia').value, 10);
     const horaSelecionada = parseInt(document.getElementById('hora').value, 10);
 
     console.log("Dia selecionado:", dia, "Hora selecionada:", horaSelecionada, "Duração:", duracao);
 
-    // Verifica se algum dos jogadores é "Convidado"
     const isConvidado = jogadores.includes("Convidado");
     if (isConvidado) {
-        // Acessa as configurações do convidado
         const configRef = database.ref("sistemas/config/Convidados");
         const snapshot = await configRef.once('value');
         const convidadoConfig = snapshot.val();
@@ -1651,10 +1647,11 @@ async function atualizarTabela() {
             return;
         }
 
+
         // Verifica se a quadra selecionada é permitida para o convidado
         const quadraPermitida = convidadoConfig[`Quadra${quadra.split(' ')[1]}`];
         if (!quadraPermitida) {
-            // Monta a mensagem informando quais quadras são permitidas
+		    // Monta a mensagem informando quais quadras são permitidas
             const quadrasPermitidas = [];
             if (convidadoConfig.Quadra1) quadrasPermitidas.push("Quadra 1 - Coberta");
             if (convidadoConfig.Quadra2) quadrasPermitidas.push("Quadra 2 - Aberta");
@@ -1663,33 +1660,38 @@ async function atualizarTabela() {
             const mensagemQuadras = quadrasPermitidas.length > 0
                 ? `Convidados só podem utilizar as seguintes quadras: ${quadrasPermitidas.join(", ")}.`
                 : "Convidados não podem utilizar nenhuma quadra.";
-
-            alert(mensagemQuadras); 
+            limparCampos();
+            alert(mensagemQuadras);
             return;
         }
-
-        // Verifica os dias permitidos para o convidado
+		
+    
+	    // Verifica os dias permitidos para o convidado
         const diaDaSemana = dia >= 1 && dia <= 5; // Segunda a sexta
         const fimDeSemana = dia === 6 || dia === 7; // Sábado e domingo
 
         if (!convidadoConfig.DiasDeSemana && !convidadoConfig.FimDeSemana) {
             alert("Convidados não podem fazer reservas em nenhum dia.");
+            limparCampos();
             return;
         }
 
         if (!convidadoConfig.DiasDeSemana && diaDaSemana) {
             alert("Convidados só podem fazer reservas no fim de semana (sábado e domingo).");
+            limparCampos();
             return;
         }
 
         if (!convidadoConfig.FimDeSemana && fimDeSemana) {
             alert("Convidados só podem fazer reservas durante a semana (segunda a sexta).");
+            limparCampos();
             return;
         }
     }
 
     if (!validarDiaReserva(jogadores)) {
         console.log("Validação de dia falhou.");
+        limparCampos();
         return;
     }
 
@@ -1701,133 +1703,174 @@ async function atualizarTabela() {
         return;
     }
 
-    console.log("Reserva liberada, prosseguir com o agendamento.");
+    
 
     if (horaSelecionada < 6 || horaSelecionada > 22) {
-        alert('Horário selecionado deve ser entre 6 e 22.'); 
+        alert('Horário selecionado deve ser entre 6 e 22.');
         return;
     }
 
-    const tabela = document.getElementById('tabelaCorpo'); 
-    let horarioInicial = horaSelecionada - 6;
-
     const reservasRef = database.ref(`sistemas/reservas/${quadra}`);
-    reservasRef.once('value', (snapshot) => {
+    console.log("📦 Referência do Firebase:", `sistemas/reservas/${quadra}`);
+
+    const key1 = `${dia}_${horaSelecionada}`;
+    const key2 = `${dia}_${horaSelecionada + 1}`;
+    console.log(`🔑 Chave 1 (inicio da reserva): ${key1}`);
+    console.log(`🔑 Chave 2 (fim da reserva): ${key2}`);
+
+    const tabela = document.getElementById('tabelaCorpo');
+    const linhaInicial = horaSelecionada - 6;
+
+    let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula'))
+        ? 'lightcoral'
+        : duracao === 1 ? 'lightgreen'
+        : duracao === 2 ? 'lightblue'
+        : duracao === 3 ? '#FFEB99'
+        : 'white';
+
+    console.log(`🎯 Duração selecionada: ${duracao}`);
+    console.log("👥 Jogadores:", jogadores);
+
+    // 🔎 Verificação manual de disponibilidade ANTES de iniciar gravação
+    await reservasRef.once('value', (snapshot) => {
         const reservas = snapshot.val() || {};
         let horariosLivres = true;
-
+		
+		
         const loopDuracao = duracao === 3 ? duracao - 1 : duracao;
-
         for (let i = 0; i < loopDuracao; i++) {
             const horarioChave = `${dia}_${horaSelecionada + i}`;
             if (reservas[horarioChave]) {
                 horariosLivres = false;
+                console.warn(`⛔ Horário ocupado detectado: ${horarioChave}`);
                 break;
             }
         }
-        
+
         if (!horariosLivres) {
             alert('Um ou mais horários já estão reservados para essa quadra!');
             limparCampos();
-            return;
-        } 
-		
-		//alert('gravou');
-		//return;
+            //selecionarQuadra(quadra);
+            isErro = true;
+        }
+    });
 
-        let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula'))
-            ? 'lightcoral'
-            : duracao === 1 ? 'lightgreen'
-            : duracao === 2 ? 'lightblue'
-            : duracao === 3 ? '#FFEB99'
-            : 'white';
+    if (isErro) return;
+	
+	console.log("Reserva liberada, prosseguir com o agendamento.");
 
-        if (duracao === 1) {
-            const key = `${dia}_${horaSelecionada}`;
-            const reservaData = {
-                jogadores: jogadores.join(', '),
-                dia: dia,
-                hora: horaSelecionada,
-                duracao: 1,
-                borda: '1h'
-            };
-            reservasRef.child(key).set(reservaData)
-                .catch(error => {
-                    console.error("Erro ao salvar a reserva:", error);
-                    isErro = true;
-                });
-        } else if (duracao === 2 || duracao === 3) {
-            if (jogadores.length === 1) {
-                tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores[0];
-                tabela.rows[horarioInicial + 1].cells[dia].innerHTML = jogadores[0];
-            } else {
-                if (jogadores.length >= 1) {
-                    tabela.rows[horarioInicial].cells[dia].innerHTML = jogadores[0];
-                }
-                if (jogadores.length >= 2) {
-                    tabela.rows[horarioInicial + 1].cells[dia].innerHTML = jogadores[1];
-                }
-                if (jogadores.length >= 3) {
-                    tabela.rows[horarioInicial].cells[dia].innerHTML += `, ${jogadores[2]}`;
-                }
-                if (jogadores.length === 4) {
-                    tabela.rows[horarioInicial + 1].cells[dia].innerHTML += `, ${jogadores[3]}`;
-                }
+    if (duracao === 1) {
+        const reservaData = {
+            jogadores: jogadores.join(', '),
+            dia,
+            hora: horaSelecionada,
+            duracao,
+            borda: '1h'
+        };
+
+        console.log("📤 Dados a gravar (1h):", reservaData);
+
+        reservasRef.child(key1).transaction(currentData => {
+            if (currentData === null) {
+                console.log("✅ Horário livre. Gravando reserva 1h...");
+                return reservaData;
             }
+            console.warn("🚫 Horário ocupado. Reserva não será gravada.");
+            alert("Horário já está reservado. Cancelando a reserva..");
+            isErro = true;
+            return;
+        }, (error, committed) => {
+            if (error || !committed) {
+                console.error("❌ Erro ao salvar a reserva:", error);
+                isErro = true;
+            } else {
+                console.log("✅ Reserva 1h salva com sucesso!");
+            }
+        });
 
-            tabela.rows[horarioInicial].cells[dia].style.backgroundColor = corFundo;
-            tabela.rows[horarioInicial + 1].cells[dia].style.backgroundColor = corFundo;
-            tabela.rows[horarioInicial].cells[dia].style.border = '2px solid black';
+    } else if (duracao === 2 || duracao === 3) {
+        console.log("🧩 Reserva de duração longa (2h ou 3h)");
 
-            const key1 = `${dia}_${horaSelecionada}`;
-            const key2 = `${dia}_${horaSelecionada + 1}`;
-
-            const reservaData1 = {
-                jogadores: tabela.rows[horarioInicial].cells[dia].innerHTML,
-                dia: dia,
-                hora: horaSelecionada,
-                duracao: duracao,
-                borda: '2h'
-            };
-
-            const reservaData2 = {
-                jogadores: tabela.rows[horarioInicial + 1].cells[dia].innerHTML,
-                dia: dia,
-                hora: horaSelecionada + 1
-            };
-
-            console.log("Gravando reserva de 2 horas no banco de dados:", reservaData1, "em key:", key1);
-            console.log("Gravando reserva de 2 horas no banco de dados:", reservaData2, "em key:", key2);
-
-            reservasRef.child(key1).set(reservaData1)
-                .catch(error => {
-                    console.error("Erro ao salvar a primeira parte da reserva de 2 horas:", error);
-                    isErro = true;
-                });
-
-            reservasRef.child(key2).set(reservaData2)
-                .catch(error => {
-                    console.error("Erro ao salvar a segunda parte da reserva de 2 horas:", error);
-                    isErro = true;
-                });
+        if (jogadores.length === 1) {
+            tabela.rows[linhaInicial].cells[dia].innerHTML = jogadores[0];
+            tabela.rows[linhaInicial + 1].cells[dia].innerHTML = jogadores[0];
+        } else {
+            if (jogadores.length >= 1) tabela.rows[linhaInicial].cells[dia].innerHTML = jogadores[0];
+            if (jogadores.length >= 2) tabela.rows[linhaInicial + 1].cells[dia].innerHTML = jogadores[1];
+            if (jogadores.length >= 3) tabela.rows[linhaInicial].cells[dia].innerHTML += `, ${jogadores[2]}`;
+            if (jogadores.length === 4) tabela.rows[linhaInicial + 1].cells[dia].innerHTML += `, ${jogadores[3]}`;
         }
 
-        setTimeout(() => {
-            if (!isErro) {
-                if (isConvidado) { 
-                    exibirMensagemConvidado();
-                }
-                if (duracao === 3) {
-                    exibirMensagemPiramide();
-                }
-            } else {
-                alert("Ocorreu um erro ao salvar a reserva. Tente novamente.");
-            }
+        tabela.rows[linhaInicial].cells[dia].style.backgroundColor = corFundo;
+        tabela.rows[linhaInicial + 1].cells[dia].style.backgroundColor = corFundo;
+        tabela.rows[linhaInicial].cells[dia].style.border = '2px solid black';
 
-            selecionarQuadra(quadra);
-            limparCampos();
-        }, 500);
-    });
+        const reservaData1 = {
+            jogadores: tabela.rows[linhaInicial].cells[dia].innerHTML,
+            dia,
+            hora: horaSelecionada,
+            duracao,
+            borda: '2h'
+        };
+
+        const reservaData2 = {
+            jogadores: tabela.rows[linhaInicial + 1].cells[dia].innerHTML,
+            dia,
+            hora: horaSelecionada + 1
+        };
+
+        console.log("📤 Dados parte 1 (linha de cima):", reservaData1);
+        console.log("📤 Dados parte 2 (linha de baixo):", reservaData2);
+
+        reservasRef.child(key1).transaction(currentData => {
+            if (currentData === null) {
+                console.log("✅ Parte 1 disponível. Gravando...");
+                return reservaData1;
+            }
+            console.warn("🚫 Parte 1 já está reservada.");
+            alert("Horário já está reservado. Cancelando a reserva..");
+            isErro = true;
+            return;
+        }, (error1, committed1) => {
+            if (error1 || !committed1) {
+                console.error("❌ Erro na gravação da primeira parte:", error1);
+                isErro = true;
+            } else {
+                console.log("✅ Parte 1 salva. Prosseguindo com parte 2...");
+
+                reservasRef.child(key2).transaction(currentData => {
+                    if (currentData === null) {
+                        console.log("✅ Parte 2 disponível. Gravando...");
+                        return reservaData2;
+                    }
+                    console.warn("🚫 Parte 2 já está reservada.");
+                    alert("Horário já está reservado. Cancelando a reserva.");
+                    isErro = true;
+                    return;
+                }, async (error2, committed2) => {
+                    if (error2 || !committed2) {
+                        console.error("❌ Erro na gravação da segunda parte:", error2);
+                        console.log("🧹 Revertendo: removendo a parte 1 da reserva...");
+                        await reservasRef.child(key1).remove();
+                        isErro = true;
+                    } else {
+                        console.log("✅ Reserva completa (2h) salva com sucesso!");
+                    }
+                });
+            }
+        });
+    }
+
+    setTimeout(() => {
+        if (!isErro) {
+            if (jogadores.includes("Convidado")) exibirMensagemConvidado();
+            if (duracao === 3) exibirMensagemPiramide();
+        } else {
+            // alert("Ocorreu um erro ao salvar a reserva. Tente novamente.");
+        }
+        selecionarQuadra(quadra);
+        limparCampos();
+    }, 500);
 }
 
 
@@ -2088,6 +2131,7 @@ function limparCampos() {
     document.getElementById('jogador1').value = ''; // Mantém o campo "Jogador 1"
     document.getElementById('duracao').value = '1'; // Reseta a duração para 1 hora
     atualizarOpcoesHorario(); // Atualiza as opções de horário
+	
 }
 
 // Monitora as alterações no Firebase
@@ -2256,103 +2300,122 @@ function preencherCeldas(dataInicio, ajustes, linhaDatas) {
 }
 
 
-async function LimparDiasAnteriores() {  
+async function LimparDiasAnteriores() {
     console.log("🟢 Iniciando LimparDiasAnteriores...");
+    const reservasParaExcluir = []; // Array para armazenar logs
+    let operacaoSucesso = true;
 
-    const dataAtual = new Date();
-    dataAtual.setHours(0, 0, 0, 0);
-    const quadras = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"];
-    const tabela = document.getElementById('tabelaCorpo');
-    const reservasParaExcluir = []; // Array para acumular logs
+    try {
+        const dataAtual = new Date();
+        dataAtual.setHours(0, 0, 0, 0);
+        const quadras = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"];
 
-    // Coletar todas as reservas primeiro (NOVO)
-    for (const quadra of quadras) {
-        console.log(`\n🏟️ Verificando quadra: ${quadra}`);
+        // Coletar todas as reservas primeiro
+        for (const quadra of quadras) {
+            console.log(`\n🏟️ Verificando quadra: ${quadra}`);
 
-        for (let dia = 1; dia <= DiasParaLimpar; dia++) {
-            const dataParaLimpar = new Date(dataAtual);
-            dataParaLimpar.setDate(dataAtual.getDate() - dia);
-            const diaIndex = dataParaLimpar.getDay() || 7;
+            for (let dia = 1; dia <= DiasParaLimpar; dia++) {
+                const dataParaLimpar = new Date(dataAtual);
+                dataParaLimpar.setDate(dataAtual.getDate() - dia);
+                const diaIndex = dataParaLimpar.getDay() || 7;
 
-            console.log(`📅 Verificando Dia ${diaIndex} (Data: ${dataParaLimpar.toLocaleDateString()})`);
+                console.log(`📅 Verificando Dia ${diaIndex} (Data: ${dataParaLimpar.toLocaleDateString()})`);
 
-            for (let hora = 6; hora <= 22; hora++) {
-                const horaIndex = hora - 6;
-                const key = `${diaIndex}_${hora}`;
+                for (let hora = 6; hora <= 22; hora++) {
+                    const horaIndex = hora - 6;
+                    const key = `${diaIndex}_${hora}`;
 
-                if ((diaIndex === 6 && hora === 6) || 
-                    (diaIndex === 7 && hora >= 6 && hora < 8) || 
-                    (diaIndex === 6 && hora >= 21 && hora <= 23)) {
-                    continue; 
-                }
-
-                const reservaRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
-                const snapshot = await reservaRef.once('value'); // Alterado para await
-                const reserva = snapshot.val();
-
-                if (reserva && !reserva.jogadores?.toLowerCase().includes('aula')) {
-                    // Formatar dados para o log (código original adaptado)
-                    let { jogadores, duracao } = reserva;
-                    
-                    // Para reservas de 2h, buscar jogadores da segunda hora (NOVO)
-                    if (duracao === 2 || duracao === 3) {
-                        const segundaHoraRef = database.ref(`sistemas/reservas/${quadra}/${diaIndex}_${hora + 1}`);
-                        const segundaSnapshot = await segundaHoraRef.once('value');
-                        const segundaReserva = segundaSnapshot.val();
-                        if (segundaReserva?.jogadores) {
-                            jogadores = `${jogadores}, ${segundaReserva.jogadores}`;
-                        }
+                    // Pular horários bloqueados
+                    if ((diaIndex === 6 && hora === 6) || 
+                        (diaIndex === 7 && hora >= 6 && hora < 8) || 
+                        (diaIndex === 6 && hora >= 21 && hora <= 23)) {
+                        continue; 
                     }
 
-                    const jogadoresArray = [...new Set( // Remover duplicados
-                        jogadores.split(',')
-                            .map(j => j.trim())
-                            .filter(j => j.length > 0)
-                    )];
+                    const reservaRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
+                    const snapshot = await reservaRef.once('value');
+                    const reserva = snapshot.val();
 
-                    const dataReserva = dataParaLimpar.toLocaleDateString('pt-BR').split('/');
-                    const dataFormatada = `${dataReserva[0].padStart(2, '0')}-${dataReserva[1].padStart(2, '0')}-${dataReserva[2]}`;
-                    
-                    const horasParaAdicionar = duracao === 3 ? 2 : duracao;
-                    const horarioFormatado = `${hora.toString().padStart(2, '0')}:00 - ${(hora + horasParaAdicionar).toString().padStart(2, '0')}:00`;
+                    if (reserva && !reserva.jogadores?.toLowerCase().includes('aula')) {
+                        // Formatar dados para o log
+                        let { jogadores, duracao } = reserva;
+                        
+                        // Para reservas de 2h/3h, buscar jogadores da segunda hora
+                        if (duracao === 2 || duracao === 3) {
+                            const segundaHoraRef = database.ref(`sistemas/reservas/${quadra}/${diaIndex}_${hora + 1}`);
+                            const segundaSnapshot = await segundaHoraRef.once('value');
+                            const segundaReserva = segundaSnapshot.val();
+                            if (segundaReserva?.jogadores) {
+                                jogadores = `${jogadores}, ${segundaReserva.jogadores}`;
+                            }
+                        }
 
-                    // Adicionar ao array de logs (NOVO)
-                    reservasParaExcluir.push({
-                        exclusao: new Date().toLocaleString('pt-BR', {
-                            day: '2-digit',
-                            month: '2-digit',
-                            year: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        }).replace(',', ''),
-                        quadra,
-                        data: dataFormatada,
-                        horario: horarioFormatado,
-                        duracao: duracao === 3 ? "2 Horas - Pirâmide" : duracao === 2 ? "2 Horas" : "1 Hora",
-                        jogadores: jogadoresArray,
-                        usuario: "SISTEMA"
-                    });
+                        const jogadoresArray = [...new Set( // Remover duplicados
+                            jogadores.split(',')
+                                .map(j => j.trim())
+                                .filter(j => j.length > 0)
+                        )];
 
-                    // Código original de remoção mantido
-                    await reservaRef.remove();
-                    console.log(`✅ Reserva removida: ${key}`);
+                        const dataReserva = dataParaLimpar.toLocaleDateString('pt-BR').split('/');
+                        const dataFormatada = `${dataReserva[0].padStart(2, '0')}-${dataReserva[1].padStart(2, '0')}-${dataReserva[2]}`;
+                        
+                        const horasParaAdicionar = duracao === 3 ? 2 : duracao;
+                        const horarioFormatado = `${hora.toString().padStart(2, '0')}:00 - ${(hora + horasParaAdicionar).toString().padStart(2, '0')}:00`;
 
-                    // Remover segunda hora se for reserva de 2h (NOVO)
-                    if (duracao === 2 || duracao === 3) {
-                        await database.ref(`sistemas/reservas/${quadra}/${diaIndex}_${hora + 1}`).remove();
-                        console.log(`✅ Reserva removida: ${diaIndex}_${hora + 1}`);
+                        // Adicionar ao array de logs
+                        reservasParaExcluir.push({
+                            exclusao: new Date().toLocaleString('pt-BR', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            }).replace(',', ''),
+                            quadra,
+                            data: dataFormatada,
+                            horario: horarioFormatado,
+                            duracao: duracao === 3 ? "2 Horas - Pirâmide" : duracao === 2 ? "2 Horas" : "1 Hora",
+                            jogadores: jogadoresArray, 
+                            usuario: "SISTEMA"
+                        });
+
+                        // Remover reserva
+                        await reservaRef.remove();
+                        console.log(`✅ Reserva removida: ${key}`);
+
+                        // Remover segunda hora se for reserva de 2h/3h
+                        if (duracao === 2 || duracao === 3) {
+                            await database.ref(`sistemas/reservas/${quadra}/${diaIndex}_${hora + 1}`).remove();
+                            console.log(`✅ Reserva removida: ${diaIndex}_${hora + 1}`);
+                        }
                     }
                 }
             }
         }
-    }
 
-    // Registrar todos os logs em uma única operação (NOVO)
-    if (reservasParaExcluir.length > 0) {
-        await registrarExclusao(reservasParaExcluir);
-        console.log(`📊 Total de reservas removidas: ${reservasParaExcluir.length}`);
-    } else {
-        console.log("ℹ️ Nenhuma reserva antiga para remover");
+        // Registrar logs
+        if (reservasParaExcluir.length > 0) {
+            await registrarExclusao(reservasParaExcluir);
+            console.log(`📊 Total de reservas removidas: ${reservasParaExcluir.length}`);
+        } else {
+            console.log("ℹ️ Nenhuma reserva antiga para remover");
+        }
+
+    } catch (erro) {
+        console.error(`⚠️ ERRO na função LimparDiasAnteriores: ${erro.message}`);
+        operacaoSucesso = false;
+        
+        // Tenta registrar os logs mesmo em caso de erro
+        if (reservasParaExcluir.length > 0) {
+            try {
+                await registrarExclusao(reservasParaExcluir);
+                console.log(`📊 Logs parciais registrados (${reservasParaExcluir.length} reservas)`);
+            } catch (erroLog) {
+                console.error(`⚠️ ERRO ao registrar logs: ${erroLog.message}`);
+            }
+        }
+    } finally {
+        console.log(operacaoSucesso ? "✅ Operação concluída" : "⚠️ Operação concluída com erros");
     }
 }
 
