@@ -479,7 +479,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.2.1'; // Versão atual do sistema 
+const VersaoSistema = 'v1.2.2'; // Versão atual do sistema 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
 let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário
@@ -488,6 +488,8 @@ let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
 let vLimparDiasAnteriores = false;
 window.vDomingo = undefined; // Valor padrão: fechado, pois o clube não abre aos domingos ("aberto", "fechado").
+
+const jogadoresRestritos = ["YURI HARDER", "EDUARDO BERGMAN","BIANCA KROKER","MANUELA KROKER","WILMAR KROKER"]; // jogadores que só tem acesso às quadra 1 e 2.
 
 let quadrasInativas = new Set();
 let reservasPorQuadra = {};
@@ -767,18 +769,35 @@ function InicializarSistema() {
             });
 
             const selectQuadra = document.getElementById('quadra');
-            if (selectQuadra) {
-                selectQuadra.innerHTML = "";
-                ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"].forEach(quadra => {
-                    if (!quadrasInativas.has(quadra)) {
-                        const option = document.createElement('option');
-                        option.value = quadra;
-                        option.textContent = quadra;
-                        selectQuadra.appendChild(option);
-                    }
-                });
-                selectQuadra.value = quadraInicial;
-            }
+if (selectQuadra) {
+    selectQuadra.innerHTML = "";
+
+    // NOVO: Detecta jogador restrito
+    const jogadorLogado = localStorage.getItem("jogadorLogado")?.toUpperCase();
+    const isRestrito = jogadoresRestritos.includes(jogadorLogado);
+
+    // NOVO: Define a lista de quadras disponíveis com base na restrição
+    const todasQuadras = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"];
+    const quadrasAutorizadas = isRestrito
+        ? ["Quadra 1 - Coberta", "Quadra 2 - Aberta"]
+        : todasQuadras;
+
+    // Adiciona apenas quadras autorizadas e não interditadas
+    quadrasAutorizadas.forEach(quadra => {
+        if (!quadrasInativas.has(quadra)) {
+            const option = document.createElement('option');
+            option.value = quadra;
+            option.textContent = quadra;
+            selectQuadra.appendChild(option);
+        }
+    });
+
+    // MANTIDO: Define o valor padrão do select com base em quadraInicial
+    selectQuadra.value = selectQuadra.querySelector(`option[value="${quadraInicial}"]`)
+        ? quadraInicial
+        : selectQuadra.options[0]?.value || "";
+}
+
 
             const tabelaContainer = document.querySelector('.tabela-container');
             const header = document.querySelector('.header');
@@ -813,12 +832,29 @@ function atualizarEstadoQuadras() {
             button.style.setProperty("cursor", "not-allowed", "important");
             button.onclick = () => alert(`A ${quadraNome} está interditada provisoriamente.`);
         } else {
-            button.style.setProperty("background-color", "#lighgreen", "important");
+            button.style.setProperty("background-color", "#lightgreen", "important");
             button.style.setProperty("cursor", "pointer", "important");
             button.onclick = () => selecionarQuadra(quadraNome);
         }
     });
+
+    // --- NOVO: Desativa o botão Agendar se todas as quadras estiverem inativas OU se o dropdown estiver vazio
+	const todasIndisponiveis = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"]
+		.every(quadra => quadrasInativas.has(quadra));
+
+	const selectQuadra = document.getElementById('quadra');
+	const dropdownVazio = !selectQuadra || selectQuadra.options.length === 0;
+
+	const botaoAgendar = document.getElementById('botaoAgendar');
+	if (botaoAgendar) {
+		const desativar = todasIndisponiveis || dropdownVazio;
+		botaoAgendar.disabled = desativar;
+		botaoAgendar.style.opacity = desativar ? "0.5" : "1";
+		botaoAgendar.style.cursor = desativar ? "not-allowed" : "pointer";
+		botaoAgendar.title = desativar ? "Nenhuma quadra disponível para agendamento" : "";
+	}
 }
+
 
 function atualizarReservasQuadra(quadra) {
     limparTabela();
@@ -3104,7 +3140,7 @@ function atualizarPrimeiroAcesso(jogadorLogado) {
 			</div>
 		</div>
 
-        <button type="button" onclick="atualizarTabela()">Agendar</button>
+        <button id="botaoAgendar" type="button" onclick="atualizarTabela()">Agendar</button>
     </form>
 </div>
 
