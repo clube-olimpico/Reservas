@@ -479,7 +479,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.2.2'; // Versão atual do sistema 
+const VersaoSistema = 'v1.2.3'; // Versão atual do sistema 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
 let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário
@@ -645,6 +645,46 @@ function atualizarLegenda(piramideAtiva) {
     }
 }
 
+function removerSessoesAntigas() {
+    const usuariosRef = database.ref('sistemas/usuariosOnline');
+    const agora = Date.now();
+    const limiteTempo = 3 * 60 * 60 * 1000; //  sessões de mais de 3 horas serão excluídas
+
+    console.log("⏳ Iniciando verificação de sessões antigas...");
+
+
+    usuariosRef.once('value', snapshot => {
+        const usuarios = snapshot.val();
+
+        if (!usuarios) {
+            console.log("✅ Nenhum usuário online encontrado.");
+            return;
+        }
+
+        Object.entries(usuarios).forEach(([id, sessao]) => {
+            const timestampSessao = sessao.timestamp || 0;
+            const diff = agora - timestampSessao;
+
+            if ((agora - timestampSessao) > limiteTempo) {
+				console.warn(`🗑️ Sessão antiga detectada! Tentando remover ${id} (${sessao.usuario})`);
+
+				database.ref(`sistemas/usuariosOnline/${id}`).remove()
+					.then(() => {
+						console.log(`✅ Sessão ${id} removida com sucesso do banco.`);
+					})
+					.catch((error) => {
+						console.error(`❌ Erro ao remover sessão ${id}:`, error);
+					});
+			} else {
+				console.log(`✅ Sessão ainda válida. Mantida no sistema.`);
+			}
+        });
+    });
+}
+
+
+
+
 let githubToken = ''; // Variável global para armazenar o token
 
 // Inicialização do sistema
@@ -769,34 +809,34 @@ function InicializarSistema() {
             });
 
             const selectQuadra = document.getElementById('quadra');
-if (selectQuadra) {
-    selectQuadra.innerHTML = "";
+			if (selectQuadra) {
+				selectQuadra.innerHTML = "";
 
-    // NOVO: Detecta jogador restrito
-    const jogadorLogado = localStorage.getItem("jogadorLogado")?.toUpperCase();
-    const isRestrito = jogadoresRestritos.includes(jogadorLogado);
+				// NOVO: Detecta jogador restrito
+				const jogadorLogado = localStorage.getItem("jogadorLogado")?.toUpperCase();
+				const isRestrito = jogadoresRestritos.includes(jogadorLogado);
 
-    // NOVO: Define a lista de quadras disponíveis com base na restrição
-    const todasQuadras = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"];
-    const quadrasAutorizadas = isRestrito
-        ? ["Quadra 1 - Coberta", "Quadra 2 - Aberta"]
-        : todasQuadras;
+				// NOVO: Define a lista de quadras disponíveis com base na restrição
+				const todasQuadras = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"];
+				const quadrasAutorizadas = isRestrito
+					? ["Quadra 1 - Coberta", "Quadra 2 - Aberta"]
+					: todasQuadras;
 
-    // Adiciona apenas quadras autorizadas e não interditadas
-    quadrasAutorizadas.forEach(quadra => {
-        if (!quadrasInativas.has(quadra)) {
-            const option = document.createElement('option');
-            option.value = quadra;
-            option.textContent = quadra;
-            selectQuadra.appendChild(option);
-        }
-    });
+				// Adiciona apenas quadras autorizadas e não interditadas
+				quadrasAutorizadas.forEach(quadra => {
+					if (!quadrasInativas.has(quadra)) {
+						const option = document.createElement('option');
+						option.value = quadra;
+						option.textContent = quadra;
+						selectQuadra.appendChild(option);
+					}
+				});
 
-    // MANTIDO: Define o valor padrão do select com base em quadraInicial
-    selectQuadra.value = selectQuadra.querySelector(`option[value="${quadraInicial}"]`)
-        ? quadraInicial
-        : selectQuadra.options[0]?.value || "";
-}
+				// MANTIDO: Define o valor padrão do select com base em quadraInicial
+				selectQuadra.value = selectQuadra.querySelector(`option[value="${quadraInicial}"]`)
+					? quadraInicial
+					: selectQuadra.options[0]?.value || "";
+			}
 
 
             const tabelaContainer = document.querySelector('.tabela-container');
@@ -2539,6 +2579,8 @@ function carregarJogadores(jogadorLogado) {
 window.onload = function () {
     console.log("✅ Página carregada - Chamando verificarVersao()");
     verificarVersao();
+	
+	removerSessoesAntigas();
 
     let jogadorLogado = localStorage.getItem('jogadorLogado');
     let loginScreen = document.getElementById('loginScreen');
