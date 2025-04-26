@@ -304,7 +304,7 @@
             <label for="socio">Sócio:</label>
             <select id="socio">
                 <option value="" selected disabled>Escolha um tipo</option>
-                <option value="titular">Titular</option>
+				<option value="titular">Titular</option>
                 <option value="dependente">Dependente</option>
             </select>
         </div>
@@ -600,22 +600,18 @@ let criteriosConsulta = {
     niver: ""
 };
 
+
 // Função para consultar jogadores
 function consultarJogador() {
     // Atualiza os critérios de consulta com os valores atuais dos campos
     criteriosConsulta.nome = document.getElementById("nome").value.trim().toUpperCase();
     criteriosConsulta.apelido = document.getElementById("apelido").value.trim().toLowerCase();
     criteriosConsulta.socio = document.getElementById("socio").value;
-    
-    // Verifica se o campo de classe foi alterado
     const classeSelect = document.getElementById("classe");
-    criteriosConsulta.classe = classeSelect.value === "" && classeSelect.selectedIndex === 0 ? null : classeSelect.value;
-    
+    criteriosConsulta.classe = classeSelect.value;
     criteriosConsulta.niver = document.getElementById("niver").value;
     let piramide = document.getElementById("piramide").value.trim();
     const filtrarPiramide = document.getElementById("filtrarPiramide").checked;
-
-    // Verifica se o símbolo da pirâmide foi ativado no clique
     const simboloPiramide = document.getElementById("simbolo_piramide");
     const piramideAtivada = simboloPiramide.classList.contains("piramide-clicada");
 
@@ -624,12 +620,11 @@ function consultarJogador() {
     console.log("Filtrar por piramide?", filtrarPiramide);
     console.log("Pirâmide ativada pelo clique?", piramideAtivada);
 
-    // Verifica se todos os campos estão vazios e o checkbox não está marcado
     const todosCamposVazios =
         criteriosConsulta.nome === "" &&
         criteriosConsulta.apelido === "" &&
         criteriosConsulta.socio === "" &&
-        criteriosConsulta.classe === null &&
+        criteriosConsulta.classe === "" &&
         criteriosConsulta.niver === "" &&
         piramide === "" &&
         !filtrarPiramide &&
@@ -641,7 +636,7 @@ function consultarJogador() {
     }
 
     const tabela = document.getElementById("tabela-jogadores");
-    tabela.innerHTML = ""; // Limpa a tabela antes de exibir os resultados
+    tabela.innerHTML = "";
 
     database.ref("sistemas/cadastro/jogadores").once("value", snapshot => {
         let encontrado = false;
@@ -650,27 +645,40 @@ function consultarJogador() {
             const jogadorNome = childSnapshot.key;
             const jogador = childSnapshot.val();
 
-            // Ignora o jogador "Convidado"
             if (jogadorNome.toUpperCase() === "CONVIDADO") {
                 return;
             }
 
             const jogadorApelido = jogador.apelido.toLowerCase();
             const jogadorSocio = jogador.socio;
-            const jogadorClasse = jogador.classe || "";
+            const jogadorClasse = jogador.classe || ""; // Garante que seja string
             const jogadorNiver = jogador.niver || "";
             const jogadorPiramide = jogador.piramide || "";
 
             console.log("Jogador:", jogadorNome, "Piramide:", jogadorPiramide);
 
-            // Verifica se o jogador corresponde aos critérios de consulta
             const filtroNome = criteriosConsulta.nome === "" || jogadorNome.includes(criteriosConsulta.nome);
             const filtroApelido = criteriosConsulta.apelido === "" || jogadorApelido.includes(criteriosConsulta.apelido);
-            const filtroSocio = criteriosConsulta.socio === "" || jogadorSocio === criteriosConsulta.socio;
-            const filtroClasse = criteriosConsulta.classe === null || (criteriosConsulta.classe === "" ? jogadorClasse === "" : jogadorClasse === criteriosConsulta.classe);
+
+            // Modificações importantes aqui:
+            let filtroSocio = true;
+            if (criteriosConsulta.socio !== "" && criteriosConsulta.socio !== "todos") {
+                filtroSocio = jogadorSocio === criteriosConsulta.socio;
+            }
+
+            let filtroClasse = true;
+            if (criteriosConsulta.classe === "todos") {
+                // Se "Todos" foi selecionado, não filtre por classe
+            } else if (criteriosConsulta.classe === "") {
+                // Se "Sem classe" foi selecionado, filtre por classe vazia
+                filtroClasse = jogadorClasse === "";
+            } else {
+                // Se uma classe específica foi selecionada, filtre por ela
+                filtroClasse = jogadorClasse === criteriosConsulta.classe;
+            }
+
             const filtroNiver = criteriosConsulta.niver === "" || jogadorNiver === criteriosConsulta.niver;
 
-            // Aplica o filtro de piramide corretamente
             let filtroPiramide = true;
             if (piramideAtivada && filtrarPiramide) {
                 filtroPiramide = (jogadorPiramide === piramide) && (jogadorPiramide >= 1 && jogadorPiramide <= 99);
@@ -694,7 +702,6 @@ function consultarJogador() {
 
                 console.log("Jogador encontrado:", jogadorNome, "Piramide:", jogadorPiramide);
 
-                // Cria a linha da tabela
                 const row = document.createElement("tr");
                 row.innerHTML = `
                     <td style="text-align: left;">${jogadorNome}</td>
@@ -702,7 +709,6 @@ function consultarJogador() {
                     <td style="text-align: center;">${jogadorSocio}</td>
                 `;
 
-                // Adiciona eventos de clique e duplo clique
                 let clickTimeout;
                 let isDoubleClick = false;
 
@@ -735,6 +741,7 @@ function consultarJogador() {
         alert("Ocorreu um erro ao consultar os jogadores. Tente novamente.");
     });
 }
+
 
 
 function editarJogador(nome) {
@@ -1043,6 +1050,21 @@ function mostrarCadastro(event) {
 
     limparCampos();
     carregarJogadores(); // Agora carregará todos os jogadores corretamente
+	
+	// Remover a opção "Todos" se existir
+    const socioSelect = document.getElementById("socio");
+    let todosOption = socioSelect.querySelector('option[value="todos"]');
+    if (todosOption) {
+        socioSelect.removeChild(todosOption);
+    }
+	
+	// Remover a opção "Todos" se existir
+    const classeSelect = document.getElementById("classe");
+    let classeOption = classeSelect.querySelector('option[value="todos"]');
+    if (classeOption) {
+        classeSelect.removeChild(classeOption);
+    }
+	
 
     // Atualiza o símbolo da pirâmide para vermelho 🔺
     const simboloPiramide = document.getElementById("simbolo_piramide");
@@ -1078,6 +1100,36 @@ function mostrarConsulta(event) {
 
     limparCampos(); // Limpa os campos ao mudar para a aba Consulta
     carregarJogadores(); // Adiciona os eventos de clique para exclusão na aba Consulta
+	
+	// Adicionar a opção "Todos" se não existir
+    const socioSelect = document.getElementById("socio");
+    let todosOption = socioSelect.querySelector('option[value="todos"]');
+
+    if (!todosOption) {
+        todosOption = document.createElement("option");
+        todosOption.value = "todos";
+        todosOption.textContent = "Todos";
+        // Insere "Todos" após a primeira opção (Escolha um tipo)
+        socioSelect.insertBefore(todosOption, socioSelect.options[1]);
+    }
+	
+	// Seleciona a opção "Todos"
+    socioSelect.value = "todos";  // Adicione esta linha!
+	
+	// Adicionar a opção "Todos" se não existir
+    const classeSelect = document.getElementById("classe");
+    let classeOption = classeSelect.querySelector('option[value="todos"]');
+
+    if (!classeOption) {
+        classeOption = document.createElement("option");
+        classeOption.value = "todos";
+        classeOption.textContent = "Todos";
+        // Insere "Todos" após a primeira opção (Escolha um tipo)
+        classeSelect.insertBefore(classeOption, classeSelect.options[1]);
+    }
+	
+	// Seleciona a opção "Todos"
+    classeSelect.value = "todos";  // Adicione esta linha!
 
     // Mantém a pirâmide vermelha ao entrar na tela de consulta
     const simboloPiramide = document.getElementById("simbolo_piramide");
