@@ -479,7 +479,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.2.3'; // Versão atual do sistema 
+const VersaoSistema = 'v1.2.4'; // Versão atual do sistema 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
 let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário
@@ -1418,7 +1418,7 @@ async function validarSeTemReserva(jogadores) {
             //console.log(`Nova reserva: Início - ${novaReservaDataHoraInicio}`);
 
             const novaReservaDataHoraFim = new Date(novaReservaDataHoraInicio);
-            novaReservaDataHoraFim.setHours(novaReservaDataHoraInicio.getHours() + duracaoSelecionada);
+            novaReservaDataHoraFim.setHours(novaReservaDataHoraInicio.getHours() + duracaoSelecionada); 
             //console.log(`Nova reserva: Fim - ${novaReservaDataHoraFim}`);
 
             // Verificando reservas existentes
@@ -1429,6 +1429,10 @@ async function validarSeTemReserva(jogadores) {
                     //console.log("Verificando reserva existente:", reserva);
 
                     jogadores.forEach(jogador => {
+					    if (jogador === "Convidado") {
+							// Pula validação para "Convidado"
+							return;
+						}
                         // Verifica se o jogador está na reserva (comparação exata)
                         const jogadoresNaReserva = reserva.jogadores.split(', ');
                         if (jogadoresNaReserva.includes(jogador)) {
