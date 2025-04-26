@@ -767,32 +767,36 @@ function salvarJogador() {
     console.log("Dados do jogador a serem salvos:", { nome, apelido, socio, classe, niver, piramide });
 
     if (modoCadastro) {
-        // Validação completa para novo cadastro (todos obrigatórios)
         if (nome === "" || apelido === "" || socio === "" || classe === "" || niver === "") {
             alert("Preencha todos os campos obrigatórios.");
             return;
         }
     } else {
-        // Validação no modo edição (apenas nome obrigatório)
         if (nome === "") {
             alert("O nome é obrigatório.");
             return;
         }
     }
 
-    // Formatar data apenas se estiver preenchida
     if (niver) {
         const partesData = niver.split("-");
-        niver = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
+        const ano = parseInt(partesData[0]);
+        const mes = parseInt(partesData[1]) - 1; // Meses começam do 0
+        const dia = parseInt(partesData[2]);
+        const dataNascimento = new Date(ano, mes, dia);
 
-        // Calcula a idade
-        const dataNascimento = new Date(partesData[2], partesData[1] - 1, partesData[0]);
         const hoje = new Date();
         let idade = hoje.getFullYear() - dataNascimento.getFullYear();
-        const m = hoje.getMonth() - dataNascimento.getMonth();
-        if (m < 0 || (m === 0 && hoje.getDate() < dataNascimento.getDate())) {
+
+        if (
+            hoje.getMonth() < dataNascimento.getMonth() ||
+            (hoje.getMonth() === dataNascimento.getMonth() && hoje.getDate() < dataNascimento.getDate())
+        ) {
             idade--;
         }
+
+        // Atualiza o formato para DD/MM/AAAA para salvar no banco
+        niver = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
 
         if (idade > 21 && socio === "dependente") {
             const relacionamento = prompt("Dependente maior de 21 anos. É cônjuge, esposo(a) ou filho(a)?").trim().toLowerCase();
@@ -807,13 +811,9 @@ function salvarJogador() {
         niver = ""; // Se não informado, salva como vazio
     }
 
-    // Formata o apelido para ter a primeira letra maiúscula
     apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
-
-    // Determina o valor de piramide (remove espaços e garante que seja uma string vazia se não houver valor)
     const piramideValue = piramide.trim() === "" ? "" : piramide;
 
-    // Exibe uma mensagem de confirmação com todos os dados do jogador
     let mensagemConfirmacao = `
         Confirme os dados do jogador:
         Nome: ${nome}
@@ -824,41 +824,35 @@ function salvarJogador() {
         Pirâmide: ${piramideValue || "(Não informada)"}
     `;
 
-    // Adiciona informação sobre o modo de operação
     mensagemConfirmacao += `\n\nModo de operação: ${modoCadastro ? "Cadastro" : "Edição"}`;
 
     const confirmacao = confirm(mensagemConfirmacao);
     if (!confirmacao) {
-        return; // Cancela a operação se o usuário não confirmar
+        return;
     }
 
     const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
 
-    // Armazena os critérios de consulta originais antes de salvar
     const criteriosOriginais = { ...criteriosConsulta };
 
     jogadorRef.update({
-        apelido: apelido || "",   // Se vazio, salva como string vazia
-        socio: socio || "",        // Se vazio, salva como string vazia
-        classe: classe || "",      // Se vazio, salva como string vazia
-        niver: niver,               // Data já tratada
-        piramide: piramideValue     // Pirâmide já tratada
+        apelido: apelido || "",
+        socio: socio || "",
+        classe: classe || "",
+        niver: niver,
+        piramide: piramideValue
     }).then(() => {
         console.log("Jogador atualizado com sucesso!");
         alert("Jogador atualizado com sucesso!");
 
-        // Limpa os campos do formulário
         limparCampos();
 
-        // Desabilita o campo piramide após salvar
         piramideInput.disabled = true;
-
-        // Se o checkbox estiver marcado, desmarca ao salvar
         filtrarPiramideCheckbox.checked = false;
 
-        // Reaplica os critérios de consulta originais e refaz a consulta
         if (!modoCadastro && (criteriosOriginais.nome || criteriosOriginais.apelido || criteriosOriginais.socio ||
-                      criteriosOriginais.classe || criteriosOriginais.niver || criteriosOriginais.piramide)) {
+            criteriosOriginais.classe || criteriosOriginais.niver || criteriosOriginais.piramide)) {
+
             console.log("Reexecutando consulta após salvar...");
             criteriosConsulta = { ...criteriosOriginais };
 
@@ -874,7 +868,6 @@ function salvarJogador() {
             carregarJogadores();
         }
 
-        // Atualiza texto do botão conforme aba atual
         const abaAtual = document.querySelector(".tab-button.selected").textContent;
         if (abaAtual === "Cadastro") {
             document.getElementById("botaoAcao").textContent = "Cadastrar";
