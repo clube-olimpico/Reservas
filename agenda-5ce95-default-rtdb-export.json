@@ -9,6 +9,7 @@
         "Alice Pereira": true,
         "Aline Garcia": true,
         "Almir": true,
+        "Ana Maria": true,
         "Ana Ribeiro": true,
         "Andre Guzik": true,
         "Andreia Almeida": true,
@@ -35,6 +36,7 @@
         "Felipe Mikuska": true,
         "Felipe Muraski": true,
         "Felipe Parente": true,
+        "Flavia Titon": true,
         "Flavio Ferraz": true,
         "Frank Fast": true,
         "Frank Heinrichs": true,
@@ -51,6 +53,7 @@
         "Kaiser": true,
         "Leo Carrara": true,
         "Leo Mikuska": true,
+        "Lucas Titon": true,
         "Luciane Vieira": true,
         "Luis Warkentin": true,
         "Makoto": true,
@@ -148,6 +151,13 @@
           "apelido": "Ana Ribeiro",
           "classe": "C",
           "niver": "13/01/2009",
+          "piramide": "",
+          "socio": "dependente"
+        },
+        "ANA MARIA": {
+          "apelido": "Ana Maria",
+          "classe": "",
+          "niver": "01/01/2001",
           "piramide": "",
           "socio": "dependente"
         },
@@ -319,6 +329,13 @@
           "piramide": "16",
           "socio": "titular"
         },
+        "FLAVIA AVILA TITON": {
+          "apelido": "Flavia Titon",
+          "classe": "C",
+          "niver": "07/10/1996",
+          "piramide": "",
+          "socio": "dependente"
+        },
         "FLAVIO FERRAZ": {
           "apelido": "Flavio Ferraz",
           "classe": "A",
@@ -430,6 +447,13 @@
           "niver": "12/07/2017",
           "piramide": "",
           "socio": "dependente"
+        },
+        "LUCAS SETIM TITON": {
+          "apelido": "Lucas Titon",
+          "classe": "B",
+          "niver": "07/07/1996",
+          "piramide": "",
+          "socio": "titular"
         },
         "LUCIANE VIEIRA": {
           "apelido": "Luciane Vieira",
@@ -693,7 +717,7 @@
           "1-DiasDeSemana": true,
           "1-DiasDeSemana-exceto-17-19": true,
           "1-Domingo": true,
-          "1-Domingo-exceto-8-12": true,
+          "1-Domingo-exceto-8-12": false,
           "1-Sabado": true,
           "1-Sabado-exceto-7-12": true,
           "Quadra-1-ativa": true
@@ -1154,32 +1178,39 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
+        },
+        "7_10": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 3,
+          "hora": 10,
+          "jogadores": "Arthur Warkentin"
+        },
+        "7_11": {
+          "dia": 7,
+          "hora": 11,
+          "jogadores": "Caio Teixeira"
+        },
+        "7_9": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 9,
+          "jogadores": "Avila, Lucas Titon, Flavia Titon"
         }
       },
       "Quadra 2 - Aberta": {
-        "6_10": {
+        "2_19": {
           "borda": "2h",
-          "dia": 6,
+          "dia": 2,
           "duracao": 3,
-          "hora": 10,
-          "jogadores": "Bernardo"
+          "hora": 19,
+          "jogadores": "Rodrigo Weich"
         },
-        "6_11": {
-          "dia": 6,
-          "hora": 11,
-          "jogadores": "Leo Carrara"
-        },
-        "6_8": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 3,
-          "hora": 8,
-          "jogadores": "Robson Schneider"
-        },
-        "6_9": {
-          "dia": 6,
-          "hora": 9,
-          "jogadores": "Timo"
+        "2_20": {
+          "dia": 2,
+          "hora": 20,
+          "jogadores": "Marcelo Silva"
         },
         "7_10": {
           "dia": 7,
@@ -1195,6 +1226,18 @@
         }
       },
       "Quadra 3 - Coberta": {
+        "1_19": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 3,
+          "hora": 19,
+          "jogadores": "Felipe Parente"
+        },
+        "1_20": {
+          "dia": 1,
+          "hora": 20,
+          "jogadores": "Sidnei Novack"
+        },
         "1_21": {
           "borda": "1h",
           "dia": 1,
@@ -1202,46 +1245,51 @@
           "hora": 21,
           "jogadores": "Aline Garcia, Ricardo Lima"
         },
-        "6_10": {
-          "dia": 6,
-          "hora": 10,
-          "jogadores": "Thomas August"
-        },
-        "6_11": {
-          "borda": "1h",
-          "dia": 6,
-          "duracao": 1,
-          "hora": 11,
-          "jogadores": "Heloisa Silva, Luciane Vieira, Marcelo Silva"
-        },
-        "6_15": {
+        "2_19": {
           "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 15,
-          "jogadores": "Flavio Ferraz, Nivaldo"
+          "dia": 2,
+          "duracao": 3,
+          "hora": 19,
+          "jogadores": "Arthur Amorim"
         },
-        "6_16": {
-          "dia": 6,
-          "hora": 16,
-          "jogadores": "Diego Paraiso, Taborda"
-        },
-        "6_20": {
-          "borda": "1h",
-          "dia": 6,
-          "duracao": 1,
+        "2_20": {
+          "dia": 2,
           "hora": 20,
-          "jogadores": "Ceccon"
+          "jogadores": "Susan"
         },
-        "6_9": {
+        "2_21": {
           "borda": "2h",
-          "dia": 6,
+          "dia": 2,
+          "duracao": 3,
+          "hora": 21,
+          "jogadores": "Makoto"
+        },
+        "2_22": {
+          "dia": 2,
+          "hora": 22,
+          "jogadores": "Diosnei"
+        },
+        "7_10": {
+          "borda": "2h",
+          "dia": 7,
           "duracao": 2,
+          "hora": 10,
+          "jogadores": "Gustavo Ferraz"
+        },
+        "7_11": {
+          "dia": 7,
+          "hora": 11,
+          "jogadores": "Taborda"
+        },
+        "7_9": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
           "hora": 9,
-          "jogadores": "Marcelo Zoti"
+          "jogadores": "Josiane Kamiya"
         }
       }
     },
-    "version": "v1.2.3"
+    "version": "v1.2.4"
   }
 }
