@@ -479,7 +479,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.2.4'; // Versão atual do sistema 
+const VersaoSistema = 'v1.2.5'; // Versão atual do sistema 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
 let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário
@@ -1617,7 +1617,7 @@ window.adicionarJogador = function() {
                     }
 
                     // Se o jogador não foi selecionado, adiciona como opção
-                    if (!jaSelecionado) {
+                    if (!jaSelecionado || apelido === "Convidado") {
                         const option = document.createElement('option');
                         option.value = apelido; // Usa o apelido como valor
                         option.textContent = nome; // Exibe o nome do jogador
@@ -3172,7 +3172,7 @@ function atualizarPrimeiroAcesso(jogadorLogado) {
         <div class="form-row">
             <label for="hora">Horário:</label>
             <select id="hora">
-                <!-- As opções de horário serão ajustadas pelo JavaScript -->
+                <!-- As opções de horário serão ajustadas pelo JavaScript --> 
             </select>
         </div>
 
