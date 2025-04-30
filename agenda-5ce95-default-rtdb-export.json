@@ -6,6 +6,7 @@
         "Alessandro Xavier": true,
         "Alexa": true,
         "Alexandre Voj": true,
+        "Alice Duck": true,
         "Alice Pereira": true,
         "Aline Garcia": true,
         "Almir": true,
@@ -41,6 +42,7 @@
         "Flavio Ferraz": true,
         "Frank Fast": true,
         "Frank Heinrichs": true,
+        "Gabriel Martins": true,
         "Gilson Oliveira": true,
         "Gustavo Ferraz": true,
         "Helio Oliveira": true,
@@ -88,6 +90,7 @@
         "Veridiane Voj": true,
         "Vivianne Laverde": true,
         "Wilmar": true,
+        "Xara": true,
         "Yuri": true
       },
       "jogadores": {
@@ -132,6 +135,13 @@
           "niver": "04/11/2016",
           "piramide": "",
           "socio": "dependente"
+        },
+        "ALICE DUCK": {
+          "apelido": "Alice Duck",
+          "classe": "B",
+          "niver": "25/02/1996",
+          "piramide": "",
+          "socio": "titular"
         },
         "ALINE MULLER GARCIA": {
           "apelido": "Aline Garcia",
@@ -181,6 +191,13 @@
           "niver": "14/02/1996",
           "piramide": "",
           "socio": "dependente"
+        },
+        "ARNOLD DUCK": {
+          "apelido": "Xara",
+          "classe": "B",
+          "niver": "01/01/1963",
+          "piramide": "",
+          "socio": "titular"
         },
         "ARTHUR AMORIM MODESTO": {
           "apelido": "Arthur Amorim",
@@ -364,6 +381,13 @@
           "piramide": "",
           "socio": "titular"
         },
+        "GABRIEL MARTINS LACHOWSKI": {
+          "apelido": "Gabriel Martins",
+          "classe": "B",
+          "niver": "06/06/1995",
+          "piramide": "",
+          "socio": "dependente"
+        },
         "GILSON OLIVEIRA": {
           "apelido": "Gilson Oliveira",
           "classe": "C",
@@ -480,14 +504,14 @@
           "apelido": "Marcelo Silva",
           "classe": "B",
           "niver": "28/11/1975",
-          "piramide": "17",
+          "piramide": "20",
           "socio": "titular"
         },
         "MARCELO MAKOTO": {
           "apelido": "Makoto",
           "classe": "A",
           "niver": "07/02/1975",
-          "piramide": "33",
+          "piramide": "31",
           "socio": "titular"
         },
         "MARCELO ZOTI": {
@@ -571,7 +595,7 @@
           "apelido": "Rodrigo Weich",
           "classe": "B",
           "niver": "20/03/1986",
-          "piramide": "20",
+          "piramide": "17",
           "socio": "titular"
         },
         "RONALDO BITENCOURT": {
@@ -627,7 +651,7 @@
           "apelido": "Susan",
           "classe": "C",
           "niver": "30/10/1981",
-          "piramide": "31",
+          "piramide": "33",
           "socio": "dependente"
         },
         "THAIS FREITAS": {
@@ -719,7 +743,7 @@
           "1-Domingo": true,
           "1-Domingo-exceto-8-12": false,
           "1-Sabado": true,
-          "1-Sabado-exceto-7-12": true,
+          "1-Sabado-exceto-7-12": false,
           "Quadra-1-ativa": true
         },
         "Quadra-2": {
@@ -735,9 +759,9 @@
           "3-DiasDeSemana": true,
           "3-DiasDeSemana-exceto-17-19": true,
           "3-Domingo": true,
-          "3-Domingo-exceto-8-12": true,
+          "3-Domingo-exceto-8-12": false,
           "3-Sabado": true,
-          "3-Sabado-exceto-7-12": true,
+          "3-Sabado-exceto-7-12": false,
           "Quadra-3-ativa": true
         },
         "ativa": true
@@ -1186,18 +1210,6 @@
         }
       },
       "Quadra 2 - Aberta": {
-        "1_20": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 20,
-          "jogadores": "Felipe Mikuska"
-        },
-        "1_21": {
-          "dia": 1,
-          "hora": 21,
-          "jogadores": "Convidado"
-        },
         "2_19": {
           "borda": "2h",
           "dia": 2,
@@ -1222,6 +1234,18 @@
           "hora": 19,
           "jogadores": "Vania"
         },
+        "3_20": {
+          "borda": "2h",
+          "dia": 3,
+          "duracao": 2,
+          "hora": 20,
+          "jogadores": "Natan"
+        },
+        "3_21": {
+          "dia": 3,
+          "hora": 21,
+          "jogadores": "Vivianne Laverde"
+        },
         "4_10": {
           "borda": "2h",
           "dia": 4,
@@ -1233,51 +1257,34 @@
           "dia": 4,
           "hora": 11,
           "jogadores": "Dudu"
+        },
+        "4_8": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 8,
+          "jogadores": "Edemar"
+        },
+        "4_9": {
+          "dia": 4,
+          "hora": 9,
+          "jogadores": "Sergio Nelhs"
         }
       },
       "Quadra 3 - Coberta": {
-        "1_17": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Edemar"
-        },
-        "1_18": {
-          "dia": 1,
-          "hora": 18,
-          "jogadores": "Flavio Ferraz"
-        },
-        "1_19": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 3,
-          "hora": 19,
-          "jogadores": "Felipe Parente"
-        },
-        "1_20": {
-          "dia": 1,
-          "hora": 20,
-          "jogadores": "Sidnei Novack"
-        },
-        "1_21": {
+        "2_17": {
           "borda": "1h",
-          "dia": 1,
+          "dia": 2,
           "duracao": 1,
-          "hora": 21,
-          "jogadores": "Aline Garcia, Ricardo Lima"
+          "hora": 17,
+          "jogadores": "Frank Fast"
         },
-        "1_7": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 3,
-          "hora": 7,
-          "jogadores": "Claudio Warkentin"
-        },
-        "1_8": {
-          "dia": 1,
-          "hora": 8,
-          "jogadores": "Natan"
+        "2_18": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 18,
+          "jogadores": "Thomas August"
         },
         "2_19": {
           "borda": "2h",
@@ -1291,12 +1298,67 @@
           "hora": 20,
           "jogadores": "Makoto"
         },
+        "2_21": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 21,
+          "jogadores": "Aline Garcia, Ricardo Lima"
+        },
+        "3_10": {
+          "dia": 3,
+          "hora": 10,
+          "jogadores": "Arthur Warkentin"
+        },
+        "3_17": {
+          "borda": "2h",
+          "dia": 3,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Almir"
+        },
+        "3_18": {
+          "dia": 3,
+          "hora": 18,
+          "jogadores": "Flavio Ferraz"
+        },
         "3_19": {
           "borda": "1h",
           "dia": 3,
           "duracao": 1,
           "hora": 19,
           "jogadores": "Ceccon"
+        },
+        "3_20": {
+          "borda": "2h",
+          "dia": 3,
+          "duracao": 2,
+          "hora": 20,
+          "jogadores": "Avila"
+        },
+        "3_21": {
+          "dia": 3,
+          "hora": 21,
+          "jogadores": "Alexa"
+        },
+        "3_7": {
+          "borda": "2h",
+          "dia": 3,
+          "duracao": 2,
+          "hora": 7,
+          "jogadores": "Leo Carrara"
+        },
+        "3_8": {
+          "dia": 3,
+          "hora": 8,
+          "jogadores": "Taborda"
+        },
+        "3_9": {
+          "borda": "2h",
+          "dia": 3,
+          "duracao": 3,
+          "hora": 9,
+          "jogadores": "Clodoaldo"
         },
         "4_15": {
           "borda": "2h",
@@ -1323,9 +1385,21 @@
           "duracao": 1,
           "hora": 20,
           "jogadores": "Robson Schneider"
+        },
+        "5_15": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Ana Ribeiro"
+        },
+        "5_16": {
+          "dia": 5,
+          "hora": 16,
+          "jogadores": "Marco Ribeiro"
         }
       }
     },
-    "version": "v1.2.4"
+    "version": "v1.2.5"
   }
 }
