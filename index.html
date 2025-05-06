@@ -479,7 +479,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.2.5'; // Versão atual do sistema 
+const VersaoSistema = 'v1.2.6'; // Versão atual do sistema 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
 let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário
@@ -493,7 +493,7 @@ const jogadoresRestritos = ["YURI HARDER", "EDUARDO BERGMAN","BIANCA KROKER","MA
 
 let quadrasInativas = new Set();
 let reservasPorQuadra = {};
-let quadraSelecionada = 'Quadra 1 - Coberta';
+let quadraSelecionada = 'Quadra 1 - Coberta'; 
 
 //***********************************************************************************************************************************************************************
 
@@ -2018,7 +2018,7 @@ function excluirReserva(horaIndex, diaIndex) {
             throw new Error("Tabela não encontrada");
         }
 
-        const celulaId = `${horaIndex}_${diaIndex}`;
+        const celulaId = `${horaIndex}_${diaIndex}`; 
         console.log("🔹 Célula alvo:", celulaId);
 
         // Verificação de duplicação de exclusão
@@ -2052,7 +2052,8 @@ function excluirReserva(horaIndex, diaIndex) {
                 const jogadoresSegundaCelula = segundaCelula.textContent.trim().split(',')
                     .map(j => j.replace(/^\d+\s*-\s*/, '').trim().toLowerCase())
                     .filter(j => j);
-                jogadoresArray = [...new Set([...jogadoresArray, ...jogadoresSegundaCelula])];
+                //jogadoresArray = [...new Set([...jogadoresArray, ...jogadoresSegundaCelula])];
+				jogadoresArray = [...jogadoresArray, ...jogadoresSegundaCelula];
             }
         }
 
@@ -2430,11 +2431,16 @@ async function LimparDiasAnteriores() {
                             }
                         }
 
-                        const jogadoresArray = [...new Set( // Remover duplicados
+                        /*const jogadoresArray = [...new Set( // Remover duplicados
                             jogadores.split(',')
                                 .map(j => j.trim())
                                 .filter(j => j.length > 0)
-                        )];
+                        )];*/
+						const jogadoresArray = [
+							...jogadores.split(',')
+								.map(j => j.trim())
+								.filter(j => j.length > 0)
+						];
 
                         const dataReserva = dataParaLimpar.toLocaleDateString('pt-BR').split('/');
                         const dataFormatada = `${dataReserva[0].padStart(2, '0')}-${dataReserva[1].padStart(2, '0')}-${dataReserva[2]}`;
