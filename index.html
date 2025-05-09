@@ -479,10 +479,11 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.2.6'; // Versão atual do sistema 
+const VersaoSistema = 'v1.2.7'; // Versão atual do sistema 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
-let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário
+
+let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário 
 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
@@ -714,6 +715,7 @@ function InicializarSistema() {
 			    if (vAbrirSistema) {
 				  // Permissão para abrir o sistema
 				  if (config && config.Abrir === false) {
+				    alert("⚠️ Atenção:\n\nO sistema está em manutenção provisória no momento.\nPor favor, tente novamente mais tarde.\n\nObrigado pela compreensão.");
 					window.close();
 					return;
 				  }
