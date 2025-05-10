@@ -240,7 +240,7 @@
           "apelido": "Clodoaldo",
           "classe": "B",
           "niver": "27/12/1970",
-          "piramide": "22",
+          "piramide": "25",
           "socio": "titular"
         },
         "CONVIDADO": {
@@ -268,7 +268,7 @@
           "apelido": "Diego Paraiso",
           "classe": "A",
           "niver": "13/11/1988",
-          "piramide": "18",
+          "piramide": "15",
           "socio": "titular"
         },
         "DIOSNEI KOMAN": {
@@ -345,7 +345,7 @@
           "apelido": "Felipe Muraski",
           "classe": "C",
           "niver": "14/04/1983",
-          "piramide": "15",
+          "piramide": "18",
           "socio": "titular"
         },
         "FLAVIA AVILA TITON": {
@@ -590,7 +590,7 @@
           "apelido": "Robson Schneider",
           "classe": "A",
           "niver": "02/04/1982",
-          "piramide": "25",
+          "piramide": "22",
           "socio": "titular"
         },
         "RODRIGO VOJCIECHOVSKI": {
@@ -755,7 +755,7 @@
       "Piramide": {
         "Quadra-1": {
           "1-DiasDeSemana": true,
-          "1-DiasDeSemana-exceto-17-19": true,
+          "1-DiasDeSemana-exceto-17-19": false,
           "1-Domingo": true,
           "1-Domingo-exceto-8-12": false,
           "1-Sabado": true,
@@ -773,7 +773,7 @@
         },
         "Quadra-3": {
           "3-DiasDeSemana": true,
-          "3-DiasDeSemana-exceto-17-19": true,
+          "3-DiasDeSemana-exceto-17-19": false,
           "3-Domingo": true,
           "3-Domingo-exceto-8-12": false,
           "3-Sabado": true,
@@ -847,6 +847,13 @@
           "duracao": 1,
           "hora": 21,
           "jogadores": "aula"
+        },
+        "1_9": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 9,
+          "jogadores": "Vania"
         },
         "2_14": {
           "borda": "1h",
@@ -1191,6 +1198,13 @@
           "hora": 11,
           "jogadores": "aula"
         },
+        "6_15": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 15,
+          "jogadores": "Taborda"
+        },
         "6_16": {
           "borda": "2h",
           "dia": 6,
@@ -1223,30 +1237,21 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
+        },
+        "7_8": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 8,
+          "jogadores": "Airton Santos"
+        },
+        "7_9": {
+          "dia": 7,
+          "hora": 9,
+          "jogadores": "Rodrigo Voj"
         }
       },
       "Quadra 2 - Aberta": {
-        "4_19": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 19,
-          "jogadores": "Jaison"
-        },
-        "4_20": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 20,
-          "jogadores": "Rodrigo Weich"
-        },
-        "4_21": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 21,
-          "jogadores": "Lucas Titon, Flavia Titon"
-        },
         "5_18": {
           "borda": "2h",
           "dia": 5,
@@ -1273,55 +1278,24 @@
         }
       },
       "Quadra 3 - Coberta": {
-        "4_17": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Edemar"
-        },
-        "4_18": {
-          "dia": 4,
-          "hora": 18,
-          "jogadores": "Marcelo Zoti"
-        },
-        "4_19": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 19,
-          "jogadores": "Isa"
-        },
-        "4_21": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 21,
-          "jogadores": "Claudio Warkentin"
-        },
-        "4_22": {
-          "dia": 4,
-          "hora": 22,
-          "jogadores": "Luis Warkentin"
-        },
-        "4_7": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 7,
-          "jogadores": "Leo Carrara"
-        },
-        "4_8": {
-          "dia": 4,
-          "hora": 8,
-          "jogadores": "Taborda"
-        },
         "5_15": {
           "borda": "1h",
           "dia": 5,
           "duracao": 1,
           "hora": 15,
           "jogadores": "Frank Fast"
+        },
+        "5_18": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 18,
+          "jogadores": "Jean Souza"
+        },
+        "5_19": {
+          "dia": 5,
+          "hora": 19,
+          "jogadores": "Marco Ribeiro"
         },
         "5_20": {
           "borda": "1h",
@@ -1342,6 +1316,11 @@
           "hora": 22,
           "jogadores": "Alexa"
         },
+        "6_10": {
+          "dia": 6,
+          "hora": 10,
+          "jogadores": "Gustavo Ferraz"
+        },
         "6_11": {
           "borda": "2h",
           "dia": 6,
@@ -1354,20 +1333,46 @@
           "hora": 12,
           "jogadores": "Felipe Mikuska"
         },
-        "6_18": {
+        "6_15": {
           "borda": "2h",
           "dia": 6,
-          "duracao": 3,
-          "hora": 18,
-          "jogadores": "Arthur Warkentin"
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Helio Oliveira"
         },
-        "6_19": {
+        "6_16": {
           "dia": 6,
-          "hora": 19,
-          "jogadores": "Timo"
+          "hora": 16,
+          "jogadores": "Rafael Gregorio"
+        },
+        "6_18": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 18,
+          "jogadores": "Avila, Alexa"
+        },
+        "6_9": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 9,
+          "jogadores": "Flavio Ferraz"
+        },
+        "7_10": {
+          "dia": 7,
+          "hora": 10,
+          "jogadores": "Leo Carrara"
+        },
+        "7_9": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 3,
+          "hora": 9,
+          "jogadores": "Bernardo"
         }
       }
     },
-    "version": "v1.2.6"
+    "version": "v1.2.7"
   }
 }
