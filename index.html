@@ -479,7 +479,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.2.7'; // Versão atual do sistema 
+const VersaoSistema = 'v1.2.8'; // Versão atual do sistema 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
 
@@ -751,7 +751,8 @@ function InicializarSistema() {
                 if (config) {
                     window.DiasParaLimpar = config.DiasParaLimpar || 4;
                     window.vDomingo = config.vDomingo || "fechado";
-
+                    window.vDomingoAte = config.vDomingoAte || "23:00"; // Valor padrão caso não esteja definido
+					
                     quadrasInativas.clear();
                     const quadras = config.Quadras || {};
                     if (quadras.Quadra1 === "interditada") quadrasInativas.add("Quadra 1 - Coberta");
@@ -969,27 +970,48 @@ let jogadorCount = 1;
 
 function atualizarEstadoDomingo() {
     const tabela = document.getElementById('tabelaCorpo');
-    const diaDomingo = 7; // Índice da coluna correspondente ao domingo
+    const diaDomingo = 7; // coluna do domingo
+    const horarioLimite = window.vDomingoAte ? parseInt(window.vDomingoAte.split(':')[0]) : 23;
 
     for (let i = 0; i < tabela.rows.length; i++) {
-        const horario = i + 6; // Calcula o horário (06:00 corresponde à linha 0)
+        const horario = i + 6;
         const celulaDomingo = tabela.rows[i].cells[diaDomingo];
 
-        if (vDomingo === 'aberto') {
-            if (horario >= 12 && horario <= 23) {
+        // Bloqueia sempre das 6h às 8h
+        if (horario >= 6 && horario < 8) {
+            celulaDomingo.style.backgroundColor = '#f2f2f2';
+            celulaDomingo.style.pointerEvents = 'none';
+            celulaDomingo.style.cursor = 'not-allowed';
+            continue;
+        }
+
+        if (vDomingo === 'fechado') {
+            if (horario >= 12) {
+                celulaDomingo.style.backgroundColor = '#f2f2f2';
+                celulaDomingo.style.pointerEvents = 'none';
+                celulaDomingo.style.cursor = 'not-allowed';
+            } else if (celulaDomingo.innerHTML.trim() === "") {
                 celulaDomingo.style.backgroundColor = '';
                 celulaDomingo.style.pointerEvents = '';
                 celulaDomingo.style.cursor = '';
             }
-        } else if (vDomingo === 'fechado') {
-            if (horario >= 12 && horario <= 23) {
+        } else if (vDomingo === 'aberto') {
+            if (horario >= horarioLimite) {
                 celulaDomingo.style.backgroundColor = '#f2f2f2';
                 celulaDomingo.style.pointerEvents = 'none';
                 celulaDomingo.style.cursor = 'not-allowed';
+            } else if (horario >= 8 && celulaDomingo.innerHTML.trim() === "") {
+                celulaDomingo.style.backgroundColor = '';
+                celulaDomingo.style.pointerEvents = '';
+                celulaDomingo.style.cursor = '';
             }
         }
     }
 }
+
+
+
+
 
 function limparTabela() {
     const tabela = document.getElementById('tabelaCorpo');
@@ -1198,22 +1220,9 @@ function carregarReservas(quadra) {
             //console.warn(`⚠️ Nenhuma reserva encontrada para a quadra: ${quadra}`);
         }
 
-                // Bloqueia horários de domingo, se aplicável
-        if (vDomingo === 'fechado') {
-            const diaDomingo = 7;
-            const tabela = document.getElementById('tabelaCorpo');
-            for (let i = 0; i < tabela.rows.length; i++) {
-                const horario = i + 6;
-                const celulaDomingo = tabela.rows[i].cells[diaDomingo];
-                if (horario >= 12 && horario <= 23) {
-                    celulaDomingo.style.backgroundColor = '#f2f2f2';
-                    celulaDomingo.style.pointerEvents = 'none';
-                    celulaDomingo.style.cursor = 'not-allowed';
-                }
-            }
-        }
+        atualizarEstadoDomingo();
 
-        adicionarEventoClique();
+        adicionarEventoClique(); 
     });
 }
 
@@ -1508,38 +1517,37 @@ function gerarMensagemErro(diasParaLimpar) {
 }
 
 window.atualizarOpcoesHorario = function() {
-    const duracao = document.getElementById('duracao').value; // Captura o valor selecionado no campo "Duração"
-    const dia = document.getElementById('dia').value; // Captura o valor selecionado no campo "Dia"
-    const hora = document.getElementById('hora'); // Seleciona o campo "Horário"
-    hora.innerHTML = ''; // Limpa as opções de horário existentes
+    const duracao = document.getElementById('duracao').value;
+    const dia = document.getElementById('dia').value;
+    const hora = document.getElementById('hora');
+    hora.innerHTML = '';
 
-    if (!duracao || !dia) {
-        return; // Se não houver duração ou dia selecionado, retorna sem fazer nada
-    }
+    if (!duracao || !dia) return;
 
-    // Lógica para a opção "Pirâmide" (reservas de 2 horas)
+    // Pirâmide
     if (duracao === "3-piramide") {
-        // Ajusta os horários para blocos de 2 horas
         if (dia == 7 && vDomingo === 'fechado') {
-            // Domingo fechado: horários reduzidos
-            for (let i = 8; i <= 10; i++) { // 8:00 - 10:00 (último horário começa às 10:00 para terminar às 12:00)
+            for (let i = 8; i <= 10; i++) {
+                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
+            }
+        } else if (dia == 7 && vDomingo === 'aberto') {
+            const limite = parseInt(vDomingoAte.split(':')[0]);
+            for (let i = 8; i <= limite - 2; i++) {
                 hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
             }
         } else if (dia == 6) {
-            // Sábado: horários reduzidos
-            for (let i = 7; i < 20; i++) { // 7:00 - 20:00 (último horário começa às 20:00 para terminar às 22:00)
+            for (let i = 7; i < 20; i++) {
                 hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
             }
         } else {
-            // Dias da semana: horários normais
-            for (let i = 6; i <= 21; i++) { // 6:00 - 21:00 (último horário começa às 21:00 para terminar às 23:00)
+            for (let i = 6; i <= 21; i++) {
                 hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
             }
         }
-        return; // Retorna após preencher os horários para a pirâmide
+        return;
     }
 
-    // Restante da lógica para 1 hora e 2 horas
+    // Domingo fechado
     if (dia == 7 && vDomingo === 'fechado') {
         if (duracao === '1') {
             for (let i = 8; i <= 11; i++) {
@@ -1550,7 +1558,24 @@ window.atualizarOpcoesHorario = function() {
                 hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
             }
         }
-    } else if (dia == 6) {
+    }
+
+    // ✅ Domingo aberto com limite vDomingoAte
+    else if (dia == 7 && vDomingo === 'aberto') {
+        const limite = parseInt(vDomingoAte.split(':')[0]);
+        if (duracao === '1') {
+            for (let i = 8; i <= Math.min(limite - 1, 22); i++) {
+                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 1}:00</option>`;
+            }
+        } else if (duracao === '2') {
+            for (let i = 8; i <= Math.min(limite - 2, 21); i++) {
+                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
+            }
+        }
+    }
+
+    // Sábado
+    else if (dia == 6) {
         if (duracao === '1') {
             for (let i = 7; i < 21; i++) {
                 hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 1}:00</option>`;
@@ -1560,7 +1585,10 @@ window.atualizarOpcoesHorario = function() {
                 hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
             }
         }
-    } else {
+    }
+
+    // Dias de semana
+    else {
         if (duracao === '1') {
             for (let i = 6; i <= 22; i++) {
                 hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 1}:00</option>`;
@@ -1572,6 +1600,9 @@ window.atualizarOpcoesHorario = function() {
         }
     }
 };
+
+
+
 window.adicionarJogador = function() {
     if (jogadorCount < 4) {
         jogadorCount++;
