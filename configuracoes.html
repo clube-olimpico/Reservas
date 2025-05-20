@@ -11,7 +11,7 @@
 
 <style>
 body {
-    font-family: Arial, sans-serif;  
+    font-family: Arial, sans-serif;   
     padding: 10px;
     display: flex;
     font-size: 18px;
@@ -20,7 +20,7 @@ body {
     min-height: 100vh;
     margin: 0;
     overflow-y: auto;
-    box-sizing: border-box;  
+    box-sizing: border-box;   
 }
 
 .container {
@@ -55,11 +55,21 @@ body {
 }
 
 #vDomingo {
-    flex: 1;
     padding: 5px;
+    width: 60px;
     box-sizing: border-box;
-    width: 95px;
+    max-width: 75px;
+    min-width: 75px;
 }
+
+#vDomingo.ajustar-alinhamento {
+    width: 100%;
+    min-width: unset;
+    max-width: unset;
+    flex: 1;
+}
+
+
 
 /* Configuração de DiasParaAgendar */
 .container label[for="diasParaAgendar"] {
@@ -375,7 +385,22 @@ body.piramde-ativo {
         margin: 1px auto;
         box-sizing: border-box;
     }
+	
+	#vDomingo {
+	margin-left: -20px;
+    max-width: 73px;
+    min-width: 73px;
+}
+    #vDomingo.ajustar-alinhamento {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: unset !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box;
+}
 
+    
     select {
         width: 100%;
         max-width: 100%;
@@ -606,6 +631,15 @@ input:disabled, select:disabled, button:disabled {
                 <option value="aberto">Aberto</option>
                 <option value="fechado">Fechado</option>
             </select>
+					<!-- Campo extra para horário -->
+			<div id="containerHorarioDomingo" style="display:none; align-items: center; gap: 3px; margin-left: -7px; white-space: nowrap;">
+
+
+				<span style="font-size: 15px;">🕒</span>
+				<input type="text" id="vDomingoAte" readonly style="border: none; background: transparent; font-weight: bold; font-size: 16px; width: 41px; text-align: center;" />
+
+			</div>
+
         </div>
 
         <div class="container">
@@ -1052,6 +1086,19 @@ function carregarConfiguracoes() {
                     document.getElementById('sistema').value = data.Abrir ? 'ON' : 'OFF';
                     atualizarEstadoSistema();
                     document.getElementById('vDomingo').value = data.vDomingo || "aberto";
+					document.getElementById('vDomingoAte').value = data.vDomingoAte;
+					
+					const campoAte = document.getElementById('vDomingoAte');
+const containerHorario = document.getElementById('containerHorarioDomingo');
+campoAte.value = data.vDomingoAte || '';
+
+if (vDomingo.value === 'fechado') {
+        vDomingo.classList.add('ajustar-alinhamento');
+    } else {
+        vDomingo.classList.remove('ajustar-alinhamento');
+    }
+
+
                     document.getElementById('diasParaAgendar').value = (6 - (data.DiasParaLimpar || 6)).toString();
 
                     // Atualiza o estado das quadras
@@ -1156,6 +1203,7 @@ function carregarConfiguracoes() {
                 document.getElementById('sistema').value = data.Abrir ? 'ON' : 'OFF';
                 atualizarEstadoSistema();
                 document.getElementById('vDomingo').value = data.vDomingo || "aberto";
+				document.getElementById('vDomingoAte').value = data.vDomingoAte;
                 document.getElementById('diasParaAgendar').value = (6 - (data.DiasParaLimpar || 6)).toString();
 
                 // Atualiza o estado das quadras
@@ -1216,6 +1264,7 @@ function salvarConfiguracoes() {
     // Obtém os valores dos campos gerais
     const abrir = document.getElementById('sistema').value === 'ON';
     const vDomingo = document.getElementById('vDomingo').value;
+	const vDomingoAte = document.getElementById('vDomingoAte').value;
     const diasParaLimpar = 6 - parseInt(document.getElementById('diasParaAgendar').value);
     const estadoQuadra1 = document.getElementById('estadoQuadra1').value;
     const estadoQuadra2 = document.getElementById('estadoQuadra2').value;
@@ -1266,6 +1315,7 @@ function salvarConfiguracoes() {
     db.ref("sistemas/config").update({
         Abrir: abrir,
         vDomingo,
+		vDomingoAte,
         DiasParaLimpar: diasParaLimpar,
         Quadras: {
             Quadra1: estadoQuadra1,
@@ -1334,6 +1384,29 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Define o primeiro botão como ativo por padrão
     document.querySelector('.piramide-botao').classList.add('ativo');
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const vDomingoSelect = document.getElementById('vDomingo');
+    const vDomingoAteInput = document.getElementById('vDomingoAte');
+
+    vDomingoSelect.addEventListener('change', function () {
+		const containerHorario = document.getElementById('containerHorarioDomingo');
+
+		if (this.value === 'aberto') {
+			const horario = prompt("Até que horas o clube ficará aberto no domingo? (ex: 18:00)", "18:00");
+			if (horario) {
+				vDomingoAteInput.value = horario;
+				containerHorario.style.display = 'flex';
+			}
+			this.classList.remove('ajustar-alinhamento');
+		} else {
+			vDomingoAteInput.value = '';
+			containerHorario.style.display = 'none';
+			this.classList.add('ajustar-alinhamento');
+		}
+	});
+
 });
 
 function mostrarQuadra(quadraId) {
