@@ -2,6 +2,7 @@
   "sistemas": {
     "cadastro": {
       "apelidos": {
+        "Adriano Feitosa": true,
         "Airton Santos": true,
         "Alessandro Xavier": true,
         "Alexa": true,
@@ -48,6 +49,7 @@
         "Gustavo Ferraz": true,
         "Helio Oliveira": true,
         "Heloisa Silva": true,
+        "Henrique Santos": true,
         "Isa": true,
         "Jaison": true,
         "Jean Souza": true,
@@ -98,6 +100,13 @@
         "Yuri": true
       },
       "jogadores": {
+        "ADRIANO GOMES FEITOSA": {
+          "apelido": "Adriano Feitosa",
+          "classe": "B",
+          "niver": "26/06/1975",
+          "piramide": "",
+          "socio": "titular"
+        },
         "AIRTON SANTOS": {
           "apelido": "Airton Santos",
           "classe": "C",
@@ -424,6 +433,13 @@
           "apelido": "Heloisa Silva",
           "classe": "C",
           "niver": "18/10/2008",
+          "piramide": "",
+          "socio": "dependente"
+        },
+        "HENRIQUE SANTOS": {
+          "apelido": "Henrique Santos",
+          "classe": "C",
+          "niver": "11/12/2011",
           "piramide": "",
           "socio": "dependente"
         },
@@ -805,7 +821,7 @@
       },
       "githubToken": "***SEGREDO_REMOVIDO***",
       "vDomingo": "aberto",
-      "vDomingoAte": "18:00"
+      "vDomingoAte": "20:00"
     },
     "reservas": {
       "Quadra 1 - Coberta": {
@@ -865,18 +881,6 @@
           "hora": 21,
           "jogadores": "aula"
         },
-        "1_7": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 7,
-          "jogadores": "Frank Heinrichs"
-        },
-        "1_8": {
-          "dia": 1,
-          "hora": 8,
-          "jogadores": "Ben August"
-        },
         "2_14": {
           "borda": "1h",
           "dia": 2,
@@ -932,6 +936,13 @@
           "duracao": 1,
           "hora": 21,
           "jogadores": "aula"
+        },
+        "2_8": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "Taborda"
         },
         "3_10": {
           "borda": "1h",
@@ -1240,100 +1251,46 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
-        },
-        "7_10": {
-          "borda": "1h",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 10,
-          "jogadores": "Rafael Gregorio"
-        },
-        "7_15": {
-          "borda": "1h",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 15,
-          "jogadores": "Susan"
-        },
-        "7_16": {
-          "borda": "1h",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 16,
-          "jogadores": "Thomas August"
-        },
-        "7_17": {
-          "borda": "1h",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 17,
-          "jogadores": "Rodrigo Voj, Davi Voj"
-        }
-      },
-      "Quadra 2 - Aberta": {
-        "1_17": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Flavio Ferraz"
-        },
-        "1_18": {
-          "dia": 1,
-          "hora": 18,
-          "jogadores": "Gustavo Ferraz"
-        },
-        "7_10": {
-          "dia": 7,
-          "hora": 10,
-          "jogadores": "Alexandre Voj"
-        },
-        "7_15": {
-          "borda": "2h",
-          "dia": 7,
-          "duracao": 2,
-          "hora": 15,
-          "jogadores": "Lucas Titon"
-        },
-        "7_16": {
-          "dia": 7,
-          "hora": 16,
-          "jogadores": "Flavia Titon"
-        },
-        "7_17": {
-          "borda": "1h",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 17,
-          "jogadores": "Avila, Alexa"
-        },
-        "7_9": {
-          "borda": "2h",
-          "dia": 7,
-          "duracao": 2,
-          "hora": 9,
-          "jogadores": "Helio Oliveira"
         }
       },
       "Quadra 3 - Coberta": {
-        "1_17": {
+        "2_18": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 18,
+          "jogadores": "Marcelo Zoti, Flavio Ferraz"
+        },
+        "2_19": {
           "borda": "2h",
-          "dia": 1,
+          "dia": 2,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Paulinho"
+        },
+        "2_20": {
+          "dia": 2,
+          "hora": 20,
+          "jogadores": "Cristina Pirachovski"
+        },
+        "2_9": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 9,
+          "jogadores": "Airton Santos"
+        },
+        "3_17": {
+          "borda": "2h",
+          "dia": 3,
           "duracao": 2,
           "hora": 17,
-          "jogadores": "Edemar"
+          "jogadores": "Frank Fast"
         },
-        "1_18": {
-          "dia": 1,
+        "3_18": {
+          "dia": 3,
           "hora": 18,
-          "jogadores": "Taborda"
-        },
-        "1_20": {
-          "borda": "1h",
-          "dia": 1,
-          "duracao": 1,
-          "hora": 20,
-          "jogadores": "Arthur Amorim, Isa"
+          "jogadores": "Almir"
         },
         "3_19": {
           "borda": "2h",
@@ -1347,24 +1304,24 @@
           "hora": 20,
           "jogadores": "Bernardo"
         },
-        "7_15": {
-          "borda": "1h",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 15,
-          "jogadores": "Timo"
-        },
-        "7_16": {
+        "3_8": {
           "borda": "2h",
-          "dia": 7,
+          "dia": 3,
           "duracao": 2,
-          "hora": 16,
-          "jogadores": "Claudio Warkentin"
+          "hora": 8,
+          "jogadores": "Henrique Santos"
         },
-        "7_17": {
-          "dia": 7,
-          "hora": 17,
-          "jogadores": "Luis Warkentin"
+        "3_9": {
+          "dia": 3,
+          "hora": 9,
+          "jogadores": "Adriano Feitosa"
+        },
+        "4_20": {
+          "borda": "1h",
+          "dia": 4,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Arthur Amorim, Isa"
         }
       }
     },
