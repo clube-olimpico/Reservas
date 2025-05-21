@@ -26,7 +26,7 @@ body {
 .container {
     display: flex;
     align-items: center;
-    /* justify-content: space-between;   Remova esta linha */ 
+    /* justify-content: space-between;   Remova esta linha */  
     margin-bottom: 10px;
     gap: 10px;
 }
@@ -1092,11 +1092,14 @@ function carregarConfiguracoes() {
 const containerHorario = document.getElementById('containerHorarioDomingo');
 campoAte.value = data.vDomingoAte || '';
 
-if (vDomingo.value === 'fechado') {
-        vDomingo.classList.add('ajustar-alinhamento');
-    } else {
-        vDomingo.classList.remove('ajustar-alinhamento');
-    }
+if (vDomingo.value === 'aberto') {
+    containerHorario.style.display = 'flex';
+    vDomingo.classList.remove('ajustar-alinhamento');
+} else {
+    containerHorario.style.display = 'none';
+    vDomingo.classList.add('ajustar-alinhamento');
+}
+
 
 
                     document.getElementById('diasParaAgendar').value = (6 - (data.DiasParaLimpar || 6)).toString();
@@ -1408,6 +1411,16 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 });
+
+// Permite abrir o prompt ao clicar no campo de horário ou no ícone
+document.getElementById('containerHorarioDomingo').addEventListener('dblclick', function () {
+    const horarioAtual = document.getElementById('vDomingoAte').value || "18:00";
+    const novoHorario = prompt("Até que horas o clube ficará aberto no domingo? (ex: 18:00)", horarioAtual);
+    if (novoHorario) {
+        document.getElementById('vDomingoAte').value = novoHorario;
+    }
+});
+
 
 function mostrarQuadra(quadraId) {
     // Esconde todos os containers de quadra
