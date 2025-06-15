@@ -824,6 +824,45 @@
         "Quadra3": false
       },
       "DiasParaLimpar": 3,
+      "Duplas": {
+        "Quadra-1": {
+          "1-DiasDeSemana": false,
+          "1-DiasDeSemana-Fim": "",
+          "1-DiasDeSemana-Inicio": "",
+          "1-Domingo": false,
+          "1-Domingo-Fim": "",
+          "1-Domingo-Inicio": "",
+          "1-Sabado": false,
+          "1-Sabado-Fim": "",
+          "1-Sabado-Inicio": "",
+          "Quadra-1-ativa": false
+        },
+        "Quadra-2": {
+          "2-DiasDeSemana": false,
+          "2-DiasDeSemana-Fim": "",
+          "2-DiasDeSemana-Inicio": "",
+          "2-Domingo": false,
+          "2-Domingo-Fim": "",
+          "2-Domingo-Inicio": "",
+          "2-Sabado": false,
+          "2-Sabado-Fim": "",
+          "2-Sabado-Inicio": "",
+          "Quadra-2-ativa": false
+        },
+        "Quadra-3": {
+          "3-DiasDeSemana": false,
+          "3-DiasDeSemana-Fim": "",
+          "3-DiasDeSemana-Inicio": "",
+          "3-Domingo": false,
+          "3-Domingo-Fim": "",
+          "3-Domingo-Inicio": "",
+          "3-Sabado": false,
+          "3-Sabado-Fim": "",
+          "3-Sabado-Inicio": "",
+          "Quadra-3-ativa": false
+        },
+        "ativa": false
+      },
       "Piramide": {
         "Quadra-1": {
           "1-DiasDeSemana": true,
@@ -1171,36 +1210,96 @@
           "hora": 9,
           "jogadores": "aula"
         },
-        "5_17": {
-          "borda": "2h",
+        "5_10": {
+          "borda": "1h",
           "dia": 5,
-          "duracao": 2,
+          "duracao": 1,
+          "hora": 10,
+          "jogadores": "aula"
+        },
+        "5_11": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 11,
+          "jogadores": "aula"
+        },
+        "5_14": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 14,
+          "jogadores": "aula"
+        },
+        "5_15": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 15,
+          "jogadores": "aula"
+        },
+        "5_16": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 16,
+          "jogadores": "aula"
+        },
+        "5_17": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
           "hora": 17,
-          "jogadores": "Flavio Ferraz"
+          "jogadores": "aula"
         },
         "5_18": {
+          "borda": "1h",
           "dia": 5,
+          "duracao": 1,
           "hora": 18,
-          "jogadores": "Gustavo Ferraz"
+          "jogadores": "aula"
         },
         "5_19": {
           "borda": "1h",
           "dia": 5,
           "duracao": 1,
           "hora": 19,
-          "jogadores": "Fabio Batista"
+          "jogadores": "aula"
         },
         "5_20": {
-          "borda": "2h",
+          "borda": "1h",
           "dia": 5,
-          "duracao": 2,
+          "duracao": 1,
           "hora": 20,
-          "jogadores": "Leonardo Zamprogna"
+          "jogadores": "aula"
         },
         "5_21": {
+          "borda": "1h",
           "dia": 5,
+          "duracao": 1,
           "hora": 21,
-          "jogadores": "Victoria Zeni"
+          "jogadores": "aula"
+        },
+        "5_7": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 7,
+          "jogadores": "aula"
+        },
+        "5_8": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "aula"
+        },
+        "5_9": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 9,
+          "jogadores": "aula"
         },
         "6_10": {
           "borda": "1h",
@@ -1261,6 +1360,18 @@
           "hora": 9,
           "jogadores": "aula"
         },
+        "7_10": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 10,
+          "jogadores": "Davi Voj"
+        },
+        "7_11": {
+          "dia": 7,
+          "hora": 11,
+          "jogadores": "Rodrigo Voj"
+        },
         "7_8": {
           "borda": "2h",
           "dia": 7,
@@ -1272,6 +1383,32 @@
           "dia": 7,
           "hora": 9,
           "jogadores": "Raianne Kamiya"
+        }
+      },
+      "Quadra 2 - Aberta": {
+        "1_19": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Caina Balboa"
+        },
+        "1_20": {
+          "dia": 1,
+          "hora": 20,
+          "jogadores": "Ivan Balboa"
+        },
+        "7_10": {
+          "dia": 7,
+          "hora": 10,
+          "jogadores": "Convidado"
+        },
+        "7_9": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 9,
+          "jogadores": "Caio Teixeira"
         }
       },
       "Quadra 3 - Coberta": {
@@ -1299,42 +1436,6 @@
           "hora": 20,
           "jogadores": "Isa"
         },
-        "5_17": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Thomas August"
-        },
-        "5_18": {
-          "dia": 5,
-          "hora": 18,
-          "jogadores": "Susan"
-        },
-        "5_19": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 3,
-          "hora": 19,
-          "jogadores": "Makoto"
-        },
-        "5_20": {
-          "dia": 5,
-          "hora": 20,
-          "jogadores": "Robson Schneider"
-        },
-        "5_21": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 21,
-          "jogadores": "Flavia Titon"
-        },
-        "5_22": {
-          "dia": 5,
-          "hora": 22,
-          "jogadores": "Lucas Titon"
-        },
         "6_10": {
           "borda": "2h",
           "dia": 6,
@@ -1347,17 +1448,48 @@
           "hora": 11,
           "jogadores": "Marco Ribeiro"
         },
-        "6_15": {
+        "6_13": {
           "borda": "2h",
           "dia": 6,
           "duracao": 2,
-          "hora": 15,
-          "jogadores": "Rafael Gregorio"
+          "hora": 13,
+          "jogadores": "Susan"
+        },
+        "6_14": {
+          "dia": 6,
+          "hora": 14,
+          "jogadores": "Timo"
         },
         "6_16": {
+          "borda": "2h",
           "dia": 6,
+          "duracao": 2,
           "hora": 16,
           "jogadores": "Helio Oliveira"
+        },
+        "6_17": {
+          "dia": 6,
+          "hora": 17,
+          "jogadores": "Rafael Gregorio"
+        },
+        "6_18": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 18,
+          "jogadores": "Fabio Batista"
+        },
+        "7_10": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 10,
+          "jogadores": "Gustavo Ferraz"
+        },
+        "7_11": {
+          "dia": 7,
+          "hora": 11,
+          "jogadores": "Taborda"
         },
         "7_8": {
           "borda": "2h",
@@ -1371,13 +1503,6 @@
           "hora": 9,
           "jogadores": "Henrique Santos"
         }
-      }
-    },
-    "usuariosOnline": {
-      "oh9k3lcb6": {
-        "sessionId": "oh9k3lcb6",
-        "timestamp": 1749866163806,
-        "usuario": "RONALDO TABORDA"
       }
     },
     "version": "v1.2.8"
