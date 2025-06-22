@@ -849,8 +849,19 @@
       },
       "DiasParaLimpar": 3,
       "Duplas": {
+        "DatasEspeciais": {
+          "Quadra-1": {
+            "2025-09-07": {
+              "descricao": "Proclamaçao da Republica",
+              "regras": {
+                "fim": "12:00",
+                "inicio": "08:00"
+              }
+            }
+          }
+        },
         "Quadra-1": {
-          "1-DiasDeSemana": true,
+          "1-DiasDeSemana": false,
           "1-DiasDeSemana-Fim": "",
           "1-DiasDeSemana-Inicio": "",
           "1-Domingo": false,
@@ -862,7 +873,7 @@
           "Quadra-1-ativa": false
         },
         "Quadra-2": {
-          "2-DiasDeSemana": true,
+          "2-DiasDeSemana": false,
           "2-DiasDeSemana-Fim": "",
           "2-DiasDeSemana-Inicio": "",
           "2-Domingo": false,
@@ -1339,6 +1350,18 @@
           "hora": 15,
           "jogadores": "Leo Mikuska"
         },
+        "6_17": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Ben August"
+        },
+        "6_18": {
+          "dia": 6,
+          "hora": 18,
+          "jogadores": "Thomas August"
+        },
         "6_19": {
           "borda": "2h",
           "dia": 6,
@@ -1371,18 +1394,85 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
+        },
+        "7_8": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 8,
+          "jogadores": "Caio Teixeira"
+        },
+        "7_9": {
+          "dia": 7,
+          "hora": 9,
+          "jogadores": "Natan"
         }
       },
       "Quadra 2 - Aberta": {
-        "5_10": {
-          "borda": "1h",
-          "dia": 5,
-          "duracao": 1,
+        "6_10": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
           "hora": 10,
-          "jogadores": "Arthur Warkentin, Luis Warkentin"
+          "jogadores": "Gilson Oliveira"
+        },
+        "6_11": {
+          "dia": 6,
+          "hora": 11,
+          "jogadores": "Convidado"
+        },
+        "6_15": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Aline Sato"
+        },
+        "6_16": {
+          "dia": 6,
+          "hora": 16,
+          "jogadores": "Allan Piacente"
+        },
+        "6_17": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 17,
+          "jogadores": "Rafael Gregorio"
+        },
+        "6_20": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Fabio Batista"
+        },
+        "7_10": {
+          "dia": 7,
+          "hora": 10,
+          "jogadores": "Felipe Muraski"
+        },
+        "7_9": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 9,
+          "jogadores": "Rodrigo Weich"
         }
       },
       "Quadra 3 - Coberta": {
+        "1_17": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Almir"
+        },
+        "1_18": {
+          "dia": 1,
+          "hora": 18,
+          "jogadores": "Frank Fast"
+        },
         "1_19": {
           "borda": "2h",
           "dia": 1,
@@ -1395,72 +1485,17 @@
           "hora": 20,
           "jogadores": "Bernardo"
         },
-        "5_10": {
-          "borda": "1h",
-          "dia": 5,
-          "duracao": 1,
-          "hora": 10,
-          "jogadores": "Kaiser"
-        },
-        "5_11": {
+        "2_18": {
           "borda": "2h",
-          "dia": 5,
+          "dia": 2,
           "duracao": 2,
-          "hora": 11,
-          "jogadores": "Ben August"
-        },
-        "5_12": {
-          "dia": 5,
-          "hora": 12,
-          "jogadores": "Thomas August"
-        },
-        "5_13": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 13,
-          "jogadores": "Avila"
-        },
-        "5_14": {
-          "dia": 5,
-          "hora": 14,
-          "jogadores": "Alexa"
-        },
-        "5_17": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Taborda"
-        },
-        "5_18": {
-          "dia": 5,
           "hora": 18,
-          "jogadores": "Marcelo Zoti"
+          "jogadores": "Ivan Balboa"
         },
-        "5_19": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
+        "2_19": {
+          "dia": 2,
           "hora": 19,
-          "jogadores": "Flavia Titon"
-        },
-        "5_20": {
-          "dia": 5,
-          "hora": 20,
-          "jogadores": "Lucas Titon"
-        },
-        "5_7": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 7,
-          "jogadores": "Josiane Kamiya"
-        },
-        "5_8": {
-          "dia": 5,
-          "hora": 8,
-          "jogadores": "Raianne Kamiya"
+          "jogadores": "Caina Balboa"
         },
         "6_10": {
           "borda": "2h",
@@ -1474,24 +1509,17 @@
           "hora": 11,
           "jogadores": "Marco Ribeiro"
         },
-        "6_13": {
-          "borda": "1h",
-          "dia": 6,
-          "duracao": 1,
-          "hora": 13,
-          "jogadores": "Caio Teixeira"
-        },
-        "6_15": {
+        "6_17": {
           "borda": "2h",
           "dia": 6,
           "duracao": 2,
-          "hora": 15,
-          "jogadores": "Helio Oliveira"
+          "hora": 17,
+          "jogadores": "Gustavo Ferraz"
         },
-        "6_16": {
+        "6_18": {
           "dia": 6,
-          "hora": 16,
-          "jogadores": "Rafael Gregorio"
+          "hora": 18,
+          "jogadores": "Flavio Ferraz"
         },
         "6_8": {
           "borda": "2h",
@@ -1504,13 +1532,6 @@
           "dia": 6,
           "hora": 9,
           "jogadores": "Jean Souza"
-        },
-        "7_10": {
-          "borda": "1h",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 10,
-          "jogadores": "Ceccon"
         },
         "7_8": {
           "borda": "2h",
