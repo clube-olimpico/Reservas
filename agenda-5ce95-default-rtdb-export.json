@@ -857,6 +857,31 @@
                 "fim": "12:00",
                 "inicio": "08:00"
               }
+            },
+            "2025-12-31": {
+              "descricao": "Feliz Ano Novo",
+              "regras": {
+                "fim": "15:00",
+                "inicio": "08:00"
+              }
+            }
+          },
+          "Quadra-2": {
+            "2025-06-25": {
+              "descricao": "feriado de teste de validacao",
+              "regras": {
+                "fim": "12:00",
+                "inicio": "08:00"
+              }
+            }
+          },
+          "Quadra-3": {
+            "2025-11-02": {
+              "descricao": "Finados",
+              "regras": {
+                "fim": "18:00",
+                "inicio": "08:00"
+              }
             }
           }
         },
@@ -896,7 +921,7 @@
           "3-Sabado-Inicio": "",
           "Quadra-3-ativa": false
         },
-        "ativa": true
+        "ativa": false
       },
       "Piramide": {
         "Quadra-1": {
@@ -910,7 +935,7 @@
         },
         "Quadra-2": {
           "2-DiasDeSemana": true,
-          "2-DiasDeSemana-exceto-17-19": true,
+          "2-DiasDeSemana-exceto-17-19": false,
           "2-Domingo": true,
           "2-Domingo-exceto-8-12": false,
           "2-Sabado": true,
@@ -995,6 +1020,18 @@
           "hora": 21,
           "jogadores": "aula"
         },
+        "1_7": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 2,
+          "hora": 7,
+          "jogadores": "Thomas August"
+        },
+        "1_8": {
+          "dia": 1,
+          "hora": 8,
+          "jogadores": "Frank Heinrichs"
+        },
         "2_14": {
           "borda": "1h",
           "dia": 2,
@@ -1050,6 +1087,13 @@
           "duracao": 1,
           "hora": 21,
           "jogadores": "aula"
+        },
+        "2_8": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "Airton Santos"
         },
         "3_10": {
           "borda": "1h",
@@ -1338,42 +1382,6 @@
           "hora": 11,
           "jogadores": "aula"
         },
-        "6_14": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 14,
-          "jogadores": "Felipe Mikuska"
-        },
-        "6_15": {
-          "dia": 6,
-          "hora": 15,
-          "jogadores": "Leo Mikuska"
-        },
-        "6_17": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Ben August"
-        },
-        "6_18": {
-          "dia": 6,
-          "hora": 18,
-          "jogadores": "Thomas August"
-        },
-        "6_19": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 19,
-          "jogadores": "Alexa"
-        },
-        "6_20": {
-          "dia": 6,
-          "hora": 20,
-          "jogadores": "Avila"
-        },
         "6_7": {
           "borda": "1h",
           "dia": 6,
@@ -1394,59 +1402,9 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
-        },
-        "7_8": {
-          "borda": "2h",
-          "dia": 7,
-          "duracao": 2,
-          "hora": 8,
-          "jogadores": "Caio Teixeira"
-        },
-        "7_9": {
-          "dia": 7,
-          "hora": 9,
-          "jogadores": "Natan"
         }
       },
       "Quadra 2 - Aberta": {
-        "6_10": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 10,
-          "jogadores": "Gilson Oliveira"
-        },
-        "6_11": {
-          "dia": 6,
-          "hora": 11,
-          "jogadores": "Convidado"
-        },
-        "6_15": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 15,
-          "jogadores": "Aline Sato"
-        },
-        "6_16": {
-          "dia": 6,
-          "hora": 16,
-          "jogadores": "Allan Piacente"
-        },
-        "6_17": {
-          "borda": "1h",
-          "dia": 6,
-          "duracao": 1,
-          "hora": 17,
-          "jogadores": "Rafael Gregorio"
-        },
-        "6_20": {
-          "borda": "1h",
-          "dia": 6,
-          "duracao": 1,
-          "hora": 20,
-          "jogadores": "Fabio Batista"
-        },
         "7_10": {
           "dia": 7,
           "hora": 10,
@@ -1497,41 +1455,29 @@
           "hora": 19,
           "jogadores": "Caina Balboa"
         },
-        "6_10": {
+        "3_16": {
           "borda": "2h",
-          "dia": 6,
+          "dia": 3,
           "duracao": 2,
-          "hora": 10,
-          "jogadores": "Flavio Ferraz"
+          "hora": 16,
+          "jogadores": "Heloisa Silva"
         },
-        "6_11": {
-          "dia": 6,
-          "hora": 11,
-          "jogadores": "Marco Ribeiro"
-        },
-        "6_17": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
+        "3_17": {
+          "dia": 3,
           "hora": 17,
-          "jogadores": "Gustavo Ferraz"
+          "jogadores": "Marcelo Silva"
         },
-        "6_18": {
-          "dia": 6,
-          "hora": 18,
-          "jogadores": "Flavio Ferraz"
-        },
-        "6_8": {
+        "3_18": {
           "borda": "2h",
-          "dia": 6,
+          "dia": 3,
           "duracao": 2,
-          "hora": 8,
+          "hora": 18,
           "jogadores": "Edemar"
         },
-        "6_9": {
-          "dia": 6,
-          "hora": 9,
-          "jogadores": "Jean Souza"
+        "3_19": {
+          "dia": 3,
+          "hora": 19,
+          "jogadores": "Sergio Nelhs"
         },
         "7_8": {
           "borda": "2h",
