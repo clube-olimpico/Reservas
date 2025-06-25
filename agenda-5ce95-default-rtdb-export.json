@@ -25,6 +25,7 @@
         "Ben August": true,
         "Bernardo": true,
         "Bianca": true,
+        "Bigode": true,
         "Caina Balboa": true,
         "Caio Teixeira": true,
         "Ceccon": true,
@@ -521,6 +522,13 @@
           "piramide": "12",
           "socio": "titular"
         },
+        "JOAO PAULO DA SILVA VIEIRA": {
+          "apelido": "Bigode",
+          "classe": "B",
+          "niver": "12/06/1994",
+          "piramide": "",
+          "socio": "titular"
+        },
         "JOAO PAULO KAISER": {
           "apelido": "Kaiser",
           "classe": "C",
@@ -851,35 +859,19 @@
       "Duplas": {
         "DatasEspeciais": {
           "Quadra-1": {
-            "2025-09-07": {
-              "descricao": "Proclamaçao da Republica",
+            "2026-02-01": {
+              "descricao": "teste",
               "regras": {
                 "fim": "12:00",
-                "inicio": "08:00"
-              }
-            },
-            "2025-12-31": {
-              "descricao": "Feliz Ano Novo",
-              "regras": {
-                "fim": "15:00",
                 "inicio": "08:00"
               }
             }
           },
           "Quadra-2": {
-            "2025-06-25": {
-              "descricao": "feriado de teste de validacao",
+            "2025-06-20": {
+              "descricao": "teste",
               "regras": {
                 "fim": "12:00",
-                "inicio": "08:00"
-              }
-            }
-          },
-          "Quadra-3": {
-            "2025-11-02": {
-              "descricao": "Finados",
-              "regras": {
-                "fim": "18:00",
                 "inicio": "08:00"
               }
             }
@@ -921,35 +913,35 @@
           "3-Sabado-Inicio": "",
           "Quadra-3-ativa": false
         },
-        "ativa": false
+        "ativa": true
       },
       "Piramide": {
         "Quadra-1": {
-          "1-DiasDeSemana": true,
+          "1-DiasDeSemana": false,
           "1-DiasDeSemana-exceto-17-19": false,
-          "1-Domingo": true,
+          "1-Domingo": false,
           "1-Domingo-exceto-8-12": false,
-          "1-Sabado": true,
+          "1-Sabado": false,
           "1-Sabado-exceto-7-12": false,
-          "Quadra-1-ativa": true
+          "Quadra-1-ativa": false
         },
         "Quadra-2": {
-          "2-DiasDeSemana": true,
+          "2-DiasDeSemana": false,
           "2-DiasDeSemana-exceto-17-19": false,
-          "2-Domingo": true,
+          "2-Domingo": false,
           "2-Domingo-exceto-8-12": false,
-          "2-Sabado": true,
+          "2-Sabado": false,
           "2-Sabado-exceto-7-12": false,
-          "Quadra-2-ativa": true
+          "Quadra-2-ativa": false
         },
         "Quadra-3": {
-          "3-DiasDeSemana": true,
-          "3-DiasDeSemana-exceto-17-19": true,
-          "3-Domingo": true,
+          "3-DiasDeSemana": false,
+          "3-DiasDeSemana-exceto-17-19": false,
+          "3-Domingo": false,
           "3-Domingo-exceto-8-12": false,
-          "3-Sabado": true,
+          "3-Sabado": false,
           "3-Sabado-exceto-7-12": false,
-          "Quadra-3-ativa": true
+          "Quadra-3-ativa": false
         },
         "ativa": true
       },
@@ -1020,18 +1012,6 @@
           "hora": 21,
           "jogadores": "aula"
         },
-        "2_10": {
-          "borda": "2h",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 10,
-          "jogadores": "Felipe Mikuska"
-        },
-        "2_11": {
-          "dia": 2,
-          "hora": 11,
-          "jogadores": "Leo Mikuska"
-        },
         "2_14": {
           "borda": "1h",
           "dia": 2,
@@ -1087,13 +1067,6 @@
           "duracao": 1,
           "hora": 21,
           "jogadores": "aula"
-        },
-        "2_8": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 8,
-          "jogadores": "Airton Santos"
         },
         "3_10": {
           "borda": "1h",
@@ -1404,6 +1377,27 @@
           "jogadores": "aula"
         }
       },
+      "Quadra 2 - Aberta": {
+        "3_20": {
+          "borda": "2h",
+          "dia": 3,
+          "duracao": 2,
+          "hora": 20,
+          "jogadores": "Felipe Mikuska"
+        },
+        "3_21": {
+          "dia": 3,
+          "hora": 21,
+          "jogadores": "Leo Mikuska"
+        },
+        "4_20": {
+          "borda": "1h",
+          "dia": 4,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Alessandro Xavier"
+        }
+      },
       "Quadra 3 - Coberta": {
         "2_16": {
           "borda": "2h",
@@ -1436,6 +1430,13 @@
           "hora": 20,
           "jogadores": "Luciano Cavalheiro"
         },
+        "2_21": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 21,
+          "jogadores": "Jaison"
+        },
         "3_16": {
           "borda": "2h",
           "dia": 3,
@@ -1453,12 +1454,12 @@
           "dia": 3,
           "duracao": 2,
           "hora": 18,
-          "jogadores": "Edemar"
+          "jogadores": "Marco Ribeiro"
         },
         "3_19": {
           "dia": 3,
           "hora": 19,
-          "jogadores": "Sergio Nelhs"
+          "jogadores": "Ana Ribeiro"
         },
         "3_20": {
           "borda": "2h",
@@ -1471,6 +1472,18 @@
           "dia": 3,
           "hora": 21,
           "jogadores": "Stefany Ferreira"
+        },
+        "4_16": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 16,
+          "jogadores": "Ivan Balboa"
+        },
+        "4_17": {
+          "dia": 4,
+          "hora": 17,
+          "jogadores": "Caina Balboa"
         },
         "4_18": {
           "borda": "2h",
@@ -1490,6 +1503,30 @@
           "duracao": 1,
           "hora": 20,
           "jogadores": "Arthur Amorim"
+        },
+        "5_20": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 20,
+          "jogadores": "Cristina Pirachovski"
+        },
+        "5_21": {
+          "dia": 5,
+          "hora": 21,
+          "jogadores": "Paulinho"
+        },
+        "5_7": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 7,
+          "jogadores": "Josiane Kamiya"
+        },
+        "5_8": {
+          "dia": 5,
+          "hora": 8,
+          "jogadores": "Raianne Kamiya"
         }
       }
     },
