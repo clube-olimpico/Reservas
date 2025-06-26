@@ -859,6 +859,13 @@
       "Duplas": {
         "DatasEspeciais": {
           "Quadra-1": {
+            "2025-06-28": {
+              "descricao": "teste de sabado",
+              "regras": {
+                "fim": "20:00",
+                "inicio": "08:00"
+              }
+            },
             "2026-02-01": {
               "descricao": "teste",
               "regras": {
@@ -874,32 +881,48 @@
                 "fim": "12:00",
                 "inicio": "08:00"
               }
+            },
+            "2025-06-27": {
+              "descricao": "teste de sexta",
+              "regras": {
+                "fim": "12:00",
+                "inicio": "08:00"
+              }
+            }
+          },
+          "Quadra-3": {
+            "2025-07-01": {
+              "descricao": "teste",
+              "regras": {
+                "fim": "12:00",
+                "inicio": "08:00"
+              }
             }
           }
         },
         "Quadra-1": {
-          "1-DiasDeSemana": false,
-          "1-DiasDeSemana-Fim": "",
-          "1-DiasDeSemana-Inicio": "",
+          "1-DiasDeSemana": true,
+          "1-DiasDeSemana-Fim": "12:00",
+          "1-DiasDeSemana-Inicio": "8:00",
           "1-Domingo": false,
           "1-Domingo-Fim": "",
           "1-Domingo-Inicio": "",
           "1-Sabado": false,
           "1-Sabado-Fim": "",
           "1-Sabado-Inicio": "",
-          "Quadra-1-ativa": false
+          "Quadra-1-ativa": true
         },
         "Quadra-2": {
-          "2-DiasDeSemana": false,
-          "2-DiasDeSemana-Fim": "",
-          "2-DiasDeSemana-Inicio": "",
+          "2-DiasDeSemana": true,
+          "2-DiasDeSemana-Fim": "12:00",
+          "2-DiasDeSemana-Inicio": "8:00",
           "2-Domingo": false,
           "2-Domingo-Fim": "",
           "2-Domingo-Inicio": "",
           "2-Sabado": false,
           "2-Sabado-Fim": "",
           "2-Sabado-Inicio": "",
-          "Quadra-2-ativa": false
+          "Quadra-2-ativa": true
         },
         "Quadra-3": {
           "3-DiasDeSemana": false,
@@ -917,31 +940,31 @@
       },
       "Piramide": {
         "Quadra-1": {
-          "1-DiasDeSemana": false,
+          "1-DiasDeSemana": true,
           "1-DiasDeSemana-exceto-17-19": false,
-          "1-Domingo": false,
+          "1-Domingo": true,
           "1-Domingo-exceto-8-12": false,
-          "1-Sabado": false,
+          "1-Sabado": true,
           "1-Sabado-exceto-7-12": false,
-          "Quadra-1-ativa": false
+          "Quadra-1-ativa": true
         },
         "Quadra-2": {
-          "2-DiasDeSemana": false,
-          "2-DiasDeSemana-exceto-17-19": false,
+          "2-DiasDeSemana": true,
+          "2-DiasDeSemana-exceto-17-19": true,
           "2-Domingo": false,
           "2-Domingo-exceto-8-12": false,
           "2-Sabado": false,
           "2-Sabado-exceto-7-12": false,
-          "Quadra-2-ativa": false
+          "Quadra-2-ativa": true
         },
         "Quadra-3": {
-          "3-DiasDeSemana": false,
-          "3-DiasDeSemana-exceto-17-19": false,
+          "3-DiasDeSemana": true,
+          "3-DiasDeSemana-exceto-17-19": true,
           "3-Domingo": false,
           "3-Domingo-exceto-8-12": false,
           "3-Sabado": false,
           "3-Sabado-exceto-7-12": false,
-          "Quadra-3-ativa": false
+          "Quadra-3-ativa": true
         },
         "ativa": true
       },
@@ -1355,6 +1378,18 @@
           "hora": 11,
           "jogadores": "aula"
         },
+        "6_14": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 14,
+          "jogadores": "Lucas Titon"
+        },
+        "6_15": {
+          "dia": 6,
+          "hora": 15,
+          "jogadores": "Flavia Titon"
+        },
         "6_7": {
           "borda": "1h",
           "dia": 6,
@@ -1378,18 +1413,6 @@
         }
       },
       "Quadra 2 - Aberta": {
-        "3_20": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 20,
-          "jogadores": "Felipe Mikuska"
-        },
-        "3_21": {
-          "dia": 3,
-          "hora": 21,
-          "jogadores": "Leo Mikuska"
-        },
         "4_20": {
           "borda": "1h",
           "dia": 4,
@@ -1399,43 +1422,17 @@
         }
       },
       "Quadra 3 - Coberta": {
-        "2_16": {
+        "3_13": {
           "borda": "2h",
-          "dia": 2,
+          "dia": 3,
           "duracao": 2,
-          "hora": 16,
-          "jogadores": "Flavio Ferraz"
+          "hora": 13,
+          "jogadores": "Timo"
         },
-        "2_17": {
-          "dia": 2,
-          "hora": 17,
-          "jogadores": "Gustavo Ferraz"
-        },
-        "2_18": {
-          "borda": "2h",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 18,
-          "jogadores": "Ivan Balboa"
-        },
-        "2_19": {
-          "dia": 2,
-          "hora": 19,
-          "jogadores": "Caina Balboa"
-        },
-        "2_20": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 20,
-          "jogadores": "Luciano Cavalheiro"
-        },
-        "2_21": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 21,
-          "jogadores": "Jaison"
+        "3_14": {
+          "dia": 3,
+          "hora": 14,
+          "jogadores": "Ben August"
         },
         "3_16": {
           "borda": "2h",
@@ -1503,6 +1500,30 @@
           "duracao": 1,
           "hora": 20,
           "jogadores": "Arthur Amorim"
+        },
+        "5_15": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Alexa"
+        },
+        "5_16": {
+          "dia": 5,
+          "hora": 16,
+          "jogadores": "Susan"
+        },
+        "5_17": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Gustavo Ferraz"
+        },
+        "5_18": {
+          "dia": 5,
+          "hora": 18,
+          "jogadores": "Flavio Ferraz"
         },
         "5_20": {
           "borda": "2h",
