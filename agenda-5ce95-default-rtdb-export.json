@@ -52,6 +52,7 @@
         "Gabriel Martins": true,
         "Gilson Oliveira": true,
         "Giovani": true,
+        "Giovani Lima": true,
         "Gustavo Ferraz": true,
         "Helio Oliveira": true,
         "Heloisa Silva": true,
@@ -459,6 +460,13 @@
           "piramide": "",
           "socio": "titular"
         },
+        "GIOVANI SOARES DE LIMA": {
+          "apelido": "Giovani Lima",
+          "classe": "B",
+          "niver": "23/07/1991",
+          "piramide": "",
+          "socio": "titular"
+        },
         "GUSTAVO FERRAZ": {
           "apelido": "Gustavo Ferraz",
           "classe": "A",
@@ -859,40 +867,8 @@
       "Duplas": {
         "DatasEspeciais": {
           "Quadra-1": {
-            "2025-06-28": {
-              "descricao": "teste de sabado",
-              "regras": {
-                "fim": "20:00",
-                "inicio": "08:00"
-              }
-            },
-            "2026-02-01": {
-              "descricao": "teste",
-              "regras": {
-                "fim": "12:00",
-                "inicio": "08:00"
-              }
-            }
-          },
-          "Quadra-2": {
-            "2025-06-20": {
-              "descricao": "teste",
-              "regras": {
-                "fim": "12:00",
-                "inicio": "08:00"
-              }
-            },
-            "2025-06-27": {
-              "descricao": "teste de sexta",
-              "regras": {
-                "fim": "12:00",
-                "inicio": "08:00"
-              }
-            }
-          },
-          "Quadra-3": {
-            "2025-07-01": {
-              "descricao": "teste",
+            "2026-01-01": {
+              "descricao": "Feriado Municipal",
               "regras": {
                 "fim": "12:00",
                 "inicio": "08:00"
@@ -901,28 +877,28 @@
           }
         },
         "Quadra-1": {
-          "1-DiasDeSemana": true,
-          "1-DiasDeSemana-Fim": "12:00",
-          "1-DiasDeSemana-Inicio": "8:00",
+          "1-DiasDeSemana": false,
+          "1-DiasDeSemana-Fim": "",
+          "1-DiasDeSemana-Inicio": "",
           "1-Domingo": false,
           "1-Domingo-Fim": "",
           "1-Domingo-Inicio": "",
           "1-Sabado": false,
           "1-Sabado-Fim": "",
           "1-Sabado-Inicio": "",
-          "Quadra-1-ativa": true
+          "Quadra-1-ativa": false
         },
         "Quadra-2": {
-          "2-DiasDeSemana": true,
-          "2-DiasDeSemana-Fim": "12:00",
-          "2-DiasDeSemana-Inicio": "8:00",
+          "2-DiasDeSemana": false,
+          "2-DiasDeSemana-Fim": "",
+          "2-DiasDeSemana-Inicio": "",
           "2-Domingo": false,
           "2-Domingo-Fim": "",
           "2-Domingo-Inicio": "",
           "2-Sabado": false,
           "2-Sabado-Fim": "",
           "2-Sabado-Inicio": "",
-          "Quadra-2-ativa": true
+          "Quadra-2-ativa": false
         },
         "Quadra-3": {
           "3-DiasDeSemana": false,
@@ -950,25 +926,36 @@
         },
         "Quadra-2": {
           "2-DiasDeSemana": true,
-          "2-DiasDeSemana-exceto-17-19": true,
-          "2-Domingo": false,
+          "2-DiasDeSemana-exceto-17-19": false,
+          "2-Domingo": true,
           "2-Domingo-exceto-8-12": false,
-          "2-Sabado": false,
+          "2-Sabado": true,
           "2-Sabado-exceto-7-12": false,
           "Quadra-2-ativa": true
         },
         "Quadra-3": {
           "3-DiasDeSemana": true,
           "3-DiasDeSemana-exceto-17-19": true,
-          "3-Domingo": false,
+          "3-Domingo": true,
           "3-Domingo-exceto-8-12": false,
-          "3-Sabado": false,
+          "3-Sabado": true,
           "3-Sabado-exceto-7-12": false,
           "Quadra-3-ativa": true
         },
         "ativa": true
       },
       "Quadras": {
+        "Bloqueios": {
+          "Quadra-2": {
+            "2002-01-01": {
+              "descricao": "teste",
+              "regras": {
+                "fim": "12:00",
+                "inicio": "08:00"
+              }
+            }
+          }
+        },
         "Quadra1": "liberada",
         "Quadra2": "liberada",
         "Quadra3": "liberada"
@@ -1378,6 +1365,18 @@
           "hora": 11,
           "jogadores": "aula"
         },
+        "6_12": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 12,
+          "jogadores": "Bigode"
+        },
+        "6_13": {
+          "dia": 6,
+          "hora": 13,
+          "jogadores": "Caio Teixeira"
+        },
         "6_14": {
           "borda": "2h",
           "dia": 6,
@@ -1389,6 +1388,13 @@
           "dia": 6,
           "hora": 15,
           "jogadores": "Flavia Titon"
+        },
+        "6_16": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 16,
+          "jogadores": "Ivan Balboa, Caina Balboa"
         },
         "6_7": {
           "borda": "1h",
@@ -1410,6 +1416,18 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
+        },
+        "7_8": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 8,
+          "jogadores": "Helio Oliveira"
+        },
+        "7_9": {
+          "dia": 7,
+          "hora": 9,
+          "jogadores": "Rafael Gregorio"
         }
       },
       "Quadra 2 - Aberta": {
@@ -1422,54 +1440,6 @@
         }
       },
       "Quadra 3 - Coberta": {
-        "3_13": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 13,
-          "jogadores": "Timo"
-        },
-        "3_14": {
-          "dia": 3,
-          "hora": 14,
-          "jogadores": "Ben August"
-        },
-        "3_16": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 16,
-          "jogadores": "Heloisa Silva"
-        },
-        "3_17": {
-          "dia": 3,
-          "hora": 17,
-          "jogadores": "Marcelo Silva"
-        },
-        "3_18": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 18,
-          "jogadores": "Marco Ribeiro"
-        },
-        "3_19": {
-          "dia": 3,
-          "hora": 19,
-          "jogadores": "Ana Ribeiro"
-        },
-        "3_20": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 20,
-          "jogadores": "Kaiser"
-        },
-        "3_21": {
-          "dia": 3,
-          "hora": 21,
-          "jogadores": "Stefany Ferreira"
-        },
         "4_16": {
           "borda": "2h",
           "dia": 4,
@@ -1494,12 +1464,12 @@
           "hora": 19,
           "jogadores": "Bernardo"
         },
-        "4_20": {
+        "5_14": {
           "borda": "1h",
-          "dia": 4,
+          "dia": 5,
           "duracao": 1,
-          "hora": 20,
-          "jogadores": "Arthur Amorim"
+          "hora": 14,
+          "jogadores": "Frank Fast"
         },
         "5_15": {
           "borda": "2h",
@@ -1525,6 +1495,13 @@
           "hora": 18,
           "jogadores": "Flavio Ferraz"
         },
+        "5_19": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 19,
+          "jogadores": "Giovani Lima, Felipe Mikuska"
+        },
         "5_20": {
           "borda": "2h",
           "dia": 5,
@@ -1548,6 +1525,13 @@
           "dia": 5,
           "hora": 8,
           "jogadores": "Raianne Kamiya"
+        },
+        "5_9": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 9,
+          "jogadores": "Airton Santos"
         }
       }
     },
