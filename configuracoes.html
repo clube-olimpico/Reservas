@@ -10,6 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 
 <style>
+
 body {
     font-family: Arial, sans-serif;   
     padding: 10px;
@@ -20,7 +21,7 @@ body {
     min-height: 100vh;
     margin: 0;
     overflow-y: auto;
-    box-sizing: border-box;   
+    box-sizing: border-box;    
 }
 
 .container {
@@ -28,8 +29,10 @@ body {
     align-items: center;
     /* justify-content: space-between;   Remova esta linha */  
     margin-bottom: 10px;
-    gap: 10px;
+    gap: 10px; 
 }
+
+
 
 .container label[for="Sistema"] {
     width: auto; /* Deixa o label ocupar o espaço necessário */
@@ -40,11 +43,15 @@ body {
     min-width: 100px; /* Define uma largura mínima para o label */
 }
 
+
+
 #sistema {
     font-weight: bold;
 }
 
-/* Configuração de vDomingo */
+
+
+/* Configuração de vDomingo */ 
 .container label[for="vDomingo"] {
     width: auto    
 	margin-right: 100px;
@@ -54,6 +61,8 @@ body {
     min-width: 180px; /* Ajuste a largura mínima conforme necessário */
 }
 
+
+
 #vDomingo {
     padding: 5px;
     width: 60px;
@@ -62,12 +71,15 @@ body {
     min-width: 75px;
 }
 
+
+
 #vDomingo.ajustar-alinhamento {
     width: 100%;
     min-width: unset;
     max-width: unset;
     flex: 1;
 }
+
 
 
 
@@ -81,6 +93,8 @@ body {
     min-width: 185px; /* Ajuste a largura mínima conforme necessário */
 }
 
+
+
 #diasParaAgendar {
     flex: 1;
     padding: 5px;
@@ -89,11 +103,15 @@ body {
     min-width: 10px; /* Ajuste a largura mínima conforme necessário */
 }
 
+
+
 /* Modificação para centralizar o item "Ativa" */
 #piramide .piramide-ativa-container {
     justify-content: center;
 	width: auto; /* Deixe o label se ajustar ao conteúdo */
 }
+
+
 
 #piramide .piramide-ativa-container label {
     width: auto; /* Deixe o label se ajustar ao conteúdo */
@@ -101,12 +119,16 @@ body {
     font-weight: bold;
 }
 
+
+
 #piramide .piramide-ativa-container select {
     width: 80px; /* Defina uma largura fixa para o select */
     border: 1px solid #ccc;
     border-radius: 5px;
 	max-width: 4px; /* Mantenha a largura máxima */
 }
+
+
 
 /* Estilos para o container dos botões (ESPECÍFICO PARA A ABA PIRÂMIDE) */
 #piramide .piramide-botoes-container {
@@ -118,6 +140,8 @@ body {
 	
 }
 
+
+
 /* Estilos para os botões (ESPECÍFICO PARA A ABA PIRÂMIDE) */
 #piramide .piramide-botao {
     flex: 1;
@@ -125,6 +149,8 @@ body {
     padding: 10px;
     box-sizing: border-box;
 }
+
+
 
 #piramide .piramide-botao:first-child {
     margin-left: 0;
@@ -134,12 +160,16 @@ body {
     margin-right: 0;
 }
 
+
+
 /* Ajustes específicos para os contêineres das quadras */
 .quadra-container {
     margin-bottom: 5px;
     gap: 10px;
 	
 }
+
+
 
 /* Estilo do container do formulário */
         .form-container {
@@ -152,6 +182,8 @@ body {
     margin: 10px auto; /* Centraliza e adiciona margem */
 }
 
+
+
 .title-container {
     display: flex;
     flex-direction: column;
@@ -159,6 +191,8 @@ body {
     text-align: center;
     margin-bottom: 5px;
 }
+
+
 
 .title-container span {
     font-family: 'Arial', sans-serif; /* Ajusta a fonte */
@@ -170,6 +204,8 @@ body {
 }
 
 
+
+
 label {
     font-weight: bold;
     width: 200px;
@@ -178,6 +214,8 @@ label {
     display: inline-block; /* Alinhar labels e inputs */
 }
 
+
+
 select {
     flex: 1;
     padding: 5px;
@@ -185,6 +223,8 @@ select {
     width: auto; /* Deixe o select se ajustar ao conteúdo */
     min-width: 80px; /* Largura mínima para selects */
 }
+
+
 
 button {
     margin-top: auto;
@@ -201,13 +241,19 @@ button {
     display: block;
 }
 
+
+
 button:hover {
     background-color: #45a049;
 }
 
+
+
 #sistema {
     font-weight: bold;
 }
+
+
 
 #sistema.on {
     color: white;
@@ -219,10 +265,16 @@ button:hover {
     background-color: red;
 }
 
+
+
+
+
 #piramideAtiva {
     font-weight: bold;
     margin-top: 0; /* Garante que não há margem indesejada */
 }
+
+
 
 #piramide .piramide-ativa-container {
     display: flex;
@@ -232,11 +284,15 @@ button:hover {
     margin-top: 5px;
 }
 
+
+
 #piramide .piramide-ativa-container label {
     width: auto;               /* Largura automática para o label */
     margin-right: 10px;       /* Espaço à direita do label */
     font-weight: bold;        /* Negrito para o texto "Ativa:" */
 }
+
+
 
 #piramide .piramide-ativa-container select {
     width: 80px;               /* Largura fixa para o select */
@@ -246,6 +302,8 @@ button:hover {
     font-weight: bold;        /* Negrito para "ON/OFF" */
 }
 
+
+
 .piramide-on {
     color: green;
 }
@@ -253,6 +311,8 @@ button:hover {
 .piramide-off {
     color: red;
 }
+
+
 
 #loading {
     position: fixed;
@@ -263,6 +323,8 @@ button:hover {
     text-align: center;
     z-index: 1000;
 }
+
+
 
 #content {
     display: none;
@@ -277,10 +339,14 @@ button:hover {
     margin: 10px auto;
 }
 
+
+
 /* Ajustes para a seção de convidados */
 .convidados-container {
     margin-top: 20px;
 }
+
+
 
 .convidados-container,
 .convidados-quadras,
@@ -293,6 +359,8 @@ button:hover {
     padding: 0 10px;
 }
 
+
+
 .convidados-options label {
     display: flex;
     align-items: center;
@@ -300,11 +368,15 @@ button:hover {
     width: 100%;
 }
 
+
+
 #convidados {
     overflow-x: hidden !important;
     max-width: 100% !important;
     width: 100%;
 }
+
+
 
 body.convidados-ativo {
     overflow-x: hidden !important;
@@ -327,6 +399,8 @@ body.convidados-ativo {
     padding: 0 10px;
 }
 
+
+
 .piramde-options label {
     display: flex;
     align-items: center;
@@ -335,15 +409,21 @@ body.convidados-ativo {
 	
 }
 
+
+
 #piramde {
     overflow-x: hidden !important;
     max-width: 100% !important;
     width: 100%;
 }
 
+
+
 body.piramde-ativo {
     overflow-x: hidden !important;
 }
+
+
 
 
 .centraliza-checkbox {
@@ -354,27 +434,161 @@ body.piramde-ativo {
 	margin-top: 10px;
 }
 
-#piramideQuadra1 {
-    margin-right: 7px;
-}
-#piramideQuadra2 {
-    margin-right: 7px;
-}
-#piramideQuadra3 {
+
+#piramideQuadra1, #piramideQuadra2, #piramideQuadra3 {
     margin-right: 7px;
 }
 
 
-#PiramideDiasQuadra1 {
-    margin-left: 7px;
-}
-#PiramideDiasQuadra2 {
-    margin-left: 7px;
-}
-#PiramideDiasQuadra3 {
+#PiramideDiasQuadra1, #PiramideDiasQuadra2, #PiramideDiasQuadra3 {
     margin-left: 7px;
 }
 
+
+
+/* ----------------- ADIÇÕES PARA A ABA DUPLAS ----------------- */   
+
+#DuplasDiasQuadra1.disabled,
+#DuplasDiasQuadra2.disabled,
+#DuplasDiasQuadra3.disabled {
+    cursor: not-allowed;
+    color: #999;
+}
+
+#duplas .duplas-ativa-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;   /* Centraliza horizontalmente */
+    width: 100%;               /* Garante que ocupa toda a largura disponível */
+    margin-top: 5px;
+}
+
+#duplas .duplas-ativa-container label {
+    width: auto;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+
+#duplas .duplas-ativa-container select {
+    width: 80px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+	max-width: 4px;
+}
+
+#duplas .duplas-botoes-container { 
+    display: flex;
+    justify-content: space-between;
+    max-width: 400px;
+    width: 90%;
+    margin: 0 auto;
+	margin-bottom: 0px; /* Remove o espaço inferior dos botões */
+}
+
+#duplas .centraliza-checkbox {
+    margin-top: -10px; /* Remove o espaço superior dos checkboxes */
+    margin-bottom: 10px; /* Opcional: espaço abaixo do checkbox, ajuste se necessário */
+}
+
+
+
+
+
+#duplas .duplas-botao {
+    flex: 1;
+    margin: 0 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #4CAF50; /* opcional: ou deixe como está se quiser a mesma cor */
+    color: white;
+}
+
+
+#duplas .duplas-botao.ativo {
+    background-color: #2E7D32;
+	font-weight: bold;         /* negrito */
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+.duplas-container {
+    margin-top: 20px;
+}
+
+.duplas-options {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.duplas-day-container {
+    margin-bottom: 12px; 
+}
+
+#duplas .duplas-day-container {
+    margin-bottom: 5px;
+}
+
+
+.duplas-day-container > label {
+    font-weight: normal; 
+    display: flex;
+    align-items: center;
+    width: auto;
+}
+
+.duplas-time-wrapper {
+    padding-left: 25px; 
+    margin-top: 4px;
+}
+
+#duplas .duplas-time-wrapper {
+    padding-left: 5px; /* reduz o espaço entre o checkbox e o campo de hora */
+    margin-top: 0px;   /* opcional: remove espaço vertical extra */
+}
+
+
+.horario-input {
+    width: 60px;
+    margin: 0 5px;
+	text-align: center;
+}
+
+#duplasQuadra1Ativa, #duplasQuadra2Ativa, #duplasQuadra3Ativa {
+    margin-right: 7px;
+}
+
+#DuplasDiasQuadra1, #DuplasDiasQuadra2, #DuplasDiasQuadra3 {
+    margin-left: 7px;
+    cursor: pointer; /* Adiciona cursor de ponteiro para indicar interatividade */
+    
+    /* Adicionado para prevenir a seleção do texto no duplo clique */
+    -webkit-user-select: none; /* Para Safari */
+    -ms-user-select: none;     /* Para Internet Explorer/Edge */
+    user-select: none;         /* Padrão */
+}
+
+#duplas .duplas-day-container > label {
+    font-size: 15px; /* mesmo tamanho da pirâmide */
+}
+
+#duplas .horario-input {
+    font-size: 15px; /* mesmo tamanho dos inputs da pirâmide */
+}
+
+
+/* Adicione estas regras para a aba Duplas */
+#duplas .duplas-ativa-container select {
+    font-weight: bold;
+}
+
+#duplasAtiva.duplas-on {
+    color: green;
+}
+
+#duplasAtiva.duplas-off {
+    color: red;
+}
 
 
 /* Ajustes para dispositivos móveis */
@@ -387,33 +601,26 @@ body.piramde-ativo {
     }
 	
 	#vDomingo {
-	margin-left: -20px;
-    max-width: 73px;
-    min-width: 73px;
-}
-    #vDomingo.ajustar-alinhamento {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: unset !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    box-sizing: border-box;
-}
+	    margin-left: -20px;
+        max-width: 73px;
+        min-width: 73px;
+    }
 
-    
+    #vDomingo.ajustar-alinhamento {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: unset !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box;
+    }
+
     select {
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
     }
 	
-	.convidados-container,
-    .convidados-quadras,
-    .convidados-dias {
-        padding-left: 0px;
-        padding-right: 5px;
-    }
-
     .convidados-options {
         margin-left: -20px;
         white-space: nowrap;
@@ -425,34 +632,51 @@ body.piramde-ativo {
         font-size: 15px;
     }
 	.piramde-options label {
-        max-width: 100%; /* Garante que funcione bem em telas pequenas */
+        max-width: 100%;
         white-space: normal;
-        font-size: 15px; /* Adicionamos o tamanho da fonte para telas pequenas */
-    }
-	
-	 #piramide .piramide-botoes-container {
-        display: flex;
-        justify-content: space-between;
-        width: 100%; /* Aumenta a largura para ocupar todo o espaço disponível */
-        margin: 0 auto;
+        font-size: 15px;
     }
 
-    #piramide .piramide-botao {
+    /* CORREÇÃO DE FONTE PARA CELULAR */
+    .duplas-day-container > label {
+        font-size: 15px;
+    }
+    .horario-input {
+        font-size: 14px;
+    }
+    /* FIM DA CORREÇÃO */
+	
+	#piramide .piramide-botoes-container,
+    #duplas .duplas-botoes-container {
+        width: 100%;
+    }
+
+    #piramide .piramide-botao,
+    #duplas .duplas-botao {
         flex: 1;
-        margin: 5px; /* Reduz a margem para economizar espaço */
+        margin: 5px;
 		margin-top: 0px;
         padding: 10px;
-		height: 35px; /* Altura para celulares */
-		line-height: 15px; /* Adicionado */
+		height: 35px;
+		line-height: 15px;
         box-sizing: border-box;
-        font-size: 16px; /* Reduz o tamanho da fonte se necessário */
-        white-space: nowrap; /* Impede que o texto quebre para a próxima linha */
-		align-items: center;    /* Centraliza verticalmente */
-		justify-content: center; /* Centraliza horizontalmente */
+        font-size: 16px;
+        white-space: nowrap;
+		align-items: center;
+		justify-content: center;
     }
 	
 	.centraliza-checkbox {
        margin-top: 7px;
+    }
+	
+	#duplas .centraliza-checkbox {
+        display: flex;
+        justify-content: center; 
+        align-items: center;
+        width: 100%;
+        margin-top: -12px; 
+        margin-bottom: 0;
     }
 
     .botao-salvar {
@@ -463,21 +687,20 @@ body.piramde-ativo {
         display: flex;
         justify-content: center;
         background: white;
-        padding: 5px 0; /* Diminui o padding vertical */
-		margin-bottom: -15px; /* Remove a margem inferior */
+        padding: 5px 0;
+		margin-bottom: -15px;
         box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
         z-index: 1000;
     }
 	
     #main-content {
-        min-height: 500px; /* Ajuste este valor conforme necessário */
-        position: relative; /* Importante para o posicionamento absoluto das abas */
+        min-height: 500px;
+        position: relative;
         width: 100%;
         max-width: 100%;
-        overflow: hidden; /* Esconde o conteúdo que ultrapassa a altura */
+        overflow: hidden;
         box-sizing: border-box;
     }
-	
 	
     .tab-content {
         display: none;
@@ -485,17 +708,16 @@ body.piramde-ativo {
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
-        position: absolute; /* Posiciona as abas dentro do #main-content */
-        top: 40px;       /* Ajuste conforme a altura das tabs */
+        position: absolute;
+        top: 40px;
         left: 0;
         bottom: 0;
-        overflow-y: auto; /* Adicione scroll se o conteúdo for longo */
+        overflow-y: auto;
     }
 
     .tab-content-active {
         display: block;
     }
-
 }
 
 
@@ -592,6 +814,168 @@ input:disabled, select:disabled, button:disabled {
     box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
 
+/* --- INÍCIO: CSS para o Modal de Datas Especiais E Bloqueio --- */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 400px;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px; /* Espaço abaixo do título */
+    text-align: center;
+}
+
+/* Regra para os containers DENTRO do modal */
+.modal-content .container {
+    gap: 15px;
+}
+
+/* Regra para os labels DENTRO do modal */
+.modal-content .container label {
+    width: 90px;        /* Largura fixa para os labels */
+    flex-shrink: 0;     /* Impede que o label encolha */
+    text-align: left;
+    font-size: 16px;
+}
+
+/* Regra para os inputs DENTRO do modal */
+.modal-content .container input[type="text"],
+.modal-content .container input[type="date"],
+.modal-content .container .time-input-wrapper {
+    flex: 1; /* Faz o campo de entrada ocupar o espaço restante */
+}
+
+.modal-content .container input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modal-content .time-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Regra para a linha de botões DENTRO do modal */
+.modal-content .modal-buttons {
+    justify-content: flex-end; /* Alinha os botões à direita */
+    width: 100%;
+    margin-top: 15px;
+}
+
+.modal-buttons button {
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: auto;
+    margin: 0;
+}
+
+.modal-buttons .btn-adicionar {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+
+.modal-buttons .btn-fechar {
+    background-color: #f44336;
+    color: white;
+    border: none;
+}
+
+.modal-content hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+.modal-content h3 {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+#listaExcecoes ul, #listaBloqueios ul {
+    list-style: none;
+    padding: 0;
+    /* As propriedades max-height e overflow-y foram removidas para permitir que a lista cresça */
+}
+
+#listaExcecoes li, #listaBloqueios li {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+}
+
+#listaExcecoes .btn-remover, #listaBloqueios .btn-remover {
+    background-color: #e57373;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+/* --- ADIÇÃO PARA DESABILITAR A SELEÇÃO DE TEXTO --- */
+.no-select {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none;     /* IE 10+ e Edge */
+    user-select: none;         /* Padrão */
+}
+
+/* --- FIM: CSS para o Modal --- */
+
+/* --- INÍCIO: Estilo para o modal de Dias da Semana --- */
+.dias-semana-label {
+    display: flex;       /* Alinha o checkbox e o texto na mesma linha */
+    align-items: center; /* Centraliza-os verticalmente */
+    font-weight: normal;
+    font-size: 16px;
+    padding: 8px 0;      /* Adiciona um espaçamento vertical entre os dias */
+    cursor: pointer;
+    gap: 10px;           /* Cria um espaço entre o checkbox e o texto */
+}
+/* --- FIM: Estilo para o modal de Dias da Semana --- */
+
 </style>
 
 </head>
@@ -631,15 +1015,10 @@ input:disabled, select:disabled, button:disabled {
                 <option value="aberto">Aberto</option>
                 <option value="fechado">Fechado</option>
             </select>
-					<!-- Campo extra para horário -->
 			<div id="containerHorarioDomingo" style="display:none; align-items: center; gap: 3px; margin-left: -7px; white-space: nowrap;">
-
-
 				<span style="font-size: 15px;">🕒</span>
 				<input type="text" id="vDomingoAte" readonly style="border: none; background: transparent; font-weight: bold; font-size: 16px; width: 41px; text-align: center;" />
-
 			</div>
-
         </div>
 
         <div class="container">
@@ -656,23 +1035,27 @@ input:disabled, select:disabled, button:disabled {
 
         <div class="container quadra-container">
             <label for="estadoQuadra1">Quadra 1 - Coberta:</label>
-            <select id="estadoQuadra1">
+            <select id="estadoQuadra1" class="no-select" onchange="handleEstadoQuadraChange(this, 1)" ondblclick="handleEstadoQuadraChange(this, 1)">
                 <option value="liberada">Liberada</option>
                 <option value="interditada">Interditada</option>
+				<option value="bloqueada">Bloqueada</option>
+				
             </select>
         </div>
         <div class="container quadra-container">
             <label for="estadoQuadra2">Quadra 2 - Aberta:</label>
-            <select id="estadoQuadra2">
+            <select id="estadoQuadra2" class="no-select" onchange="handleEstadoQuadraChange(this, 2)" ondblclick="handleEstadoQuadraChange(this, 2)">
                 <option value="liberada">Liberada</option>
                 <option value="interditada">Interditada</option>
+				<option value="bloqueada">Bloqueada</option>
             </select>
         </div>
         <div class="container quadra-container">
             <label for="estadoQuadra3">Quadra 3 - Coberta:</label>
-            <select id="estadoQuadra3">
+            <select id="estadoQuadra3" class="no-select" onchange="handleEstadoQuadraChange(this, 3)" ondblclick="handleEstadoQuadraChange(this, 3)">
                 <option value="liberada">Liberada</option>
                 <option value="interditada">Interditada</option>
+				<option value="bloqueada">Bloqueada</option>
             </select>
         </div>
     </div>
@@ -681,6 +1064,7 @@ input:disabled, select:disabled, button:disabled {
         <div class="tabs">
             <div class="tab" onclick="showTab('piramide')">Pirâmide</div>
 			<div class="tab active" onclick="showTab('convidados')">Convidados</div>
+			<div class="tab" onclick="showTab('duplas')">Duplas</div>
         </div>
 
         <div id="convidados" class="tab-content tab-content-active">
@@ -724,7 +1108,7 @@ input:disabled, select:disabled, button:disabled {
                     </div>
                 </div>
                 <div class="container piramide-dias">
-                    <label style="font-weight: bold;" id="PiramideDiasQuadra1">Dias:</label>
+                    <label class="dias-label" style="font-weight: bold;" id="PiramideDiasQuadra1">Dias:</label>
                     <div class="piramde-options">
                         <label style="font-weight: normal;"><input type="checkbox" id="1-piramideSemana" style="margin-right: 5px;"> Dias de Semana</label>
                         <label style="font-weight: normal; color: red;"><input type="checkbox" id="1-piramideExceto17_19" style="margin-right: 5px;"> Exceto 17:00 - 19:00</label>
@@ -744,7 +1128,7 @@ input:disabled, select:disabled, button:disabled {
                     </div>
                 </div>
                 <div class="container piramide-dias">
-                    <label style="font-weight: bold;" id="PiramideDiasQuadra2">Dias:</label>
+                    <label class="dias-label" style="font-weight: bold;" id="PiramideDiasQuadra2">Dias:</label>
                     <div class="piramde-options">
                         <label style="font-weight: normal;"><input type="checkbox" id="2-piramideSemana" style="margin-right: 5px;"> Dias de Semana</label>
                         <label style="font-weight: normal; color: red;"><input type="checkbox" id="2-piramideExceto17_19" style="margin-right: 5px;"> Exceto 17:00 - 19:00</label>
@@ -764,7 +1148,7 @@ input:disabled, select:disabled, button:disabled {
                     </div>
                 </div>
                 <div class="container piramide-dias">
-                    <label style="font-weight: bold;" id="PiramideDiasQuadra3">Dias:</label>
+                    <label class="dias-label" style="font-weight: bold;" id="PiramideDiasQuadra3">Dias:</label>
                     <div class="piramde-options">
                         <label style="font-weight: normal;"><input type="checkbox" id="3-piramideSemana" style="margin-right: 5px;"> Dias de Semana</label>
                         <label style="font-weight: normal; color: red;"><input type="checkbox" id="3-piramideExceto17_19" style="margin-right: 5px;"> Exceto 17:00 - 19:00</label>
@@ -776,14 +1160,229 @@ input:disabled, select:disabled, button:disabled {
                 </div>
             </div>
         </div>
-    </div>
+		
+		<div id="duplas" class="tab-content">
+            <div class="container duplas-ativa-container">
+                <label for="duplasAtiva">Ativa:</label>
+                <select id="duplasAtiva" onchange="atualizarEstadoDuplas()">
+                    <option value="ON">ON</option>
+                    <option value="OFF">OFF</option>
+                </select>
+            </div>
+
+            <div class="container duplas-botoes-container">
+                <button class="duplas-botao" onclick="mostrarDuplasQuadra('quadra1')">Quadra - 1</button>
+                <button class="duplas-botao" onclick="mostrarDuplasQuadra('quadra2')">Quadra - 2</button>
+                <button class="duplas-botao" onclick="mostrarDuplasQuadra('quadra3')">Quadra - 3</button>
+            </div>
+
+            <div id="duplasQuadra1Container" class="duplas-container">
+                <div class="centraliza-checkbox">
+                    <input type="checkbox" id="duplasQuadra1Ativa">
+                    <span>Quadra 1 - Coberta</span>
+                </div>
+                <div class="container">
+                    <label class="dias-label" style="font-weight: bold;" id="DuplasDiasQuadra1">Dias:</label>
+                    <div class="duplas-options">
+                        <div class="duplas-day-container">
+							<div style="display: flex; align-items: center;"> <input type="checkbox" id="1-duplasSemana">
+								<span class="dias-semana-label-clickable" style="margin-left: 5px; user-select: none;">Dias de Semana</span>
+							</div>
+							<div class="duplas-time-wrapper">
+								<input type="text" id="1-duplasSemanaInicio" class="horario-input" placeholder="HH:MM"> :
+								<input type="text" id="1-duplasSemanaFim" class="horario-input" placeholder="HH:MM">
+							</div>
+						</div>
+                        <div class="duplas-day-container">
+                            <label><input type="checkbox" id="1-duplasSabado"> Sábado</label>
+                            <div class="duplas-time-wrapper">
+                                <input type="text" id="1-duplasSabadoInicio" class="horario-input" placeholder="HH:MM"> :
+                                <input type="text" id="1-duplasSabadoFim" class="horario-input" placeholder="HH:MM">
+                            </div>
+                        </div>
+                        <div class="duplas-day-container">
+                            <label><input type="checkbox" id="1-duplasDomingo"> Domingo</label>
+                            <div class="duplas-time-wrapper">
+                                <input type="text" id="1-duplasDomingoInicio" class="horario-input" placeholder="HH:MM"> :
+                                <input type="text" id="1-duplasDomingoFim" class="horario-input" placeholder="HH:MM">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="duplasQuadra2Container" class="duplas-container" style="display: none;">
+                 <div class="centraliza-checkbox">
+                    <input type="checkbox" id="duplasQuadra2Ativa">
+                    <span>Quadra 2 - Aberta</span>
+                </div>
+                <div class="container">
+                    <label class="dias-label" style="font-weight: bold;" id="DuplasDiasQuadra2">Dias:</label>
+                    <div class="duplas-options">
+                        <div class="duplas-day-container">
+							<div style="display: flex; align-items: center;"> <input type="checkbox" id="2-duplasSemana">
+								<span class="dias-semana-label-clickable" style="margin-left: 5px; user-select: none;">Dias de Semana</span>
+							</div>
+							<div class="duplas-time-wrapper">
+								<input type="text" id="2-duplasSemanaInicio" class="horario-input" placeholder="HH:MM"> :
+								<input type="text" id="2-duplasSemanaFim" class="horario-input" placeholder="HH:MM">
+							</div>
+						</div>
+                        <div class="duplas-day-container">
+                            <label><input type="checkbox" id="2-duplasSabado"> Sábado</label>
+                            <div class="duplas-time-wrapper">
+                                <input type="text" id="2-duplasSabadoInicio" class="horario-input" placeholder="HH:MM"> :
+                                <input type="text" id="2-duplasSabadoFim" class="horario-input" placeholder="HH:MM">
+                            </div>
+                        </div>
+                        <div class="duplas-day-container">
+                            <label><input type="checkbox" id="2-duplasDomingo"> Domingo</label>
+                            <div class="duplas-time-wrapper">
+                                <input type="text" id="2-duplasDomingoInicio" class="horario-input" placeholder="HH:MM"> :
+                                <input type="text" id="2-duplasDomingoFim" class="horario-input" placeholder="HH:MM">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="duplasQuadra3Container" class="duplas-container" style="display: none;">
+                 <div class="centraliza-checkbox">
+                    <input type="checkbox" id="duplasQuadra3Ativa">
+                    <span>Quadra 3 - Coberta</span>
+                </div>
+                <div class="container">
+                    <label class="dias-label" style="font-weight: bold;" id="DuplasDiasQuadra3">Dias:</label>
+                    <div class="duplas-options">
+                        <div class="duplas-day-container">
+							<div style="display: flex; align-items: center;"> <input type="checkbox" id="3-duplasSemana">
+								<span class="dias-semana-label-clickable" style="margin-left: 5px; user-select: none;">Dias de Semana</span>
+							</div>
+							<div class="duplas-time-wrapper">
+								<input type="text" id="3-duplasSemanaInicio" class="horario-input" placeholder="HH:MM"> :
+								<input type="text" id="3-duplasSemanaFim" class="horario-input" placeholder="HH:MM">
+							</div>
+						</div>
+                        <div class="duplas-day-container">
+                            <label><input type="checkbox" id="3-duplasSabado"> Sábado</label>
+                            <div class="duplas-time-wrapper">
+                                <input type="text" id="3-duplasSabadoInicio" class="horario-input" placeholder="HH:MM"> :
+                                <input type="text" id="3-duplasSabadoFim" class="horario-input" placeholder="HH:MM">
+                            </div>
+                        </div>
+                        <div class="duplas-day-container">
+                            <label><input type="checkbox" id="3-duplasDomingo"> Domingo</label>
+                            <div class="duplas-time-wrapper">
+                                <input type="text" id="3-duplasDomingoInicio" class="horario-input" placeholder="HH:MM"> :
+                                <input type="text" id="3-duplasDomingoFim" class="horario-input" placeholder="HH:MM">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
 	
 	
     <div class="container botao-salvar">
-        <button onclick="salvarConfiguracoes()" id="button-piramide">Salvar Configurações</button>
+        <button onclick="salvarConfiguracoes()" id="button-piramide">Salvar Configurações</button> 
     </div>
 	
 </div>
+
+<div id="modalDatasEspeciais" class="modal-overlay"> 
+    <div class="modal-content">
+        <h2 id="modalTitulo">Exceções Quadra 1</h2>
+        
+        <div class="container">
+            <label for="excecaoDescricao">Descrição:</label>
+            <input type="text" id="excecaoDescricao">
+        </div>
+
+        <div class="container">
+            <label for="excecaoData">Data:</label>
+            <input type="date" id="excecaoData">
+        </div>
+
+        <div class="container">
+            <label>Horário:</label>
+            <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
+                <input type="time" id="excecaoInicio">
+                <span>às</span>
+                <input type="time" id="excecaoFim">
+            </div>
+        </div>
+        
+        <div class="container modal-buttons">
+            <button class="btn-fechar" onclick="fecharModalExcecao()">Fechar</button>
+            <button class="btn-adicionar" onclick="adicionarExcecao()">Adicionar</button>
+        </div>
+        
+        <hr>
+        <h3>Exceções Configuradas</h3>
+        <div id="listaExcecoes">
+        </div>
+    </div>
+</div>
+
+<div id="modalBloqueioQuadra" class="modal-overlay">
+    <div class="modal-content">
+        <h2 id="modalBloqueioTitulo">Bloqueio Quadra 1</h2>
+        
+        <div class="container">
+            <label for="bloqueioDescricao">Descrição:</label>
+            <input type="text" id="bloqueioDescricao">
+        </div>
+
+        <div class="container">
+            <label for="bloqueioData">Data:</label>
+            <input type="date" id="bloqueioData">
+        </div>
+
+        <div class="container">
+            <label>Horário:</label>
+            <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
+                <input type="time" id="bloqueioInicio">
+                <span>às</span>
+                <input type="time" id="bloqueioFim">
+            </div>
+        </div>
+        
+        <div class="container modal-buttons">
+            <button class="btn-fechar" onclick="fecharModalBloqueio()">Fechar</button>
+            <button class="btn-adicionar" onclick="adicionarBloqueio()">Adicionar</button>
+        </div>
+        
+        <hr>
+        <h3>Bloqueios Configurados</h3>
+        <div id="listaBloqueios">
+        </div>
+    </div>
+</div>
+
+
+<div id="modalDiasSemanaDuplas" class="modal-overlay">
+    <div class="modal-content">
+        <h2 id="modalDiasSemanaTitulo">Dias de Semana - Duplas</h2>
+        
+        <div id="diasSemanaCheckboxContainer">
+            <label class="dias-semana-label"><input type="checkbox" id="duplas-segunda"> Segunda-Feira</label>
+            <label class="dias-semana-label"><input type="checkbox" id="duplas-terca"> Terça-Feira</label>
+            <label class="dias-semana-label"><input type="checkbox" id="duplas-quarta"> Quarta-Feira</label>
+            <label class="dias-semana-label"><input type="checkbox" id="duplas-quinta"> Quinta-Feira</label>
+            <label class="dias-semana-label"><input type="checkbox" id="duplas-sexta"> Sexta-Feira</label>
+        </div>
+        
+        <hr>
+
+        <div class="container modal-buttons">
+            <button class="btn-fechar" onclick="fecharModalDiasSemana()">Fechar</button>
+            <button class="btn-adicionar" onclick="salvarModalDiasSemana()">Salvar</button>
+        </div>
+    </div>
+</div>
+
+
 <script>
     const firebaseConfig = {
         apiKey: "YOUR_API_KEY",
@@ -799,6 +1398,13 @@ input:disabled, select:disabled, button:disabled {
 
     const usuariosOnlineInput = document.getElementById('usuariosOnline'); // Declare fora do listener
     let listaUsuariosOnline = []; // Se você for usar esta lista aqui, também declare fora
+	let excecoesDuplas = {}; // Objeto para armazenar o estado das exceções
+	let vlimparExcecoesAntigas = false;
+	let vlimparBloqueiosAntigos = false;
+	// INSIRA ESTAS DUAS LINHAS
+	let quadraAtualParaDiasSemana = null;
+	let diasSemanaDuplasConfig = {};
+	
 
   db.ref("sistemas/usuariosOnline").on("value", snapshot => {
         const numUsuariosOnline = snapshot.numChildren();
@@ -827,16 +1433,27 @@ input:disabled, select:disabled, button:disabled {
     }
 	
 function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-            
-            document.getElementById('convidados').style.display = 'none';
-            document.getElementById('piramide').style.display = 'none';
-            
-            document.getElementById(tabId).style.display = 'block';
-            document.getElementById(tabId).classList.add('active');
-            document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
-        }
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('tab-content-active');
+    });
+    document.querySelectorAll('.tab').forEach(button => {
+        button.classList.remove('active');
+    });
+
+    document.getElementById(tabId).classList.add('tab-content-active');
+    document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+
+    // Se for a aba Pirâmide, garante que "Quadra 1" aparece
+    if (tabId === 'piramide') {
+        mostrarQuadra('quadra1');
+    }
+
+    // Se for a aba Duplas, garante que "Quadra 1" aparece
+    if (tabId === 'duplas') {
+        mostrarDuplasQuadra('quadra1');
+    }
+}
+
 		
 		
 		
@@ -913,7 +1530,8 @@ function atualizarCamposPiramideQuadra1() {
             }
         } else {
             if (piramideExceto17_19) {
-                piramideExceto17_19.disabled = !quadra1Ativa; // Modificado
+                // CORRIGIDO: Adicionada a verificação de 'piramideAtiva' para não reabilitar indevidamente.
+                piramideExceto17_19.disabled = !piramideAtiva || !quadra1Ativa;
             }
         }
     }
@@ -927,7 +1545,8 @@ function atualizarCamposPiramideQuadra1() {
             }
         } else {
             if (piramideExceto7_12) {
-                piramideExceto7_12.disabled = !quadra1Ativa; // Modificado
+                 // CORRIGIDO: Adicionada a verificação de 'piramideAtiva' para não reabilitar indevidamente.
+                piramideExceto7_12.disabled = !piramideAtiva || !quadra1Ativa;
             }
         }
     }
@@ -941,11 +1560,14 @@ function atualizarCamposPiramideQuadra1() {
             }
         } else {
             if (piramideExceto8_12) {
-                piramideExceto8_12.disabled = !quadra1Ativa; // Modificado
+                 // CORRIGIDO: Adicionada a verificação de 'piramideAtiva' para não reabilitar indevidamente.
+                piramideExceto8_12.disabled = !piramideAtiva || !quadra1Ativa;
             }
         }
     }
 }
+
+
 
 function atualizarCamposPiramideQuadra2() {
     const piramideAtiva = document.getElementById('piramideAtiva').value === 'ON';
@@ -977,7 +1599,8 @@ function atualizarCamposPiramideQuadra2() {
             }
         } else {
             if (piramideExceto17_19) {
-                piramideExceto17_19.disabled = !quadra2Ativa; // Modificado
+                // CORRIGIDO: Adicionada a verificação de 'piramideAtiva' para não reabilitar indevidamente.
+                piramideExceto17_19.disabled = !piramideAtiva || !quadra2Ativa;
             }
         }
     }
@@ -991,7 +1614,8 @@ function atualizarCamposPiramideQuadra2() {
             }
         } else {
             if (piramideExceto7_12) {
-                piramideExceto7_12.disabled = !quadra2Ativa; // Modificado
+                // CORRIGIDO: Adicionada a verificação de 'piramideAtiva' para não reabilitar indevidamente.
+                piramideExceto7_12.disabled = !piramideAtiva || !quadra2Ativa;
             }
         }
     }
@@ -1005,11 +1629,14 @@ function atualizarCamposPiramideQuadra2() {
             }
         } else {
             if (piramideExceto8_12) {
-                piramideExceto8_12.disabled = !quadra2Ativa; // Modificado
+                // CORRIGIDO: Adicionada a verificação de 'piramideAtiva' para não reabilitar indevidamente.
+                piramideExceto8_12.disabled = !piramideAtiva || !quadra2Ativa;
             }
         }
     }
 }
+
+
 
 function atualizarCamposPiramideQuadra3() {
     const piramideAtiva = document.getElementById('piramideAtiva').value === 'ON';
@@ -1041,7 +1668,8 @@ function atualizarCamposPiramideQuadra3() {
             }
         } else {
             if (piramideExceto17_19) {
-                piramideExceto17_19.disabled = !quadra3Ativa; // Modificado
+                // CORRIGIDO: Adicionada a verificação de 'piramideAtiva' para não reabilitar indevidamente.
+                piramideExceto17_19.disabled = !piramideAtiva || !quadra3Ativa;
             }
         }
     }
@@ -1055,7 +1683,8 @@ function atualizarCamposPiramideQuadra3() {
             }
         } else {
             if (piramideExceto7_12) {
-                piramideExceto7_12.disabled = !quadra3Ativa; // Modificado
+                // CORRIGIDO: Adicionada a verificação de 'piramideAtiva' para não reabilitar indevidamente.
+                piramideExceto7_12.disabled = !piramideAtiva || !quadra3Ativa;
             }
         }
     }
@@ -1069,16 +1698,144 @@ function atualizarCamposPiramideQuadra3() {
             }
         } else {
             if (piramideExceto8_12) {
-                piramideExceto8_12.disabled = !quadra3Ativa; // Modificado
+                // CORRIGIDO: Adicionada a verificação de 'piramideAtiva' para não reabilitar indevidamente.
+                piramideExceto8_12.disabled = !piramideAtiva || !quadra3Ativa;
             }
         }
     }
-}	
+}
 
 
+// ADICIONE ESTA NOVA FUNÇÃO
+function atualizarEstadoDuplas() {
+    const duplasAtivaSelect = document.getElementById('duplasAtiva');
+    const isAtiva = duplasAtivaSelect.value === 'ON';
+    const duplasTab = document.getElementById('duplas');
+
+    // Lógica de cores
+    if (isAtiva) {
+        duplasAtivaSelect.classList.remove('duplas-off');
+        duplasAtivaSelect.classList.add('duplas-on');
+    } else {
+        duplasAtivaSelect.classList.remove('duplas-on');
+        duplasAtivaSelect.classList.add('duplas-off');
+    }
+
+    // Habilita/desabilita todos os campos da aba
+    const allFields = duplasTab.querySelectorAll('input, button');
+    allFields.forEach(field => {
+        field.disabled = !isAtiva;
+    });
+
+    // --- NOVA LÓGICA ADICIONADA ---
+    // Habilita/desabilita os labels de "Dias" para o duplo clique
+    for (let i = 1; i <= 3; i++) {
+        const labelDias = document.getElementById(`DuplasDiasQuadra${i}`);
+        if (labelDias) {
+            if (isAtiva) {
+                labelDias.classList.remove('disabled');
+            } else {
+                labelDias.classList.add('disabled');
+            }
+        }
+    }
+    // --- FIM DA NOVA LÓGICA ---
+
+    // Garante que o seletor "Ativa" nunca seja desabilitado
+    duplasAtivaSelect.disabled = false;
+
+    // Atualiza o estado de cada quadra individualmente
+    atualizarCamposDaQuadraDuplas(1);
+    atualizarCamposDaQuadraDuplas(2);
+    atualizarCamposDaQuadraDuplas(3);
+}
+
+// ADICIONE ESTA NOVA FUNÇÃO
+function atualizarCamposDaQuadraDuplas(quadraNumero) {
+    const isDuplasAtiva = document.getElementById('duplasAtiva').value === 'ON';
+    const isQuadraAtiva = document.getElementById(`duplasQuadra${quadraNumero}Ativa`).checked;
+
+    // --- LÓGICA ADICIONADA ---
+    const labelDias = document.getElementById(`DuplasDiasQuadra${quadraNumero}`);
+    if (labelDias) {
+        // Desabilita o label 'Dias:' se a aba Duplas ou a quadra específica estiverem inativas.
+        if (!isDuplasAtiva || !isQuadraAtiva) {
+            labelDias.classList.add('disabled');
+        } else {
+            labelDias.classList.remove('disabled');
+        }
+    }
+    // --- FIM DA LÓGICA ADICIONADA ---
+
+    const dias = ['Semana', 'Sabado', 'Domingo'];
+
+    dias.forEach(dia => {
+        const diaCheckbox = document.getElementById(`${quadraNumero}-duplas${dia}`);
+        if (!diaCheckbox) return;
+
+        const dayContainer = diaCheckbox.closest('.duplas-day-container');
+        const timeInputs = dayContainer.querySelectorAll('.horario-input');
+
+        // Habilita/desabilita o checkbox do dia
+        diaCheckbox.disabled = !isDuplasAtiva || !isQuadraAtiva;
+
+        // Habilita/desabilita os campos de horário
+        const shouldTimeBeDisabled = !isDuplasAtiva || !isQuadraAtiva || !diaCheckbox.checked;
+        timeInputs.forEach(input => {
+            input.disabled = shouldTimeBeDisabled;
+            if (shouldTimeBeDisabled) {
+                // ANTES: input.value = '';
+                // CORRIGIDO: A linha acima foi removida para preservar o valor.
+            }
+        });
+    });
+	
+	// --- INSIRA O BLOCO DE CÓDIGO ABAIXO NO FINAL DA FUNÇÃO ---
+    // --- ATUALIZADO: Atualiza o cursor do label "Dias de Semana" ---
+	const semanaLabel = document.querySelector(`#duplasQuadra${quadraNumero}Container .dias-semana-label-clickable`);
+	const semanaCheckbox = document.getElementById(`${quadraNumero}-duplasSemana`);
+
+	// A condição agora verifica se a aba, a quadra e o dia da semana estão todos ativos
+	if (isDuplasAtiva && isQuadraAtiva && semanaCheckbox.checked) {
+		semanaLabel.style.cursor = 'pointer';
+		semanaLabel.title = 'Clique para configurar os dias específicos';
+	} else {
+		semanaLabel.style.cursor = 'default';
+		semanaLabel.title = '';
+	}
+    // --- FIM DO BLOCO INSERIDO ---
+}
+
+
+
+// ADICIONE ESTA NOVA FUNÇÃO
+function formatarHorario(event) {
+    const input = event.target;
+
+    // 1. Mantém apenas os dígitos e remove qualquer outra coisa.
+    let valor = input.value.replace(/\D/g, '');
+
+    // 2. Limita a entrada a um máximo de 4 dígitos (ex: 2359).
+    if (valor.length > 4) {
+        valor = valor.substring(0, 4);
+    }
+
+    // 3. Adiciona os dois pontos ":" automaticamente.
+    // Se o usuário digitar "800", vira "8:00". Se digitar "1830", vira "18:30".
+    if (valor.length > 2) {
+        valor = valor.slice(0, valor.length - 2) + ':' + valor.slice(valor.length - 2);
+    }
+
+    // 4. Atualiza o valor no campo.
+    input.value = valor;
+}
+
+// Variável de controle para a tela de "Carregando..."
+let carregamentoInicialConcluido = false;
 
 function carregarConfiguracoes() {
     return new Promise((resolve, reject) => {
+        // Bloco 1: .once() para a carga inicial rápida da página
         db.ref("sistemas/config").once("value")
             .then(snapshot => {
                 const data = snapshot.val();
@@ -1086,30 +1843,25 @@ function carregarConfiguracoes() {
                     document.getElementById('sistema').value = data.Abrir ? 'ON' : 'OFF';
                     atualizarEstadoSistema();
                     document.getElementById('vDomingo').value = data.vDomingo || "aberto";
-					document.getElementById('vDomingoAte').value = data.vDomingoAte;
-					
-					const campoAte = document.getElementById('vDomingoAte');
-const containerHorario = document.getElementById('containerHorarioDomingo');
-campoAte.value = data.vDomingoAte || '';
+                    document.getElementById('vDomingoAte').value = data.vDomingoAte;
 
-if (vDomingo.value === 'aberto') {
-    containerHorario.style.display = 'flex';
-    vDomingo.classList.remove('ajustar-alinhamento');
-} else {
-    containerHorario.style.display = 'none';
-    vDomingo.classList.add('ajustar-alinhamento');
-}
+                    const campoAte = document.getElementById('vDomingoAte');
+                    const containerHorario = document.getElementById('containerHorarioDomingo');
+                    campoAte.value = data.vDomingoAte || '';
 
-
+                    if (document.getElementById('vDomingo').value === 'aberto') {
+                        containerHorario.style.display = 'flex';
+                        document.getElementById('vDomingo').classList.remove('ajustar-alinhamento');
+                    } else {
+                        containerHorario.style.display = 'none';
+                        document.getElementById('vDomingo').classList.add('ajustar-alinhamento');
+                    }
 
                     document.getElementById('diasParaAgendar').value = (6 - (data.DiasParaLimpar || 6)).toString();
-
-                    // Atualiza o estado das quadras
                     document.getElementById('estadoQuadra1').value = data.Quadras?.Quadra1 || "liberada";
                     document.getElementById('estadoQuadra2').value = data.Quadras?.Quadra2 || "liberada";
                     document.getElementById('estadoQuadra3').value = data.Quadras?.Quadra3 || "liberada";
 
-                    // Atualiza as configurações dos convidados
                     const convidados = data.Convidados || {};
                     document.getElementById('convidadosQuadra1').checked = convidados.Quadra1 || false;
                     document.getElementById('convidadosQuadra2').checked = convidados.Quadra2 || false;
@@ -1117,104 +1869,105 @@ if (vDomingo.value === 'aberto') {
                     document.getElementById('convidadosSemana').checked = convidados.DiasDeSemana || false;
                     document.getElementById('convidadosFimDeSemana').checked = convidados.FimDeSemana || false;
 
-                    // Configuração da Pirâmide (cria estrutura se não existir)
-                    let piramide = data.Piramide;
-
-                    // Se piramide não existir, crie a estrutura inicial
-                    if (!piramide) {
-                        piramide = {
-                            ativa: false,
-                            "Quadra-1": {
-                                "Quadra-1-ativa": false,
-                                "1-DiasDeSemana": false,
-                                "1-DiasDeSemana-exceto-17-19": false,
-                                "1-Sabado": false,
-                                "1-Sabado-exceto-7-12": false,
-                                "1-Domingo": false,
-                                "1-Domingo-exceto-8-12": false
-                            },
-                            "Quadra-2": {
-                                "Quadra-2-ativa": false,
-                                "2-DiasDeSemana": false,
-                                "2-DiasDeSemana-exceto-17-19": false,
-                                "2-Sabado": false,
-                                "2-Sabado-exceto-7-12": false,
-                                "2-Domingo": false,
-                                "2-Domingo-exceto-8-12": false
-                            },
-                            "Quadra-3": {
-                                "Quadra-3-ativa": false,
-                                "3-DiasDeSemana": false,
-                                "3-DiasDeSemana-exceto-17-19": false,
-                                "3-Sabado": false,
-                                "3-Sabado-exceto-7-12": false,
-                                "3-Domingo": false,
-                                "3-Domingo-exceto-8-12": false
-                            }
-                        };
-
-                        // Se a Piramide não existe, já salva no banco para as próximas vezes
-                        db.ref("sistemas/config").update({ Piramide: piramide });
+                    const piramide = data.Piramide || {};
+                    const quadra1P = piramide["Quadra-1"] || {};
+                    const quadra2P = piramide["Quadra-2"] || {};
+                    const quadra3P = piramide["Quadra-3"] || {};
+                    document.getElementById('piramideAtiva').value = piramide.ativa ? 'ON' : 'OFF';
+                    document.getElementById('piramideQuadra1').checked = quadra1P["Quadra-1-ativa"] || false;
+                    document.getElementById('1-piramideSemana').checked = quadra1P["1-DiasDeSemana"] || false;
+                    document.getElementById('1-piramideExceto17_19').checked = quadra1P["1-DiasDeSemana-exceto-17-19"] || false;
+                    document.getElementById('1-piramideSabado').checked = quadra1P["1-Sabado"] || false;
+                    document.getElementById('1-piramideExceto7_12').checked = quadra1P["1-Sabado-exceto-7-12"] || false;
+                    document.getElementById('1-piramideDomingo').checked = quadra1P["1-Domingo"] || false;
+                    document.getElementById('1-piramideExceto8_12').checked = quadra1P["1-Domingo-exceto-8-12"] || false;
+                    document.getElementById('piramideQuadra2').checked = quadra2P["Quadra-2-ativa"] || false;
+                    document.getElementById('2-piramideSemana').checked = quadra2P["2-DiasDeSemana"] || false;
+                    document.getElementById('2-piramideExceto17_19').checked = quadra2P["2-DiasDeSemana-exceto-17-19"] || false;
+                    document.getElementById('2-piramideSabado').checked = quadra2P["2-Sabado"] || false;
+                    document.getElementById('2-piramideExceto7_12').checked = quadra2P["2-Sabado-exceto-7-12"] || false;
+                    document.getElementById('2-piramideDomingo').checked = quadra2P["2-Domingo"] || false;
+                    document.getElementById('2-piramideExceto8_12').checked = quadra2P["2-Domingo-exceto-8-12"] || false;
+                    document.getElementById('piramideQuadra3').checked = quadra3P["Quadra-3-ativa"] || false;
+                    document.getElementById('3-piramideSemana').checked = quadra3P["3-DiasDeSemana"] || false;
+                    document.getElementById('3-piramideExceto17_19').checked = quadra3P["3-DiasDeSemana-exceto-17-19"] || false;
+                    document.getElementById('3-piramideSabado').checked = quadra3P["3-Sabado"] || false;
+                    document.getElementById('3-piramideExceto7_12').checked = quadra3P["3-Sabado-exceto-7-12"] || false;
+                    document.getElementById('3-piramideDomingo').checked = quadra3P["3-Domingo"] || false;
+                    document.getElementById('3-piramideExceto8_12').checked = quadra3P["3-Domingo-exceto-8-12"] || false;
+                    
+                    const duplas = data.Duplas || {};
+                    
+                    // --- INSERÇÃO 1: Bloco para carregar a configuração de Dias da Semana ---
+                    diasSemanaDuplasConfig = {};
+                    for (let i = 1; i <= 3; i++) {
+                        const quadraKey = `Quadra-${i}`;
+                        if (duplas[quadraKey] && duplas[quadraKey].DiasDeSemanaConfig) {
+                            diasSemanaDuplasConfig[quadraKey] = duplas[quadraKey].DiasDeSemanaConfig;
+                        } else {
+                            diasSemanaDuplasConfig[quadraKey] = { segunda: true, terca: true, quarta: true, quinta: true, sexta: true };
+                        }
                     }
+                    // --- FIM DA INSERÇÃO 1 ---
 
-                    // *** Adicionando verificações de existência ***
-                    const quadra1 = piramide && piramide["Quadra-1"] ? piramide["Quadra-1"] : {}; 
-                    const quadra2 = piramide && piramide["Quadra-2"] ? piramide["Quadra-2"] : {};
-                    const quadra3 = piramide && piramide["Quadra-3"] ? piramide["Quadra-3"] : {};
-
-                    document.getElementById('piramideAtiva').value = piramide && piramide.ativa ? 'ON' : 'OFF';
-                    atualizarEstadoPiramide();
-
-                    // Atualiza os checkboxes das quadras com verificações
-                    document.getElementById('piramideQuadra1').checked = quadra1 && quadra1["Quadra-1-ativa"] || false;
-                    document.getElementById('piramideQuadra2').checked = quadra2 && quadra2["Quadra-2-ativa"] || false;
-                    document.getElementById('piramideQuadra3').checked = quadra3 && quadra3["Quadra-3-ativa"] || false;
-
-                    // Atualiza os checkboxes dos dias da semana para cada quadra com verificações
-                    document.getElementById('1-piramideSemana').checked = quadra1 && quadra1["1-DiasDeSemana"] || false;
-                    document.getElementById('1-piramideExceto17_19').checked = quadra1 && quadra1["1-DiasDeSemana-exceto-17-19"] || false;
-                    document.getElementById('1-piramideSabado').checked = quadra1 && quadra1["1-Sabado"] || false;
-                    document.getElementById('1-piramideExceto7_12').checked = quadra1 && quadra1["1-Sabado-exceto-7-12"] || false;
-                    document.getElementById('1-piramideDomingo').checked = quadra1 && quadra1["1-Domingo"] || false;
-                    document.getElementById('1-piramideExceto8_12').checked = quadra1 && quadra1["1-Domingo-exceto-8-12"] || false;
-					
-                    document.getElementById('2-piramideSemana').checked = quadra2 && quadra2["2-DiasDeSemana"] || false;
-                    document.getElementById('2-piramideExceto17_19').checked = quadra2 && quadra2["2-DiasDeSemana-exceto-17-19"] || false;
-                    document.getElementById('2-piramideSabado').checked = quadra2 && quadra2["2-Sabado"] || false;
-                    document.getElementById('2-piramideExceto7_12').checked = quadra2 && quadra2["2-Sabado-exceto-7-12"] || false;
-                    document.getElementById('2-piramideDomingo').checked = quadra2 && quadra2["2-Domingo"] || false;
-                    document.getElementById('2-piramideExceto8_12').checked = quadra2 && quadra2["2-Domingo-exceto-8-12"] || false;
-					
-                    document.getElementById('3-piramideSemana').checked = quadra3 && quadra3["3-DiasDeSemana"] || false;
-                    document.getElementById('3-piramideExceto17_19').checked = quadra3 && quadra3["3-DiasDeSemana-exceto-17-19"] || false;
-                    document.getElementById('3-piramideSabado').checked = quadra3 && quadra3["3-Sabado"] || false;
-                    document.getElementById('3-piramideExceto7_12').checked = quadra3 && quadra3["3-Sabado-exceto-7-12"] || false;
-                    document.getElementById('3-piramideDomingo').checked = quadra3 && quadra3["3-Domingo"] || false;
-                    document.getElementById('3-piramideExceto8_12').checked = quadra3 && quadra3["3-Domingo-exceto-8-12"] || false;
+                    const quadra1D = duplas["Quadra-1"] || {};
+                    const quadra2D = duplas["Quadra-2"] || {};
+                    const quadra3D = duplas["Quadra-3"] || {};
+                    document.getElementById('duplasAtiva').value = duplas.ativa ? 'ON' : 'OFF';
+                    document.getElementById('duplasQuadra1Ativa').checked = quadra1D["Quadra-1-ativa"] || false;
+                    document.getElementById('1-duplasSemana').checked = quadra1D["1-DiasDeSemana"] || false;
+                    document.getElementById('1-duplasSemanaInicio').value = quadra1D["1-DiasDeSemana-Inicio"] || '';
+                    document.getElementById('1-duplasSemanaFim').value = quadra1D["1-DiasDeSemana-Fim"] || '';
+                    document.getElementById('1-duplasSabado').checked = quadra1D["1-Sabado"] || false;
+                    document.getElementById('1-duplasSabadoInicio').value = quadra1D["1-Sabado-Inicio"] || '';
+                    document.getElementById('1-duplasSabadoFim').value = quadra1D["1-Sabado-Fim"] || '';
+                    document.getElementById('1-duplasDomingo').checked = quadra1D["1-Domingo"] || false;
+                    document.getElementById('1-duplasDomingoInicio').value = quadra1D["1-Domingo-Inicio"] || '';
+                    document.getElementById('1-duplasDomingoFim').value = quadra1D["1-Domingo-Fim"] || '';
+                    document.getElementById('duplasQuadra2Ativa').checked = quadra2D["Quadra-2-ativa"] || false;
+                    document.getElementById('2-duplasSemana').checked = quadra2D["2-DiasDeSemana"] || false;
+                    document.getElementById('2-duplasSemanaInicio').value = quadra2D["2-DiasDeSemana-Inicio"] || '';
+                    document.getElementById('2-duplasSemanaFim').value = quadra2D["2-DiasDeSemana-Fim"] || '';
+                    document.getElementById('2-duplasSabado').checked = quadra2D["2-Sabado"] || false;
+                    document.getElementById('2-duplasSabadoInicio').value = quadra2D["2-Sabado-Inicio"] || '';
+                    document.getElementById('2-duplasSabadoFim').value = quadra2D["2-Sabado-Fim"] || '';
+                    document.getElementById('2-duplasDomingo').checked = quadra2D["2-Domingo"] || false;
+                    document.getElementById('2-duplasDomingoInicio').value = quadra2D["2-Domingo-Inicio"] || '';
+                    document.getElementById('2-duplasDomingoFim').value = quadra2D["2-Domingo-Fim"] || '';
+                    document.getElementById('duplasQuadra3Ativa').checked = quadra3D["Quadra-3-ativa"] || false;
+                    document.getElementById('3-duplasSemana').checked = quadra3D["3-DiasDeSemana"] || false;
+                    document.getElementById('3-duplasSemanaInicio').value = quadra3D["3-DiasDeSemana-Inicio"] || '';
+                    document.getElementById('3-duplasSemanaFim').value = quadra3D["3-DiasDeSemana-Fim"] || '';
+                    document.getElementById('3-duplasSabado').checked = quadra3D["3-Sabado"] || false;
+                    document.getElementById('3-duplasSabadoInicio').value = quadra3D["3-Sabado-Inicio"] || '';
+                    document.getElementById('3-duplasSabadoFim').value = quadra3D["3-Sabado-Fim"] || '';
+                    document.getElementById('3-duplasDomingo').checked = quadra3D["3-Domingo"] || false;
+                    document.getElementById('3-duplasDomingoInicio').value = quadra3D["3-Domingo-Inicio"] || '';
+                    document.getElementById('3-duplasDomingoFim').value = quadra3D["3-Domingo-Fim"] || '';
                 }
                 resolve();
             })
             .catch(error => {
-                console.error("Erro ao carregar configurações:", error);
+                console.error("Erro na carga inicial das configurações:", error);
                 reject(error);
             });
 
-        // Escuta alterações em tempo real
+        // Bloco 2: .on() para escutar alterações em tempo real
         db.ref("sistemas/config").on("value", (snapshot) => {
             const data = snapshot.val();
             if (data) {
+                bloqueiosQuadra = data.Quadras?.Bloqueios || {};
+                
                 document.getElementById('sistema').value = data.Abrir ? 'ON' : 'OFF';
                 atualizarEstadoSistema();
                 document.getElementById('vDomingo').value = data.vDomingo || "aberto";
-				document.getElementById('vDomingoAte').value = data.vDomingoAte;
+                document.getElementById('vDomingoAte').value = data.vDomingoAte;
                 document.getElementById('diasParaAgendar').value = (6 - (data.DiasParaLimpar || 6)).toString();
 
-                // Atualiza o estado das quadras
                 document.getElementById('estadoQuadra1').value = data.Quadras?.Quadra1 || "liberada";
                 document.getElementById('estadoQuadra2').value = data.Quadras?.Quadra2 || "liberada";
                 document.getElementById('estadoQuadra3').value = data.Quadras?.Quadra3 || "liberada";
 
-                // Atualiza as configurações dos convidados
                 const convidados = data.Convidados || {};
                 document.getElementById('convidadosQuadra1').checked = convidados.Quadra1 || false;
                 document.getElementById('convidadosQuadra2').checked = convidados.Quadra2 || false;
@@ -1222,41 +1975,108 @@ if (vDomingo.value === 'aberto') {
                 document.getElementById('convidadosSemana').checked = convidados.DiasDeSemana || false;
                 document.getElementById('convidadosFimDeSemana').checked = convidados.FimDeSemana || false;
 
-                // Configuração da Pirâmide
-                //const piramide = data.config && data.config.Piramide || {};
                 const piramide = data.Piramide || {};
+                const quadra1P = piramide["Quadra-1"] || {};
+                const quadra2P = piramide["Quadra-2"] || {};
+                const quadra3P = piramide["Quadra-3"] || {};
+                document.getElementById('piramideAtiva').value = piramide.ativa ? 'ON' : 'OFF';
+                document.getElementById('piramideQuadra1').checked = quadra1P["Quadra-1-ativa"] || false;
+                document.getElementById('1-piramideSemana').checked = quadra1P["1-DiasDeSemana"] || false;
+                document.getElementById('1-piramideExceto17_19').checked = quadra1P["1-DiasDeSemana-exceto-17-19"] || false;
+                document.getElementById('1-piramideSabado').checked = quadra1P["1-Sabado"] || false;
+                document.getElementById('1-piramideExceto7_12').checked = quadra1P["1-Sabado-exceto-7-12"] || false;
+                document.getElementById('1-piramideDomingo').checked = quadra1P["1-Domingo"] || false;
+                document.getElementById('1-piramideExceto8_12').checked = quadra1P["1-Domingo-exceto-8-12"] || false;
+                document.getElementById('piramideQuadra2').checked = quadra2P["Quadra-2-ativa"] || false;
+                document.getElementById('2-piramideSemana').checked = quadra2P["2-DiasDeSemana"] || false;
+                document.getElementById('2-piramideExceto17_19').checked = quadra2P["2-DiasDeSemana-exceto-17-19"] || false;
+                document.getElementById('2-piramideSabado').checked = quadra2P["2-Sabado"] || false;
+                document.getElementById('2-piramideExceto7_12').checked = quadra2P["2-Sabado-exceto-7-12"] || false;
+                document.getElementById('2-piramideDomingo').checked = quadra2P["2-Domingo"] || false;
+                document.getElementById('2-piramideExceto8_12').checked = quadra2P["2-Domingo-exceto-8-12"] || false;
+                document.getElementById('piramideQuadra3').checked = quadra3P["Quadra-3-ativa"] || false;
+                document.getElementById('3-piramideSemana').checked = quadra3P["3-DiasDeSemana"] || false;
+                document.getElementById('3-piramideExceto17_19').checked = quadra3P["3-DiasDeSemana-exceto-17-19"] || false;
+                document.getElementById('3-piramideSabado').checked = quadra3P["3-Sabado"] || false;
+                document.getElementById('3-piramideExceto7_12').checked = quadra3P["3-Sabado-exceto-7-12"] || false;
+                document.getElementById('3-piramideDomingo').checked = quadra3P["3-Domingo"] || false;
+                document.getElementById('3-piramideExceto8_12').checked = quadra3P["3-Domingo-exceto-8-12"] || false;
 
-                // *** Adicionando verificações de existência ***
-                const quadra1 = piramide && piramide["Quadra-1"] ? piramide["Quadra-1"] : {}; 
-                const quadra2 = piramide && piramide["Quadra-2"] ? piramide["Quadra-2"] : {};
-                const quadra3 = piramide && piramide["Quadra-3"] ? piramide["Quadra-3"] : {};
+                const duplas = data.Duplas || {};
+                excecoesDuplas = duplas.DatasEspeciais || {};
 
-                document.getElementById('piramideAtiva').value = piramide && piramide.ativa ? 'ON' : 'OFF';
-                atualizarEstadoPiramide(); // Chamada adicionada para atualizar a cor
+                // --- INSERÇÃO 2: Bloco para carregar a configuração de Dias da Semana ---
+                diasSemanaDuplasConfig = {};
+                for (let i = 1; i <= 3; i++) {
+                    const quadraKey = `Quadra-${i}`;
+                    if (duplas[quadraKey] && duplas[quadraKey].DiasDeSemanaConfig) {
+                        diasSemanaDuplasConfig[quadraKey] = duplas[quadraKey].DiasDeSemanaConfig;
+                    } else {
+                        diasSemanaDuplasConfig[quadraKey] = { segunda: true, terca: true, quarta: true, quinta: true, sexta: true };
+                    }
+                }
+                // --- FIM DA INSERÇÃO 2 ---
 
-                document.getElementById('piramideQuadra1').checked = quadra1 && quadra1["Quadra-1-ativa"] || false;
-                document.getElementById('piramideQuadra2').checked = quadra2 && quadra2["Quadra-2-ativa"] || false;
-                document.getElementById('piramideQuadra3').checked = quadra3 && quadra3["Quadra-3-ativa"] || false;
-                document.getElementById('1-piramideSemana').checked = quadra1 && quadra1["1-DiasDeSemana"] || false;
-                document.getElementById('1-piramideExceto17_19').checked = quadra1 && quadra1["1-DiasDeSemana-exceto-17-19"] || false;
-                document.getElementById('1-piramideSabado').checked = quadra1 && quadra1["1-Sabado"] || false;
-                document.getElementById('1-piramideExceto7_12').checked = quadra1 && quadra1["1-Sabado-exceto-7-12"] || false;
-                document.getElementById('1-piramideDomingo').checked = quadra1 && quadra1["1-Domingo"] || false;
-                document.getElementById('1-piramideExceto8_12').checked = quadra1 && quadra1["1-Domingo-exceto-8-12"] || false;
-				
-                document.getElementById('2-piramideSemana').checked = quadra2 && quadra2["2-DiasDeSemana"] || false;
-                document.getElementById('2-piramideExceto17_19').checked = quadra2 && quadra2["2-DiasDeSemana-exceto-17-19"] || false;
-                document.getElementById('2-piramideSabado').checked = quadra2 && quadra2["2-Sabado"] || false;
-                document.getElementById('2-piramideExceto7_12').checked = quadra2 && quadra2["2-Sabado-exceto-7-12"] || false;
-				document.getElementById('2-piramideDomingo').checked = quadra2 && quadra2["2-Domingo"] || false;
-                document.getElementById('2-piramideExceto8_12').checked = quadra2 && quadra2["2-Domingo-exceto-8-12"] || false;
-				
-                document.getElementById('3-piramideSemana').checked = quadra3 && quadra3["3-DiasDeSemana"] || false;
-                document.getElementById('3-piramideExceto17_19').checked = quadra3 && quadra3["3-DiasDeSemana-exceto-17-19"] || false;
-                document.getElementById('3-piramideSabado').checked = quadra3 && quadra3["3-Sabado"] || false;
-                document.getElementById('3-piramideExceto7_12').checked = quadra3 && quadra3["3-Sabado-exceto-7-12"] || false;
-                document.getElementById('3-piramideDomingo').checked = quadra3 && quadra3["3-Domingo"] || false;
-                document.getElementById('3-piramideExceto8_12').checked = quadra3 && quadra3["3-Domingo-exceto-8-12"] || false;
+                const quadra1D = duplas["Quadra-1"] || {};
+                const quadra2D = duplas["Quadra-2"] || {};
+                const quadra3D = duplas["Quadra-3"] || {};
+                document.getElementById('duplasAtiva').value = duplas.ativa ? 'ON' : 'OFF';
+                document.getElementById('duplasQuadra1Ativa').checked = quadra1D["Quadra-1-ativa"] || false;
+                document.getElementById('1-duplasSemana').checked = quadra1D["1-DiasDeSemana"] || false;
+                document.getElementById('1-duplasSemanaInicio').value = quadra1D["1-DiasDeSemana-Inicio"] || '';
+                document.getElementById('1-duplasSemanaFim').value = quadra1D["1-DiasDeSemana-Fim"] || '';
+                document.getElementById('1-duplasSabado').checked = quadra1D["1-Sabado"] || false;
+                document.getElementById('1-duplasSabadoInicio').value = quadra1D["1-Sabado-Inicio"] || '';
+                document.getElementById('1-duplasSabadoFim').value = quadra1D["1-Sabado-Fim"] || '';
+                document.getElementById('1-duplasDomingo').checked = quadra1D["1-Domingo"] || false;
+                document.getElementById('1-duplasDomingoInicio').value = quadra1D["1-Domingo-Inicio"] || '';
+                document.getElementById('1-duplasDomingoFim').value = quadra1D["1-Domingo-Fim"] || '';
+                document.getElementById('duplasQuadra2Ativa').checked = quadra2D["Quadra-2-ativa"] || false;
+                document.getElementById('2-duplasSemana').checked = quadra2D["2-DiasDeSemana"] || false;
+                document.getElementById('2-duplasSemanaInicio').value = quadra2D["2-DiasDeSemana-Inicio"] || '';
+                document.getElementById('2-duplasSemanaFim').value = quadra2D["2-DiasDeSemana-Fim"] || '';
+                document.getElementById('2-duplasSabado').checked = quadra2D["2-Sabado"] || false;
+                document.getElementById('2-duplasSabadoInicio').value = quadra2D["2-Sabado-Inicio"] || '';
+                document.getElementById('2-duplasSabadoFim').value = quadra2D["2-Sabado-Fim"] || '';
+                document.getElementById('2-duplasDomingo').checked = quadra2D["2-Domingo"] || false;
+                document.getElementById('2-duplasDomingoInicio').value = quadra2D["2-Domingo-Inicio"] || '';
+                document.getElementById('2-duplasDomingoFim').value = quadra2D["2-Domingo-Fim"] || '';
+                document.getElementById('duplasQuadra3Ativa').checked = quadra3D["Quadra-3-ativa"] || false;
+                document.getElementById('3-duplasSemana').checked = quadra3D["3-DiasDeSemana"] || false;
+                document.getElementById('3-duplasSemanaInicio').value = quadra3D["3-DiasDeSemana-Inicio"] || '';
+                document.getElementById('3-duplasSemanaFim').value = quadra3D["3-DiasDeSemana-Fim"] || '';
+                document.getElementById('3-duplasSabado').checked = quadra3D["3-Sabado"] || false;
+                document.getElementById('3-duplasSabadoInicio').value = quadra3D["3-Sabado-Inicio"] || '';
+                document.getElementById('3-duplasSabadoFim').value = quadra3D["3-Sabado-Fim"] || '';
+                document.getElementById('3-duplasDomingo').checked = quadra3D["3-Domingo"] || false;
+                document.getElementById('3-duplasDomingoInicio').value = quadra3D["3-Domingo-Inicio"] || '';
+                document.getElementById('3-duplasDomingoFim').value = quadra3D["3-Domingo-Fim"] || '';
+
+                atualizarEstadoPiramide();
+                atualizarCamposPiramideQuadra1();
+                atualizarCamposPiramideQuadra2();
+                atualizarCamposPiramideQuadra3();
+                atualizarEstadoDuplas();
+                for (let i = 1; i <= 3; i++) {
+                    atualizarCamposDaQuadraDuplas(i);
+                }
+
+                if (modal.style.display === 'flex') {
+                    renderizarExcecoes(quadraAtualParaExcecao);
+                }
+                if (modalBloqueio.style.display === 'flex') {
+                    renderizarBloqueios(quadraAtualParaBloqueio);
+                }
+            }
+
+            if (!carregamentoInicialConcluido) {
+                carregamentoInicialConcluido = true;
+            }
+        }, (error) => {
+            console.error("Erro no listener em tempo real:", error);
+            if (!carregamentoInicialConcluido) {
+                carregamentoInicialConcluido = true;
+                reject(error);
             }
         });
     });
@@ -1267,7 +2087,7 @@ function salvarConfiguracoes() {
     // Obtém os valores dos campos gerais
     const abrir = document.getElementById('sistema').value === 'ON';
     const vDomingo = document.getElementById('vDomingo').value;
-	const vDomingoAte = document.getElementById('vDomingoAte').value;
+    const vDomingoAte = document.getElementById('vDomingoAte').value;
     const diasParaLimpar = 6 - parseInt(document.getElementById('diasParaAgendar').value);
     const estadoQuadra1 = document.getElementById('estadoQuadra1').value;
     const estadoQuadra2 = document.getElementById('estadoQuadra2').value;
@@ -1310,23 +2130,80 @@ function salvarConfiguracoes() {
             "3-Sabado": document.getElementById('3-piramideSabado').checked,
             "3-Sabado-exceto-7-12": document.getElementById('3-piramideExceto7_12').checked,
             "3-Domingo": document.getElementById('3-piramideDomingo').checked,
-            "3-Domingo-exceto-8-12": document.getElementById('3-piramideExceto8_12').checked
+            "3-Domingo-exceto-8-12": document.getElementById('3-piramideExceto8_12').checked  
         }
     };
+
+    // --- INÍCIO DA NOVA SEÇÃO PARA DUPLAS ---
+    const duplas = {
+        ativa: document.getElementById('duplasAtiva').value === 'ON',
+        "Quadra-1": {
+            "Quadra-1-ativa": document.getElementById('duplasQuadra1Ativa').checked,
+            "1-DiasDeSemana": document.getElementById('1-duplasSemana').checked,
+            "1-DiasDeSemana-Inicio": document.getElementById('1-duplasSemanaInicio').value,
+            "1-DiasDeSemana-Fim": document.getElementById('1-duplasSemanaFim').value,
+            "1-Sabado": document.getElementById('1-duplasSabado').checked,
+            "1-Sabado-Inicio": document.getElementById('1-duplasSabadoInicio').value,
+            "1-Sabado-Fim": document.getElementById('1-duplasSabadoFim').value,
+            "1-Domingo": document.getElementById('1-duplasDomingo').checked,
+            "1-Domingo-Inicio": document.getElementById('1-duplasDomingoInicio').value,
+            "1-Domingo-Fim": document.getElementById('1-duplasDomingoFim').value,
+			// --- LÓGICA CONDICIONAL ADICIONADA AQUI ---
+            ...(document.getElementById('1-duplasSemana').checked && { 
+                "DiasDeSemanaConfig": diasSemanaDuplasConfig['Quadra-1'] || { segunda: true, terca: true, quarta: true, quinta: true, sexta: true }
+            }) 
+        },
+        "Quadra-2": {
+            "Quadra-2-ativa": document.getElementById('duplasQuadra2Ativa').checked,
+            "2-DiasDeSemana": document.getElementById('2-duplasSemana').checked,
+            "2-DiasDeSemana-Inicio": document.getElementById('2-duplasSemanaInicio').value,
+            "2-DiasDeSemana-Fim": document.getElementById('2-duplasSemanaFim').value,
+            "2-Sabado": document.getElementById('2-duplasSabado').checked,
+            "2-Sabado-Inicio": document.getElementById('2-duplasSabadoInicio').value,
+            "2-Sabado-Fim": document.getElementById('2-duplasSabadoFim').value,
+            "2-Domingo": document.getElementById('2-duplasDomingo').checked,
+            "2-Domingo-Inicio": document.getElementById('2-duplasDomingoInicio').value,
+            "2-Domingo-Fim": document.getElementById('2-duplasDomingoFim').value,
+			// --- LÓGICA CONDICIONAL ADICIONADA AQUI ---
+            ...(document.getElementById('2-duplasSemana').checked && { 
+                "DiasDeSemanaConfig": diasSemanaDuplasConfig['Quadra-2'] || { segunda: true, terca: true, quarta: true, quinta: true, sexta: true }
+            }) 
+        },
+        "Quadra-3": {
+            "Quadra-3-ativa": document.getElementById('duplasQuadra3Ativa').checked,
+            "3-DiasDeSemana": document.getElementById('3-duplasSemana').checked,
+            "3-DiasDeSemana-Inicio": document.getElementById('3-duplasSemanaInicio').value,
+            "3-DiasDeSemana-Fim": document.getElementById('3-duplasSemanaFim').value,
+            "3-Sabado": document.getElementById('3-duplasSabado').checked,
+            "3-Sabado-Inicio": document.getElementById('3-duplasSabadoInicio').value,
+            "3-Sabado-Fim": document.getElementById('3-duplasSabadoFim').value,
+            "3-Domingo": document.getElementById('3-duplasDomingo').checked,
+            "3-Domingo-Inicio": document.getElementById('3-duplasDomingoInicio').value,
+            "3-Domingo-Fim": document.getElementById('3-duplasDomingoFim').value,
+			// --- LÓGICA CONDICIONAL ADICIONADA AQUI ---
+            ...(document.getElementById('3-duplasSemana').checked && { 
+                "DiasDeSemanaConfig": diasSemanaDuplasConfig['Quadra-3'] || { segunda: true, terca: true, quarta: true, quinta: true, sexta: true }
+            }) 
+        },
+		DatasEspeciais: excecoesDuplas // << ADICIONE ESTA LINHA
+    };
+    // --- FIM DA NOVA SEÇÃO PARA DUPLAS ---
 
     // Salva as configurações no Firebase
     db.ref("sistemas/config").update({
         Abrir: abrir,
         vDomingo,
-		vDomingoAte,
+        vDomingoAte,
         DiasParaLimpar: diasParaLimpar,
         Quadras: {
             Quadra1: estadoQuadra1,
             Quadra2: estadoQuadra2,
-            Quadra3: estadoQuadra3
+            Quadra3: estadoQuadra3,
+			Bloqueios: bloqueiosQuadra // <-- MUDANÇA AQUI: Adiciona os dados de bloqueio ao salvar
         },
         Convidados: convidados,
-        Piramide: piramide
+        Piramide: piramide,
+        Duplas: duplas // <-- DADOS DE DUPLAS ADICIONADOS AQUI
     })
     .then(() => alert("Configurações salvas com sucesso!"))
     .catch(error => {
@@ -1334,7 +2211,6 @@ function salvarConfiguracoes() {
         alert("Erro ao salvar configurações. Verifique o console para mais detalhes.");
     });
 }
-
 
     // Exibe a tela de carregamento enquanto carrega as configurações
     window.onload = function() {
@@ -1355,9 +2231,10 @@ function salvarConfiguracoes() {
     };
 	
 	
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() { 
     showTab('piramide');
     atualizarEstadoPiramide();
+	atualizarEstadoDuplas();
 
     // Adiciona o evento onchange para o checkbox "Ativa"
     document.getElementById('piramideAtiva').onchange = atualizarEstadoPiramide;
@@ -1387,6 +2264,65 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Define o primeiro botão como ativo por padrão
     document.querySelector('.piramide-botao').classList.add('ativo');
+	
+	document.getElementById('duplasQuadra1Ativa').addEventListener('change', () => atualizarCamposDaQuadraDuplas(1)); 
+    document.getElementById('duplasQuadra2Ativa').addEventListener('change', () => atualizarCamposDaQuadraDuplas(2));
+    document.getElementById('duplasQuadra3Ativa').addEventListener('change', () => atualizarCamposDaQuadraDuplas(3));
+	
+	
+	// Substitua o loop anterior por este
+	// Substitua o loop anterior por este
+for (let i = 1; i <= 3; i++) {
+    const semanaCheckbox = document.getElementById(`${i}-duplasSemana`);
+    const semanaLabel = document.querySelector(`#duplasQuadra${i}Container .dias-semana-label-clickable`);
+
+    // Evento para o CHECKBOX: Apenas marca/desmarca e atualiza a UI.
+    semanaCheckbox.addEventListener('change', () => {
+        atualizarCamposDaQuadraDuplas(i);
+    });
+
+    // Evento para o TEXTO "Dias de Semana": Abre o modal.
+    semanaLabel.addEventListener('click', () => {
+        // CONDIÇÃO CORRIGIDA: Agora verifica se a quadra principal E o checkbox de semana estão marcados.
+        if (document.getElementById(`duplasQuadra${i}Ativa`).checked && semanaCheckbox.checked) {
+            abrirModalDiasSemana(i);
+        }
+    });
+
+    // Listeners para Sábado e Domingo (permanecem iguais)
+    document.getElementById(`${i}-duplasSabado`).addEventListener('change', () => atualizarCamposDaQuadraDuplas(i));
+    document.getElementById(`${i}-duplasDomingo`).addEventListener('change', () => atualizarCamposDaQuadraDuplas(i));
+}
+	
+	// Encontra todos os campos de horário para aplicar as novas regras.
+    const camposDeHorario = document.querySelectorAll('.horario-input');
+
+    camposDeHorario.forEach(input => {
+        // Tarefa 1 e 3: Aplica a função de formatação automática a cada mudança.
+        input.addEventListener('input', formatarHorario);
+
+        // Tarefa 2: Garante o teclado numérico no celular e limita o tamanho total.
+        input.setAttribute('inputmode', 'numeric'); // Pede o teclado numérico.
+        input.setAttribute('maxlength', '5');       // Limita o tamanho para 5 caracteres (ex: "18:30").
+    });
+	
+	// Adiciona o evento de duplo clique nos labels "Dias:" da aba Duplas
+    for (let i = 1; i <= 3; i++) {
+        const labelDias = document.getElementById(`DuplasDiasQuadra${i}`);
+        if (labelDias) {
+            labelDias.addEventListener('dblclick', () => abrirModalExcecao(i));
+        }
+    }
+	
+	// --- NOVO: Configura evento de "segurar" para mobile ---
+    setupMobileHoldEvents(document.getElementById('estadoQuadra1'), 1);
+    setupMobileHoldEvents(document.getElementById('estadoQuadra2'), 2);
+    setupMobileHoldEvents(document.getElementById('estadoQuadra3'), 3);
+	
+	
+	
+	
+	
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -1409,6 +2345,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			this.classList.add('ajustar-alinhamento');
 		}
 	});
+	
+	
 
 });
 
@@ -1443,6 +2381,557 @@ function mostrarQuadra(quadraId) {
     document.getElementById('piramide' + quadraId.charAt(0).toUpperCase() + quadraId.slice(1) + 'Container').style.display = 'block';
 }
 
+function mostrarDuplasQuadra(quadraId) {
+    // Esconde todos os containers de quadra
+    document.getElementById('duplasQuadra1Container').style.display = 'none';
+    document.getElementById('duplasQuadra2Container').style.display = 'none';
+    document.getElementById('duplasQuadra3Container').style.display = 'none';
+    
+    // Remove a classe 'ativo' de todos os botões
+    document.querySelectorAll('.duplas-botao').forEach(botao => {
+        botao.classList.remove('ativo');
+    });
+
+    // Adiciona a classe 'ativo' ao botão clicado
+    const botaoClicado = document.querySelector(`.duplas-botao[onclick="mostrarDuplasQuadra('${quadraId}')"]`);
+    if (botaoClicado) {
+        botaoClicado.classList.add('ativo');
+    }
+
+    // Exibe o container da quadra clicada
+    document.getElementById('duplas' + quadraId.charAt(0).toUpperCase() + quadraId.slice(1) + 'Container').style.display = 'block';
+}
+
+// --- GERENCIAMENTO DE EXCEÇÕES (INÍCIO) ---
+const modal = document.getElementById('modalDatasEspeciais');
+const listaExcecoesDiv = document.getElementById('listaExcecoes');
+let quadraAtualParaExcecao = null;
+
+
+/**
+ * NOVO: Verifica e remove exceções com mais de 7 dias.
+ * Esta função é chamada ao abrir o modal de exceções.
+ * Ela calcula a data limite e envia um único comando de atualização
+ * para remover todas as entradas antigas de uma vez.
+ */
+function limparExcecoesAntigas() {
+    console.log("Verificando exceções antigas para limpeza...");
+    const seteDiasAtras = new Date();
+    seteDiasAtras.setDate(seteDiasAtras.getDate() - 7);
+    seteDiasAtras.setHours(0, 0, 0, 0);
+
+    const updates = {};
+    const allExcecoes = excecoesDuplas || {};
+
+    // Itera por todas as quadras e suas exceções
+    for (const quadraKey in allExcecoes) {
+        if (Object.hasOwnProperty.call(allExcecoes, quadraKey)) {
+            const excecoesDaQuadra = allExcecoes[quadraKey];
+            for (const dataString in excecoesDaQuadra) {
+                if (Object.hasOwnProperty.call(excecoesDaQuadra, dataString)) {
+                    // A dataString está no formato 'YYYY-MM-DD'
+                    const dataExcecao = new Date(dataString + 'T00:00:00');
+
+                    // Se a data da exceção for mais antiga que 7 dias atrás
+                    if (dataExcecao < seteDiasAtras) {
+                        const path = `sistemas/config/Duplas/DatasEspeciais/${quadraKey}/${dataString}`;
+                        updates[path] = null; // Marcar para exclusão no Firebase
+                    }
+                }
+            }
+        }
+    }
+
+    // Se houver atualizações a serem feitas, envia o comando para o Firebase
+    if (Object.keys(updates).length > 0) {
+        console.log(`Limpando ${Object.keys(updates).length} exceções com mais de 7 dias.`);
+        return db.ref().update(updates); // Retorna uma promessa para a operação de atualização
+    } else {
+        console.log("Nenhuma exceção antiga para limpar.");
+        return Promise.resolve(); // Nenhuma atualização necessária, retorna uma promessa resolvida
+    }
+}
+
+/**
+ * Verifica e remove bloqueios de quadra com mais de 7 dias.
+ */
+function limparBloqueiosAntigos() {
+    console.log("Verificando bloqueios antigos para limpeza...");
+    const seteDiasAtras = new Date();
+    seteDiasAtras.setDate(seteDiasAtras.getDate() - 7);
+    seteDiasAtras.setHours(0, 0, 0, 0);
+
+    const updates = {};
+    const allBloqueios = bloqueiosQuadra || {};
+
+    // Itera por todas as quadras e seus bloqueios
+    for (const quadraKey in allBloqueios) {
+        if (Object.hasOwnProperty.call(allBloqueios, quadraKey)) {
+            const bloqueiosDaQuadra = allBloqueios[quadraKey];
+            for (const dataString in bloqueiosDaQuadra) {
+                if (Object.hasOwnProperty.call(bloqueiosDaQuadra, dataString)) {
+                    const dataBloqueio = new Date(dataString + 'T00:00:00');
+
+                    // Se a data do bloqueio for mais antiga que 7 dias atrás
+                    if (dataBloqueio < seteDiasAtras) {
+                        const path = `sistemas/config/Quadras/Bloqueios/${quadraKey}/${dataString}`;
+                        updates[path] = null; // Marcar para exclusão no Firebase
+                    }
+                }
+            }
+        }
+    }
+
+    // Se houver atualizações a serem feitas, envia o comando para o Firebase
+    if (Object.keys(updates).length > 0) {
+        console.log(`Limpando ${Object.keys(updates).length} bloqueios com mais de 7 dias.`);
+        return db.ref().update(updates);
+    } else {
+        console.log("Nenhum bloqueio antigo para limpar.");
+        return Promise.resolve();
+    }
+}
+
+
+/**
+ * MODIFICADO: Abre o modal de exceções e executa a limpeza automática.
+ * A função agora é 'async' para poder usar 'await' e garantir que a
+ * limpeza termine antes de exibir os dados.
+ */
+async function abrirModalExcecao(quadraNumero) {
+    const isDuplasAtiva = document.getElementById('duplasAtiva').value === 'ON';
+    const isQuadraAtiva = document.getElementById(`duplasQuadra${quadraNumero}Ativa`).checked;
+
+    // Impede a abertura do modal se a aba ou a quadra estiverem inativas
+    if (!isDuplasAtiva || !isQuadraAtiva) {
+        return; 
+    }
+
+    // --- LÓGICA DE LIMPEZA CONDICIONAL ---
+    if (vlimparExcecoesAntigas === false) {
+        try {
+            // Espera a função de limpeza terminar antes de continuar
+            await limparExcecoesAntigas();
+            vlimparExcecoesAntigas = true; // Marca que a limpeza foi executada
+        } catch (error) {
+            console.error("Ocorreu um erro durante a limpeza de exceções antigas:", error);
+            alert("Não foi possível limpar as exceções antigas. Verifique o console.");
+        }
+    }
+    // --- FIM DA LÓGICA DE LIMPEZA ---
+
+    quadraAtualParaExcecao = quadraNumero;
+    
+    const containerId = `duplasQuadra${quadraNumero}Container`;
+    const containerElement = document.getElementById(containerId);
+    let nomeDaQuadra = `Exceções Quadra ${quadraNumero}`;
+
+    if (containerElement) {
+        const spanDoTitulo = containerElement.querySelector('.centraliza-checkbox span');
+        if (spanDoTitulo) {
+            nomeDaQuadra = spanDoTitulo.innerText;
+        }
+    }
+    document.getElementById('modalTitulo').innerText = nomeDaQuadra;
+
+    // Renderiza a lista de exceções, que já estará atualizada
+    // após a limpeza, graças ao listener `on('value')`.
+    renderizarExcecoes(quadraNumero);
+    modal.style.display = 'flex';
+}
+
+
+
+function fecharModalExcecao() {
+    modal.style.display = 'none';
+}
+
+function renderizarExcecoes(quadraNumero) {
+    listaExcecoesDiv.innerHTML = ''; // Limpa a lista atual
+    const quadraKey = `Quadra-${quadraNumero}`;
+    const excecoesDaQuadra = excecoesDuplas[quadraKey] || {};
+
+    if (Object.keys(excecoesDaQuadra).length === 0) {
+        listaExcecoesDiv.innerHTML = '<p>Nenhuma exceção cadastrada.</p>';
+        return;
+    }
+
+    const ul = document.createElement('ul');
+    // Ordena as datas antes de exibi-las
+    Object.keys(excecoesDaQuadra).sort().forEach(data => {
+        const excecao = excecoesDaQuadra[data];
+        const li = document.createElement('li');
+        
+        // --- LÓGICA DE EXIBIÇÃO EM MÚLTIPLAS LINHAS ---
+        li.innerHTML = `
+            <div>
+                <div><strong>${formatarDataParaExibicao(data)}</strong></div>
+                <div style="font-style: italic; color: #555;">${excecao.descricao || 'Sem descrição'}</div>
+                <div>${excecao.regras.inicio} às ${excecao.regras.fim}</div>
+            </div>
+            <button class="btn-remover" onclick="removerExcecao('${quadraKey}', '${data}')">X</button>
+        `;
+        // --- FIM DA LÓGICA DE EXIBIÇÃO ---
+
+        ul.appendChild(li);
+    });
+    listaExcecoesDiv.appendChild(ul);
+}
+
+
+
+/**
+ * MODIFICADA: Adiciona uma nova exceção e, ao mesmo tempo, garante que a quadra
+ * correspondente seja marcada como 'ativa' no Firebase, resolvendo o problema de sincronia.
+ */
+function adicionarExcecao() {
+    const descricao = document.getElementById('excecaoDescricao').value.trim();
+    const dataInput = document.getElementById('excecaoData').value;
+    const inicio = document.getElementById('excecaoInicio').value;
+    const fim = document.getElementById('excecaoFim').value;
+
+    if (!dataInput || !inicio || !fim) {
+        alert('Por favor, preencha a data e os horários da exceção.');
+        return;
+    }
+
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0); 
+    const dataSelecionada = new Date(dataInput + 'T00:00:00');
+
+    if (dataSelecionada < hoje) {
+        alert('Não é permitido cadastrar datas passadas.');
+        return;
+    }
+
+    const quadraKey = `Quadra-${quadraAtualParaExcecao}`;
+    
+    const novaExcecao = {
+        descricao: descricao,
+        regras: { inicio: inicio, fim: fim }
+    };
+
+    // --- LÓGICA DE ATUALIZAÇÃO ATÔMICA ---
+    // Cria um objeto para atualizar múltiplos locais no Firebase de uma só vez.
+    const updates = {};
+    
+    // Caminho para a nova exceção
+    updates[`sistemas/config/Duplas/DatasEspeciais/${quadraKey}/${dataInput}`] = novaExcecao;
+    
+    // Caminho para o estado 'ativa' da quadra, que será setado para 'true'
+    updates[`sistemas/config/Duplas/${quadraKey}/${quadraKey}-ativa`] = true;
+
+    // Executa a atualização atômica no Firebase
+    db.ref().update(updates).then(() => {
+        console.log("Exceção e estado da quadra salvos com sucesso!");
+        alert("Data adicionada com sucesso!");
+        
+        // Limpa os campos do formulário após o sucesso
+        document.getElementById('excecaoDescricao').value = '';
+        document.getElementById('excecaoData').value = '';
+        document.getElementById('excecaoInicio').value = '';
+        document.getElementById('excecaoFim').value = '';
+
+        // O listener 'on("value")' já vai atualizar a tela,
+        // mas podemos forçar a renderização para uma resposta mais rápida se necessário
+        renderizarExcecoes(quadraAtualParaExcecao);
+
+    }).catch(error => {
+        console.error("Erro ao salvar exceção e estado da quadra:", error);
+        alert("Ocorreu um erro ao salvar a exceção.");
+    });
+}
+
+
+
+/**
+ * MODIFICADA: Remove uma exceção diretamente do Firebase.
+ * A função agora constrói o caminho para o dado a ser removido e usa .remove().
+ * Uma mensagem de confirmação é exibida antes da exclusão.
+ */
+function removerExcecao(quadraKey, dataExcecao) {
+    if (confirm(`Tem certeza que deseja remover a exceção do dia ${formatarDataParaExibicao(dataExcecao)}?`)) {
+        
+        const dataPath = `sistemas/config/Duplas/DatasEspeciais/${quadraKey}/${dataExcecao}`;
+
+        // Remove o nó específico do Firebase
+        db.ref(dataPath).remove().then(() => {
+            console.log("Data removida com sucesso!");
+            alert("Data removida com sucesso!");
+            // O listener 'on("value")' vai cuidar de atualizar a UI.
+        }).catch(error => {
+            console.error("Erro ao remover exceção:", error);
+            alert("Ocorreu um erro ao remover a exceção.");
+        });
+    }
+}
+
+
+
+
+function formatarDataParaExibicao(data) {
+    const partes = data.split('-');
+    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
+
+// --- MUDANÇA AQUI: Função atualizada para fechar os dois modais ---
+window.onclick = function(event) {
+    if (event.target == modal) { // Modal de Exceções
+        fecharModalExcecao();
+    }
+    if (event.target == modalBloqueio) { // Modal de Bloqueio
+        fecharModalBloqueio();
+    }
+    // ADICIONADO: Verifica o modal de Dias da Semana
+    if (event.target == document.getElementById('modalDiasSemanaDuplas')) {
+        fecharModalDiasSemana();
+    }
+}
+
+ 
+// --- GERENCIAMENTO DE EXCEÇÕES (FIM) ---
+
+
+// --- NOVO: GERENCIAMENTO DE BLOQUEIO DE QUADRA (INÍCIO) ---
+
+// Variáveis de controle para o novo modal de bloqueio
+const modalBloqueio = document.getElementById('modalBloqueioQuadra');
+const listaBloqueiosDiv = document.getElementById('listaBloqueios');
+let quadraAtualParaBloqueio = null;
+let bloqueiosQuadra = {}; // Objeto para armazenar os bloqueios (atualmente, só no lado do cliente)
+
+/**
+ * Função chamada pelo evento onchange dos selects de estado da quadra.
+ * Verifica se a opção "bloqueada" foi selecionada para abrir o modal.
+ * @param {HTMLElement} selectElement - O elemento <select> que foi alterado.
+ * @param {number} quadraNumero - O número da quadra (1, 2 ou 3).
+ */
+function handleEstadoQuadraChange(selectElement, quadraNumero) {
+    const valorSelecionado = selectElement.value;
+    
+    if (valorSelecionado === 'bloqueada') {
+        abrirModalBloqueio(quadraNumero);
+    }
+}
+
+/**
+ * Abre o modal de bloqueio para a quadra especificada e executa a limpeza automática.
+ * @param {number} quadraNumero - O número da quadra a ser bloqueada.
+ */
+async function abrirModalBloqueio(quadraNumero) {
+    // --- LÓGICA DE LIMPEZA CONDICIONAL ---
+    if (vlimparBloqueiosAntigos === false) {
+        try {
+            await limparBloqueiosAntigos();
+            vlimparBloqueiosAntigos = true; // Marca que a limpeza foi executada nesta sessão
+        } catch (error) {
+            console.error("Ocorreu um erro durante a limpeza de bloqueios antigos:", error);
+            alert("Não foi possível limpar os bloqueios antigos. Verifique o console.");
+        }
+    }
+    // --- FIM DA LÓGICA DE LIMPEZA ---
+
+    quadraAtualParaBloqueio = quadraNumero;
+    
+    // Define o título do modal dinamicamente com base no label da quadra
+    const labelQuadra = document.querySelector(`label[for="estadoQuadra${quadraNumero}"]`).innerText;
+    document.getElementById('modalBloqueioTitulo').innerText = `Bloqueio ${labelQuadra}`;
+    
+    // Renderiza os bloqueios já existentes para a quadra selecionada
+    renderizarBloqueios(quadraNumero);
+    modalBloqueio.style.display = 'flex';
+}
+
+
+
+/**
+ * Fecha o modal de bloqueio.
+ */
+function fecharModalBloqueio() {
+    modalBloqueio.style.display = 'none';
+}
+
+/**
+ * Renderiza a lista de bloqueios no modal.
+ * @param {number} quadraNumero - O número da quadra cujos bloqueios serão exibidos.
+ */
+function renderizarBloqueios(quadraNumero) {
+    listaBloqueiosDiv.innerHTML = '';
+    const quadraKey = `Quadra-${quadraNumero}`;
+    const bloqueiosDaQuadra = bloqueiosQuadra[quadraKey] || {};
+
+    if (Object.keys(bloqueiosDaQuadra).length === 0) {
+        listaBloqueiosDiv.innerHTML = '<p>Nenhum bloqueio cadastrado.</p>';
+        return;
+    }
+
+    const ul = document.createElement('ul');
+    // Ordena as datas antes de exibir
+    Object.keys(bloqueiosDaQuadra).sort().forEach(data => {
+        const bloqueio = bloqueiosDaQuadra[data];
+        const li = document.createElement('li');
+        
+        li.innerHTML = `
+            <div>
+                <div><strong>${formatarDataParaExibicao(data)}</strong></div>
+                <div style="font-style: italic; color: #555;">${bloqueio.descricao || 'Sem descrição'}</div>
+                <div>${bloqueio.regras.inicio} às ${bloqueio.regras.fim}</div>
+            </div>
+            <button class="btn-remover" onclick="removerBloqueio('${quadraKey}', '${data}')">X</button>
+        `;
+        ul.appendChild(li);
+    });
+    listaBloqueiosDiv.appendChild(ul);
+}
+
+/**
+ * Adiciona um novo bloqueio à estrutura de dados 'bloqueiosQuadra'.
+ */
+function adicionarBloqueio() {
+    const descricao = document.getElementById('bloqueioDescricao').value.trim();
+    const dataInput = document.getElementById('bloqueioData').value;
+    const inicio = document.getElementById('bloqueioInicio').value;
+    const fim = document.getElementById('bloqueioFim').value;
+
+    if (!dataInput || !inicio || !fim) {
+        alert('Por favor, preencha a data e os horários do bloqueio.');
+        return;
+    }
+    
+    const quadraKey = `Quadra-${quadraAtualParaBloqueio}`;
+    
+    // Cria a subestrutura para a quadra, se ainda não existir
+    if (!bloqueiosQuadra[quadraKey]) {
+        bloqueiosQuadra[quadraKey] = {};
+    }
+    
+    // Adiciona os dados do bloqueio
+    bloqueiosQuadra[quadraKey][dataInput] = {
+        descricao: descricao,
+        regras: { inicio, fim }
+    };
+    
+    alert("Bloqueio adicionado com sucesso! Lembre-se de salvar as configurações gerais.");
+    
+    // Limpa os campos do formulário
+    document.getElementById('bloqueioDescricao').value = '';
+    document.getElementById('bloqueioData').value = '';
+    document.getElementById('bloqueioInicio').value = '';
+    document.getElementById('bloqueioFim').value = '';
+    
+    // Atualiza a lista exibida no modal
+    renderizarBloqueios(quadraAtualParaBloqueio);
+}
+
+/**
+ * Remove um bloqueio da estrutura de dados 'bloqueiosQuadra'.
+ * @param {string} quadraKey - A chave da quadra (ex: 'Quadra-1').
+ * @param {string} dataBloqueio - A data do bloqueio a ser removido (ex: '2025-06-26').
+ */
+function removerBloqueio(quadraKey, dataBloqueio) {
+    if (confirm(`Tem certeza que deseja remover o bloqueio do dia ${formatarDataParaExibicao(dataBloqueio)}?`)) {
+        if (bloqueiosQuadra[quadraKey] && bloqueiosQuadra[quadraKey][dataBloqueio]) {
+            delete bloqueiosQuadra[quadraKey][dataBloqueio];
+            alert("Bloqueio removido. Lembre-se de salvar as configurações para persistir a alteração.");
+            renderizarBloqueios(quadraAtualParaBloqueio);
+        }
+    }
+}
+// --- NOVO: GERENCIAMENTO DE BLOQUEIO DE QUADRA (FIM) ---
+
+
+/**
+ * Abre o modal para configurar os dias da semana para uma quadra específica.
+ * @param {number} quadraNumero - O número da quadra (1, 2 ou 3).
+ */
+function abrirModalDiasSemana(quadraNumero) {
+    quadraAtualParaDiasSemana = quadraNumero;
+    const quadraKey = `Quadra-${quadraNumero}`;
+
+    // Define o título do modal dinamicamente
+    const quadraNome = document.querySelector(`#duplasQuadra${quadraNumero}Container .centraliza-checkbox span`).innerText;
+    document.getElementById('modalDiasSemanaTitulo').innerText = `${quadraNome}`;
+
+    // Carrega a configuração atual para os checkboxes do modal
+    // Se não houver configuração, o padrão é todos os dias marcados
+    const config = diasSemanaDuplasConfig[quadraKey] || {
+        segunda: true, terca: true, quarta: true, quinta: true, sexta: true
+    };
+
+    document.getElementById('duplas-segunda').checked = config.segunda;
+    document.getElementById('duplas-terca').checked = config.terca;
+    document.getElementById('duplas-quarta').checked = config.quarta;
+    document.getElementById('duplas-quinta').checked = config.quinta;
+    document.getElementById('duplas-sexta').checked = config.sexta;
+
+    // Exibe o modal
+    document.getElementById('modalDiasSemanaDuplas').style.display = 'flex';
+}
+
+
+/**
+ * Fecha o modal de configuração dos dias da semana.
+ */
+function fecharModalDiasSemana() {
+    document.getElementById('modalDiasSemanaDuplas').style.display = 'none';
+    quadraAtualParaDiasSemana = null;
+}
+
+
+/**
+ * Salva a configuração dos dias da semana (no objeto JavaScript) e fecha o modal.
+ */
+function salvarModalDiasSemana() {
+    if (!quadraAtualParaDiasSemana) return;
+
+    const quadraKey = `Quadra-${quadraAtualParaDiasSemana}`;
+
+    const config = {
+        segunda: document.getElementById('duplas-segunda').checked,
+        terca: document.getElementById('duplas-terca').checked,
+        quarta: document.getElementById('duplas-quarta').checked,
+        quinta: document.getElementById('duplas-quinta').checked,
+        sexta: document.getElementById('duplas-sexta').checked
+    };
+
+    // Atualiza o objeto de configuração global
+    diasSemanaDuplasConfig[quadraKey] = config;
+
+    alert('Configuração salva. Clique em "Salvar Configurações" no final da página para gravar as mudanças.');
+    fecharModalDiasSemana();
+}
+
+
+
+/**
+ * Configura os eventos de toque (touch) para simular um "pressionar e segurar" em dispositivos móveis.
+ * @param {HTMLElement} element - O elemento <select> ao qual os eventos serão adicionados.
+ * @param {number} quadraNumero - O número da quadra correspondente.
+ */
+function setupMobileHoldEvents(element, quadraNumero) {
+    let holdTimer;
+
+    // Evento disparado quando o usuário toca na tela
+    element.addEventListener('touchstart', function(e) {
+        // Inicia um cronômetro de 700ms. Se o usuário não tirar o dedo, a função para abrir o modal será chamada.
+        holdTimer = setTimeout(function() {
+            // Reutiliza a mesma função do duplo clique para abrir o modal
+            handleEstadoQuadraChange(element, quadraNumero);
+        }, 700); // 700 milissegundos para considerar como "segurar"
+    });
+
+    // Evento disparado quando o usuário tira o dedo da tela
+    element.addEventListener('touchend', function(e) {
+        // Cancela o cronômetro para evitar que o modal abra se foi apenas um toque rápido.
+        clearTimeout(holdTimer);
+    });
+
+    // Evento disparado se o usuário arrastar o dedo pela tela (scroll)
+    element.addEventListener('touchmove', function(e) {
+        // Também cancela o cronômetro para não confundir com o gesto de rolagem.
+        clearTimeout(holdTimer);
+    });
+}
 </script>
 </body>
 </html>
