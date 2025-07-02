@@ -35,7 +35,7 @@ body {
 
 /* Cabeçalho da tela de login */
 #loginHeader {
-    margin-bottom: 30px;
+    margin-bottom: 30px;  
 }
 
 #loginHeader h1 {
@@ -470,7 +470,7 @@ th {
 
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script> 
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>  
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>   
 
 	
 	
@@ -479,8 +479,8 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.2.8'; // Versão atual do sistema 
-let vDesabilitarF12 = true; // deixar true para fazer o deploy
+const VersaoSistema = 'v1.2.9'; // Versão atual do sistema 
+let vDesabilitarF12 = true; // deixar true para fazer o deploy 
 let vAbrirSistema = true; // deixar true para fazer o deploy
 
 let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário 
@@ -495,6 +495,8 @@ const jogadoresRestritos = ["YURI HARDER", "EDUARDO BERGMAN","BIANCA KROKER","MA
 let quadrasInativas = new Set();
 let reservasPorQuadra = {};
 let quadraSelecionada = 'Quadra 1 - Coberta'; 
+let duplasConfigGlobais = {}; 
+let convidadoConfigGlobais = {};
 
 //***********************************************************************************************************************************************************************
 
@@ -753,6 +755,10 @@ function InicializarSistema() {
                     window.vDomingo = config.vDomingo || "fechado";
                     window.vDomingoAte = config.vDomingoAte || "23:00"; // Valor padrão caso não esteja definido
 					
+					duplasConfigGlobais = config.Duplas || {}; // Carrega a config de Duplas na variável global
+					
+				    convidadoConfigGlobais = config.Convidados || {}; // Carrega a config de Convidados
+					
                     quadrasInativas.clear();
                     const quadras = config.Quadras || {};
                     if (quadras.Quadra1 === "interditada") quadrasInativas.add("Quadra 1 - Coberta");
@@ -762,7 +768,7 @@ function InicializarSistema() {
                     atualizarDatas();
 					
 					if (vatualizarOpcoesHorario) {
-			          atualizarOpcoesHorario();
+					  atualizarOpcoesHorario();
 					  vatualizarOpcoesHorario = false;
 					}
                 }
@@ -1007,6 +1013,7 @@ function atualizarEstadoDomingo() {
             }
         }
     }
+	atualizarOpcoesHorario();
 }
 
 
@@ -1278,7 +1285,7 @@ function validarDiaReserva(jogadores) {
             return false;
         }
 
-        const configPiramide = window.config?.Piramide;
+        const configPiramide = window.config?.Piramide; 
         if (!configPiramide || !configPiramide.ativa) {
             alert("Configuração da Pirâmide não foi encontrada ou está desativada. Atualize a página.");
             return false;
@@ -1734,73 +1741,73 @@ async function atualizarTabela() {
         return;
     }
 	
+		
 	
     const dia = parseInt(document.getElementById('dia').value, 10);
     const horaSelecionada = parseInt(document.getElementById('hora').value, 10);
 
     console.log("Dia selecionado:", dia, "Hora selecionada:", horaSelecionada, "Duração:", duracao);
 
-    const isConvidado = jogadores.includes("Convidado");
-    if (isConvidado) {
-        const configRef = database.ref("sistemas/config/Convidados");
-        const snapshot = await configRef.once('value');
-        const convidadoConfig = snapshot.val();
+    // SUBSTITUA O TRECHO ANTIGO DENTRO DE atualizarTabela POR ESTE:
 
-        if (!convidadoConfig) {
-            alert("Configurações do convidado não encontradas.");
-            return;
-        }
+	const isConvidado = jogadores.includes("Convidado");
+	if (isConvidado) {
+		// Agora, em vez de buscar no banco, usamos a variável global.
+		const convidadoConfig = convidadoConfigGlobais;
 
-        // Verifica se todas as quadras estão desativadas OU todos os dias estão desativados
-        if (
-            (!convidadoConfig.Quadra1 && !convidadoConfig.Quadra2 && !convidadoConfig.Quadra3) || // Todas as quadras desativadas
-            (!convidadoConfig.DiasDeSemana && !convidadoConfig.FimDeSemana) // Todos os dias desativados
-        ) {
-            alert("Convidados não podem jogar, pois todas as quadras ou todos os dias estão desativados para não sócios.");
-            return;
-        }
+		if (!convidadoConfig) {
+			alert("Configurações do convidado não encontradas.");
+			return;
+		}
 
+		// Verifica se todas as quadras estão desativadas OU todos os dias estão desativados
+		if (
+			(!convidadoConfig.Quadra1 && !convidadoConfig.Quadra2 && !convidadoConfig.Quadra3) || // Todas as quadras desativadas
+			(!convidadoConfig.DiasDeSemana && !convidadoConfig.FimDeSemana) // Todos os dias desativados
+		) {
+			alert("Convidados não podem jogar, pois todas as quadras ou todos os dias estão desativados para não sócios.");
+			return;
+		}
 
-        // Verifica se a quadra selecionada é permitida para o convidado
-        const quadraPermitida = convidadoConfig[`Quadra${quadra.split(' ')[1]}`];
-        if (!quadraPermitida) {
-		    // Monta a mensagem informando quais quadras são permitidas
-            const quadrasPermitidas = [];
-            if (convidadoConfig.Quadra1) quadrasPermitidas.push("Quadra 1 - Coberta");
-            if (convidadoConfig.Quadra2) quadrasPermitidas.push("Quadra 2 - Aberta");
-            if (convidadoConfig.Quadra3) quadrasPermitidas.push("Quadra 3 - Coberta");
+		// Verifica se a quadra selecionada é permitida para o convidado
+		const quadraPermitida = convidadoConfig[`Quadra${quadra.split(' ')[1]}`];
+		if (!quadraPermitida) {
+			// Monta a mensagem informando quais quadras são permitidas
+			const quadrasPermitidas = [];
+			if (convidadoConfig.Quadra1) quadrasPermitidas.push("Quadra 1 - Coberta");
+			if (convidadoConfig.Quadra2) quadrasPermitidas.push("Quadra 2 - Aberta");
+			if (convidadoConfig.Quadra3) quadrasPermitidas.push("Quadra 3 - Coberta");
 
-            const mensagemQuadras = quadrasPermitidas.length > 0
-                ? `Convidados só podem utilizar as seguintes quadras: ${quadrasPermitidas.join(", ")}.`
-                : "Convidados não podem utilizar nenhuma quadra.";
-            limparCampos();
-            alert(mensagemQuadras);
-            return;
-        }
+			const mensagemQuadras = quadrasPermitidas.length > 0
+				? `Convidados só podem utilizar as seguintes quadras: ${quadrasPermitidas.join(", ")}.`
+				: "Convidados não podem utilizar nenhuma quadra.";
+			limparCampos();
+			alert(mensagemQuadras);
+			return;
+		}
 		
-    
-	    // Verifica os dias permitidos para o convidado
-        const diaDaSemana = dia >= 1 && dia <= 5; // Segunda a sexta
-        const fimDeSemana = dia === 6 || dia === 7; // Sábado e domingo
+		// Verifica os dias permitidos para o convidado
+		const diaDaSemana = dia >= 1 && dia <= 5; // Segunda a sexta
+		const fimDeSemana = dia === 6 || dia === 7; // Sábado e domingo
 
-        if (!convidadoConfig.DiasDeSemana && !convidadoConfig.FimDeSemana) {
-            alert("Convidados não podem fazer reservas em nenhum dia.");
-            limparCampos();
-            return;
-        }
+		if (!convidadoConfig.DiasDeSemana && !convidadoConfig.FimDeSemana) {
+			alert("Convidados não podem fazer reservas em nenhum dia.");
+			limparCampos();
+			return;
+		}
 
-        if (!convidadoConfig.DiasDeSemana && diaDaSemana) {
-            alert("Convidados só podem fazer reservas no fim de semana (sábado e domingo).");
-            limparCampos();
-            return;
-        }
+		if (!convidadoConfig.DiasDeSemana && diaDaSemana) {
+			alert("Convidados só podem fazer reservas no fim de semana (sábado e domingo).");
+			limparCampos();
+			return;
+		}
 
-        if (!convidadoConfig.FimDeSemana && fimDeSemana) {
-            alert("Convidados só podem fazer reservas durante a semana (segunda a sexta).");
-            limparCampos();
-            return;
-        }
-    }
+		if (!convidadoConfig.FimDeSemana && fimDeSemana) {
+			alert("Convidados só podem fazer reservas durante a semana (segunda a sexta).");
+			limparCampos();
+			return;
+		}
+	}
 
     if (!validarDiaReserva(jogadores)) {
         console.log("Validação de dia falhou.");
@@ -1822,8 +1829,25 @@ async function atualizarTabela() {
         alert('Horário selecionado deve ser entre 6 e 22.');
         return;
     }
-
-    const reservasRef = database.ref(`sistemas/reservas/${quadra}`);
+	
+	
+	// >>> VALIDAÇAO DE DUPLAS <<<
+    //const quadra = document.getElementById('quadra').value;
+    //const dia = parseInt(document.getElementById('dia').value, 10);
+    //const horaSelecionada = parseInt(document.getElementById('hora').value, 10);
+    
+    //const isRegraDuplasOk = await validarRegraDeDuplas(jogadores, quadra, dia, horaSelecionada);
+	// Linha nova (adicionando a variável 'duracao'):
+	//const duracao = parseInt(document.getElementById('duracao').value); // Esta linha já deve existir um pouco mais acima no seu código
+	const isRegraDuplasOk = await validarRegraDeDuplas(jogadores, quadra, dia, horaSelecionada, duracao);
+    if (!isRegraDuplasOk) {
+        limparCampos(); // Limpa o formulário se a validação falhar
+        return; // Interrompe o processo de agendamento
+    }
+    // >>> FIM DO NOVO BLOCO DE DUPLAS <<<
+	
+	
+	const reservasRef = database.ref(`sistemas/reservas/${quadra}`);
     console.log("📦 Referência do Firebase:", `sistemas/reservas/${quadra}`);
 
     const key1 = `${dia}_${horaSelecionada}`;
@@ -3102,6 +3126,137 @@ function atualizarPrimeiroAcesso(jogadorLogado) {
     } else {
         console.error("❌ SessionId não encontrado. Não foi possível atualizar 'primeiro acesso'.");
     }
+}
+
+async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, duracao) {
+    console.clear();
+    console.log("--- INICIANDO VALIDAÇÃO DE DUPLAS ---");
+    console.log(`Dados recebidos: Quadra=${quadraSelecionada}, DiaSemana=${dia}, HoraInício=${hora}, Duração=${duracao}h`);
+
+    const duplasConfig = duplasConfigGlobais;
+    
+    if (!duplasConfig || !duplasConfig.ativa) {
+        console.log("VALIDAÇÃO OK: Regra de Duplas está desativada globalmente.");
+        return true;
+    }
+
+    if (jogadores.some(j => j.toLowerCase() === 'aula')) {
+        console.log("VALIDAÇÃO OK: Reserva é uma aula.");
+        return true;
+    }
+
+    const quadraKey = `Quadra-${quadraSelecionada.split(' ')[1]}`;
+    const configDaQuadra = duplasConfig[quadraKey];
+    
+    if (!configDaQuadra || !configDaQuadra[`${quadraKey}-ativa`]) {
+        console.log(`VALIDAÇÃO OK: Regra de Duplas está desativada para a ${quadraKey}.`);
+        return true;
+    }
+
+    // Lógica de Exceções (Datas Especiais)
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+    const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
+    let diff = dia - diaDaSemanaHoje;
+    if (diff < 0) diff += 7;
+    const dataReserva = new Date(hoje);
+    dataReserva.setDate(hoje.getDate() + diff);
+    const dataFormatadaParaChave = `${dataReserva.getFullYear()}-${String(dataReserva.getMonth() + 1).padStart(2, '0')}-${String(dataReserva.getDate()).padStart(2, '0')}`;
+    
+    const excecao = duplasConfig.DatasEspeciais?.[quadraKey]?.[dataFormatadaParaChave];
+    
+    if (excecao && excecao.regras) {
+        console.log("✅ REGRA DE EXCEÇÃO ENCONTRADA:", excecao);
+        const horarioInicioRegra = parseInt((excecao.regras.inicio || "0:00").split(':')[0]);
+        const horarioFimRegra = parseInt((excecao.regras.fim || "0:00").split(':')[0]);
+        const horarioFimReserva = hora + duracao;
+
+        if (hora < horarioFimRegra && horarioFimReserva > horarioInicioRegra) {
+            if (jogadores.length !== 4) {
+                alert(`⚠️ Atenção: Regra de Exceção\n\nNa data ${dataFormatadaParaChave.split('-').reverse().join('/')} (${excecao.descricao || 'Data Especial'}), o horário das ${excecao.regras.inicio} às ${excecao.regras.fim} na ${quadraSelecionada} é exclusivo para jogos de duplas com 4 jogadores.`);
+                return false;
+            }
+        }
+        console.log("VALIDAÇÃO OK: A reserva não conflita com a regra de exceção ou atende aos requisitos.");
+        return true;
+    }
+
+    // Lógica para Regras Semanais
+    const diaDaSemana = dia >= 1 && dia <= 5;
+    const sabado = dia === 6;
+    const domingo = dia === 7;
+
+    if (diaDaSemana) {
+        const diaKeyGeral = `${quadraKey.split('-')[1]}-DiasDeSemana`;
+        
+        if (!configDaQuadra[diaKeyGeral]) {
+            return true;
+        }
+
+        const configDiasEspecificos = configDaQuadra.DiasDeSemanaConfig;
+        if (!configDiasEspecificos) {
+            return true;
+        }
+
+        const diaSemanaMap = { 1: 'segunda', 2: 'terca', 3: 'quarta', 4: 'quinta', 5: 'sexta' };
+        const diaStringKey = diaSemanaMap[dia];
+
+        if (!configDiasEspecificos[diaStringKey]) {
+            return true;
+        }
+        
+        const inicioKey = `${diaKeyGeral}-Inicio`;
+        const fimKey = `${diaKeyGeral}-Fim`;
+        const horarioInicioRegra = parseInt((configDaQuadra[inicioKey] || "0:00").split(':')[0]);
+        const horarioFimRegra = parseInt((configDaQuadra[fimKey] || "0:00").split(':')[0]);
+        const horarioFimReserva = hora + duracao;
+
+        if (hora < horarioFimRegra && horarioFimReserva > horarioInicioRegra) {
+            if (jogadores.length !== 4) {
+                // --- INÍCIO DA LÓGICA DE MENSAGEM ATUALIZADA ---
+                const diasAtivosNomes = [];
+                if (configDiasEspecificos.segunda) diasAtivosNomes.push("Segunda-feira");
+                if (configDiasEspecificos.terca) diasAtivosNomes.push("Terça-feira");
+                if (configDiasEspecificos.quarta) diasAtivosNomes.push("Quarta-feira");
+                if (configDiasEspecificos.quinta) diasAtivosNomes.push("Quinta-feira");
+                if (configDiasEspecificos.sexta) diasAtivosNomes.push("Sexta-feira");
+
+                let textoDias;
+                // Condição: Só especifica os dias se NÃO forem todos os 5 dias da semana.
+                if (diasAtivosNomes.length < 5) {
+                    textoDias = `nos seguintes dias: ${diasAtivosNomes.join(', ')}`;
+                } else {
+                    textoDias = "durante a semana";
+                }
+                
+                alert(`⚠️ Atenção: Regra de Duplas\n\nNa ${quadraSelecionada}, o horário das ${configDaQuadra[inicioKey]} às ${configDaQuadra[fimKey]} ${textoDias} é exclusivo para jogos de duplas!\n\nPara prosseguir com o agendamento, é obrigatório inserir os quatro jogadores.`);
+                // --- FIM DA LÓGICA DE MENSAGEM ATUALIZADA ---
+                return false;
+            }
+        }
+    } else if (sabado || domingo) {
+        const diaKey = sabado ? `${quadraKey.split('-')[1]}-Sabado` : `${quadraKey.split('-')[1]}-Domingo`;
+        if (!configDaQuadra[diaKey]) {
+            return true;
+        }
+
+        const inicioKey = `${diaKey}-Inicio`;
+        const fimKey = `${diaKey}-Fim`;
+        const horarioInicioRegra = parseInt((configDaQuadra[inicioKey] || "0:00").split(':')[0]);
+        const horarioFimRegra = parseInt((configDaQuadra[fimKey] || "0:00").split(':')[0]);
+        const horarioFimReserva = hora + duracao;
+
+        if (hora < horarioFimRegra && horarioFimReserva > horarioInicioRegra) {
+            if (jogadores.length !== 4) {
+                const nomeDoPeriodo = sabado ? "aos Sábados" : "aos Domingos";
+                alert(`⚠️ Atenção: Regra de Duplas\n\nNa ${quadraSelecionada}, o horário das ${configDaQuadra[inicioKey]} às ${configDaQuadra[fimKey]} ${nomeDoPeriodo} é exclusivo para jogos de duplas!\n\nPara prosseguir com o agendamento, é obrigatório inserir os quatro jogadores.`);
+                return false;
+            }
+        }
+    }
+
+    console.log("VALIDAÇÃO OK: A reserva passou por todas as regras de Duplas.");
+    return true; 
 }
 
 </script>
