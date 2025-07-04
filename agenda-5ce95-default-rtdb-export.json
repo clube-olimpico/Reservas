@@ -901,16 +901,23 @@
           "Quadra-2-ativa": false
         },
         "Quadra-3": {
-          "3-DiasDeSemana": false,
-          "3-DiasDeSemana-Fim": "",
-          "3-DiasDeSemana-Inicio": "",
+          "3-DiasDeSemana": true,
+          "3-DiasDeSemana-Fim": "19:00",
+          "3-DiasDeSemana-Inicio": "17:00",
           "3-Domingo": false,
           "3-Domingo-Fim": "",
           "3-Domingo-Inicio": "",
           "3-Sabado": false,
           "3-Sabado-Fim": "",
           "3-Sabado-Inicio": "",
-          "Quadra-3-ativa": false
+          "DiasDeSemanaConfig": {
+            "quarta": true,
+            "quinta": false,
+            "segunda": true,
+            "sexta": false,
+            "terca": false
+          },
+          "Quadra-3-ativa": true
         },
         "ativa": true
       },
@@ -1384,6 +1391,18 @@
           "hora": 16,
           "jogadores": "Giovani Lima"
         },
+        "6_17": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Lucas Titon"
+        },
+        "6_18": {
+          "dia": 6,
+          "hora": 18,
+          "jogadores": "Flavia Titon"
+        },
         "6_7": {
           "borda": "1h",
           "dia": 6,
@@ -1404,56 +1423,21 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
+        },
+        "7_10": {
+          "dia": 7,
+          "hora": 10,
+          "jogadores": "Henrique Santos"
+        },
+        "7_9": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 9,
+          "jogadores": "Airton Santos"
         }
       },
       "Quadra 3 - Coberta": {
-        "3_17": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Flavio Ferraz"
-        },
-        "3_18": {
-          "dia": 3,
-          "hora": 18,
-          "jogadores": "Gustavo Ferraz"
-        },
-        "3_19": {
-          "borda": "1h",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 19,
-          "jogadores": "Fabio Batista"
-        },
-        "3_20": {
-          "borda": "1h",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 20,
-          "jogadores": "Isa"
-        },
-        "3_21": {
-          "borda": "1h",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 21,
-          "jogadores": "Aline Garcia, Ricardo Lima"
-        },
-        "3_8": {
-          "borda": "1h",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 8,
-          "jogadores": "Henrique Santos"
-        },
-        "3_9": {
-          "borda": "1h",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 9,
-          "jogadores": "Adriano Feitosa"
-        },
         "4_16": {
           "borda": "2h",
           "dia": 4,
@@ -1480,36 +1464,17 @@
           "hora": 19,
           "jogadores": "Diego Paraiso"
         },
-        "4_20": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 20,
-          "jogadores": "Arthur Amorim"
-        },
-        "5_15": {
+        "5_17": {
           "borda": "2h",
           "dia": 5,
           "duracao": 2,
-          "hora": 15,
-          "jogadores": "Alexa"
-        },
-        "5_16": {
-          "dia": 5,
-          "hora": 16,
-          "jogadores": "Susan"
+          "hora": 17,
+          "jogadores": "Ana Ribeiro"
         },
         "5_18": {
-          "borda": "2h",
           "dia": 5,
-          "duracao": 2,
           "hora": 18,
-          "jogadores": "Natan"
-        },
-        "5_19": {
-          "dia": 5,
-          "hora": 19,
-          "jogadores": "Vivianne Laverde"
+          "jogadores": "Marco Ribeiro"
         },
         "5_20": {
           "borda": "2h",
@@ -1535,6 +1500,18 @@
           "hora": 11,
           "jogadores": "Bigode"
         },
+        "6_13": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 13,
+          "jogadores": "Arthur Amorim"
+        },
+        "6_14": {
+          "dia": 6,
+          "hora": 14,
+          "jogadores": "Isa"
+        },
         "6_15": {
           "borda": "2h",
           "dia": 6,
@@ -1546,6 +1523,25 @@
           "dia": 6,
           "hora": 16,
           "jogadores": "Gustavo Ferraz"
+        },
+        "6_17": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 17,
+          "jogadores": "Robson Schneider"
+        },
+        "6_19": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Alexa"
+        },
+        "6_20": {
+          "dia": 6,
+          "hora": 20,
+          "jogadores": "Susan"
         },
         "6_8": {
           "borda": "2h",
