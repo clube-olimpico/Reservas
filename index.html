@@ -479,8 +479,8 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.2.9'; // Versão atual do sistema 
-let vDesabilitarF12 = true; // deixar true para fazer o deploy 
+const VersaoSistema = 'v1.3.0'; // Versão atual do sistema 
+let vDesabilitarF12 = true; // deixar true para fazer o deploy  
 let vAbrirSistema = true; // deixar true para fazer o deploy
 
 let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário 
@@ -3134,39 +3134,37 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
     console.log(`Dados recebidos: Quadra=${quadraSelecionada}, DiaSemana=${dia}, HoraInício=${hora}, Duração=${duracao}h`);
 
     const duplasConfig = duplasConfigGlobais;
-    
-    if (!duplasConfig || !duplasConfig.ativa) {
-        console.log("VALIDAÇÃO OK: Regra de Duplas está desativada globalmente.");
-        return true;
-    }
 
+    if (!duplasConfig || !duplasConfig.ativa) {
+        return true; // Regra global desativada
+    }
     if (jogadores.some(j => j.toLowerCase() === 'aula')) {
-        console.log("VALIDAÇÃO OK: Reserva é uma aula.");
-        return true;
+        return true; // Regra não se aplica a aulas
     }
 
     const quadraKey = `Quadra-${quadraSelecionada.split(' ')[1]}`;
     const configDaQuadra = duplasConfig[quadraKey];
-    
+
     if (!configDaQuadra || !configDaQuadra[`${quadraKey}-ativa`]) {
-        console.log(`VALIDAÇÃO OK: Regra de Duplas está desativada para a ${quadraKey}.`);
-        return true;
+        return true; // Regra desativada para esta quadra
     }
 
-    // Lógica de Exceções (Datas Especiais)
+    // --- INÍCIO DA LÓGICA DE DATA PARA FLEXIBILIZAÇÃO ---
     const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0);
-    const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
+    hoje.setHours(0, 0, 0, 0); // Normaliza para o início do dia para uma comparação justa
+    const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay(); // Ajusta Domingo para ser 7
     let diff = dia - diaDaSemanaHoje;
-    if (diff < 0) diff += 7;
-    const dataReserva = new Date(hoje);
-    dataReserva.setDate(hoje.getDate() + diff);
-    const dataFormatadaParaChave = `${dataReserva.getFullYear()}-${String(dataReserva.getMonth() + 1).padStart(2, '0')}-${String(dataReserva.getDate()).padStart(2, '0')}`;
+    if (diff < 0) {
+        diff += 7;
+    }
+    const dataDaReserva = new Date(hoje);
+    dataDaReserva.setDate(hoje.getDate() + diff);
+    const dataFormatadaParaChave = `${dataDaReserva.getFullYear()}-${String(dataDaReserva.getMonth() + 1).padStart(2, '0')}-${String(dataDaReserva.getDate()).padStart(2, '0')}`;
+    // --- FIM DA LÓGICA DE DATA ---
     
+    // Lógica de Exceções (Datas Especiais) - tem prioridade
     const excecao = duplasConfig.DatasEspeciais?.[quadraKey]?.[dataFormatadaParaChave];
-    
     if (excecao && excecao.regras) {
-        console.log("✅ REGRA DE EXCEÇÃO ENCONTRADA:", excecao);
         const horarioInicioRegra = parseInt((excecao.regras.inicio || "0:00").split(':')[0]);
         const horarioFimRegra = parseInt((excecao.regras.fim || "0:00").split(':')[0]);
         const horarioFimReserva = hora + duracao;
@@ -3177,88 +3175,78 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
                 return false;
             }
         }
-        console.log("VALIDAÇÃO OK: A reserva não conflita com a regra de exceção ou atende aos requisitos.");
-        return true;
+        return true; // Se não cair na regra de exceção, permite
     }
 
     // Lógica para Regras Semanais
     const diaDaSemana = dia >= 1 && dia <= 5;
     const sabado = dia === 6;
     const domingo = dia === 7;
+    let diaConfigKey, nomeDoPeriodo, inicioKey, fimKey;
 
     if (diaDaSemana) {
-        const diaKeyGeral = `${quadraKey.split('-')[1]}-DiasDeSemana`;
-        
-        if (!configDaQuadra[diaKeyGeral]) {
-            return true;
-        }
+        diaConfigKey = `${quadraKey.split('-')[1]}-DiasDeSemana`;
 
         const configDiasEspecificos = configDaQuadra.DiasDeSemanaConfig;
-        if (!configDiasEspecificos) {
-            return true;
+        if (!configDaQuadra[diaConfigKey] || !configDiasEspecificos) {
+            return true; // Regra geral ou específica de dia desativada
         }
-
         const diaSemanaMap = { 1: 'segunda', 2: 'terca', 3: 'quarta', 4: 'quinta', 5: 'sexta' };
-        const diaStringKey = diaSemanaMap[dia];
-
-        if (!configDiasEspecificos[diaStringKey]) {
-            return true;
+        if (!configDiasEspecificos[diaSemanaMap[dia]]) {
+            return true; // Dia específico desativado
         }
         
-        const inicioKey = `${diaKeyGeral}-Inicio`;
-        const fimKey = `${diaKeyGeral}-Fim`;
-        const horarioInicioRegra = parseInt((configDaQuadra[inicioKey] || "0:00").split(':')[0]);
-        const horarioFimRegra = parseInt((configDaQuadra[fimKey] || "0:00").split(':')[0]);
-        const horarioFimReserva = hora + duracao;
-
-        if (hora < horarioFimRegra && horarioFimReserva > horarioInicioRegra) {
-            if (jogadores.length !== 4) {
-                // --- INÍCIO DA LÓGICA DE MENSAGEM ATUALIZADA ---
-                const diasAtivosNomes = [];
-                if (configDiasEspecificos.segunda) diasAtivosNomes.push("Segunda-feira");
-                if (configDiasEspecificos.terca) diasAtivosNomes.push("Terça-feira");
-                if (configDiasEspecificos.quarta) diasAtivosNomes.push("Quarta-feira");
-                if (configDiasEspecificos.quinta) diasAtivosNomes.push("Quinta-feira");
-                if (configDiasEspecificos.sexta) diasAtivosNomes.push("Sexta-feira");
-
-                let textoDias;
-                // Condição: Só especifica os dias se NÃO forem todos os 5 dias da semana.
-                if (diasAtivosNomes.length < 5) {
-                    textoDias = `nos seguintes dias: ${diasAtivosNomes.join(', ')}`;
-                } else {
-                    textoDias = "durante a semana";
-                }
-                
-                alert(`⚠️ Atenção: Regra de Duplas\n\nNa ${quadraSelecionada}, o horário das ${configDaQuadra[inicioKey]} às ${configDaQuadra[fimKey]} ${textoDias} é exclusivo para jogos de duplas!\n\nPara prosseguir com o agendamento, é obrigatório inserir os quatro jogadores.`);
-                // --- FIM DA LÓGICA DE MENSAGEM ATUALIZADA ---
-                return false;
-            }
-        }
-    } else if (sabado || domingo) {
-        const diaKey = sabado ? `${quadraKey.split('-')[1]}-Sabado` : `${quadraKey.split('-')[1]}-Domingo`;
-        if (!configDaQuadra[diaKey]) {
-            return true;
+        // Constrói a lista de dias para a mensagem de alerta
+        const diasAtivosNomes = [];
+        if (configDiasEspecificos.segunda) diasAtivosNomes.push("Segunda-feira");
+        if (configDiasEspecificos.terca) diasAtivosNomes.push("Terça-feira");
+        if (configDiasEspecificos.quarta) diasAtivosNomes.push("Quarta-feira");
+        if (configDiasEspecificos.quinta) diasAtivosNomes.push("Quinta-feira");
+        if (configDiasEspecificos.sexta) diasAtivosNomes.push("Sexta-feira");
+        
+        if (diasAtivosNomes.length < 5) {
+            nomeDoPeriodo = `nos seguintes dias: ${diasAtivosNomes.join(', ')}`;
+        } else {
+            nomeDoPeriodo = "durante a semana";
         }
 
-        const inicioKey = `${diaKey}-Inicio`;
-        const fimKey = `${diaKey}-Fim`;
-        const horarioInicioRegra = parseInt((configDaQuadra[inicioKey] || "0:00").split(':')[0]);
-        const horarioFimRegra = parseInt((configDaQuadra[fimKey] || "0:00").split(':')[0]);
-        const horarioFimReserva = hora + duracao;
-
-        if (hora < horarioFimRegra && horarioFimReserva > horarioInicioRegra) {
-            if (jogadores.length !== 4) {
-                const nomeDoPeriodo = sabado ? "aos Sábados" : "aos Domingos";
-                alert(`⚠️ Atenção: Regra de Duplas\n\nNa ${quadraSelecionada}, o horário das ${configDaQuadra[inicioKey]} às ${configDaQuadra[fimKey]} ${nomeDoPeriodo} é exclusivo para jogos de duplas!\n\nPara prosseguir com o agendamento, é obrigatório inserir os quatro jogadores.`);
-                return false;
-            }
-        }
+    } else if (sabado) {
+        diaConfigKey = `${quadraKey.split('-')[1]}-Sabado`;
+        nomeDoPeriodo = "aos Sábados";
+    } else if (domingo) {
+        diaConfigKey = `${quadraKey.split('-')[1]}-Domingo`;
+        nomeDoPeriodo = "aos Domingos";
+    } else {
+        return true; // Dia inválido
     }
+
+    if (!configDaQuadra[diaConfigKey]) {
+        return true;
+    }
+
+    inicioKey = `${diaConfigKey}-Inicio`;
+    fimKey = `${diaConfigKey}-Fim`;
+    const horarioInicioRegra = parseInt((configDaQuadra[inicioKey] || "0:00").split(':')[0]);
+    const horarioFimRegra = parseInt((configDaQuadra[fimKey] || "0:00").split(':')[0]);
+    const horarioFimReserva = hora + duracao;
+
+    // --- LÓGICA DE FLEXIBILIZAÇÃO DA REGRA ---
+    if (hora < horarioFimRegra && horarioFimReserva > horarioInicioRegra) {
+        
+        // Se a reserva for para um DIA FUTURO, a regra de 4 jogadores é RÍGIDA.
+        if (dataDaReserva > hoje) {
+            if (jogadores.length !== 4) {
+                alert(`⚠️ Atenção: Horário Prioritário para Duplas\n\nNa ${quadraSelecionada}, o horário das ${configDaQuadra[inicioKey]} às ${configDaQuadra[fimKey]} ${nomeDoPeriodo} é prioritário para jogos de duplas (4 jogadores).\n\nPara agendar com menos jogadores, tente novamente no dia da reserva, caso o horário ainda esteja disponível.`);
+                return false;
+            }
+        } 
+    
+    }
+    // --- FIM DA LÓGICA DE FLEXIBILIZAÇÃO ---
 
     console.log("VALIDAÇÃO OK: A reserva passou por todas as regras de Duplas.");
     return true; 
 }
-
 </script>
 
 
