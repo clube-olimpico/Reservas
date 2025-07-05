@@ -912,10 +912,10 @@
           "3-Sabado-Inicio": "",
           "DiasDeSemanaConfig": {
             "quarta": true,
-            "quinta": false,
+            "quinta": true,
             "segunda": true,
-            "sexta": false,
-            "terca": false
+            "sexta": true,
+            "terca": true
           },
           "Quadra-3-ativa": true
         },
@@ -954,17 +954,17 @@
       "Quadras": {
         "Bloqueios": {
           "Quadra-2": {
-            "2002-01-01": {
-              "descricao": "teste",
+            "2025-07-05": {
+              "descricao": "Teste",
               "regras": {
                 "fim": "12:00",
-                "inicio": "08:00"
+                "inicio": "07:00"
               }
             }
           }
         },
         "Quadra1": "liberada",
-        "Quadra2": "liberada",
+        "Quadra2": "bloqueada",
         "Quadra3": "liberada"
       },
       "githubToken": "***SEGREDO_REMOVIDO***",
@@ -1028,6 +1028,18 @@
           "duracao": 1,
           "hora": 21,
           "jogadores": "aula"
+        },
+        "1_7": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 2,
+          "hora": 7,
+          "jogadores": "Thomas August"
+        },
+        "1_8": {
+          "dia": 1,
+          "hora": 8,
+          "jogadores": "Frank Heinrichs"
         },
         "2_14": {
           "borda": "1h",
@@ -1437,32 +1449,44 @@
           "jogadores": "Airton Santos"
         }
       },
-      "Quadra 3 - Coberta": {
-        "4_16": {
+      "Quadra 2 - Aberta": {
+        "6_15": {
           "borda": "2h",
-          "dia": 4,
+          "dia": 6,
           "duracao": 2,
+          "hora": 15,
+          "jogadores": "Helio Oliveira"
+        },
+        "6_16": {
+          "dia": 6,
           "hora": 16,
-          "jogadores": "Almir"
-        },
-        "4_17": {
-          "dia": 4,
-          "hora": 17,
-          "jogadores": "Edemar"
-        },
-        "4_18": {
+          "jogadores": "Rafael Gregorio"
+        }
+      },
+      "Quadra 3 - Coberta": {
+        "1_17": {
           "borda": "2h",
-          "dia": 4,
+          "dia": 1,
           "duracao": 2,
-          "hora": 18,
-          "jogadores": "Bernardo"
+          "hora": 17,
+          "jogadores": "Almir, Marcelo Zoti"
         },
-        "4_19": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
+        "1_18": {
+          "dia": 1,
+          "hora": 18,
+          "jogadores": "Frank Fast, Nivaldo"
+        },
+        "1_19": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 2,
           "hora": 19,
           "jogadores": "Diego Paraiso"
+        },
+        "1_20": {
+          "dia": 1,
+          "hora": 20,
+          "jogadores": "Bernardo"
         },
         "5_17": {
           "borda": "2h",
@@ -1476,16 +1500,16 @@
           "hora": 18,
           "jogadores": "Marco Ribeiro"
         },
-        "5_20": {
+        "5_19": {
           "borda": "2h",
           "dia": 5,
           "duracao": 2,
-          "hora": 20,
+          "hora": 19,
           "jogadores": "Alessandro Xavier"
         },
-        "5_21": {
+        "5_20": {
           "dia": 5,
-          "hora": 21,
+          "hora": 20,
           "jogadores": "Makoto"
         },
         "6_10": {
@@ -1557,6 +1581,6 @@
         }
       }
     },
-    "version": "v1.2.9"
+    "version": "v1.3.0"
   }
 }
