@@ -205,21 +205,21 @@
           "apelido": "Ana Francisca",
           "classe": "C",
           "niver": "01/01/2001",
-          "piramide": "60",
+          "piramide": "51",
           "socio": "titular"
         },
         "ANA JULIA": {
           "apelido": "Ana Julia",
           "classe": "C",
           "niver": "01/01/2001",
-          "piramide": "61",
+          "piramide": "52",
           "socio": "titular"
         },
         "ANA MARIA": {
           "apelido": "Ana Maria",
           "classe": "C",
           "niver": "01/01/2001",
-          "piramide": "62",
+          "piramide": "53",
           "socio": "titular"
         },
         "ANDRE GUZIK": {
@@ -912,10 +912,10 @@
           "3-Sabado-Inicio": "",
           "DiasDeSemanaConfig": {
             "quarta": true,
-            "quinta": true,
+            "quinta": false,
             "segunda": true,
-            "sexta": true,
-            "terca": true
+            "sexta": false,
+            "terca": false
           },
           "Quadra-3-ativa": true
         },
@@ -949,7 +949,7 @@
           "3-Sabado-exceto-7-12": false,
           "Quadra-3-ativa": true
         },
-        "ativa": true
+        "ativa": false
       },
       "Quadras": {
         "Bloqueios": {
@@ -1450,6 +1450,13 @@
         }
       },
       "Quadra 2 - Aberta": {
+        "2_20": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Isa"
+        },
         "6_15": {
           "borda": "2h",
           "dia": 6,
@@ -1461,6 +1468,30 @@
           "dia": 6,
           "hora": 16,
           "jogadores": "Rafael Gregorio"
+        },
+        "7_10": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 10,
+          "jogadores": "Felipe Mikuska"
+        },
+        "7_11": {
+          "dia": 7,
+          "hora": 11,
+          "jogadores": "Convidado"
+        },
+        "7_8": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 8,
+          "jogadores": "Giovani Lima, Convidado"
+        },
+        "7_9": {
+          "dia": 7,
+          "hora": 9,
+          "jogadores": "Convidado"
         }
       },
       "Quadra 3 - Coberta": {
@@ -1488,29 +1519,29 @@
           "hora": 20,
           "jogadores": "Bernardo"
         },
-        "5_17": {
+        "2_17": {
           "borda": "2h",
-          "dia": 5,
+          "dia": 2,
           "duracao": 2,
           "hora": 17,
-          "jogadores": "Ana Ribeiro"
+          "jogadores": "Edemar"
         },
-        "5_18": {
-          "dia": 5,
+        "2_18": {
+          "dia": 2,
           "hora": 18,
-          "jogadores": "Marco Ribeiro"
+          "jogadores": "Sergio Nelhs"
         },
-        "5_19": {
+        "2_19": {
           "borda": "2h",
-          "dia": 5,
+          "dia": 2,
           "duracao": 2,
           "hora": 19,
-          "jogadores": "Alessandro Xavier"
-        },
-        "5_20": {
-          "dia": 5,
-          "hora": 20,
           "jogadores": "Makoto"
+        },
+        "2_20": {
+          "dia": 2,
+          "hora": 20,
+          "jogadores": "Rodrigo Weich"
         },
         "6_10": {
           "borda": "2h",
@@ -1523,18 +1554,6 @@
           "dia": 6,
           "hora": 11,
           "jogadores": "Bigode"
-        },
-        "6_13": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 13,
-          "jogadores": "Arthur Amorim"
-        },
-        "6_14": {
-          "dia": 6,
-          "hora": 14,
-          "jogadores": "Isa"
         },
         "6_15": {
           "borda": "2h",
@@ -1549,11 +1568,16 @@
           "jogadores": "Gustavo Ferraz"
         },
         "6_17": {
-          "borda": "1h",
+          "borda": "2h",
           "dia": 6,
-          "duracao": 1,
+          "duracao": 2,
           "hora": 17,
           "jogadores": "Robson Schneider"
+        },
+        "6_18": {
+          "dia": 6,
+          "hora": 18,
+          "jogadores": "Alessandro Xavier"
         },
         "6_19": {
           "borda": "2h",
@@ -1578,6 +1602,25 @@
           "dia": 6,
           "hora": 9,
           "jogadores": "Raianne Kamiya"
+        },
+        "7_10": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 10,
+          "jogadores": "Gustavo Ferraz"
+        },
+        "7_11": {
+          "dia": 7,
+          "hora": 11,
+          "jogadores": "Taborda"
+        },
+        "7_8": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "Alessandro Xavier"
         }
       }
     },
