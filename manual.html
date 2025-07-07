@@ -32,7 +32,7 @@
             padding: 10px;
             border-radius: 5px;
             margin: 10px 0;
-            border-left: 4px solid #00acc1; /* Borda vertical adicionada */
+            border-left: 4px solid #00acc1;
         }
         .warning {
             background-color: #ffebee;
@@ -60,8 +60,8 @@
         }
 		.warning {
 			background-color: #fff8e1;
-			margin-bottom: 20px; /* Espaço abaixo de cada bloco */
-			margin-top: 20px; /* Espaço acima de cada bloco */
+			margin-bottom: 20px; 
+			margin-top: 20px;
 		}
     </style>
 </head>
@@ -71,8 +71,7 @@
         <h2>1. Introdução</h2>
         <p>Seja bem-vindo ao manual do sistema de reservas do Clube Olímpico! Para garantir a melhor experiência para todos os sócios, este documento centraliza todas as informações que você precisa.</p>
         <p>Aqui você encontrará tanto um guia passo a passo para agendar suas partidas de forma rápida e prática, quanto as regras e diretrizes essenciais para o bom uso e convivência em nossas quadras.</p>
-        <p>Utilize este guia como sua principal fonte de consulta para aproveitar ao máximo nossas instalações.</p>
-
+        
         <div class="note">
             <p><strong>Novidade:</strong> O sistema agora requer login com senha para maior segurança e controle das reservas.</p>
         </div>
@@ -108,22 +107,22 @@
                 <small><em>* Sujeito a alterações conforme definição da diretoria.</em></small>
             </li>
             <li>O jogador que constar em uma reserva não poderá constar em outra antes de ter jogado a anteriormente agendada.</li>
-            <li>Para garantir o bom aproveitamento de todos, caso não possa utilizar um horário agendado, pedimos a gentileza de <strong>cancelar a reserva no sistema</strong> com antecedência. A ausência não comunicada de forma recorrente poderá implicar em restrições para futuros agendamentos.</li>
+            <li>Caso não possa utilizar um horário agendado, pedimos a gentileza de <strong>cancelar a reserva no sistema</strong> com antecedência para que outros sócios possam aproveitar o horário.</li>
             <li>As partidas devem ser encerradas com 5 minutos de antecedência, e a quadra deve ser devidamente preparada (varrida) para o próximo jogo.</li>
         </ul>
         
         <h2>4. Horários do Clube</h2>
         <p>Segunda a sexta: <strong>06:00 às 23:00</strong>.</p>
         <p>Sábados: <strong>07:00 às 21:00</strong>.</p>
-        <p>Domingos: <strong>08:00 às 12:00</strong>.</p>
+        <p>Domingos: <strong>08:00 às 12:00</strong> (ou conforme configuração especial da diretoria).</p>
         <p style="font-style: italic; font-size: 0.9em;">* Sujeito a alterações.</p>
 
         <h2>5. Visualizando as quadras e os horários disponíveis</h2>
-        <p>No topo da página, clique em uma das quadras:</p>
+        <p>No topo da página, clique em uma das quadras para visualizar sua agenda:</p>
         <ul>
-            <li><strong>Quadra 1 - Coberta</strong> </li>
-            <li><strong>Quadra 2 - Aberta</strong> </li>
-            <li><strong>Quadra 3 - Coberta</strong> </li> 
+            <li><strong>Quadra 1 - Coberta</strong></li>
+            <li><strong>Quadra 2 - Aberta</strong></li>
+            <li><strong>Quadra 3 - Coberta</strong></li> 
         </ul>
         <div class="note">
             <p><strong>Atenção:</strong> Quadras interditadas aparecem com o botão vermelho e não podem ser selecionadas.</p>
@@ -149,6 +148,7 @@
             <li><span class="color-box" style="background-color: lightblue;">2 horas</span></li>
             <li><span class="color-box" style="background-color: #FFEB99;">Pirâmide *</span></li>
         </ul>
+        
         <div class="note">
             <p><strong>* Regras da Pirâmide:</strong></p>
             <ul>
@@ -165,13 +165,22 @@
             </ul>
             <p><strong>Interessados em participar do torneio Pirâmide:</strong> entrar em contato com a Coordenação da Pirâmide. Contato: Edemar Titschkowski - <a href="tel:+554199478950">+55 41 9947-8950</a>.</p>
         </div>
-		
+        
         <div class="highlight">
-            <p><strong>* Regras de Duplas:</strong></p>
+            <p><strong>Novidade: Horários Bloqueados</strong></p>
+            <p>Para eventos, manutenção ou uso interno, a diretoria pode bloquear horários específicos. Esses horários aparecerão na tabela com um fundo <strong style="color: lightcoral;">vermelho</strong>.</p>
             <ul>
-                <li>Para otimizar o uso das quadras, a diretoria poderá definir horários exclusivos para jogos de duplas. Isso pode ocorrer tanto em <strong>dias de semana normais</strong> quanto em <strong>datas especiais (feriados, eventos)</strong>, que são configurados no sistema.</li>
-                <li>Nestes períodos específicos, a reserva deverá ser, <strong>obrigatoriamente</strong>, para <strong>4 jogadores</strong>. O sistema validará esta regra e não permitirá agendar com um número diferente.</li>
-                <li>Fique atento aos comunicados, pois estes horários podem ser ajustados conforme a demanda e necessidade.</li>
+               <li>Não é possível agendar nestes horários.</li>
+               <li>Ao clicar em um horário bloqueado, uma mensagem aparecerá informando o motivo detalhado.</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <p><strong>Regras de Duplas (Atualizado)</strong></p>
+            <ul>
+                <li>Para otimizar o uso das quadras, a diretoria define horários exclusivos para jogos de duplas, tanto em dias de semana normais quanto em datas especiais (feriados, eventos).</li>
+                <li><strong>Reservas Antecipadas:</strong> Ao agendar para um <strong>dia futuro</strong> em um desses horários, a reserva deverá ser, obrigatoriamente, para <strong>4 jogadores</strong>. O sistema não permitirá agendar com um número diferente e informará sobre a regra.</li>
+                <li><strong>Novidade - Liberação no Dia:</strong> Se um horário exclusivo para duplas não for preenchido com antecedência, **no dia da reserva ele será liberado** e poderá ser agendado por grupos com 2 ou mais jogadores, garantindo o máximo aproveitamento da quadra.</li>
             </ul>
         </div>
 
@@ -187,33 +196,34 @@
         </ul>
         
         <h4>5.1. Como adicionar jogadores e convidados</h4>
-        <p>Siga os passos:</p>
+		<p>Siga os passos:</p>
 		<ol>
 			<li>Selecione o primeiro jogador no campo "Jogador".</li>
 			<li>Para adicionar mais jogadores, clique no botão <strong>+</strong> ao lado do campo.</li>
 			<li>Repita para cada novo jogador ou convidado (máximo 4 no total).</li>
 		</ol>
 
-        <div class="warning">
-            <p><strong>Importante:</strong> O jogador que está fazendo a reserva DEVE estar incluído na lista de jogadores da reserva.</p>
-            <ul>
-                <li>O sistema não permitirá finalizar a reserva se o usuário logado não estiver na lista de jogadores</li>
-            </ul>
-        </div>
+		<div class="warning">
+			<p><strong>Importante:</strong> O jogador que está fazendo a reserva DEVE estar incluído na lista de jogadores da reserva.</p>
+			<ul>
+				<li>O sistema não permitirá finalizar a reserva se o usuário logado não estiver na lista de jogadores</li>
+			</ul>
+		</div>
 
-        <div class="warning">
-            <p><strong>Informações Importantes para Convidados:</strong></p>
-            <ul>
-                <li>Não é permitido reservar apenas com convidados; é obrigatório ter pelo menos 1 sócio na partida.</li>
-                <li><strong>Quadra Permitida:</strong> Convidados só podem jogar na <strong>Quadra 2 - Aberta</strong>. Caso a quadra coberta esteja vazia, poderá ser usada, mas em caso de agendamento prévio de um sócio, este terá a prioridade.</li>
-                <li><strong>Taxa:</strong> R$ 50,00 por convidado (pagar diretamente com o Toni).</li>
-                <li>As regras de dias e quadras para convidados podem ser alteradas a qualquer momento pela diretoria.</li>
-            </ul>
-            <p style="font-size: 0.9em; font-weight: bold; font-style: italic; background-color: #fff3cd; padding: 10px; border-radius: 5px;">
-                <strong>Atenção ao agendar no sistema:</strong> Obrigatoriamente, fazer a reserva no sistema selecionando o nome do sócio e um "Convidado" para cada convidado que for jogar.<br>
-                <em>Exemplo: se houver 2 convidados, adicione o nome do sócio + "Convidado" + "Convidado".</em>
-            </p>
-        </div>
+		<div class="warning">
+			<p><strong>Informações Importantes para Convidados:</strong></p>
+			<ul>
+				<li>Não é permitido reservar apenas com convidados; é obrigatório ter pelo menos 1 sócio na partida.</li>
+				<li><strong>Quadra Permitida:</strong> Convidados só podem jogar na <strong>Quadra 2 - Aberta</strong>. Caso a quadra coberta esteja vazia, poderá ser usada, mas em caso de agendamento prévio de um sócio, este terá a prioridade.</li>
+				<li><strong>Taxa:</strong> R$ 50,00 por convidado (pagar diretamente com o Toni).</li>
+				</ul>
+			<p style="font-size: 0.9em; font-weight: bold; font-style: italic; background-color: #fff3cd; padding: 10px; border-radius: 5px;">
+				<strong>Atenção ao agendar no sistema:</strong> Obrigatoriamente, fazer a reserva no sistema selecionando o nome do sócio e um "Convidado" para cada convidado que for jogar.<br>
+				<em>Exemplo: se houver 2 convidados, adicione o nome do sócio + "Convidado" + "Convidado".</em><br><br>
+				<strong>As regras de dias e quadras para convidados podem ser alteradas a qualquer momento pela diretoria.</strong>
+			</p>
+		</div>
+
 
         <h3>6. Finalizando a reserva</h3>
         <p>Clique em <strong>Agendar</strong> para confirmar sua reserva. Ela aparecerá automaticamente na tabela com a cor correspondente.</p>
@@ -222,45 +232,42 @@
         <h3>Cancelando uma reserva</h3>
         <p>Para cancelar uma reserva que você fez:</p>
         <ol>
-            <li>Clique na reserva que deseja cancelar (na tabela de horários)</li>
-            <li>Confirme o cancelamento na mensagem que aparecerá</li>
+            <li>Clique na reserva que deseja cancelar (na tabela de horários).</li>
+            <li>Confirme o cancelamento na mensagem que aparecerá.</li>
             <li><strong>Importante:</strong> É uma boa prática avisar no grupo do WhatsApp sobre o cancelamento para que outros sócios possam aproveitar o horário.</li>
         </ol>
-
         <div class="warning">
-            <p><strong>Atenção:</strong> Apenas os jogadores da reserva ou o Administrador podem excluí-la!.</p>
+            <p><strong>Atenção:</strong> Apenas os jogadores da reserva ou o Administrador podem excluí-la!</p>
         </div>
-
-        
 
         <h2>8. Legenda de Cores</h2>
         <ul>
             <li><span class="color-box" style="background-color: lightgreen;">Reserva de 1 Hora</span></li> 
             <li><span class="color-box" style="background-color: lightblue;">Reserva de 2 Horas</span></li>
             <li><span class="color-box" style="background-color: #FFEB99;">Reserva Pirâmide (2 Horas)</span></li>
-            <li><span class="color-box" style="background-color: lightcoral;">Horário reservado para aulas</span></li>
+            <li><span class="color-box" style="background-color: lightcoral;">Horário de Aula ou Bloqueado pelo Clube</span></li>
         </ul>
 
         <h2>9. Dicas e Recursos Úteis</h2>
         <h3>Visualização ampliada</h3>
         <p>Para melhor visualização em dispositivos móveis:</p>
         <ul>
-            <li><strong>Clique duas vezes</strong> sobre a célula com o título "Horários" para expandir a planilha</li>
-            <li><strong>Clique duas vezes novamente</strong> para voltar ao tamanho normal</li>
+            <li><strong>Clique duas vezes</strong> sobre a célula com o título "Horários" para expandir a planilha.</li>
+            <li><strong>Clique duas vezes novamente</strong> para voltar ao tamanho normal.</li>
         </ul>
 
         <h3>Em caso de problemas</h3>
         <p>Se encontrar qualquer dificuldade ou comportamento inesperado no sistema:</p>
         <ol>
-            <li>Tente recarregar a página (F5 ou puxar para baixo em dispositivos móveis)</li>
-            <li>Verifique sua conexão com a internet</li>
-            <li>Caso o problema persista, entre em contato com o administrador (Ronaldo Taborda)</li>
+            <li>Tente recarregar a página (F5 ou puxar para baixo em dispositivos móveis).</li>
+            <li>Verifique sua conexão com a internet.</li>
+            <li>Caso o problema persista, entre em contato com o administrador (Ronaldo Taborda).</li>
         </ol>
 
         <p style="text-align: center; margin-top: 30px;"><strong>Bom jogo e aproveite as quadras do Clube Olímpico!</strong></p>
     </div>
     <footer style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #555;">
-        Desenvolvido por Ronaldo Taborda | Atualizado em março/2025
+        Desenvolvido por Ronaldo Taborda | Atualizado em Julho/2025
     </footer>
 </body>
 </html>
