@@ -865,17 +865,6 @@
       },
       "DiasParaLimpar": 3,
       "Duplas": {
-        "DatasEspeciais": {
-          "Quadra-1": {
-            "2026-01-01": {
-              "descricao": "Feriado Municipal",
-              "regras": {
-                "fim": "12:00",
-                "inicio": "08:00"
-              }
-            }
-          }
-        },
         "Quadra-1": {
           "1-DiasDeSemana": false,
           "1-DiasDeSemana-Fim": "",
@@ -949,13 +938,13 @@
           "3-Sabado-exceto-7-12": false,
           "Quadra-3-ativa": true
         },
-        "ativa": false
+        "ativa": true
       },
       "Quadras": {
         "Bloqueios": {
           "Quadra-2": {
-            "2025-07-08": {
-              "descricao": "Novo",
+            "2025-07-07": {
+              "descricao": "teste",
               "regras": {
                 "fim": "12:00",
                 "inicio": "08:00"
@@ -1096,18 +1085,6 @@
           "duracao": 1,
           "hora": 21,
           "jogadores": "aula"
-        },
-        "2_7": {
-          "borda": "2h",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 7,
-          "jogadores": "Felipe Mikuska"
-        },
-        "2_8": {
-          "dia": 2,
-          "hora": 8,
-          "jogadores": "Taborda"
         },
         "3_10": {
           "borda": "1h",
@@ -1416,21 +1393,16 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
-        },
-        "7_10": {
-          "dia": 7,
-          "hora": 10,
-          "jogadores": "Henrique Santos"
-        },
-        "7_9": {
-          "borda": "2h",
-          "dia": 7,
-          "duracao": 2,
-          "hora": 9,
-          "jogadores": "Airton Santos"
         }
       },
       "Quadra 2 - Aberta": {
+        "1_17": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 17,
+          "jogadores": "Giovani"
+        },
         "1_18": {
           "borda": "2h",
           "dia": 1,
@@ -1443,15 +1415,63 @@
           "hora": 19,
           "jogadores": "Caina Balboa"
         },
+        "2_17": {
+          "borda": "2h",
+          "dia": 2,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Cristina Pirachovski"
+        },
+        "2_18": {
+          "dia": 2,
+          "hora": 18,
+          "jogadores": "Paulinho"
+        },
         "2_20": {
           "borda": "1h",
           "dia": 2,
           "duracao": 1,
           "hora": 20,
           "jogadores": "Isa"
+        },
+        "4_18": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 18,
+          "jogadores": "Ivan Balboa"
+        },
+        "4_19": {
+          "dia": 4,
+          "hora": 19,
+          "jogadores": "Caina Balboa"
+        },
+        "4_20": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 20,
+          "jogadores": "Leonardo Zamprogna, Convidado"
+        },
+        "4_21": {
+          "dia": 4,
+          "hora": 21,
+          "jogadores": "Victoria Zeni, Convidado"
         }
       },
       "Quadra 3 - Coberta": {
+        "1_15": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Natan"
+        },
+        "1_16": {
+          "dia": 1,
+          "hora": 16,
+          "jogadores": "Caio Teixeira"
+        },
         "1_17": {
           "borda": "2h",
           "dia": 1,
@@ -1500,6 +1520,23 @@
           "hora": 20,
           "jogadores": "Rodrigo Weich"
         },
+        "3_10": {
+          "dia": 3,
+          "hora": 10,
+          "jogadores": "Leo Mikuska"
+        },
+        "3_17": {
+          "borda": "2h",
+          "dia": 3,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Marco Ribeiro, Lucas Titon"
+        },
+        "3_18": {
+          "dia": 3,
+          "hora": 18,
+          "jogadores": "Gustavo Ferraz, Flavio Ferraz"
+        },
         "3_19": {
           "borda": "1h",
           "dia": 3,
@@ -1521,25 +1558,44 @@
           "hora": 21,
           "jogadores": "Sidnei Novack"
         },
-        "7_10": {
+        "3_9": {
           "borda": "2h",
-          "dia": 7,
+          "dia": 3,
           "duracao": 2,
-          "hora": 10,
-          "jogadores": "Gustavo Ferraz"
+          "hora": 9,
+          "jogadores": "Felipe Mikuska"
         },
-        "7_11": {
-          "dia": 7,
-          "hora": 11,
-          "jogadores": "Taborda"
+        "4_15": {
+          "borda": "1h",
+          "dia": 4,
+          "duracao": 1,
+          "hora": 15,
+          "jogadores": "Bigode"
+        },
+        "4_17": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Caio Teixeira"
+        },
+        "4_18": {
+          "dia": 4,
+          "hora": 18,
+          "jogadores": "Natan"
+        },
+        "4_19": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Kaiser"
+        },
+        "4_20": {
+          "dia": 4,
+          "hora": 20,
+          "jogadores": "Luciano Cavalheiro"
         }
-      }
-    },
-    "usuariosOnline": {
-      "xllafuafw": {
-        "sessionId": "xllafuafw",
-        "timestamp": 1751847749399,
-        "usuario": "RONALDO TABORDA"
       }
     },
     "version": "v1.3.0"
