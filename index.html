@@ -12,7 +12,7 @@
 <style>
 /* Estilos globais */
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif; 
     margin: 0;
     padding: 0; 
 }
@@ -479,12 +479,14 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.3.0'; // Versão atual do sistema 
+const VersaoSistema = 'v1.3.1'; // Versão atual do sistema 
+
 let vDesabilitarF12 = true; // deixar true para fazer o deploy  
 let vAbrirSistema = true; // deixar true para fazer o deploy
 
+let piramideInicioTorneio = null;
+let piramideFimTorneio = null;
 let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário 
-
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
 let vLimparDiasAnteriores = false;
@@ -497,6 +499,7 @@ let reservasPorQuadra = {};
 let quadraSelecionada = 'Quadra 1 - Coberta'; 
 let duplasConfigGlobais = {}; 
 let convidadoConfigGlobais = {};
+let bloqueiosQuadra = {};
 
 //***********************************************************************************************************************************************************************
 
@@ -580,7 +583,7 @@ function atualizarLegenda(piramideAtiva) {
         const itens = [
             { cor: 'lightgreen', texto: '1 Hora' },
             { cor: 'lightblue', texto: '2 Horas' },
-            { cor: 'lightcoral', texto: 'Aula' }
+            { cor: 'lightcoral', texto: 'Aula' } 
         ];
 
         itens.forEach((item, index) => {
@@ -735,6 +738,8 @@ function InicializarSistema() {
 
                 // Verifica se a pirâmide está ativa (em tempo real)
                 const piramideAtiva = config?.Piramide?.ativa || false; // Valor padrão: false
+				piramideInicioTorneio = config?.Piramide?.inicio || null;
+				piramideFimTorneio = config?.Piramide?.fim || null;
                 const duracaoSelect = document.getElementById('duracao');
                 const piramideOption = duracaoSelect?.querySelector('option[value="3-piramide"]');
 
@@ -758,6 +763,8 @@ function InicializarSistema() {
 					duplasConfigGlobais = config.Duplas || {}; // Carrega a config de Duplas na variável global
 					
 				    convidadoConfigGlobais = config.Convidados || {}; // Carrega a config de Convidados
+					
+					bloqueiosQuadra = config.Quadras?.Bloqueios || {};  // Carrega a config de Bloqueios
 					
                     quadrasInativas.clear();
                     const quadras = config.Quadras || {};
@@ -821,17 +828,13 @@ function InicializarSistema() {
 			if (selectQuadra) {
 				selectQuadra.innerHTML = "";
 
-				// NOVO: Detecta jogador restrito
 				const jogadorLogado = localStorage.getItem("jogadorLogado")?.toUpperCase();
 				const isRestrito = jogadoresRestritos.includes(jogadorLogado);
-
-				// NOVO: Define a lista de quadras disponíveis com base na restrição
 				const todasQuadras = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"];
 				const quadrasAutorizadas = isRestrito
 					? ["Quadra 1 - Coberta", "Quadra 2 - Aberta"]
 					: todasQuadras;
 
-				// Adiciona apenas quadras autorizadas e não interditadas
 				quadrasAutorizadas.forEach(quadra => {
 					if (!quadrasInativas.has(quadra)) {
 						const option = document.createElement('option');
@@ -841,12 +844,9 @@ function InicializarSistema() {
 					}
 				});
 
-				// MANTIDO: Define o valor padrão do select com base em quadraInicial
-				selectQuadra.value = selectQuadra.querySelector(`option[value="${quadraInicial}"]`)
-					? quadraInicial
-					: selectQuadra.options[0]?.value || "";
+				// Esta linha foi restaurada para definir a quadra inicial
+				selectQuadra.value = quadraInicial;
 			}
-
 
             const tabelaContainer = document.querySelector('.tabela-container');
             const header = document.querySelector('.header');
@@ -858,6 +858,9 @@ function InicializarSistema() {
 
             atualizarEstadoQuadras();
             selecionarQuadra(quadraInicial);
+			
+			// ADICIONE ESTA LINHA PARA FORÇAR O RESET DO DROPDOWN
+			document.getElementById('quadra').selectedIndex = 0;
             resolve();
 
         }, (error) => {
@@ -897,10 +900,19 @@ function atualizarEstadoQuadras() {
 	const botaoAgendar = document.getElementById('botaoAgendar');
 	if (botaoAgendar) {
 		const desativar = todasIndisponiveis || dropdownVazio;
-		botaoAgendar.disabled = desativar;
-		botaoAgendar.style.opacity = desativar ? "0.5" : "1";
-		botaoAgendar.style.cursor = desativar ? "not-allowed" : "pointer";
-		botaoAgendar.title = desativar ? "Nenhuma quadra disponível para agendamento" : "";
+
+		// A MUDANÇA ESTÁ AQUI:
+		// Se a condição 'desativar' for verdadeira, o botão é desabilitado.
+		// Se for falsa, NÃO FAZEMOS NADA, deixando o botão no estado em que ele já está.
+		if (desativar) {
+			botaoAgendar.disabled = true;
+		}
+
+		// A lógica de estilo pode ser mantida ou simplificada se preferir,
+		// mas o importante é a condição 'if' acima.
+		botaoAgendar.style.opacity = botaoAgendar.disabled ? "0.5" : "1";
+		botaoAgendar.style.cursor = botaoAgendar.disabled ? "not-allowed" : "pointer";
+		botaoAgendar.title = botaoAgendar.disabled ? "Preencha todos os campos para agendar" : "";
 	}
 }
 
@@ -1141,8 +1153,6 @@ function selecionarQuadra(quadra) {
 
 
 function carregarReservas(quadra) {
-    //console.log(`🔄 Iniciando carregamento de reservas para: ${quadra}`);
-    
     celulasExcluidas.clear();
     reservasExcluidasFirebase.clear();
 
@@ -1151,88 +1161,79 @@ function carregarReservas(quadra) {
     reservasRef.off('value'); // Remove ouvintes antigos
     reservasRef.on('value', (snapshot) => {
         const reservas = snapshot.val();
-        //console.log("📥 Dados brutos do Firebase:", reservas);
 
         limparTabela();
+        atualizarEstadoDomingo();
+        aplicarBloqueiosVisuais(quadra);
 
         if (reservas) {
-            const tabela = document.getElementById('tabelaCorpo');
-            const totalRows = tabela.rows.length;
-            const totalCols = tabela.rows[0]?.cells.length || 0;
+            try {
+                const tabela = document.getElementById('tabelaCorpo');
+                const totalRows = tabela.rows.length;
+                const totalCols = tabela.rows[0]?.cells.length || 0;
 
-            for (const key in reservas) {
-                let { jogadores, dia, hora, duracao, borda } = reservas[key];
+                for (const key in reservas) {
+                    const reserva = reservas[key]; 
 
-                //console.log(`🎾 Processando reserva: ${key}`); 
-                //console.log(`   ➡ Jogadores: ${jogadores}`);
-                //console.log(`   ➡ Dia: ${dia}, Hora: ${hora}, Duração: ${duracao}`);
-
-                const rowIndex = hora - 6;
-                const colIndex = dia;
-
-                if (rowIndex >= 0 && rowIndex < totalRows && colIndex >= 0 && colIndex < totalCols) {
-                    const cell = tabela.rows[rowIndex].cells[colIndex];
-
-                    //console.log(`   📌 Antes da atualização: Célula (${rowIndex}, ${colIndex}) = "${cell.innerHTML}"`);
-                    
-                    cell.setAttribute("data-duracao", duracao || "segunda-celula");
-
-                    let corFundo;
-                    if (jogadores.toLowerCase().includes('aula')) {
-                        //console.log(`   🟥 Detectado jogador 'aula' - Aplicando cor vermelha`);
-                        corFundo = 'lightcoral';
-                        cell.innerHTML = "aula"; // 🔥 GARANTINDO QUE 'aula' É INSERIDO
-                    } else if (duracao === 3 || reservas[`${key.split('_')[0]}_${hora - 1}`]?.duracao === 3) {
-                        corFundo = '#FFEB99';
-                        //console.log(`   🟡 Pirâmide detectada - Aplicando cor amarela`);
-
-                        // Formata os nomes dos jogadores com a posição na pirâmide
-                        const jogadoresArray = jogadores.split(', ');
-                        const jogadoresFormatados = jogadoresArray.map(jogador => {
-                            const jogadorInfo = jogadoresData[jogador];
-                            if (jogadorInfo && jogadorInfo.piramide) {
-                                return `${jogadorInfo.piramide} - ${jogador}`;
-                            } else {
-                                return jogador;
-                            }
-                        });
-
-                        cell.innerHTML = jogadoresFormatados.join(', ');
-                    } else {
-                        corFundo = duracao === 1 ? 'lightgreen' : 'lightblue';
-                        //console.log(`   ✅ Definindo cor: ${corFundo}`);
-                        cell.innerHTML = jogadores;
+                    // --- INÍCIO DA VALIDAÇÃO DE SEGURANÇA (ÚNICA ADIÇÃO) ---
+                    if (typeof reserva.jogadores === 'undefined' || reserva.jogadores === null) {
+                        const erroMsg = `⚠️ Erro de Dados Encontrado!\n\nExiste uma reserva antiga ou corrompida que está impedindo a exibição correta da agenda.\n\nPor favor, envie esta informação para o administrador:\n\n- Quadra: ${quadra}\n- Chave do Problema: ${key}`;
+                        alert(erroMsg);
+                        throw new Error(erroMsg);
                     }
+                    // --- FIM DA VALIDAÇÃO DE SEGURANÇA ---
 
-                    //console.log(`   🖌️ Aplicando cor de fundo: ${corFundo}`);
-                    cell.style.backgroundColor = corFundo;
+                    // O CÓDIGO ABAIXO É A SUA LÓGICA ORIGINAL, PRESERVADA INTOCADA
+                    let { jogadores, dia, hora, duracao, borda } = reserva;
 
-                    if (borda === '1h') {
-                        //console.log(`   📏 Aplicando borda para reserva de 1h`);
-                        cell.style.border = '2px solid black';
-                    } else if (borda === '2h') {
-                        //console.log(`   📏 Aplicando borda para reserva de 2h`);
-                        configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
+                    const rowIndex = hora - 6;
+                    const colIndex = dia;
+
+                    if (rowIndex >= 0 && rowIndex < totalRows && colIndex >= 0 && colIndex < totalCols) {
+                        const cell = tabela.rows[rowIndex].cells[colIndex];
+                        cell.setAttribute("data-duracao", duracao || "segunda-celula");
+
+                        let corFundo;
+                        if (jogadores.toLowerCase().includes('aula')) {
+                            corFundo = 'lightcoral';
+                            cell.innerHTML = "aula"; 
+                        } else if (duracao === 3 || reservas[`${key.split('_')[0]}_${hora - 1}`]?.duracao === 3) {
+                            corFundo = '#FFEB99';
+							
+							// Formata os nomes dos jogadores com a posição na pirâmide
+                            const jogadoresArray = jogadores.split(', ');
+                            const jogadoresFormatados = jogadoresArray.map(jogador => {
+                                const jogadorInfo = jogadoresData[jogador];
+                                if (jogadorInfo && jogadorInfo.piramide) {
+                                    return `${jogadorInfo.piramide} - ${jogador}`;
+                                } else {
+                                    return jogador;
+                                }
+                            });
+                            cell.innerHTML = jogadoresFormatados.join(', ');
+                        } else {
+                            corFundo = duracao === 1 ? 'lightgreen' : 'lightblue';
+                            cell.innerHTML = jogadores;
+                        }
+
+                        cell.style.backgroundColor = corFundo;
+
+                        if (borda === '1h') {
+                            cell.style.border = '2px solid black';
+                        } else if (borda === '2h') {
+                            configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
+                        }
                     }
-
-                    // 🔍 VERIFICAR SE 'aula' CONTINUA NA CÉLULA
-                    setTimeout(() => {
-                        //console.log(`   🔍 Após atualização: Célula (${rowIndex}, ${colIndex}) = "${cell.innerHTML}"`);
-                    }, 500);
-                } else {
-                    //console.warn(`⚠️ Célula fora dos limites da tabela: [${rowIndex}, ${colIndex}]`);
                 }
+            } catch (error) {
+                console.error("Execução interrompida devido a dados inválidos:", error.message);
+                return;
             }
-        } else {
-            //console.warn(`⚠️ Nenhuma reserva encontrada para a quadra: ${quadra}`);
-        }
-
-        atualizarEstadoDomingo();
+        } 
 
         adicionarEventoClique(); 
     });
 }
-
 
 
 
@@ -1278,6 +1279,41 @@ function validarDiaReserva(jogadores) {
 
     if (duracao === "3-piramide") {
         console.log("Modo Pirâmide detectado. Aplicando regras especiais.");
+		
+		// --- INÍCIO DA NOVA VALIDAÇÃO DE DATAS DO TORNEIO ---
+        if (!piramideInicioTorneio || !piramideFimTorneio) {
+            alert("Não é possível agendar jogos da Pirâmide, pois as datas do torneio ainda não foram configuradas.");
+            return false;
+        }
+
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+        const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
+        let diff = diaSelecionado - diaDaSemanaHoje;
+        if (diff < 0) diff += 7;
+        const dataDaReserva = new Date(hoje);
+        dataDaReserva.setDate(hoje.getDate() + diff);
+
+        const dataInicioObj = parseDateDDMMYYYY(piramideInicioTorneio);
+        const dataFimObj = parseDateDDMMYYYY(piramideFimTorneio);
+
+        if (!dataInicioObj || !dataFimObj) {
+            alert("Erro nas datas do torneio da Pirâmide. Contate o administrador.");
+            return false;
+        }
+        
+        dataFimObj.setHours(23, 59, 59, 999); // Garante que o dia final seja incluído na verificação
+
+        if (dataDaReserva < dataInicioObj) {
+            alert(`O torneio da Pirâmide só começa em ${piramideInicioTorneio.replace(/-/g, '/')}.`);
+            return false;
+        }
+
+        if (dataDaReserva > dataFimObj) {
+            alert(`O torneio da Pirâmide terminou em ${piramideFimTorneio.replace(/-/g, '/')}.`);
+            return false;
+        }
+        // --- FIM DA NOVA VALIDAÇÃO DE DATAS DO TORNEIO --- 
 
         if (jogadores.length !== 2) {
             alert("Reservas da Pirâmide devem ter exatamente 2 jogadores.");
@@ -1413,7 +1449,6 @@ async function validarSeTemReserva(jogadores) {
 		return true;
 	}
 	
-	
 		
     return new Promise((resolve) => {
         let conflito = false;
@@ -1429,16 +1464,13 @@ async function validarSeTemReserva(jogadores) {
             const horaSelecionada = parseInt(document.getElementById('hora').value, 10);
             const duracaoSelecionada = parseInt(document.getElementById('duracao').value, 10);
 
-            // Criando data e hora exatas da nova reserva
             const novaReservaDataHoraInicio = new Date(agora);
             novaReservaDataHoraInicio.setDate(agora.getDate() + ((diaSelecionado + 7 - agora.getDay()) % 7));
             novaReservaDataHoraInicio.setHours(horaSelecionada, 0, 0, 0);
-            //console.log(`Nova reserva: Início - ${novaReservaDataHoraInicio}`);
-
+            
             const novaReservaDataHoraFim = new Date(novaReservaDataHoraInicio);
             novaReservaDataHoraFim.setHours(novaReservaDataHoraInicio.getHours() + duracaoSelecionada); 
-            //console.log(`Nova reserva: Fim - ${novaReservaDataHoraFim}`);
-
+            
             // Verificando reservas existentes
             for (const quadra in reservas) {
                 //console.log("Verificando quadra:", quadra);
@@ -1446,41 +1478,40 @@ async function validarSeTemReserva(jogadores) {
                     const reserva = reservas[quadra][key];
                     //console.log("Verificando reserva existente:", reserva);
 
+                    // --- INÍCIO DA VALIDAÇÃO DE SEGURANÇA (ÚNICA ADIÇÃO) ---
+                    if (typeof reserva.jogadores === 'undefined' || reserva.jogadores === null) {
+                        const erroMsg = `⚠️ Erro de Dados Encontrado!\n\nExiste uma reserva antiga ou corrompida que impede a validação do seu agendamento.\n\nPor favor, envie esta informação para o administrador:\n\n- Quadra: ${quadra}\n- Chave do Problema: ${key}`;
+                        alert(erroMsg);
+                        conflito = true; // Usa a flag de conflito existente para parar o processo
+                        break;           // Interrompe o loop interno
+                    }
+                    // --- FIM DA VALIDAÇÃO DE SEGURANÇA ---
+
                     jogadores.forEach(jogador => {
 					    if (jogador === "Convidado") {
-							// Pula validação para "Convidado"
 							return;
 						}
-                        // Verifica se o jogador está na reserva (comparação exata)
+                        
                         const jogadoresNaReserva = reserva.jogadores.split(', ');
                         if (jogadoresNaReserva.includes(jogador)) {
                             const reservaDia = parseInt(reserva.dia, 10);
                             const reservaHora = parseInt(reserva.hora, 10);
                             const reservaDuracao = parseInt(reserva.duracao, 10) || 1;
-
-                            // Criando data/hora exata da reserva existente
                             const reservaDataHoraInicio = new Date(agora);
                             reservaDataHoraInicio.setDate(agora.getDate() + ((reservaDia + 7 - agora.getDay()) % 7));
                             reservaDataHoraInicio.setHours(reservaHora, 0, 0, 0);
-                            //console.log(`Reserva existente: Início - ${reservaDataHoraInicio}`);
-
+                            
                             const reservaDataHoraFim = new Date(reservaDataHoraInicio);
                             reservaDataHoraFim.setHours(reservaDataHoraInicio.getHours() + reservaDuracao);
-                            //console.log(`Reserva existente: Fim - ${reservaDataHoraFim}`);
-
-                            // **Regra definitiva:**
-                            // Bloqueia reserva se houver qualquer reserva futura pendente (em qualquer dia)
+                            
                             if (reservaDataHoraInicio > agora) {
-                                //console.log(`O jogador ${jogador} já tem uma reserva FUTURA e não pode criar outra.`);
                                 conflito = true;
                                 if (!jogadoresComConflito.includes(jogador)) {
                                     jogadoresComConflito.push(jogador);
                                 }
                             }
 
-                            // Bloqueia reserva se o jogador já tem uma reserva em andamento
                             if (agora >= reservaDataHoraInicio && agora < reservaDataHoraFim) {
-                                //console.log(`O jogador ${jogador} já tem uma reserva EM ANDAMENTO e não pode criar outra.`);
                                 conflito = true;
                                 if (!jogadoresComConflito.includes(jogador)) {
                                     jogadoresComConflito.push(jogador);
@@ -1489,25 +1520,26 @@ async function validarSeTemReserva(jogadores) {
                         }
                     });
                 }
-                if (conflito) break;
+                if (conflito) break; // Interrompe o loop externo se um conflito foi encontrado
             }
 
             // Se houver conflito, exibe mensagem de erro
             if (conflito) {
-                const mensagem = jogadoresComConflito.length > 1
-                    ? `Os jogadores ${jogadoresComConflito.join(", ")} ainda têm uma reserva ativa e não podem agendar outra antes de finalizá-la.`
-                    : `O jogador ${jogadoresComConflito[0]} ainda tem uma reserva ativa e não pode agendar outra antes de finalizá-la.`;
-                //console.log("Mensagem de erro: ", mensagem);
-                alert(mensagem);
+                // Se o conflito NÃO foi por dado corrompido, mas por jogador repetido, mostra a mensagem.
+                if (jogadoresComConflito.length > 0) {
+                     const mensagem = jogadoresComConflito.length > 1
+                        ? `Os jogadores ${jogadoresComConflito.join(", ")} ainda têm uma reserva ativa e não podem agendar outra antes de finalizá-la.`
+                        : `O jogador ${jogadoresComConflito[0]} ainda tem uma reserva ativa e não pode agendar outra antes de finalizá-la.`;
+                     alert(mensagem);
+                }
+                // Em ambos os casos (dado corrompido ou jogador repetido), a validação falha.
                 resolve(false);
             } else {
-                //console.log("Nenhum conflito encontrado, reserva pode ser realizada.");
                 resolve(true);
             }
         });
     });
 }
-
 function gerarMensagemErro(diasParaLimpar) {
     let diasAntecedencia;
     switch (diasParaLimpar) {
@@ -1526,88 +1558,66 @@ function gerarMensagemErro(diasParaLimpar) {
 window.atualizarOpcoesHorario = function() {
     const duracao = document.getElementById('duracao').value;
     const dia = document.getElementById('dia').value;
-    const hora = document.getElementById('hora');
-    hora.innerHTML = '';
+    const quadra = document.getElementById('quadra').value; // Pega a quadra selecionada
+    const horaSelect = document.getElementById('hora');
+    horaSelect.innerHTML = '';
 
     if (!duracao || !dia) return;
 
-    // Pirâmide
-    if (duracao === "3-piramide") {
-        if (dia == 7 && vDomingo === 'fechado') {
-            for (let i = 8; i <= 10; i++) {
-                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
-            }
-        } else if (dia == 7 && vDomingo === 'aberto') {
-            const limite = parseInt(vDomingoAte.split(':')[0]);
-            for (let i = 8; i <= limite - 2; i++) {
-                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
-            }
-        } else if (dia == 6) {
-            for (let i = 7; i < 20; i++) {
-                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
-            }
-        } else {
-            for (let i = 6; i <= 21; i++) {
-                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
-            }
-        }
-        return;
+    // --- Lógica para buscar bloqueios do dia ---
+    const quadraKey = `Quadra-${quadra.split(' ')[1]}`;
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+    const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
+    let diff = dia - diaDaSemanaHoje;
+    if (diff < 0) diff += 7;
+    const dataDaReserva = new Date(hoje);
+    dataDaReserva.setDate(hoje.getDate() + diff);
+    const dataFormatada = `${dataDaReserva.getFullYear()}-${String(dataDaReserva.getMonth() + 1).padStart(2, '0')}-${String(dataDaReserva.getDate()).padStart(2, '0')}`;
+    const bloqueioDoDia = bloqueiosQuadra[quadraKey]?.[dataFormatada];
+    // --- Fim da lógica ---
+
+    const horarios = [];
+    // Define os horários disponíveis com base no dia da semana
+    if (dia == 7) { // Domingo
+        const limite = vDomingo === 'fechado' ? 12 : parseInt(vDomingoAte.split(':')[0]);
+        for (let i = 8; i < limite; i++) horarios.push(i);
+    } else if (dia == 6) { // Sábado
+        for (let i = 7; i < 21; i++) horarios.push(i);
+    } else { // Dias de Semana
+        for (let i = 6; i <= 22; i++) horarios.push(i);
     }
 
-    // Domingo fechado
-    if (dia == 7 && vDomingo === 'fechado') {
-        if (duracao === '1') {
-            for (let i = 8; i <= 11; i++) {
-                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 1}:00</option>`;
-            }
-        } else if (duracao === '2') {
-            for (let i = 8; i <= 10; i++) {
-                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
+    // Filtra os horários com base nos bloqueios e na duração
+    horarios.forEach(h => {
+        let isBloqueado = false;
+        if (bloqueioDoDia && bloqueioDoDia.regras) {
+            const inicioBloqueio = parseInt(bloqueioDoDia.regras.inicio.split(':')[0]);
+            const fimBloqueio = parseInt(bloqueioDoDia.regras.fim.split(':')[0]);
+            
+            // Verifica se o horário de início ou qualquer parte da duração cai dentro do bloqueio
+            for(let i = 0; i < parseInt(duracao === '3-piramide' ? 2 : duracao); i++) {
+                if ((h + i) >= inicioBloqueio && (h + i) < fimBloqueio) {
+                    isBloqueado = true;
+                    break;
+                }
             }
         }
-    }
 
-    // ✅ Domingo aberto com limite vDomingoAte
-    else if (dia == 7 && vDomingo === 'aberto') {
-        const limite = parseInt(vDomingoAte.split(':')[0]);
-        if (duracao === '1') {
-            for (let i = 8; i <= Math.min(limite - 1, 22); i++) {
-                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 1}:00</option>`;
-            }
-        } else if (duracao === '2') {
-            for (let i = 8; i <= Math.min(limite - 2, 21); i++) {
-                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
-            }
-        }
-    }
-
-    // Sábado
-    else if (dia == 6) {
-        if (duracao === '1') {
-            for (let i = 7; i < 21; i++) {
-                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 1}:00</option>`;
-            }
-        } else if (duracao === '2') {
-            for (let i = 7; i < 20; i++) {
-                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
+        // Se não estiver bloqueado, adiciona a opção
+        if (!isBloqueado) {
+            const duracaoNum = parseInt(duracao === '3-piramide' ? 2 : duracao);
+            // Garante que o horário final não ultrapasse o limite do dia
+            const limiteDia = (dia == 7) ? (vDomingo === 'fechado' ? 12 : parseInt(vDomingoAte.split(':')[0])) : (dia == 6 ? 21 : 23);
+            if (h + duracaoNum <= limiteDia) {
+                 const option = document.createElement('option');
+                 option.value = h;
+                 option.textContent = `${String(h).padStart(2, '0')}:00 - ${String(h + duracaoNum).padStart(2, '0')}:00`;
+                 horaSelect.appendChild(option);
             }
         }
-    }
-
-    // Dias de semana
-    else {
-        if (duracao === '1') {
-            for (let i = 6; i <= 22; i++) {
-                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 1}:00</option>`;
-            }
-        } else if (duracao === '2') {
-            for (let i = 6; i <= 21; i++) {
-                hora.innerHTML += `<option value="${i}">${i}:00 - ${i + 2}:00</option>`;
-            }
-        }
-    }
+    });
 };
-
 
 
 window.adicionarJogador = function() {
@@ -2018,6 +2028,14 @@ function adicionarEventoClique() {
     for (let i = 0; i < tabela.rows.length; i++) {
         for (let j = 0; j < tabela.rows[i].cells.length; j++) {
             const celula = tabela.rows[i].cells[j];
+			
+			// --- INÍCIO DA CORREÇÃO ---
+            // Se a célula já tem um cursor de 'ajuda', significa que é um bloqueio.
+            // Nesse caso, não fazemos nada e pulamos para a próxima célula.
+            if (celula.style.cursor === 'help') {
+                continue;
+            }
+            // --- FIM DA CORREÇÃO ---
 
             // Remove qualquer evento de clique anterior
             celula.onclick = null;
@@ -3149,10 +3167,10 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
         return true; // Regra desativada para esta quadra
     }
 
-    // --- INÍCIO DA LÓGICA DE DATA PARA FLEXIBILIZAÇÃO ---
+    // Lógica de data para flexibilização
     const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0); // Normaliza para o início do dia para uma comparação justa
-    const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay(); // Ajusta Domingo para ser 7
+    hoje.setHours(0, 0, 0, 0); 
+    const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
     let diff = dia - diaDaSemanaHoje;
     if (diff < 0) {
         diff += 7;
@@ -3160,7 +3178,6 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
     const dataDaReserva = new Date(hoje);
     dataDaReserva.setDate(hoje.getDate() + diff);
     const dataFormatadaParaChave = `${dataDaReserva.getFullYear()}-${String(dataDaReserva.getMonth() + 1).padStart(2, '0')}-${String(dataDaReserva.getDate()).padStart(2, '0')}`;
-    // --- FIM DA LÓGICA DE DATA ---
     
     // Lógica de Exceções (Datas Especiais) - tem prioridade
     const excecao = duplasConfig.DatasEspeciais?.[quadraKey]?.[dataFormatadaParaChave];
@@ -3170,12 +3187,18 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
         const horarioFimReserva = hora + duracao;
 
         if (hora < horarioFimRegra && horarioFimReserva > horarioInicioRegra) {
-            if (jogadores.length !== 4) {
-                alert(`⚠️ Atenção: Regra de Exceção\n\nNa data ${dataFormatadaParaChave.split('-').reverse().join('/')} (${excecao.descricao || 'Data Especial'}), o horário das ${excecao.regras.inicio} às ${excecao.regras.fim} na ${quadraSelecionada} é exclusivo para jogos de duplas com 4 jogadores.`);
-                return false;
+            // --- INÍCIO DA CORREÇÃO: LÓGICA DE FLEXIBILIZAÇÃO ADICIONADA ÀS EXCEÇÕES ---
+            // Apenas exige 4 jogadores se a reserva for para um DIA FUTURO
+            if (dataDaReserva > hoje) {
+                if (jogadores.length !== 4) {
+                    alert(`⚠️ Atenção: Regra de Exceção\n\nNa data ${dataFormatadaParaChave.split('-').reverse().join('/')} (${excecao.descricao || 'Data Especial'}), o horário das ${excecao.regras.inicio} às ${excecao.regras.fim} na ${quadraSelecionada} é exclusivo para jogos de duplas com 4 jogadores.\n\nPara agendar com menos jogadores, tente novamente no dia da reserva, caso o horário ainda esteja disponível.`);
+                    return false;
+                }
             }
+            // Se for para hoje, a regra é flexível e a validação passa.
+            // --- FIM DA CORREÇÃO ---
         }
-        return true; // Se não cair na regra de exceção, permite
+        return true;
     }
 
     // Lógica para Regras Semanais
@@ -3189,14 +3212,13 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
 
         const configDiasEspecificos = configDaQuadra.DiasDeSemanaConfig;
         if (!configDaQuadra[diaConfigKey] || !configDiasEspecificos) {
-            return true; // Regra geral ou específica de dia desativada
+            return true;
         }
         const diaSemanaMap = { 1: 'segunda', 2: 'terca', 3: 'quarta', 4: 'quinta', 5: 'sexta' };
         if (!configDiasEspecificos[diaSemanaMap[dia]]) {
-            return true; // Dia específico desativado
+            return true; 
         }
         
-        // Constrói a lista de dias para a mensagem de alerta
         const diasAtivosNomes = [];
         if (configDiasEspecificos.segunda) diasAtivosNomes.push("Segunda-feira");
         if (configDiasEspecificos.terca) diasAtivosNomes.push("Terça-feira");
@@ -3217,7 +3239,7 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
         diaConfigKey = `${quadraKey.split('-')[1]}-Domingo`;
         nomeDoPeriodo = "aos Domingos";
     } else {
-        return true; // Dia inválido
+        return true;
     }
 
     if (!configDaQuadra[diaConfigKey]) {
@@ -3230,23 +3252,83 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
     const horarioFimRegra = parseInt((configDaQuadra[fimKey] || "0:00").split(':')[0]);
     const horarioFimReserva = hora + duracao;
 
-    // --- LÓGICA DE FLEXIBILIZAÇÃO DA REGRA ---
     if (hora < horarioFimRegra && horarioFimReserva > horarioInicioRegra) {
-        
-        // Se a reserva for para um DIA FUTURO, a regra de 4 jogadores é RÍGIDA.
         if (dataDaReserva > hoje) {
             if (jogadores.length !== 4) {
                 alert(`⚠️ Atenção: Horário Prioritário para Duplas\n\nNa ${quadraSelecionada}, o horário das ${configDaQuadra[inicioKey]} às ${configDaQuadra[fimKey]} ${nomeDoPeriodo} é prioritário para jogos de duplas (4 jogadores).\n\nPara agendar com menos jogadores, tente novamente no dia da reserva, caso o horário ainda esteja disponível.`);
                 return false;
             }
         } 
-    
     }
-    // --- FIM DA LÓGICA DE FLEXIBILIZAÇÃO ---
 
     console.log("VALIDAÇÃO OK: A reserva passou por todas as regras de Duplas.");
     return true; 
 }
+
+
+
+function aplicarBloqueiosVisuais(quadra) {
+    const quadraKey = `Quadra-${quadra.split(' ')[1]}`;
+    if (!bloqueiosQuadra || !bloqueiosQuadra[quadraKey]) {
+        return; 
+    }
+    const bloqueiosDaQuadra = bloqueiosQuadra[quadraKey];
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+    const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
+
+    for (let dia = 1; dia <= 7; dia++) {
+        let diff = dia - diaDaSemanaHoje;
+        if (diff < 0) diff += 7;
+        const dataDaReserva = new Date(hoje);
+        dataDaReserva.setDate(hoje.getDate() + diff);
+        const dataFormatada = `${dataDaReserva.getFullYear()}-${String(dataDaReserva.getMonth() + 1).padStart(2, '0')}-${String(dataDaReserva.getDate()).padStart(2, '0')}`;
+        const bloqueioDoDia = bloqueiosDaQuadra[dataFormatada];
+
+        if (bloqueioDoDia && bloqueioDoDia.regras) {
+            const tabela = document.getElementById('tabelaCorpo');
+            const inicioBloqueio = parseInt(bloqueioDoDia.regras.inicio.split(':')[0]);
+            const fimBloqueio = parseInt(bloqueioDoDia.regras.fim.split(':')[0]);
+
+            for (let hora = inicioBloqueio; hora < fimBloqueio; hora++) {
+                const rowIndex = hora - 6;
+                if (tabela.rows[rowIndex]) {
+                    const cell = tabela.rows[rowIndex].cells[dia];
+                    if (cell) {
+                        cell.innerHTML = ""; // Garante que a célula fique vazia
+                        
+                        // --- ÚNICA ALTERAÇÃO: Cor de fundo para vermelho ---
+                        cell.style.backgroundColor = 'lightcoral';
+                        
+                        cell.style.cursor = 'help';
+                        const motivo = bloqueioDoDia.descricao || "Uso interno do clube";
+                        cell.title = motivo;
+                        
+                        cell.onclick = () => {
+                            const dataFormatadaBrasileira = dataFormatada.split('-').reverse().join('/');
+                            alert(`ℹ️ Informação: Horário Bloqueado\n\nO horário das ${bloqueioDoDia.regras.inicio} às ${bloqueioDoDia.regras.fim} na ${quadra} do dia ${dataFormatadaBrasileira} está indisponível.\n\nMotivo: ${motivo}`);
+                        };
+                        
+                        cell.style.borderTop = "1px solid #bbb";
+                        cell.style.borderBottom = "1px solid #bbb";
+                        cell.style.borderLeft = "1px solid #bbb";
+                        cell.style.borderRight = "1px solid #bbb";
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+function parseDateDDMMYYYY(dateString) {
+    if (!dateString) return null;
+    const parts = dateString.split('-');
+    if (parts.length !== 3) return null;
+    // new Date(ano, mês - 1, dia)
+    return new Date(parts[2], parts[1] - 1, parts[0]);
+}
+
 </script>
 
 
@@ -3318,7 +3400,7 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
 	
 	    <div class="form-row">
 			<label for="quadra">Quadra:</label>
-			<select id="quadra">
+			<select id="quadra" onchange="selecionarQuadra(this.value)">
 				<option value="Quadra 1 - Coberta">Quadra 1 - Coberta</option>
 				<option value="Quadra 2 - Aberta">Quadra 2 - Aberta</option>
 				<option value="Quadra 3 - Coberta">Quadra 3 - Coberta</option>
