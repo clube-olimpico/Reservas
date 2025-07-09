@@ -636,6 +636,21 @@ body.piramde-ativo {
         white-space: normal;
         font-size: 15px;
     }
+	
+	/* 1. Diminui o tamanho da fonte das datas para economizar espaço */
+    #piramideInicio, #piramideFim, #piramideSeparador {
+        font-size: 0.8em !important; /* Deixa a fonte 20% menor */
+    }
+
+    /* 2. Aproxima a data de início do dropdown (seletor ON/OFF) */
+    #piramideInicio {
+        margin-left: 4px !important; /* Reduz a margem da esquerda */
+    }
+
+    /* 3. Ajusta o espaço ao redor do "à" */
+    #piramideSeparador {
+        margin: 0 2px !important; /* Reduz as margens laterais */
+    }
 
     /* CORREÇÃO DE FONTE PARA CELULAR */
     .duplas-day-container > label {
@@ -1035,7 +1050,7 @@ input:disabled, select:disabled, button:disabled {
 
         <div class="container quadra-container">
             <label for="estadoQuadra1">Quadra 1 - Coberta:</label>
-            <select id="estadoQuadra1" class="no-select" onchange="handleEstadoQuadraChange(this, 1)" ondblclick="handleEstadoQuadraChange(this, 1)">
+            <select id="estadoQuadra1" class="no-select" onfocus="this.oldValue = this.value;" onchange="handleEstadoQuadraChange(this, 1)" ondblclick="handleEstadoQuadraChange(this, 1)">
                 <option value="liberada">Liberada</option>
                 <option value="interditada">Interditada</option>
 				<option value="bloqueada">Bloqueada</option>
@@ -1044,7 +1059,7 @@ input:disabled, select:disabled, button:disabled {
         </div>
         <div class="container quadra-container">
             <label for="estadoQuadra2">Quadra 2 - Aberta:</label>
-            <select id="estadoQuadra2" class="no-select" onchange="handleEstadoQuadraChange(this, 2)" ondblclick="handleEstadoQuadraChange(this, 2)">
+            <select id="estadoQuadra2" class="no-select" onfocus="this.oldValue = this.value;" onchange="handleEstadoQuadraChange(this, 2)" ondblclick="handleEstadoQuadraChange(this, 2)">
                 <option value="liberada">Liberada</option>
                 <option value="interditada">Interditada</option>
 				<option value="bloqueada">Bloqueada</option>
@@ -1052,7 +1067,7 @@ input:disabled, select:disabled, button:disabled {
         </div>
         <div class="container quadra-container">
             <label for="estadoQuadra3">Quadra 3 - Coberta:</label>
-            <select id="estadoQuadra3" class="no-select" onchange="handleEstadoQuadraChange(this, 3)" ondblclick="handleEstadoQuadraChange(this, 3)">
+            <select id="estadoQuadra3" class="no-select" onfocus="this.oldValue = this.value;" onchange="handleEstadoQuadraChange(this, 3)" ondblclick="handleEstadoQuadraChange(this, 3)">
                 <option value="liberada">Liberada</option>
                 <option value="interditada">Interditada</option>
 				<option value="bloqueada">Bloqueada</option>
@@ -1087,12 +1102,15 @@ input:disabled, select:disabled, button:disabled {
 
         <div id="piramide" class="tab-content">
             <div class="container piramide-ativa-container">
-                <label for="piramideAtiva">Ativa:</label>
-                <select id="piramideAtiva" onchange="atualizarEstadoPiramide()">
-                    <option value="ON">ON</option>
-                    <option value="OFF">OFF</option>
-                </select>
-            </div>
+				<label for="piramideAtiva">Ativa:</label>
+				<select id="piramideAtiva" onchange="handlePiramideChange()">
+					<option value="ON">ON</option>
+					<option value="OFF">OFF</option>
+				</select>
+				<span id="piramideInicio" style="display: none; font-weight: bold; margin-left: 10px;"></span>
+				<span id="piramideSeparador" style="display: none; margin: 0 5px;">à</span>
+				<span id="piramideFim" style="display: none; font-weight: bold;"></span>
+			</div>
 
             <div class="container piramide-botoes-container">
                 <button class="piramide-botao" onclick="mostrarQuadra('quadra1')">Quadra - 1</button>
@@ -1301,7 +1319,7 @@ input:disabled, select:disabled, button:disabled {
 
         <div class="container">
             <label for="excecaoData">Data:</label>
-            <input type="date" id="excecaoData">
+            <input type="text" id="excecaoData" placeholder="dd/mm/aaaa" oninput="formatarDataInput(event)">
         </div>
 
         <div class="container">
@@ -1325,7 +1343,7 @@ input:disabled, select:disabled, button:disabled {
     </div>
 </div>
 
-<div id="modalBloqueioQuadra" class="modal-overlay">
+<div id="modalBloqueioQuadra" class="modal-overlay"> 
     <div class="modal-content">
         <h2 id="modalBloqueioTitulo">Bloqueio Quadra 1</h2>
         
@@ -1336,7 +1354,7 @@ input:disabled, select:disabled, button:disabled {
 
         <div class="container">
             <label for="bloqueioData">Data:</label>
-            <input type="date" id="bloqueioData">
+            <input type="text" id="bloqueioData" placeholder="dd/mm/aaaa" oninput="formatarDataInput(event)">
         </div>
 
         <div class="container">
@@ -1468,35 +1486,95 @@ function showTab(tabId) {
 	
 	
  function atualizarEstadoPiramide() {
-    const piramideAtiva = document.getElementById("piramideAtiva"); 
+    const piramideAtiva = document.getElementById("piramideAtiva");
     const piramideTab = document.getElementById("piramide");
     const piramideBotoes = document.querySelectorAll("#piramide .piramide-botao");
+    const piramideInicioEl = document.getElementById("piramideInicio");
+    const piramideFimEl = document.getElementById("piramideFim");
+    const piramideSeparadorEl = document.getElementById("piramideSeparador");
 
-    if (piramideAtiva.value === "ON") {
+    if (piramideAtiva.value === 'ON') {
         piramideAtiva.classList.remove("piramide-off");
         piramideAtiva.classList.add("piramide-on");
-        // Habilita os elementos básicos
+
+        const inicio = window.piramideInicioData;
+        const fim = window.piramideFimData;
+
+        // Apenas mostra as datas se elas existirem
+        if (inicio && fim) {
+            piramideInicioEl.textContent = inicio.replace(/-/g, '/');
+            piramideFimEl.textContent = fim.replace(/-/g, '/');
+            piramideInicioEl.style.display = 'inline';
+            piramideFimEl.style.display = 'inline';
+            piramideSeparadorEl.style.display = 'inline';
+        }
+
+        // Habilita os controles
         piramideTab.querySelectorAll('input, select, button').forEach(el => el.disabled = false);
         piramideBotoes.forEach(botao => botao.disabled = false);
-        
-        // Atualiza o estado dos campos das quadras (que vai lidar com os "Exceto")
         atualizarCamposPiramideQuadra1();
         atualizarCamposPiramideQuadra2();
         atualizarCamposPiramideQuadra3();
-    } else {
+
+    } else { // Se o valor for "OFF"
         piramideAtiva.classList.remove("piramide-on");
         piramideAtiva.classList.add("piramide-off");
-        
-        // Desabilita TODOS os elementos dentro da aba "Pirâmide"
+
+        // Esconde as datas
+        piramideInicioEl.style.display = 'none';
+        piramideFimEl.style.display = 'none';
+        piramideSeparadorEl.style.display = 'none';
+
+        // Desabilita os controles
         const todosElementos = piramideTab.querySelectorAll('input, select, button');
         todosElementos.forEach(el => {
-            el.disabled = true; // Apenas desabilita, sem alterar o valor
+            el.disabled = true;
         });
-        
-        // Mantém o select "Ativa" habilitado para poder mudar o estado
         piramideAtiva.disabled = false;
         piramideBotoes.forEach(botao => botao.disabled = true);
     }
+}
+
+function handlePiramideChange() {
+    const piramideAtiva = document.getElementById("piramideAtiva");
+
+    if (piramideAtiva.value === "ON") {
+        // Mantém a lógica existente para quando se ativa a pirâmide
+        let inicio = window.piramideInicioData;
+        let fim = window.piramideFimData;
+
+        if (!inicio || !fim) {
+            inicio = prompt("PRIMEIRO CADASTRO:\n\nInsira a data de INÍCIO do torneio (formato dd-mm-aaaa):");
+            if (inicio) {
+                fim = prompt("PRIMEIRO CADASTRO:\n\nInsira a data de FIM do torneio (formato dd-mm-aaaa):");
+            }
+
+            if (inicio && fim) {
+                window.piramideInicioData = inicio;
+                window.piramideFimData = fim;
+            } else {
+                 alert("Cadastro de datas cancelado. O status da Pirâmide permanecerá 'OFF'."); 
+                 piramideAtiva.value = "OFF";
+            }
+        }
+    } else {
+        // NOVO: Lógica para quando se desativa a pirâmide
+        // Só pergunta se já existirem datas preenchidas
+        if (window.piramideInicioData || window.piramideFimData) {
+            const zerarDatas = confirm(
+                "Você desativou a Pirâmide.\n\nDeseja apagar as datas do torneio (Início e Fim)?\n\n- Clique em 'OK' para apagar as datas.\n- Clique em 'Cancelar' para mantê-las salvas para o futuro."
+            );
+
+            if (zerarDatas) { // Se o usuário clicar em "OK"
+                window.piramideInicioData = "";
+                window.piramideFimData = "";
+                alert("As datas do torneio foram zeradas. Clique em 'Salvar Configurações' para confirmar a alteração.");
+            }
+        }
+    }
+
+    // Atualiza a aparência da tela para refletir qualquer mudança
+    atualizarEstadoPiramide();
 }
 
 
@@ -1874,6 +1952,8 @@ function carregarConfiguracoes() {
                     const quadra2P = piramide["Quadra-2"] || {};
                     const quadra3P = piramide["Quadra-3"] || {};
                     document.getElementById('piramideAtiva').value = piramide.ativa ? 'ON' : 'OFF';
+					window.piramideInicioData = piramide.inicio || "";
+                    window.piramideFimData = piramide.fim || "";
                     document.getElementById('piramideQuadra1').checked = quadra1P["Quadra-1-ativa"] || false;
                     document.getElementById('1-piramideSemana').checked = quadra1P["1-DiasDeSemana"] || false;
                     document.getElementById('1-piramideExceto17_19').checked = quadra1P["1-DiasDeSemana-exceto-17-19"] || false;
@@ -1980,6 +2060,8 @@ function carregarConfiguracoes() {
                 const quadra2P = piramide["Quadra-2"] || {};
                 const quadra3P = piramide["Quadra-3"] || {};
                 document.getElementById('piramideAtiva').value = piramide.ativa ? 'ON' : 'OFF';
+				window.piramideInicioData = piramide.inicio || "";
+                window.piramideFimData = piramide.fim || "";
                 document.getElementById('piramideQuadra1').checked = quadra1P["Quadra-1-ativa"] || false;
                 document.getElementById('1-piramideSemana').checked = quadra1P["1-DiasDeSemana"] || false;
                 document.getElementById('1-piramideExceto17_19').checked = quadra1P["1-DiasDeSemana-exceto-17-19"] || false;
@@ -2105,6 +2187,8 @@ function salvarConfiguracoes() {
     // Captura os valores da Pirâmide
     const piramide = {
         ativa: document.getElementById('piramideAtiva').value === 'ON',
+		inicio: window.piramideInicioData || "",
+        fim: window.piramideFimData || "",
         "Quadra-1": {
             "Quadra-1-ativa": document.getElementById('piramideQuadra1').checked,
             "1-DiasDeSemana": document.getElementById('1-piramideSemana').checked,
@@ -2237,7 +2321,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	atualizarEstadoDuplas();
 
     // Adiciona o evento onchange para o checkbox "Ativa"
-    document.getElementById('piramideAtiva').onchange = atualizarEstadoPiramide;
+    //document.getElementById('piramideAtiva').onchange = atualizarEstadoPiramide;
 
     // Adiciona os event listeners para os checkboxes das quadras
     document.getElementById('piramideQuadra1').onchange = atualizarCamposPiramideQuadra1;
@@ -2310,7 +2394,7 @@ for (let i = 1; i <= 3; i++) {
     for (let i = 1; i <= 3; i++) {
         const labelDias = document.getElementById(`DuplasDiasQuadra${i}`);
         if (labelDias) {
-            labelDias.addEventListener('dblclick', () => abrirModalExcecao(i));
+            labelDias.addEventListener('dblclick', () => abrirModalExcecao(i)); 
         }
     }
 	
@@ -2580,24 +2664,30 @@ function renderizarExcecoes(quadraNumero) {
 
 
 
-/**
- * MODIFICADA: Adiciona uma nova exceção e, ao mesmo tempo, garante que a quadra
- * correspondente seja marcada como 'ativa' no Firebase, resolvendo o problema de sincronia.
- */
 function adicionarExcecao() {
     const descricao = document.getElementById('excecaoDescricao').value.trim();
-    const dataInput = document.getElementById('excecaoData').value;
+    const dataDigitada = document.getElementById('excecaoData').value.trim();
     const inicio = document.getElementById('excecaoInicio').value;
     const fim = document.getElementById('excecaoFim').value;
 
-    if (!dataInput || !inicio || !fim) {
-        alert('Por favor, preencha a data e os horários da exceção.');
+    if (!dataDigitada || !inicio || !fim) {
+        alert('Por favor, preencha a data (no formato DD/MM/AAAA) e os horários da exceção.');
         return;
     }
 
+    // --- INÍCIO DA LÓGICA DE CONVERSÃO DE DATA ---
+    const dataPadronizada = dataDigitada.replace(/-/g, '/');
+    if (!/^\d{2}\/\d{2}\/\d{4}$/.test(dataPadronizada)) {
+        alert("Formato de data inválido. Por favor, use DD/MM/AAAA.");
+        return;
+    }
+    const partes = dataPadronizada.split('/');
+    const dataFormatadaParaBanco = `${partes[2]}-${partes[1]}-${partes[0]}`;
+    // --- FIM DA LÓGICA DE CONVERSÃO DE DATA ---
+
     const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0); 
-    const dataSelecionada = new Date(dataInput + 'T00:00:00');
+    hoje.setHours(0, 0, 0, 0);
+    const dataSelecionada = new Date(dataFormatadaParaBanco + 'T00:00:00');
 
     if (dataSelecionada < hoje) {
         alert('Não é permitido cadastrar datas passadas.');
@@ -2605,43 +2695,25 @@ function adicionarExcecao() {
     }
 
     const quadraKey = `Quadra-${quadraAtualParaExcecao}`;
-    
     const novaExcecao = {
         descricao: descricao,
         regras: { inicio: inicio, fim: fim }
     };
-
-    // --- LÓGICA DE ATUALIZAÇÃO ATÔMICA ---
-    // Cria um objeto para atualizar múltiplos locais no Firebase de uma só vez.
     const updates = {};
-    
-    // Caminho para a nova exceção
-    updates[`sistemas/config/Duplas/DatasEspeciais/${quadraKey}/${dataInput}`] = novaExcecao;
-    
-    // Caminho para o estado 'ativa' da quadra, que será setado para 'true'
+    updates[`sistemas/config/Duplas/DatasEspeciais/${quadraKey}/${dataFormatadaParaBanco}`] = novaExcecao;
     updates[`sistemas/config/Duplas/${quadraKey}/${quadraKey}-ativa`] = true;
 
-    // Executa a atualização atômica no Firebase
     db.ref().update(updates).then(() => {
-        console.log("Exceção e estado da quadra salvos com sucesso!");
-        alert("Data adicionada com sucesso!");
-        
-        // Limpa os campos do formulário após o sucesso
+        alert("Data de exceção adicionada com sucesso!");
         document.getElementById('excecaoDescricao').value = '';
         document.getElementById('excecaoData').value = '';
         document.getElementById('excecaoInicio').value = '';
         document.getElementById('excecaoFim').value = '';
-
-        // O listener 'on("value")' já vai atualizar a tela,
-        // mas podemos forçar a renderização para uma resposta mais rápida se necessário
-        renderizarExcecoes(quadraAtualParaExcecao);
-
     }).catch(error => {
-        console.error("Erro ao salvar exceção e estado da quadra:", error);
+        console.error("Erro ao salvar exceção:", error);
         alert("Ocorreu um erro ao salvar a exceção.");
     });
 }
-
 
 
 /**
@@ -2707,11 +2779,43 @@ let bloqueiosQuadra = {}; // Objeto para armazenar os bloqueios (atualmente, só
  * @param {number} quadraNumero - O número da quadra (1, 2 ou 3).
  */
 function handleEstadoQuadraChange(selectElement, quadraNumero) {
-    const valorSelecionado = selectElement.value;
-    
-    if (valorSelecionado === 'bloqueada') {
+    const novoValor = selectElement.value;
+    const valorAntigo = selectElement.oldValue; // Pega o valor antigo que guardamos com o 'onfocus'
+    const quadraKey = `Quadra-${quadraNumero}`;
+    const nomeDaQuadra = document.querySelector(`label[for="estadoQuadra${quadraNumero}"]`).innerText.replace(':', '');
+
+    // Condição principal: só age se o status estiver mudando DE "Bloqueada" PARA outra coisa.
+    if (valorAntigo === 'bloqueada' && novoValor !== 'bloqueada') {
+        const bloqueiosExistentes = bloqueiosQuadra[quadraKey];
+        
+        // Verifica se realmente existem bloqueios configurados para esta quadra.
+        if (bloqueiosExistentes && Object.keys(bloqueiosExistentes).length > 0) {
+            
+            // Monta e exibe a mensagem de confirmação. 
+            const confirmacao = confirm(
+                `⚠️ Atenção!\n\nA ${nomeDaQuadra} possui bloqueios de datas específicos.\n\nAo alterar o status para "${novoValor}", todos esses bloqueios serão removidos.\n\nDeseja continuar e excluir todos os bloqueios desta quadra?`
+            );
+
+            if (confirmacao) {
+                // Se o usuário clicar em "OK", deleta os bloqueios do objeto JavaScript.
+                delete bloqueiosQuadra[quadraKey];
+                alert(`Todos os bloqueios da ${nomeDaQuadra} foram removidos.\n\nClique em "Salvar Configurações" no final da página para tornar a mudança permanente.`);
+            } else {
+                // Se o usuário clicar em "Cancelar", reverte a mudança no dropdown e para a execução.
+                alert("Operação cancelada. O status da quadra e seus bloqueios não foram alterados.");
+                selectElement.value = valorAntigo; // Reverte para "Bloqueada"
+                return; 
+            }
+        }
+    }
+
+    // Lógica original: se o novo estado for "bloqueada", abre o modal de configuração.
+    if (novoValor === 'bloqueada') {
         abrirModalBloqueio(quadraNumero);
     }
+
+    // Atualiza o valor 'antigo' para a próxima vez que a função for chamada.
+    selectElement.oldValue = novoValor;
 }
 
 /**
@@ -2735,7 +2839,7 @@ async function abrirModalBloqueio(quadraNumero) {
     
     // Define o título do modal dinamicamente com base no label da quadra
     const labelQuadra = document.querySelector(`label[for="estadoQuadra${quadraNumero}"]`).innerText;
-    document.getElementById('modalBloqueioTitulo').innerText = `Bloqueio ${labelQuadra}`;
+    document.getElementById('modalBloqueioTitulo').innerText = `${labelQuadra}`;
     
     // Renderiza os bloqueios já existentes para a quadra selecionada
     renderizarBloqueios(quadraNumero);
@@ -2766,7 +2870,7 @@ function renderizarBloqueios(quadraNumero) {
     }
 
     const ul = document.createElement('ul');
-    // Ordena as datas antes de exibir
+    // Ordena as datas antes de exibir 
     Object.keys(bloqueiosDaQuadra).sort().forEach(data => {
         const bloqueio = bloqueiosDaQuadra[data];
         const li = document.createElement('li');
@@ -2789,37 +2893,47 @@ function renderizarBloqueios(quadraNumero) {
  */
 function adicionarBloqueio() {
     const descricao = document.getElementById('bloqueioDescricao').value.trim();
-    const dataInput = document.getElementById('bloqueioData').value;
+    const dataDigitada = document.getElementById('bloqueioData').value.trim();
     const inicio = document.getElementById('bloqueioInicio').value;
     const fim = document.getElementById('bloqueioFim').value;
 
-    if (!dataInput || !inicio || !fim) {
-        alert('Por favor, preencha a data e os horários do bloqueio.');
+    if (!dataDigitada || !inicio || !fim) {
+        alert('Por favor, preencha a data (no formato DD/MM/AAAA) e os horários.');
         return;
     }
-    
+
+    // --- LÓGICA DE CONVERSÃO E VALIDAÇÃO DE DATA ---
+    const dataPadronizada = dataDigitada.replace(/-/g, '/');
+    if (!/^\d{2}\/\d{2}\/\d{4}$/.test(dataPadronizada)) {
+        alert("Formato de data inválido. Por favor, use DD/MM/AAAA.");
+        return;
+    }
+    const partes = dataPadronizada.split('/'); // Ex: "09/07/2025" -> ["09", "07", "2025"]
+    const dataFormatadaParaBanco = `${partes[2]}-${partes[1]}-${partes[0]}`; // Cria "2025-07-09"
+    // --- FIM DA LÓGICA ---
+
     const quadraKey = `Quadra-${quadraAtualParaBloqueio}`;
-    
-    // Cria a subestrutura para a quadra, se ainda não existir
     if (!bloqueiosQuadra[quadraKey]) {
         bloqueiosQuadra[quadraKey] = {};
     }
-    
-    // Adiciona os dados do bloqueio
-    bloqueiosQuadra[quadraKey][dataInput] = {
+
+    if (bloqueiosQuadra[quadraKey][dataFormatadaParaBanco]) {
+        alert("Já existe um bloqueio para esta data. Para alterar, remova o existente e adicione um novo.");
+        return;
+    }
+
+    bloqueiosQuadra[quadraKey][dataFormatadaParaBanco] = {
         descricao: descricao,
         regras: { inicio, fim }
     };
-    
-    alert("Bloqueio adicionado com sucesso! Lembre-se de salvar as configurações gerais.");
-    
-    // Limpa os campos do formulário
+
+    alert("Bloqueio adicionado com sucesso! Lembre-se de clicar em 'Salvar Configurações'.");
+
     document.getElementById('bloqueioDescricao').value = '';
     document.getElementById('bloqueioData').value = '';
     document.getElementById('bloqueioInicio').value = '';
     document.getElementById('bloqueioFim').value = '';
-    
-    // Atualiza a lista exibida no modal
+
     renderizarBloqueios(quadraAtualParaBloqueio);
 }
 
@@ -2932,6 +3046,37 @@ function setupMobileHoldEvents(element, quadraNumero) {
         clearTimeout(holdTimer);
     });
 }
+
+
+/**
+ * Formata o valor de um campo de texto para o formato de data DD/MM/AAAA enquanto o usuário digita.
+ * @param {Event} event - O evento de input disparado pelo campo.
+ */
+function formatarDataInput(event) {
+    const input = event.target;
+    // Remove tudo que não for número
+    let valor = input.value.replace(/\D/g, '');
+
+    // Limita o tamanho em 8 dígitos (DDMMYYYY)
+    if (valor.length > 8) {
+        valor = valor.substring(0, 8);
+    }
+
+    // Adiciona a primeira barra (DD/...)
+    if (valor.length > 2) {
+        valor = valor.substring(0, 2) + '/' + valor.substring(2);
+    }
+
+    // Adiciona a segunda barra (DD/MM/...)
+    if (valor.length > 5) {
+        valor = valor.substring(0, 5) + '/' + valor.substring(5);
+    }
+
+    // Atualiza o valor no campo
+    input.value = valor;
+}
+
+
 </script>
 </body>
 </html>
