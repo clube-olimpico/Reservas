@@ -479,7 +479,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.3.1'; // Versão atual do sistema 
+const VersaoSistema = 'v1.3.2'; // Versão atual do sistema 
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy  
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -3187,6 +3187,14 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
         const horarioFimReserva = hora + duracao;
 
         if (hora < horarioFimRegra && horarioFimReserva > horarioInicioRegra) {
+		
+		    // *** INÍCIO DA ALTERAÇÃO PARA EXCEÇÕES ***
+            // 1. Validação de Convidado em datas de exceção
+            if (jogadores.includes("Convidado")) {
+                alert(`⚠️ Atenção: Regra de Exceção para Duplas\n\nNa data ${dataFormatadaParaChave.split('-').reverse().join('/')} (${excecao.descricao || 'Data Especial'}), o horário das ${excecao.regras.inicio} às ${excecao.regras.fim} na ${quadraSelecionada} é exclusivo para jogos entre sócios.\n\nRegras para este horário:\n• Apenas jogos de duplas (4 jogadores).\n• Não é permitida a inclusão de convidados.\n\nPara agendar com menos de 4 sócios, tente novamente no dia da reserva, caso o horário ainda esteja disponível.`);
+                return false;
+            }
+            // *** FIM DA ALTERAÇÃO ***
             // --- INÍCIO DA CORREÇÃO: LÓGICA DE FLEXIBILIZAÇÃO ADICIONADA ÀS EXCEÇÕES ---
             // Apenas exige 4 jogadores se a reserva for para um DIA FUTURO
             if (dataDaReserva > hoje) {
@@ -3253,6 +3261,16 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
     const horarioFimReserva = hora + duracao;
 
     if (hora < horarioFimRegra && horarioFimReserva > horarioInicioRegra) {
+	
+	    // *** INÍCIO DA ALTERAÇÃO ***
+        // Valida se há convidados no horário de duplas da regra semanal.
+        if (jogadores.includes("Convidado")) {
+            alert(`⚠️ Atenção: Horário Prioritário para Duplas\n\nNo horário das ${configDaQuadra[inicioKey]} às ${configDaQuadra[fimKey]} ${nomeDoPeriodo}, a quadra é exclusiva para jogos entre sócios.\n\nRegras para este horário:\n• Apenas jogos de duplas (4 jogadores).\n• Não é permitida a inclusão de convidados.\n\nPara agendar com menos de 4 sócios, tente novamente no dia da reserva, caso o horário ainda esteja disponível.`);
+            return false;
+        }
+        // *** FIM DA ALTERAÇÃO *** 
+	
+	
         if (dataDaReserva > hoje) {
             if (jogadores.length !== 4) {
                 alert(`⚠️ Atenção: Horário Prioritário para Duplas\n\nNa ${quadraSelecionada}, o horário das ${configDaQuadra[inicioKey]} às ${configDaQuadra[fimKey]} ${nomeDoPeriodo} é prioritário para jogos de duplas (4 jogadores).\n\nPara agendar com menos jogadores, tente novamente no dia da reserva, caso o horário ainda esteja disponível.`);
