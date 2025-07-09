@@ -28,6 +28,7 @@
         "Bigode": true,
         "Caina Balboa": true,
         "Caio Teixeira": true,
+        "Caroline Charnei": true,
         "Ceccon": true,
         "Claudio Warkentin": true,
         "Clodoaldo": true,
@@ -291,6 +292,13 @@
           "niver": "08/09/1994",
           "piramide": "18",
           "socio": "titular"
+        },
+        "CAROLINE CHARNEI": {
+          "apelido": "Caroline Charnei",
+          "classe": "C",
+          "niver": "16/07/1998",
+          "piramide": "",
+          "socio": "dependente"
         },
         "CLAUDIO WARKENTIN": {
           "apelido": "Claudio Warkentin",
@@ -938,7 +946,9 @@
           "3-Sabado-exceto-7-12": false,
           "Quadra-3-ativa": true
         },
-        "ativa": true
+        "ativa": true,
+        "fim": "20-11-2025",
+        "inicio": "10-07-2025"
       },
       "Quadras": {
         "Bloqueios": {
@@ -948,6 +958,20 @@
               "regras": {
                 "fim": "12:00",
                 "inicio": "08:00"
+              }
+            },
+            "2025-07-08": {
+              "descricao": "Quadra em Manutençao",
+              "regras": {
+                "fim": "12:00",
+                "inicio": "10:00"
+              }
+            },
+            "2025-07-11": {
+              "descricao": "teste",
+              "regras": {
+                "fim": "11:00",
+                "inicio": "09:00"
               }
             }
           }
@@ -1017,18 +1041,6 @@
           "duracao": 1,
           "hora": 21,
           "jogadores": "aula"
-        },
-        "1_7": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 7,
-          "jogadores": "Thomas August"
-        },
-        "1_8": {
-          "dia": 1,
-          "hora": 8,
-          "jogadores": "Frank Heinrichs"
         },
         "2_14": {
           "borda": "1h",
@@ -1396,44 +1408,6 @@
         }
       },
       "Quadra 2 - Aberta": {
-        "1_17": {
-          "borda": "1h",
-          "dia": 1,
-          "duracao": 1,
-          "hora": 17,
-          "jogadores": "Giovani"
-        },
-        "1_18": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 18,
-          "jogadores": "Ivan Balboa"
-        },
-        "1_19": {
-          "dia": 1,
-          "hora": 19,
-          "jogadores": "Caina Balboa"
-        },
-        "2_17": {
-          "borda": "2h",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Cristina Pirachovski"
-        },
-        "2_18": {
-          "dia": 2,
-          "hora": 18,
-          "jogadores": "Paulinho"
-        },
-        "2_20": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 20,
-          "jogadores": "Isa"
-        },
         "4_18": {
           "borda": "2h",
           "dia": 4,
@@ -1460,82 +1434,22 @@
         }
       },
       "Quadra 3 - Coberta": {
-        "1_15": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 15,
-          "jogadores": "Natan"
-        },
-        "1_16": {
-          "dia": 1,
-          "hora": 16,
-          "jogadores": "Caio Teixeira"
-        },
-        "1_17": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Almir, Marcelo Zoti"
-        },
-        "1_18": {
-          "dia": 1,
-          "hora": 18,
-          "jogadores": "Frank Fast, Nivaldo"
-        },
-        "1_19": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 19,
-          "jogadores": "Diego Paraiso"
-        },
-        "1_20": {
-          "dia": 1,
-          "hora": 20,
-          "jogadores": "Bernardo"
-        },
-        "2_17": {
-          "borda": "2h",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Edemar"
-        },
-        "2_18": {
-          "dia": 2,
-          "hora": 18,
-          "jogadores": "Sergio Nelhs"
-        },
-        "2_19": {
-          "borda": "2h",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 19,
-          "jogadores": "Makoto"
-        },
-        "2_20": {
-          "dia": 2,
-          "hora": 20,
-          "jogadores": "Rodrigo Weich"
-        },
         "3_10": {
           "dia": 3,
           "hora": 10,
-          "jogadores": "Leo Mikuska"
+          "jogadores": "Paulinho"
         },
         "3_17": {
           "borda": "2h",
           "dia": 3,
           "duracao": 2,
           "hora": 17,
-          "jogadores": "Marco Ribeiro, Lucas Titon"
+          "jogadores": "Frank Fast, Marco Ribeiro"
         },
         "3_18": {
           "dia": 3,
           "hora": 18,
-          "jogadores": "Gustavo Ferraz, Flavio Ferraz"
+          "jogadores": "Flavio Ferraz, Nivaldo"
         },
         "3_19": {
           "borda": "1h",
@@ -1558,6 +1472,20 @@
           "hora": 21,
           "jogadores": "Sidnei Novack"
         },
+        "3_7": {
+          "borda": "1h",
+          "dia": 3,
+          "duracao": 1,
+          "hora": 7,
+          "jogadores": "Taborda"
+        },
+        "3_8": {
+          "borda": "1h",
+          "dia": 3,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "Airton Santos"
+        },
         "3_9": {
           "borda": "2h",
           "dia": 3,
@@ -1566,11 +1494,16 @@
           "jogadores": "Felipe Mikuska"
         },
         "4_15": {
-          "borda": "1h",
+          "borda": "2h",
           "dia": 4,
-          "duracao": 1,
+          "duracao": 2,
           "hora": 15,
           "jogadores": "Bigode"
+        },
+        "4_16": {
+          "dia": 4,
+          "hora": 16,
+          "jogadores": "Caroline Charnei"
         },
         "4_17": {
           "borda": "2h",
@@ -1595,6 +1528,30 @@
           "dia": 4,
           "hora": 20,
           "jogadores": "Luciano Cavalheiro"
+        },
+        "5_17": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Josiane Kamiya"
+        },
+        "5_18": {
+          "dia": 5,
+          "hora": 18,
+          "jogadores": "Raianne Kamiya"
+        },
+        "5_19": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Diego Paraiso"
+        },
+        "5_20": {
+          "dia": 5,
+          "hora": 20,
+          "jogadores": "Bernardo"
         }
       }
     },
