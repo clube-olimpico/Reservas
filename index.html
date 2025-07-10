@@ -479,7 +479,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.3.2'; // Versão atual do sistema 
+const VersaoSistema = 'v1.3.3'; // Versão atual do sistema 
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy  
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -1320,8 +1320,8 @@ function validarDiaReserva(jogadores) {
 			limparCampos();
             return false;
         }
-
-        const configPiramide = window.config?.Piramide; 
+		
+		const configPiramide = window.config?.Piramide; 
         if (!configPiramide || !configPiramide.ativa) {
             alert("Configuração da Pirâmide não foi encontrada ou está desativada. Atualize a página.");
             return false;
@@ -1625,6 +1625,7 @@ window.adicionarJogador = function() {
         jogadorCount++;
         const jogadoresContainer = document.getElementById('jogadoresContainer');
 
+        // Cria os novos elementos HTML (div, label, select)
         const newDiv = document.createElement('div');
         newDiv.className = 'form-row';
 
@@ -1632,56 +1633,31 @@ window.adicionarJogador = function() {
         label.setAttribute('for', `jogador${jogadorCount}`);
         label.textContent = 'Jogador:';
 
-        const select = document.createElement('select');
-        select.id = `jogador${jogadorCount}`;
-        select.name = `jogador${jogadorCount}`;
+        const novoSelect = document.createElement('select');
+        novoSelect.id = `jogador${jogadorCount}`;
+        novoSelect.name = `jogador${jogadorCount}`;
 
-        // 🚀 Obtém a opção de duração selecionada
-        const duracao = document.getElementById('duracao')?.value || "";  
+        // --- INÍCIO DA CORREÇÃO ---
+        // Pega o primeiro dropdown, que já está com a lista filtrada e correta.
+        const primeiroSelect = document.getElementById('jogador1');
 
-        // Carrega os jogadores no novo campo de seleção
-        const jogadoresRef = database.ref("sistemas/cadastro/jogadores");
-        jogadoresRef.on('value', (snapshot) => {
-            const jogadores = snapshot.val();
-            select.innerHTML = '<option value="">Selecione um jogador</option>'; // Limpa as opções existentes
+        if (primeiroSelect) {
+            // Copia todas as opções do primeiro dropdown para o novo.
+            novoSelect.innerHTML = primeiroSelect.innerHTML;
+        } else {
+            // Ação de segurança caso o 'jogador1' não seja encontrado.
+            console.error("Dropdown 'jogador1' não foi encontrado para copiar as opções.");
+            novoSelect.innerHTML = '<option value="">Erro ao carregar</option>';
+        }
+        // --- FIM DA CORREÇÃO ---
 
-            if (jogadores) {
-                Object.keys(jogadores).forEach((nome) => {
-                    const jogador = jogadores[nome];
-                    const apelido = jogador.apelido;
-                    const piramide = jogador.piramide || "0"; // Garante um valor padrão
-
-                    // 🚨 **Filtro para Pirâmide** 🚨
-                    if (duracao === "3-piramide" && (piramide < 1 || piramide > 99)) {
-                        return; // Pula jogadores que não participam da pirâmide
-                    }
-
-                    // Verifica se o jogador já foi selecionado em algum campo anterior
-                    let jaSelecionado = false;
-                    for (let i = 1; i < jogadorCount; i++) {
-                        const jogadorSelect = document.getElementById(`jogador${i}`);
-                        if (jogadorSelect && jogadorSelect.value === apelido) {
-                            jaSelecionado = true;
-                            break;
-                        }
-                    }
-
-                    // Se o jogador não foi selecionado, adiciona como opção
-                    if (!jaSelecionado || apelido === "Convidado") {
-                        const option = document.createElement('option');
-                        option.value = apelido; // Usa o apelido como valor
-                        option.textContent = nome; // Exibe o nome do jogador
-                        select.appendChild(option);
-                    }
-                });
-            }
-        });
-
+        // Adiciona os elementos à tela
         newDiv.appendChild(label);
-        newDiv.appendChild(select);
+        newDiv.appendChild(novoSelect);
         jogadoresContainer.appendChild(newDiv);
 
-        select.focus();
+        // Foca no novo campo para facilitar a seleção
+        novoSelect.focus();
     }
 };
 
@@ -2581,83 +2557,121 @@ async function LimparDiasAnteriores() {
 }
 
 
-// Variável global para armazenar os dados dos jogadores
+// As variáveis globais permanecem as mesmas
 let jogadoresData = {};
-
-// Referência para o listener (para poder removê-lo posteriormente)
 let jogadoresListener = null;
 
-function carregarJogadores(jogadorLogado) {
+// As variáveis globais e a função encontrarLinha permanecem as mesmas.
+
+function carregarJogadores() {
     return new Promise((resolve, reject) => {
+        console.log("🔄 Carregando jogadores...");
         const jogadoresRef = database.ref("sistemas/cadastro/jogadores");
-        const duracao = document.getElementById('duracao')?.value || "";
+        const duracaoSelect = document.getElementById('duracao');
+        const jogadorLogadoNome = localStorage.getItem('jogadorLogado');
 
         if (jogadoresListener) {
             jogadoresRef.off('value', jogadoresListener);
         }
 
         jogadoresListener = jogadoresRef.on('value', (snapshot) => {
-            const jogadores = snapshot.val();
-
-            if (!jogadores) {
-                resolve();
+            const todosJogadores = snapshot.val();
+            if (!todosJogadores) {
+                console.error("Nenhum jogador encontrado no banco de dados.");
+                resolve(); 
                 return;
             }
 
             jogadoresData = {};
-
-            // Preenche apenas os selects que existem
-            const selectsToFill = [];
-            
-            // Sempre preenche o jogador1
-            selectsToFill.push("jogador1");
-            
-            // Adiciona seletor de login se necessário
-            if (!jogadorLogado && document.getElementById("jogadorSelect")) {
-                selectsToFill.push("jogadorSelect");
-            }
-
-            // Processa os jogadores
-            Object.keys(jogadores).forEach((nome) => {
-                const jogador = jogadores[nome];
-                const apelido = jogador.apelido;
-                const piramide = jogador.piramide || "0";
-
-                jogadoresData[apelido] = {
+            Object.keys(todosJogadores).forEach((nome) => {
+                const jogador = todosJogadores[nome];
+                jogadoresData[jogador.apelido] = {
                     nomeCompleto: nome,
-                    piramide: piramide
+                    piramide: jogador.piramide || "0"
                 };
             });
 
-            // Preenche os selects
-            selectsToFill.forEach(id => {
-                const select = document.getElementById(id);
-                if (select) {
-                    select.innerHTML = '<option value="">Selecione um jogador</option>';
+            let jogadoresParaExibir = { ...todosJogadores };
+            const duracao = duracaoSelect ? duracaoSelect.value : "";
 
-                    Object.keys(jogadores).forEach((nome) => {
-                        const jogador = jogadores[nome];
-                        const apelido = jogador.apelido;
-                        const piramide = jogador.piramide || "0";
+            if (duracao === "3-piramide") {
+                console.log("🐍 Modo Pirâmide ativado. Filtrando lista de oponentes...");
+                const jogadorLogadoApelido = Object.keys(jogadoresData).find(
+                    apelido => jogadoresData[apelido].nomeCompleto === jogadorLogadoNome
+                );
+                const jogadorLogadoInfo = jogadorLogadoApelido ? jogadoresData[jogadorLogadoApelido] : null;
 
-                        if (duracao === "3-piramide" && (piramide < 1 || piramide > 99)) {
-                            return;
-                        }
+                if (!jogadorLogadoInfo || !jogadorLogadoInfo.piramide || jogadorLogadoInfo.piramide === "0") {
+                    alert("Você não participa da Pirâmide, portanto não pode agendar jogos.");
+                    jogadoresParaExibir = {};
+                } else {
+                    const posLogado = parseInt(jogadorLogadoInfo.piramide, 10);
+                    let oponentesValidos = {};
 
-                        const option = document.createElement('option');
-                        option.value = apelido;
-                        option.textContent = nome;
-                        select.appendChild(option);
-                    });
+                    // Filtro para Pirâmide Feminina (Posição >= 61)
+                    if (posLogado >= 61) {
+                        Object.keys(todosJogadores).forEach(nome => {
+                            const oponente = todosJogadores[nome];
+                            // CORREÇÃO: Removida a condição que excluía o jogador logado.
+                            if (parseInt(oponente.piramide, 10) >= 61) {
+                                oponentesValidos[nome] = oponente;
+                            }
+                        });
+                    } 
+                    // Filtro para Pirâmide Masculina (Posição 1-60)
+                    else {
+                        const linhaLogado = encontrarLinha(posLogado);
+                        const limite = linhaLogado;
+                        Object.keys(todosJogadores).forEach(nome => {
+                            const oponente = todosJogadores[nome];
+                            const posOponente = parseInt(oponente.piramide, 10);
+                            // CORREÇÃO: Removida a condição que excluía o jogador logado.
+                            if (posOponente > 0 && posOponente <= 60) {
+                                // A verificação de distância para si mesmo (0) sempre será válida.
+                                if (Math.abs(posLogado - posOponente) <= limite) {
+                                    oponentesValidos[nome] = oponente;
+                                }
+                            }
+                        });
+                    }
+                    jogadoresParaExibir = oponentesValidos;
+                }
+            }
+            
+            const selectsParaPreencher = [];
+            document.querySelectorAll('select[id^="jogador"]').forEach(select => {
+                selectsParaPreencher.push(select);
+            });
+            if (!jogadorLogadoNome) {
+                const selectLogin = document.getElementById("jogadorSelect");
+                if (selectLogin) selectsParaPreencher.push(selectLogin);
+            }
+            
+            selectsParaPreencher.forEach(select => {
+                const valorJaSelecionado = select.value;
+                select.innerHTML = '<option value="">Selecione um jogador</option>';
+                Object.keys(jogadoresParaExibir).forEach((nome) => {
+                    const jogador = jogadoresParaExibir[nome];
+                    const option = document.createElement('option');
+                    option.value = jogador.apelido;
+                    option.textContent = nome;
+                    select.appendChild(option);
+                });
+                if (select.querySelector(`option[value='${valorJaSelecionado}']`)) {
+                    select.value = valorJaSelecionado;
                 }
             });
-
+            
             resolve();
+
         }, (error) => {
+            console.error("Erro ao carregar jogadores do Firebase:", error);
             reject(error);
         });
     });
 }
+
+
 
 
 // Chame a função para carregar os jogadores ao carregar a página
@@ -3285,6 +3299,7 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
 
 
 
+
 function aplicarBloqueiosVisuais(quadra) {
     const quadraKey = `Quadra-${quadra.split(' ')[1]}`;
     if (!bloqueiosQuadra || !bloqueiosQuadra[quadraKey]) {
@@ -3345,6 +3360,17 @@ function parseDateDDMMYYYY(dateString) {
     if (parts.length !== 3) return null;
     // new Date(ano, mês - 1, dia)
     return new Date(parts[2], parts[1] - 1, parts[0]);
+}
+
+/**
+ * Calcula em qual linha da pirâmide um jogador da categoria masculina está.
+ * @param {number} posicao - A posição do jogador no ranking.
+ * @returns {number} - O número da linha.
+ */
+function encontrarLinha(posicao) {
+    if (posicao <= 0) return 0;
+    // Fórmula matemática para encontrar a linha em uma pirâmide numérica
+    return Math.ceil((-1 + Math.sqrt(1 + 8 * posicao)) / 2);
 }
 
 </script>
