@@ -479,7 +479,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.3.3'; // Versão atual do sistema 
+const VersaoSistema = 'v1.3.4'; // Versão atual do sistema 
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy  
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -1175,15 +1175,12 @@ function carregarReservas(quadra) {
                 for (const key in reservas) {
                     const reserva = reservas[key]; 
 
-                    // --- INÍCIO DA VALIDAÇÃO DE SEGURANÇA (ÚNICA ADIÇÃO) ---
                     if (typeof reserva.jogadores === 'undefined' || reserva.jogadores === null) {
                         const erroMsg = `⚠️ Erro de Dados Encontrado!\n\nExiste uma reserva antiga ou corrompida que está impedindo a exibição correta da agenda.\n\nPor favor, envie esta informação para o administrador:\n\n- Quadra: ${quadra}\n- Chave do Problema: ${key}`;
                         alert(erroMsg);
                         throw new Error(erroMsg);
                     }
-                    // --- FIM DA VALIDAÇÃO DE SEGURANÇA ---
-
-                    // O CÓDIGO ABAIXO É A SUA LÓGICA ORIGINAL, PRESERVADA INTOCADA
+                    
                     let { jogadores, dia, hora, duracao, borda } = reserva;
 
                     const rowIndex = hora - 6;
@@ -1197,20 +1194,35 @@ function carregarReservas(quadra) {
                         if (jogadores.toLowerCase().includes('aula')) {
                             corFundo = 'lightcoral';
                             cell.innerHTML = "aula"; 
-                        } else if (duracao === 3 || reservas[`${key.split('_')[0]}_${hora - 1}`]?.duracao === 3) {
+                        } else if (duracao === 3 || (reservas[key.split('_')[0] + '_' + (hora - 1)] && reservas[key.split('_')[0] + '_' + (hora - 1)].duracao === 3)) {
                             corFundo = '#FFEB99';
 							
-							// Formata os nomes dos jogadores com a posição na pirâmide
+							// --- INÍCIO DA CORREÇÃO ---
+                            // Formata os nomes dos jogadores com a posição correta na pirâmide
                             const jogadoresArray = jogadores.split(', ');
-                            const jogadoresFormatados = jogadoresArray.map(jogador => {
-                                const jogadorInfo = jogadoresData[jogador];
-                                if (jogadorInfo && jogadorInfo.piramide) {
-                                    return `${jogadorInfo.piramide} - ${jogador}`;
+                            const jogadoresFormatados = jogadoresArray.map(apelido => {
+                                const jogadorInfo = jogadoresData[apelido];
+                                
+                                if (jogadorInfo && jogadorInfo.piramide && jogadorInfo.piramide !== "0") {
+                                    const piramidePos = parseInt(jogadorInfo.piramide, 10);
+                                    let displayRank = piramidePos; // Por padrão, o ranking é a posição do banco
+
+                                    // Se for da pirâmide feminina (61+), calcula o ranking real para exibição
+                                    if (piramidePos >= 61) {
+                                        displayRank = piramidePos - 60; // Ex: 61 -> 1, 69 -> 9
+                                    }
+                                    
+                                    // Retorna o nome formatado com o ranking correto
+                                    return `${displayRank} - ${apelido}`;
                                 } else {
-                                    return jogador;
+                                    // Se não tiver info da pirâmide, retorna só o apelido
+                                    return apelido;
                                 }
                             });
-                            cell.innerHTML = jogadoresFormatados.join(', ');
+                            // Junta os nomes com uma quebra de linha para melhor visualização na célula
+                            cell.innerHTML = jogadoresFormatados.join('<br>');
+                            // --- FIM DA CORREÇÃO ---
+
                         } else {
                             corFundo = duracao === 1 ? 'lightgreen' : 'lightblue';
                             cell.innerHTML = jogadores;
@@ -1234,7 +1246,6 @@ function carregarReservas(quadra) {
         adicionarEventoClique(); 
     });
 }
-
 
 
 
