@@ -1,196 +1,217 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regulamento - Pirâmides de Tênis 2025</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-            background-color: #f2f2f2;
-            color: #333;
-        }
-        h1 {
-            text-align: center;
-            color: #0056b3;
-        }
-        .section {
-            background: #ffffff; 
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 5px solid #0056b3;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  
-        }
-        h2 {
-            color: #d9534f;
-        }
-        h3 {
-            margin-top: 25px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin: 5px 0;
-        }
-        .highlight {
-            font-weight: bold;
-            color: #0275d8;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Regulamento - Pirâmides de Tênis 2025</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      background-color: #f2f2f2;
+      color: #333;
+    }
 
+    h1 {
+      text-align: center;
+      color: #0056b3;
+    }
+
+    .section {
+      background: #ffffff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-left: 5px solid #0056b3;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #d9534f;
+    }
+
+    h3 {
+      margin-top: 25px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 5px 0;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #0275d8;
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
-    <h1>Regulamento - Pirâmides de Tênis 2025</h1>
-    <p class="highlight"><strong>Local:</strong> ECO Olímpico - Xaxim, Curitiba</p>
-    <p class="highlight"><strong>Período:</strong> <span id="periodo-torneio">Carregando...</span></p>
- 
+  <div id="loadingOverlay" class="loading-overlay">
+    Carregando... Aguarde.
+  </div>
 
-    <div class="section">
-        <h2>Objetivo</h2>
-        <p>A Pirâmide de Tênis tem como principal objetivo proporcionar <strong>recreação e integração</strong> entre os sócios tenistas do clube, promovendo partidas desafiadoras e um ambiente competitivo saudável.</p>
-    </div>
+  <h1>Regulamento - Pirâmides de Tênis 2025</h1>
+  <p class="highlight"><strong>Local:</strong> ECO Olímpico - Xaxim, Curitiba</p>
+  <p class="highlight"><strong>Período:</strong> <span id="periodo-torneio">Carregando...</span></p>
 
-    <div class="section">
-        <h2>Coordenação</h2>
-        <p>Para participação, dúvidas ou mais informações, entre em contato com a coordenação:</p>
-        <ul>
-            <li><strong>Edemar Titschkowski</strong> - (41) 99947-8950</li>
-            <li><strong>Leonardo Carrara</strong> - (41) 99840-9631</li>
-            <li><strong>Ronaldo Taborda</strong> - (41) 99917-6972</li>
-        </ul>
-    </div>
+  <div class="section">
+    <h2>Objetivo</h2>
+    <p>A Pirâmide de Tênis tem como principal objetivo proporcionar <strong>recreação e integração</strong> entre os sócios tenistas do clube, promovendo partidas desafiadoras e um ambiente competitivo saudável.</p>
+  </div>
 
-    <div class="section">
-        <h2>Participação</h2>
-        <p>Podem participar todos os sócios e dependentes <strong>maiores de 14 anos</strong>. O torneio é dividido em Pirâmide Masculina e Pirâmide Feminina.</p>
-    </div>
+  <div class="section">
+    <h2>Coordenação</h2>
+    <p>Para participação, dúvidas ou mais informações, entre em contato com a coordenação:</p>
+    <ul>
+      <li><strong>Edemar Titschkowski</strong> - (41) 99947-8950</li>
+      <li><strong>Leonardo Carrara</strong> - (41) 99840-9631</li>
+      <li><strong>Ronaldo Taborda</strong> - (41) 99917-6972</li>
+    </ul>
+  </div>
 
-    <div class="section">
-        <h2>Ranking Inicial</h2>
-        <p>O ranking inicial foi definido <strong>por sorteio</strong>. Conforme os desafios e partidas forem acontecendo, a posição dos jogadores será atualizada.</p>
-    </div>
+  <div class="section">
+    <h2>Participação</h2>
+    <p>Podem participar todos os sócios e dependentes <strong>maiores de 14 anos</strong>. O torneio é dividido em Pirâmide Masculina e Pirâmide Feminina.</p>
+  </div>
 
-    <div class="section">
-        <h2>Como Funciona o Sistema de Desafios</h2>
+  <div class="section">
+    <h2>Ranking Inicial</h2>
+    <p>O ranking inicial foi definido <strong>por sorteio</strong>. Conforme os desafios e partidas forem acontecendo, a posição dos jogadores será atualizada.</p>
+  </div>
 
-        <h3 style="color: #28a745;">Pirâmide Masculina</h3>
-        <p>A estrutura da pirâmide é dividida em linhas. A linha 1 contém o jogador nº 1, a linha 2 os jogadores nº 2 e nº 3, e assim sucessivamente.</p>
-        <ul>
-            <li>A regra de desafio é baseada na linha do jogador: pode-se desafiar um número de posições acima correspondente à sua linha.</li>
-            <ul style="font-size: 0.9em; font-style: italic;">
-                <li><strong>Exemplo 1:</strong> Um jogador na linha 4 (ex: o nº 9) pode desafiar até 4 posições acima (os jogadores nº 8, 7, 6 ou 5).</li>
-                <li><strong>Exemplo 2:</strong> Um jogador na linha 6 (ex: o nº 21) pode desafiar até 6 posições acima (os jogadores nº 20, 19, 18, 17, 16 ou 15).</li>
-            </ul>
-        </ul>
+  <div class="section">
+    <h2>Como Funciona o Sistema de Desafios</h2>
 
-        <h3 style="color: #c2185b;">Pirâmide Feminina</h3>
-        <p>A regra principal é que qualquer tenista pode desafiar <strong>qualquer jogadora posicionada acima</strong> no ranking, sem limite de posições.</p>
-        
-        <h3 style="color: #333;">Regras Gerais</h3>
-        <ul>
-            <li>Cada tenista poderá lançar até <strong>4 desafios por mês</strong> e deve aceitar <strong>ao menos um</strong> desafio por mês.</li>
-            <li>O tenista que não lançar nenhum desafio no período do torneio perderá automaticamente <strong>3 posições no ranking</strong>.</li>
-            <li>Não é permitido desafiar um jogador que está atrás de sua própria posição.</li>
-            <li>O aceite de desafios além do limite mensal obrigatório (1) é voluntário.</li>
-            <li>O tenista que não aceitar seu desafio obrigatório (salvo justificativa) perderá por W.O., e o ranking será atualizado como se o desafiado tivesse perdido.</li>
-             <li><strong>Se o DESAFIANTE vencer</strong>, ele assume a posição do DESAFIADO, e o perdedor desce para a posição que era do desafiante.</li>
-            <li><strong>Se o DESAFIANTE perder</strong>, as posições permanecem inalteradas.</li>
-        </ul>
-    </div>
+    <h3 style="color: #28a745;">Pirâmide Masculina</h3>
+    <p>A estrutura da pirâmide é dividida em linhas. A linha 1 contém o jogador nº 1, a linha 2 os jogadores nº 2 e nº 3, e assim sucessivamente.</p>
+    <ul>
+      <li>A regra de desafio é baseada na linha do jogador: pode-se desafiar um número de posições acima correspondente à sua linha.</li>
+      <ul style="font-size: 0.9em; font-style: italic;">
+        <li><strong>Exemplo 1:</strong> Um jogador na linha 4 (ex: o nº 9) pode desafiar até 4 posições acima (os jogadores nº 8, 7, 6 ou 5).</li>
+        <li><strong>Exemplo 2:</strong> Um jogador na linha 6 (ex: o nº 21) pode desafiar até 6 posições acima (os jogadores nº 20, 19, 18, 17, 16 ou 15).</li>
+      </ul>
+    </ul>
 
-    <div class="section">
-        <h2>Realização dos Desafios (Jogos)</h2>
-        <ul>
-            <li>Os encontros devem ser realizados nas <strong>quadras do ECO Olímpico</strong>.</li>
-            <li>A quadra padrão é a <strong>Quadra 2 - Aberta</strong>, mas outras poderão ser liberadas pela Coordenação.</li>
-            <li>A reserva das quadras deve ser feita no <strong>Sistema de Reservas</strong> no grupo "Amigos do Tênis Olímpico" no WhatsApp, na opção "Pirâmide".</li>
-            <li>A data e hora do encontro devem ser comunicadas pelo <strong>DESAFIANTE</strong> no grupo do WhatsApp da Pirâmide.</li>
-            <li>Após o encontro, o vencedor deve comunicar o resultado com os parciais no grupo da Pirâmide.</li>
-        </ul>
-         <p style="font-size: 0.9em; font-weight: bold; font-style: italic; background-color: #fff8dc; padding: 10px; border-radius: 5px;text-align: justify;">
-            <strong>Atenção:</strong> Partidas da Pirâmide podem ocorrer sem reserva no sistema, por conta e risco dos jogadores. Sócios com agendamento prévio terão prioridade na quadra.
-        </p>
-    </div>
+    <h3 style="color: #c2185b;">Pirâmide Feminina</h3>
+    <p>A regra principal é que qualquer tenista pode desafiar <strong>qualquer jogadora posicionada acima</strong> no ranking, sem limite de posições.</p>
+    
+    <h3 style="color: #333;">Regras Gerais</h3>
+    <ul>
+      <li>Cada tenista poderá lançar até <strong>4 desafios por mês</strong> e deve aceitar <strong>ao menos um</strong> desafio por mês.</li>
+      <li>O tenista que não lançar nenhum desafio no período do torneio perderá automaticamente <strong>3 posições no ranking</strong>.</li>
+      <li>Não é permitido desafiar um jogador que está atrás de sua própria posição.</li>
+      <li>O aceite de desafios além do limite mensal obrigatório (1) é voluntário.</li>
+      <li>O tenista que não aceitar seu desafio obrigatório (salvo justificativa) perderá por W.O., e o ranking será atualizado como se o desafiado tivesse perdido.</li>
+      <li><strong>Se o DESAFIANTE vencer</strong>, ele assume a posição do DESAFIADO, e o perdedor desce para a posição que era do desafiante.</li>
+      <li><strong>Se o DESAFIANTE perder</strong>, as posições permanecem inalteradas.</li>
+    </ul>
+  </div>
 
-    <div class="section">
-        <h2>Formato das Partidas</h2>
-        <ul>
-            <li>Melhor de três sets, com vantagem e <strong>Tie-break (7 pontos)</strong> nos dois primeiros sets.</li>
-            <li>Em caso de empate em 1x1 em sets, será jogado um <strong>Super Tie-break (10 pontos)</strong>.</li>
-            <li>Tolerância de <strong>5 minutos</strong> para atrasos, após isso será considerado W.O.</li>
-            <li>Uso de bolas novas é obrigatório.</li>
-        </ul>
-    </div>
+  <div class="section">
+    <h2>Realização dos Desafios (Jogos)</h2>
+    <ul>
+      <li>Os encontros devem ser realizados nas <strong>quadras do ECO Olímpico</strong>.</li>
+      <li>A quadra padrão é a <strong>Quadra 2 - Aberta</strong>, mas outras poderão ser liberadas pela Coordenação.</li>
+      <li>A reserva das quadras deve ser feita no <strong>Sistema de Reservas</strong> no grupo "Amigos do Tênis Olímpico" no WhatsApp, na opção "Pirâmide".</li>
+      <li>A data e hora do encontro devem ser comunicadas pelo <strong>DESAFIANTE</strong> no grupo do WhatsApp da Pirâmide.</li>
+      <li>Após o encontro, o vencedor deve comunicar o resultado com os parciais no grupo da Pirâmide.</li>
+    </ul>
+    <p style="font-size: 0.9em; font-weight: bold; font-style: italic; background-color: #fff8dc; padding: 10px; border-radius: 5px; text-align: justify;">
+      <strong>Atenção:</strong> Partidas da Pirâmide podem ocorrer sem reserva no sistema, por conta e risco dos jogadores. Sócios com agendamento prévio terão prioridade na quadra.
+    </p>
+  </div>
 
-    <div class="section">
-        <h2>Atualização do Ranking e Contribuição</h2>
-         <p>O ranking será atualizado pela coordenação após o vencedor enviar o resultado da partida via WhatsApp. Será cobrado um valor de <strong>R$ 5,00 por jogo</strong> para cobrir despesas, pago via Pix.</p>
-    </div>
+  <div class="section">
+    <h2>Formato das Partidas</h2>
+    <ul>
+      <li>Melhor de três sets, com vantagem e <strong>Tie-break (7 pontos)</strong> nos dois primeiros sets.</li>
+      <li>Em caso de empate em 1x1 em sets, será jogado um <strong>Super Tie-break (10 pontos)</strong>.</li>
+      <li>Tolerância de <strong>5 minutos</strong> para atrasos, após isso será considerado W.O.</li>
+      <li>Uso de bolas novas é obrigatório.</li>
+    </ul>
+  </div>
 
-    <div class="section">
-        <h2>Considerações Finais</h2>
-        <p>A Pirâmide de Tênis tem o intuito de <strong>promover integração e diversão</strong>. Contamos com o bom senso de todos os jogadores para manter um ambiente agradável e esportivo.</p>
-    </div>
+  <div class="section">
+    <h2>Atualização do Ranking e Contribuição</h2>
+    <p>O ranking será atualizado pela coordenação após o vencedor enviar o resultado da partida via WhatsApp. Será cobrado um valor de <strong>R$ 5,00 por jogo</strong> para cobrir despesas, pago via Pix.</p>
+  </div>
 
-    <h2 style="text-align: center; color: #28a745;">Bons jogos a todos e todas!</h2>
-</body>
+  <div class="section">
+    <h2>Considerações Finais</h2>
+    <p>A Pirâmide de Tênis tem o intuito de <strong>promover integração e diversão</strong>. Contamos com o bom senso de todos os jogadores para manter um ambiente agradável e esportivo.</p>
+  </div>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
-  import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
+  <h2 style="text-align: center; color: #28a745;">Bons jogos a todos e todas!</h2>
 
-  const firebaseConfig = {
-    apiKey: "SUA_API_KEY",
-    authDomain: "agenda-5ce95.firebaseapp.com",
-    databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com/",
-    projectId: "agenda-5ce95",
-    storageBucket: "agenda-5ce95.appspot.com",
-    messagingSenderId: "852007565195",
-    appId: "1:852007565195:web:d7bd789d140858f53f618e"
-  };
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
 
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
+    const firebaseConfig = {
+      apiKey: "SUA_API_KEY",
+      authDomain: "agenda-5ce95.firebaseapp.com",
+      databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com/",
+      projectId: "agenda-5ce95",
+      storageBucket: "agenda-5ce95.appspot.com",
+      messagingSenderId: "852007565195",
+      appId: "1:852007565195:web:d7bd789d140858f53f618e"
+    };
 
-  async function carregarPeriodo() {
-    try {
-      const dbRef = ref(db);
-      const snapshot = await get(child(dbRef, "sistemas/config"));
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-      if (snapshot.exists()) {
-        const config = snapshot.val();
-        const inicio = config.inicio || config.Piramide?.inicio;
-        const fim = config.fim || config.Piramide?.fim;
+    async function carregarPeriodo() {
+      try {
+        const dbRef = ref(db);
+        const snapshot = await get(child(dbRef, "sistemas/config"));
 
-        if (inicio && fim) {
-          document.getElementById("periodo-torneio").textContent = `${inicio} a ${fim}`;
+        if (snapshot.exists()) {
+          const config = snapshot.val();
+          const inicio = config.inicio || config.Piramide?.inicio;
+          const fim = config.fim || config.Piramide?.fim;
+
+          if (inicio && fim) {
+            document.getElementById("periodo-torneio").textContent = `${inicio} a ${fim}`;
+          } else {
+            document.getElementById("periodo-torneio").textContent = "Período não definido";
+            console.warn("Campos 'inicio' ou 'fim' não encontrados dentro de 'config'.");
+          }
         } else {
-          document.getElementById("periodo-torneio").textContent = "Período não definido";
-          console.warn("Campos 'inicio' ou 'fim' não encontrados dentro de 'config'.");
+          document.getElementById("periodo-torneio").textContent = "Configuração não encontrada";
+          console.warn("Nó 'config' não encontrado.");
         }
-      } else {
-        document.getElementById("periodo-torneio").textContent = "Configuração não encontrada";
-        console.warn("Nó 'config' não encontrado.");
+      } catch (error) {
+        document.getElementById("periodo-torneio").textContent = "Erro ao carregar período";
+        console.error("Erro ao acessar o Firebase:", error);
+      } finally {
+        document.getElementById("loadingOverlay").style.display = "none";
       }
-    } catch (error) {
-      document.getElementById("periodo-torneio").textContent = "Erro ao carregar período";
-      console.error("Erro ao acessar o Firebase:", error);
     }
-  }
 
-  carregarPeriodo();
-</script>
-
-
-
-
+    carregarPeriodo();
+  </script>
+</body>
 </html>
