@@ -479,7 +479,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.3.4'; // Versão atual do sistema 
+const VersaoSistema = 'v1.3.5'; // Versão atual do sistema 
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy  
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -1636,7 +1636,6 @@ window.adicionarJogador = function() {
         jogadorCount++;
         const jogadoresContainer = document.getElementById('jogadoresContainer');
 
-        // Cria os novos elementos HTML (div, label, select)
         const newDiv = document.createElement('div');
         newDiv.className = 'form-row';
 
@@ -1647,31 +1646,29 @@ window.adicionarJogador = function() {
         const novoSelect = document.createElement('select');
         novoSelect.id = `jogador${jogadorCount}`;
         novoSelect.name = `jogador${jogadorCount}`;
-
-        // --- INÍCIO DA CORREÇÃO ---
-        // Pega o primeiro dropdown, que já está com a lista filtrada e correta.
+        
+        // 1. Copia as opções do primeiro campo, que já está com a lista correta (seja a geral ou a da pirâmide)
         const primeiroSelect = document.getElementById('jogador1');
-
         if (primeiroSelect) {
-            // Copia todas as opções do primeiro dropdown para o novo.
             novoSelect.innerHTML = primeiroSelect.innerHTML;
-        } else {
-            // Ação de segurança caso o 'jogador1' não seja encontrado.
-            console.error("Dropdown 'jogador1' não foi encontrado para copiar as opções.");
-            novoSelect.innerHTML = '<option value="">Erro ao carregar</option>';
         }
-        // --- FIM DA CORREÇÃO ---
 
-        // Adiciona os elementos à tela
+        // 2. Remove do novo campo a opção que foi selecionada no campo anterior
+        const selectAnterior = document.getElementById(`jogador${jogadorCount - 1}`);
+        if (selectAnterior && selectAnterior.value && selectAnterior.value !== "Convidado") {
+            const optionToRemove = novoSelect.querySelector(`option[value="${selectAnterior.value}"]`);
+            if (optionToRemove) {
+                optionToRemove.remove();
+            }
+        }
+        
         newDiv.appendChild(label);
         newDiv.appendChild(novoSelect);
         jogadoresContainer.appendChild(newDiv);
 
-        // Foca no novo campo para facilitar a seleção
         novoSelect.focus();
     }
 };
-
 
 
 // Função original, apenas atualizada para usar transações Firebase
@@ -2619,39 +2616,57 @@ function carregarJogadores() {
                     const posLogado = parseInt(jogadorLogadoInfo.piramide, 10);
                     let oponentesValidos = {};
 
-                    // Filtro para Pirâmide Feminina (Posição >= 61)
+                    // Filtro para Pirâmide Feminina (Posição >= 61) - LÓGICA ORIGINAL MANTIDA
                     if (posLogado >= 61) {
                         Object.keys(todosJogadores).forEach(nome => {
                             const oponente = todosJogadores[nome];
-                            // CORREÇÃO: Removida a condição que excluía o jogador logado.
                             if (parseInt(oponente.piramide, 10) >= 61) {
                                 oponentesValidos[nome] = oponente;
                             }
                         });
                     } 
-                    // Filtro para Pirâmide Masculina (Posição 1-60)
+                    // --- INÍCIO DA NOVA LÓGICA (SUBSTITUIÇÃO) ---
+                    // Filtro para Pirâmide Masculina (Posição 1-60) com a "Regra de Desafio Ascendente"
                     else {
-                        const linhaLogado = encontrarLinha(posLogado);
-                        const limite = linhaLogado;
-                        Object.keys(todosJogadores).forEach(nome => {
-                            const oponente = todosJogadores[nome];
+                        console.log("🐍 Pirâmide Masculina: Aplicando nova 'Regra de Desafio Ascendente'.");
+                        const nomeCompletoLogado = jogadoresData[jogadorLogadoApelido].nomeCompleto;
+
+                        Object.keys(todosJogadores).forEach(nomeOponente => {
+                            const oponente = todosJogadores[nomeOponente];
                             const posOponente = parseInt(oponente.piramide, 10);
-                            // CORREÇÃO: Removida a condição que excluía o jogador logado.
-                            if (posOponente > 0 && posOponente <= 60) {
-                                // A verificação de distância para si mesmo (0) sempre será válida.
-                                if (Math.abs(posLogado - posOponente) <= limite) {
-                                    oponentesValidos[nome] = oponente;
-                                }
+
+                            // Ignora oponentes inválidos, da pirâmide feminina, ou o próprio jogador
+                            if (!posOponente || posOponente > 60 || posOponente === posLogado) {
+                                return;
+                            }
+
+                            // CONDIÇÃO 1: O jogador logado pode desafiar o oponente? (Desafio para cima)
+                            const limiteLogado = encontrarLinha(posLogado);
+                            const euPossoDesafiar = (posLogado - limiteLogado) <= posOponente && posOponente < posLogado;
+
+                            // CONDIÇÃO 2: O oponente pode desafiar o jogador logado? (Desafio vindo de baixo)
+                            const limiteOponente = encontrarLinha(posOponente);
+                            const oponentePodeMeDesafiar = (posOponente - limiteOponente) <= posLogado && posLogado < posOponente;
+
+                            // Se qualquer uma das condições for verdadeira, a "conexão" é válida
+                            if (euPossoDesafiar || oponentePodeMeDesafiar) {
+                                oponentesValidos[nomeOponente] = oponente;
                             }
                         });
+                        
+                        // Adiciona o próprio jogador logado à lista para que ele apareça no dropdown
+                        if (todosJogadores[nomeCompletoLogado]) {
+                            oponentesValidos[nomeCompletoLogado] = todosJogadores[nomeCompletoLogado];
+                        }
                     }
+                    // --- FIM DA NOVA LÓGICA (SUBSTITUIÇÃO) ---
                     jogadoresParaExibir = oponentesValidos;
                 }
             }
             
             const selectsParaPreencher = [];
             document.querySelectorAll('select[id^="jogador"]').forEach(select => {
-                selectsParaPreencher.push(select);
+                selectsParaPreencher.push(select); 
             });
             if (!jogadorLogadoNome) {
                 const selectLogin = document.getElementById("jogadorSelect");
@@ -2681,7 +2696,6 @@ function carregarJogadores() {
         });
     });
 }
-
 
 
 
@@ -3030,7 +3044,7 @@ async function registrarExclusao(quadra, horario, jogadores, usuario, duracao, d
     });
 
     if (!response.ok) {
-      throw new Error(`Erro ao buscar arquivo: ${response.status}`);
+      throw new Error(`Erro ao buscar arquivo: ${response.status}`); 
     }
 
     let fileData = await response.json();
