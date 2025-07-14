@@ -263,18 +263,20 @@
 
         // --- INÍCIO DA LÓGICA PIRÂMIDE MASCULINA (Original) ---
         function gerarPiramideMasculinaHTML() {
-            const container = document.getElementById('pyramid-masculina-data');
-            let content = '';
-            for (let i = 0, pos = 1; i < 9; i++) {
-                content += '<div class="row">';
-                content += `<div style="width: 30px; height: 80px; display: flex; justify-content: center; align-items: center; font-size: 16px;">${i + 1}</div>`;
-                for (let j = 0; j <= i; j++, pos++) {
-                    content += `<div class="cell" id="masc-pos${pos}"><span class="posicao">${pos}</span><span class="nome" id="masc-jog${pos}"></span></div>`;
-                }
-                content += '</div>';
-            }
-            container.innerHTML = content;
+    const container = document.getElementById('pyramid-masculina-data');
+    let content = '';
+    for (let i = 0, pos = 1; i < 9; i++) {
+        content += '<div class="row">';
+        content += `<div style="width: 30px; height: 80px; display: flex; justify-content: center; align-items: center; font-size: 16px;">${i + 1}</div>`;
+        for (let j = 0; j <= i; j++, pos++) {
+            const posicaoHTML = pos === 1 ? '🏆1' : pos;
+            content += `<div class="cell" id="masc-pos${pos}"><span class="posicao">${posicaoHTML}</span><span class="nome" id="masc-jog${pos}"></span></div>`;
         }
+        content += '</div>';
+    }
+    container.innerHTML = content;
+}
+
 
         // Função para ajustar a cor da fonte (Original)
         function ajustarCorFonte(elemento, posicao) {
@@ -319,7 +321,7 @@
         function getEmojiNumero(posicao) {
             if (posicao === 1) return "👑1";
             if (posicao === 2) return "✨2";
-            if (posicao === 3) return "🌷3";
+            if (posicao === 3) return "🌷3";  
             return "🌿" + posicao;
         }
 
