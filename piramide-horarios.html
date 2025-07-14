@@ -19,6 +19,7 @@
             text-align: center;
             color: #2c3e50;
             margin-bottom: 30px;
+			margin-top: -10px;
             padding-bottom: 10px;
             border-bottom: 2px solid #3498db;
         }
@@ -52,6 +53,21 @@
             color: white;
         }
         
+        /* Novo estilo para o campo de busca */
+        .search-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        #searchInput {
+            padding: 12px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
         .tab-content {
             display: none;
         }
@@ -73,7 +89,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             padding: 15px;
             width: calc(25% - 15px);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Adicionado transição para box-shadow */
             box-sizing: border-box;
         }
         
@@ -132,9 +148,8 @@
                 width: 100%;
             }
             
-            .tabs {
-                flex-direction: column;
-            }
+            /* REGRA REMOVIDA DAQUI para manter os botões na mesma linha */
+            /* .tabs { flex-direction: column; } */
             
             .tab-button {
                 border-radius: 5px;
@@ -147,13 +162,16 @@
     <h1>Piramide - Horários dos Tenistas</h1>
     
     <div class="tabs">
-        <button class="tab-button masculino active" onclick="openTab('masculino')">Masculino</button>
-        <button class="tab-button feminino" onclick="openTab('feminino')">Feminino</button>
+        <button class="tab-button masculino active" onclick="openTab(event, 'masculino')">Masculino</button>
+        <button class="tab-button feminino" onclick="openTab(event, 'feminino')">Feminino</button>
+    </div>
+    
+    <div class="search-container">
+        <input type="text" id="searchInput" onkeyup="filterPlayers()" placeholder="Pesquisar tenista por nome...">
     </div>
     
     <div id="masculino" class="tab-content active">
         <div class="players-container">
-            <!-- Jogadores Masculinos - mantidos os mesmos do código anterior -->
             <div class="player-card">
                 <div class="player-name">Airton Santos</div>
                 <div class="player-contact">WhatsApp: 41 995724310</div>
@@ -491,7 +509,6 @@
     
     <div id="feminino" class="tab-content">
         <div class="players-container">
-            <!-- Jogadoras Femininas - mantidas as mesmas do código anterior -->
             <div class="player-card">
                 <div class="player-name">Alexandra Avila</div>
                 <div class="player-contact">WhatsApp: 41 992398768</div>
@@ -585,30 +602,59 @@
     </div>
     
     <script>
-        function openTab(tabName) {
-            // Esconde todos os conteúdos das abas
-            var tabContents = document.getElementsByClassName("tab-content");
-            for (var i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove("active");
+        // SCRIPT ATUALIZADO
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
             }
             
-            // Remove a classe 'active' de todos os botões
-            var tabButtons = document.getElementsByClassName("tab-button");
-            for (var i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].classList.remove("active");
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active", "masculino", "feminino");
             }
             
-            // Mostra a aba atual e marca o botão como ativo
             document.getElementById(tabName).classList.add("active");
-            event.currentTarget.classList.add("active");
-            
-            // Adiciona a classe específica para a cor do botão ativo
-            if (tabName === 'masculino') {
-                event.currentTarget.classList.add("masculino");
-            } else {
-                event.currentTarget.classList.add("feminino");
-            }
+            evt.currentTarget.classList.add("active", tabName);
+
+            // Limpa a busca ao trocar de aba
+            document.getElementById('searchInput').value = '';
+            filterPlayers();
         }
+
+        function filterPlayers() {
+            const searchInput = document.getElementById('searchInput').value.toUpperCase();
+            const activeTab = document.querySelector('.tab-content.active');
+            
+            if (!activeTab) return;
+
+            const playerCards = activeTab.querySelectorAll('.player-card');
+            
+            playerCards.forEach(card => {
+                const playerNameElement = card.querySelector('.player-name');
+                const playerName = playerNameElement.textContent || playerNameElement.innerText;
+                
+                if (playerName.toUpperCase().indexOf(searchInput) > -1) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // Garante que o botão 'Masculino' seja estilizado corretamente no carregamento inicial
+        document.addEventListener('DOMContentLoaded', function() {
+            const initialActiveButton = document.querySelector('.tab-button.active');
+            if (initialActiveButton && !initialActiveButton.classList.contains('masculino') && !initialActiveButton.classList.contains('feminino')) {
+                if (document.querySelector('#masculino').classList.contains('active')) {
+                    initialActiveButton.classList.add('masculino');
+                } else if (document.querySelector('#feminino').classList.contains('active')) {
+                     initialActiveButton.classList.add('feminino');
+                }
+            }
+        });
     </script>
 </body>
 </html>
