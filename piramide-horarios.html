@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piramide - Horários dos Tenistas</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        
+        .tab-button {
+            padding: 12px 24px;
+            background-color: #ecf0f1;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            color: #7f8c8d;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .tab-button.active.masculino {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .tab-button.active.feminino {
+            background-color: #DB7093;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .players-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: flex-start;
+        }
+        
+        .player-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 15px;
+            width: calc(25% - 15px);
+            transition: transform 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .player-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .player-name {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        
+        .player-contact {
+            color: #7f8c8d;
+            margin-bottom: 12px;
+            font-size: 0.85em;
+        }
+        
+        .schedule-title {
+            font-weight: bold;
+            color: #3498db;
+            margin-top: 8px;
+            font-size: 0.9em;
+        }
+        
+        .schedule-detail {
+            margin-left: 10px;
+            color: #34495e;
+            font-size: 0.85em;
+        }
+        
+        .no-info {
+            color: #95a5a6;
+            font-style: italic;
+        }
+        
+        @media (max-width: 1200px) {
+            .player-card {
+                width: calc(33.33% - 15px);
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .player-card {
+                width: calc(50% - 15px);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .player-card {
+                width: 100%;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab-button {
+                border-radius: 5px;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Piramide - Horários dos Tenistas</h1>
+    
+    <div class="tabs">
+        <button class="tab-button masculino active" onclick="openTab('masculino')">Masculino</button>
+        <button class="tab-button feminino" onclick="openTab('feminino')">Feminino</button>
+    </div>
+    
+    <div id="masculino" class="tab-content active">
+        <div class="players-container">
+            <!-- Jogadores Masculinos - mantidos os mesmos do código anterior -->
+            <div class="player-card">
+                <div class="player-name">Airton Santos</div>
+                <div class="player-contact">WhatsApp: 41 995724310</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail no-info">-</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail no-info">-</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Allan Piacente</div>
+                <div class="player-contact">WhatsApp: 19 998167190</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">2ª, 5ª e 6ª feira</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sábado e domingo</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Almir P. A. Cruz</div>
+                <div class="player-contact">WhatsApp: 41 996249762</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">2ª a 5ª após 18:00hrs</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail no-info">Sem informação</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Arthur Amorin</div>
+                <div class="player-contact">WhatsApp: 41 98459522</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">Todos dias - após 19 hrs</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado e Domingo pela manhã</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Bernardo Carrara</div>
+                <div class="player-contact">WhatsApp: 41 997810255</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">2ª a 5ª a noite, 6ª a tarde</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado e domingo</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Cainã Balboa</div>
+                <div class="player-contact">WhatsApp: 41 997395842</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail no-info">-</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail no-info">-</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Caio Teixeira</div>
+                <div class="player-contact">WhatsApp: 41 999204489</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">A noite</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado e domingo - preferencia cedo</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Claudio Warkentin</div>
+                <div class="player-contact">WhatsApp: 41 999914761</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">4ª, 5ª e 6ª após 18 hrs</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado a tarde e domingo</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Clodoaldo Moreira</div>
+                <div class="player-contact">WhatsApp: 41 999997030</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">Qualquer horario</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Qualquer horário</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Diego Paraíso</div>
+                <div class="player-contact">WhatsApp: 41 996317749</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">2ª, 4ª e 6ª a noite</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Domingo</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Diosnei F. Koman</div>
+                <div class="player-contact">WhatsApp: 41 997090871</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">2ª, 4ª e 5ª a</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado e domingo - preferencia cedo</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Edemar Titschkoiwski</div>
+                <div class="player-contact">WhatsApp: 41 999478950</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">2ª, 3ª, 5ª e 6ª após 18 hrs</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Felipe Mikuska</div>
+                <div class="player-contact">WhatsApp: 41 999186062</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">2ª a 6ª 08:30 as 15:00hrs</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado a partir 10hrs+domingo manhã</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Felipe Muraski PM</div>
+                <div class="player-contact">WhatsApp: 41 988223467</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">Todos dias - após 18 horas</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sábado e domingo</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Felipe Parente</div>
+                <div class="player-contact">WhatsApp: 41 984336219</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">2ª, 3ª e 6ª após 18:00 hrs</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado manhã e tarde</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Giovani S. Lima</div>
+                <div class="player-contact">WhatsApp: 41 997910670</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail no-info">-</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail no-info">-</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Ivan Balboa</div>
+                <div class="player-contact">WhatsApp: 41 988713209</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail no-info">-</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail no-info">-</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Jaison Klug</div>
+                <div class="player-contact">WhatsApp: 41 988244200</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">A combinar</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">A combinar</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Jean Souza</div>
+                <div class="player-contact">WhatsApp: 41 996920584</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">2ª, 3ª, 5ª e 6ª após 18 hrs</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado dia todo e domingo pela manhã</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Leonardo Carrara</div>
+                <div class="player-contact">WhatsApp: 41 998409631</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">Todos dias bem cedo e noite - 5ª</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado e domingo durante o dia</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Leonardo Zamprogna</div>
+                <div class="player-contact">WhatsApp: 41 998267745</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">A combinar</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">A combinar</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Lucas Titon</div>
+                <div class="player-contact">WhatsApp: 41 998177007</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">A combinar</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">A combinar</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Luis Carlos Warkentin</div>
+                <div class="player-contact">WhatsApp: 41 999917378</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">2ª a 6ª após 17:00hrs</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado após 15:00hrs</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Luiz Gustavo Ferraz</div>
+                <div class="player-contact">WhatsApp: 41 996151979</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">A combinar</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">A combinar</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Marcelo da Silva</div>
+                <div class="player-contact">WhatsApp: 41 992676232</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">2ª, 3ª e 5ª após 17 hrs</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado e domingo</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Marcelo Makoto</div>
+                <div class="player-contact">WhatsApp: 41 995091118</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">A combinar</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail no-info">-</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Marcelo Zotti</div>
+                <div class="player-contact">WhatsApp: 41 999626962</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">2ª, 3ª, 4ª e 6ª após 18 hrs</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado a tarde</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Marco Ribeiro</div>
+                <div class="player-contact">WhatsApp: 11 974207369</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">Durante a semana - a combinar</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado pela manhã</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Natan Laverde</div>
+                <div class="player-contact">WhatsApp: +1 (202)7663574</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">Sexta a partir das 16:00hrs</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado e domingo a partir 16:00hrs</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Nivaldo Lopes</div>
+                <div class="player-contact">WhatsApp: 41 999501632</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">Qualquer dia - Depois das 18 hrs</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail no-info">sem informação</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Paulo Cruz (Paulinho)</div>
+                <div class="player-contact">WhatsApp: 41 999815086</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">A combinar</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">A combinar</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Ricardo Lima</div>
+                <div class="player-contact">WhatsApp: 41 984624188</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail no-info">-</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail no-info">-</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Robson Natividade</div>
+                <div class="player-contact">WhatsApp: 41 988951768</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">3ª, 5ª e 6ª após 20 hrs</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado a tarde</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Rodrigo Weich</div>
+                <div class="player-contact">WhatsApp: 41 992361159</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">2ª, 3ª, 5ª e 6ª após 18 hrs e 4ª 19</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado e domingo</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Ronaldo Taborda</div>
+                <div class="player-contact">WhatsApp: 41 999176972</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">Todos os dias pela manhã</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado e domingo</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Sidnei Novack Junior</div>
+                <div class="player-contact">WhatsApp: 41 987682866</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">A noite</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado e domingo - preferencia cedo</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Thomas August</div>
+                <div class="player-contact">WhatsApp: 41 99181819</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">2ª a 6ª primeiro horário</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Sabado e Domingo pela manhã</div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="feminino" class="tab-content">
+        <div class="players-container">
+            <!-- Jogadoras Femininas - mantidas as mesmas do código anterior -->
+            <div class="player-card">
+                <div class="player-name">Alexandra Avila</div>
+                <div class="player-contact">WhatsApp: 41 992398768</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail no-info">-</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail no-info">-</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Andréia A Santos</div>
+                <div class="player-contact">WhatsApp: 41 996950612</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail no-info">-</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail no-info">-</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Flávia A. Titon</div>
+                <div class="player-contact">WhatsApp: 41 992343927</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail no-info">-</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail no-info">-</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Isabela Reichardt</div>
+                <div class="player-contact">WhatsApp: 41 999284397</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">A combinar</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">A combinar</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Isabelle Balboa</div>
+                <div class="player-contact">WhatsApp: 41 987466376</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail no-info">-</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail no-info">-</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Josiane T Kamiya</div>
+                <div class="player-contact">WhatsApp: 41 999295872</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail no-info">-</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail no-info">-</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Pamela Balboa</div>
+                <div class="player-contact">WhatsApp: 41 996567669</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail no-info">-</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail no-info">-</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Susan August</div>
+                <div class="player-contact">WhatsApp: 41 987511009</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">A combinar</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">A combinar</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Vania T. Costa</div>
+                <div class="player-contact">WhatsApp: 41 991246606</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">2ª e 4ª manhã - todos dias a noite</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">Não</div>
+            </div>
+            
+            <div class="player-card">
+                <div class="player-name">Victoria Leonor</div>
+                <div class="player-contact">WhatsApp: 41 998058708</div>
+                <div class="schedule-title">Durante semana:</div>
+                <div class="schedule-detail">A combinar</div>
+                <div class="schedule-title">Final de semana:</div>
+                <div class="schedule-detail">A combinar</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function openTab(tabName) {
+            // Esconde todos os conteúdos das abas
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            // Remove a classe 'active' de todos os botões
+            var tabButtons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+            
+            // Mostra a aba atual e marca o botão como ativo
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.classList.add("active");
+            
+            // Adiciona a classe específica para a cor do botão ativo
+            if (tabName === 'masculino') {
+                event.currentTarget.classList.add("masculino");
+            } else {
+                event.currentTarget.classList.add("feminino");
+            }
+        }
+    </script>
+</body>
+</html>
