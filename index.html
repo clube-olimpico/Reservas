@@ -3683,11 +3683,19 @@ function encontrarLinha(posicao) {
 
 <script>
         document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('toggleSenha').addEventListener('click', function () {
-                let senhaInput = document.getElementById('senha');
-                senhaInput.type = senhaInput.type === 'password' ? 'text' : 'password';
-            });
-        });
+    const toggleButton = document.getElementById('toggleSenha');
+    const senhaInput = document.getElementById('senha');
+
+    toggleButton.addEventListener('click', function () {
+        if (senhaInput.type === 'password') {
+            senhaInput.type = 'text';
+            toggleButton.textContent = '🙈'; // Ícone de olho fechado
+        } else {
+            senhaInput.type = 'password';
+            toggleButton.textContent = '👁️'; // Ícone de olho aberto
+        }
+    });
+});
 </script>
 
 
