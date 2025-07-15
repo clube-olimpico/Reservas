@@ -479,7 +479,7 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.3.5'; // Versão atual do sistema 
+const VersaoSistema = 'v1.3.6'; // Versão atual do sistema 
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy  
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -776,6 +776,7 @@ function InicializarSistema() {
 					
 					if (vatualizarOpcoesHorario) {
 					  atualizarOpcoesHorario();
+					  document.getElementById('quadra').selectedIndex = 0;
 					  vatualizarOpcoesHorario = false;
 					}
                 }
@@ -860,7 +861,7 @@ function InicializarSistema() {
             selecionarQuadra(quadraInicial);
 			
 			// ADICIONE ESTA LINHA PARA FORÇAR O RESET DO DROPDOWN
-			document.getElementById('quadra').selectedIndex = 0;
+			//document.getElementById('quadra').selectedIndex = 0;
             resolve();
 
         }, (error) => {
