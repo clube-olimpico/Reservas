@@ -579,7 +579,10 @@ body.dark-mode #botaoAgendar:hover {
     background-color: #0000CD; /* Um tom de azul um pouco mais escuro */
 }
 
-
+/* Define o fundo opaco para a tela cheia no modo escuro */
+body.dark-mode .fullscreen {
+    background-color: #121212; /* A mesma cor do fundo do modo escuro */
+}
 
 </style>
 </head>
@@ -595,7 +598,7 @@ body.dark-mode #botaoAgendar:hover {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.3.7'; // Versão atual do sistema 
+const VersaoSistema = 'v1.3.8'; // Versão atual do sistema 
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy   
 let vAbrirSistema = true; // deixar true para fazer o deploy
