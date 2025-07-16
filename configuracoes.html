@@ -1535,48 +1535,98 @@ function showTab(tabId) {
     }
 }
 
+// =====================================================================
+// INÍCIO DO NOVO BLOCO DE CÓDIGO - SUBSTITUA A FUNÇÃO ANTIGA POR ESTE
+// =====================================================================
+
 function handlePiramideChange() {
-    const piramideAtiva = document.getElementById("piramideAtiva");
+    const piramideAtivaSelect = document.getElementById("piramideAtiva");
+    const piramideRef = db.ref('sistemas/config/Piramide'); // Referência direta ao nó da Pirâmide no Firebase
 
-    if (piramideAtiva.value === "ON") {
-        // Mantém a lógica existente para quando se ativa a pirâmide
-        let inicio = window.piramideInicioData;
-        let fim = window.piramideFimData;
+    if (piramideAtivaSelect.value === "ON") {
+        // --- LÓGICA PARA ATIVAR A PIRÂMIDE ---
+        piramideRef.once('value', snapshot => {
+            const config = snapshot.val() || {};
+            const inicioSalvo = config.inicio;
+            const fimSalvo = config.fim;
 
-        if (!inicio || !fim) {
-            inicio = prompt("PRIMEIRO CADASTRO:\n\nInsira a data de INÍCIO do torneio (formato dd-mm-aaaa):");
-            if (inicio) {
-                fim = prompt("PRIMEIRO CADASTRO:\n\nInsira a data de FIM do torneio (formato dd-mm-aaaa):");
-            }
+            let operacaoValida = true; // Flag para controlar se a operação foi bem-sucedida
 
-            if (inicio && fim) {
-                window.piramideInicioData = inicio;
-                window.piramideFimData = fim;
+            // 1. Verifica se já existem datas salvas no banco
+            if (inicioSalvo && fimSalvo) {
+                const manter = confirm(`Já existem datas cadastradas (${inicioSalvo} a ${fimSalvo}).\n\nDeseja mantê-las?`);
+                
+                if (manter) {
+                    // 2. Se o usuário quer manter, apenas atualizamos as variáveis locais para a UI
+                    window.piramideInicioData = inicioSalvo;
+                    window.piramideFimData = fimSalvo;
+                } else {
+                    // 3. Se não quer manter, solicita novas datas
+                    operacaoValida = solicitarNovasDatasPiramide();
+                }
             } else {
-                 alert("Cadastro de datas cancelado. O status da Pirâmide permanecerá 'OFF'."); 
-                 piramideAtiva.value = "OFF";
+                // 4. Se não existem datas, solicita novas datas
+                operacaoValida = solicitarNovasDatasPiramide();
             }
-        }
+
+            // Se o usuário cancelou o prompt ou inseriu dados inválidos, revertemos o dropdown
+            if (!operacaoValida) {
+                piramideAtivaSelect.value = "OFF";
+            }
+            
+            // Atualiza a interface gráfica para refletir o estado final
+            atualizarEstadoPiramide();
+        });
+
     } else {
-        // NOVO: Lógica para quando se desativa a pirâmide
-        // Só pergunta se já existirem datas preenchidas
+        // --- LÓGICA PARA DESATIVAR A PIRÂMIDE (mantida a sua lógica original) ---
         if (window.piramideInicioData || window.piramideFimData) {
             const zerarDatas = confirm(
                 "Você desativou a Pirâmide.\n\nDeseja apagar as datas do torneio (Início e Fim)?\n\n- Clique em 'OK' para apagar as datas.\n- Clique em 'Cancelar' para mantê-las salvas para o futuro."
             );
 
-            if (zerarDatas) { // Se o usuário clicar em "OK"
+            if (zerarDatas) { 
                 window.piramideInicioData = "";
                 window.piramideFimData = "";
                 alert("As datas do torneio foram zeradas. Clique em 'Salvar Configurações' para confirmar a alteração.");
             }
         }
+        atualizarEstadoPiramide();
     }
-
-    // Atualiza a aparência da tela para refletir qualquer mudança
-    atualizarEstadoPiramide();
 }
 
+/**
+ * Função auxiliar para solicitar e validar novas datas da Pirâmide.
+ * Retorna true se as datas foram inseridas com sucesso, e false caso contrário.
+ */
+function solicitarNovasDatasPiramide() {
+    const inicio = prompt("Digite a data de INÍCIO do torneio (formato dd-mm-aaaa):");
+    if (inicio === null) {
+        alert("Ativação cancelada.");
+        return false;
+    }
+
+    const fim = prompt("Digite a data de FIM do torneio (formato dd-mm-aaaa):");
+    if (fim === null) {
+        alert("Ativação cancelada.");
+        return false;
+    }
+
+    // Validação do formato das datas
+    if (!/^\d{2}-\d{2}-\d{4}$/.test(inicio) || !/^\d{2}-\d{2}-\d{4}$/.test(fim)) {
+        alert("Formato de data inválido. Por favor, use dd-mm-aaaa. A ativação foi cancelada.");
+        return false;
+    }
+
+    // Salva as novas datas nas variáveis globais que a função salvarConfiguracoes() irá usar
+    window.piramideInicioData = inicio;
+    window.piramideFimData = fim;
+    return true;
+}
+
+// =====================================================================
+// FIM DO NOVO BLOCO DE CÓDIGO
+// =====================================================================
 
 function atualizarCamposPiramideQuadra1() {
     const piramideAtiva = document.getElementById('piramideAtiva').value === 'ON';
@@ -1918,9 +1968,9 @@ function carregarConfiguracoes() {
             .then(snapshot => {
                 const data = snapshot.val();
                 if (data) {
-                    document.getElementById('sistema').value = data.Abrir ? 'ON' : 'OFF';
+                    document.getElementById('sistema').value = data.Abrir ? 'ON' : 'OFF'; 
                     atualizarEstadoSistema();
-                    document.getElementById('vDomingo').value = data.vDomingo || "aberto";
+                    document.getElementById('vDomingo').value = data.vDomingo || "aberto";  
                     document.getElementById('vDomingoAte').value = data.vDomingoAte;
 
                     const campoAte = document.getElementById('vDomingoAte');
