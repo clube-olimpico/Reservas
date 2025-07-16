@@ -286,6 +286,11 @@ label {
 		font-size: 16px; /* Opcional: reduz o tamanho da fonte para melhor ajuste */
     }
 	
+	#theme-toggle-button {
+		width: 50px !important; /* Força a largura correta, sobrescrevendo a regra geral */
+		height: 50px !important; /* Garante a altura para formar o círculo */
+	}
+	
 }
 
 
@@ -465,6 +470,117 @@ th {
 
 
 
+/*****************************************/
+/****** Estilos para o Modo Escuro *******/
+/*****************************************/
+
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.dark-mode .form-container,
+body.dark-mode #loginScreen {
+    background-color: #1e1e1e;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3 {
+    color: #ffffff;
+}
+
+body.dark-mode input,
+body.dark-mode select {
+    background-color: #333333;
+    color: #ffffff;
+    border-color: #555555;
+}
+
+body.dark-mode button,
+body.dark-mode .tab-button {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+body.dark-mode button:hover,
+body.dark-mode .tab-button:hover {
+    background-color: #444444;
+}
+
+body.dark-mode .tab-button.selected {
+    background-color: #005f00 !important;
+}
+
+body.dark-mode .header {
+    color: #ffffff;
+}
+
+body.dark-mode table,
+body.dark-mode th,
+body.dark-mode td {
+    border-color: #444444;
+}
+
+body.dark-mode th {
+    background-color: #333333;
+}
+
+/* Cor específica para #f2f2f2 no modo escuro */
+body.dark-mode .f2f2f2-dark,
+body.dark-mode [style*="background-color: rgb(242, 242, 242)"],
+body.dark-mode [style*="background-color: #f2f2f2"] {
+    background-color: #555555 !important;
+}
+
+#theme-toggle-button {
+    position: fixed; /* Posição fixa em relação à janela do navegador */
+    bottom: 20px;    /* 20 pixels da parte inferior */
+    right: 20px;     /* 20 pixels da parte direita */
+    width: 50px;     /* Largura do botão */
+    height: 50px;    /* Altura do botão */
+    border-radius: 50%; /* Deixa o botão redondo */
+    background-color: #333;
+    color: white;
+    border: none;
+    font-size: 24px; /* Tamanho do ícone/texto */
+    cursor: pointer;
+    z-index: 1001;   /* Garante que o botão fique sobre outros elementos */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+#theme-toggle-button:hover {
+    background-color: #555;
+}
+
+/* Ajuste para o modo escuro, se desejar uma cor diferente para o botão */
+body.dark-mode #theme-toggle-button {
+    background-color: #f1f1f1;
+    color: #121212;
+}
+
+body.dark-mode #theme-toggle-button:hover {
+    background-color: #dcdcdc;
+}
+
+
+/* Estilo específico para o botão "Agendar" no modo escuro */
+body.dark-mode #botaoAgendar {
+    background-color: blue;
+    color: white; /* Garante que o texto "Agendar" permaneça branco e legível */
+}
+
+/* Efeito opcional para quando passar o mouse sobre o botão */
+body.dark-mode #botaoAgendar:hover {
+    background-color: #0000CD; /* Um tom de azul um pouco mais escuro */
+}
+
+
+
 </style>
 </head>
 
@@ -479,13 +595,15 @@ th {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.3.6'; // Versão atual do sistema 
+const VersaoSistema = 'v1.3.7'; // Versão atual do sistema 
 
-let vDesabilitarF12 = true; // deixar true para fazer o deploy  
+let vDesabilitarF12 = true; // deixar true para fazer o deploy   
 let vAbrirSistema = true; // deixar true para fazer o deploy
 
 let piramideInicioTorneio = null;
 let piramideFimTorneio = null;
+let piramideAtivaGlobal = false;
+
 let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
@@ -574,34 +692,40 @@ function atualizarLegenda(piramideAtiva) {
         return;
     }
 
-    // Remove todas as linhas existentes antes de recriá-las
+    // ---- INÍCIO DA ALTERAÇÃO ----
+    // LÓGICA DE CORES DO TEMA
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    const cor1h = isDarkMode ? 'mediumseagreen' : 'lightgreen';
+    const cor2h = isDarkMode ? 'CornflowerBlue' : 'lightblue';
+    const corAula = isDarkMode ? '#CD5C5C' : 'lightcoral'; // Usando um vermelho mais escuro para o modo escuro
+    const corPiramide = isDarkMode ? '#FAD766' : '#FFEB99';
+    // ---- FIM DA ALTERAÇÃO ----
+
     legendaContainer.innerHTML = '<strong style="font-size: 14px;">Legenda:</strong>';
 
     if (!piramideAtiva) {
-        //alert('piramide nao ativa');
-        // Configura a legenda sem a pirâmide, com cada item em uma linha
+        // USA AS CORES DO TEMA
         const itens = [
-            { cor: 'lightgreen', texto: '1 Hora' },
-            { cor: 'lightblue', texto: '2 Horas' },
-            { cor: 'lightcoral', texto: 'Aula' } 
+            { cor: cor1h, texto: '1 Hora' },
+            { cor: cor2h, texto: '2 Horas' },
+            { cor: corAula, texto: 'Aula' }
         ];
 
         itens.forEach((item, index) => {
             const linha = document.createElement('div');
             linha.style.display = 'flex';
             linha.style.alignItems = 'center';
-            linha.style.marginBottom = '2px'; // Espaçamento entre os itens
+            linha.style.marginBottom = '2px';
 
-            // Adiciona uma margem maior ao último item (Aula)
             if (index === itens.length - 1) {
-                linha.style.marginBottom = '-5px'; // Aumenta o espaço entre a linha 2 e a planilha
+                linha.style.marginBottom = '-5px';
             }
 
             const icone = document.createElement('span');
             icone.style.display = 'inline-block';
             icone.style.width = '15px';
             icone.style.height = '17px';
-            icone.style.backgroundColor = item.cor;
+            icone.style.backgroundColor = item.cor; // USA A COR DO TEMA
             icone.style.marginRight = '5px';
 
             const texto = document.createElement('span');
@@ -613,43 +737,41 @@ function atualizarLegenda(piramideAtiva) {
             legendaContainer.appendChild(linha);
         });
     } else {
-        //alert('piramide ativa');
-        // Configura a legenda com a pirâmide, em duas linhas
         const linha1 = document.createElement('div');
         linha1.id = 'linha-1';
         linha1.style.display = 'flex';
         linha1.style.alignItems = 'center';
-        linha1.style.gap = '2px'; // Espaçamento entre os itens
-		linha1.style.marginTop = '5px'; // Aumenta o espaço entre o Label "Legenda" e a linha 1
-        linha1.style.marginBottom = '5px'; // Aumenta o espaço entre a linha 1 e a linha 2
+        linha1.style.gap = '2px';
+        linha1.style.marginTop = '5px';
+        linha1.style.marginBottom = '5px';
 
         const linha2 = document.createElement('div');
         linha2.id = 'linha-2';
         linha2.style.display = 'flex';
         linha2.style.alignItems = 'center';
-        linha2.style.gap = '2px'; // Espaçamento entre os itens
+        linha2.style.gap = '2px';
 
-        // Adiciona os itens à linha 1
+        // USA AS CORES DO TEMA
         linha1.innerHTML = `
-            <span style="display: inline-block; width: 15px; height: 17px; background-color: lightgreen; margin-right: 2px;"></span>
+            <span style="display: inline-block; width: 15px; height: 17px; background-color: ${cor1h}; margin-right: 2px;"></span>
             <span style="font-size: 12px;">1 Hora</span>
-            <span style="display: inline-block; width: 15px; height: 18px; background-color: lightblue; margin-right: 2px; margin-left: 10px;"></span>
+            <span style="display: inline-block; width: 15px; height: 18px; background-color: ${cor2h}; margin-right: 2px; margin-left: 10px;"></span>
             <span style="font-size: 12px;">2 Horas</span>
         `;
 
-        // Adiciona os itens à linha 2
+        // USA AS CORES DO TEMA
         linha2.innerHTML = `
-            <span style="display: inline-block; width: 15px; height: 18px; background-color: lightcoral; margin-right: 5px;"></span>
+            <span style="display: inline-block; width: 15px; height: 18px; background-color: ${corAula}; margin-right: 5px;"></span>
             <span style="font-size: 12px;">Aula</span>
-            <span id="piramide-span" style="display: inline-block; width: 15px; height: 18px; background-color: #FFEB99 ; margin-left: 19px; margin-right: 1px;"></span>
+            <span id="piramide-span" style="display: inline-block; width: 15px; height: 18px; background-color: ${corPiramide}; margin-left: 19px; margin-right: 1px;"></span>
             <span id="piramide-text" style="font-size: 12px;">Pirâmide</span>
         `;
 
-        // Adiciona as linhas ao container da legenda
         legendaContainer.appendChild(linha1);
         legendaContainer.appendChild(linha2);
     }
 }
+
 
 function removerSessoesAntigas() {
     const usuariosRef = database.ref('sistemas/usuariosOnline');
@@ -738,6 +860,7 @@ function InicializarSistema() {
 
                 // Verifica se a pirâmide está ativa (em tempo real)
                 const piramideAtiva = config?.Piramide?.ativa || false; // Valor padrão: false
+				piramideAtivaGlobal = piramideAtiva;
 				piramideInicioTorneio = config?.Piramide?.inicio || null;
 				piramideFimTorneio = config?.Piramide?.fim || null;
                 const duracaoSelect = document.getElementById('duracao');
@@ -1190,13 +1313,18 @@ function carregarReservas(quadra) {
                     if (rowIndex >= 0 && rowIndex < totalRows && colIndex >= 0 && colIndex < totalCols) {
                         const cell = tabela.rows[rowIndex].cells[colIndex];
                         cell.setAttribute("data-duracao", duracao || "segunda-celula");
+						
+						const isDarkMode = document.body.classList.contains('dark-mode');
+						const corReserva1h = isDarkMode ? 'mediumseagreen' : 'lightgreen';
+						const corReserva2h = isDarkMode ? 'CornflowerBlue' : 'lightblue';
+						const corPiramide = isDarkMode ? '#FAD766' : '#FFEB99'; // LÓGICA PARA A COR DA PIRÂMIDE
 
                         let corFundo;
                         if (jogadores.toLowerCase().includes('aula')) {
                             corFundo = 'lightcoral';
                             cell.innerHTML = "aula"; 
                         } else if (duracao === 3 || (reservas[key.split('_')[0] + '_' + (hora - 1)] && reservas[key.split('_')[0] + '_' + (hora - 1)].duracao === 3)) {
-                            corFundo = '#FFEB99';
+                            corFundo = corPiramide; // APLICA A COR CORRETA DA PIRÂMIDE
 							
 							// --- INÍCIO DA CORREÇÃO ---
                             // Formata os nomes dos jogadores com a posição correta na pirâmide
@@ -1225,7 +1353,7 @@ function carregarReservas(quadra) {
                             // --- FIM DA CORREÇÃO ---
 
                         } else {
-                            corFundo = duracao === 1 ? 'lightgreen' : 'lightblue';
+                            corFundo = duracao === 1 ? corReserva1h : corReserva2h;
                             cell.innerHTML = jogadores;
                         }
 
@@ -1853,12 +1981,20 @@ async function atualizarTabela() {
     const tabela = document.getElementById('tabelaCorpo');
     const linhaInicial = horaSelecionada - 6;
 
-    let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula'))
-        ? 'lightcoral'
-        : duracao === 1 ? 'lightgreen'
-        : duracao === 2 ? 'lightblue'
-        : duracao === 3 ? '#FFEB99'
-        : 'white';
+    // ---- INÍCIO DA ALTERAÇÃO FINAL ----
+	const isDarkMode = document.body.classList.contains('dark-mode');
+	// Define as cores para cada modo
+	const corReserva1h = isDarkMode ? 'mediumseagreen' : 'lightgreen';
+	const corReserva2h = isDarkMode ? 'CornflowerBlue' : 'lightblue';
+	const corPiramide = isDarkMode ? '#FAD766' : '#FFEB99'; // LÓGICA PARA A COR DA PIRÂMIDE
+
+	let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula'))
+		? 'lightcoral'
+		: duracao === 1 ? corReserva1h
+		: duracao === 2 ? corReserva2h
+		: duracao === 3 ? corPiramide // APLICA A COR CORRETA DA PIRÂMIDE
+		: 'white';
+	// ---- FIM DA ALTERAÇÃO FINAL ----
 
     console.log(`🎯 Duração selecionada: ${duracao}`);
     console.log("👥 Jogadores:", jogadores);
@@ -3399,6 +3535,43 @@ function encontrarLinha(posicao) {
     return Math.ceil((-1 + Math.sqrt(1 + 8 * posicao)) / 2);
 }
 
+
+// Função para alternar entre os temas
+function toggleTheme() {
+    const body = document.body;
+    body.classList.toggle('dark-mode');
+
+    // Salva a preferência do tema no localStorage
+    if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+
+    // CHAMA A FUNÇÃO PARA REDESENHAR A LEGENDA COM AS CORES CERTAS
+    atualizarLegenda(piramideAtivaGlobal);
+
+    // FORÇA O REDESENHO DA PLANILHA PARA APLICAR AS NOVAS CORES
+    carregarReservas(quadraSelecionada); 
+}
+
+// Roda todo o código de tema depois que a página carregar
+document.addEventListener('DOMContentLoaded', function() {
+    // Função para aplicar o tema salvo
+    function applyTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+    }
+
+    // Primeiro, aplica o tema que já estava salvo
+    applyTheme();
+
+    // Depois, adiciona o evento de clique ao botão
+    document.getElementById('theme-toggle-button').addEventListener('click', toggleTheme);
+});
+
 </script>
 
 
@@ -3702,4 +3875,11 @@ function encontrarLinha(posicao) {
 <footer style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #555;">
         Desenvolvido por Ronaldo Taborda
     </footer>
+	
+<footer style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #555;">
+        Desenvolvido por Ronaldo Taborda
+</footer>
+
+<button id="theme-toggle-button">🌙</button>
+
 </html>
