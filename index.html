@@ -584,6 +584,11 @@ body.dark-mode .fullscreen {
     background-color: #121212; /* A mesma cor do fundo do modo escuro */
 }
 
+/* Cor da versão do sistema no modo escuro */
+body.dark-mode #VersaoSistema {
+    color: RoyalBlue;
+}
+
 </style>
 </head>
 
@@ -598,7 +603,7 @@ body.dark-mode .fullscreen {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.3.8'; // Versão atual do sistema 
+const VersaoSistema = 'v1.3.9'; // Versão atual do sistema 
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy   
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -3632,7 +3637,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<div id="VersaoSistema" style="text-align: right; margin-top: 70px; margin-right: 10px; font-size: 1rem; color: #555; cursor: default; position: relative; z-index: 9999;">
+<div id="VersaoSistema" style="text-align: right; margin-top: 70px; margin-right: 10px; font-size: 1rem; cursor: default; position: relative; z-index: 9999;">
     
 </div>
 
@@ -3875,10 +3880,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
-<footer style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #555;">
-        Desenvolvido por Ronaldo Taborda
-    </footer>
-	
 <footer style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #555;">
         Desenvolvido por Ronaldo Taborda
 </footer>
