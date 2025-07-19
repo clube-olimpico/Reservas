@@ -589,6 +589,13 @@ body.dark-mode #VersaoSistema {
     color: RoyalBlue;
 }
 
+/* Corrige bordas das células específicas bloqueadas manualmente no modo escuro */
+body.dark-mode td[style*="background-color: #f2f2f2"],
+body.dark-mode td[style*="background-color: rgb(242, 242, 242)"] {
+    border: 1px solid #ffffff !important;
+}
+
+
 </style>
 </head>
 
@@ -603,7 +610,7 @@ body.dark-mode #VersaoSistema {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.3.9'; // Versão atual do sistema 
+const VersaoSistema = 'v1.4.0'; // Versão atual do sistema 
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy   
 let vAbrirSistema = true; // deixar true para fazer o deploy
