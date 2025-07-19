@@ -982,9 +982,29 @@
         "inicio": "10-07-2025"
       },
       "Quadras": {
-        "Quadra1": "liberada",
+        "Bloqueios": {
+          "Quadra-1": {
+            "2025-07-21": {
+              "descricao": "Manutenção Rede Elétrica",
+              "regras": {
+                "fim": "14:00",
+                "inicio": "06:00"
+              }
+            }
+          },
+          "Quadra-3": {
+            "2025-07-21": {
+              "descricao": "Manutenção Rede Elétrica",
+              "regras": {
+                "fim": "14:00",
+                "inicio": "06:00"
+              }
+            }
+          }
+        },
+        "Quadra1": "bloqueada",
         "Quadra2": "liberada",
-        "Quadra3": "liberada"
+        "Quadra3": "bloqueada"
       },
       "githubToken": "***SEGREDO_REMOVIDO***",
       "vDomingo": "fechado",
@@ -1447,6 +1467,13 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
+        },
+        "7_10": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 10,
+          "jogadores": "Ceccon"
         }
       },
       "Quadra 2 - Aberta": {
@@ -1467,6 +1494,25 @@
           "hora": 10,
           "jogadores": "Convidado"
         },
+        "6_11": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 11,
+          "jogadores": "Maico"
+        },
+        "6_14": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 14,
+          "jogadores": "Gilson Oliveira"
+        },
+        "6_15": {
+          "dia": 6,
+          "hora": 15,
+          "jogadores": "Convidado"
+        },
         "6_9": {
           "borda": "2h",
           "dia": 6,
@@ -1476,6 +1522,18 @@
         }
       },
       "Quadra 3 - Coberta": {
+        "1_19": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Raianne Kamiya"
+        },
+        "1_20": {
+          "dia": 1,
+          "hora": 20,
+          "jogadores": "Makoto"
+        },
         "5_11": {
           "borda": "1h",
           "dia": 5,
@@ -1542,6 +1600,13 @@
         }
       }
     },
-    "version": "v1.3.9"
+    "usuariosOnline": {
+      "xllafuafw": {
+        "sessionId": "xllafuafw",
+        "timestamp": 1752886673586,
+        "usuario": "RONALDO TABORDA"
+      }
+    },
+    "version": "v1.4.0"
   }
 }
