@@ -733,6 +733,12 @@ body.piramde-ativo {
     .tab-content-active {
         display: block;
     }
+	
+	.tabs .tab {
+		padding: 15px 10px;    /* Reduz o espaçamento lateral de cada aba */
+		font-size: 16px;       /* Usa o tamanho de fonte que você havia gostado */
+		white-space: nowrap;   /* Garante que o texto não quebre em duas linhas */
+	}
 }
 
 
@@ -991,6 +997,12 @@ input:disabled, select:disabled, button:disabled {
 }
 /* --- FIM: Estilo para o modal de Dias da Semana --- */
 
+#horasParaExpirar {
+    max-width: 180px;
+    width: 100%;
+    margin-left: auto;
+}
+
 </style>
 
 </head>
@@ -1080,7 +1092,22 @@ input:disabled, select:disabled, button:disabled {
             <div class="tab" onclick="showTab('piramide')">Pirâmide</div>
 			<div class="tab active" onclick="showTab('convidados')">Convidados</div>
 			<div class="tab" onclick="showTab('duplas')">Duplas</div>
+			<div class="tab" onclick="showTab('reservas')">Reservas</div>
         </div>
+		
+		<div id="reservas" class="tab-content">
+			<div class="container">
+				<label for="horasParaExpirar">Prazo para Confirmação:</label>
+				<select id="horasParaExpirar">
+					<option value="1">1 hora</option>
+					<option value="2">2 horas</option>
+					<option value="3">3 horas</option>
+					<option value="4">4 horas</option>
+					<option value="6">6 horas</option>
+					<option value="12">12 horas</option>
+				</select>
+			</div>
+		</div>
 
         <div id="convidados" class="tab-content tab-content-active">
             <div class="container convidados-quadras">
@@ -1591,7 +1618,7 @@ function handlePiramideChange() {
                 alert("As datas do torneio foram zeradas. Clique em 'Salvar Configurações' para confirmar a alteração.");
             }
         }
-        atualizarEstadoPiramide();
+        atualizarEstadoPiramide();   
     }
 }
 
@@ -1989,6 +2016,8 @@ function carregarConfiguracoes() {
                     document.getElementById('estadoQuadra1').value = data.Quadras?.Quadra1 || "liberada";
                     document.getElementById('estadoQuadra2').value = data.Quadras?.Quadra2 || "liberada";
                     document.getElementById('estadoQuadra3').value = data.Quadras?.Quadra3 || "liberada";
+					
+					document.getElementById('horasParaExpirar').value = data.horasParaExpirar || '2';
 
                     const convidados = data.Convidados || {};
                     document.getElementById('convidadosQuadra1').checked = convidados.Quadra1 || false;
@@ -2093,6 +2122,7 @@ function carregarConfiguracoes() {
                 document.getElementById('vDomingo').value = data.vDomingo || "aberto";
                 document.getElementById('vDomingoAte').value = data.vDomingoAte;
                 document.getElementById('diasParaAgendar').value = (6 - (data.DiasParaLimpar || 6)).toString();
+				document.getElementById('horasParaExpirar').value = data.horasParaExpirar || '2';
 
                 document.getElementById('estadoQuadra1').value = data.Quadras?.Quadra1 || "liberada";
                 document.getElementById('estadoQuadra2').value = data.Quadras?.Quadra2 || "liberada";
@@ -2224,6 +2254,8 @@ function salvarConfiguracoes() {
     const estadoQuadra1 = document.getElementById('estadoQuadra1').value;
     const estadoQuadra2 = document.getElementById('estadoQuadra2').value;
     const estadoQuadra3 = document.getElementById('estadoQuadra3').value;
+	
+	const horasParaExpirar = parseInt(document.getElementById('horasParaExpirar').value);
 
     // Captura os valores dos checkboxes de convidados
     const convidados = {
@@ -2329,6 +2361,7 @@ function salvarConfiguracoes() {
         vDomingo,
         vDomingoAte,
         DiasParaLimpar: diasParaLimpar,
+		horasParaExpirar: horasParaExpirar,
         Quadras: {
             Quadra1: estadoQuadra1,
             Quadra2: estadoQuadra2,
