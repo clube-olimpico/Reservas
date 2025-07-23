@@ -610,9 +610,9 @@ body.dark-mode td[style*="background-color: rgb(242, 242, 242)"] {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.4.0'; // Versão atual do sistema 
+const VersaoSistema = 'v1.4.1'; // Versão atual do sistema     
 
-let vDesabilitarF12 = true; // deixar true para fazer o deploy   
+let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
 
 let piramideInicioTorneio = null;
@@ -633,6 +633,7 @@ let quadraSelecionada = 'Quadra 1 - Coberta';
 let duplasConfigGlobais = {}; 
 let convidadoConfigGlobais = {};
 let bloqueiosQuadra = {};
+let horasParaExpirarConfig = 2; // Define um padrão de 2 horas
 
 //***********************************************************************************************************************************************************************
 
@@ -713,7 +714,7 @@ function atualizarLegenda(piramideAtiva) {
     const cor1h = isDarkMode ? 'mediumseagreen' : 'lightgreen';
     const cor2h = isDarkMode ? 'CornflowerBlue' : 'lightblue';
     const corAula = isDarkMode ? '#CD5C5C' : 'lightcoral'; // Usando um vermelho mais escuro para o modo escuro
-    const corPiramide = isDarkMode ? '#FAD766' : '#FFEB99';
+    const corPiramide = isDarkMode ? 'goldenrod' : '#FFEB99';
     // ---- FIM DA ALTERAÇÃO ----
 
     legendaContainer.innerHTML = '<strong style="font-size: 14px;">Legenda:</strong>';
@@ -846,6 +847,8 @@ function InicializarSistema() {
                 }
 
                 const config = data.config;
+				
+				horasParaExpirarConfig = config.horasParaExpirar || 2; // Lê o valor do banco ou usa 2 como padrão
 				
 				githubToken = config.githubToken;
 				
@@ -1332,7 +1335,7 @@ function carregarReservas(quadra) {
 						const isDarkMode = document.body.classList.contains('dark-mode');
 						const corReserva1h = isDarkMode ? 'mediumseagreen' : 'lightgreen';
 						const corReserva2h = isDarkMode ? 'CornflowerBlue' : 'lightblue';
-						const corPiramide = isDarkMode ? '#FAD766' : '#FFEB99'; // LÓGICA PARA A COR DA PIRÂMIDE
+						const corPiramide = isDarkMode ? 'goldenrod' : '#FFEB99'; // LÓGICA PARA A COR DA PIRÂMIDE
 
                         let corFundo;
                         if (jogadores.toLowerCase().includes('aula')) {
@@ -2001,7 +2004,7 @@ async function atualizarTabela() {
 	// Define as cores para cada modo
 	const corReserva1h = isDarkMode ? 'mediumseagreen' : 'lightgreen';
 	const corReserva2h = isDarkMode ? 'CornflowerBlue' : 'lightblue';
-	const corPiramide = isDarkMode ? '#FAD766' : '#FFEB99'; // LÓGICA PARA A COR DA PIRÂMIDE
+	const corPiramide = isDarkMode ? 'goldenrod' : '#FFEB99'; // LÓGICA PARA A COR DA PIRÂMIDE
 
 	let corFundo = jogadores.some(jogador => jogador.toLowerCase().includes('aula'))
 		? 'lightcoral'
