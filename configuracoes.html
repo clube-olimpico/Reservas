@@ -737,7 +737,15 @@ body.piramde-ativo {
 	.tabs .tab {
 		padding: 15px 10px;    /* Reduz o espaçamento lateral de cada aba */
 		font-size: 16px;       /* Usa o tamanho de fonte que você havia gostado */
-		white-space: nowrap;   /* Garante que o texto não quebre em duas linhas */
+		white-space: nowrap;   /* Garante que o texto não quebre em duas linhas */ 
+	}
+	
+	
+	#reservasPorConfirmacao,
+	#horasParaExpirar {
+		max-width: 10px !important; /* Define um tamanho máximo que não pode ser ignorado */
+		width: 100% !important;      /* Garante que a largura se comporte dentro do novo limite */
+		margin-left: auto !important;/* Força o alinhamento à direita */
 	}
 }
 
@@ -997,11 +1005,32 @@ input:disabled, select:disabled, button:disabled {
 }
 /* --- FIM: Estilo para o modal de Dias da Semana --- */
 
+
+
 #horasParaExpirar {
-    max-width: 180px;
+    max-width: 130px;
     width: 100%;
-    margin-left: auto;
+	margin-left: auto; 
 }
+
+
+/* Estilos para o novo seletor ON/OFF de Confirmação */
+#reservasPorConfirmacao {
+    font-weight: bold;
+    max-width: 130px; /* Adicionado */
+    width: 100%;      /* Adicionado */
+    margin-left: auto;/* Adicionado */
+}
+
+#reservasPorConfirmacao.confirmacao-on {
+    color: green;
+}
+
+#reservasPorConfirmacao.confirmacao-off {
+    color: red;
+}
+
+/* fim de Estilos para o novo seletor ON/OFF de Confirmação */
 
 </style>
 
@@ -1096,16 +1125,30 @@ input:disabled, select:disabled, button:disabled {
         </div>
 		
 		<div id="reservas" class="tab-content">
-			<div class="container">
-				<label for="horasParaExpirar">Prazo para Confirmação:</label>
-				<select id="horasParaExpirar">
-					<option value="1">1 hora</option>
-					<option value="2">2 horas</option>
-					<option value="3">3 horas</option>
-					<option value="4">4 horas</option>
-					<option value="6">6 horas</option>
-					<option value="12">12 horas</option>
-				</select>
+			<div style="border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
+				
+				<div class="container">
+					<label for="reservasPorConfirmacao">Confirmação de Reservas:</label>
+					<select id="reservasPorConfirmacao" onchange="atualizarEstadoConfirmacao()">
+						<option value="ON">ON</option>
+						<option value="OFF">OFF</option>
+					</select>
+				</div>
+
+				<hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+
+				<div class="container">
+					<label for="horasParaExpirar">Prazo para Confirmação:</label>
+					<select id="horasParaExpirar">
+						<option value="1">1 hora</option>
+						<option value="2">2 horas</option>
+						<option value="3">3 horas</option>
+						<option value="4">4 horas</option>
+						<option value="6">6 horas</option>
+						<option value="12">12 horas</option>
+					</select>
+				</div>
+
 			</div>
 		</div>
 
@@ -1497,19 +1540,29 @@ function showTab(tabId) {
     if (tabId === 'duplas') {
         mostrarDuplasQuadra('quadra1');
     }
+	
+	if (tabId === 'reservas') {
+		atualizarEstadoConfirmacao(); // <-- força aplicar a cor correta ao abrir a aba
+	}
+
 }
 
 		
 		
 		
     function atualizarEstadoSistema() {
-        const sistema = document.getElementById('sistema');
-        if (sistema.value === 'ON') {
-            sistema.className = 'on';
-        } else {
-            sistema.className = 'off';
-        }
-    }
+    // Adicione esta linha para depuração
+		console.log("Função atualizarEstadoSistema foi chamada!"); 
+
+		const sistema = document.getElementById('sistema');
+		if (sistema.value === 'ON') {
+			sistema.style.backgroundColor = 'green';
+			sistema.style.color = 'white';
+		} else {
+			sistema.style.backgroundColor = 'red';
+			sistema.style.color = 'white';
+		}
+	}
 	
 	
  function atualizarEstadoPiramide() {
@@ -2017,6 +2070,7 @@ function carregarConfiguracoes() {
                     document.getElementById('estadoQuadra2').value = data.Quadras?.Quadra2 || "liberada";
                     document.getElementById('estadoQuadra3').value = data.Quadras?.Quadra3 || "liberada";
 					
+					document.getElementById('reservasPorConfirmacao').value = data.ReservasPorConfirmacao ? 'ON' : 'OFF';
 					document.getElementById('horasParaExpirar').value = data.horasParaExpirar || '2';
 
                     const convidados = data.Convidados || {};
@@ -2122,6 +2176,8 @@ function carregarConfiguracoes() {
                 document.getElementById('vDomingo').value = data.vDomingo || "aberto";
                 document.getElementById('vDomingoAte').value = data.vDomingoAte;
                 document.getElementById('diasParaAgendar').value = (6 - (data.DiasParaLimpar || 6)).toString();
+				
+				document.getElementById('reservasPorConfirmacao').value = data.ReservasPorConfirmacao ? 'ON' : 'OFF';
 				document.getElementById('horasParaExpirar').value = data.horasParaExpirar || '2';
 
                 document.getElementById('estadoQuadra1').value = data.Quadras?.Quadra1 || "liberada";
@@ -2255,6 +2311,8 @@ function salvarConfiguracoes() {
     const estadoQuadra2 = document.getElementById('estadoQuadra2').value;
     const estadoQuadra3 = document.getElementById('estadoQuadra3').value;
 	
+	const reservasPorConfirmacao = document.getElementById('reservasPorConfirmacao').value === 'ON';
+    
 	const horasParaExpirar = parseInt(document.getElementById('horasParaExpirar').value);
 
     // Captura os valores dos checkboxes de convidados
@@ -2361,6 +2419,7 @@ function salvarConfiguracoes() {
         vDomingo,
         vDomingoAte,
         DiasParaLimpar: diasParaLimpar,
+		ReservasPorConfirmacao: reservasPorConfirmacao,
 		horasParaExpirar: horasParaExpirar,
         Quadras: {
             Quadra1: estadoQuadra1,
@@ -2391,7 +2450,8 @@ function salvarConfiguracoes() {
             .then(() => {
                 loadingElement.style.display = 'none';
                 contentElement.style.display = 'block';
-            })
+				atualizarEstadoSistema(); 
+		    })
             .catch(error => {
                 console.error("Erro ao carregar configurações:", error);
             });
@@ -3157,6 +3217,25 @@ function formatarDataInput(event) {
 
     // Atualiza o valor no campo
     input.value = valor;
+}
+
+// Substitua a sua função inteira por esta
+function atualizarEstadoConfirmacao() {
+    const confirmacaoSelect = document.getElementById('reservasPorConfirmacao');
+    const prazoSelect = document.getElementById('horasParaExpirar');
+    const isAtiva = confirmacaoSelect.value === 'ON';
+
+    // Habilita ou desabilita o campo de prazo
+    prazoSelect.disabled = !isAtiva;
+
+    // Aplica a classe de cor correta
+    if (isAtiva) {
+        confirmacaoSelect.classList.remove('confirmacao-off');
+        confirmacaoSelect.classList.add('confirmacao-on');
+    } else {
+        confirmacaoSelect.classList.remove('confirmacao-on');
+        confirmacaoSelect.classList.add('confirmacao-off');
+    }
 }
 
 
