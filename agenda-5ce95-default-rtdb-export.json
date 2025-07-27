@@ -252,7 +252,7 @@
           "apelido": "Arthur Amorim",
           "classe": "C",
           "niver": "10/03/1995",
-          "piramide": "25",
+          "piramide": "27",
           "socio": "titular"
         },
         "ARTHUR WARKENTIN": {
@@ -588,7 +588,7 @@
           "apelido": "Leo Carrara",
           "classe": "A",
           "niver": "13/04/1975",
-          "piramide": "6",
+          "piramide": "10",
           "socio": "titular"
         },
         "LEONARDO MIKUSKA": {
@@ -658,7 +658,7 @@
           "apelido": "Makoto",
           "classe": "A",
           "niver": "07/02/1975",
-          "piramide": "10",
+          "piramide": "6",
           "socio": "titular"
         },
         "MARCELO ZOTI": {
@@ -791,7 +791,7 @@
           "apelido": "Sidnei Novack",
           "classe": "B",
           "niver": "02/07/1994",
-          "piramide": "27",
+          "piramide": "25",
           "socio": "titular"
         },
         "SILVANE CORREA": {
@@ -912,6 +912,17 @@
       },
       "DiasParaLimpar": 3,
       "Duplas": {
+        "DatasEspeciais": {
+          "Quadra-2": {
+            "2025-07-26": {
+              "descricao": "Teste",
+              "regras": {
+                "fim": "21:00",
+                "inicio": "18:00"
+              }
+            }
+          }
+        },
         "Quadra-1": {
           "1-DiasDeSemana": false,
           "1-DiasDeSemana-Fim": "",
@@ -1078,19 +1089,24 @@
           "hora": 21,
           "jogadores": "aula"
         },
+        "1_7": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 2,
+          "hora": 7,
+          "jogadores": "Bernardo"
+        },
+        "1_8": {
+          "dia": 1,
+          "hora": 8,
+          "jogadores": "Leo Carrara"
+        },
         "1_9": {
           "borda": "1h",
           "dia": 1,
           "duracao": 1,
           "hora": 9,
           "jogadores": "Vania"
-        },
-        "2_11": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 11,
-          "jogadores": "aula"
         },
         "2_14": {
           "borda": "1h",
@@ -1459,6 +1475,13 @@
           "hora": 16,
           "jogadores": "Lucas Titon"
         },
+        "6_17": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 17,
+          "jogadores": "Helio Oliveira"
+        },
         "6_18": {
           "borda": "2h",
           "dia": 6,
@@ -1491,21 +1514,21 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
+        },
+        "7_10": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 10,
+          "jogadores": "Gustavo Ferraz"
+        },
+        "7_11": {
+          "dia": 7,
+          "hora": 11,
+          "jogadores": "Nivaldo"
         }
       },
       "Quadra 2 - Aberta": {
-        "5_17": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Flavio Ferraz"
-        },
-        "5_18": {
-          "dia": 5,
-          "hora": 18,
-          "jogadores": "Felipe Mikuska"
-        },
         "6_10": {
           "borda": "2h",
           "dia": 6,
@@ -1532,29 +1555,41 @@
         }
       },
       "Quadra 3 - Coberta": {
-        "5_18": {
+        "1_17": {
           "borda": "2h",
-          "dia": 5,
-          "duracao": 3,
+          "dia": 1,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Flavio Ferraz, Almir"
+        },
+        "1_18": {
+          "dia": 1,
           "hora": 18,
-          "jogadores": "Clodoaldo"
+          "jogadores": "Frank Fast, Marco Ribeiro"
         },
-        "5_19": {
-          "dia": 5,
-          "hora": 19,
-          "jogadores": "Paulinho"
-        },
-        "5_20": {
+        "1_19": {
           "borda": "2h",
-          "dia": 5,
-          "duracao": 3,
-          "hora": 20,
-          "jogadores": "Arthur Amorim"
+          "dia": 1,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Ivan Balboa"
         },
-        "5_21": {
-          "dia": 5,
-          "hora": 21,
-          "jogadores": "Sidnei Novack"
+        "1_20": {
+          "dia": 1,
+          "hora": 20,
+          "jogadores": "Caina Balboa"
+        },
+        "2_19": {
+          "borda": "2h",
+          "dia": 2,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Isabelle Balboa"
+        },
+        "2_20": {
+          "dia": 2,
+          "hora": 20,
+          "jogadores": "Pamela Balboa"
         },
         "6_10": {
           "dia": 6,
@@ -1580,6 +1615,13 @@
           "hora": 13,
           "jogadores": "Bigode"
         },
+        "6_16": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 16,
+          "jogadores": "Rafael Gregorio"
+        },
         "6_17": {
           "borda": "2h",
           "dia": 6,
@@ -1598,7 +1640,21 @@
           "duracao": 3,
           "hora": 9,
           "jogadores": "Makoto"
+        },
+        "7_8": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "Ceccon"
         }
+      }
+    },
+    "usuariosOnline": {
+      "xllafuafw": {
+        "sessionId": "xllafuafw",
+        "timestamp": 1753573737778,
+        "usuario": "ANA FRANCISCA"
       }
     },
     "version": "v1.4.1"
