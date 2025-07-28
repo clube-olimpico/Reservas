@@ -16,6 +16,7 @@
         "Amora": true,
         "Ana Francisca": true,
         "Ana Julia": true,
+        "Ana Lice": true,
         "Ana Ribeiro": true,
         "Andre Guzik": true,
         "Andreia Almeida": true,
@@ -219,6 +220,13 @@
           "niver": "01/01/2001",
           "piramide": "82",
           "socio": "titular"
+        },
+        "ANA LICE": {
+          "apelido": "Ana Lice",
+          "classe": "C",
+          "niver": "01/01/2001",
+          "piramide": "84",
+          "socio": "dependente"
         },
         "ANA MARIA": {
           "apelido": "Ana Maria",
@@ -1451,49 +1459,6 @@
           "hora": 11,
           "jogadores": "aula"
         },
-        "6_13": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 13,
-          "jogadores": "Diego Paraiso"
-        },
-        "6_14": {
-          "dia": 6,
-          "hora": 14,
-          "jogadores": "Jean Souza"
-        },
-        "6_15": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 15,
-          "jogadores": "Flavia Titon"
-        },
-        "6_16": {
-          "dia": 6,
-          "hora": 16,
-          "jogadores": "Lucas Titon"
-        },
-        "6_17": {
-          "borda": "1h",
-          "dia": 6,
-          "duracao": 1,
-          "hora": 17,
-          "jogadores": "Helio Oliveira"
-        },
-        "6_18": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 18,
-          "jogadores": "Alessandro Xavier"
-        },
-        "6_19": {
-          "dia": 6,
-          "hora": 19,
-          "jogadores": "Robson Schneider"
-        },
         "6_7": {
           "borda": "1h",
           "dia": 6,
@@ -1529,29 +1494,41 @@
         }
       },
       "Quadra 2 - Aberta": {
-        "6_10": {
+        "1_6": {
           "borda": "2h",
-          "dia": 6,
+          "confirmacoes": {
+            "Ana Julia": false,
+            "Ana Lice": true
+          },
+          "dia": 1,
           "duracao": 2,
-          "hora": 10,
-          "jogadores": "Gabriel Martins"
+          "expiraEm": 1753672172253,
+          "hora": 6,
+          "jogadores": "Ana Julia",
+          "jogadores_completo": "Ana Julia, Ana Lice",
+          "organizador": "Ana Lice",
+          "status": "pendente"
         },
-        "6_11": {
-          "dia": 6,
-          "hora": 11,
-          "jogadores": "Convidado"
-        },
-        "6_15": {
-          "borda": "2h",
-          "dia": 6,
+        "1_7": {
+          "confirmacoes": {
+            "Ana Julia": false,
+            "Ana Lice": true
+          },
+          "dia": 1,
           "duracao": 2,
-          "hora": 15,
-          "jogadores": "Gilson Oliveira"
+          "expiraEm": 1753672172253,
+          "hora": 7,
+          "jogadores": "Ana Lice",
+          "jogadores_completo": "Ana Julia, Ana Lice",
+          "organizador": "Ana Lice",
+          "status": "pendente"
         },
-        "6_16": {
-          "dia": 6,
-          "hora": 16,
-          "jogadores": "Convidado"
+        "2_20": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Arthur Amorim"
         }
       },
       "Quadra 3 - Coberta": {
@@ -1567,17 +1544,29 @@
           "hora": 18,
           "jogadores": "Frank Fast, Marco Ribeiro"
         },
-        "1_19": {
+        "2_15": {
           "borda": "2h",
-          "dia": 1,
+          "dia": 2,
           "duracao": 2,
-          "hora": 19,
-          "jogadores": "Ivan Balboa"
+          "hora": 15,
+          "jogadores": "Alexa"
         },
-        "1_20": {
-          "dia": 1,
-          "hora": 20,
-          "jogadores": "Caina Balboa"
+        "2_16": {
+          "dia": 2,
+          "hora": 16,
+          "jogadores": "Susan"
+        },
+        "2_17": {
+          "borda": "2h",
+          "dia": 2,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Edemar"
+        },
+        "2_18": {
+          "dia": 2,
+          "hora": 18,
+          "jogadores": "Sergio Nelhs"
         },
         "2_19": {
           "borda": "2h",
@@ -1591,56 +1580,6 @@
           "hora": 20,
           "jogadores": "Pamela Balboa"
         },
-        "6_10": {
-          "dia": 6,
-          "hora": 10,
-          "jogadores": "Leo Carrara"
-        },
-        "6_11": {
-          "borda": "1h",
-          "dia": 6,
-          "duracao": 1,
-          "hora": 11,
-          "jogadores": "Rodrigo Voj, Davi Voj"
-        },
-        "6_12": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 12,
-          "jogadores": "Caio Teixeira"
-        },
-        "6_13": {
-          "dia": 6,
-          "hora": 13,
-          "jogadores": "Bigode"
-        },
-        "6_16": {
-          "borda": "1h",
-          "dia": 6,
-          "duracao": 1,
-          "hora": 16,
-          "jogadores": "Rafael Gregorio"
-        },
-        "6_17": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 3,
-          "hora": 17,
-          "jogadores": "Edemar"
-        },
-        "6_18": {
-          "dia": 6,
-          "hora": 18,
-          "jogadores": "Taborda"
-        },
-        "6_9": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 3,
-          "hora": 9,
-          "jogadores": "Makoto"
-        },
         "7_8": {
           "borda": "1h",
           "dia": 7,
@@ -1653,8 +1592,8 @@
     "usuariosOnline": {
       "xllafuafw": {
         "sessionId": "xllafuafw",
-        "timestamp": 1753573737778,
-        "usuario": "ANA FRANCISCA"
+        "timestamp": 1753668501991,
+        "usuario": "ANA LICE"
       }
     },
     "version": "v1.4.1"
