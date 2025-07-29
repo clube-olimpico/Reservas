@@ -67,6 +67,10 @@
         "Ivan Balboa": true,
         "Jaison": true,
         "Jean Souza": true,
+        "Joa Bento": true,
+        "Joao Dario": true,
+        "Joao Francisco": true,
+        "Joao Maria": true,
         "Josiane Kamiya": true,
         "Julia Voj": true,
         "Kaiser": true,
@@ -80,6 +84,7 @@
         "Maico": true,
         "Makoto": true,
         "Manu": true,
+        "Manutencao": true,
         "Marcelo Silva": true,
         "Marcelo Zoti": true,
         "Marco Ribeiro": true,
@@ -403,6 +408,13 @@
           "piramide": "",
           "socio": "dependente"
         },
+        "ERIK MANUTENCAO": {
+          "apelido": "Manutencao",
+          "classe": "",
+          "niver": "20/10/2005",
+          "piramide": "",
+          "socio": "titular"
+        },
         "FABIANA VILLATORRE": {
           "apelido": "Fabiana",
           "classe": "C",
@@ -563,6 +575,34 @@
           "niver": "25/06/1982",
           "piramide": "12",
           "socio": "titular"
+        },
+        "JOAO BENTO": {
+          "apelido": "Joa Bento",
+          "classe": "C",
+          "niver": "01/01/2001",
+          "piramide": "",
+          "socio": "dependente"
+        },
+        "JOAO DARIO": {
+          "apelido": "Joao Dario",
+          "classe": "C",
+          "niver": "01/01/2001",
+          "piramide": "",
+          "socio": "titular"
+        },
+        "JOAO FRANCISCO": {
+          "apelido": "Joao Francisco",
+          "classe": "C",
+          "niver": "01/01/2001",
+          "piramide": "",
+          "socio": "dependente"
+        },
+        "JOAO MARIA": {
+          "apelido": "Joao Maria",
+          "classe": "C",
+          "niver": "01/01/2001",
+          "piramide": "",
+          "socio": "dependente"
         },
         "JOAO PAULO DA SILVA VIEIRA": {
           "apelido": "Bigode",
@@ -1035,7 +1075,7 @@
       },
       "ReservasPorConfirmacao": true,
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "horasParaExpirar": 3,
+      "horasParaExpirar": 1,
       "vDomingo": "fechado",
       "vDomingoAte": ""
     },
@@ -1479,49 +1519,44 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
-        },
-        "7_10": {
-          "borda": "2h",
-          "dia": 7,
-          "duracao": 2,
-          "hora": 10,
-          "jogadores": "Gustavo Ferraz"
-        },
-        "7_11": {
-          "dia": 7,
-          "hora": 11,
-          "jogadores": "Nivaldo"
         }
       },
       "Quadra 2 - Aberta": {
-        "1_6": {
+        "1_17": {
           "borda": "2h",
           "confirmacoes": {
-            "Ana Julia": false,
-            "Ana Lice": true
+            "Marcelo Zoti": true,
+            "Taborda": true
           },
           "dia": 1,
           "duracao": 2,
-          "expiraEm": 1753672172253,
-          "hora": 6,
-          "jogadores": "Ana Julia",
-          "jogadores_completo": "Ana Julia, Ana Lice",
-          "organizador": "Ana Lice",
-          "status": "pendente"
+          "expiraEm": 1753730791385,
+          "hora": 17,
+          "jogadores": "Marcelo Zoti",
+          "jogadores_completo": "Marcelo Zoti, Taborda",
+          "organizador": "Taborda",
+          "status": "confirmada"
         },
-        "1_7": {
+        "1_18": {
           "confirmacoes": {
-            "Ana Julia": false,
-            "Ana Lice": true
+            "Marcelo Zoti": false,
+            "Taborda": true
           },
           "dia": 1,
           "duracao": 2,
-          "expiraEm": 1753672172253,
-          "hora": 7,
-          "jogadores": "Ana Lice",
-          "jogadores_completo": "Ana Julia, Ana Lice",
-          "organizador": "Ana Lice",
-          "status": "pendente"
+          "expiraEm": 1753730791385,
+          "hora": 18,
+          "jogadores": "Taborda",
+          "jogadores_completo": "Marcelo Zoti, Taborda",
+          "organizador": "Taborda",
+          "status": "confirmada"
+        },
+        "2_19": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 19,
+          "jogadores": "Felipe Mikuska, Amora"
         },
         "2_20": {
           "borda": "1h",
@@ -1532,6 +1567,18 @@
         }
       },
       "Quadra 3 - Coberta": {
+        "1_15": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Edemar"
+        },
+        "1_16": {
+          "dia": 1,
+          "hora": 16,
+          "jogadores": "Gustavo Ferraz"
+        },
         "1_17": {
           "borda": "2h",
           "dia": 1,
@@ -1543,6 +1590,20 @@
           "dia": 1,
           "hora": 18,
           "jogadores": "Frank Fast, Marco Ribeiro"
+        },
+        "1_19": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 19,
+          "jogadores": "Rodrigo Voj"
+        },
+        "1_20": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Ceccon"
         },
         "2_15": {
           "borda": "2h",
@@ -1561,12 +1622,12 @@
           "dia": 2,
           "duracao": 2,
           "hora": 17,
-          "jogadores": "Edemar"
+          "jogadores": "Lucas Titon"
         },
         "2_18": {
           "dia": 2,
           "hora": 18,
-          "jogadores": "Sergio Nelhs"
+          "jogadores": "Nivaldo"
         },
         "2_19": {
           "borda": "2h",
@@ -1580,20 +1641,37 @@
           "hora": 20,
           "jogadores": "Pamela Balboa"
         },
-        "7_8": {
-          "borda": "1h",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 8,
-          "jogadores": "Ceccon"
+        "3_19": {
+          "borda": "2h",
+          "dia": 3,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Diego Paraiso"
+        },
+        "3_20": {
+          "dia": 3,
+          "hora": 20,
+          "jogadores": "Bernardo"
+        },
+        "4_19": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Caina Balboa"
+        },
+        "4_20": {
+          "dia": 4,
+          "hora": 20,
+          "jogadores": "Ivan Balboa"
         }
       }
     },
     "usuariosOnline": {
       "xllafuafw": {
         "sessionId": "xllafuafw",
-        "timestamp": 1753668501991,
-        "usuario": "ANA LICE"
+        "timestamp": 1753756810155,
+        "usuario": "RONALDO TABORDA"
       }
     },
     "version": "v1.4.1"
