@@ -29,7 +29,7 @@
 
         .filters label {
             font-size: 16px;
-            font-weight: bold;
+            font-weight: bold; 
             text-align: left;
         }
 
@@ -195,6 +195,16 @@
             <option value="2 Horas - Pirâmide">2 Horas - Pirâmide</option>
 			<option value="Convidado">Convidado</option>
         </select>
+		
+		<label for="status">Status:</label>
+        <select id="status">
+            <option value="">Todas</option>
+            <option value="pendente">Pendente</option>
+            <option value="confirmada">Confirmada</option>
+            <option value="cancelada">Cancelada</option>
+            <option value="expirada">Expirada</option>
+            <option value="modo-antigo">Sem Status</option>
+        </select>
 
         <div class="botoes-acoes">
 			<button onclick="filtrarLogs()">Filtrar</button>
@@ -207,13 +217,31 @@
 
     <div id="logs"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script> 
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script> 
 
 <script>
-    let logs = [];
-    let ordemCrescente = true; // A ordem inicial é crescente
-	let logsFiltrados = []; // Armazena os dados filtrados
+    
+// Adicione este bloco no início do seu script
+const firebaseConfig = {
+    apiKey: "SUA_API_KEY",
+    authDomain: "agenda-5ce95.firebaseapp.com",
+    databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com/",
+    projectId: "agenda-5ce95",
+    storageBucket: "agenda-5ce95.appspot.com",
+    messagingSenderId: "852007565195",
+    appId: "1:852007565195:web:d7bd789d140858f53f618e"
+};
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+
+let logs = [];
+let ordemCrescente = true; // A ordem inicial é crescente
+let logsFiltrados = []; // Armazena os dados filtrados
+let githubToken = ''; // Variável global para armazenar o token
+	
 	
 function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -294,39 +322,51 @@ function alternarOrdenacao() {
         }
 		
 		
-        function exibirLogs(lista) {
-			const logsContainer = document.getElementById('logs');
-			logsContainer.innerHTML = '';
+function exibirLogs(lista) {
+    const logsContainer = document.getElementById('logs');
+    logsContainer.innerHTML = '';
 
-			lista.forEach(log => {
-				let dataParts = log.exclusao.split(' ');
-				let dataFormatada = dataParts[0].split('/').reverse().join('-') + 'T' + dataParts[1] + ':00';
-				let date = new Date(dataFormatada);
-				let formattedDate = isNaN(date) ? 'Data inválida' : date.toLocaleString();
+    // A função forEach nos dá o 'log' e também o seu 'index' (posição) na lista
+    lista.forEach((log, index) => {
+        let dataParts = log.exclusao.split(' ');
+        let dataFormatada = dataParts[0].split('/').reverse().join('-') + 'T' + dataParts[1] + ':00';
+        let date = new Date(dataFormatada);
+        let formattedDate = isNaN(date) ? 'Data inválida' : date.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(',', '');
 
-				let duracaoDisplay = log.duracao;
-				if (duracaoDisplay &&
-					duracaoDisplay.includes("2 Horas") &&
-					duracaoDisplay.toLowerCase().includes("mide")) {
-					duracaoDisplay = "2 Horas - Pirâmide";
-				}
+        let duracaoDisplay = log.duracao;
+        if (typeof duracaoDisplay === 'number') {
+             duracaoDisplay = duracaoDisplay === 3 ? "2 Horas - Pirâmide" : duracaoDisplay === 2 ? "2 Horas" : "1 Hora";
+        }
 
-				logsContainer.innerHTML += `
-					<div class="log-entry">
-						<p><strong>${formattedDate}</strong></p>
-						<p><strong>Data da Reserva:</strong> ${log.data}</p>
-						<p>${log.quadra} | ${log.horario}</p>
-						<p>Duração: ${duracaoDisplay || 'N/A'}</p>
-						<p>Jogadores: ${log.jogadores.join(', ')}</p>
-						<p>Excluído por: <strong>${log.usuario || 'N/A'}</strong></p>
-						<hr>
-					</div>`;
-			});
-			
-			// Atualiza o total de registros
-			document.getElementById('total-registros').textContent = `Total de registros: ${lista.length}`;
-		}
+        let detalhesConfirmacao = '';
+        if (log.statusNoMomentoDaExclusao) {
+            let statusStyle = log.statusNoMomentoDaExclusao.includes('pendente') ? 'color: orange;' : 
+                              log.statusNoMomentoDaExclusao.includes('expirada') ? 'color: red;' :
+                              log.statusNoMomentoDaExclusao.includes('cancelada') ? 'color: #db7093;' : // Cor para cancelada
+                              'color: green;';
+            detalhesConfirmacao += `<p style="font-size: 0.9em; margin-top: 8px;"><strong>Status:</strong> <span style="${statusStyle} font-weight: bold;">${log.statusNoMomentoDaExclusao.toUpperCase()}</span></p>`;
+            if (log.organizadorDaReserva) {
+                detalhesConfirmacao += `<p style="font-size: 0.9em;"><strong>Organizador:</strong> ${log.organizadorDaReserva}</p>`;
+            }
+        }
 
+        
+        // Adicionamos o 'onclick' ao div principal e um cursor para indicar que é clicável
+        logsContainer.innerHTML += `
+            <div class="log-entry" style="cursor: pointer;" onclick="solicitarExclusaoLog('${log.exclusao}')">
+                <p><strong>Exclusão: ${formattedDate}</strong></p>
+                <p><strong>Data da Reserva:</strong> ${log.data}</p>
+                <p>${log.quadra} | ${log.horario}</p>
+                <p>Duração: ${duracaoDisplay || 'N/A'}</p>
+                <p>Jogadores: ${log.jogadores.join(', ')}</p>
+                <p>Excluído por: <strong>${log.usuario || 'N/A'}</strong></p>
+                ${detalhesConfirmacao} 
+                <hr>
+            </div>`;
+    });
+    
+    document.getElementById('total-registros').textContent = `Total de registros: ${lista.length}`;
+}
 
 
         function filtrarLogs() {
@@ -334,6 +374,7 @@ function alternarOrdenacao() {
 			const dataInput = document.getElementById('data');
 			const jogador = document.getElementById('jogador').value.toLowerCase().trim();
 			const duracao = document.getElementById('duracao').value.trim();
+			const status = document.getElementById('status').value.trim(); // Pega o valor do novo filtro
 
 			const data = (dataInput.value === "dd/mm/aaaa" || dataInput.value === "") ? null : dataInput.value;
 
@@ -344,10 +385,7 @@ function alternarOrdenacao() {
 
 				let condDuracao = true;
 				if (duracao === "2 Horas - Pirâmide") {
-					condDuracao = log.duracao &&
-						log.duracao.includes("2 Horas") &&
-						log.duracao.toLowerCase().includes("mide") &&
-						!log.duracao.includes("1 Hora");
+					condDuracao = log.duracao && log.duracao.includes("2 Horas") && log.duracao.toLowerCase().includes("mide") && !log.duracao.includes("1 Hora");
 				} else if (duracao === "2 Horas") {
 					condDuracao = log.duracao === "2 Horas" && !log.duracao.includes("Pirâmide");
 				} else if (duracao === "1 Hora") {
@@ -358,10 +396,26 @@ function alternarOrdenacao() {
 					condDuracao = log.duracao === duracao;
 				}
 
+				// ==========================================================
+				// INÍCIO DA NOVA LÓGICA DE FILTRO DE STATUS
+				// ==========================================================
+				let condStatus = true;
+				if (status) {
+					// Lógica para a sua nova opção "Sem Status"
+					if (status === 'modo-antigo') {
+						condStatus = !log.statusNoMomentoDaExclusao;
+					} else {
+						// Lógica para os outros status
+						condStatus = log.statusNoMomentoDaExclusao && log.statusNoMomentoDaExclusao.toLowerCase().startsWith(status);
+					}
+				}
+				// ==========================================================
+				// FIM DA NOVA LÓGICA
+				// ==========================================================
 
-				return condQuadra && condData && condJogador && condDuracao;
+				return condQuadra && condData && condJogador && condDuracao && condStatus;
 			});
-             
+			 
 			exibirLogs(logsFiltrados);
 		}
 		
@@ -433,7 +487,115 @@ function gerarPDF() {
 
 	processarLogs();
 }
-  </script>
+
+// Função que pede a confirmação do usuário
+function solicitarExclusaoLog(exclusaoTimestamp) {
+    // 1. Encontra o registro de log completo na lista principal 'logs'
+    const logParaExcluir = logs.find(log => log.exclusao === exclusaoTimestamp);
+
+    if (!logParaExcluir) {
+        alert("Erro: Não foi possível encontrar o registro do log para exclusão.");
+        return;
+    }
+
+    // 2. Monta a mensagem de resumo detalhada
+    const resumoDaReserva =`\n\n${logParaExcluir.quadra}\n` +
+                           `Data: ${logParaExcluir.data}\n` +
+                           `Horário: ${logParaExcluir.horario}\n` +
+                           `Jogadores: ${logParaExcluir.jogadores.join(', ')}`;
+
+    // 3. Pede a confirmação com o ícone de atenção e o resumo
+    if (confirm(`⚠️ Atenção!\n\nTem certeza que deseja excluir este registro do log permanentemente? A ação não pode ser desfeita.` + resumoDaReserva)) {
+        
+        const indexParaRemover = logs.findIndex(log => log.exclusao === exclusaoTimestamp);
+        
+        if (indexParaRemover > -1) {
+            logs.splice(indexParaRemover, 1);
+            
+            if (logsFiltrados.length > 0) {
+                const indexFiltrado = logsFiltrados.findIndex(log => log.exclusao === exclusaoTimestamp);
+                if (indexFiltrado > -1) {
+                    logsFiltrados.splice(indexFiltrado, 1);
+                }
+            }
+
+            // Salva a nova lista de logs (sem o item removido) no GitHub
+            salvarLogsNoGithub(logs);
+        }
+    }
+}
+
+
+// Função que salva o arquivo JSON atualizado no GitHub
+
+async function salvarLogsNoGithub(logsParaSalvar) {
+    const token = githubToken;
+    if (!token) {
+        alert("Token de autenticação do GitHub não foi carregado.");
+        return;
+    }
+
+    const usuarioGit = 'clube-olimpico';
+    const repo = 'Reservas';
+    const caminhoArquivo = 'logs/reservas-excluidas.json';
+    const url = `https://api.github.com/repos/${usuarioGit}/${repo}/contents/${caminhoArquivo}`;
+
+    try {
+        let response = await fetch(url, { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } });
+        if (!response.ok) throw new Error(`Erro ao buscar arquivo: ${response.status}`);
+        let fileData = await response.json();
+
+        response = await fetch(url, {
+            method: 'PUT',
+            headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                message: `Log removido por usuário em ${new Date().toLocaleString('pt-BR')}`,
+                // --- CORREÇÃO APLICADA AQUI ---
+                content: utf8_to_b64(JSON.stringify(logsParaSalvar, null, 2)),
+                sha: fileData.sha
+            })
+        });
+
+        if (!response.ok) throw new Error(`Falha no upload: ${response.status}`);
+        
+        alert("Registro de log excluído com sucesso!");
+        location.reload();
+
+    } catch (erro) {
+        console.error('❌ Erro ao salvar o arquivo de logs:', erro);
+        alert("Ocorreu um erro ao tentar excluir o log.");
+    }
+}
+
+
+
+
+
+// Adicione esta nova função ao seu script
+function carregarToken() {
+    db.ref('sistemas/config/githubToken').once('value', (snapshot) => {
+        if (snapshot.exists()) {
+            githubToken = snapshot.val();
+            console.log("✅ Token do GitHub carregado com sucesso.");
+        } else {
+            console.error("❌ Token do GitHub não encontrado no Firebase em /sistemas/config/githubToken");
+        }
+    });
+}
+
+// Chama a função para carregar o token quando a página carregar
+window.onload = function() {
+    carregarToken();
+};
+
+// Função auxiliar para codificar corretamente strings com caracteres especiais
+function utf8_to_b64(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+}
+
+
+
+</script>
 	
 <div id="total-registros-container">
     <span id="total-registros">Total de registros: 0</span>
