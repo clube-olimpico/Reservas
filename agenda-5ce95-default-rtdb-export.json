@@ -6,6 +6,7 @@
         "Airton Santos": true,
         "Alessandro Xavier": true,
         "Alexa": true,
+        "Alexandre Camargo": true,
         "Alexandre Voj": true,
         "Alice Duck": true,
         "Alice Pereira": true,
@@ -29,7 +30,6 @@
         "Bigode": true,
         "Buiu": true,
         "Caina Balboa": true,
-        "Caio Teixeira": true,
         "Caroline Charnei": true,
         "Ceccon": true,
         "Claudio Warkentin": true,
@@ -153,6 +153,13 @@
           "apelido": "Avila",
           "classe": "C",
           "niver": "21/09/1974",
+          "piramide": "",
+          "socio": "titular"
+        },
+        "ALEXANDRE CAMARGO": {
+          "apelido": "Alexandre Camargo",
+          "classe": "C",
+          "niver": "21/03/1995",
           "piramide": "",
           "socio": "titular"
         },
@@ -302,13 +309,6 @@
           "niver": "03/09/2003",
           "piramide": "34",
           "socio": "dependente"
-        },
-        "CAIO TEIXEIRA": {
-          "apelido": "Caio Teixeira",
-          "classe": "B",
-          "niver": "08/09/1994",
-          "piramide": "18",
-          "socio": "titular"
         },
         "CAROLINE CHARNEI": {
           "apelido": "Caroline Charnei",
@@ -1137,25 +1137,6 @@
           "hora": 21,
           "jogadores": "aula"
         },
-        "1_7": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 7,
-          "jogadores": "Bernardo"
-        },
-        "1_8": {
-          "dia": 1,
-          "hora": 8,
-          "jogadores": "Leo Carrara"
-        },
-        "1_9": {
-          "borda": "1h",
-          "dia": 1,
-          "duracao": 1,
-          "hora": 9,
-          "jogadores": "Vania"
-        },
         "2_14": {
           "borda": "1h",
           "dia": 2,
@@ -1522,41 +1503,17 @@
         }
       },
       "Quadra 2 - Aberta": {
-        "1_17": {
+        "2_18": {
           "borda": "2h",
-          "confirmacoes": {
-            "Marcelo Zoti": true,
-            "Taborda": true
-          },
-          "dia": 1,
+          "dia": 2,
           "duracao": 2,
-          "expiraEm": 1753730791385,
-          "hora": 17,
-          "jogadores": "Marcelo Zoti",
-          "jogadores_completo": "Marcelo Zoti, Taborda",
-          "organizador": "Taborda",
-          "status": "confirmada"
-        },
-        "1_18": {
-          "confirmacoes": {
-            "Marcelo Zoti": false,
-            "Taborda": true
-          },
-          "dia": 1,
-          "duracao": 2,
-          "expiraEm": 1753730791385,
           "hora": 18,
-          "jogadores": "Taborda",
-          "jogadores_completo": "Marcelo Zoti, Taborda",
-          "organizador": "Taborda",
-          "status": "confirmada"
+          "jogadores": "Felipe Mikuska"
         },
         "2_19": {
-          "borda": "1h",
           "dia": 2,
-          "duracao": 1,
           "hora": 19,
-          "jogadores": "Felipe Mikuska, Amora"
+          "jogadores": "Amora"
         },
         "2_20": {
           "borda": "1h",
@@ -1564,59 +1521,71 @@
           "duracao": 1,
           "hora": 20,
           "jogadores": "Arthur Amorim"
+        },
+        "2_6": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Ana Julia": true,
+            "Ana Maria": false,
+            "Joa Bento": true
+          },
+          "dia": 2,
+          "duracao": 2,
+          "expiraEm": 1753835796204,
+          "hora": 6,
+          "jogadores": "Joa Bento, Ana Maria",
+          "jogadores_completo": "Joa Bento, Ana Maria, Ana Julia",
+          "organizador": "Joa Bento",
+          "status": "pendente"
+        },
+        "2_7": {
+          "confirmacoes": {
+            "Ana Julia": false,
+            "Ana Maria": false,
+            "Joa Bento": true
+          },
+          "dia": 2,
+          "duracao": 2,
+          "expiraEm": 1753835796204,
+          "hora": 7,
+          "jogadores": "Ana Julia",
+          "jogadores_completo": "Joa Bento, Ana Maria, Ana Julia",
+          "organizador": "Joa Bento",
+          "status": "pendente"
+        },
+        "3_18": {
+          "borda": "2h",
+          "dia": 3,
+          "duracao": 2,
+          "hora": 18,
+          "jogadores": "Giovani Lima"
+        },
+        "3_19": {
+          "dia": 3,
+          "hora": 19,
+          "jogadores": "Buiu"
+        },
+        "3_20": {
+          "borda": "1h",
+          "dia": 3,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Isa"
+        },
+        "4_20": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 20,
+          "jogadores": "Thomas August"
+        },
+        "4_21": {
+          "dia": 4,
+          "hora": 21,
+          "jogadores": "Timo"
         }
       },
       "Quadra 3 - Coberta": {
-        "1_15": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 15,
-          "jogadores": "Edemar"
-        },
-        "1_16": {
-          "dia": 1,
-          "hora": 16,
-          "jogadores": "Gustavo Ferraz"
-        },
-        "1_17": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Flavio Ferraz, Almir"
-        },
-        "1_18": {
-          "dia": 1,
-          "hora": 18,
-          "jogadores": "Frank Fast, Marco Ribeiro"
-        },
-        "1_19": {
-          "borda": "1h",
-          "dia": 1,
-          "duracao": 1,
-          "hora": 19,
-          "jogadores": "Rodrigo Voj"
-        },
-        "1_20": {
-          "borda": "1h",
-          "dia": 1,
-          "duracao": 1,
-          "hora": 20,
-          "jogadores": "Ceccon"
-        },
-        "2_15": {
-          "borda": "2h",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 15,
-          "jogadores": "Alexa"
-        },
-        "2_16": {
-          "dia": 2,
-          "hora": 16,
-          "jogadores": "Susan"
-        },
         "2_17": {
           "borda": "2h",
           "dia": 2,
@@ -1641,6 +1610,39 @@
           "hora": 20,
           "jogadores": "Pamela Balboa"
         },
+        "2_21": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 21,
+          "jogadores": "Alexandre Camargo"
+        },
+        "2_22": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 22,
+          "jogadores": "Luciano Cavalheiro"
+        },
+        "3_16": {
+          "borda": "1h",
+          "dia": 3,
+          "duracao": 1,
+          "hora": 16,
+          "jogadores": "Susan, Alexa"
+        },
+        "3_17": {
+          "borda": "2h",
+          "dia": 3,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Edemar, Frank Fast"
+        },
+        "3_18": {
+          "dia": 3,
+          "hora": 18,
+          "jogadores": "Flavio Ferraz, Marco Ribeiro"
+        },
         "3_19": {
           "borda": "2h",
           "dia": 3,
@@ -1651,7 +1653,19 @@
         "3_20": {
           "dia": 3,
           "hora": 20,
-          "jogadores": "Bernardo"
+          "jogadores": "Marcelo Zoti"
+        },
+        "4_16": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 16,
+          "jogadores": "Clodoaldo"
+        },
+        "4_17": {
+          "dia": 4,
+          "hora": 17,
+          "jogadores": "Ricardo Lima"
         },
         "4_19": {
           "borda": "2h",
@@ -1664,13 +1678,42 @@
           "dia": 4,
           "hora": 20,
           "jogadores": "Ivan Balboa"
+        },
+        "5_19": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Bernardo"
+        },
+        "5_20": {
+          "dia": 5,
+          "hora": 20,
+          "jogadores": "Leo Carrara"
+        },
+        "6_10": {
+          "dia": 6,
+          "hora": 10,
+          "jogadores": "Raianne Kamiya"
+        },
+        "6_9": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 9,
+          "jogadores": "Makoto"
         }
       }
     },
     "usuariosOnline": {
+      "1oaijjv5z": {
+        "sessionId": "1oaijjv5z",
+        "timestamp": 1753832149376,
+        "usuario": "FRANK FAST"
+      },
       "xllafuafw": {
         "sessionId": "xllafuafw",
-        "timestamp": 1753756810155,
+        "timestamp": 1753835339361,
         "usuario": "RONALDO TABORDA"
       }
     },
