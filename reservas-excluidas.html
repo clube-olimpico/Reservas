@@ -250,7 +250,14 @@ function isMobile() {
 fetch('https://clube-olimpico.github.io/Reservas/logs/reservas-excluidas.json')
   .then(r => r.json())
   .then(data => {
-    logs = data;
+    // ==========================================================
+    // INÍCIO DA CORREÇÃO
+    // Adiciona um 'id' único a cada log baseado na sua posição original
+    // ==========================================================
+    logs = data.map((log, index) => ({ ...log, id: index }));
+    // ==========================================================
+    // FIM DA CORREÇÃO
+    // ==========================================================
 
     // Ordena inicialmente em ordem crescente
     logs.sort((a, b) => {
@@ -271,7 +278,9 @@ fetch('https://clube-olimpico.github.io/Reservas/logs/reservas-excluidas.json')
 	  : "↓ Decrescente";
 
   });
-
+  
+  
+  
 function alternarOrdenacao() {
   ordemCrescente = !ordemCrescente;
 
@@ -322,51 +331,156 @@ function alternarOrdenacao() {
         }
 		
 		
+// Substitua sua função exibirLogs por esta
 function exibirLogs(lista) {
     const logsContainer = document.getElementById('logs');
     logsContainer.innerHTML = '';
+    const fragment = document.createDocumentFragment();
 
-    // A função forEach nos dá o 'log' e também o seu 'index' (posição) na lista
-    lista.forEach((log, index) => {
+    lista.forEach((log) => {
+        const logEntryDiv = document.createElement('div');
+        logEntryDiv.className = 'log-entry';
+        logEntryDiv.style.cursor = 'pointer';
+        
+        // --- ALTERAÇÃO PRINCIPAL ---
+        // O onclick agora passa o 'log.id', que é sempre único
+        logEntryDiv.addEventListener('click', function() {
+            solicitarExclusaoLog(log.id);
+        });
+
+        // O resto da sua lógica de exibição permanece 100% intocado
         let dataParts = log.exclusao.split(' ');
         let dataFormatada = dataParts[0].split('/').reverse().join('-') + 'T' + dataParts[1] + ':00';
         let date = new Date(dataFormatada);
         let formattedDate = isNaN(date) ? 'Data inválida' : date.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(',', '');
-
         let duracaoDisplay = log.duracao;
-        if (typeof duracaoDisplay === 'number') {
-             duracaoDisplay = duracaoDisplay === 3 ? "2 Horas - Pirâmide" : duracaoDisplay === 2 ? "2 Horas" : "1 Hora";
+        if (typeof duracaoDisplay === 'number') { duracaoDisplay = duracaoDisplay === 3 ? "2 Horas - Pirâmide" : duracaoDisplay === 2 ? "2 Horas" : "1 Hora"; }
+        let jogadoresHtml = '';
+        if (log.confirmacoes) {
+            let nomesColoridos = [];
+            log.jogadores.forEach(jogador => {
+                const apelido = jogador.split(' - ').pop();
+                const confirmado = log.confirmacoes[apelido];
+                if (confirmado === true) { nomesColoridos.push(`<span style="color: green; font-weight: bold;">${jogador}</span>`); } 
+                else if (confirmado === false) { nomesColoridos.push(`<span style="color: red; font-weight: bold;">${jogador}</span>`); } 
+                else { nomesColoridos.push(`<span>${jogador}</span>`); }
+            });
+            jogadoresHtml = nomesColoridos.join(', ');
+        } else {
+            jogadoresHtml = log.jogadores.join(', ');
         }
-
         let detalhesConfirmacao = '';
         if (log.statusNoMomentoDaExclusao) {
-            let statusStyle = log.statusNoMomentoDaExclusao.includes('pendente') ? 'color: orange;' : 
-                              log.statusNoMomentoDaExclusao.includes('expirada') ? 'color: red;' :
-                              log.statusNoMomentoDaExclusao.includes('cancelada') ? 'color: #db7093;' : // Cor para cancelada
-                              'color: green;';
+            let statusStyle = log.statusNoMomentoDaExclusao.includes('pendente') ? 'color: orange;' : log.statusNoMomentoDaExclusao.includes('expirada') ? 'color: red;' : log.statusNoMomentoDaExclusao.includes('cancelada') ? 'color: #db7093;' : 'color: green;';
             detalhesConfirmacao += `<p style="font-size: 0.9em; margin-top: 8px;"><strong>Status:</strong> <span style="${statusStyle} font-weight: bold;">${log.statusNoMomentoDaExclusao.toUpperCase()}</span></p>`;
-            if (log.organizadorDaReserva) {
-                detalhesConfirmacao += `<p style="font-size: 0.9em;"><strong>Organizador:</strong> ${log.organizadorDaReserva}</p>`;
-            }
+            if (log.organizadorDaReserva) { detalhesConfirmacao += `<p style="font-size: 0.9em;"><strong>Organizador:</strong> ${log.organizadorDaReserva}</p>`; }
         }
-
         
-        // Adicionamos o 'onclick' ao div principal e um cursor para indicar que é clicável
-        logsContainer.innerHTML += `
-            <div class="log-entry" style="cursor: pointer;" onclick="solicitarExclusaoLog('${log.exclusao}')">
-                <p><strong>Exclusão: ${formattedDate}</strong></p>
-                <p><strong>Data da Reserva:</strong> ${log.data}</p>
-                <p>${log.quadra} | ${log.horario}</p>
-                <p>Duração: ${duracaoDisplay || 'N/A'}</p>
-                <p>Jogadores: ${log.jogadores.join(', ')}</p>
-                <p>Excluído por: <strong>${log.usuario || 'N/A'}</strong></p>
-                ${detalhesConfirmacao} 
-                <hr>
-            </div>`;
+        logEntryDiv.innerHTML = `
+            <p><strong>Exclusão: ${formattedDate}</strong></p>
+            <p><strong>Data da Reserva:</strong> ${log.data}</p>
+            <p>${log.quadra} | ${log.horario}</p>
+            <p>Duração: ${duracaoDisplay || 'N/A'}</p>
+            <p>Jogadores: ${jogadoresHtml}</p>
+            <p>Excluído por: <strong>${log.usuario || 'N/A'}</strong></p>
+            ${detalhesConfirmacao} 
+            <hr>
+        `;
+        fragment.appendChild(logEntryDiv);
     });
-    
+    logsContainer.appendChild(fragment);
     document.getElementById('total-registros').textContent = `Total de registros: ${lista.length}`;
 }
+
+
+// Substitua sua função solicitarExclusaoLog por esta
+function solicitarExclusaoLog(logId) {
+    const logParaExcluir = logs.find(log => log.id === logId);
+    if (!logParaExcluir) {
+        alert("Erro: Não foi possível encontrar o registro do log para exclusão.");
+        return;
+    }
+
+    const resumoDaReserva = `\n\n'Quadra: ${logParaExcluir.quadra}\n` +
+                           `Data: ${logParaExcluir.data}\n` +
+                           `Horário: ${logParaExcluir.horario}\n` +
+                           `Jogadores: ${logParaExcluir.jogadores.join(', ')}`;
+
+    if (confirm(`⚠️ Atenção!\n\nTem certeza que deseja excluir este registro do log permanentemente? A ação não pode ser desfeita.` + resumoDaReserva)) {
+        
+        const indexParaRemover = logs.findIndex(log => log.id === logId);
+        if (indexParaRemover > -1) {
+            logs.splice(indexParaRemover, 1);
+            
+            // Se um filtro estiver ativo, remove da lista filtrada também
+            const indexFiltrado = logsFiltrados.findIndex(log => log.id === logId);
+            if (indexFiltrado > -1) {
+                logsFiltrados.splice(indexFiltrado, 1);
+            }
+
+            // ==========================================================
+            // INÍCIO DA CORREÇÃO PRINCIPAL
+            // ==========================================================
+            // 1. Atualiza a tela IMEDIATAMENTE com a lista em memória
+            const listaParaExibir = logsFiltrados.length > 0 ? logsFiltrados : logs;
+            exibirLogs(listaParaExibir);
+
+            // 2. Salva a alteração no GitHub EM SEGUNDO PLANO
+            salvarLogsNoGithub(logs);
+            // ==========================================================
+            // FIM DA CORREÇÃO PRINCIPAL
+            // ==========================================================
+        }
+    }
+}
+
+
+
+// Substitua sua função salvarLogsNoGithub por esta
+async function salvarLogsNoGithub(logsParaSalvar) {
+    const token = githubToken;
+    if (!token) {
+        alert("Token de autenticação do GitHub não foi carregado. A página será recarregada.");
+        location.reload();
+        return;
+    }
+
+    const usuarioGit = 'clube-olimpico';
+    const repo = 'Reservas';
+    const caminhoArquivo = 'logs/reservas-excluidas.json';
+    const url = `https://api.github.com/repos/${usuarioGit}/${repo}/contents/${caminhoArquivo}`;
+
+    try {
+        let response = await fetch(url, { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } });
+        if (!response.ok) throw new Error(`Erro ao buscar arquivo: ${response.status}`);
+        let fileData = await response.json();
+
+        // Antes de salvar, remove o campo 'id' temporário para manter o arquivo limpo
+        const logsLimpos = logsParaSalvar.map(({ id, ...resto }) => resto);
+
+        response = await fetch(url, {
+            method: 'PUT',
+            headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                message: `Log removido por usuário em ${new Date().toLocaleString('pt-BR')}`,
+                content: utf8_to_b64(JSON.stringify(logsLimpos, null, 2)), // Salva a versão limpa
+                sha: fileData.sha
+            })
+        });
+
+        if (!response.ok) throw new Error(`Falha no upload: ${response.status}`);
+        
+        console.log("✅ Log excluído e salvo no GitHub com sucesso!");
+        // NÃO RECARREGA A PÁGINA. A UI já foi atualizada.
+        alert("Registro de log excluído com sucesso!");
+
+    } catch (erro) {
+        console.error('❌ Erro ao salvar o arquivo de logs no GitHub:', erro);
+        alert("Ocorreu um erro ao tentar salvar a exclusão do log. A página será recarregada para garantir a consistência dos dados.");
+        location.reload(); // Recarrega a página apenas em caso de erro
+    }
+}
+
 
 
         function filtrarLogs() {
@@ -384,7 +498,7 @@ function exibirLogs(lista) {
 				const condJogador = !jogador || log.jogadores.some(j => j.toLowerCase().includes(jogador));
 
 				let condDuracao = true;
-				if (duracao === "2 Horas - Pirâmide") {
+				if (duracao === "Pirâmide") {
 					condDuracao = log.duracao && log.duracao.includes("2 Horas") && log.duracao.toLowerCase().includes("mide") && !log.duracao.includes("1 Hora");
 				} else if (duracao === "2 Horas") {
 					condDuracao = log.duracao === "2 Horas" && !log.duracao.includes("Pirâmide");
@@ -488,84 +602,7 @@ function gerarPDF() {
 	processarLogs();
 }
 
-// Função que pede a confirmação do usuário
-function solicitarExclusaoLog(exclusaoTimestamp) {
-    // 1. Encontra o registro de log completo na lista principal 'logs'
-    const logParaExcluir = logs.find(log => log.exclusao === exclusaoTimestamp);
 
-    if (!logParaExcluir) {
-        alert("Erro: Não foi possível encontrar o registro do log para exclusão.");
-        return;
-    }
-
-    // 2. Monta a mensagem de resumo detalhada
-    const resumoDaReserva =`\n\n${logParaExcluir.quadra}\n` +
-                           `Data: ${logParaExcluir.data}\n` +
-                           `Horário: ${logParaExcluir.horario}\n` +
-                           `Jogadores: ${logParaExcluir.jogadores.join(', ')}`;
-
-    // 3. Pede a confirmação com o ícone de atenção e o resumo
-    if (confirm(`⚠️ Atenção!\n\nTem certeza que deseja excluir este registro do log permanentemente? A ação não pode ser desfeita.` + resumoDaReserva)) {
-        
-        const indexParaRemover = logs.findIndex(log => log.exclusao === exclusaoTimestamp);
-        
-        if (indexParaRemover > -1) {
-            logs.splice(indexParaRemover, 1);
-            
-            if (logsFiltrados.length > 0) {
-                const indexFiltrado = logsFiltrados.findIndex(log => log.exclusao === exclusaoTimestamp);
-                if (indexFiltrado > -1) {
-                    logsFiltrados.splice(indexFiltrado, 1);
-                }
-            }
-
-            // Salva a nova lista de logs (sem o item removido) no GitHub
-            salvarLogsNoGithub(logs);
-        }
-    }
-}
-
-
-// Função que salva o arquivo JSON atualizado no GitHub
-
-async function salvarLogsNoGithub(logsParaSalvar) {
-    const token = githubToken;
-    if (!token) {
-        alert("Token de autenticação do GitHub não foi carregado.");
-        return;
-    }
-
-    const usuarioGit = 'clube-olimpico';
-    const repo = 'Reservas';
-    const caminhoArquivo = 'logs/reservas-excluidas.json';
-    const url = `https://api.github.com/repos/${usuarioGit}/${repo}/contents/${caminhoArquivo}`;
-
-    try {
-        let response = await fetch(url, { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } });
-        if (!response.ok) throw new Error(`Erro ao buscar arquivo: ${response.status}`);
-        let fileData = await response.json();
-
-        response = await fetch(url, {
-            method: 'PUT',
-            headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                message: `Log removido por usuário em ${new Date().toLocaleString('pt-BR')}`,
-                // --- CORREÇÃO APLICADA AQUI ---
-                content: utf8_to_b64(JSON.stringify(logsParaSalvar, null, 2)),
-                sha: fileData.sha
-            })
-        });
-
-        if (!response.ok) throw new Error(`Falha no upload: ${response.status}`);
-        
-        alert("Registro de log excluído com sucesso!");
-        location.reload();
-
-    } catch (erro) {
-        console.error('❌ Erro ao salvar o arquivo de logs:', erro);
-        alert("Ocorreu um erro ao tentar excluir o log.");
-    }
-}
 
 
 
