@@ -247,19 +247,30 @@ function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 } 
 
-fetch('https://clube-olimpico.github.io/Reservas/logs/reservas-excluidas.json')
+
+
+// Substitua o seu bloco fetch original por este
+const url = `https://clube-olimpico.github.io/Reservas/logs/reservas-excluidas.json?t=${new Date().getTime()}`;
+
+fetch(url)
   .then(r => r.json())
   .then(data => {
     // ==========================================================
-    // INÍCIO DA CORREÇÃO
-    // Adiciona um 'id' único a cada log baseado na sua posição original
+    // INÍCIO DA CORREÇÃO DEFINITIVA
     // ==========================================================
-    logs = data.map((log, index) => ({ ...log, id: index }));
+    // 1. Atribui um ID persistente a cada log (seu índice original no arquivo)
+    const allLogsWithId = data.map((log, index) => ({ ...log, id: index }));
+    
+    // 2. Pega a lista de IDs que já foram excluídos nesta sessão
+    const idsExcluidos = JSON.parse(sessionStorage.getItem('idsExcluidos')) || [];
+
+    // 3. Filtra a lista completa, removendo os logs cujo ID persistente já foi excluído
+    logs = allLogsWithId.filter(log => !idsExcluidos.includes(log.id));
     // ==========================================================
     // FIM DA CORREÇÃO
     // ==========================================================
 
-    // Ordena inicialmente em ordem crescente
+    // Ordena inicialmente a lista já filtrada em ordem crescente
     logs.sort((a, b) => {
       const [dataStrA, horaStrA] = a.exclusao.split(' ');
       const [dataStrB, horaStrB] = b.exclusao.split(' ');
@@ -270,21 +281,22 @@ fetch('https://clube-olimpico.github.io/Reservas/logs/reservas-excluidas.json')
 
     exibirLogs(logs);
 
-    // Atualiza o texto do botão para refletir corretamente o estado inicial 
+    // Atualiza o texto do botão de ordenação
     const botao = document.getElementById("botaoOrdenacao");
 	const simbolo = "↓";
 	botao.innerHTML = isMobile()
 	  ? `<span class="icone-seta">↓</span>`
 	  : "↓ Decrescente";
-
   });
   
   
   
+// Substitua sua função inteira por esta
 function alternarOrdenacao() {
   ordemCrescente = !ordemCrescente;
 
-  const listaParaOrdenar = logsFiltrados.length ? [...logsFiltrados] : [...logs];
+  // Usa a lista que está sendo exibida (filtrada ou não) para reordenar
+  const listaParaOrdenar = logsFiltrados.length ? logsFiltrados : logs;
   const botao = document.getElementById("botaoOrdenacao");
   const simbolo = ordemCrescente ? "↓" : "↑";
 
@@ -332,6 +344,7 @@ function alternarOrdenacao() {
 		
 		
 // Substitua sua função exibirLogs por esta
+// Substitua sua função exibirLogs por esta
 function exibirLogs(lista) {
     const logsContainer = document.getElementById('logs');
     logsContainer.innerHTML = '';
@@ -343,12 +356,12 @@ function exibirLogs(lista) {
         logEntryDiv.style.cursor = 'pointer';
         
         // --- ALTERAÇÃO PRINCIPAL ---
-        // O onclick agora passa o 'log.id', que é sempre único
+        // O onclick agora passa o 'log.id', que é o ID persistente
         logEntryDiv.addEventListener('click', function() {
             solicitarExclusaoLog(log.id);
         });
 
-        // O resto da sua lógica de exibição permanece 100% intocado
+        // O resto da sua lógica de exibição permanece 100% intocado...
         let dataParts = log.exclusao.split(' ');
         let dataFormatada = dataParts[0].split('/').reverse().join('-') + 'T' + dataParts[1] + ':00';
         let date = new Date(dataFormatada);
@@ -392,10 +405,11 @@ function exibirLogs(lista) {
     document.getElementById('total-registros').textContent = `Total de registros: ${lista.length}`;
 }
 
-
 // Substitua sua função solicitarExclusaoLog por esta
 function solicitarExclusaoLog(logId) {
+    // A função agora encontra o log pelo 'id' persistente
     const logParaExcluir = logs.find(log => log.id === logId);
+
     if (!logParaExcluir) {
         alert("Erro: Não foi possível encontrar o registro do log para exclusão.");
         return;
@@ -408,31 +422,29 @@ function solicitarExclusaoLog(logId) {
 
     if (confirm(`⚠️ Atenção!\n\nTem certeza que deseja excluir este registro do log permanentemente? A ação não pode ser desfeita.` + resumoDaReserva)) {
         
+        // "Lembramos" o ID persistente do log que foi excluído
+        let idsExcluidos = JSON.parse(sessionStorage.getItem('idsExcluidos')) || [];
+        if (!idsExcluidos.includes(logId)) {
+            idsExcluidos.push(logId);
+        }
+        sessionStorage.setItem('idsExcluidos', JSON.stringify(idsExcluidos));
+        
         const indexParaRemover = logs.findIndex(log => log.id === logId);
         if (indexParaRemover > -1) {
             logs.splice(indexParaRemover, 1);
-            
-            // Se um filtro estiver ativo, remove da lista filtrada também
-            const indexFiltrado = logsFiltrados.findIndex(log => log.id === logId);
-            if (indexFiltrado > -1) {
-                logsFiltrados.splice(indexFiltrado, 1);
+            if (logsFiltrados.length > 0) {
+                const indexFiltrado = logsFiltrados.findIndex(log => log.id === logId);
+                if (indexFiltrado > -1) {
+                    logsFiltrados.splice(indexFiltrado, 1);
+                }
             }
-
-            // ==========================================================
-            // INÍCIO DA CORREÇÃO PRINCIPAL
-            // ==========================================================
-            // 1. Atualiza a tela IMEDIATAMENTE com a lista em memória
             const listaParaExibir = logsFiltrados.length > 0 ? logsFiltrados : logs;
             exibirLogs(listaParaExibir);
-
-            // 2. Salva a alteração no GitHub EM SEGUNDO PLANO
             salvarLogsNoGithub(logs);
-            // ==========================================================
-            // FIM DA CORREÇÃO PRINCIPAL
-            // ==========================================================
         }
     }
 }
+
 
 
 
@@ -440,7 +452,7 @@ function solicitarExclusaoLog(logId) {
 async function salvarLogsNoGithub(logsParaSalvar) {
     const token = githubToken;
     if (!token) {
-        alert("Token de autenticação do GitHub não foi carregado. A página será recarregada.");
+        alert("Token de autenticação do GitHub não foi carregado. A página será recarregada para tentar novamente.");
         location.reload();
         return;
     }
@@ -451,7 +463,10 @@ async function salvarLogsNoGithub(logsParaSalvar) {
     const url = `https://api.github.com/repos/${usuarioGit}/${repo}/contents/${caminhoArquivo}`;
 
     try {
-        let response = await fetch(url, { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } });
+        let response = await fetch(url, { 
+            headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' },
+            cache: 'no-cache'
+        });
         if (!response.ok) throw new Error(`Erro ao buscar arquivo: ${response.status}`);
         let fileData = await response.json();
 
@@ -463,24 +478,27 @@ async function salvarLogsNoGithub(logsParaSalvar) {
             headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 message: `Log removido por usuário em ${new Date().toLocaleString('pt-BR')}`,
-                content: utf8_to_b64(JSON.stringify(logsLimpos, null, 2)), // Salva a versão limpa
+                content: utf8_to_b64(JSON.stringify(logsLimpos, null, 2)),
                 sha: fileData.sha
-            })
+            }),
+            cache: 'no-cache'
         });
 
         if (!response.ok) throw new Error(`Falha no upload: ${response.status}`);
         
         console.log("✅ Log excluído e salvo no GitHub com sucesso!");
-        // NÃO RECARREGA A PÁGINA. A UI já foi atualizada.
-        alert("Registro de log excluído com sucesso!");
+        // A MENSAGEM DE SUCESSO AGORA É OPCIONAL, POIS A UI JÁ FOI ATUALIZADA
+        // alert("Registro de log excluído com sucesso!"); 
+        
+        // --- CORREÇÃO PRINCIPAL ---
+        // A linha location.reload() foi REMOVIDA daqui.
 
     } catch (erro) {
         console.error('❌ Erro ao salvar o arquivo de logs no GitHub:', erro);
         alert("Ocorreu um erro ao tentar salvar a exclusão do log. A página será recarregada para garantir a consistência dos dados.");
-        location.reload(); // Recarrega a página apenas em caso de erro
+        location.reload(true); // Recarrega a página apenas em caso de erro
     }
 }
-
 
 
         function filtrarLogs() {
