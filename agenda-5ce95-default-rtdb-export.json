@@ -950,7 +950,7 @@
       }
     },
     "config": {
-      "Abrir": true,
+      "Abrir": false,
       "Convidados": {
         "DiasDeSemana": true,
         "FimDeSemana": true,
@@ -1354,6 +1354,13 @@
           "hora": 21,
           "jogadores": "aula"
         },
+        "4_22": {
+          "borda": "1h",
+          "dia": 4,
+          "duracao": 1,
+          "hora": 22,
+          "jogadores": "Alexandre Camargo"
+        },
         "4_7": {
           "borda": "1h",
           "dia": 4,
@@ -1522,37 +1529,6 @@
         }
       },
       "Quadra 2 - Aberta": {
-        "3_18": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 18,
-          "jogadores": "Giovani Lima"
-        },
-        "3_19": {
-          "dia": 3,
-          "hora": 19,
-          "jogadores": "Buiu"
-        },
-        "4_16": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 16,
-          "jogadores": "Taborda"
-        },
-        "4_18": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 18,
-          "jogadores": "Natan"
-        },
-        "4_19": {
-          "dia": 4,
-          "hora": 19,
-          "jogadores": "Vivianne Laverde"
-        },
         "4_20": {
           "borda": "2h",
           "dia": 4,
@@ -1564,6 +1540,61 @@
           "dia": 4,
           "hora": 21,
           "jogadores": "Timo"
+        },
+        "4_22": {
+          "borda": "1h",
+          "confirmacoes": {
+            "Ana Francisca": true
+          },
+          "dia": 4,
+          "duracao": 1,
+          "expiraEm": 1,
+          "hora": 22,
+          "jogadores": "Ana Francisca",
+          "jogadores_completo": "Ana Francisca",
+          "organizador": "Ana Francisca",
+          "status": "confirmada"
+        },
+        "4_6": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Ana Julia": true,
+            "Ana Maria": true
+          },
+          "dia": 4,
+          "duracao": 2,
+          "expiraEm": 1754015469598,
+          "hora": 6,
+          "jogadores": "Ana Julia",
+          "jogadores_completo": "Ana Julia, Ana Maria",
+          "organizador": "Ana Julia",
+          "status": "confirmada"
+        },
+        "4_7": {
+          "confirmacoes": {
+            "Ana Julia": true,
+            "Ana Maria": true
+          },
+          "dia": 4,
+          "duracao": 2,
+          "expiraEm": 1754015469598,
+          "hora": 7,
+          "jogadores": "Ana Maria",
+          "jogadores_completo": "Ana Julia, Ana Maria",
+          "organizador": "Ana Julia",
+          "status": "confirmada"
+        },
+        "5_19": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Giovani Lima"
+        },
+        "5_20": {
+          "dia": 5,
+          "hora": 20,
+          "jogadores": "Buiu"
         },
         "6_10": {
           "borda": "1h",
@@ -1578,58 +1609,44 @@
           "duracao": 1,
           "hora": 11,
           "jogadores": "Isa"
+        },
+        "6_8": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Marcelo Zoti": true,
+            "Taborda": true
+          },
+          "dia": 6,
+          "duracao": 2,
+          "expiraEm": 1754006773762,
+          "hora": 8,
+          "jogadores": "Marcelo Zoti",
+          "jogadores_completo": "Marcelo Zoti, Taborda",
+          "organizador": "Taborda",
+          "status": "confirmada"
+        },
+        "6_9": {
+          "confirmacoes": {
+            "Marcelo Zoti": false,
+            "Taborda": true
+          },
+          "dia": 6,
+          "duracao": 2,
+          "expiraEm": 1754006773762,
+          "hora": 9,
+          "jogadores": "Taborda",
+          "jogadores_completo": "Marcelo Zoti, Taborda",
+          "organizador": "Taborda",
+          "status": "confirmada"
         }
       },
       "Quadra 3 - Coberta": {
-        "3_16": {
+        "4_15": {
           "borda": "1h",
-          "dia": 3,
+          "dia": 4,
           "duracao": 1,
-          "hora": 16,
-          "jogadores": "Susan, Alexa"
-        },
-        "3_17": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Edemar, Frank Fast"
-        },
-        "3_18": {
-          "dia": 3,
-          "hora": 18,
-          "jogadores": "Flavio Ferraz, Marco Ribeiro"
-        },
-        "3_19": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 19,
-          "jogadores": "Diego Paraiso"
-        },
-        "3_20": {
-          "dia": 3,
-          "hora": 20,
-          "jogadores": "Marcelo Zoti"
-        },
-        "3_21": {
-          "borda": "1h",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 21,
-          "jogadores": "Alexandre Camargo"
-        },
-        "3_8": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 8,
-          "jogadores": "Rodrigo Voj"
-        },
-        "3_9": {
-          "dia": 3,
-          "hora": 9,
-          "jogadores": "Adriano Feitosa"
+          "hora": 15,
+          "jogadores": "Taborda"
         },
         "4_16": {
           "borda": "2h",
@@ -1655,12 +1672,53 @@
           "hora": 20,
           "jogadores": "Ivan Balboa"
         },
+        "4_21": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Joao Francisco": true,
+            "Joao Maria": true
+          },
+          "dia": 4,
+          "duracao": 2,
+          "expiraEm": 1754012813072,
+          "hora": 21,
+          "jogadores": "Joao Francisco",
+          "jogadores_completo": "Joao Francisco, Joao Maria",
+          "organizador": "Joao Francisco",
+          "status": "confirmada"
+        },
+        "4_22": {
+          "confirmacoes": {
+            "Joao Francisco": true,
+            "Joao Maria": false
+          },
+          "dia": 4,
+          "duracao": 2,
+          "expiraEm": 1754012813072,
+          "hora": 22,
+          "jogadores": "Joao Maria",
+          "jogadores_completo": "Joao Francisco, Joao Maria",
+          "organizador": "Joao Francisco",
+          "status": "confirmada"
+        },
         "4_7": {
           "borda": "1h",
           "dia": 4,
           "duracao": 1,
           "hora": 7,
           "jogadores": "Marcelo Zoti"
+        },
+        "5_17": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Flavio Ferraz"
+        },
+        "5_18": {
+          "dia": 5,
+          "hora": 18,
+          "jogadores": "Nivaldo"
         },
         "5_19": {
           "borda": "2h",
