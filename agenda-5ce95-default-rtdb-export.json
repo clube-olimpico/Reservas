@@ -356,7 +356,7 @@
           "apelido": "Diego Paraiso",
           "classe": "A",
           "niver": "13/11/1988",
-          "piramide": "15",
+          "piramide": "10",
           "socio": "titular"
         },
         "DIOSNEI KOMAN": {
@@ -636,7 +636,7 @@
           "apelido": "Leo Carrara",
           "classe": "A",
           "niver": "13/04/1975",
-          "piramide": "10",
+          "piramide": "15",
           "socio": "titular"
         },
         "LEONARDO MIKUSKA": {
@@ -950,7 +950,7 @@
       }
     },
     "config": {
-      "Abrir": false,
+      "Abrir": true,
       "Convidados": {
         "DiasDeSemana": true,
         "FimDeSemana": true,
@@ -1075,7 +1075,7 @@
       },
       "ReservasPorConfirmacao": true,
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "horasParaExpirar": 1,
+      "horasParaExpirar": 12,
       "vDomingo": "fechado",
       "vDomingoAte": ""
     },
@@ -1354,13 +1354,6 @@
           "hora": 21,
           "jogadores": "aula"
         },
-        "4_22": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 22,
-          "jogadores": "Alexandre Camargo"
-        },
         "4_7": {
           "borda": "1h",
           "dia": 4,
@@ -1506,6 +1499,30 @@
           "hora": 16,
           "jogadores": "Cris"
         },
+        "6_17": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Lucas Titon"
+        },
+        "6_18": {
+          "dia": 6,
+          "hora": 18,
+          "jogadores": "Flavia Titon"
+        },
+        "6_19": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Alexa"
+        },
+        "6_20": {
+          "dia": 6,
+          "hora": 20,
+          "jogadores": "Avila"
+        },
         "6_7": {
           "borda": "1h",
           "dia": 6,
@@ -1529,73 +1546,6 @@
         }
       },
       "Quadra 2 - Aberta": {
-        "4_20": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 20,
-          "jogadores": "Thomas August"
-        },
-        "4_21": {
-          "dia": 4,
-          "hora": 21,
-          "jogadores": "Timo"
-        },
-        "4_22": {
-          "borda": "1h",
-          "confirmacoes": {
-            "Ana Francisca": true
-          },
-          "dia": 4,
-          "duracao": 1,
-          "expiraEm": 1,
-          "hora": 22,
-          "jogadores": "Ana Francisca",
-          "jogadores_completo": "Ana Francisca",
-          "organizador": "Ana Francisca",
-          "status": "confirmada"
-        },
-        "4_6": {
-          "borda": "2h",
-          "confirmacoes": {
-            "Ana Julia": true,
-            "Ana Maria": true
-          },
-          "dia": 4,
-          "duracao": 2,
-          "expiraEm": 1754015469598,
-          "hora": 6,
-          "jogadores": "Ana Julia",
-          "jogadores_completo": "Ana Julia, Ana Maria",
-          "organizador": "Ana Julia",
-          "status": "confirmada"
-        },
-        "4_7": {
-          "confirmacoes": {
-            "Ana Julia": true,
-            "Ana Maria": true
-          },
-          "dia": 4,
-          "duracao": 2,
-          "expiraEm": 1754015469598,
-          "hora": 7,
-          "jogadores": "Ana Maria",
-          "jogadores_completo": "Ana Julia, Ana Maria",
-          "organizador": "Ana Julia",
-          "status": "confirmada"
-        },
-        "5_19": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 19,
-          "jogadores": "Giovani Lima"
-        },
-        "5_20": {
-          "dia": 5,
-          "hora": 20,
-          "jogadores": "Buiu"
-        },
         "6_10": {
           "borda": "1h",
           "dia": 6,
@@ -1609,6 +1559,30 @@
           "duracao": 1,
           "hora": 11,
           "jogadores": "Isa"
+        },
+        "6_13": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 13,
+          "jogadores": "Arthur Warkentin"
+        },
+        "6_14": {
+          "dia": 6,
+          "hora": 14,
+          "jogadores": "Luis Warkentin"
+        },
+        "6_15": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Rony Duck"
+        },
+        "6_16": {
+          "dia": 6,
+          "hora": 16,
+          "jogadores": "Xara"
         },
         "6_8": {
           "borda": "2h",
@@ -1641,108 +1615,70 @@
         }
       },
       "Quadra 3 - Coberta": {
-        "4_15": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 15,
-          "jogadores": "Taborda"
-        },
-        "4_16": {
+        "1_17": {
           "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 16,
-          "jogadores": "Clodoaldo"
-        },
-        "4_17": {
-          "dia": 4,
-          "hora": 17,
-          "jogadores": "Ricardo Lima"
-        },
-        "4_19": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 19,
-          "jogadores": "Caina Balboa"
-        },
-        "4_20": {
-          "dia": 4,
-          "hora": 20,
-          "jogadores": "Ivan Balboa"
-        },
-        "4_21": {
-          "borda": "2h",
-          "confirmacoes": {
-            "Joao Francisco": true,
-            "Joao Maria": true
-          },
-          "dia": 4,
-          "duracao": 2,
-          "expiraEm": 1754012813072,
-          "hora": 21,
-          "jogadores": "Joao Francisco",
-          "jogadores_completo": "Joao Francisco, Joao Maria",
-          "organizador": "Joao Francisco",
-          "status": "confirmada"
-        },
-        "4_22": {
-          "confirmacoes": {
-            "Joao Francisco": true,
-            "Joao Maria": false
-          },
-          "dia": 4,
-          "duracao": 2,
-          "expiraEm": 1754012813072,
-          "hora": 22,
-          "jogadores": "Joao Maria",
-          "jogadores_completo": "Joao Francisco, Joao Maria",
-          "organizador": "Joao Francisco",
-          "status": "confirmada"
-        },
-        "4_7": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 7,
-          "jogadores": "Marcelo Zoti"
-        },
-        "5_17": {
-          "borda": "2h",
-          "dia": 5,
+          "dia": 1,
           "duracao": 2,
           "hora": 17,
-          "jogadores": "Flavio Ferraz"
+          "jogadores": "Almir, Frank Fast"
         },
-        "5_18": {
-          "dia": 5,
+        "1_18": {
+          "dia": 1,
           "hora": 18,
-          "jogadores": "Nivaldo"
+          "jogadores": "Ana Ribeiro, Marco Ribeiro"
         },
-        "5_19": {
+        "1_19": {
           "borda": "2h",
-          "dia": 5,
+          "dia": 1,
           "duracao": 2,
           "hora": 19,
-          "jogadores": "Bernardo"
+          "jogadores": "Cristina Pirachovski"
         },
-        "5_20": {
-          "dia": 5,
+        "1_20": {
+          "dia": 1,
           "hora": 20,
-          "jogadores": "Leo Carrara"
+          "jogadores": "Paulinho"
         },
         "6_10": {
           "dia": 6,
           "hora": 10,
           "jogadores": "Edemar"
         },
-        "6_11": {
-          "borda": "1h",
+        "6_13": {
+          "borda": "2h",
           "dia": 6,
-          "duracao": 1,
-          "hora": 11,
-          "jogadores": "Maico"
+          "duracao": 3,
+          "hora": 13,
+          "jogadores": "Sidnei Novack"
+        },
+        "6_14": {
+          "dia": 6,
+          "hora": 14,
+          "jogadores": "Jaison"
+        },
+        "6_15": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Flavio Ferraz"
+        },
+        "6_16": {
+          "dia": 6,
+          "hora": 16,
+          "jogadores": "Gustavo Ferraz"
+        },
+        "6_7": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 7,
+          "jogadores": "Rodrigo Voj"
+        },
+        "6_8": {
+          "dia": 6,
+          "hora": 8,
+          "jogadores": "Julia Voj"
         },
         "6_9": {
           "borda": "2h",
@@ -1751,6 +1687,13 @@
           "hora": 9,
           "jogadores": "Makoto"
         }
+      }
+    },
+    "usuariosOnline": {
+      "xllafuafw": {
+        "sessionId": "xllafuafw",
+        "timestamp": 1754103683232,
+        "usuario": "ANA LICE"
       }
     },
     "version": "v1.4.1"
