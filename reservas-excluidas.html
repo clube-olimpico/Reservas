@@ -176,13 +176,13 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(255, 255, 255, 1); /* fundo branco sólido */
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         z-index: 9999;
-        color: white;
+        color: black;
         font-size: 24px;
     }
     
@@ -211,6 +211,7 @@
         <div>Carregando... Aguarde.</div>
     </div>
 
+    <div id="conteudo" style="display: none;">
     <h1>Reservas Excluídas</h1>
 
     <div class="filters">
@@ -330,7 +331,9 @@ fetch(url)
       : "↓ Decrescente";
       
     // Esconde o loading após tudo estar carregado e processado
-    hideLoading();
+    setTimeout(() => {
+        hideLoading();
+    }, 200); // 1000 milissegundos = 1 segundo
   })
   .catch(error => {
     console.error('Erro ao carregar dados:', error);
@@ -705,12 +708,15 @@ function showLoading() {
 
 function hideLoading() {
     document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('conteudo').style.display = 'block';
 }
+
 
 </script>
 	
 <div id="total-registros-container">
     <span id="total-registros">Total de registros: 0</span>
+</div>
 </div>
 
 </body>
