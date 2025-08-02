@@ -167,12 +167,50 @@
 			flex: none;
 		}
 
+/* Estilos para a tela de carregamento */
 
+/* Estilos para a tela de carregamento */
+    .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        color: white;
+        font-size: 24px;
+    }
+    
+    .loading-spinner {
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin-bottom: 15px;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 
     </style>
 </head>
 
 <body>
+
+<div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <div>Carregando... Aguarde.</div>
+    </div>
+
     <h1>Reservas Excluídas</h1>
 
     <div class="filters">
@@ -250,6 +288,9 @@ function isMobile() {
 
 
 // Substitua o seu bloco fetch original por este
+
+showLoading()
+
 const url = `https://clube-olimpico.github.io/Reservas/logs/reservas-excluidas.json?t=${new Date().getTime()}`;
 
 fetch(url)
@@ -283,10 +324,20 @@ fetch(url)
 
     // Atualiza o texto do botão de ordenação
     const botao = document.getElementById("botaoOrdenacao");
-	const simbolo = "↓";
-	botao.innerHTML = isMobile()
-	  ? `<span class="icone-seta">↓</span>`
-	  : "↓ Decrescente";
+    const simbolo = "↓";
+    botao.innerHTML = isMobile()
+      ? `<span class="icone-seta">↓</span>`
+      : "↓ Decrescente";
+      
+    // Esconde o loading após tudo estar carregado e processado
+    hideLoading();
+  })
+  .catch(error => {
+    console.error('Erro ao carregar dados:', error);
+    // Esconde o loading mesmo em caso de erro
+    hideLoading();
+    // Opcional: mostrar mensagem de erro ao usuário
+    alert('Erro ao carregar os dados. Por favor, tente recarregar a página.');
   });
   
   
@@ -648,7 +699,13 @@ function utf8_to_b64(str) {
     return btoa(unescape(encodeURIComponent(str)));
 }
 
+function showLoading() {
+    document.getElementById('loadingScreen').style.display = 'flex';
+}
 
+function hideLoading() {
+    document.getElementById('loadingScreen').style.display = 'none';
+}
 
 </script>
 	
