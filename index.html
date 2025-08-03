@@ -610,7 +610,7 @@ body.dark-mode td[style*="background-color: rgb(242, 242, 242)"] {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.4.1'; // Versão atual do sistema     
+const VersaoSistema = 'v1.4.2'; // Versão atual do sistema     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -2702,7 +2702,7 @@ async function LimparDiasAnteriores() {
         }
 
     } catch (erro) {
-        console.error(`⚠️ ERRO na função LimparDiasAnteriores: ${erro.message}`);
+        console.error(`⚠️ ERRO na função LimparDiasAnteriores: ${erro.message}`); 
         operacaoSucesso = false;
         
         // Tenta registrar os logs mesmo em caso de erro
@@ -3241,8 +3241,8 @@ async function registrarExclusao(quadra, horario, jogadores, usuario, duracao, d
       },
       body: JSON.stringify({
         message: `Exclusão registrada: ${quadra} - ${dataReserva} ${horario}`,
-        content: btoa(JSON.stringify(logs, null, 2)),
-        sha: sha
+        content: utf8_to_b64(JSON.stringify(logs, null, 2)),
+        sha: fileData.sha
       })
     });
 
@@ -3310,7 +3310,7 @@ async function registrarExclusaoEmLote(logs) {
       headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: `Exclusões em lote: ${logs.length} reservas`,
-        content: btoa(JSON.stringify(todosLogs, null, 2)),
+        content: utf8_to_b64(JSON.stringify(todosLogs, null, 2)),
         sha: fileData.sha
       })
     });
@@ -3589,6 +3589,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Depois, adiciona o evento de clique ao botão
     document.getElementById('theme-toggle-button').addEventListener('click', toggleTheme);
 });
+
+
+// Função auxiliar para codificar corretamente strings com caracteres especiais
+function utf8_to_b64(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+}
 
 </script>
 
