@@ -610,7 +610,7 @@ body.dark-mode td[style*="background-color: rgb(242, 242, 242)"] {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.4.2'; // Versão atual do sistema     
+const VersaoSistema = 'v1.4.3'; // Versão atual do sistema     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -1778,6 +1778,7 @@ window.atualizarOpcoesHorario = function() {
 };
 
 
+// Substitua sua função inteira por esta
 window.adicionarJogador = function() {
     if (jogadorCount < 4) {
         jogadorCount++;
@@ -1794,20 +1795,34 @@ window.adicionarJogador = function() {
         novoSelect.id = `jogador${jogadorCount}`;
         novoSelect.name = `jogador${jogadorCount}`;
         
-        // 1. Copia as opções do primeiro campo, que já está com a lista correta (seja a geral ou a da pirâmide)
+        // 1. Copia as opções do primeiro campo, que tem a lista completa.
         const primeiroSelect = document.getElementById('jogador1');
         if (primeiroSelect) {
             novoSelect.innerHTML = primeiroSelect.innerHTML;
         }
 
-        // 2. Remove do novo campo a opção que foi selecionada no campo anterior
-        const selectAnterior = document.getElementById(`jogador${jogadorCount - 1}`);
-        if (selectAnterior && selectAnterior.value && selectAnterior.value !== "Convidado") {
-            const optionToRemove = novoSelect.querySelector(`option[value="${selectAnterior.value}"]`);
+        // ==========================================================
+        // INÍCIO DA CORREÇÃO PRINCIPAL
+        // ==========================================================
+        // 2. Coleta TODOS os jogadores já selecionados nos campos anteriores.
+        const jogadoresJaSelecionados = [];
+        for (let i = 1; i < jogadorCount; i++) {
+            const selectAnterior = document.getElementById(`jogador${i}`);
+            if (selectAnterior && selectAnterior.value && selectAnterior.value !== "Convidado") {
+                jogadoresJaSelecionados.push(selectAnterior.value);
+            }
+        }
+
+        // 3. Remove cada um dos jogadores já selecionados do novo dropdown.
+        jogadoresJaSelecionados.forEach(apelido => {
+            const optionToRemove = novoSelect.querySelector(`option[value="${apelido}"]`);
             if (optionToRemove) {
                 optionToRemove.remove();
             }
-        }
+        });
+        // ==========================================================
+        // FIM DA CORREÇÃO
+        // ==========================================================
         
         newDiv.appendChild(label);
         newDiv.appendChild(novoSelect);
@@ -1816,6 +1831,7 @@ window.adicionarJogador = function() {
         novoSelect.focus();
     }
 };
+
 
 
 // Função original, apenas atualizada para usar transações Firebase
