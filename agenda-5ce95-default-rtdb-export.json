@@ -960,17 +960,6 @@
       },
       "DiasParaLimpar": 3,
       "Duplas": {
-        "DatasEspeciais": {
-          "Quadra-2": {
-            "2025-07-26": {
-              "descricao": "Teste",
-              "regras": {
-                "fim": "21:00",
-                "inicio": "18:00"
-              }
-            }
-          }
-        },
         "Quadra-1": {
           "1-DiasDeSemana": false,
           "1-DiasDeSemana-Fim": "",
@@ -1049,33 +1038,13 @@
         "inicio": "10-07-2025"
       },
       "Quadras": {
-        "Bloqueios": {
-          "Quadra-1": {
-            "2025-07-21": {
-              "descricao": "Manutenção Rede Elétrica",
-              "regras": {
-                "fim": "14:00",
-                "inicio": "06:00"
-              }
-            }
-          },
-          "Quadra-3": {
-            "2025-07-21": {
-              "descricao": "Manutenção Rede Elétrica",
-              "regras": {
-                "fim": "14:00",
-                "inicio": "06:00"
-              }
-            }
-          }
-        },
-        "Quadra1": "bloqueada",
+        "Quadra1": "liberada",
         "Quadra2": "liberada",
-        "Quadra3": "bloqueada"
+        "Quadra3": "liberada"
       },
       "ReservasPorConfirmacao": true,
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "horasParaExpirar": 12,
+      "horasParaExpirar": 6,
       "vDomingo": "fechado",
       "vDomingoAte": ""
     },
@@ -1136,6 +1105,18 @@
           "duracao": 1,
           "hora": 21,
           "jogadores": "aula"
+        },
+        "1_7": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 2,
+          "hora": 7,
+          "jogadores": "Thomas August"
+        },
+        "1_8": {
+          "dia": 1,
+          "hora": 8,
+          "jogadores": "Frank Heinrichs"
         },
         "2_14": {
           "borda": "1h",
@@ -1529,18 +1510,6 @@
         }
       },
       "Quadra 2 - Aberta": {
-        "1_17": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Makoto"
-        },
-        "1_18": {
-          "dia": 1,
-          "hora": 18,
-          "jogadores": "Raianne Kamiya"
-        },
         "1_19": {
           "borda": "1h",
           "dia": 1,
@@ -1589,7 +1558,7 @@
         "2_17": {
           "dia": 2,
           "hora": 17,
-          "jogadores": "Sergio Nelhs"
+          "jogadores": "Clodoaldo"
         },
         "2_18": {
           "borda": "2h",
@@ -1617,22 +1586,22 @@
           "hora": 9,
           "jogadores": "Pamela Balboa"
         },
-        "7_10": {
+        "3_19": {
           "borda": "1h",
-          "dia": 7,
+          "dia": 3,
           "duracao": 1,
-          "hora": 10,
+          "hora": 19,
+          "jogadores": "Ceccon"
+        },
+        "3_20": {
+          "borda": "1h",
+          "dia": 3,
+          "duracao": 1,
+          "hora": 20,
           "jogadores": "Arthur Amorim"
         }
       }
     },
-    "usuariosOnline": {
-      "xllafuafw": {
-        "sessionId": "xllafuafw",
-        "timestamp": 1754190109202,
-        "usuario": "RONALDO TABORDA"
-      }
-    },
-    "version": "v1.4.1"
+    "version": "v1.4.3"
   }
 }
