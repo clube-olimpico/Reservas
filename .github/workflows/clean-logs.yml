@@ -38,15 +38,11 @@ jobs:
                   'https://api.github.com/repos/${process.env.REPO_OWNER}/${process.env.REPO_NAME}/contents/${process.env.LOGS_PATH}',
                   { headers: { 'Authorization': 'token ${process.env.GITHUB_TOKEN}' } }
                 );
-                // Decodifica de Base64 para uma string UTF-8 (esta parte já estava correta)
                 const content = Buffer.from(response.data.content, 'base64').toString('utf8');
-                return {
-                  content: content,
-                  sha: response.data.sha
-                };
+                return { content: content, sha: response.data.sha };
               } catch (error) {
-                console.error('Erro ao buscar logs:', error.response ? error.response.status : error.message);
                 if (error.response && error.response.status === 404) return { content: '[]', sha: null };
+                console.error('Erro ao buscar logs:', error.response ? error.response.status : error.message);
                 throw error;
               }
             }
@@ -56,7 +52,7 @@ jobs:
               now.setHours(0, 0, 0, 0);
               const sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000;
               return logs.filter(log => {
-                if (!log.exclusao) return false; // Garante que logs sem data de exclusão sejam removidos
+                if (!log.exclusao) return false;
                 const [dia, mes, ano] = log.exclusao.split(' ')[0].split('/');
                 const logDate = new Date(ano, mes - 1, parseInt(dia, 10));
                 logDate.setHours(0, 0, 0, 0);
@@ -67,8 +63,8 @@ jobs:
             async function updateLogs(logs, sha) {
               try {
                 // ==========================================================
-                // INÍCIO DA CORREÇÃO PRINCIPAL
-                // Garante que a string JSON seja tratada como UTF-8 antes de codificar para Base64
+                // INÍCIO DA CORREÇÃO DEFINITIVA
+                // Garante que a string JSON seja tratada como UTF-8 ANTES de codificar para Base64
                 // ==========================================================
                 const content = Buffer.from(JSON.stringify(logs, null, 2), 'utf8').toString('base64');
                 // ==========================================================
