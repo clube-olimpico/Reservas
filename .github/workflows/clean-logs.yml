@@ -2,7 +2,7 @@ name: Limpar Logs Antigos
 
 on:
   schedule:
-    - cron: '0 7 * * *' # Executa às 07:00 UTC (04:00 no horário de Brasília)
+    - cron: '0 7 * * *'  # Executa diariamente às 07:00 UTC (04:00 no Brasil)
   workflow_dispatch:
 
 permissions:
@@ -11,6 +11,7 @@ permissions:
 jobs:
   clean-logs:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout do repositório 
         uses: actions/checkout@v4
@@ -34,30 +35,21 @@ jobs:
             const axios = require('axios');
             const fs = require('fs');
 
-            // Função segura para decodificar Base64 com UTF-8 preservado
-            function base64ToUtf8(base64) {
-              return decodeURIComponent(escape(Buffer.from(base64, 'base64').toString('binary')));
-            }
-
-            // Função segura para codificar em Base64 mantendo UTF-8
-            function utf8ToBase64(str) {
-              return Buffer.from(unescape(encodeURIComponent(str)), 'binary').toString('base64');
-            }
+            const token = process.env.GITHUB_TOKEN;
+            const owner = process.env.REPO_OWNER;
+            const repo = process.env.REPO_NAME;
+            const path = process.env.LOGS_PATH;
 
             async function fetchLogs() {
               try {
                 const response = await axios.get(
-                  'https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/contents/$LOGS_PATH',
-                  { headers: { 'Authorization': 'token $GITHUB_TOKEN' } }
+                  \`https://api.github.com/repos/\${owner}/\${repo}/contents/\${path}\`,
+                  { headers: { Authorization: \`token \${token}\` } }
                 );
-                const content = base64ToUtf8(response.data.content);
-                console.log('Conteúdo do arquivo carregado com sucesso.');
-                return {
-                  content: content,
-                  sha: response.data.sha
-                };
+                const content = Buffer.from(response.data.content, 'base64').toString('utf8');
+                return { content, sha: response.data.sha };
               } catch (error) {
-                console.error('Erro ao buscar logs:', error.response ? error.response.status : error.message);
+                console.error('Erro ao buscar logs:', error.response?.status || error.message);
                 throw error;
               }
             }
@@ -75,20 +67,19 @@ jobs:
 
             async function updateLogs(logs, sha) {
               try {
-                const jsonString = JSON.stringify(logs, null, 2);
-                const base64 = utf8ToBase64(jsonString);
+                const content = Buffer.from(JSON.stringify(logs, null, 2), 'utf8').toString('base64');
                 await axios.put(
-                  'https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/contents/$LOGS_PATH',
+                  \`https://api.github.com/repos/\${owner}/\${repo}/contents/\${path}\`,
                   {
                     message: '[Automático] Limpeza de logs antigos',
-                    content: base64,
-                    sha: sha
+                    content,
+                    sha
                   },
-                  { headers: { 'Authorization': 'token $GITHUB_TOKEN' } }
+                  { headers: { Authorization: \`token \${token}\` } }
                 );
                 console.log('Logs atualizados com sucesso.');
               } catch (error) {
-                console.error('Erro ao atualizar logs:', error.response ? error.response.status : error.message);
+                console.error('Erro ao atualizar logs:', error.response?.status || error.message);
                 throw error;
               }
             }
@@ -98,14 +89,15 @@ jobs:
                 const { content, sha } = await fetchLogs();
                 const logs = JSON.parse(content);
                 const updatedLogs = filterLogs(logs);
+
                 if (logs.length !== updatedLogs.length) {
                   await updateLogs(updatedLogs, sha);
-                  console.log('Logs atualizados! Removidos:', logs.length - updatedLogs.length);
+                  console.log(\`Removidos \${logs.length - updatedLogs.length} registros antigos.\`);
                 } else {
                   console.log('Nada para limpar.');
                 }
-              } catch (error) {
-                console.error('Erro geral:', error.message);
+              } catch (err) {
+                console.error('Erro geral:', err.message);
                 process.exit(1);
               }
             })();
