@@ -1,7 +1,8 @@
 name: Limpar Logs Antigos
+
 on:
   schedule:
-    - cron: '0 7 * * *' # Roda todos os dias às 7h UTC
+    - cron: '0 7 * * *' # Executa às 07:00 UTC (04:00 no horário de Brasília)
   workflow_dispatch:
 
 permissions:
@@ -31,17 +32,31 @@ jobs:
         run: |
           node -e "
             const axios = require('axios');
-            
+            const fs = require('fs');
+
+            // Função segura para decodificar Base64 com UTF-8 preservado
+            function base64ToUtf8(base64) {
+              return decodeURIComponent(escape(Buffer.from(base64, 'base64').toString('binary')));
+            }
+
+            // Função segura para codificar em Base64 mantendo UTF-8
+            function utf8ToBase64(str) {
+              return Buffer.from(unescape(encodeURIComponent(str)), 'binary').toString('base64');
+            }
+
             async function fetchLogs() {
               try {
                 const response = await axios.get(
-                  'https://api.github.com/repos/${process.env.REPO_OWNER}/${process.env.REPO_NAME}/contents/${process.env.LOGS_PATH}',
-                  { headers: { 'Authorization': 'token ${process.env.GITHUB_TOKEN}' } }
+                  'https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/contents/$LOGS_PATH',
+                  { headers: { 'Authorization': 'token $GITHUB_TOKEN' } }
                 );
-                const content = Buffer.from(response.data.content, 'base64').toString('utf8');
-                return { content: content, sha: response.data.sha };
+                const content = base64ToUtf8(response.data.content);
+                console.log('Conteúdo do arquivo carregado com sucesso.');
+                return {
+                  content: content,
+                  sha: response.data.sha
+                };
               } catch (error) {
-                if (error.response && error.response.status === 404) return { content: '[]', sha: null };
                 console.error('Erro ao buscar logs:', error.response ? error.response.status : error.message);
                 throw error;
               }
@@ -50,35 +65,26 @@ jobs:
             function filterLogs(logs) {
               const now = new Date();
               now.setHours(0, 0, 0, 0);
-              const sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000;
               return logs.filter(log => {
-                if (!log.exclusao) return false;
                 const [dia, mes, ano] = log.exclusao.split(' ')[0].split('/');
                 const logDate = new Date(ano, mes - 1, parseInt(dia, 10));
                 logDate.setHours(0, 0, 0, 0);
-                return (now - logDate) <= sevenDaysInMillis;
+                return (now - logDate) <= (7 * 24 * 60 * 60 * 1000); // 7 dias
               });
             }
 
             async function updateLogs(logs, sha) {
               try {
-                // ==========================================================
-                // INÍCIO DA CORREÇÃO DEFINITIVA
-                // Garante que a string JSON seja tratada como UTF-8 ANTES de codificar para Base64
-                // ==========================================================
-                const content = Buffer.from(JSON.stringify(logs, null, 2), 'utf8').toString('base64');
-                // ==========================================================
-                // FIM DA CORREÇÃO
-                // ==========================================================
-                
+                const jsonString = JSON.stringify(logs, null, 2);
+                const base64 = utf8ToBase64(jsonString);
                 await axios.put(
-                  'https://api.github.com/repos/${process.env.REPO_OWNER}/${process.env.REPO_NAME}/contents/${process.env.LOGS_PATH}',
+                  'https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/contents/$LOGS_PATH',
                   {
                     message: '[Automático] Limpeza de logs antigos',
-                    content: content,
+                    content: base64,
                     sha: sha
                   },
-                  { headers: { 'Authorization': 'token ${process.env.GITHUB_TOKEN}' } }
+                  { headers: { 'Authorization': 'token $GITHUB_TOKEN' } }
                 );
                 console.log('Logs atualizados com sucesso.');
               } catch (error) {
@@ -90,10 +96,6 @@ jobs:
             (async () => {
               try {
                 const { content, sha } = await fetchLogs();
-                if (!sha) {
-                  console.log('Arquivo de log não encontrado ou vazio. Nada a fazer.');
-                  return;
-                }
                 const logs = JSON.parse(content);
                 const updatedLogs = filterLogs(logs);
                 if (logs.length !== updatedLogs.length) {
