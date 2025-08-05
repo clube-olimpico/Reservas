@@ -610,7 +610,7 @@ body.dark-mode td[style*="background-color: rgb(242, 242, 242)"] {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.4.3'; // Versão atual do sistema     
+const VersaoSistema = 'v1.4.4'; // Versão atual do sistema     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -2688,7 +2688,7 @@ async function LimparDiasAnteriores() {
                                 minute: '2-digit'
                             }).replace(',', ''),
                             quadra,
-                            data: dataFormatada,
+                            data: dataFormatada, 
                             horario: horarioFormatado,
                             duracao: duracao === 3 ? "2 Horas - Pirâmide" : duracao === 2 ? "2 Horas" : "1 Hora",
                             jogadores: jogadoresArray, 
@@ -3193,12 +3193,10 @@ function exibirMensagemPiramide() {
 
 // Função simplificada de log
 async function registrarExclusao(quadra, horario, jogadores, usuario, duracao, dataReserva) {
-  // 1. Compatibilidade com o processamento em lote (NOVO)
   if (Array.isArray(quadra)) {
-    return registrarExclusaoEmLote(quadra); // quadra contém o array de logs
+    return registrarExclusaoEmLote(quadra);
   }
 
-  // 2. CÓDIGO ORIGINAL TOTALMENTE PRESERVADO (início)
   const token = githubToken;
   const usuarioGit = 'clube-olimpico';
   const repo = 'Reservas';
@@ -3206,7 +3204,6 @@ async function registrarExclusao(quadra, horario, jogadores, usuario, duracao, d
   const url = `https://api.github.com/repos/${usuarioGit}/${repo}/contents/${caminhoArquivo}`;
 
   try {
-    // Obter o arquivo atual
     let response = await fetch(url, {
       headers: {
         'Authorization': `token ${token}`,
@@ -3214,24 +3211,21 @@ async function registrarExclusao(quadra, horario, jogadores, usuario, duracao, d
       }
     });
 
-    if (!response.ok) {
-      throw new Error(`Erro ao buscar arquivo: ${response.status}`); 
-    }
+    if (!response.ok) throw new Error(`Erro ao buscar arquivo: ${response.status}`);
 
-    let fileData = await response.json();
+    const fileData = await response.json();
     let logs = [];
     let sha = fileData.sha;
 
-    // Decodificar conteúdo existente
     if (fileData.content) {
       try {
-        logs = JSON.parse(atob(fileData.content.replace(/\s/g, ''))) || [];
+        logs = JSON.parse(b64_to_utf8(fileData.content)) || [];
+		
       } catch (e) {
         console.warn('Falha ao decodificar logs existentes, iniciando novo', e);
       }
     }
 
-    // Adicionar novo registro
     logs.push({
       exclusao: new Date().toLocaleString('pt-BR', {
         day: '2-digit',
@@ -3248,7 +3242,6 @@ async function registrarExclusao(quadra, horario, jogadores, usuario, duracao, d
       usuario: usuario || 'SISTEMA'
     });
 
-    // Enviar atualização
     response = await fetch(url, {
       method: 'PUT',
       headers: {
@@ -3258,18 +3251,15 @@ async function registrarExclusao(quadra, horario, jogadores, usuario, duracao, d
       body: JSON.stringify({
         message: `Exclusão registrada: ${quadra} - ${dataReserva} ${horario}`,
         content: utf8_to_b64(JSON.stringify(logs, null, 2)),
-        sha: fileData.sha
+        sha: sha
       })
     });
 
-    if (!response.ok) {
-      throw new Error(`Falha no upload: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`Falha no upload: ${response.status}`);
 
     console.log('✅ Log registrado com sucesso');
   } catch (erro) {
     console.error('❌ Erro ao salvar log:', erro);
-    // Fallback local (original mantido)
     const logsFallback = JSON.parse(localStorage.getItem('logs_fallback') || '[]');
     logsFallback.push({
       exclusao: new Date().toLocaleString('pt-BR', {
@@ -3288,8 +3278,10 @@ async function registrarExclusao(quadra, horario, jogadores, usuario, duracao, d
     });
     localStorage.setItem('logs_fallback', JSON.stringify(logsFallback));
   }
-  // FIM DO CÓDIGO ORIGINAL
 }
+
+
+
 
 // Função adicional (NOVA) - não substitui nada, apenas complementa
 async function registrarExclusaoEmLote(logs) {
@@ -3300,30 +3292,35 @@ async function registrarExclusaoEmLote(logs) {
   const url = `https://api.github.com/repos/${usuarioGit}/${repo}/contents/${caminhoArquivo}`;
 
   try {
-    // Obter versão atual do arquivo
     let response = await fetch(url, {
-      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
     });
-    
+
     if (!response.ok) throw new Error(`Erro ao buscar arquivo: ${response.status}`);
-    
+
     const fileData = await response.json();
     let logsExistentes = [];
+
     if (fileData.content) {
       try {
-        logsExistentes = JSON.parse(atob(fileData.content.replace(/\s/g, ''))) || [];
+        logsExistentes = JSON.parse(b64_to_utf8(fileData.content)) || [];
+		
       } catch (e) {
         console.warn('Falha ao decodificar logs existentes', e);
       }
     }
 
-    // Combinar com os novos logs
     const todosLogs = [...logsExistentes, ...logs];
 
-    // Enviar atualização
     response = await fetch(url, {
       method: 'PUT',
-      headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+      headers: {
+        'Authorization': `token ${token}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         message: `Exclusões em lote: ${logs.length} reservas`,
         content: utf8_to_b64(JSON.stringify(todosLogs, null, 2)),
@@ -3332,15 +3329,17 @@ async function registrarExclusaoEmLote(logs) {
     });
 
     if (!response.ok) throw new Error(`Falha no upload: ${response.status}`);
+
     console.log(`✅ ${logs.length} logs registrados em lote`);
   } catch (erro) {
     console.error('❌ Erro ao salvar logs em lote:', erro);
-    // Fallback para localStorage
     const logsFallback = JSON.parse(localStorage.getItem('logs_fallback') || '[]');
     logs.forEach(log => logsFallback.push(log));
     localStorage.setItem('logs_fallback', JSON.stringify(logsFallback));
   }
 }
+
+
 
 // Função para atualizar o valor "primeiro acesso"
 function atualizarPrimeiroAcesso(jogadorLogado) {
@@ -3611,6 +3610,14 @@ document.addEventListener('DOMContentLoaded', function() {
 function utf8_to_b64(str) {
     return btoa(unescape(encodeURIComponent(str)));
 }
+
+// Função auxiliar para decodificar corretamente strings com caracteres especiais
+function b64_to_utf8(str) {
+    return decodeURIComponent(atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+}
+
 
 </script>
 
