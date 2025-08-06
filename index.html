@@ -383,6 +383,11 @@ th {
     margin-top: 20px;
     margin-bottom: 10px;
     text-indent: 10px; /* Ajuste o valor para o espaçamento desejado */
+	/* --- LINHAS ADICIONADAS --- */
+    -webkit-user-select: none; /* Para Safari e Chrome no iOS */
+    -moz-user-select: none;    /* Para Firefox */
+    -ms-user-select: none;     /* Para Internet Explorer/Edge */
+    user-select: none;         /* Padrão oficial */
 }
 
 /* Classe para aba selecionada */
@@ -610,7 +615,7 @@ body.dark-mode td[style*="background-color: rgb(242, 242, 242)"] {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.4.4'; // Versão atual do sistema     
+const VersaoSistema = 'v1.4.5'; // Versão atual do sistema     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
