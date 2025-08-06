@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;  
             margin: 0;
             padding: 10px;
-            background-color: #f4f4f4;
+            background-color: #f4f4f4; 
         }
 
         h1 {
@@ -236,14 +236,14 @@
         </select>
 		
 		<label for="status">Status:</label>
-        <select id="status">
-            <option value="">Todas</option>
-            <option value="pendente">Pendente</option>
-            <option value="confirmada">Confirmada</option>
-            <option value="cancelada">Cancelada</option>
-            <option value="expirada">Expirada</option>
-            <option value="modo-antigo">Sem Status</option>
-        </select>
+		<select id="status" onchange="atualizarCorStatus(this)">
+			<option value="" style="color: black;">Todas</option>
+			<option value="pendente" style="color: orange; font-weight: bold;">Pendente</option>
+			<option value="confirmada" style="color: green; font-weight: bold;">Confirmada</option>
+			<option value="cancelada" style="color: #db7093; font-weight: bold;">Cancelada</option>
+			<option value="expirada" style="color: red; font-weight: bold;">Expirada</option>
+			<option value="modo-antigo" style="color: gray; font-weight: bold;">Sem Status</option>
+		</select>
 
         <div class="botoes-acoes">
 			<button onclick="filtrarLogs()">Filtrar</button>
@@ -397,8 +397,6 @@ function alternarOrdenacao() {
         }
 		
 		
-// Substitua sua função exibirLogs por esta
-// Substitua sua função exibirLogs por esta
 function exibirLogs(lista) {
     const logsContainer = document.getElementById('logs');
     logsContainer.innerHTML = '';
@@ -407,35 +405,41 @@ function exibirLogs(lista) {
     lista.forEach((log) => {
         const logEntryDiv = document.createElement('div');
         logEntryDiv.className = 'log-entry';
-        logEntryDiv.style.cursor = 'pointer';
         
-        // --- ALTERAÇÃO PRINCIPAL ---
-        // O onclick agora passa o 'log.id', que é o ID persistente
-        logEntryDiv.addEventListener('click', function() {
-            solicitarExclusaoLog(log.id);
-        });
-
-        // O resto da sua lógica de exibição permanece 100% intocado...
         let dataParts = log.exclusao.split(' ');
         let dataFormatada = dataParts[0].split('/').reverse().join('-') + 'T' + dataParts[1] + ':00';
         let date = new Date(dataFormatada);
         let formattedDate = isNaN(date) ? 'Data inválida' : date.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(',', '');
         let duracaoDisplay = log.duracao;
         if (typeof duracaoDisplay === 'number') { duracaoDisplay = duracaoDisplay === 3 ? "2 Horas - Pirâmide" : duracaoDisplay === 2 ? "2 Horas" : "1 Hora"; }
+        
         let jogadoresHtml = '';
         if (log.confirmacoes) {
             let nomesColoridos = [];
             log.jogadores.forEach(jogador => {
                 const apelido = jogador.split(' - ').pop();
-                const confirmado = log.confirmacoes[apelido];
-                if (confirmado === true) { nomesColoridos.push(`<span style="color: green; font-weight: bold;">${jogador}</span>`); } 
-                else if (confirmado === false) { nomesColoridos.push(`<span style="color: red; font-weight: bold;">${jogador}</span>`); } 
-                else { nomesColoridos.push(`<span>${jogador}</span>`); }
+                const status = log.confirmacoes[apelido]; 
+                let statusTexto = '';
+                const styleBase = "cursor: pointer; font-weight: bold; -webkit-user-select: none; user-select: none;";
+
+                if (status === 'confirmado') {
+                    statusTexto = 'Confirmado';
+                    nomesColoridos.push(`<span onclick="mostrarStatusJogador('${jogador}', '${statusTexto}')" style="${styleBase} color: green;">${jogador}</span>`);
+                } else if (status === 'pendente') {
+                    statusTexto = 'Pendente';
+                    nomesColoridos.push(`<span onclick="mostrarStatusJogador('${jogador}', '${statusTexto}')" style="${styleBase} color: orange;">${jogador}</span>`);
+                } else if (status === 'recusado') {
+                    statusTexto = 'Recusado';
+                    nomesColoridos.push(`<span onclick="mostrarStatusJogador('${jogador}', '${statusTexto}')" style="${styleBase} color: red;">${jogador}</span>`);
+                } else {
+                    nomesColoridos.push(`<span>${jogador}</span>`);
+                }
             });
             jogadoresHtml = nomesColoridos.join(', ');
         } else {
             jogadoresHtml = log.jogadores.join(', ');
         }
+
         let detalhesConfirmacao = '';
         if (log.statusNoMomentoDaExclusao) {
             let statusStyle = log.statusNoMomentoDaExclusao.includes('pendente') ? 'color: orange;' : log.statusNoMomentoDaExclusao.includes('expirada') ? 'color: red;' : log.statusNoMomentoDaExclusao.includes('cancelada') ? 'color: #db7093;' : 'color: green;';
@@ -444,6 +448,7 @@ function exibirLogs(lista) {
         }
         
         logEntryDiv.innerHTML = `
+            <button onclick="solicitarExclusaoLog(${log.id})" style="float: right; cursor: pointer; background: #f2f2f2; color: #dc3545; border: 1px solid #dc3545; border-radius: 50%; width: 24px; height: 24px; font-size: 14px; font-weight: bold; line-height: 22px; text-align: center; padding: 0;">X</button>
             <p><strong>Exclusão: ${formattedDate}</strong></p>
             <p><strong>Data da Reserva:</strong> ${log.data}</p>
             <p>${log.quadra} | ${log.horario}</p>
@@ -458,6 +463,8 @@ function exibirLogs(lista) {
     logsContainer.appendChild(fragment);
     document.getElementById('total-registros').textContent = `Total de registros: ${lista.length}`;
 }
+
+
 
 // Substitua sua função solicitarExclusaoLog por esta
 function solicitarExclusaoLog(logId) {
@@ -695,6 +702,7 @@ function carregarToken() {
 // Chama a função para carregar o token quando a página carregar
 window.onload = function() {
     carregarToken();
+	atualizarCorStatus(document.getElementById('status'));
 };
 
 // Função auxiliar para codificar corretamente strings com caracteres especiais
@@ -711,6 +719,22 @@ function hideLoading() {
     document.getElementById('conteudo').style.display = 'block';
 }
 
+function atualizarCorStatus(selectElement) {
+    // Pega a opção que está selecionada no momento
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    
+    // Pega a cor e o peso da fonte do estilo da opção selecionada
+    const color = selectedOption.style.color;
+    const fontWeight = selectedOption.style.fontWeight;
+
+    // Aplica a cor e o peso da fonte ao próprio elemento <select>
+    selectElement.style.color = color || 'black'; // Usa preto como padrão
+    selectElement.style.fontWeight = fontWeight || 'normal'; // Usa peso normal como padrão
+}
+
+function mostrarStatusJogador(nomeJogador, status) {
+    alert(`${nomeJogador}: ${status}`);
+}
 
 </script>
 	
