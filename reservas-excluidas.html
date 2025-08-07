@@ -447,6 +447,13 @@ function exibirLogs(lista) {
             if (log.organizadorDaReserva) { detalhesConfirmacao += `<p style="font-size: 0.9em;"><strong>Organizador:</strong> ${log.organizadorDaReserva}</p>`; }
         }
         
+        // --- ESTILO CORRIGIDO: LABEL PADRÃO, CONTEÚDO EM ITÁLICO/CINZA ---
+        let motivoHtml = '';
+        if (log.motivo) {
+            motivoHtml = `<p style="font-size: 0.9em;"><strong>Motivo:</strong> <span style="font-style: italic; color: #555;">${log.motivo}</span></p>`;
+        }
+        // --- FIM DA CORREÇÃO ---
+        
         logEntryDiv.innerHTML = `
             <button onclick="solicitarExclusaoLog(${log.id})" style="float: right; cursor: pointer; background: #f2f2f2; color: #dc3545; border: 1px solid #dc3545; border-radius: 50%; width: 24px; height: 24px; font-size: 14px; font-weight: bold; line-height: 22px; text-align: center; padding: 0;">X</button>
             <p><strong>Exclusão: ${formattedDate}</strong></p>
@@ -455,7 +462,8 @@ function exibirLogs(lista) {
             <p>Duração: ${duracaoDisplay || 'N/A'}</p>
             <p>Jogadores: ${jogadoresHtml}</p>
             <p>Excluído por: <strong>${log.usuario || 'N/A'}</strong></p>
-            ${detalhesConfirmacao} 
+            ${detalhesConfirmacao}
+            ${motivoHtml} 
             <hr>
         `;
         fragment.appendChild(logEntryDiv);
@@ -463,6 +471,7 @@ function exibirLogs(lista) {
     logsContainer.appendChild(fragment);
     document.getElementById('total-registros').textContent = `Total de registros: ${lista.length}`;
 }
+
 
 
 
