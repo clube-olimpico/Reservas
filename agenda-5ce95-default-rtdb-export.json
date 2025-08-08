@@ -18,7 +18,6 @@
         "Ana Francisca": true,
         "Ana Julia": true,
         "Ana Lice": true,
-        "Ana Ribeiro": true,
         "Andre Guzik": true,
         "Andreia Almeida": true,
         "Arthur Amorim": true,
@@ -42,6 +41,7 @@
         "Diosnei": true,
         "Dudu": true,
         "Edemar": true,
+        "Edna Bittencourt": true,
         "Elenilson": true,
         "Elisa Voj": true,
         "Fabiana": true,
@@ -61,7 +61,6 @@
         "Helio Oliveira": true,
         "Heloisa Silva": true,
         "Henrique Santos": true,
-        "Hilda": true,
         "Isa": true,
         "Isabelle Balboa": true,
         "Ivan Balboa": true,
@@ -211,13 +210,6 @@
           "niver": "01/01/2001",
           "piramide": "8",
           "socio": "titular"
-        },
-        "ANA CLARA RIBEIRO": {
-          "apelido": "Ana Ribeiro",
-          "classe": "C",
-          "niver": "13/01/2009",
-          "piramide": "",
-          "socio": "dependente"
         },
         "ANA FRANCISCA": {
           "apelido": "Ana Francisca",
@@ -372,6 +364,13 @@
           "niver": "07/10/1957",
           "piramide": "3",
           "socio": "titular"
+        },
+        "EDNA BITTENCOURT": {
+          "apelido": "Edna Bittencourt",
+          "classe": "C",
+          "niver": "11/06/1997",
+          "piramide": "",
+          "socio": "dependente"
         },
         "EDNILSON RIBEIRO": {
           "apelido": "Amora",
@@ -534,13 +533,6 @@
           "piramide": "",
           "socio": "dependente"
         },
-        "HILDA TITSCHKOWSKI": {
-          "apelido": "Hilda",
-          "classe": "",
-          "niver": "21/09/1958",
-          "piramide": "",
-          "socio": "dependente"
-        },
         "ISABELA REICHARDT": {
           "apelido": "Isa",
           "classe": "C",
@@ -581,7 +573,7 @@
           "classe": "C",
           "niver": "01/01/2001",
           "piramide": "",
-          "socio": "dependente"
+          "socio": "titular"
         },
         "JOAO DARIO": {
           "apelido": "Joao Dario",
@@ -595,14 +587,14 @@
           "classe": "C",
           "niver": "01/01/2001",
           "piramide": "",
-          "socio": "dependente"
+          "socio": "titular"
         },
         "JOAO MARIA": {
           "apelido": "Joao Maria",
           "classe": "C",
           "niver": "01/01/2001",
           "piramide": "",
-          "socio": "dependente"
+          "socio": "titular"
         },
         "JOAO PAULO DA SILVA VIEIRA": {
           "apelido": "Bigode",
@@ -1044,7 +1036,7 @@
       },
       "ReservasPorConfirmacao": true,
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "horasParaExpirar": 6,
+      "horasParaExpirar": 1,
       "vDomingo": "fechado",
       "vDomingoAte": ""
     },
@@ -1358,6 +1350,18 @@
           "hora": 11,
           "jogadores": "aula"
         },
+        "5_12": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 12,
+          "jogadores": "Felipe Mikuska"
+        },
+        "5_13": {
+          "dia": 5,
+          "hora": 13,
+          "jogadores": "Amora"
+        },
         "5_14": {
           "borda": "1h",
           "dia": 5,
@@ -1449,6 +1453,30 @@
           "hora": 11,
           "jogadores": "aula"
         },
+        "6_14": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 14,
+          "jogadores": "Flavio Ferraz"
+        },
+        "6_15": {
+          "dia": 6,
+          "hora": 15,
+          "jogadores": "Gustavo Ferraz"
+        },
+        "6_16": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 16,
+          "jogadores": "Dudu"
+        },
+        "6_17": {
+          "dia": 6,
+          "hora": 17,
+          "jogadores": "Rony Duck"
+        },
         "6_7": {
           "borda": "1h",
           "dia": 6,
@@ -1469,19 +1497,59 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
+        },
+        "7_9": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 9,
+          "jogadores": "Raianne Kamiya, Josiane Kamiya"
         }
       },
-      "Quadra 3 - Coberta": {
-        "4_16": {
+      "Quadra 2 - Aberta": {
+        "4_19": {
+          "borda": "1h",
+          "dia": 4,
+          "duracao": 1,
+          "hora": 19,
+          "jogadores": "Cris"
+        },
+        "4_20": {
           "borda": "2h",
           "dia": 4,
           "duracao": 2,
+          "hora": 20,
+          "jogadores": "Alexandre Camargo"
+        },
+        "4_21": {
+          "dia": 4,
+          "hora": 21,
+          "jogadores": "Luciano Cavalheiro"
+        },
+        "6_16": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
           "hora": 16,
+          "jogadores": "Gabriel Martins"
+        },
+        "6_17": {
+          "dia": 6,
+          "hora": 17,
+          "jogadores": "Alice Duck"
+        }
+      },
+      "Quadra 3 - Coberta": {
+        "4_15": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 15,
           "jogadores": "Edemar"
         },
-        "4_17": {
+        "4_16": {
           "dia": 4,
-          "hora": 17,
+          "hora": 16,
           "jogadores": "Gustavo Ferraz"
         },
         "4_20": {
@@ -1515,17 +1583,12 @@
           "hora": 18,
           "jogadores": "Nivaldo"
         },
-        "5_19": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 19,
-          "jogadores": "Leonardo Zamprogna"
-        },
         "5_20": {
+          "borda": "1h",
           "dia": 5,
+          "duracao": 1,
           "hora": 20,
-          "jogadores": "Victoria Zeni"
+          "jogadores": "Maico"
         },
         "5_21": {
           "borda": "2h",
@@ -1550,6 +1613,42 @@
           "dia": 6,
           "hora": 11,
           "jogadores": "Diosnei"
+        },
+        "6_15": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Felipe Muraski"
+        },
+        "6_16": {
+          "dia": 6,
+          "hora": 16,
+          "jogadores": "Felipe Parente"
+        },
+        "6_17": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Helio Oliveira"
+        },
+        "6_18": {
+          "dia": 6,
+          "hora": 18,
+          "jogadores": "Rafael Gregorio"
+        },
+        "6_7": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 7,
+          "jogadores": "Marco Ribeiro"
+        },
+        "6_8": {
+          "dia": 6,
+          "hora": 8,
+          "jogadores": "Taborda"
         },
         "6_9": {
           "borda": "1h",
