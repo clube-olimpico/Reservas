@@ -12,7 +12,7 @@
 <style>
 /* Estilos globais */
 body {
-    font-family: Arial, sans-serif; 
+    font-family: Arial, sans-serif;   
     margin: 0;
     padding: 0; 
 }
@@ -615,7 +615,7 @@ body.dark-mode td[style*="background-color: rgb(242, 242, 242)"] {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.4.5'; // Versão atual do sistema     
+const VersaoSistema = 'v1.4.6'; // Versão atual do sistema     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -1343,7 +1343,8 @@ function carregarReservas(quadra) {
 						const corPiramide = isDarkMode ? 'goldenrod' : '#FFEB99'; // LÓGICA PARA A COR DA PIRÂMIDE
 
                         let corFundo;
-                        if (jogadores.toLowerCase().includes('aula')) {
+                        //if (jogadores.toLowerCase().includes('aula')) {
+						if (jogadores.toLowerCase().trim() === 'aula') {
                             corFundo = 'lightcoral';
                             cell.innerHTML = "aula"; 
                         } else if (duracao === 3 || (reservas[key.split('_')[0] + '_' + (hora - 1)] && reservas[key.split('_')[0] + '_' + (hora - 1)].duracao === 3)) {
