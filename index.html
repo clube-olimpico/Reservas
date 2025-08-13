@@ -615,7 +615,7 @@ body.dark-mode td[style*="background-color: rgb(242, 242, 242)"] {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.4.6'; // Versão atual do sistema     
+const VersaoSistema = 'v1.4.7'; // Versão atual do sistema     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -1083,7 +1083,8 @@ function atualizarReservasQuadra(quadra) {
             if (cell) {
                 cell.innerHTML = jogadores;
                 cell.setAttribute("data-duracao", duracao);
-                cell.style.backgroundColor = jogadores.toLowerCase().includes('aula') ? 'lightcoral' :
+                //cell.style.backgroundColor = jogadores.toLowerCase().includes('aula') ? 'lightcoral' :
+				cell.style.backgroundColor = jogadores.toLowerCase().trim() === 'aula' ? 'lightcoral' :
                     (duracao === 1 ? 'lightgreen' : 'lightblue');
 
                 // Configurar bordas para reservas de 1h ou 2h
@@ -1428,7 +1429,8 @@ function validarDiaReserva(jogadores) {
     // Se algum jogador for "aula" , retorna true imediatamente
     if (jogadores.some(jogador => {
         let nome = jogador.toLowerCase();
-        return nome.includes("aula");
+        //return nome.includes("aula");
+		return nome.trim() === "aula";
     })) {
         console.log("Reserva identificada como 'aula'. Validação ignorada.");
         return true;
@@ -2470,7 +2472,8 @@ reservasRef.on('value', (snapshot) => {
 
             // Aplica a cor de fundo com base na reserva
             let corFundo;
-            if (jogadores.toLowerCase().includes('aula')) {
+            //if (jogadores.toLowerCase().includes('aula')) {
+			if (jogadores.toLowerCase().trim() === 'aula') {
                 corFundo = 'lightcoral';
             } else {
                 corFundo = duracao === 1 ? 'lightgreen' : 'lightblue';
@@ -2653,7 +2656,8 @@ async function LimparDiasAnteriores() {
                     const snapshot = await reservaRef.once('value');
                     const reserva = snapshot.val();
 
-                    if (reserva && !reserva.jogadores?.toLowerCase().includes('aula')) {
+                    //if (reserva && !reserva.jogadores?.toLowerCase().includes('aula')) {
+					if (reserva && reserva.jogadores?.toLowerCase().trim() !== 'aula' && reserva.borda) {
                         // Formatar dados para o log
                         let { jogadores, duracao } = reserva;
                         
