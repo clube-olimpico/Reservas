@@ -982,22 +982,15 @@
           "Quadra-1-ativa": false
         },
         "Quadra-2": {
-          "2-DiasDeSemana": true,
-          "2-DiasDeSemana-Fim": "12:00",
-          "2-DiasDeSemana-Inicio": "6:00",
+          "2-DiasDeSemana": false,
+          "2-DiasDeSemana-Fim": "",
+          "2-DiasDeSemana-Inicio": "",
           "2-Domingo": false,
           "2-Domingo-Fim": "",
           "2-Domingo-Inicio": "",
           "2-Sabado": false,
           "2-Sabado-Fim": "",
           "2-Sabado-Inicio": "",
-          "DiasDeSemanaConfig": {
-            "quarta": false,
-            "quinta": false,
-            "segunda": true,
-            "sexta": false,
-            "terca": false
-          },
           "Quadra-2-ativa": false
         },
         "Quadra-3": {
@@ -1056,7 +1049,7 @@
       },
       "Quadras": {
         "Quadra1": "liberada",
-        "Quadra2": "liberada",
+        "Quadra2": "bloqueada",
         "Quadra3": "liberada"
       },
       "ReservasPorConfirmacao": true,
@@ -1466,6 +1459,18 @@
           "hora": 11,
           "jogadores": "aula"
         },
+        "6_15": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Lucas Titon"
+        },
+        "6_16": {
+          "dia": 6,
+          "hora": 16,
+          "jogadores": "Flavia Titon"
+        },
         "6_7": {
           "borda": "1h",
           "dia": 6,
@@ -1486,20 +1491,27 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
+        },
+        "7_10": {
+          "dia": 7,
+          "hora": 10,
+          "jogadores": "Gabriel Martins"
+        },
+        "7_9": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 9,
+          "jogadores": "Pedro Lachowski"
         }
       },
       "Quadra 2 - Aberta": {
         "4_19": {
-          "borda": "2h",
+          "borda": "1h",
           "dia": 4,
-          "duracao": 2,
+          "duracao": 1,
           "hora": 19,
-          "jogadores": "Giovani Lima"
-        },
-        "4_20": {
-          "dia": 4,
-          "hora": 20,
-          "jogadores": "Convidado"
+          "jogadores": "Rodrigo Pereira"
         },
         "6_10": {
           "borda": "2h",
@@ -1520,12 +1532,36 @@
           "hora": 10,
           "jogadores": "Alexa"
         },
-        "4_20": {
+        "4_17": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Flavio Ferraz"
+        },
+        "4_18": {
+          "dia": 4,
+          "hora": 18,
+          "jogadores": "Frank Fast"
+        },
+        "4_21": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 21,
+          "jogadores": "Alexandre Camargo"
+        },
+        "4_22": {
+          "dia": 4,
+          "hora": 22,
+          "jogadores": "Luciano Cavalheiro"
+        },
+        "4_8": {
           "borda": "1h",
           "dia": 4,
           "duracao": 1,
-          "hora": 20,
-          "jogadores": "Isa"
+          "hora": 8,
+          "jogadores": "Taborda"
         },
         "4_9": {
           "borda": "2h",
@@ -1533,6 +1569,37 @@
           "duracao": 2,
           "hora": 9,
           "jogadores": "Susan"
+        },
+        "5_15": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Felipe Mikuska"
+        },
+        "5_16": {
+          "dia": 5,
+          "hora": 16,
+          "jogadores": "Taborda"
+        },
+        "5_17": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 17,
+          "jogadores": "Gustavo Ferraz"
+        },
+        "5_18": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 18,
+          "jogadores": "Diego Paraiso"
+        },
+        "5_19": {
+          "dia": 5,
+          "hora": 19,
+          "jogadores": "Bernardo"
         },
         "5_20": {
           "borda": "1h",
@@ -1560,6 +1627,13 @@
           "hora": 11,
           "jogadores": "Arthur Amorim"
         },
+        "6_20": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Ceccon"
+        },
         "6_8": {
           "borda": "2h",
           "dia": 6,
@@ -1571,7 +1645,19 @@
           "dia": 6,
           "hora": 9,
           "jogadores": "Alessandro Xavier"
+        },
+        "7_10": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 10,
+          "jogadores": "Isa"
         }
+      }
+    },
+    "usuariosOnline": {
+      "n4pne5fsf": {
+        "usuario": "ANA PAULA KESSLER PEREIRA"
       }
     },
     "version": "v1.4.7"
