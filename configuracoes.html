@@ -12,7 +12,7 @@
 <style>
 
 body {
-    font-family: Arial, sans-serif;   
+    font-family: Arial, sans-serif;       
     padding: 10px;
     display: flex;
     font-size: 18px;
@@ -742,10 +742,11 @@ body.piramde-ativo {
 	
 	
 	#reservasPorConfirmacao,
-	#horasParaExpirar {
-		max-width: 10px !important; /* Define um tamanho máximo que não pode ser ignorado */
-		width: 100% !important;      /* Garante que a largura se comporte dentro do novo limite */
-		margin-left: auto !important;/* Força o alinhamento à direita */
+	#horasParaExpirar,
+	#edicaoOrganizador { /* ADICIONE O NOVO ID AQUI */
+		max-width: 10px !important;
+		width: 100% !important;
+		margin-left: auto !important;
 	}
 }
 
@@ -1032,6 +1033,22 @@ input:disabled, select:disabled, button:disabled {
 
 /* fim de Estilos para o novo seletor ON/OFF de Confirmação */
 
+/* Estilos para o novo seletor edicaoOrganizador */
+#edicaoOrganizador {
+    font-weight: bold;
+    max-width: 130px;
+    width: 100%;
+    margin-left: auto;
+}
+
+#edicaoOrganizador.edicao-on {
+    color: green;
+}
+
+#edicaoOrganizador.edicao-off {
+    color: red;
+}
+
 </style>
 
 </head>
@@ -1148,9 +1165,21 @@ input:disabled, select:disabled, button:disabled {
 						<option value="12">12 horas</option>
 					</select>
 				</div>
+				
+				<hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+
+				<div class="container">
+					<label for="edicaoOrganizador">Edição pelo Organizador:</label>
+					<select id="edicaoOrganizador" onchange="atualizarEstadoEdicaoOrganizador()">
+						<option value="ON">ON</option>
+						<option value="OFF">OFF</option>
+					</select>
+				</div>
 
 			</div>
 		</div>
+		
+		
 
         <div id="convidados" class="tab-content tab-content-active">
             <div class="container convidados-quadras">
@@ -1543,7 +1572,9 @@ function showTab(tabId) {
 	
 	if (tabId === 'reservas') {
 		atualizarEstadoConfirmacao(); // <-- força aplicar a cor correta ao abrir a aba
+		atualizarEstadoEdicaoOrganizador();
 	}
+	
 
 }
 
@@ -2072,6 +2103,7 @@ function carregarConfiguracoes() {
 					
 					document.getElementById('reservasPorConfirmacao').value = data.ReservasPorConfirmacao ? 'ON' : 'OFF';
 					document.getElementById('horasParaExpirar').value = data.horasParaExpirar || '2';
+					document.getElementById('edicaoOrganizador').value = data.OrganizadorEdicao ? 'ON' : 'OFF';
 
                     const convidados = data.Convidados || {};
                     document.getElementById('convidadosQuadra1').checked = convidados.Quadra1 || false;
@@ -2178,7 +2210,12 @@ function carregarConfiguracoes() {
                 document.getElementById('diasParaAgendar').value = (6 - (data.DiasParaLimpar || 6)).toString();
 				
 				document.getElementById('reservasPorConfirmacao').value = data.ReservasPorConfirmacao ? 'ON' : 'OFF';
+				atualizarEstadoConfirmacao();
+				
 				document.getElementById('horasParaExpirar').value = data.horasParaExpirar || '2';
+				
+				document.getElementById('edicaoOrganizador').value = data.OrganizadorEdicao ? 'ON' : 'OFF';
+				atualizarEstadoEdicaoOrganizador();
 
                 document.getElementById('estadoQuadra1').value = data.Quadras?.Quadra1 || "liberada";
                 document.getElementById('estadoQuadra2').value = data.Quadras?.Quadra2 || "liberada";
@@ -2314,6 +2351,7 @@ function salvarConfiguracoes() {
 	const reservasPorConfirmacao = document.getElementById('reservasPorConfirmacao').value === 'ON';
     
 	const horasParaExpirar = parseInt(document.getElementById('horasParaExpirar').value);
+	const organizadorEdicao = document.getElementById('edicaoOrganizador').value === 'ON';
 
     // Captura os valores dos checkboxes de convidados
     const convidados = {
@@ -2421,6 +2459,7 @@ function salvarConfiguracoes() {
         DiasParaLimpar: diasParaLimpar,
 		ReservasPorConfirmacao: reservasPorConfirmacao,
 		horasParaExpirar: horasParaExpirar,
+		OrganizadorEdicao: organizadorEdicao,
         Quadras: {
             Quadra1: estadoQuadra1,
             Quadra2: estadoQuadra2,
@@ -3235,6 +3274,20 @@ function atualizarEstadoConfirmacao() {
     } else {
         confirmacaoSelect.classList.remove('confirmacao-on');
         confirmacaoSelect.classList.add('confirmacao-off');
+    }
+}
+
+function atualizarEstadoEdicaoOrganizador() {
+    const edicaoSelect = document.getElementById('edicaoOrganizador');
+    const isAtiva = edicaoSelect.value === 'ON';
+
+    // Aplica a classe de cor correta
+    if (isAtiva) {
+        edicaoSelect.classList.remove('edicao-off');
+        edicaoSelect.classList.add('edicao-on');
+    } else {
+        edicaoSelect.classList.remove('edicao-on');
+        edicaoSelect.classList.add('edicao-off');
     }
 }
 
