@@ -94,6 +94,7 @@
         "Nivaldo": true,
         "Pamela Balboa": true,
         "Paulinho": true,
+        "Pedro Azevedo": true,
         "Pedro Lachowski": true,
         "Rafael Gregorio": true,
         "Raianne Kamiya": true,
@@ -760,6 +761,13 @@
           "piramide": "25",
           "socio": "titular"
         },
+        "PEDRO ALCATRAO DE AZEVEDO": {
+          "apelido": "Pedro Azevedo",
+          "classe": "C",
+          "niver": "13/04/2000",
+          "piramide": "",
+          "socio": "titular"
+        },
         "PEDRO MARTINS LACHOWSKI": {
           "apelido": "Pedro Lachowski",
           "classe": "C",
@@ -1049,7 +1057,7 @@
       },
       "Quadras": {
         "Quadra1": "liberada",
-        "Quadra2": "bloqueada",
+        "Quadra2": "liberada",
         "Quadra3": "liberada"
       },
       "ReservasPorConfirmacao": true,
@@ -1459,17 +1467,75 @@
           "hora": 11,
           "jogadores": "aula"
         },
-        "6_15": {
+        "6_13": {
           "borda": "2h",
           "dia": 6,
           "duracao": 2,
-          "hora": 15,
-          "jogadores": "Lucas Titon"
+          "hora": 13,
+          "jogadores": "Alexandre Camargo"
+        },
+        "6_14": {
+          "dia": 6,
+          "hora": 14,
+          "jogadores": "Luciano Cavalheiro"
         },
         "6_16": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Gustavo Ferraz": true,
+            "Taborda": true
+          },
           "dia": 6,
+          "duracao": 2,
+          "expiraEm": 1755299574168,
           "hora": 16,
-          "jogadores": "Flavia Titon"
+          "jogadores": "Taborda",
+          "jogadores_completo": "Taborda, Gustavo Ferraz",
+          "organizador": "Taborda",
+          "status": "confirmada"
+        },
+        "6_17": {
+          "confirmacoes": {
+            "Gustavo Ferraz": true,
+            "Taborda": true
+          },
+          "dia": 6,
+          "duracao": 2,
+          "expiraEm": 1755299574168,
+          "hora": 17,
+          "jogadores": "Gustavo Ferraz",
+          "jogadores_completo": "Taborda, Gustavo Ferraz",
+          "organizador": "Taborda",
+          "status": "confirmada"
+        },
+        "6_18": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Flavia Titon": true,
+            "Lucas Titon": true
+          },
+          "dia": 6,
+          "duracao": 2,
+          "expiraEm": 1755299602115,
+          "hora": 18,
+          "jogadores": "Lucas Titon",
+          "jogadores_completo": "Lucas Titon, Flavia Titon",
+          "organizador": "Taborda",
+          "status": "confirmada"
+        },
+        "6_19": {
+          "confirmacoes": {
+            "Flavia Titon": true,
+            "Lucas Titon": true
+          },
+          "dia": 6,
+          "duracao": 2,
+          "expiraEm": 1755299602115,
+          "hora": 19,
+          "jogadores": "Flavia Titon",
+          "jogadores_completo": "Lucas Titon, Flavia Titon",
+          "organizador": "Taborda",
+          "status": "confirmada"
         },
         "6_7": {
           "borda": "1h",
@@ -1506,12 +1572,81 @@
         }
       },
       "Quadra 2 - Aberta": {
-        "4_19": {
+        "5_10": {
+          "dia": 5,
+          "hora": 10,
+          "jogadores": "Joao Francisco"
+        },
+        "5_11": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 11,
+          "jogadores": "Joa Bento, Convidado"
+        },
+        "5_12": {
+          "dia": 5,
+          "duracao": 2,
+          "hora": 12,
+          "jogadores": "Convidado, Convidado"
+        },
+        "5_13": {
           "borda": "1h",
-          "dia": 4,
+          "dia": 5,
           "duracao": 1,
-          "hora": 19,
-          "jogadores": "Rodrigo Pereira"
+          "hora": 13,
+          "jogadores": "Joao Dario"
+        },
+        "5_6": {
+          "borda": "1h",
+          "confirmacoes": {
+            "Ana Julia": true,
+            "Ana Maria": true
+          },
+          "dia": 5,
+          "duracao": 1,
+          "expiraEm": 1755310524166,
+          "hora": 6,
+          "jogadores": "Ana Maria, Ana Julia, Convidado, Convidado",
+          "jogadores_completo": "Ana Maria, Ana Julia, Convidado, Convidado",
+          "organizador": "Ana Maria",
+          "status": "confirmada"
+        },
+        "5_7": {
+          "borda": "2h",
+          "confirmacoes": {
+            "An Alice": false,
+            "Ana Francisca": true
+          },
+          "dia": 5,
+          "duracao": 2,
+          "expiraEm": 1755310644851,
+          "hora": 7,
+          "jogadores": "Ana Francisca, Convidado",
+          "jogadores_completo": "Ana Francisca, Convidado, An Alice, Convidado",
+          "organizador": "Ana Francisca",
+          "status": "pendente"
+        },
+        "5_8": {
+          "confirmacoes": {
+            "An Alice": false,
+            "Ana Francisca": true
+          },
+          "dia": 5,
+          "duracao": 2,
+          "expiraEm": 1755310644851,
+          "hora": 8,
+          "jogadores": "An Alice, Convidado",
+          "jogadores_completo": "Ana Francisca, Convidado, An Alice, Convidado",
+          "organizador": "Ana Francisca",
+          "status": "pendente"
+        },
+        "5_9": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 3,
+          "hora": 9,
+          "jogadores": "Joao Maria"
         },
         "6_10": {
           "borda": "2h",
@@ -1524,52 +1659,33 @@
           "dia": 6,
           "hora": 11,
           "jogadores": "Convidado"
+        },
+        "6_15": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Rony Duck"
+        },
+        "6_16": {
+          "dia": 6,
+          "hora": 16,
+          "jogadores": "Yuri"
+        },
+        "6_7": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 7,
+          "jogadores": "Giovani Lima"
+        },
+        "6_8": {
+          "dia": 6,
+          "hora": 8,
+          "jogadores": "Convidado"
         }
       },
       "Quadra 3 - Coberta": {
-        "4_10": {
-          "dia": 4,
-          "hora": 10,
-          "jogadores": "Alexa"
-        },
-        "4_17": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Flavio Ferraz"
-        },
-        "4_18": {
-          "dia": 4,
-          "hora": 18,
-          "jogadores": "Frank Fast"
-        },
-        "4_21": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 21,
-          "jogadores": "Alexandre Camargo"
-        },
-        "4_22": {
-          "dia": 4,
-          "hora": 22,
-          "jogadores": "Luciano Cavalheiro"
-        },
-        "4_8": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 8,
-          "jogadores": "Taborda"
-        },
-        "4_9": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 9,
-          "jogadores": "Susan"
-        },
         "5_15": {
           "borda": "2h",
           "dia": 5,
@@ -1589,22 +1705,15 @@
           "hora": 17,
           "jogadores": "Gustavo Ferraz"
         },
-        "5_18": {
+        "5_19": {
           "borda": "2h",
           "dia": 5,
           "duracao": 2,
-          "hora": 18,
-          "jogadores": "Diego Paraiso"
-        },
-        "5_19": {
-          "dia": 5,
           "hora": 19,
-          "jogadores": "Bernardo"
+          "jogadores": "Leonardo Zamprogna"
         },
         "5_20": {
-          "borda": "1h",
           "dia": 5,
-          "duracao": 1,
           "hora": 20,
           "jogadores": "Victoria Zeni"
         },
@@ -1626,6 +1735,30 @@
           "dia": 6,
           "hora": 11,
           "jogadores": "Arthur Amorim"
+        },
+        "6_14": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 14,
+          "jogadores": "Susan"
+        },
+        "6_15": {
+          "dia": 6,
+          "hora": 15,
+          "jogadores": "Thomas August"
+        },
+        "6_16": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 16,
+          "jogadores": "Diego Paraiso"
+        },
+        "6_17": {
+          "dia": 6,
+          "hora": 17,
+          "jogadores": "Bernardo"
         },
         "6_20": {
           "borda": "1h",
@@ -1656,8 +1789,10 @@
       }
     },
     "usuariosOnline": {
-      "n4pne5fsf": {
-        "usuario": "ANA PAULA KESSLER PEREIRA"
+      "xllafuafw": {
+        "sessionId": "xllafuafw",
+        "timestamp": 1755307315262,
+        "usuario": "ANA FRANCISCA SANTOS"
       }
     },
     "version": "v1.4.7"
