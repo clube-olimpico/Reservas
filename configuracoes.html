@@ -12,18 +12,19 @@
 <style>
 
 body {
-    font-family: Arial, sans-serif;       
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f8f9fa; /* Novo fundo cinza claro */
+    color: #212529; /* Texto principal um pouco mais escuro */
     padding: 10px;
     display: flex;
     font-size: 18px;
-    justify-content: center; 
+    justify-content: center;
     align-items: flex-start; 
     min-height: 100vh;
     margin: 0;
     overflow-y: auto;
-    box-sizing: border-box;    
+    box-sizing: border-box;
 }
-
 .container {
     display: flex;
     align-items: center;
@@ -172,14 +173,15 @@ body {
 
 
 /* Estilo do container do formulário */
-        .form-container {
+.form-container {
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    width: 400px; /* Largura fixa */
+    background: #ffffff; /* Garante o fundo branco do cartão */
+    border: none; /* Remove a borda antiga */
+    border-radius: 12px; /* Cantos mais arredondados e suaves */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra mais moderna */
+    width: 400px; /* Mantém a largura fixa */
     text-align: center;
-    margin: 10px auto; /* Centraliza e adiciona margem */
+    margin: 10px auto; /* Mantém a centralização */
 }
 
 
@@ -738,12 +740,19 @@ body.piramde-ativo {
 		padding: 15px 10px;    /* Reduz o espaçamento lateral de cada aba */
 		font-size: 16px;       /* Usa o tamanho de fonte que você havia gostado */
 		white-space: nowrap;   /* Garante que o texto não quebre em duas linhas */ 
+		
 	}
+	
+	.tabs .tab {
+        padding: 8px 10px;    /* Mantém o padding original do mobile */
+        font-size: 16px;       /* Mantém a fonte original do mobile */
+    }
 	
 	
 	#reservasPorConfirmacao,
 	#horasParaExpirar,
-	#edicaoOrganizador { /* ADICIONE O NOVO ID AQUI */
+	#edicaoOrganizador,
+	#quebraHorarioDomingo {
 		max-width: 10px !important;
 		width: 100% !important;
 		margin-left: auto !important;
@@ -768,25 +777,35 @@ body.piramde-ativo {
     display: flex;
     justify-content: center;
     margin-top: 10px;
-	
+    margin-bottom: 15px; /* Aumenta o espaço abaixo das abas */
 }
 
 .tab {
-    padding: 15px 20px; /* Ajuste a altura aumentando o padding vertical */
+    padding: 10px 20px;
     cursor: pointer;
-    background: #ddd;
-    border: 1px solid #aaa;
-    border-bottom: none;
-    height: 5px; /* Define uma altura fixa, ajuste conforme necessário */
-    display: flex; /* Mantém o conteúdo centralizado verticalmente */
-    align-items: center; /* Centraliza o texto no meio do botão */
+    background: none; /* Remove o fundo cinza */
+    border: none; /* Remove a borda antiga */
+    border-bottom: 3px solid transparent; /* Borda inferior que ficará azul na aba ativa */
+    color: #6c757d; /* Cor do texto secundária */
+    font-weight: 500;
+    transition: all 0.2s ease-in-out; /* Adiciona uma transição suave */
+    height: auto; /* Remove a altura fixa */
+    display: flex;
+    align-items: center;
+    margin-bottom: -20px; /* Alinha a borda da aba com a borda do container */
 }
 
+.tab:hover {
+    color: #0056b3; /* Cor ao passar o mouse */
+}
 
 .tab.active {
-    background: #fff;
-    font-weight: bold;
+    background: none; /* Garante que não tenha fundo branco */
+    font-weight: 600;
+    color: #007bff; /* Cor azul principal para a aba ativa */
+    border-bottom-color: #007bff; /* Linha indicadora azul */
 }
+
 
 #usuariosOnline {
     background-color: #f2f2f2;
@@ -1049,6 +1068,22 @@ input:disabled, select:disabled, button:disabled {
     color: red;
 }
 
+/* Estilos para o novo seletor Quebra Horario Domingo */
+#quebraHorarioDomingo {
+    font-weight: bold;
+    max-width: 130px;
+    width: 100%;
+    margin-left: auto;
+}
+
+#quebraHorarioDomingo.quebra-on {
+    color: green;
+}
+
+#quebraHorarioDomingo.quebra-off {
+    color: red;
+}
+
 </style>
 
 </head>
@@ -1135,19 +1170,20 @@ input:disabled, select:disabled, button:disabled {
 
     <div id="main-content">
         <div class="tabs">
+            <div class="tab active" onclick="showTab('reservas')">Reservas</div>
+            <div class="tab" onclick="showTab('duplas')">Duplas</div>
+			<div class="tab" onclick="showTab('convidados')">Convidados</div>
             <div class="tab" onclick="showTab('piramide')">Pirâmide</div>
-			<div class="tab active" onclick="showTab('convidados')">Convidados</div>
-			<div class="tab" onclick="showTab('duplas')">Duplas</div>
-			<div class="tab" onclick="showTab('reservas')">Reservas</div>
         </div>
 		
-		<div id="reservas" class="tab-content">
+		<div id="reservas" class="tab-content tab-content-active">
 			<div style="border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
 				
 				<div class="container">
-					<label for="reservasPorConfirmacao">Confirmação de Reservas:</label>
+					<label for="reservasPorConfirmacao" title="ON: Reservas com múltiplos sócios exigem que cada um confirme sua presença.&#10;──────────&#10;OFF: Todas as reservas são confirmadas instantaneamente.">Confirmação de Reservas:</label>
 					<select id="reservasPorConfirmacao" onchange="atualizarEstadoConfirmacao()">
 						<option value="ON">ON</option>
+						<option disabled style="color: #ccc;">──────────</option>
 						<option value="OFF">OFF</option>
 					</select>
 				</div>
@@ -1155,7 +1191,7 @@ input:disabled, select:disabled, button:disabled {
 				<hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
 
 				<div class="container">
-					<label for="horasParaExpirar">Prazo para Confirmação:</label>
+					<label for="horasParaExpirar" title="Define o tempo máximo que os jogadores têm para aceitar ou recusar um convite.&#10;──────────&#10;Se o prazo expirar, a reserva é cancelada automaticamente.">Prazo para Confirmação:</label>
 					<select id="horasParaExpirar">
 						<option value="1">1 hora</option>
 						<option value="2">2 horas</option>
@@ -1169,9 +1205,21 @@ input:disabled, select:disabled, button:disabled {
 				<hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
 
 				<div class="container">
-					<label for="edicaoOrganizador">Edição pelo Organizador:</label>
+					<label for="edicaoOrganizador" title="ON: Permite que o organizador de uma reserva pendente possa adicionar ou remover jogadores.&#10;──────────&#10;OFF: O organizador pode apenas excluir a reserva.">Edição pelo Organizador:</label>
 					<select id="edicaoOrganizador" onchange="atualizarEstadoEdicaoOrganizador()">
 						<option value="ON">ON</option>
+						<option disabled style="color: #ccc;">──────────</option>
+						<option value="OFF">OFF</option>
+					</select>
+				</div>
+
+				<hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+
+				<div class="container">
+					<label for="quebraHorarioDomingo" title="ON: Permite que um sócio faça duas reservas de 1 hora no domingo, desde que não sejam em horários consecutivos.&#10;──────────&#10;OFF: Limita cada sócio a apenas uma reserva de 1 hora no domingo.">Quebra Horário Domingo:</label>
+					<select id="quebraHorarioDomingo" onchange="atualizarEstadoQuebraDomingo()">
+						<option value="ON">ON</option>
+						<option disabled style="color: #ccc;">──────────</option>
 						<option value="OFF">OFF</option>
 					</select>
 				</div>
@@ -1181,7 +1229,7 @@ input:disabled, select:disabled, button:disabled {
 		
 		
 
-        <div id="convidados" class="tab-content tab-content-active">
+        <div id="convidados" class="tab-content">
             <div class="container convidados-quadras">
                 <label style="font-weight: bold;">Quadras:</label>
                 <div class="convidados-options">
@@ -1573,6 +1621,7 @@ function showTab(tabId) {
 	if (tabId === 'reservas') {
 		atualizarEstadoConfirmacao(); // <-- força aplicar a cor correta ao abrir a aba
 		atualizarEstadoEdicaoOrganizador();
+		atualizarEstadoQuebraDomingo();
 	}
 	
 
@@ -2104,6 +2153,7 @@ function carregarConfiguracoes() {
 					document.getElementById('reservasPorConfirmacao').value = data.ReservasPorConfirmacao ? 'ON' : 'OFF';
 					document.getElementById('horasParaExpirar').value = data.horasParaExpirar || '2';
 					document.getElementById('edicaoOrganizador').value = data.OrganizadorEdicao ? 'ON' : 'OFF';
+					document.getElementById('quebraHorarioDomingo').value = data.QuebraDeHorarioDomingo ? 'ON' : 'OFF';
 
                     const convidados = data.Convidados || {};
                     document.getElementById('convidadosQuadra1').checked = convidados.Quadra1 || false;
@@ -2216,6 +2266,9 @@ function carregarConfiguracoes() {
 				
 				document.getElementById('edicaoOrganizador').value = data.OrganizadorEdicao ? 'ON' : 'OFF';
 				atualizarEstadoEdicaoOrganizador();
+				
+				document.getElementById('quebraHorarioDomingo').value = data.QuebraDeHorarioDomingo ? 'ON' : 'OFF';
+				atualizarEstadoQuebraDomingo();
 
                 document.getElementById('estadoQuadra1').value = data.Quadras?.Quadra1 || "liberada";
                 document.getElementById('estadoQuadra2').value = data.Quadras?.Quadra2 || "liberada";
@@ -2352,6 +2405,7 @@ function salvarConfiguracoes() {
     
 	const horasParaExpirar = parseInt(document.getElementById('horasParaExpirar').value);
 	const organizadorEdicao = document.getElementById('edicaoOrganizador').value === 'ON';
+	const quebraHorarioDomingo = document.getElementById('quebraHorarioDomingo').value === 'ON';
 
     // Captura os valores dos checkboxes de convidados
     const convidados = {
@@ -2460,6 +2514,7 @@ function salvarConfiguracoes() {
 		ReservasPorConfirmacao: reservasPorConfirmacao,
 		horasParaExpirar: horasParaExpirar,
 		OrganizadorEdicao: organizadorEdicao,
+		QuebraDeHorarioDomingo: quebraHorarioDomingo,
         Quadras: {
             Quadra1: estadoQuadra1,
             Quadra2: estadoQuadra2,
@@ -2498,7 +2553,7 @@ function salvarConfiguracoes() {
 	
 	
 document.addEventListener("DOMContentLoaded", function() { 
-    showTab('piramide');
+    showTab('reservas');
     atualizarEstadoPiramide();
 	atualizarEstadoDuplas();
 
@@ -2612,7 +2667,34 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	});
 	
-	
+	// --- INÍCIO DO NOVO CÓDIGO PARA TOOLTIPS COM CLIQUE ---
+
+    // Função auxiliar para adicionar o evento de clique nos labels
+    // Função auxiliar para adicionar o evento de clique nos labels
+    const adicionarTooltipDeClique = (labelFor) => {
+        const label = document.querySelector(`label[for="${labelFor}"]`);
+        if (label) {
+            // Adiciona um cursor de ajuda para indicar que o label é clicável
+            label.style.cursor = 'help';
+            
+            label.addEventListener('click', function() {
+                // Pega a descrição do atributo 'title' do próprio label
+                const descricao = this.getAttribute('title');
+                if (descricao) {
+                    // A única alteração está na linha do alert abaixo:
+                    alert(`ℹ️ Informação\n\n${descricao.replace(/&#10;/g, '\n')}`);
+                }
+            });
+        }
+    };
+
+    // Adiciona o listener para cada um dos labels da aba "Reservas"
+    adicionarTooltipDeClique('reservasPorConfirmacao');
+    adicionarTooltipDeClique('horasParaExpirar');
+    adicionarTooltipDeClique('edicaoOrganizador');
+    adicionarTooltipDeClique('quebraHorarioDomingo');
+
+    // --- FIM DO NOVO CÓDIGO ---
 
 });
 
@@ -3288,6 +3370,20 @@ function atualizarEstadoEdicaoOrganizador() {
     } else {
         edicaoSelect.classList.remove('edicao-on');
         edicaoSelect.classList.add('edicao-off');
+    }
+}
+
+
+function atualizarEstadoQuebraDomingo() {
+    const quebraSelect = document.getElementById('quebraHorarioDomingo');
+    const isAtiva = quebraSelect.value === 'ON';
+
+    if (isAtiva) {
+        quebraSelect.classList.remove('quebra-off');
+        quebraSelect.classList.add('quebra-on');
+    } else {
+        quebraSelect.classList.remove('quebra-on');
+        quebraSelect.classList.add('quebra-off');
     }
 }
 
