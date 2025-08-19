@@ -1060,6 +1060,7 @@
         "Quadra2": "liberada",
         "Quadra3": "liberada"
       },
+      "QuebraDeHorarioDomingo": false,
       "ReservasPorConfirmacao": true,
       "githubToken": "***SEGREDO_REMOVIDO***",
       "horasParaExpirar": 1,
@@ -1068,6 +1069,18 @@
     },
     "reservas": {
       "Quadra 1 - Coberta": {
+        "1_12": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 2,
+          "hora": 12,
+          "jogadores": "Felipe Mikuska"
+        },
+        "1_13": {
+          "dia": 1,
+          "hora": 13,
+          "jogadores": "Amora"
+        },
         "1_14": {
           "borda": "1h",
           "dia": 1,
@@ -1494,58 +1507,41 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
-        },
-        "7_10": {
-          "borda": "2h",
-          "dia": 7,
-          "duracao": 2,
-          "hora": 10,
-          "jogadores": "Pedro Lachowski"
-        },
-        "7_11": {
-          "dia": 7,
-          "hora": 11,
-          "jogadores": "Gabriel Martins"
-        },
-        "7_8": {
-          "borda": "2h",
-          "dia": 7,
-          "duracao": 2,
-          "hora": 8,
-          "jogadores": "Helio Oliveira"
-        },
-        "7_9": {
-          "dia": 7,
-          "hora": 9,
-          "jogadores": "Rafael Gregorio"
         }
       },
       "Quadra 2 - Aberta": {
-        "7_10": {
+        "1_15": {
           "borda": "2h",
-          "dia": 7,
+          "dia": 1,
           "duracao": 2,
-          "hora": 10,
-          "jogadores": "Taborda"
+          "hora": 15,
+          "jogadores": "Rodrigo Pereira"
         },
-        "7_11": {
-          "dia": 7,
-          "duracao": 2,
-          "hora": 11,
-          "jogadores": "Felipe Mikuska"
+        "1_16": {
+          "dia": 1,
+          "hora": 16,
+          "jogadores": "Ana Paula Pereira"
         },
-        "7_8": {
-          "borda": "2h",
-          "dia": 7,
-          "duracao": 2,
-          "hora": 8,
-          "jogadores": "Davi Voj"
-        },
-        "7_9": {
-          "dia": 7,
-          "duracao": 2,
-          "hora": 9,
+        "1_17": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 17,
           "jogadores": "Rodrigo Voj"
+        },
+        "1_18": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 18,
+          "jogadores": "Fabio Batista"
+        },
+        "1_20": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Kaiser"
         }
       },
       "Quadra 3 - Coberta": {
@@ -1573,12 +1569,50 @@
           "hora": 20,
           "jogadores": "Bernardo"
         },
+        "1_21": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 21,
+          "jogadores": "Alexandre Camargo"
+        },
+        "2_18": {
+          "borda": "2h",
+          "dia": 2,
+          "duracao": 2,
+          "hora": 18,
+          "jogadores": "Ivan Balboa"
+        },
+        "2_19": {
+          "dia": 2,
+          "hora": 19,
+          "jogadores": "Caina Balboa"
+        },
         "2_20": {
           "borda": "1h",
           "dia": 2,
           "duracao": 1,
           "hora": 20,
           "jogadores": "Arthur Amorim"
+        },
+        "2_21": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 21,
+          "jogadores": "Luciano Cavalheiro"
+        },
+        "3_17": {
+          "borda": "2h",
+          "dia": 3,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Almir, Flavio Ferraz"
+        },
+        "3_18": {
+          "dia": 3,
+          "hora": 18,
+          "jogadores": "Frank Fast, Marco Ribeiro"
         },
         "3_20": {
           "borda": "1h",
@@ -1587,12 +1621,36 @@
           "hora": 20,
           "jogadores": "Isa"
         },
-        "7_11": {
+        "4_19": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Isabelle Balboa"
+        },
+        "4_20": {
+          "dia": 4,
+          "hora": 20,
+          "jogadores": "Pamela Balboa"
+        },
+        "4_21": {
           "borda": "1h",
-          "dia": 7,
+          "dia": 4,
           "duracao": 1,
-          "hora": 11,
-          "jogadores": "Felipe Muraski"
+          "hora": 21,
+          "jogadores": "Kaiser"
+        },
+        "5_16": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 3,
+          "hora": 16,
+          "jogadores": "Claudio Warkentin"
+        },
+        "5_17": {
+          "dia": 5,
+          "hora": 17,
+          "jogadores": "Makoto"
         }
       }
     },
