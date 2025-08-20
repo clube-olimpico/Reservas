@@ -28,7 +28,7 @@ body {
 .container {
     display: flex;
     align-items: center;
-    /* justify-content: space-between;   Remova esta linha */  
+    /* justify-content: space-between;   Remova esta linha */   
     margin-bottom: 10px;
     gap: 10px; 
 }
@@ -752,7 +752,7 @@ body.piramde-ativo {
 	#reservasPorConfirmacao,
 	#horasParaExpirar,
 	#edicaoOrganizador,
-	#quebraHorarioDomingo {
+	#quebraHorarioDomingoAtiva {
 		max-width: 10px !important;
 		width: 100% !important;
 		margin-left: auto !important;
@@ -1069,18 +1069,18 @@ input:disabled, select:disabled, button:disabled {
 }
 
 /* Estilos para o novo seletor Quebra Horario Domingo */
-#quebraHorarioDomingo {
+#quebraHorarioDomingoAtiva {
     font-weight: bold;
     max-width: 130px;
     width: 100%;
     margin-left: auto;
 }
 
-#quebraHorarioDomingo.quebra-on {
+#quebraHorarioDomingoAtiva.quebra-on {
     color: green;
 }
 
-#quebraHorarioDomingo.quebra-off {
+#quebraHorarioDomingoAtiva.quebra-off {
     color: red;
 }
 
@@ -1183,7 +1183,6 @@ input:disabled, select:disabled, button:disabled {
 					<label for="reservasPorConfirmacao" title="ON: Reservas com múltiplos sócios exigem que cada um confirme sua presença.&#10;──────────&#10;OFF: Todas as reservas são confirmadas instantaneamente.">Confirmação de Reservas:</label>
 					<select id="reservasPorConfirmacao" onchange="atualizarEstadoConfirmacao()">
 						<option value="ON">ON</option>
-						<option disabled style="color: #ccc;">──────────</option>
 						<option value="OFF">OFF</option>
 					</select>
 				</div>
@@ -1198,7 +1197,7 @@ input:disabled, select:disabled, button:disabled {
 						<option value="3">3 horas</option>
 						<option value="4">4 horas</option>
 						<option value="6">6 horas</option>
-						<option value="12">12 horas</option>
+						<option value="12">12 horas</option> 
 					</select>
 				</div>
 				
@@ -1208,7 +1207,6 @@ input:disabled, select:disabled, button:disabled {
 					<label for="edicaoOrganizador" title="ON: Permite que o organizador de uma reserva pendente possa adicionar ou remover jogadores.&#10;──────────&#10;OFF: O organizador pode apenas excluir a reserva.">Edição pelo Organizador:</label>
 					<select id="edicaoOrganizador" onchange="atualizarEstadoEdicaoOrganizador()">
 						<option value="ON">ON</option>
-						<option disabled style="color: #ccc;">──────────</option>
 						<option value="OFF">OFF</option>
 					</select>
 				</div>
@@ -1216,10 +1214,10 @@ input:disabled, select:disabled, button:disabled {
 				<hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
 
 				<div class="container">
-					<label for="quebraHorarioDomingo" title="ON: Permite que um sócio faça duas reservas de 1 hora no domingo, desde que não sejam em horários consecutivos.&#10;──────────&#10;OFF: Limita cada sócio a apenas uma reserva de 1 hora no domingo.">Quebra Horário Domingo:</label>
-					<select id="quebraHorarioDomingo" onchange="atualizarEstadoQuebraDomingo()">
+					<label for="quebraHorarioDomingoAtiva" title="ON: Permite agendamentos livres no domingo.&#10;──────────&#10;OFF: Abre uma janela para você escolher em quais quadras a regra de otimização (apenas reservas 8-10h e 10-12h) será aplicada.">Quebra Horário Domingo:</label>
+					<select id="quebraHorarioDomingoAtiva" onchange="handleQuebraHorarioChange()" ondblclick="if(this.value === 'OFF') { abrirModalQuebraHorario(); }">
 						<option value="ON">ON</option>
-						<option disabled style="color: #ccc;">──────────</option>
+						<option disabled="" style="color: #ccc;">──────────</option>
 						<option value="OFF">OFF</option>
 					</select>
 				</div>
@@ -1543,6 +1541,25 @@ input:disabled, select:disabled, button:disabled {
         <div class="container modal-buttons">
             <button class="btn-fechar" onclick="fecharModalDiasSemana()">Fechar</button>
             <button class="btn-adicionar" onclick="salvarModalDiasSemana()">Salvar</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalQuebraHorarioQuadras" class="modal-overlay">
+    <div class="modal-content">
+        <h2 id="modalQuebraHorarioTitulo">Otimização de Domingo   Selecionar Quadras</h2>
+        
+        <div id="quebraHorarioCheckboxContainer">
+            <label class="dias-semana-label"><input type="checkbox" id="quebraHorarioQuadra1"> Quadra 1 - Coberta</label>
+            <label class="dias-semana-label"><input type="checkbox" id="quebraHorarioQuadra2"> Quadra 2 - Aberta</label>
+            <label class="dias-semana-label"><input type="checkbox" id="quebraHorarioQuadra3"> Quadra 3 - Coberta</label>
+        </div>
+        
+        <hr>
+
+        <div class="container modal-buttons">
+            <button class="btn-fechar" onclick="fecharModalQuebraHorario()">Fechar</button>
+            <button class="btn-adicionar" onclick="salvarModalQuebraHorario()">Salvar</button>
         </div>
     </div>
 </div>
@@ -2153,7 +2170,10 @@ function carregarConfiguracoes() {
 					document.getElementById('reservasPorConfirmacao').value = data.ReservasPorConfirmacao ? 'ON' : 'OFF';
 					document.getElementById('horasParaExpirar').value = data.horasParaExpirar || '2';
 					document.getElementById('edicaoOrganizador').value = data.OrganizadorEdicao ? 'ON' : 'OFF';
-					document.getElementById('quebraHorarioDomingo').value = data.QuebraDeHorarioDomingo ? 'ON' : 'OFF';
+					// Carrega a nova estrutura de Quebra de Horário
+					const quebraConfig = data.QuebraDeHorarioDomingo || { ativa: true, quadras: {} };
+					document.getElementById('quebraHorarioDomingoAtiva').value = quebraConfig.ativa ? 'ON' : 'OFF';
+					quebraHorarioQuadrasConfig = quebraConfig.quadras || {}; // Popula a variável temporária
 
                     const convidados = data.Convidados || {};
                     document.getElementById('convidadosQuadra1').checked = convidados.Quadra1 || false;
@@ -2267,7 +2287,10 @@ function carregarConfiguracoes() {
 				document.getElementById('edicaoOrganizador').value = data.OrganizadorEdicao ? 'ON' : 'OFF';
 				atualizarEstadoEdicaoOrganizador();
 				
-				document.getElementById('quebraHorarioDomingo').value = data.QuebraDeHorarioDomingo ? 'ON' : 'OFF';
+				// Carrega a nova estrutura de Quebra de Horário
+				const quebraConfig = data.QuebraDeHorarioDomingo || { ativa: true, quadras: {} };
+				document.getElementById('quebraHorarioDomingoAtiva').value = quebraConfig.ativa ? 'ON' : 'OFF';
+				quebraHorarioQuadrasConfig = quebraConfig.quadras || {}; // Popula a variável temporária
 				atualizarEstadoQuebraDomingo();
 
                 document.getElementById('estadoQuadra1').value = data.Quadras?.Quadra1 || "liberada";
@@ -2405,7 +2428,10 @@ function salvarConfiguracoes() {
     
 	const horasParaExpirar = parseInt(document.getElementById('horasParaExpirar').value);
 	const organizadorEdicao = document.getElementById('edicaoOrganizador').value === 'ON';
-	const quebraHorarioDomingo = document.getElementById('quebraHorarioDomingo').value === 'ON';
+	const quebraHorarioDomingo = {
+		ativa: document.getElementById('quebraHorarioDomingoAtiva').value === 'ON',
+		quadras: quebraHorarioQuadrasConfig // Usa os dados salvos pelo modal
+	};
 
     // Captura os valores dos checkboxes de convidados
     const convidados = {
@@ -2636,9 +2662,18 @@ for (let i = 1; i <= 3; i++) {
     }
 	
 	// --- NOVO: Configura evento de "segurar" para mobile ---
-    setupMobileHoldEvents(document.getElementById('estadoQuadra1'), 1);
-    setupMobileHoldEvents(document.getElementById('estadoQuadra2'), 2);
-    setupMobileHoldEvents(document.getElementById('estadoQuadra3'), 3);
+    const selectQuadra1 = document.getElementById('estadoQuadra1');
+    const selectQuadra2 = document.getElementById('estadoQuadra2');
+    const selectQuadra3 = document.getElementById('estadoQuadra3');
+    const selectQuebraDomingo = document.getElementById('quebraHorarioDomingoAtiva');
+
+    // Atualiza as chamadas antigas para usar a nova função genérica
+    setupHoldEvent(selectQuadra1, () => handleEstadoQuadraChange(selectQuadra1, 1));
+    setupHoldEvent(selectQuadra2, () => handleEstadoQuadraChange(selectQuadra2, 2));
+    setupHoldEvent(selectQuadra3, () => handleEstadoQuadraChange(selectQuadra3, 3));
+
+    // Adiciona a nova chamada para o campo "Quebra Horário Domingo"
+    setupHoldEvent(selectQuebraDomingo, handleQuebraHorarioHold);
 	
 	
 	
@@ -2670,29 +2705,31 @@ document.addEventListener('DOMContentLoaded', function () {
 	// --- INÍCIO DO NOVO CÓDIGO PARA TOOLTIPS COM CLIQUE ---
 
     // Função auxiliar para adicionar o evento de clique nos labels
-    // Função auxiliar para adicionar o evento de clique nos labels
-    const adicionarTooltipDeClique = (labelFor) => {
-        const label = document.querySelector(`label[for="${labelFor}"]`);
-        if (label) {
-            // Adiciona um cursor de ajuda para indicar que o label é clicável
-            label.style.cursor = 'help';
+const adicionarTooltipDeClique = (labelFor) => {
+    const label = document.querySelector(`label[for="${labelFor}"]`);
+    if (label) {
+        // Adiciona um cursor de ajuda para indicar que o label é clicável
+        label.style.cursor = 'help';
+        
+        label.addEventListener('click', function() {
+            const descricao = this.getAttribute('title');
+            // --- INÍCIO DA ALTERAÇÃO ---
+            const titulo = this.textContent; // Pega o texto do próprio label (ex: "Quebra Horário Domingo:")
             
-            label.addEventListener('click', function() {
-                // Pega a descrição do atributo 'title' do próprio label
-                const descricao = this.getAttribute('title');
-                if (descricao) {
-                    // A única alteração está na linha do alert abaixo:
-                    alert(`ℹ️ Informação\n\n${descricao.replace(/&#10;/g, '\n')}`);
-                }
-            });
-        }
-    };
+            if (descricao) {
+                // Usa a variável 'titulo' em vez do texto fixo "Informação"
+                alert(`ℹ️ ${titulo}\n\n${descricao.replace(/&#10;/g, '\n')}`);
+            }
+            // --- FIM DA ALTERAÇÃO ---
+        });
+    }
+};
 
     // Adiciona o listener para cada um dos labels da aba "Reservas"
     adicionarTooltipDeClique('reservasPorConfirmacao');
     adicionarTooltipDeClique('horasParaExpirar');
     adicionarTooltipDeClique('edicaoOrganizador');
-    adicionarTooltipDeClique('quebraHorarioDomingo');
+    adicionarTooltipDeClique('quebraHorarioDomingoAtiva');
 
     // --- FIM DO NOVO CÓDIGO ---
 
@@ -3282,34 +3319,29 @@ function salvarModalDiasSemana() {
 
 
 /**
- * Configura os eventos de toque (touch) para simular um "pressionar e segurar" em dispositivos móveis.
- * @param {HTMLElement} element - O elemento <select> ao qual os eventos serão adicionados.
- * @param {number} quadraNumero - O número da quadra correspondente.
+ * Configura um evento de "pressionar e segurar" para um elemento em dispositivos móveis.
+ * @param {HTMLElement} element - O elemento ao qual o evento será adicionado.
+ * @param {function} callback - A função a ser chamada após o tempo de espera.
  */
-function setupMobileHoldEvents(element, quadraNumero) {
+function setupHoldEvent(element, callback) {
     let holdTimer;
 
-    // Evento disparado quando o usuário toca na tela
     element.addEventListener('touchstart', function(e) {
-        // Inicia um cronômetro de 700ms. Se o usuário não tirar o dedo, a função para abrir o modal será chamada.
+        // A linha e.preventDefault(); foi REMOVIDA daqui.
         holdTimer = setTimeout(function() {
-            // Reutiliza a mesma função do duplo clique para abrir o modal
-            handleEstadoQuadraChange(element, quadraNumero);
-        }, 700); // 700 milissegundos para considerar como "segurar"
+            callback(); // Chama a função que passamos como argumento
+        }, 700);
     });
 
-    // Evento disparado quando o usuário tira o dedo da tela
     element.addEventListener('touchend', function(e) {
-        // Cancela o cronômetro para evitar que o modal abra se foi apenas um toque rápido.
         clearTimeout(holdTimer);
     });
 
-    // Evento disparado se o usuário arrastar o dedo pela tela (scroll)
     element.addEventListener('touchmove', function(e) {
-        // Também cancela o cronômetro para não confundir com o gesto de rolagem.
         clearTimeout(holdTimer);
     });
 }
+
 
 
 /**
@@ -3374,10 +3406,15 @@ function atualizarEstadoEdicaoOrganizador() {
 }
 
 
+/**
+ * Função que APENAS atualiza o estado visual (cores) do campo.
+ * É seguro chamá-la a qualquer momento para refrescar a UI.
+ */
 function atualizarEstadoQuebraDomingo() {
-    const quebraSelect = document.getElementById('quebraHorarioDomingo');
-    const isAtiva = quebraSelect.value === 'ON';
+    const quebraSelect = document.getElementById('quebraHorarioDomingoAtiva');
+    const isAtiva = quebraSelect.value === 'ON'; // 'ON' significa que a quebra é PERMITIDA
 
+    // Lógica de cor
     if (isAtiva) {
         quebraSelect.classList.remove('quebra-off');
         quebraSelect.classList.add('quebra-on');
@@ -3387,6 +3424,77 @@ function atualizarEstadoQuebraDomingo() {
     }
 }
 
+
+// Variável para guardar o estado temporário dos checkboxes do modal
+let quebraHorarioQuadrasConfig = {};
+
+/**
+ * Abre o modal e preenche os checkboxes com os valores guardados na variável.
+ */
+function abrirModalQuebraHorario() {
+    // Carrega os valores atuais nos checkboxes
+    document.getElementById('quebraHorarioQuadra1').checked = quebraHorarioQuadrasConfig['Quadra-1'] || false;
+    document.getElementById('quebraHorarioQuadra2').checked = quebraHorarioQuadrasConfig['Quadra-2'] || false;
+    document.getElementById('quebraHorarioQuadra3').checked = quebraHorarioQuadrasConfig['Quadra-3'] || false;
+
+    // Exibe o modal
+    document.getElementById('modalQuebraHorarioQuadras').style.display = 'flex';
+}
+
+/**
+ * Simplesmente fecha o modal sem salvar.
+ */
+function fecharModalQuebraHorario() {
+    document.getElementById('modalQuebraHorarioQuadras').style.display = 'none';
+}
+
+
+/**
+ * Lê o estado dos checkboxes, guarda na variável temporária e fecha o modal.
+ */
+/**
+ * Lê o estado dos checkboxes, guarda na variável temporária e fecha o modal.
+ */
+function salvarModalQuebraHorario() {
+    quebraHorarioQuadrasConfig = {
+        'Quadra-1': document.getElementById('quebraHorarioQuadra1').checked,
+        'Quadra-2': document.getElementById('quebraHorarioQuadra2').checked,
+        'Quadra-3': document.getElementById('quebraHorarioQuadra3').checked
+    };
+    
+    // 1. Fecha o modal imediatamente
+    fecharModalQuebraHorario();
+
+    // 2. Usa o setTimeout para atrasar o alerta, permitindo que a tela seja redesenhada.
+    setTimeout(function() {
+        alert('Configuração por quadra guardada. Clique em "Salvar Configurações" no final da página para gravar as mudanças.');
+    }, 0); // Um atraso de 0 milissegundos é suficiente para que funcione.
+}
+
+
+
+/**
+ * Função chamada quando o UTILIZADOR altera o valor do dropdown.
+ * Ela atualiza a cor e, se necessário, abre o modal.
+ */
+function handleQuebraHorarioChange() {
+    // Primeiro, chama a função que apenas atualiza a cor
+    atualizarEstadoQuebraDomingo();
+
+    // Depois, verifica se o valor é OFF para abrir o modal
+    const quebraSelect = document.getElementById('quebraHorarioDomingoAtiva');
+    if (quebraSelect.value === 'OFF') {
+        abrirModalQuebraHorario();
+    }
+}
+
+
+function handleQuebraHorarioHold() {
+    const quebraSelect = document.getElementById('quebraHorarioDomingoAtiva');
+    if (quebraSelect.value === 'OFF') {
+        abrirModalQuebraHorario();
+    }
+}
 
 </script>
 </body>
