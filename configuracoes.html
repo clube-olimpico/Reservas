@@ -1084,6 +1084,19 @@ input:disabled, select:disabled, button:disabled {
     color: red;
 }
 
+/* Impede a seleção de texto nos campos ON/OFF ao pressionar no telemóvel */
+#quebraHorarioDomingoAtiva,
+#edicaoOrganizador,
+#reservasPorConfirmacao,
+#sistema,
+#piramideAtiva,
+#duplasAtiva {
+    -webkit-user-select: none; /* Safari e Chrome no iOS */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Internet Explorer/Edge */
+    user-select: none;         /* Padrão */
+}
+
 </style>
 
 </head>
