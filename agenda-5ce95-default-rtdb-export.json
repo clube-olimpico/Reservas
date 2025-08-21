@@ -36,7 +36,6 @@
         "Claudio Warkentin": true,
         "Clodoaldo": true,
         "Convidado": true,
-        "Cris": true,
         "Cristina Pirachovski": true,
         "Davi Voj": true,
         "Diego Paraiso": true,
@@ -211,7 +210,7 @@
         "ALMIR ALVES DA CRUZ": {
           "apelido": "Almir",
           "classe": "A",
-          "niver": "01/01/2001",
+          "niver": "10/07/1964",
           "piramide": "8",
           "socio": "titular"
         },
@@ -887,13 +886,6 @@
           "piramide": "",
           "socio": "dependente"
         },
-        "THIAGO CRISTIAN": {
-          "apelido": "Cris",
-          "classe": "C",
-          "niver": "21/06/1999",
-          "piramide": "",
-          "socio": "titular"
-        },
         "THOMAS AUGUST": {
           "apelido": "Thomas August",
           "classe": "C",
@@ -1063,9 +1055,9 @@
       "QuebraDeHorarioDomingo": {
         "ativa": false,
         "quadras": {
-          "Quadra-1": false,
-          "Quadra-2": true,
-          "Quadra-3": true
+          "Quadra-1": true,
+          "Quadra-2": false,
+          "Quadra-3": false
         }
       },
       "ReservasPorConfirmacao": true,
@@ -1187,13 +1179,6 @@
           "duracao": 1,
           "hora": 21,
           "jogadores": "aula"
-        },
-        "2_8": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 8,
-          "jogadores": "Airton Santos"
         },
         "3_10": {
           "borda": "1h",
@@ -1482,6 +1467,18 @@
           "hora": 11,
           "jogadores": "aula"
         },
+        "6_14": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 14,
+          "jogadores": "Airton Santos"
+        },
+        "6_15": {
+          "dia": 6,
+          "hora": 15,
+          "jogadores": "Sidnei Novack"
+        },
         "6_7": {
           "borda": "1h",
           "dia": 6,
@@ -1505,24 +1502,24 @@
         }
       },
       "Quadra 2 - Aberta": {
-        "2_18": {
+        "3_14": {
+          "borda": "2h",
+          "dia": 3,
+          "duracao": 2,
+          "hora": 14,
+          "jogadores": "Giovani Lima"
+        },
+        "3_15": {
+          "dia": 3,
+          "hora": 15,
+          "jogadores": "Buiu"
+        },
+        "3_18": {
           "borda": "1h",
-          "dia": 2,
+          "dia": 3,
           "duracao": 1,
           "hora": 18,
-          "jogadores": "Rodrigo Voj"
-        },
-        "2_19": {
-          "borda": "2h",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 19,
-          "jogadores": "Amora, Felipe Mikuska"
-        },
-        "2_20": {
-          "dia": 2,
-          "hora": 20,
-          "jogadores": "Giovani Lima, Buiu"
+          "jogadores": "Edna Bittencourt"
         },
         "4_17": {
           "borda": "2h",
@@ -1535,44 +1532,40 @@
           "dia": 4,
           "hora": 18,
           "jogadores": "Ana Paula Pereira"
+        },
+        "4_20": {
+          "borda": "1h",
+          "dia": 4,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Leonardo Zamprogna, Convidado"
+        },
+        "5_17": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Leo Carrara"
+        },
+        "5_18": {
+          "dia": 5,
+          "hora": 18,
+          "jogadores": "Taborda"
+        },
+        "6_10": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 10,
+          "jogadores": "Gilson Oliveira"
+        },
+        "6_11": {
+          "dia": 6,
+          "hora": 11,
+          "jogadores": "Convidado"
         }
       },
       "Quadra 3 - Coberta": {
-        "2_15": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 15,
-          "jogadores": "Pedro Azevedo"
-        },
-        "2_17": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 17,
-          "jogadores": "Taborda"
-        },
-        "2_19": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 19,
-          "jogadores": "Ivan Balboa"
-        },
-        "2_20": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 20,
-          "jogadores": "Arthur Amorim"
-        },
-        "2_21": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 21,
-          "jogadores": "Luciano Cavalheiro"
-        },
         "3_17": {
           "borda": "2h",
           "dia": 3,
@@ -1584,13 +1577,6 @@
           "dia": 3,
           "hora": 18,
           "jogadores": "Frank Fast, Marco Ribeiro"
-        },
-        "3_20": {
-          "borda": "1h",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 20,
-          "jogadores": "Isa"
         },
         "3_21": {
           "borda": "2h",
@@ -1604,12 +1590,43 @@
           "hora": 22,
           "jogadores": "Diosnei"
         },
+        "3_8": {
+          "borda": "2h",
+          "dia": 3,
+          "duracao": 2,
+          "hora": 8,
+          "jogadores": "Adriano Feitosa"
+        },
+        "3_9": {
+          "dia": 3,
+          "hora": 9,
+          "jogadores": "Rodrigo Voj"
+        },
+        "4_15": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Edemar"
+        },
+        "4_16": {
+          "dia": 4,
+          "hora": 16,
+          "jogadores": "Felipe Mikuska"
+        },
         "4_17": {
           "borda": "1h",
           "dia": 4,
           "duracao": 1,
           "hora": 17,
           "jogadores": "Gustavo Ferraz, Nivaldo"
+        },
+        "4_18": {
+          "borda": "1h",
+          "dia": 4,
+          "duracao": 1,
+          "hora": 18,
+          "jogadores": "Flavio Ferraz"
         },
         "4_19": {
           "borda": "2h",
@@ -1653,9 +1670,23 @@
           "dia": 5,
           "hora": 19,
           "jogadores": "Bernardo"
+        },
+        "6_10": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 10,
+          "jogadores": "Arthur Amorim"
+        },
+        "6_11": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 11,
+          "jogadores": "Isa"
         }
       }
     },
-    "version": "v1.4.7"
+    "version": "v1.4.8"
   }
 }
