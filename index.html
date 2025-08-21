@@ -23,7 +23,7 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); 
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
@@ -615,7 +615,7 @@ body.dark-mode td[style*="background-color: rgb(242, 242, 242)"] {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.4.7'; // Versão atual do sistema     
+const VersaoSistema = 'v1.4.8'; // Versão atual do sistema     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -639,6 +639,7 @@ let duplasConfigGlobais = {};
 let convidadoConfigGlobais = {};
 let bloqueiosQuadra = {};
 let horasParaExpirarConfig = 2; // Define um padrão de 2 horas
+let quebraHorarioDomingoConfig = { ativa: true, quadras: {} };
 
 //***********************************************************************************************************************************************************************
 
@@ -854,6 +855,7 @@ function InicializarSistema() {
                 const config = data.config;
 				
 				horasParaExpirarConfig = config.horasParaExpirar || 2; // Lê o valor do banco ou usa 2 como padrão
+				quebraHorarioDomingoConfig = config.QuebraDeHorarioDomingo || { ativa: true, quadras: {} };
 				
 				githubToken = config.githubToken;
 				
@@ -2010,6 +2012,15 @@ async function atualizarTabela() {
         return; // Interrompe o processo de agendamento
     }
     // >>> FIM DO NOVO BLOCO DE DUPLAS <<<
+	
+	// --- INÍCIO DA ADIÇÃO ---
+    const isQuebraHorarioOk = validarQuebraHorarioDomingo(dia, horaSelecionada, duracao, quadra);
+    if (!isQuebraHorarioOk) {
+        limparCampos();
+        return; // Interrompe se a validação falhar
+    }
+    // --- FIM DA ADIÇÃO ---
+	
 	
 	
 	const reservasRef = database.ref(`sistemas/reservas/${quadra}`);
@@ -3626,6 +3637,78 @@ function b64_to_utf8(str) {
     return decodeURIComponent(atob(str).split('').map(function(c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
+}
+
+
+/**
+ * Valida a regra "Quebra Horário Domingo", que otimiza as reservas por quadra
+ * no bloco das 8:00 às 12:00 aos domingos.
+ * @param {number} dia - O dia da semana selecionado (1-7).
+ * @param {number} hora - A hora de início selecionada.
+ * @param {number} duracao - A duração da reserva selecionada.
+ * @param {string} quadra - A quadra selecionada (ex: "Quadra 1 - Coberta").
+ * @returns {boolean} - Retorna 'true' se a reserva for válida, 'false' se for bloqueada.
+ */
+function validarQuebraHorarioDomingo(dia, hora, duracao, quadra) {
+    // Regra do "Mesmo Dia": Se a reserva for para hoje, ignora todas as regras.
+    const hoje = new Date();
+    const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
+    if (dia === diaDaSemanaHoje) {
+        return true;
+    }
+
+    // --- Início das Pré-condições ---
+    if (dia !== 7) {
+        return true;
+    }
+    if (quebraHorarioDomingoConfig.ativa === true) {
+        return true;
+    }
+    
+    const quadraKey = `Quadra-${quadra.split(' ')[1]}`;
+    if (!quebraHorarioDomingoConfig.quadras || !quebraHorarioDomingoConfig.quadras[quadraKey]) {
+        return true;
+    }
+    
+    const isBlocoPadraoDomingo = (window.vDomingo === 'fechado') || (window.vDomingo === 'aberto' && window.vDomingoAte === '12:00');
+    if (!isBlocoPadraoDomingo) {
+        return true;
+    }
+
+    // --- Fim das Pré-condições ---
+
+    // Cenário: Tentativa de agendar às 9:00 (qualquer duração)
+    if (hora === 9) {
+         alert(`⚠️ Regra de Otimização de Domingo\n\nNa ${quadra}, este horário está bloqueado para otimização. Por favor, escolha um dos horários de 2 horas disponíveis:\n- 8:00 às 10:00\n- 10:00 às 12:00`);
+         return false;
+    }
+
+    // Cenário: Tentativa de agendar 1 hora às 8:00
+    if (hora === 8 && duracao === 1) {
+        alert(`⚠️ Regra de Otimização de Domingo\n\nNa ${quadra}, para evitar a quebra de horários, reservas de 1 hora não são permitidas às 8:00.`);
+        return false;
+    }
+
+    // Cenário: Tentativa de agendar 1 hora às 10:00
+    if (hora === 10 && duracao === 1) {
+        alert(`⚠️ Regra de Otimização de Domingo\n\nNa ${quadra}, para evitar a quebra de horários, reservas de 1 hora não são permitidas às 10:00.`);
+        return false;
+    }
+
+    // Cenário: Tentativa de agendar 1 hora às 11:00
+    if (hora === 11 && duracao === 1) {
+        alert(`⚠️ Regra de Otimização de Domingo\n\nNa ${quadra}, para evitar a quebra de horários, reservas de 1 hora não são permitidas às 11:00.`);
+        return false;
+    }
+    
+    // Cenário: Tentativa de 2 horas às 9:00 (redundante, mas seguro)
+    if (hora === 9 && duracao === 2) {
+        alert(`⚠️ Regra de Otimização de Domingo\n\nNa ${quadra}, para evitar horários vagos de 1 hora, esta reserva de 2 horas não pode começar às 9:00.\n\nPor favor, escolha começar às 8:00 ou às 10:00.`);
+        return false;
+    }
+
+    // Se passou por todas as verificações, a reserva é válida.
+    return true;
 }
 
 
