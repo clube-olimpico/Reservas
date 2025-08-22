@@ -1036,7 +1036,7 @@
         },
         "Quadra-3": {
           "3-DiasDeSemana": true,
-          "3-DiasDeSemana-exceto-17-19": false,
+          "3-DiasDeSemana-exceto-17-19": true,
           "3-Domingo": true,
           "3-Domingo-exceto-8-12": false,
           "3-Sabado": true,
@@ -1057,10 +1057,10 @@
         "quadras": {
           "Quadra-1": true,
           "Quadra-2": false,
-          "Quadra-3": false
+          "Quadra-3": true
         }
       },
-      "ReservasPorConfirmacao": true,
+      "ReservasPorConfirmacao": false,
       "githubToken": "***SEGREDO_REMOVIDO***",
       "horasParaExpirar": 1,
       "vDomingo": "fechado",
@@ -1499,28 +1499,21 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
+        },
+        "7_10": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 10,
+          "jogadores": "Pedro Lachowski"
+        },
+        "7_11": {
+          "dia": 7,
+          "hora": 11,
+          "jogadores": "Gabriel Martins"
         }
       },
       "Quadra 2 - Aberta": {
-        "3_14": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 14,
-          "jogadores": "Giovani Lima"
-        },
-        "3_15": {
-          "dia": 3,
-          "hora": 15,
-          "jogadores": "Buiu"
-        },
-        "3_18": {
-          "borda": "1h",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 18,
-          "jogadores": "Edna Bittencourt"
-        },
         "4_17": {
           "borda": "2h",
           "dia": 4,
@@ -1533,24 +1526,24 @@
           "hora": 18,
           "jogadores": "Ana Paula Pereira"
         },
-        "4_20": {
+        "4_21": {
           "borda": "1h",
           "dia": 4,
           "duracao": 1,
-          "hora": 20,
-          "jogadores": "Leonardo Zamprogna, Convidado"
+          "hora": 21,
+          "jogadores": "Alexandre Camargo"
         },
-        "5_17": {
+        "5_19": {
           "borda": "2h",
           "dia": 5,
           "duracao": 2,
-          "hora": 17,
-          "jogadores": "Leo Carrara"
+          "hora": 19,
+          "jogadores": "Amora"
         },
-        "5_18": {
+        "5_20": {
           "dia": 5,
-          "hora": 18,
-          "jogadores": "Taborda"
+          "hora": 20,
+          "jogadores": "Convidado"
         },
         "6_10": {
           "borda": "2h",
@@ -1563,45 +1556,21 @@
           "dia": 6,
           "hora": 11,
           "jogadores": "Convidado"
+        },
+        "6_15": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Xara"
+        },
+        "6_16": {
+          "dia": 6,
+          "hora": 16,
+          "jogadores": "Rony Duck"
         }
       },
       "Quadra 3 - Coberta": {
-        "3_17": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Almir, Flavio Ferraz"
-        },
-        "3_18": {
-          "dia": 3,
-          "hora": 18,
-          "jogadores": "Frank Fast, Marco Ribeiro"
-        },
-        "3_21": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 3,
-          "hora": 21,
-          "jogadores": "Clodoaldo"
-        },
-        "3_22": {
-          "dia": 3,
-          "hora": 22,
-          "jogadores": "Diosnei"
-        },
-        "3_8": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 8,
-          "jogadores": "Adriano Feitosa"
-        },
-        "3_9": {
-          "dia": 3,
-          "hora": 9,
-          "jogadores": "Rodrigo Voj"
-        },
         "4_15": {
           "borda": "2h",
           "dia": 4,
@@ -1640,13 +1609,6 @@
           "hora": 20,
           "jogadores": "Pamela Balboa"
         },
-        "4_21": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 21,
-          "jogadores": "Kaiser"
-        },
         "5_16": {
           "borda": "2h",
           "dia": 5,
@@ -1664,12 +1626,39 @@
           "dia": 5,
           "duracao": 2,
           "hora": 18,
-          "jogadores": "Diego Paraiso"
+          "jogadores": "Leo Carrara"
         },
         "5_19": {
           "dia": 5,
+          "duracao": 2,
           "hora": 19,
-          "jogadores": "Bernardo"
+          "jogadores": "Taborda"
+        },
+        "5_20": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Victoria Zeni"
+        },
+        "5_21": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 21,
+          "jogadores": "Alexa"
+        },
+        "5_22": {
+          "dia": 5,
+          "hora": 22,
+          "jogadores": "Flavia Titon"
+        },
+        "5_8": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "Pedro Azevedo"
         },
         "6_10": {
           "borda": "1h",
@@ -1684,6 +1673,43 @@
           "duracao": 1,
           "hora": 11,
           "jogadores": "Isa"
+        },
+        "6_13": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 13,
+          "jogadores": "Flavio Ferraz"
+        },
+        "6_14": {
+          "dia": 6,
+          "hora": 14,
+          "jogadores": "Gustavo Ferraz"
+        },
+        "6_15": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Diego Paraiso"
+        },
+        "6_16": {
+          "dia": 6,
+          "duracao": 2,
+          "hora": 16,
+          "jogadores": "Bernardo"
+        },
+        "7_10": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 10,
+          "jogadores": "Stefany Ferreira"
+        },
+        "7_11": {
+          "dia": 7,
+          "hora": 11,
+          "jogadores": "Luciano Cavalheiro"
         }
       }
     },
