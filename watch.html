@@ -80,15 +80,13 @@
             border-bottom: 1px solid #333;
             margin-top: 10px;
             padding: 10px 0;
+            /* CORREÇÃO 2: Esconde a barra de rolagem em navegadores Firefox */
+            scrollbar-width: none;
         }
 
+        /* CORREÇÃO 2: Esconde a barra de rolagem em navegadores WebKit (Chrome, Safari) */
         .reservas-lista::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .reservas-lista::-webkit-scrollbar-thumb {
-            background: #555;
-            border-radius: 2px;
+            display: none;
         }
 
         .reserva-item {
@@ -121,9 +119,9 @@
 
 <body>
 
-
     <div class="container">
-        <button id="prev-quadra" class="nav-button">&lt;</button>
+        <button id="prev-quadra" class="nav-button" type="button">&lt;</button>
+
         <div class="main-content">
             <div class="header">
                 <span id="quadra-nome">Carregando...</span>
@@ -132,10 +130,12 @@
                 <p class="loading-text">A carregar reservas...</p>
             </div>
         </div>
-        <button id="next-quadra" class="nav-button">&gt;</button>
+
+        <button id="next-quadra" class="nav-button" type="button">&gt;</button>
     </div>
 
     <script>
+        // O JavaScript não precisa de nenhuma alteração. A lógica de navegação já está correta.
         const firebaseConfig = {
             apiKey: "YOUR_API_KEY",
             authDomain: "agenda-5ce95.firebaseapp.com",
@@ -154,6 +154,7 @@
         const listaReservasEl = document.getElementById('reservas-lista');
         const prevButton = document.getElementById('prev-quadra');
         const nextButton = document.getElementById('next-quadra');
+
         function mostrarReservasDaQuadra() {
             const nomeDaQuadra = quadras[quadraAtualIndex];
             quadraNomeEl.textContent = nomeDaQuadra.replace(" - ", "\n");
