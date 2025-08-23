@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,14 +17,13 @@
             color: #ffffff;
             text-align: center;
             margin: 0;
-            padding: 15px;
+            padding: 5px;
             box-sizing: border-box;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            -webkit-user-select: none; /* Impede a seleção de texto */
+            -webkit-user-select: none;
             user-select: none;
         }
 
@@ -31,26 +31,41 @@
             width: 100%;
             height: 100%;
             display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
             flex-direction: column;
+            height: 100%;
+            overflow: hidden;
         }
 
         .header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             padding: 5px 0;
             flex-shrink: 0;
         }
 
         .nav-button {
-            background-color: #333;
-            border: 1px solid #555;
+            background-color: #444;
+            border: none;
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 28px;
+            font-weight: bold;
             cursor: pointer;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         #quadra-nome {
@@ -66,11 +81,11 @@
             margin-top: 10px;
             padding: 10px 0;
         }
-        
-        /* Estilo para a barra de rolagem (opcional, para um visual mais limpo) */
+
         .reservas-lista::-webkit-scrollbar {
             width: 4px;
         }
+
         .reservas-lista::-webkit-scrollbar-thumb {
             background: #555;
             border-radius: 2px;
@@ -80,13 +95,14 @@
             padding: 8px 5px;
             border-bottom: 1px solid #222;
         }
+
         .reserva-item:last-child {
             border-bottom: none;
         }
 
         .horario {
             font-weight: bold;
-            color: #4CAF50; /* Verde para destaque */
+            color: #4CAF50;
             font-size: 1.1em;
         }
 
@@ -95,143 +111,111 @@
             color: #dddddd;
             word-wrap: break-word;
         }
-        
+
         .loading-text {
             font-style: italic;
             color: #888;
         }
     </style>
 </head>
+
 <body>
 
-    <div class="container">
-        <div class="header">
-            <button id="prev-quadra" class="nav-button">&lt;</button>
-            <span id="quadra-nome">Carregando...</span>
-            <button id="next-quadra" class="nav-button">&gt;</button>
-        </div>
 
-        <div id="reservas-lista" class="reservas-lista">
-            <p class="loading-text">A carregar reservas...</p>
+    <div class="container">
+        <button id="prev-quadra" class="nav-button">&lt;</button>
+        <div class="main-content">
+            <div class="header">
+                <span id="quadra-nome">Carregando...</span>
+            </div>
+            <div id="reservas-lista" class="reservas-lista">
+                <p class="loading-text">A carregar reservas...</p>
+            </div>
         </div>
+        <button id="next-quadra" class="nav-button">&gt;</button>
     </div>
 
-<script>
-    // 1. Configuração do Firebase (a mesma do seu sistema principal)
-    const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "agenda-5ce95.firebaseapp.com",
-        databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com/",
-        projectId: "agenda-5ce95",
-        storageBucket: "agenda-5ce95.appspot.com",
-        messagingSenderId: "852007565195",
-        appId: "1:852007565195:web:d7bd789d140858f53f618e"
-    };
-
-    const app = firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-
-    // 2. Variáveis de Controlo
-    const quadras = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"];
-    let quadraAtualIndex = 0;
-    let todasAsReservas = {};
-
-    // 3. Elementos do HTML
-    const quadraNomeEl = document.getElementById('quadra-nome');
-    const listaReservasEl = document.getElementById('reservas-lista');
-    const prevButton = document.getElementById('prev-quadra');
-    const nextButton = document.getElementById('next-quadra');
-    
-    /**
-     * Mostra as reservas para a quadra atualmente selecionada.
-     */
-    function mostrarReservasDaQuadra() {
-        const nomeDaQuadra = quadras[quadraAtualIndex];
-        quadraNomeEl.textContent = nomeDaQuadra.replace(" - ", "\n"); // Quebra a linha para melhor visualização
-
-        const reservasDaQuadra = todasAsReservas[nomeDaQuadra] || {};
-        
-        listaReservasEl.innerHTML = ''; // Limpa a lista
-
-        // Filtra e ordena as reservas por hora
-        const reservasOrdenadas = Object.values(reservasDaQuadra)
-            .filter(r => r.borda) // Considera apenas a primeira hora de cada reserva
-            .sort((a, b) => a.hora - b.hora);
-
-        if (reservasOrdenadas.length === 0) {
-            listaReservasEl.innerHTML = '<p class="loading-text">Nenhuma reserva para hoje.</p>';
-            return;
-        }
-
-        // Cria e adiciona cada item de reserva à lista
-        reservasOrdenadas.forEach(reserva => {
-            const horaFim = reserva.hora + reserva.duracao;
-            const horarioTexto = `${String(reserva.hora).padStart(2, '0')}:00 - ${String(horaFim).padStart(2, '0')}:00`;
-
-            // Junta os jogadores das duas horas, se for o caso
-            let jogadoresTexto = reserva.jogadores;
-            if (reserva.duracao === 2) {
-                const key2 = `${reserva.dia}_${reserva.hora + 1}`;
-                const segundaParte = reservasDaQuadra[key2];
-                if (segundaParte && segundaParte.jogadores) {
-                    const jogadoresUnicos = [...new Set([...jogadoresTexto.split(', '), ...segundaParte.jogadores.split(', ')])];
-                    jogadoresTexto = jogadoresUnicos.join(', ');
-                }
+    <script>
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "agenda-5ce95.firebaseapp.com",
+            databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com/",
+            projectId: "agenda-5ce95",
+            storageBucket: "agenda-5ce95.appspot.com",
+            messagingSenderId: "852007565195",
+            appId: "1:852007565195:web:d7bd789d140858f53f618e"
+        };
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const quadras = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"];
+        let quadraAtualIndex = 0;
+        let todasAsReservas = {};
+        const quadraNomeEl = document.getElementById('quadra-nome');
+        const listaReservasEl = document.getElementById('reservas-lista');
+        const prevButton = document.getElementById('prev-quadra');
+        const nextButton = document.getElementById('next-quadra');
+        function mostrarReservasDaQuadra() {
+            const nomeDaQuadra = quadras[quadraAtualIndex];
+            quadraNomeEl.textContent = nomeDaQuadra.replace(" - ", "\n");
+            const reservasDaQuadra = todasAsReservas[nomeDaQuadra] || {};
+            listaReservasEl.innerHTML = '';
+            const reservasOrdenadas = Object.values(reservasDaQuadra)
+                .filter(r => r.borda)
+                .sort((a, b) => a.hora - b.hora);
+            if (reservasOrdenadas.length === 0) {
+                listaReservasEl.innerHTML = '<p class="loading-text">Nenhuma reserva para hoje.</p>';
+                return;
             }
-
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'reserva-item';
-            itemDiv.innerHTML = `
-                <div class="horario">${horarioTexto}</div>
-                <div class="jogadores">${jogadoresTexto}</div>
-            `;
-            listaReservasEl.appendChild(itemDiv);
-        });
-    }
-
-    // 4. Lógica de Navegação
-    prevButton.addEventListener('click', () => {
-        quadraAtualIndex = (quadraAtualIndex - 1 + quadras.length) % quadras.length;
-        mostrarReservasDaQuadra();
-    });
-
-    nextButton.addEventListener('click', () => {
-        quadraAtualIndex = (quadraAtualIndex + 1) % quadras.length;
-        mostrarReservasDaQuadra();
-    });
-
-    // 5. Carregamento Inicial dos Dados
-    function carregarDadosIniciais() {
-        const hoje = new Date();
-        const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
-
-        const reservasRef = database.ref("sistemas/reservas");
-        reservasRef.on('value', (snapshot) => {
-            const data = snapshot.val() || {};
-            
-            // Filtra as reservas para mostrar apenas as de hoje
-            todasAsReservas = {};
-            for (const quadra in data) {
-                todasAsReservas[quadra] = {};
-                for (const key in data[quadra]) {
-                    const reserva = data[quadra][key];
-                    if (reserva.dia === diaDaSemanaHoje) {
-                        todasAsReservas[quadra][key] = reserva;
+            reservasOrdenadas.forEach(reserva => {
+                const horaFim = reserva.hora + reserva.duracao;
+                const horarioTexto = `${String(reserva.hora).padStart(2, '0')}:00 - ${String(horaFim).padStart(2, '0')}:00`;
+                let jogadoresTexto = reserva.jogadores;
+                if (reserva.duracao === 2) {
+                    const key2 = `${reserva.dia}_${reserva.hora + 1}`;
+                    const segundaParte = reservasDaQuadra[key2];
+                    if (segundaParte && segundaParte.jogadores) {
+                        const jogadoresUnicos = [...new Set([...jogadoresTexto.split(', '), ...segundaParte.jogadores.split(', ')])];
+                        jogadoresTexto = jogadoresUnicos.join(', ');
                     }
                 }
-            }
-
-            mostrarReservasDaQuadra(); // Mostra a primeira quadra
-        }, (error) => {
-            console.error("Erro ao carregar dados do Firebase:", error);
-            listaReservasEl.innerHTML = '<p class="loading-text">Erro de conexão.</p>';
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'reserva-item';
+                itemDiv.innerHTML = `<div class="horario">${horarioTexto}</div><div class="jogadores">${jogadoresTexto}</div>`;
+                listaReservasEl.appendChild(itemDiv);
+            });
+        }
+        prevButton.addEventListener('click', () => {
+            quadraAtualIndex = (quadraAtualIndex - 1 + quadras.length) % quadras.length;
+            mostrarReservasDaQuadra();
         });
-    }
-
-    // Inicia o carregamento dos dados quando a página abre
-    carregarDadosIniciais();
-
-</script>
+        nextButton.addEventListener('click', () => {
+            quadraAtualIndex = (quadraAtualIndex + 1) % quadras.length;
+            mostrarReservasDaQuadra();
+        });
+        function carregarDadosIniciais() {
+            const hoje = new Date();
+            const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
+            const reservasRef = database.ref("sistemas/reservas");
+            reservasRef.on('value', (snapshot) => {
+                const data = snapshot.val() || {};
+                todasAsReservas = {};
+                for (const quadra in data) {
+                    todasAsReservas[quadra] = {};
+                    for (const key in data[quadra]) {
+                        const reserva = data[quadra][key];
+                        if (reserva.dia === diaDaSemanaHoje) {
+                            todasAsReservas[quadra][key] = reserva;
+                        }
+                    }
+                }
+                mostrarReservasDaQuadra();
+            }, (error) => {
+                console.error("Erro ao carregar dados do Firebase:", error);
+                listaReservasEl.innerHTML = '<p class="loading-text">Erro de conexão.</p>';
+            });
+        }
+        carregarDadosIniciais();
+    </script>
 
 </body>
 </html>
