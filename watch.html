@@ -10,7 +10,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 
     <style>
-        /* Estilos otimizados para um ecrã de relógio */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: #000000;
@@ -26,7 +25,6 @@
             -webkit-user-select: none;
             user-select: none;
         }
-
         .container {
             width: 100%;
             height: 100%;
@@ -35,7 +33,6 @@
             align-items: center;
             gap: 8px;
         }
-
         .main-content {
             flex-grow: 1;
             display: flex;
@@ -43,7 +40,6 @@
             height: 100%;
             overflow: hidden;
         }
-
         .header {
             display: flex;
             justify-content: center;
@@ -51,7 +47,6 @@
             padding: 5px 0;
             flex-shrink: 0;
         }
-
         .nav-button {
             background-color: #444;
             border: none;
@@ -67,49 +62,50 @@
             align-items: center;
             justify-content: center;
         }
-
         #quadra-nome {
             font-size: 1.2em;
             font-weight: bold;
         }
 
-        .reservas-lista {
+        /* CORREÇÃO 2 (NOVA ABORDAGEM) */
+        /* Passo 1: O invólucro que vai esconder a barra de rolagem */
+        .lista-wrapper {
             flex-grow: 1;
-            overflow-y: auto;
+            overflow: hidden; /* A MÁGICA ACONTECE AQUI: esconde o que passar dos limites */
+            position: relative;
+            margin-top: 10px;
+        }
+
+        /* Passo 2: A lista que agora fica dentro do invólucro */
+        .reservas-lista {
+            height: 100%; /* Ocupa toda a altura do invólucro */
+            overflow-y: auto; /* Permite a rolagem vertical */
             border-top: 1px solid #333;
             border-bottom: 1px solid #333;
-            margin-top: 10px;
-            padding: 10px 0;
-            /* CORREÇÃO 2: Esconde a barra de rolagem em navegadores Firefox */
-            scrollbar-width: none;
+            
+            /* O truque: empurra a barra de rolagem para a área escondida */
+            /* Aumenta a largura para criar espaço para a barra de rolagem fora da tela */
+            width: calc(100% + 20px);
+            padding-right: 5px; /* Compensa um pouco o espaço para o conteúdo não colar na borda */
         }
-
-        /* CORREÇÃO 2: Esconde a barra de rolagem em navegadores WebKit (Chrome, Safari) */
-        .reservas-lista::-webkit-scrollbar {
-            display: none;
-        }
-
+        
         .reserva-item {
             padding: 8px 5px;
             border-bottom: 1px solid #222;
         }
-
         .reserva-item:last-child {
             border-bottom: none;
         }
-
         .horario {
             font-weight: bold;
             color: #4CAF50;
             font-size: 1.1em;
         }
-
         .jogadores {
             font-size: 0.95em;
             color: #dddddd;
             word-wrap: break-word;
         }
-
         .loading-text {
             font-style: italic;
             color: #888;
@@ -121,21 +117,22 @@
 
     <div class="container">
         <button id="prev-quadra" class="nav-button" type="button">&lt;</button>
-
         <div class="main-content">
             <div class="header">
                 <span id="quadra-nome">Carregando...</span>
             </div>
-            <div id="reservas-lista" class="reservas-lista">
-                <p class="loading-text">A carregar reservas...</p>
+            
+            <div class="lista-wrapper">
+                <div id="reservas-lista" class="reservas-lista">
+                    <p class="loading-text">A carregar reservas...</p>
+                </div>
             </div>
-        </div>
 
+        </div>
         <button id="next-quadra" class="nav-button" type="button">&gt;</button>
     </div>
 
     <script>
-        // O JavaScript não precisa de nenhuma alteração. A lógica de navegação já está correta.
         const firebaseConfig = {
             apiKey: "YOUR_API_KEY",
             authDomain: "agenda-5ce95.firebaseapp.com",
@@ -154,7 +151,7 @@
         const listaReservasEl = document.getElementById('reservas-lista');
         const prevButton = document.getElementById('prev-quadra');
         const nextButton = document.getElementById('next-quadra');
-
+        
         function mostrarReservasDaQuadra() {
             const nomeDaQuadra = quadras[quadraAtualIndex];
             quadraNomeEl.textContent = nomeDaQuadra.replace(" - ", "\n");
@@ -185,14 +182,19 @@
                 listaReservasEl.appendChild(itemDiv);
             });
         }
-        prevButton.addEventListener('click', () => {
+
+        prevButton.addEventListener('click', (event) => {
+            event.preventDefault(); // Impede a ação padrão de "voltar"
             quadraAtualIndex = (quadraAtualIndex - 1 + quadras.length) % quadras.length;
             mostrarReservasDaQuadra();
         });
-        nextButton.addEventListener('click', () => {
+
+        nextButton.addEventListener('click', (event) => {
+            event.preventDefault(); // Adicionado também por segurança
             quadraAtualIndex = (quadraAtualIndex + 1) % quadras.length;
             mostrarReservasDaQuadra();
         });
+
         function carregarDadosIniciais() {
             const hoje = new Date();
             const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
