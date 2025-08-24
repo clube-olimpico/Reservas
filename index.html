@@ -599,6 +599,12 @@ body.dark-mode td[style*="background-color: rgb(242, 242, 242)"] {
     border: 1px solid #ffffff !important;
 }
 
+body.dark-mode #loading {
+    background-color: #121212 !important; /* Fundo escuro para combinar com o tema */
+    color: #ffffff !important;           /* Garante que o texto seja branco e visível */
+}
+
+
 /* Estilos para o Modal (usado pelo modal de aniversário) */
 .modal-overlay {
     display: none;
@@ -692,6 +698,8 @@ body.dark-mode td[style*="background-color: rgb(242, 242, 242)"] {
 
 
 </style>
+
+
 </head>
 
 <body>
@@ -987,7 +995,7 @@ body.dark-mode td[style*="background-color: rgb(242, 242, 242)"] {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.4.9'; // Versão atual do sistema
+const VersaoSistema = 'v1.5.0'; // Versão atual do sistema
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -4084,8 +4092,10 @@ function validarQuebraHorarioDomingo(dia, hora, duracao, quadra) {
     return true;
 }
 
+
+
 /* ================================================== */
-/* === NOVA FUNÇÃO DE ANIVERSÁRIO (COM CONFETES E IDADE) === */
+/* === FUNÇÃO DE ANIVERSÁRIO (VERSÃO COM CHUVA DE CONFETES) === */
 /* ================================================== */
 
 function checarAniversario() {
@@ -4099,7 +4109,7 @@ function checarAniversario() {
     if (!jogadorApelido || !jogadoresData[jogadorApelido].niver) return;
 
     const niver = jogadoresData[jogadorApelido].niver; // Formato: "dd/mm/yyyy"
-    if (niver.length < 10) return; // Garante que a data está completa
+    if (niver.length < 10) return;
 
     const niverDiaMes = niver.substring(0, 5);
 
@@ -4108,42 +4118,73 @@ function checarAniversario() {
     const hojeMes = String(hoje.getMonth() + 1).padStart(2, '0');
     const hojeDiaMes = `${hojeDia}/${hojeMes}`;
 
-    // Use '==' para uma comparação rápida. Mude para '===' se quiser testar sem esperar a data certa.
     if (niverDiaMes == hojeDiaMes) {
-        // --- 1. Dispara os confetes ---
-        confetti({
-            particleCount: 150,
-            spread: 120,
-            origin: { y: 0.6 }
-        });
+        
+        // --- 1. Inicia a CHUVA de confetes ---
+        // Vamos guardar o ID do intervalo para podermos pará-lo depois
+        const duration = 15 * 1000; // Duração total da animação em milissegundos
+        const animationEnd = Date.now() + duration;
+        let defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1999 }; // zIndex baixo para ficar atrás do modal
 
-        // --- 2. Calcula a idade ---
-        const anoNiver = parseInt(niver.substring(6, 10), 10);
-        const mesNiver = parseInt(niver.substring(3, 5), 10) - 1; // Mês em JS é 0-11
-        const diaNiver = parseInt(niver.substring(0, 2), 10);
-        let idade = hoje.getFullYear() - anoNiver;
-        // Ajuste caso o aniversário no ano corrente ainda não tenha chegado
-        if (hoje.getMonth() < mesNiver || (hoje.getMonth() === mesNiver && hoje.getDate() < diaNiver)) {
-            idade--;
+        function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
         }
 
-        // --- 3. Prepara e exibe o modal ---
-        const modal = document.getElementById('birthdayModalOverlay');
-        const nomeSpan = document.getElementById('birthdayName');
-        const idadeSpan = document.getElementById('birthdayAge');
-        const closeButton = document.getElementById('closeBirthdayModal');
-
-        nomeSpan.textContent = jogadorLogado.split(' ')[0]; // Pega só o primeiro nome
-        idadeSpan.textContent = idade;
-        modal.style.display = 'flex';
-
-        const fecharModal = () => modal.style.display = 'none';
-        closeButton.onclick = fecharModal;
-        modal.onclick = function(event) {
-            if (event.target === modal) {
-                fecharModal();
+        const interval = setInterval(function() {
+            let timeLeft = animationEnd - Date.now();
+            if (timeLeft <= 0) {
+                return clearInterval(interval);
             }
-        };
+            let particleCount = 50 * (timeLeft / duration);
+            // Lança os confetes
+            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+        }, 250);
+
+
+        // --- 2. Aguarda um pouco para mostrar o cartão ---
+        setTimeout(() => {
+            // --- 3. Calcula a idade ---
+            const anoNiver = parseInt(niver.substring(6, 10), 10);
+            const mesNiver = parseInt(niver.substring(3, 5), 10) - 1;
+            const diaNiver = parseInt(niver.substring(0, 2), 10);
+            let idade = hoje.getFullYear() - anoNiver;
+            if (hoje.getMonth() < mesNiver || (hoje.getMonth() === mesNiver && hoje.getDate() < diaNiver)) {
+                idade--;
+            }
+
+            // --- 4. Prepara e exibe o modal ---
+            const modal = document.getElementById('birthdayModalOverlay');
+            const nomeSpan = document.getElementById('birthdayName');
+            const idadeSpan = document.getElementById('birthdayAge');
+            const closeButton = document.getElementById('closeBirthdayModal');
+
+            nomeSpan.textContent = jogadorLogado.split(' ')[0];
+            idadeSpan.textContent = idade;
+            modal.style.display = 'flex';
+
+            // --- 5. Define a ação de fechar o modal ---
+            const fecharModal = () => {
+                modal.style.display = 'none';
+                // Para a chuva de confetes
+                clearInterval(interval);
+                
+                // Dispara a explosão final de confetes!
+                confetti({
+                    particleCount: 200,
+                    spread: 180,
+                    startVelocity: 55,
+                    zIndex: 9999 // zIndex alto para ficar na frente de tudo
+                });
+            };
+
+            closeButton.onclick = fecharModal;
+            modal.onclick = function(event) {
+                if (event.target === modal) {
+                    fecharModal();
+                }
+            };
+        }, 1500); // Aumentei um pouco o atraso para dar tempo dos confetes começarem
     }
 }
 
