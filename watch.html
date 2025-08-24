@@ -66,29 +66,20 @@
             font-size: 1.2em;
             font-weight: bold;
         }
-
-        /* CORREÇÃO 2 (NOVA ABORDAGEM) */
-        /* Passo 1: O invólucro que vai esconder a barra de rolagem */
         .lista-wrapper {
             flex-grow: 1;
-            overflow: hidden; /* A MÁGICA ACONTECE AQUI: esconde o que passar dos limites */
+            overflow: hidden;
             position: relative;
             margin-top: 10px;
         }
-
-        /* Passo 2: A lista que agora fica dentro do invólucro */
         .reservas-lista {
-            height: 100%; /* Ocupa toda a altura do invólucro */
-            overflow-y: auto; /* Permite a rolagem vertical */
+            height: 100%;
+            overflow-y: auto;
             border-top: 1px solid #333;
             border-bottom: 1px solid #333;
-            
-            /* O truque: empurra a barra de rolagem para a área escondida */
-            /* Aumenta a largura para criar espaço para a barra de rolagem fora da tela */
             width: calc(100% + 20px);
-            padding-right: 5px; /* Compensa um pouco o espaço para o conteúdo não colar na borda */
+            padding-right: 5px;
         }
-        
         .reserva-item {
             padding: 8px 5px;
             border-bottom: 1px solid #222;
@@ -116,18 +107,17 @@
 <body>
 
     <div class="container">
-        <button id="prev-quadra" class="nav-button" type="button">&lt;</button>
+        <button id="prev-quadra" class="nav-button" type="button">&larr;</button>
+        
         <div class="main-content">
             <div class="header">
                 <span id="quadra-nome">Carregando...</span>
             </div>
-            
             <div class="lista-wrapper">
                 <div id="reservas-lista" class="reservas-lista">
                     <p class="loading-text">A carregar reservas...</p>
                 </div>
             </div>
-
         </div>
         <button id="next-quadra" class="nav-button" type="button">&gt;</button>
     </div>
@@ -184,13 +174,13 @@
         }
 
         prevButton.addEventListener('click', (event) => {
-            event.preventDefault(); // Impede a ação padrão de "voltar"
+            event.preventDefault();
             quadraAtualIndex = (quadraAtualIndex - 1 + quadras.length) % quadras.length;
             mostrarReservasDaQuadra();
         });
 
         nextButton.addEventListener('click', (event) => {
-            event.preventDefault(); // Adicionado também por segurança
+            event.preventDefault();
             quadraAtualIndex = (quadraAtualIndex + 1) % quadras.length;
             mostrarReservasDaQuadra();
         });
