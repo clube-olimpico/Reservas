@@ -3,43 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Clube Olímpico - Sistema de Reservas</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-	<!-- Configurações para evitar cache -->
-    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
 
 <style>
 /* Estilos globais */
 body {
-    font-family: Arial, sans-serif;   
+    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0; 
+    padding: 0;
 }
 
-    /* Container da tela de login */ 
+    /* Container da tela de login */
     #loginScreen {
-	box-sizing: border-box; /* Garantir que padding e borda sejam incluídos na largura */  
+	box-sizing: border-box; /* Garantir que padding e borda sejam incluídos na largura */
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     width: 95%;
     max-width: 350px;
-    text-align: center; 
+    text-align: center;
 }
 
 /* Cabeçalho da tela de login */
 #loginHeader {
-    margin-bottom: 30px;  
+    margin-bottom: 30px;
 }
 
 #loginHeader h1 {
-    font-size: 32px; 
+    font-size: 32px;
     color: #333;
     margin: 0;
 }
@@ -109,7 +108,7 @@ body {
     #loginScreen h2 {
         margin-bottom: 20px;
         font-size: 24px;
-        color: #333; 
+        color: #333;
     }
 
     /* Dropdown de seleção de jogadores */
@@ -285,12 +284,12 @@ label {
         line-height: 1;
 		font-size: 16px; /* Opcional: reduz o tamanho da fonte para melhor ajuste */
     }
-	
+
 	#theme-toggle-button {
 		width: 50px !important; /* Força a largura correta, sobrescrevendo a regra geral */
 		height: 50px !important; /* Garante a altura para formar o círculo */
 	}
-	
+
 }
 
 
@@ -600,31 +599,404 @@ body.dark-mode td[style*="background-color: rgb(242, 242, 242)"] {
     border: 1px solid #ffffff !important;
 }
 
+/* Estilos para o Modal (usado pelo modal de aniversário) */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* ================================================== */
+/* ====== ESTILOS PARA O CARTÃO DE ANIVERSÁRIO ====== */
+/* ================================================== */
+
+#birthdayModalContent {
+    background: linear-gradient(145deg, #6a11cb 0%, #2575fc 100%);
+    color: white;
+    padding: 25px 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    text-align: center;
+    position: relative;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    animation: fadeInScale 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.8) rotate(-5deg); }
+    to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+#birthdayModalContent h2 {
+    margin-top: 10px;
+    font-size: 2.2em;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+#birthdayModalContent p {
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+#closeBirthdayModal {
+    background-color: white;
+    color: #2575fc;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.2s ease-in-out;
+    width: auto !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+#closeBirthdayModal:hover {
+    transform: scale(1.05);
+    background-color: #f0f0f0;
+}
+
+/* Estilo para o "selo" da idade */
+.birthday-badge {
+    position: absolute;
+    top: -25px;
+    right: -20px;
+    background-color: #ffc107;
+    color: #333;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    border: 3px solid white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transform: rotate(15deg);
+}
+
 
 </style>
 </head>
 
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script> 
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>   
+<body>
 
-	
-	
+ <div id="loading" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem; background-color: white; width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center; z-index: 9999;">
+        Carregando... Aguarde.
+    </div>
+
+<div id="loginScreen">
+    <div id="loginHeader">
+        <h1>Clube Olímpico</h1>
+        <h2>Quadras de Tênis</h2>
+        <h3>Sistema de Reservas</h3>
+    </div>
+
+    <div id="loginForm">
+        <h2>Selecione seu nome:</h2>
+        <div class="input-group">
+            <select id="jogadorSelect">
+                <option value="">Carregando jogadores...</option>
+            </select>
+        </div>
+
+       <div class="input-container">
+    <label for="senha" class="label-senha">Senha:</label>
+    <input type="password" id="senha" placeholder="Digite sua senha" inputmode="numeric" pattern="[0-9]*" maxlength="8">
+    <button type="button" id="toggleSenha">👁️</button>
+</div>
+
+        <button onclick="fazerLogin()">Entrar</button>
+    </div>
+</div>
+
+<div id="mainContent" style="display: none; text-align: center;">
+    <h2>Bem-vindo, <span id="nomeJogador"></span>!</h2>
+    <button onclick="fazerLogout()">Sair</button>
+</div>
+
+
+<div id="content" style="display: none;">
+
+<div class="tab-container" style="display: flex; justify-content: center; margin-bottom: 10px;">
+    <button class="tab-button" onclick="selecionarQuadra('Quadra 1 - Coberta')">Quadra 1 - Coberta</button>
+    <button class="tab-button" onclick="selecionarQuadra('Quadra 2 - Aberta')">Quadra 2 - Aberta</button>
+    <button class="tab-button" onclick="selecionarQuadra('Quadra 3 - Coberta')">Quadra 3 - Coberta</button>
+</div>
+
+
+
+<div id="VersaoSistema" style="text-align: right; margin-top: 70px; margin-right: 10px; font-size: 1rem; cursor: default; position: relative; z-index: 9999;">
+
+</div>
+
+
+
+
+
+<div class="form-container">
+    <form id="dataForm">
+
+	    <div class="form-row">
+			<label for="quadra">Quadra:</label>
+			<select id="quadra" onchange="selecionarQuadra(this.value)">
+				<option value="Quadra 1 - Coberta">Quadra 1 - Coberta</option>
+				<option value="Quadra 2 - Aberta">Quadra 2 - Aberta</option>
+				<option value="Quadra 3 - Coberta">Quadra 3 - Coberta</option>
+			</select>
+		</div>
+
+
+
+        <div class="form-row">
+            <label for="dia">Dia:</label>
+            <select id="dia"  onchange="atualizarOpcoesHorario()">
+				<option value="1">Segunda-Feira</option>
+				<option value="2">Terça-Feira</option>
+				<option value="3">Quarta-Feira</option>
+				<option value="4">Quinta-Feira</option>
+				<option value="5">Sexta-Feira</option>
+				<option value="6">Sábado</option>
+				<option value="7">Domingo</option>
+			</select>
+
+        </div>
+
+        <div class="form-row">
+			<label for="duracao">Duração:</label>
+			<select id="duracao" onchange="atualizarOpcoesHorario()">
+			<option value="1">1 hora</option>
+			<option value="2">2 horas</option>
+			<option value="3-piramide" style="display: none;">Pirâmide</option> </select>
+		</div>
+
+
+        <div class="form-row">
+            <label for="hora">Horário:</label>
+            <select id="hora">
+                </select>
+        </div>
+
+        <div class="jogadores-container" id="jogadoresContainer">
+			<div class="form-row">
+				<label for="jogador1">Jogador:</label>
+				<select id="jogador1" name="jogador" required style="width: 100px;">
+					<option value="">Selecione um jogador</option>
+				</select>
+				<span class="add-jogador" onclick="adicionarJogador()">+</span>
+			</div>
+		</div>
+
+        <button id="botaoAgendar" type="button" onclick="atualizarTabela()">Agendar</button>
+    </form>
+</div>
+
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2 class="header" style="margin: 1; font-size: 20px;">Quadra 1 - Coberta</h2> <div id="legenda" style="margin-left: 20px; margin-right: 10px; text-align: left; margin-bottom: 10px;">
+    <strong style="font-size: 14px;">Legenda:</strong>
+    <div style="display: flex; flex-direction: column; gap: 5px;">
+        <div id="linha-1" style="display: flex; align-items: center;">
+            <span style="display: inline-block; width: 15px; height: 17px; background-color: lightgreen; margin-right: 2px;"></span>
+            <span style="font-size: 12px;">1 Hora</span>
+            <span style="display: inline-block; width: 15px; height: 18px; background-color: lightblue; margin-right: 2px; margin-left: 10px;"></span>
+            <span style="font-size: 12px;">2 Horas</span>
+        </div>
+        <div id="linha-2" style="display: flex; align-items: center;">
+            <span style="display: inline-block; width: 15px; height: 18px; background-color: lightcoral; margin-right: 5px;"></span>
+            <span style="font-size: 12px;">Aula</span>
+            <span id="piramide-span" style="display: inline-block; width: 15px; height: 18px; background-color: #FFEB99 ; margin-left: 19px; margin-right: 1px;"></span>
+            <span id="piramide-text" style="font-size: 12px;">Pirâmide</span>
+        </div>
+    </div>
+	</div>
+</div>
+
+<div class="tabela-container">
+<table id="tabelaQuadra" style="width: 100%; margin-top: 10px;">
+    <tr>
+        <th rowspan="2" style="text-align: center;">Horários</th>
+        <th>Segunda-Feira</th>
+        <th>Terça-Feira</th>
+        <th>Quarta-Feira</th>
+        <th>Quinta-Feira</th>
+        <th>Sexta-Feira</th>
+        <th>Sábado</th>
+        <th>Domingo</th>
+        <th rowspan="2" style="text-align: center;">Horários</th>
+    </tr>
+    <tr style="background-color: #f2f2f2;">
+        <td style="font-weight: bold; font-size: 0.9em;">09/10/24</td>
+        <td style="font-weight: bold; font-size: 0.9em;">10/10/24</td>
+        <td style="font-weight: bold; font-size: 0.9em;">11/10/24</td>
+        <td style="font-weight: bold; font-size: 0.9em;">12/10/24</td>
+        <td style="font-weight: bold; font-size: 0.9em;">13/10/24</td>
+        <td style="font-weight: bold; font-size: 0.9em;">14/10/24</td>
+        <td style="font-weight: bold; font-size: 0.9em;">15/10/24</td>
+    </tr>
+    <tbody id="tabelaCorpo">
+    <tr>
+        <td class="horario">06:00 - 07:00</td>
+        <td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td class="horario">06:00 - 07:00</td>
+    </tr>
+    <tr>
+        <td class="horario">07:00 - 08:00</td>
+        <td></td><td></td><td></td><td></td><td></td>
+        <td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td class="horario">07:00 - 08:00</td>
+    </tr>
+    <tr>
+        <td class="horario">08:00 - 09:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="horario">08:00 - 09:00</td>
+    </tr>
+    <tr>
+        <td class="horario">09:00 - 10:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="horario">09:00 - 10:00</td>
+    </tr>
+    <tr>
+        <td class="horario">10:00 - 11:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="horario">10:00 - 11:00</td>
+    </tr>
+    <tr>
+        <td class="horario">11:00 - 12:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="horario">11:00 - 12:00</td>
+    </tr>
+    <tr>
+        <td class="horario">12:00 - 13:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td class="horario">12:00 - 13:00</td>
+    </tr>
+    <tr>
+        <td class="horario">13:00 - 14:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td class="horario">13:00 - 14:00</td>
+    </tr>
+    <tr>
+        <td class="horario">14:00 - 15:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td class="horario">14:00 - 15:00</td>
+    </tr>
+    <tr>
+        <td class="horario">15:00 - 16:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td class="horario">15:00 - 16:00</td>
+    </tr>
+    <tr>
+        <td class="horario">16:00 - 17:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td class="horario">16:00 - 17:00</td>
+    </tr>
+    <tr>
+        <td class="horario">17:00 - 18:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td class="horario">17:00 - 18:00</td>
+    </tr>
+    <tr>
+        <td class="horario">18:00 - 19:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td class="horario">18:00 - 19:00</td>
+    </tr>
+    <tr>
+        <td class="horario">19:00 - 20:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td class="horario">19:00 - 20:00</td>
+    </tr>
+    <tr>
+        <td class="horario">20:00 - 21:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td class="horario">20:00 - 21:00</td>
+    </tr>
+    <tr>
+        <td class="horario">21:00 - 22:00</td>
+        <td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td class="horario">21:00 - 22:00</td>
+    </tr>
+    <tr>
+        <td class="horario">22:00 - 23:00</td>
+        <td></td><td></td><td></td><td></td><td></td>
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <td class="horario">22:00 - 23:00</td>
+    </tr>
+</tbody>
+
+</table>
+</div>
+</div>
+
+<div id="birthdayModalOverlay" class="modal-overlay">
+    <div id="birthdayModalContent">
+        <span id="birthdayAge" class="birthday-badge"></span>
+        <h2>Feliz Aniversário, <span id="birthdayName"></span>!</h2>
+        <p>O Clube Olímpico e todos os seus amigos do tênis desejam a você um dia espetacular, cheio de alegrias e grandes jogadas!</p>
+        <p style="font-size: 2em; margin: 10px 0;">🥳🎉🎂</p>
+        <button id="closeBirthdayModal">Obrigado!</button>
+    </div>
+</div>
+
+
+<footer style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #555;">
+        Desenvolvido por Ronaldo Taborda
+</footer>
+
+<button id="theme-toggle-button">🌙</button>
+
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+
+
 <script>
-	
+        document.addEventListener('DOMContentLoaded', function () {
+    const toggleButton = document.getElementById('toggleSenha');
+    const senhaInput = document.getElementById('senha');
+
+    toggleButton.addEventListener('click', function () {
+        if (senhaInput.type === 'password') {
+            senhaInput.type = 'text';
+            toggleButton.textContent = '🙈'; // Ícone de olho fechado
+        } else {
+            senhaInput.type = 'password';
+            toggleButton.textContent = '👁️'; // Ícone de olho aberto
+        }
+    });
+});
+</script>
+
+<script>
+
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.4.8'; // Versão atual do sistema     
+const VersaoSistema = 'v1.4.9'; // Versão atual do sistema
 
-let vDesabilitarF12 = true; // deixar true para fazer o deploy    
+let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
 
 let piramideInicioTorneio = null;
 let piramideFimTorneio = null;
 let piramideAtivaGlobal = false;
 
-let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário 
+let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
 let vLimparDiasAnteriores = false;
@@ -634,8 +1006,8 @@ const jogadoresRestritos = ["YURI HARDER", "EDUARDO BERGMAN","BIANCA KROKER","MA
 
 let quadrasInativas = new Set();
 let reservasPorQuadra = {};
-let quadraSelecionada = 'Quadra 1 - Coberta'; 
-let duplasConfigGlobais = {}; 
+let quadraSelecionada = 'Quadra 1 - Coberta';
+let duplasConfigGlobais = {};
 let convidadoConfigGlobais = {};
 let bloqueiosQuadra = {};
 let horasParaExpirarConfig = 2; // Define um padrão de 2 horas
@@ -680,7 +1052,7 @@ const database = firebase.database();
 
 
 // Configuração inicial do banco de dados
-function inicializarEstruturaInicial() { 
+function inicializarEstruturaInicial() {
     const estruturaInicial = {
         config: {
             DiasParaLimpar: 4, // Valor padrão
@@ -840,7 +1212,7 @@ let githubToken = ''; // Variável global para armazenar o token
 // Inicialização do sistema
 function InicializarSistema() {
     return new Promise((resolve, reject) => {
-        const sistemaRef = database.ref("sistemas"); 
+        const sistemaRef = database.ref("sistemas");
 
         sistemaRef.on('value', (snapshot) => {
             const data = snapshot.val();
@@ -853,17 +1225,17 @@ function InicializarSistema() {
                 }
 
                 const config = data.config;
-				
+
 				horasParaExpirarConfig = config.horasParaExpirar || 2; // Lê o valor do banco ou usa 2 como padrão
 				quebraHorarioDomingoConfig = config.QuebraDeHorarioDomingo || { ativa: true, quadras: {} };
-				
+
 				githubToken = config.githubToken;
-				
+
 				//alert(`token: ${githubToken}`);
-				
-				
-               
-			   
+
+
+
+
 			    if (vAbrirSistema) {
 				  // Permissão para abrir o sistema
 				  if (config && config.Abrir === false) {
@@ -880,8 +1252,7 @@ function InicializarSistema() {
 				  }
 				  */
 				}
-		        
-				
+
 
                 // Verifica se a pirâmide está ativa (em tempo real)
                 const piramideAtiva = config?.Piramide?.ativa || false; // Valor padrão: false
@@ -894,10 +1265,10 @@ function InicializarSistema() {
                 if (piramideOption) {
                     piramideOption.style.display = piramideAtiva ? 'block' : 'none'; // Mostra ou oculta a opção "Pirâmide"
                 }
-                
+
                 // Atualiza a legenda com base no estado da Pirâmide
                 atualizarLegenda(piramideAtiva);
-                
+
                 if (piramideAtiva) {
                     window.config = window.config || {};
                     window.config.Piramide = config.Piramide;
@@ -907,13 +1278,13 @@ function InicializarSistema() {
                     window.DiasParaLimpar = config.DiasParaLimpar || 4;
                     window.vDomingo = config.vDomingo || "fechado";
                     window.vDomingoAte = config.vDomingoAte || "23:00"; // Valor padrão caso não esteja definido
-					
+
 					duplasConfigGlobais = config.Duplas || {}; // Carrega a config de Duplas na variável global
-					
+
 				    convidadoConfigGlobais = config.Convidados || {}; // Carrega a config de Convidados
-					
+
 					bloqueiosQuadra = config.Quadras?.Bloqueios || {};  // Carrega a config de Bloqueios
-					
+
                     quadrasInativas.clear();
                     const quadras = config.Quadras || {};
                     if (quadras.Quadra1 === "interditada") quadrasInativas.add("Quadra 1 - Coberta");
@@ -921,7 +1292,7 @@ function InicializarSistema() {
                     if (quadras.Quadra3 === "interditada") quadrasInativas.add("Quadra 3 - Coberta");
 
                     atualizarDatas();
-					
+
 					if (vatualizarOpcoesHorario) {
 					  atualizarOpcoesHorario();
 					  document.getElementById('quadra').selectedIndex = 0;
@@ -961,7 +1332,7 @@ function InicializarSistema() {
 
                     alert("Todas as quadras estão interditadas no momento.");
                     resolve();
-                    return; 
+                    return;
                 }
             }
 
@@ -1007,7 +1378,7 @@ function InicializarSistema() {
 
             atualizarEstadoQuadras();
             selecionarQuadra(quadraInicial);
-			
+
 			// ADICIONE ESTA LINHA PARA FORÇAR O RESET DO DROPDOWN
 			//document.getElementById('quadra').selectedIndex = 0;
             resolve();
@@ -1224,14 +1595,14 @@ function selecionarQuadra(quadra) {
             button.innerHTML.replace('<br>', '').trim() === quadra
         ) {
             nomeOriginal = button.getAttribute('data-nome-original');
-            
+
             // Alerta com o label do botão clicado
             const labelBotao = button.textContent.trim(); // Obtém o texto do botão
             //alert(`Label do botão clicado: ${labelBotao}`);
         }
     });
 
-    // alert(`quadra: ${quadra}`); 
+    // alert(`quadra: ${quadra}`);
     if (!nomeOriginal) {
         // Substitui quebras de linha e espaços múltiplos por um único espaço
         const quadraNormalized = quadra.replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
@@ -1243,12 +1614,12 @@ function selecionarQuadra(quadra) {
         } else if (quadraNormalized === "Quadra 2 - Aberta" || quadraNormalized === "Quadra 2 Aberta") {
             nomeOriginal = "Quadra 2 - Aberta";
         } else if (quadraNormalized === "Quadra 3 - Coberta" || quadraNormalized === "Quadra 3 Coberta") {
-            nomeOriginal = "Quadra 3 - Coberta"; 
+            nomeOriginal = "Quadra 3 - Coberta";
         }
     }
-	
+
     //nomeOriginal = "Quadra 3 - Coberta";
-	
+
     //alert(`Quadra selecionada: ${nomeOriginal}`); // Alerta com o nome da quadra
 
     if (!nomeOriginal) {
@@ -1289,7 +1660,7 @@ function selecionarQuadra(quadra) {
         if (quadrasInativas.has(button.getAttribute('data-nome-original'))) {
             button.style.backgroundColor = 'red'; // Botão vermelho para quadras interditadas
             button.style.color = 'white'; // Texto branco
-            button.style.border = ''; // Remove a borda para o botão vermelho 
+            button.style.border = ''; // Remove a borda para o botão vermelho
         }
     });
 
@@ -1323,14 +1694,14 @@ function carregarReservas(quadra) {
                 const totalCols = tabela.rows[0]?.cells.length || 0;
 
                 for (const key in reservas) {
-                    const reserva = reservas[key]; 
+                    const reserva = reservas[key];
 
                     if (typeof reserva.jogadores === 'undefined' || reserva.jogadores === null) {
                         const erroMsg = `⚠️ Erro de Dados Encontrado!\n\nExiste uma reserva antiga ou corrompida que está impedindo a exibição correta da agenda.\n\nPor favor, envie esta informação para o administrador:\n\n- Quadra: ${quadra}\n- Chave do Problema: ${key}`;
                         alert(erroMsg);
                         throw new Error(erroMsg);
                     }
-                    
+
                     let { jogadores, dia, hora, duracao, borda } = reserva;
 
                     const rowIndex = hora - 6;
@@ -1339,7 +1710,7 @@ function carregarReservas(quadra) {
                     if (rowIndex >= 0 && rowIndex < totalRows && colIndex >= 0 && colIndex < totalCols) {
                         const cell = tabela.rows[rowIndex].cells[colIndex];
                         cell.setAttribute("data-duracao", duracao || "segunda-celula");
-						
+
 						const isDarkMode = document.body.classList.contains('dark-mode');
 						const corReserva1h = isDarkMode ? 'mediumseagreen' : 'lightgreen';
 						const corReserva2h = isDarkMode ? 'CornflowerBlue' : 'lightblue';
@@ -1349,16 +1720,16 @@ function carregarReservas(quadra) {
                         //if (jogadores.toLowerCase().includes('aula')) {
 						if (jogadores.toLowerCase().trim() === 'aula') {
                             corFundo = 'lightcoral';
-                            cell.innerHTML = "aula"; 
+                            cell.innerHTML = "aula";
                         } else if (duracao === 3 || (reservas[key.split('_')[0] + '_' + (hora - 1)] && reservas[key.split('_')[0] + '_' + (hora - 1)].duracao === 3)) {
                             corFundo = corPiramide; // APLICA A COR CORRETA DA PIRÂMIDE
-							
+
 							// --- INÍCIO DA CORREÇÃO ---
                             // Formata os nomes dos jogadores com a posição correta na pirâmide
                             const jogadoresArray = jogadores.split(', ');
                             const jogadoresFormatados = jogadoresArray.map(apelido => {
                                 const jogadorInfo = jogadoresData[apelido];
-                                
+
                                 if (jogadorInfo && jogadorInfo.piramide && jogadorInfo.piramide !== "0") {
                                     const piramidePos = parseInt(jogadorInfo.piramide, 10);
                                     let displayRank = piramidePos; // Por padrão, o ranking é a posição do banco
@@ -1367,7 +1738,7 @@ function carregarReservas(quadra) {
                                     if (piramidePos >= 61) {
                                         displayRank = piramidePos - 60; // Ex: 61 -> 1, 69 -> 9
                                     }
-                                    
+
                                     // Retorna o nome formatado com o ranking correto
                                     return `${displayRank} - ${apelido}`;
                                 } else {
@@ -1397,9 +1768,9 @@ function carregarReservas(quadra) {
                 console.error("Execução interrompida devido a dados inválidos:", error.message);
                 return;
             }
-        } 
+        }
 
-        adicionarEventoClique(); 
+        adicionarEventoClique();
     });
 }
 
@@ -1447,7 +1818,7 @@ function validarDiaReserva(jogadores) {
 
     if (duracao === "3-piramide") {
         console.log("Modo Pirâmide detectado. Aplicando regras especiais.");
-		
+
 		// --- INÍCIO DA NOVA VALIDAÇÃO DE DATAS DO TORNEIO ---
         if (!piramideInicioTorneio || !piramideFimTorneio) {
             alert("Não é possível agendar jogos da Pirâmide, pois as datas do torneio ainda não foram configuradas.");
@@ -1469,7 +1840,7 @@ function validarDiaReserva(jogadores) {
             alert("Erro nas datas do torneio da Pirâmide. Contate o administrador.");
             return false;
         }
-        
+
         dataFimObj.setHours(23, 59, 59, 999); // Garante que o dia final seja incluído na verificação
 
         if (dataDaReserva < dataInicioObj) {
@@ -1481,15 +1852,15 @@ function validarDiaReserva(jogadores) {
             alert(`O torneio da Pirâmide terminou em ${piramideFimTorneio.replace(/-/g, '/')}.`);
             return false;
         }
-        // --- FIM DA NOVA VALIDAÇÃO DE DATAS DO TORNEIO --- 
+        // --- FIM DA NOVA VALIDAÇÃO DE DATAS DO TORNEIO ---
 
         if (jogadores.length !== 2) {
             alert("Reservas da Pirâmide devem ter exatamente 2 jogadores.");
 			limparCampos();
             return false;
         }
-		
-		const configPiramide = window.config?.Piramide; 
+
+		const configPiramide = window.config?.Piramide;
         if (!configPiramide || !configPiramide.ativa) {
             alert("Configuração da Pirâmide não foi encontrada ou está desativada. Atualize a página.");
             return false;
@@ -1518,7 +1889,7 @@ function validarDiaReserva(jogadores) {
             prefixoQuadra = "3-";
             if (!quadraConfig || !quadraConfig["Quadra-3-ativa"]) {
                 alert("Quadra 3 - Coberta está interditada para jogos da Pirâmide.");
-                return false; 
+                return false;
             }
         }
 
@@ -1565,12 +1936,12 @@ function validarDiaReserva(jogadores) {
         }
 
         console.log("Todas as regras da Pirâmide foram validadas com sucesso.");
-    } 
-	
+    }
+
         console.log("Modo padrão detectado. Aplicando regras normais de reserva.");
-	
+
 	//alert('entrei na validaçao');
-    
+
     const diasParaLimpar = window.DiasParaLimpar;
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0);
@@ -1607,7 +1978,7 @@ function validarDiaReserva(jogadores) {
 
 async function validarSeTemReserva(jogadores) {
     console.log("Iniciando validação de reservas...");
-	
+
 	// Se algum jogador for "aula" , retorna true imediatamente
 	if (jogadores.some(jogador => {
 		let nome = jogador.toLowerCase();
@@ -1616,8 +1987,8 @@ async function validarSeTemReserva(jogadores) {
 		console.log("Reserva marcada como 'aula'. Validação interrompida.");
 		return true;
 	}
-	
-		
+
+
     return new Promise((resolve) => {
         let conflito = false;
         let jogadoresComConflito = [];
@@ -1635,10 +2006,10 @@ async function validarSeTemReserva(jogadores) {
             const novaReservaDataHoraInicio = new Date(agora);
             novaReservaDataHoraInicio.setDate(agora.getDate() + ((diaSelecionado + 7 - agora.getDay()) % 7));
             novaReservaDataHoraInicio.setHours(horaSelecionada, 0, 0, 0);
-            
+
             const novaReservaDataHoraFim = new Date(novaReservaDataHoraInicio);
-            novaReservaDataHoraFim.setHours(novaReservaDataHoraInicio.getHours() + duracaoSelecionada); 
-            
+            novaReservaDataHoraFim.setHours(novaReservaDataHoraInicio.getHours() + duracaoSelecionada);
+
             // Verificando reservas existentes
             for (const quadra in reservas) {
                 //console.log("Verificando quadra:", quadra);
@@ -1659,7 +2030,7 @@ async function validarSeTemReserva(jogadores) {
 					    if (jogador === "Convidado") {
 							return;
 						}
-                        
+
                         const jogadoresNaReserva = reserva.jogadores.split(', ');
                         if (jogadoresNaReserva.includes(jogador)) {
                             const reservaDia = parseInt(reserva.dia, 10);
@@ -1668,10 +2039,10 @@ async function validarSeTemReserva(jogadores) {
                             const reservaDataHoraInicio = new Date(agora);
                             reservaDataHoraInicio.setDate(agora.getDate() + ((reservaDia + 7 - agora.getDay()) % 7));
                             reservaDataHoraInicio.setHours(reservaHora, 0, 0, 0);
-                            
+
                             const reservaDataHoraFim = new Date(reservaDataHoraInicio);
                             reservaDataHoraFim.setHours(reservaDataHoraInicio.getHours() + reservaDuracao);
-                            
+
                             if (reservaDataHoraInicio > agora) {
                                 conflito = true;
                                 if (!jogadoresComConflito.includes(jogador)) {
@@ -1720,7 +2091,7 @@ function gerarMensagemErro(diasParaLimpar) {
         default: return "Valor de DiasParaLimpar inválido.";
     }
     limparCampos();
-    return `Não é permitido fazer reservas com mais de ${diasAntecedencia} dias de antecedência.`; 
+    return `Não é permitido fazer reservas com mais de ${diasAntecedencia} dias de antecedência.`;
 }
 
 window.atualizarOpcoesHorario = function() {
@@ -1762,7 +2133,7 @@ window.atualizarOpcoesHorario = function() {
         if (bloqueioDoDia && bloqueioDoDia.regras) {
             const inicioBloqueio = parseInt(bloqueioDoDia.regras.inicio.split(':')[0]);
             const fimBloqueio = parseInt(bloqueioDoDia.regras.fim.split(':')[0]);
-            
+
             // Verifica se o horário de início ou qualquer parte da duração cai dentro do bloqueio
             for(let i = 0; i < parseInt(duracao === '3-piramide' ? 2 : duracao); i++) {
                 if ((h + i) >= inicioBloqueio && (h + i) < fimBloqueio) {
@@ -1804,7 +2175,7 @@ window.adicionarJogador = function() {
         const novoSelect = document.createElement('select');
         novoSelect.id = `jogador${jogadorCount}`;
         novoSelect.name = `jogador${jogadorCount}`;
-        
+
         // 1. Copia as opções do primeiro campo, que tem a lista completa.
         const primeiroSelect = document.getElementById('jogador1');
         if (primeiroSelect) {
@@ -1833,7 +2204,7 @@ window.adicionarJogador = function() {
         // ==========================================================
         // FIM DA CORREÇÃO
         // ==========================================================
-        
+
         newDiv.appendChild(label);
         newDiv.appendChild(novoSelect);
         jogadoresContainer.appendChild(newDiv);
@@ -1858,7 +2229,7 @@ async function atualizarTabela() {
             }
         }
     }
-	
+
 	console.log("Jogadores selecionados:", jogadores);
 
     if (jogadores.length === 0) {
@@ -1867,7 +2238,7 @@ async function atualizarTabela() {
     }
 
 
-    // Nova validação: verifica se o jogador logado está na reserva 
+    // Nova validação: verifica se o jogador logado está na reserva
     const jogadorLogado = localStorage.getItem('jogadorLogado');
     const isAdmin = jogadorLogado === "RONALDO TABORDA";
     const isAula = jogadores.some(j => j.toLowerCase() === "aula");
@@ -1899,7 +2270,7 @@ async function atualizarTabela() {
         alert('Reservas de 2 horas precisam ter no mínimo 2 e no máximo 4 jogadores.');
         return;
     }
-	
+
 
     const quadra = document.getElementById('quadra').value;
 	if (quadrasInativas.has(quadra)) {
@@ -1907,9 +2278,10 @@ async function atualizarTabela() {
         limparCampos();
         return;
     }
-	
-		
-	
+
+
+
+
     const dia = parseInt(document.getElementById('dia').value, 10);
     const horaSelecionada = parseInt(document.getElementById('hora').value, 10);
 
@@ -1952,7 +2324,7 @@ async function atualizarTabela() {
 			alert(mensagemQuadras);
 			return;
 		}
-		
+
 		// Verifica os dias permitidos para o convidado
 		const diaDaSemana = dia >= 1 && dia <= 5; // Segunda a sexta
 		const fimDeSemana = dia === 6 || dia === 7; // Sábado e domingo
@@ -1990,19 +2362,19 @@ async function atualizarTabela() {
         return;
     }
 
-    
+
 
     if (horaSelecionada < 6 || horaSelecionada > 22) {
         alert('Horário selecionado deve ser entre 6 e 22.');
         return;
     }
-	
-	
+
+
 	// >>> VALIDAÇAO DE DUPLAS <<<
     //const quadra = document.getElementById('quadra').value;
     //const dia = parseInt(document.getElementById('dia').value, 10);
     //const horaSelecionada = parseInt(document.getElementById('hora').value, 10);
-    
+
     //const isRegraDuplasOk = await validarRegraDeDuplas(jogadores, quadra, dia, horaSelecionada);
 	// Linha nova (adicionando a variável 'duracao'):
 	//const duracao = parseInt(document.getElementById('duracao').value); // Esta linha já deve existir um pouco mais acima no seu código
@@ -2012,7 +2384,7 @@ async function atualizarTabela() {
         return; // Interrompe o processo de agendamento
     }
     // >>> FIM DO NOVO BLOCO DE DUPLAS <<<
-	
+
 	// --- INÍCIO DA ADIÇÃO ---
     const isQuebraHorarioOk = validarQuebraHorarioDomingo(dia, horaSelecionada, duracao, quadra);
     if (!isQuebraHorarioOk) {
@@ -2020,9 +2392,9 @@ async function atualizarTabela() {
         return; // Interrompe se a validação falhar
     }
     // --- FIM DA ADIÇÃO ---
-	
-	
-	
+
+
+
 	const reservasRef = database.ref(`sistemas/reservas/${quadra}`);
     console.log("📦 Referência do Firebase:", `sistemas/reservas/${quadra}`);
 
@@ -2056,8 +2428,8 @@ async function atualizarTabela() {
     await reservasRef.once('value', (snapshot) => {
         const reservas = snapshot.val() || {};
         let horariosLivres = true;
-		
-		
+
+
         const loopDuracao = duracao === 3 ? duracao - 1 : duracao;
         for (let i = 0; i < loopDuracao; i++) {
             const horarioChave = `${dia}_${horaSelecionada + i}`;
@@ -2077,7 +2449,7 @@ async function atualizarTabela() {
     });
 
     if (isErro) return;
-	
+
 	console.log("Reserva liberada, prosseguir com o agendamento.");
 
     if (duracao === 1) {
@@ -2202,7 +2574,7 @@ function adicionarEventoClique() {
     for (let i = 0; i < tabela.rows.length; i++) {
         for (let j = 0; j < tabela.rows[i].cells.length; j++) {
             const celula = tabela.rows[i].cells[j];
-			
+
 			// --- INÍCIO DA CORREÇÃO ---
             // Se a célula já tem um cursor de 'ajuda', significa que é um bloqueio.
             // Nesse caso, não fazemos nada e pulamos para a próxima célula.
@@ -2249,7 +2621,7 @@ const celulasExcluidas = new Set();
 
 function excluirReserva(horaIndex, diaIndex) {
     console.log("🔹 Iniciando processo de exclusão...");
-    
+
     try {
         // Verificação do usuário logado
         const jogadorLogado = localStorage.getItem('jogadorLogado');
@@ -2267,7 +2639,7 @@ function excluirReserva(horaIndex, diaIndex) {
             throw new Error("Tabela não encontrada");
         }
 
-        const celulaId = `${horaIndex}_${diaIndex}`; 
+        const celulaId = `${horaIndex}_${diaIndex}`;
         console.log("🔹 Célula alvo:", celulaId);
 
         // Verificação de duplicação de exclusão
@@ -2289,7 +2661,7 @@ function excluirReserva(horaIndex, diaIndex) {
         // Obtenção da duração e jogadores
         const duracao = primeiraCelula.getAttribute('data-duracao') || "1";
         console.log("🔹 Duração da reserva:", duracao);
-        
+
         let jogadoresArray = primeiraCelula.textContent.trim().split(',')
             .map(j => j.replace(/^\d+\s*-\s*/, '').trim().toLowerCase())
             .filter(j => j); // Remove entradas vazias
@@ -2335,12 +2707,12 @@ function excluirReserva(horaIndex, diaIndex) {
         // CORREÇÃO: Pegar a data correta da tabela
         const tabelaPrincipal = document.getElementById('tabelaQuadra');
         let dataReserva = 'data-desconhecida';
-        
+
         if (tabelaPrincipal && tabelaPrincipal.rows[1]) {
             // A linha 1 contém as datas (Segunda=col1, Terça=col2, etc.)
             const linhaDatas = tabelaPrincipal.rows[1];
             const dataTabela = linhaDatas.cells[diaIndex-1]?.textContent.trim();
-            
+
             if (dataTabela) {
                 console.log("🔹 Data bruta da tabela:", dataTabela);
                 const partes = dataTabela.split('/');
@@ -2371,14 +2743,14 @@ function excluirReserva(horaIndex, diaIndex) {
 
             excluirReservaFirebase(horaIndex + 6, diaIndex, quadraAtual);
             excluirReservaFirebase(horaIndex + 7, diaIndex, quadraAtual);
-        } 
+        }
         else if (duracao === "1") {
             console.log("🔹 Exclusão de reserva de 1h.");
             requestAnimationFrame(() => {
                 limparCelula(primeiraCelula);
             });
             excluirReservaFirebase(horaIndex + 6, diaIndex, quadraAtual);
-        } 
+        }
         else {
             console.log("⚠️ Duração inválida, não será excluído.");
             return;
@@ -2461,7 +2833,7 @@ function limparCampos() {
     document.getElementById('jogador1').value = ''; // Mantém o campo "Jogador 1"
     document.getElementById('duracao').value = '1'; // Reseta a duração para 1 hora
     atualizarOpcoesHorario(); // Atualiza as opções de horário
-	
+
 }
 
 // Monitora as alterações no Firebase
@@ -2518,15 +2890,15 @@ reservasRef.on('value', (snapshot) => {
 
 function atualizarDatas() {
   const dataInicio = new Date();
-  
-  let diaDaSemana = dataInicio.getDay(); 
+
+  let diaDaSemana = dataInicio.getDay();
   const dias = document.querySelectorAll("th");
-  //let vAtualizarDatas = 1; 
+  //let vAtualizarDatas = 1;
 
   const linhaDatas = dias[0].parentNode.nextElementSibling;
 
   try {
-    if (!vLimparDiasAnteriores) { 
+    if (!vLimparDiasAnteriores) {
             LimparDiasAnteriores();
             vLimparDiasAnteriores = true; // Define como falso após a primeira execução
     }
@@ -2535,12 +2907,12 @@ function atualizarDatas() {
     }
 
 
-  
+
   //alert(`dia da semana: ${diaDaSemana}`);
-  
+
   switch (DiasParaLimpar) {
   //switch (vAtualizarDatas) {
-    case 1: 
+    case 1:
       switch (diaDaSemana) {
         case 0: preencherCeldas(dataInicio, [1, 2, 3, 4, 5, -1, 0], linhaDatas); break;
         case 1: preencherCeldas(dataInicio, [0, 1, 2, 3, 4, 5, -1], linhaDatas); break;
@@ -2618,7 +2990,7 @@ function atualizarDatas() {
       }
       break;
   }
-  
+
 }
 
 function preencherCeldas(dataInicio, ajustes, linhaDatas) {
@@ -2657,10 +3029,10 @@ async function LimparDiasAnteriores() {
                     const key = `${diaIndex}_${hora}`;
 
                     // Pular horários bloqueados
-                    if ((diaIndex === 6 && hora === 6) || 
-                        (diaIndex === 7 && hora >= 6 && hora < 8) || 
+                    if ((diaIndex === 6 && hora === 6) ||
+                        (diaIndex === 7 && hora >= 6 && hora < 8) ||
                         (diaIndex === 6 && hora >= 21 && hora <= 23)) {
-                        continue; 
+                        continue;
                     }
 
                     const reservaRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
@@ -2671,7 +3043,7 @@ async function LimparDiasAnteriores() {
 					if (reserva && reserva.jogadores?.toLowerCase().trim() !== 'aula' && reserva.borda) {
                         // Formatar dados para o log
                         let { jogadores, duracao } = reserva;
-                        
+
                         // Para reservas de 2h/3h, buscar jogadores da segunda hora
                         if (duracao === 2 || duracao === 3) {
                             const segundaHoraRef = database.ref(`sistemas/reservas/${quadra}/${diaIndex}_${hora + 1}`);
@@ -2695,7 +3067,7 @@ async function LimparDiasAnteriores() {
 
                         const dataReserva = dataParaLimpar.toLocaleDateString('pt-BR').split('/');
                         const dataFormatada = `${dataReserva[0].padStart(2, '0')}-${dataReserva[1].padStart(2, '0')}-${dataReserva[2]}`;
-                        
+
                         const horasParaAdicionar = duracao === 3 ? 2 : duracao;
                         const horarioFormatado = `${hora.toString().padStart(2, '0')}:00 - ${(hora + horasParaAdicionar).toString().padStart(2, '0')}:00`;
 
@@ -2709,10 +3081,10 @@ async function LimparDiasAnteriores() {
                                 minute: '2-digit'
                             }).replace(',', ''),
                             quadra,
-                            data: dataFormatada, 
+                            data: dataFormatada,
                             horario: horarioFormatado,
                             duracao: duracao === 3 ? "2 Horas - Pirâmide" : duracao === 2 ? "2 Horas" : "1 Hora",
-                            jogadores: jogadoresArray, 
+                            jogadores: jogadoresArray,
                             usuario: "SISTEMA"
                         });
 
@@ -2739,9 +3111,9 @@ async function LimparDiasAnteriores() {
         }
 
     } catch (erro) {
-        console.error(`⚠️ ERRO na função LimparDiasAnteriores: ${erro.message}`); 
+        console.error(`⚠️ ERRO na função LimparDiasAnteriores: ${erro.message}`);
         operacaoSucesso = false;
-        
+
         // Tenta registrar os logs mesmo em caso de erro
         if (reservasParaExcluir.length > 0) {
             try {
@@ -2778,7 +3150,7 @@ function carregarJogadores() {
             const todosJogadores = snapshot.val();
             if (!todosJogadores) {
                 console.error("Nenhum jogador encontrado no banco de dados.");
-                resolve(); 
+                resolve();
                 return;
             }
 
@@ -2787,7 +3159,8 @@ function carregarJogadores() {
                 const jogador = todosJogadores[nome];
                 jogadoresData[jogador.apelido] = {
                     nomeCompleto: nome,
-                    piramide: jogador.piramide || "0"
+                    piramide: jogador.piramide || "0",
+					niver: jogador.niver || ""
                 };
             });
 
@@ -2816,7 +3189,7 @@ function carregarJogadores() {
                                 oponentesValidos[nome] = oponente;
                             }
                         });
-                    } 
+                    }
                     // --- INÍCIO DA NOVA LÓGICA (SUBSTITUIÇÃO) ---
                     // Filtro para Pirâmide Masculina (Posição 1-60) com a "Regra de Desafio Ascendente"
                     else {
@@ -2845,7 +3218,7 @@ function carregarJogadores() {
                                 oponentesValidos[nomeOponente] = oponente;
                             }
                         });
-                        
+
                         // Adiciona o próprio jogador logado à lista para que ele apareça no dropdown
                         if (todosJogadores[nomeCompletoLogado]) {
                             oponentesValidos[nomeCompletoLogado] = todosJogadores[nomeCompletoLogado];
@@ -2855,16 +3228,16 @@ function carregarJogadores() {
                     jogadoresParaExibir = oponentesValidos;
                 }
             }
-            
+
             const selectsParaPreencher = [];
             document.querySelectorAll('select[id^="jogador"]').forEach(select => {
-                selectsParaPreencher.push(select); 
+                selectsParaPreencher.push(select);
             });
             if (!jogadorLogadoNome) {
                 const selectLogin = document.getElementById("jogadorSelect");
                 if (selectLogin) selectsParaPreencher.push(selectLogin);
             }
-            
+
             selectsParaPreencher.forEach(select => {
                 const valorJaSelecionado = select.value;
                 select.innerHTML = '<option value="">Selecione um jogador</option>';
@@ -2879,7 +3252,7 @@ function carregarJogadores() {
                     select.value = valorJaSelecionado;
                 }
             });
-            
+
             resolve();
 
         }, (error) => {
@@ -2895,7 +3268,7 @@ function carregarJogadores() {
 window.onload = function () {
     console.log("✅ Página carregada - Chamando verificarVersao()");
     verificarVersao();
-	
+
 	removerSessoesAntigas();
 
     let jogadorLogado = localStorage.getItem('jogadorLogado');
@@ -2910,7 +3283,7 @@ window.onload = function () {
 
         //desmarccar esse trecho para canccelar o login do usuario
 
-        //jogadorLogado = 'LOGADO'; 
+        //jogadorLogado = 'LOGADO';
 
         // ***********************************************
 
@@ -2940,7 +3313,7 @@ window.onload = function () {
 
                 // Remove automaticamente quando o usuário fechar a aba
                 userStatusRef.onDisconnect().remove();
-
+                checarAniversario();
             }).catch(error => {
                 console.error("❌ Erro ao inicializar o sistema:", error);
             });
@@ -2959,7 +3332,7 @@ window.onload = function () {
                 localStorage.setItem("sessionId", sessionId);
 
                 // Cria referência no Firebase para rastrear usuários ativos
-                const userStatusRef = database.ref(`sistemas/usuariosOnline/${sessionId}`); 
+                const userStatusRef = database.ref(`sistemas/usuariosOnline/${sessionId}`);
 
                 // Adiciona o usuário ao banco quando ele acessa
                 userStatusRef.set({
@@ -3021,8 +3394,8 @@ document.addEventListener('DOMContentLoaded', () => {
             tabelaContainer.classList.toggle('fullscreen');
         }
     });
-	
-	
+
+
 	const header = document.querySelector('.header'); // Seleciona o título da quadra
     let tapCount = 0; // Contador de toques
     let lastTapTime = 0; // Tempo do último toque
@@ -3128,7 +3501,7 @@ function fazerLogin() {
             localStorage.setItem('jogadorLogado', nomeCompleto); // Salva o nome completo
             loginScreen.style.display = 'none';
             contentElement.style.display = 'block';
-			atualizarPrimeiroAcesso(nomeCompleto); 
+			atualizarPrimeiroAcesso(nomeCompleto);
         } else {
             // Se o usuário cancelar, limpa os campos jogador e senha
             jogadorSelect.value = '';
@@ -3241,7 +3614,7 @@ async function registrarExclusao(quadra, horario, jogadores, usuario, duracao, d
     if (fileData.content) {
       try {
         logs = JSON.parse(b64_to_utf8(fileData.content)) || [];
-		
+
       } catch (e) {
         console.warn('Falha ao decodificar logs existentes, iniciando novo', e);
       }
@@ -3328,7 +3701,7 @@ async function registrarExclusaoEmLote(logs) {
     if (fileData.content) {
       try {
         logsExistentes = JSON.parse(b64_to_utf8(fileData.content)) || [];
-		
+
       } catch (e) {
         console.warn('Falha ao decodificar logs existentes', e);
       }
@@ -3399,7 +3772,7 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
 
     // Lógica de data para flexibilização
     const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0); 
+    hoje.setHours(0, 0, 0, 0);
     const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
     let diff = dia - diaDaSemanaHoje;
     if (diff < 0) {
@@ -3408,7 +3781,7 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
     const dataDaReserva = new Date(hoje);
     dataDaReserva.setDate(hoje.getDate() + diff);
     const dataFormatadaParaChave = `${dataDaReserva.getFullYear()}-${String(dataDaReserva.getMonth() + 1).padStart(2, '0')}-${String(dataDaReserva.getDate()).padStart(2, '0')}`;
-    
+
     // Lógica de Exceções (Datas Especiais) - tem prioridade
     const excecao = duplasConfig.DatasEspeciais?.[quadraKey]?.[dataFormatadaParaChave];
     if (excecao && excecao.regras) {
@@ -3417,7 +3790,7 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
         const horarioFimReserva = hora + duracao;
 
         if (hora < horarioFimRegra && horarioFimReserva > horarioInicioRegra) {
-		
+
 		    // *** INÍCIO DA ALTERAÇÃO PARA EXCEÇÕES ***
             // 1. Validação de Convidado em datas de exceção
             if (jogadores.includes("Convidado")) {
@@ -3454,16 +3827,16 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
         }
         const diaSemanaMap = { 1: 'segunda', 2: 'terca', 3: 'quarta', 4: 'quinta', 5: 'sexta' };
         if (!configDiasEspecificos[diaSemanaMap[dia]]) {
-            return true; 
+            return true;
         }
-        
+
         const diasAtivosNomes = [];
         if (configDiasEspecificos.segunda) diasAtivosNomes.push("Segunda-feira");
         if (configDiasEspecificos.terca) diasAtivosNomes.push("Terça-feira");
         if (configDiasEspecificos.quarta) diasAtivosNomes.push("Quarta-feira");
         if (configDiasEspecificos.quinta) diasAtivosNomes.push("Quinta-feira");
         if (configDiasEspecificos.sexta) diasAtivosNomes.push("Sexta-feira");
-        
+
         if (diasAtivosNomes.length < 5) {
             nomeDoPeriodo = `nos seguintes dias: ${diasAtivosNomes.join(', ')}`;
         } else {
@@ -3491,26 +3864,26 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
     const horarioFimReserva = hora + duracao;
 
     if (hora < horarioFimRegra && horarioFimReserva > horarioInicioRegra) {
-	
+
 	    // *** INÍCIO DA ALTERAÇÃO ***
         // Valida se há convidados no horário de duplas da regra semanal.
         if (jogadores.includes("Convidado")) {
             alert(`⚠️ Atenção: Horário Prioritário para Duplas\n\nNo horário das ${configDaQuadra[inicioKey]} às ${configDaQuadra[fimKey]} ${nomeDoPeriodo}, a quadra é exclusiva para jogos entre sócios.\n\nRegras para este horário:\n• Apenas jogos de duplas (4 jogadores).\n• Não é permitida a inclusão de convidados.\n\nPara agendar com menos de 4 sócios, tente novamente no dia da reserva, caso o horário ainda esteja disponível.`);
             return false;
         }
-        // *** FIM DA ALTERAÇÃO *** 
-	
-	
+        // *** FIM DA ALTERAÇÃO ***
+
+
         if (dataDaReserva > hoje) {
             if (jogadores.length !== 4) {
                 alert(`⚠️ Atenção: Horário Prioritário para Duplas\n\nNa ${quadraSelecionada}, o horário das ${configDaQuadra[inicioKey]} às ${configDaQuadra[fimKey]} ${nomeDoPeriodo} é prioritário para jogos de duplas (4 jogadores).\n\nPara agendar com menos jogadores, tente novamente no dia da reserva, caso o horário ainda esteja disponível.`);
                 return false;
             }
-        } 
+        }
     }
 
     console.log("VALIDAÇÃO OK: A reserva passou por todas as regras de Duplas.");
-    return true; 
+    return true;
 }
 
 
@@ -3519,7 +3892,7 @@ async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, dur
 function aplicarBloqueiosVisuais(quadra) {
     const quadraKey = `Quadra-${quadra.split(' ')[1]}`;
     if (!bloqueiosQuadra || !bloqueiosQuadra[quadraKey]) {
-        return; 
+        return;
     }
     const bloqueiosDaQuadra = bloqueiosQuadra[quadraKey];
     const hoje = new Date();
@@ -3545,19 +3918,19 @@ function aplicarBloqueiosVisuais(quadra) {
                     const cell = tabela.rows[rowIndex].cells[dia];
                     if (cell) {
                         cell.innerHTML = ""; // Garante que a célula fique vazia
-                        
+
                         // --- ÚNICA ALTERAÇÃO: Cor de fundo para vermelho ---
                         cell.style.backgroundColor = 'lightcoral';
-                        
+
                         cell.style.cursor = 'help';
                         const motivo = bloqueioDoDia.descricao || "Uso interno do clube";
                         cell.title = motivo;
-                        
+
                         cell.onclick = () => {
                             const dataFormatadaBrasileira = dataFormatada.split('-').reverse().join('/');
                             alert(`ℹ️ Informação: Horário Bloqueado\n\nO horário das ${bloqueioDoDia.regras.inicio} às ${bloqueioDoDia.regras.fim} na ${quadra} do dia ${dataFormatadaBrasileira} está indisponível.\n\nMotivo: ${motivo}`);
                         };
-                        
+
                         cell.style.borderTop = "1px solid #bbb";
                         cell.style.borderBottom = "1px solid #bbb";
                         cell.style.borderLeft = "1px solid #bbb";
@@ -3606,7 +3979,7 @@ function toggleTheme() {
     atualizarLegenda(piramideAtivaGlobal);
 
     // FORÇA O REDESENHO DA PLANILHA PARA APLICAR AS NOVAS CORES
-    carregarReservas(quadraSelecionada); 
+    carregarReservas(quadraSelecionada);
 }
 
 // Roda todo o código de tema depois que a página carregar
@@ -3664,12 +4037,12 @@ function validarQuebraHorarioDomingo(dia, hora, duracao, quadra) {
     if (quebraHorarioDomingoConfig.ativa === true) {
         return true;
     }
-    
+
     const quadraKey = `Quadra-${quadra.split(' ')[1]}`;
     if (!quebraHorarioDomingoConfig.quadras || !quebraHorarioDomingoConfig.quadras[quadraKey]) {
         return true;
     }
-    
+
     const isBlocoPadraoDomingo = (window.vDomingo === 'fechado') || (window.vDomingo === 'aberto' && window.vDomingoAte === '12:00');
     if (!isBlocoPadraoDomingo) {
         return true;
@@ -3679,7 +4052,7 @@ function validarQuebraHorarioDomingo(dia, hora, duracao, quadra) {
 
     // Cenário: Tentativa de agendar às 9:00 (qualquer duração)
     if (hora === 9) {
-         alert(`⚠️ Regra de Otimização de Domingo\n\nNa ${quadra}, este horário está bloqueado para otimização. Por favor, escolha um dos horários de 2 horas disponíveis:\n- 8:00 às 10:00\n- 10:00 às 12:00`);
+         alert(`⚠️ Regra de Otimização de Domingo\n\nNa ${quadra}, para evitar a quebra de horários, reservas de 1 hora não são permitidas às 9:00.`);
          return false;
     }
 
@@ -3700,7 +4073,7 @@ function validarQuebraHorarioDomingo(dia, hora, duracao, quadra) {
         alert(`⚠️ Regra de Otimização de Domingo\n\nNa ${quadra}, para evitar a quebra de horários, reservas de 1 hora não são permitidas às 11:00.`);
         return false;
     }
-    
+
     // Cenário: Tentativa de 2 horas às 9:00 (redundante, mas seguro)
     if (hora === 9 && duracao === 2) {
         alert(`⚠️ Regra de Otimização de Domingo\n\nNa ${quadra}, para evitar horários vagos de 1 hora, esta reserva de 2 horas não pode começar às 9:00.\n\nPor favor, escolha começar às 8:00 ou às 10:00.`);
@@ -3711,311 +4084,70 @@ function validarQuebraHorarioDomingo(dia, hora, duracao, quadra) {
     return true;
 }
 
+/* ================================================== */
+/* === NOVA FUNÇÃO DE ANIVERSÁRIO (COM CONFETES E IDADE) === */
+/* ================================================== */
 
-</script>
+function checarAniversario() {
+    const jogadorLogado = localStorage.getItem('jogadorLogado');
+    if (!jogadorLogado) return;
 
+    const jogadorApelido = Object.keys(jogadoresData).find(
+        apelido => jogadoresData[apelido].nomeCompleto === jogadorLogado
+    );
 
+    if (!jogadorApelido || !jogadoresData[jogadorApelido].niver) return;
 
-<body>
+    const niver = jogadoresData[jogadorApelido].niver; // Formato: "dd/mm/yyyy"
+    if (niver.length < 10) return; // Garante que a data está completa
 
- <!-- Tela de carregamento -->
-    <div id="loading" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem; background-color: white; width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center; z-index: 9999;">
-        Carregando... Aguarde.
-    </div>
+    const niverDiaMes = niver.substring(0, 5);
 
-<!-- Tela de Login -->
-<div id="loginScreen">
-    <!-- Cabeçalho com as informações do clube -->
-    <div id="loginHeader">
-        <h1>Clube Olímpico</h1>
-        <h2>Quadras de Tênis</h2>
-        <h3>Sistema de Reservas</h3>
-    </div>
+    const hoje = new Date();
+    const hojeDia = String(hoje.getDate()).padStart(2, '0');
+    const hojeMes = String(hoje.getMonth() + 1).padStart(2, '0');
+    const hojeDiaMes = `${hojeDia}/${hojeMes}`;
 
-    <!-- Painel de seleção de jogadores -->
-    <div id="loginForm">
-        <h2>Selecione seu nome:</h2>
-        <div class="input-group">
-            <select id="jogadorSelect">
-                <option value="">Carregando jogadores...</option>
-            </select>
-        </div>
-        
-       <div class="input-container">
-    <label for="senha" class="label-senha">Senha:</label>
-    <input type="password" id="senha" placeholder="Digite sua senha" inputmode="numeric" pattern="[0-9]*" maxlength="8">
-    <button type="button" id="toggleSenha">👁️</button>
-</div>
-        
-        <button onclick="fazerLogin()">Entrar</button>
-    </div>
-</div>
+    // Use '==' para uma comparação rápida. Mude para '===' se quiser testar sem esperar a data certa.
+    if (niverDiaMes == hojeDiaMes) {
+        // --- 1. Dispara os confetes ---
+        confetti({
+            particleCount: 150,
+            spread: 120,
+            origin: { y: 0.6 }
+        });
 
-<!-- Conteúdo Principal -->
-<div id="mainContent" style="display: none; text-align: center;">
-    <h2>Bem-vindo, <span id="nomeJogador"></span>!</h2>
-    <button onclick="fazerLogout()">Sair</button>
-</div>
-
-
-<!-- Conteúdo da página (inicialmente oculto) -->
-<div id="content" style="display: none;">
-
-<div class="tab-container" style="display: flex; justify-content: center; margin-bottom: 10px;">
-    <button class="tab-button" onclick="selecionarQuadra('Quadra 1 - Coberta')">Quadra 1 - Coberta</button>
-    <button class="tab-button" onclick="selecionarQuadra('Quadra 2 - Aberta')">Quadra 2 - Aberta</button>
-    <button class="tab-button" onclick="selecionarQuadra('Quadra 3 - Coberta')">Quadra 3 - Coberta</button>
-</div>
-
-
-
-<div id="VersaoSistema" style="text-align: right; margin-top: 70px; margin-right: 10px; font-size: 1rem; cursor: default; position: relative; z-index: 9999;">
-    
-</div>
-
-
- 
-
-
-
-<div class="form-container">
-    <form id="dataForm">
-	
-	    <div class="form-row">
-			<label for="quadra">Quadra:</label>
-			<select id="quadra" onchange="selecionarQuadra(this.value)">
-				<option value="Quadra 1 - Coberta">Quadra 1 - Coberta</option>
-				<option value="Quadra 2 - Aberta">Quadra 2 - Aberta</option>
-				<option value="Quadra 3 - Coberta">Quadra 3 - Coberta</option>
-			</select>
-		</div>
-
-
-
-        <div class="form-row">
-            <label for="dia">Dia:</label>
-            <select id="dia"  onchange="atualizarOpcoesHorario()">
-				<option value="1">Segunda-Feira</option>
-				<option value="2">Terça-Feira</option>
-				<option value="3">Quarta-Feira</option>
-				<option value="4">Quinta-Feira</option>
-				<option value="5">Sexta-Feira</option>
-				<option value="6">Sábado</option>
-				<option value="7">Domingo</option>
-			</select>
-
-        </div>
-
-        <div class="form-row">
-			<label for="duracao">Duração:</label>
-			<select id="duracao" onchange="atualizarOpcoesHorario()">
-			<option value="1">1 hora</option>
-			<option value="2">2 horas</option>
-			<option value="3-piramide" style="display: none;">Pirâmide</option> <!-- Opção inicialmente oculta -->
-			</select>
-		</div>
-		
-
-        <div class="form-row">
-            <label for="hora">Horário:</label>
-            <select id="hora">
-                <!-- As opções de horário serão ajustadas pelo JavaScript --> 
-            </select>
-        </div>
-
-        <div class="jogadores-container" id="jogadoresContainer">
-			<div class="form-row">
-				<label for="jogador1">Jogador:</label>
-				<select id="jogador1" name="jogador" required style="width: 100px;">
-					<option value="">Selecione um jogador</option>
-				</select>
-				<span class="add-jogador" onclick="adicionarJogador()">+</span>
-			</div>
-		</div>
-
-        <button id="botaoAgendar" type="button" onclick="atualizarTabela()">Agendar</button>
-    </form>
-</div>
-
-<div style="display: flex; justify-content: space-between; align-items: center;">
-    <h2 class="header" style="margin: 1; font-size: 20px;">Quadra 1 - Coberta</h2> <!-- Título à esquerda -->
-
-    
-    <div id="legenda" style="margin-left: 20px; margin-right: 10px; text-align: left; margin-bottom: 10px;">
-    <strong style="font-size: 14px;">Legenda:</strong>
-    <div style="display: flex; flex-direction: column; gap: 5px;">
-        <!-- Primeira linha: 1 Hora e 2 Horas -->
-        <div id="linha-1" style="display: flex; align-items: center;">
-            <span style="display: inline-block; width: 15px; height: 17px; background-color: lightgreen; margin-right: 2px;"></span>
-            <span style="font-size: 12px;">1 Hora</span>
-            <span style="display: inline-block; width: 15px; height: 18px; background-color: lightblue; margin-right: 2px; margin-left: 10px;"></span>
-            <span style="font-size: 12px;">2 Horas</span>
-        </div>
-        <!-- Segunda linha: Aula e Pirâmide -->
-        <div id="linha-2" style="display: flex; align-items: center;">
-            <span style="display: inline-block; width: 15px; height: 18px; background-color: lightcoral; margin-right: 5px;"></span>
-            <span style="font-size: 12px;">Aula</span>
-            <span id="piramide-span" style="display: inline-block; width: 15px; height: 18px; background-color: #FFEB99 ; margin-left: 19px; margin-right: 1px;"></span>
-            <span id="piramide-text" style="font-size: 12px;">Pirâmide</span>
-        </div>
-    </div>
-	</div>
-</div>
-
-<div class="tabela-container">
-<table id="tabelaQuadra" style="width: 100%; margin-top: 10px;"> 
-    <tr>
-        <th rowspan="2" style="text-align: center;">Horários</th>
-        <th>Segunda-Feira</th>
-        <th>Terça-Feira</th>
-        <th>Quarta-Feira</th>
-        <th>Quinta-Feira</th>
-        <th>Sexta-Feira</th> 
-        <th>Sábado</th>
-        <th>Domingo</th>
-        <th rowspan="2" style="text-align: center;">Horários</th>
-    </tr>
-    <tr style="background-color: #f2f2f2;">
-        <td style="font-weight: bold; font-size: 0.9em;">09/10/24</td>
-        <td style="font-weight: bold; font-size: 0.9em;">10/10/24</td>
-        <td style="font-weight: bold; font-size: 0.9em;">11/10/24</td>
-        <td style="font-weight: bold; font-size: 0.9em;">12/10/24</td>
-        <td style="font-weight: bold; font-size: 0.9em;">13/10/24</td>
-        <td style="font-weight: bold; font-size: 0.9em;">14/10/24</td>
-        <td style="font-weight: bold; font-size: 0.9em;">15/10/24</td>
-    </tr>
-    <tbody id="tabelaCorpo">
-    <tr>
-        <td class="horario">06:00 - 07:00</td>
-        <td></td><td></td><td></td><td></td><td></td>
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Sábado -->
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-        <td class="horario">06:00 - 07:00</td>
-    </tr>
-    <tr>
-        <td class="horario">07:00 - 08:00</td>
-        <td></td><td></td><td></td><td></td><td></td>
-        <td></td>
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-        <td class="horario">07:00 - 08:00</td>
-    </tr>
-    <tr>
-        <td class="horario">08:00 - 09:00</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        <td class="horario">08:00 - 09:00</td>
-    </tr>
-    <tr>
-        <td class="horario">09:00 - 10:00</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        <td class="horario">09:00 - 10:00</td>
-    </tr>
-    <tr>
-        <td class="horario">10:00 - 11:00</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        <td class="horario">10:00 - 11:00</td>
-    </tr>
-    <tr>
-        <td class="horario">11:00 - 12:00</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        <td class="horario">11:00 - 12:00</td>
-    </tr>
-    <tr>
-        <td class="horario">12:00 - 13:00</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td>
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-        <td class="horario">12:00 - 13:00</td>
-    </tr>
-    <tr>
-        <td class="horario">13:00 - 14:00</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td>
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-        <td class="horario">13:00 - 14:00</td>
-    </tr>
-    <tr>
-        <td class="horario">14:00 - 15:00</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td>
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-        <td class="horario">14:00 - 15:00</td>
-    </tr>
-    <tr>
-        <td class="horario">15:00 - 16:00</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td>
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-        <td class="horario">15:00 - 16:00</td>
-    </tr>
-    <tr>
-        <td class="horario">16:00 - 17:00</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td>
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-        <td class="horario">16:00 - 17:00</td>
-    </tr>
-    <tr>
-        <td class="horario">17:00 - 18:00</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td>
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-        <td class="horario">17:00 - 18:00</td>
-    </tr>
-    <tr>
-        <td class="horario">18:00 - 19:00</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td>
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-        <td class="horario">18:00 - 19:00</td>
-    </tr>
-    <tr>
-        <td class="horario">19:00 - 20:00</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td>
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-        <td class="horario">19:00 - 20:00</td>
-    </tr>
-    <tr>
-        <td class="horario">20:00 - 21:00</td>
-        <td></td><td></td><td></td><td></td><td></td><td></td>
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-        <td class="horario">20:00 - 21:00</td>
-    </tr>
-    <tr>
-        <td class="horario">21:00 - 22:00</td>
-        <td></td><td></td><td></td><td></td><td></td>
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Sábado -->
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-        <td class="horario">21:00 - 22:00</td>
-    </tr>
-    <tr>
-        <td class="horario">22:00 - 23:00</td>
-        <td></td><td></td><td></td><td></td><td></td>
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Sábado -->
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
-        <td class="horario">22:00 - 23:00</td>
-    </tr>
-</tbody>
-
-</table>
-</div>
-</div>
-</body>
-
-<script>
-        document.addEventListener('DOMContentLoaded', function () {
-    const toggleButton = document.getElementById('toggleSenha');
-    const senhaInput = document.getElementById('senha');
-
-    toggleButton.addEventListener('click', function () {
-        if (senhaInput.type === 'password') {
-            senhaInput.type = 'text';
-            toggleButton.textContent = '🙈'; // Ícone de olho fechado
-        } else {
-            senhaInput.type = 'password';
-            toggleButton.textContent = '👁️'; // Ícone de olho aberto
+        // --- 2. Calcula a idade ---
+        const anoNiver = parseInt(niver.substring(6, 10), 10);
+        const mesNiver = parseInt(niver.substring(3, 5), 10) - 1; // Mês em JS é 0-11
+        const diaNiver = parseInt(niver.substring(0, 2), 10);
+        let idade = hoje.getFullYear() - anoNiver;
+        // Ajuste caso o aniversário no ano corrente ainda não tenha chegado
+        if (hoje.getMonth() < mesNiver || (hoje.getMonth() === mesNiver && hoje.getDate() < diaNiver)) {
+            idade--;
         }
-    });
-});
+
+        // --- 3. Prepara e exibe o modal ---
+        const modal = document.getElementById('birthdayModalOverlay');
+        const nomeSpan = document.getElementById('birthdayName');
+        const idadeSpan = document.getElementById('birthdayAge');
+        const closeButton = document.getElementById('closeBirthdayModal');
+
+        nomeSpan.textContent = jogadorLogado.split(' ')[0]; // Pega só o primeiro nome
+        idadeSpan.textContent = idade;
+        modal.style.display = 'flex';
+
+        const fecharModal = () => modal.style.display = 'none';
+        closeButton.onclick = fecharModal;
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                fecharModal();
+            }
+        };
+    }
+}
+
+
 </script>
-
-
-<footer style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #555;">
-        Desenvolvido por Ronaldo Taborda
-</footer>
-
-<button id="theme-toggle-button">🌙</button>
-
+</body>
 </html>
