@@ -169,37 +169,59 @@
 
 /* Estilos para a tela de carregamento */
 
-/* Estilos para a tela de carregamento */
-    .loading-screen {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 1); /* fundo branco sólido */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        color: black;
-        font-size: 24px;
-    }
-    
-    .loading-spinner {
-        border: 5px solid #f3f3f3;
-        border-top: 5px solid #3498db;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        animation: spin 1s linear infinite;
-        margin-bottom: 15px;
-    }
-    
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
+/* --- INÍCIO DO BLOCO DE CÓDIGO CORRIGIDO --- */
+
+/* Estilos para o novo placar de resultado */
+.placar-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1em;
+    line-height: 1.6;
+    margin-top: 5px;
+    /* IMPORTANTE: Limita a largura máxima do placar em telas grandes */
+    max-width: 450px; 
+}
+.placar-row {
+    display: flex;
+    align-items: center;
+    padding: 3px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.placar-row:last-child {
+    border-bottom: none;
+}
+.placar-nome {
+    font-weight: normal;
+    /* Faz o nome ocupar o espaço vago, empurrando o placar para a direita */
+    flex-grow: 1; 
+}
+.placar-sets {
+    display: flex;
+    gap: 15px;
+    font-weight: bold;
+    /* Impede que o placar seja "espremido" em telas menores */
+    flex-shrink: 0; 
+}
+.set-score {
+    width: 25px;
+    text-align: center;
+    color: #888;
+}
+.set-score.winner {
+    color: #333;
+    font-weight: 900;
+}
+.set-score sup {
+    font-size: 0.7em;
+    vertical-align: super;
+    margin-left: -2px;
+    font-weight: normal;
+}
+.placar-nome.match-winner {
+    font-weight: 900;
+    color: #333;
+}
+
+/* --- FIM DO BLOCO DE CÓDIGO --- */	/* Fim de Estilos para o novo placar de resultado */
 
     </style>
 </head>
@@ -397,30 +419,38 @@ function alternarOrdenacao() {
         }
 		
 		
-// Substitua sua função 'exibirLogs' por esta versão completa
+
 // Substitua sua função 'exibirLogs' por esta versão completa
 function exibirLogs(lista) {
-    const logsContainer = document.getElementById('logs'); 
+    const logsContainer = document.getElementById('logs');
     logsContainer.innerHTML = '';
     const fragment = document.createDocumentFragment();
 
     lista.forEach((log) => {
         const logEntryDiv = document.createElement('div');
         logEntryDiv.className = 'log-entry';
-        
+
         let dataParts = log.exclusao.split(' ');
         let dataFormatada = dataParts[0].split('/').reverse().join('-') + 'T' + dataParts[1] + ':00';
         let date = new Date(dataFormatada);
-        let formattedDate = isNaN(date) ? 'Data inválida' : date.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(',', '');
+        let formattedDate = isNaN(date) ? 'Data inválida' : date.toLocaleString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        }).replace(',', '');
         let duracaoDisplay = log.duracao;
-        if (typeof duracaoDisplay === 'number') { duracaoDisplay = duracaoDisplay === 3 ? "2 Horas - Pirâmide" : duracaoDisplay === 2 ? "2 Horas" : "1 Hora"; }
-        
+        if (typeof duracaoDisplay === 'number') {
+            duracaoDisplay = duracaoDisplay === 3 ? "2 Horas - Pirâmide" : duracaoDisplay === 2 ? "2 Horas" : "1 Hora";
+        }
+
         let jogadoresHtml = '';
         if (log.confirmacoes) {
             let nomesColoridos = [];
             log.jogadores.forEach(jogador => {
                 const apelido = jogador.split(' - ').pop();
-                const status = log.confirmacoes[apelido]; 
+                const status = log.confirmacoes[apelido];
                 let statusTexto = '';
                 const styleBase = "cursor: pointer; font-weight: bold; -webkit-user-select: none; user-select: none;";
 
@@ -441,33 +471,57 @@ function exibirLogs(lista) {
         } else {
             jogadoresHtml = log.jogadores.join(', ');
         }
-
-        // ---> INÍCIO DA ALTERAÇÃO (RESULTADO COLAPSÁVEL) <---
+        
         let resultadoHtml = '';
         if (log.resultado) {
-            const resultadoId = `resultado-${log.id}`; // Cria um ID único para o contêiner do resultado
+            const resultadoId = `resultado-${log.id}`;
 
-            let detalhesPlacar = '<ul style="margin: 0; padding-left: 20px; font-size: 0.9em; list-style-type: disc;">';
+            const vencedorApelido = log.resultado.vencedor.toUpperCase();
+            const jogadoresDaPartida = log.jogadores.map(j => j.toUpperCase());
+            const perdedorApelido = jogadoresDaPartida.find(j => j !== vencedorApelido) || "Oponente";
 
-            if (log.resultado.set1 && log.resultado.set1.placar) {
-                let placarSet1 = `1º Set: ${log.resultado.set1.placar}`;
-                if (log.resultado.set1.tiebreak) { placarSet1 += ` (${log.resultado.set1.tiebreak})`; }
-                detalhesPlacar += `<li>${placarSet1}</li>`;
-            }
-            if (log.resultado.set2 && log.resultado.set2.placar) {
-                let placarSet2 = `2º Set: ${log.resultado.set2.placar}`;
-                if (log.resultado.set2.tiebreak) { placarSet2 += ` (${log.resultado.set2.tiebreak})`; }
-                detalhesPlacar += `<li>${placarSet2}</li>`;
-            }
-            if (log.resultado.set3) {
-                detalhesPlacar += `<li>3º Set: ${log.resultado.set3}</li>`;
-            }
-            if (log.resultado.vencedor) {
-                detalhesPlacar += `<li style="margin-top: 4px;"><strong>Vencedor(a):</strong> <span style="color: green; font-weight: bold;">${log.resultado.vencedor.toUpperCase()}</span></li>`;
-            }
-            detalhesPlacar += '</ul>';
+            const p1_apelido = vencedorApelido;
+            const p2_apelido = perdedorApelido;
+
+            const scoresP1 = [];
+            const scoresP2 = [];
+
+            ['set1', 'set2', 'set3'].forEach(setKey => {
+                const setData = log.resultado[setKey];
+                if (setData) {
+                    const setPlacar = typeof setData === 'string' ? setData : setData.placar;
+                    const setTiebreak = typeof setData === 'object' ? setData.tiebreak : null;
+
+                    if (setPlacar) {
+                        const [sA, sB] = setPlacar.split('x').map(Number);
+                        const scoreVencedor = Math.max(sA, sB);
+                        const scorePerdedor = Math.min(sA, sB);
+
+                        let tbVencedor = '', tbPerdedor = '';
+                        if(setTiebreak) {
+                            const [tbA, tbB] = setTiebreak.split('-').map(Number);
+                            tbVencedor = `<sup>${Math.max(tbA, tbB)}</sup>`;
+                            tbPerdedor = `<sup>${Math.min(tbA, tbB)}</sup>`;
+                        }
+                        
+                        scoresP1.push(`<span class="set-score winner">${scoreVencedor}${tbVencedor}</span>`);
+                        scoresP2.push(`<span class="set-score">${scorePerdedor}${tbPerdedor}</span>`);
+                    }
+                }
+            });
+
+            let detalhesPlacar = `
+                <div class="placar-container">
+                    <div class="placar-row">
+                        <span class="placar-nome match-winner">${capitalizarNome(p1_apelido)}</span>
+                        <span class="placar-sets">${scoresP1.join('')}</span>
+                    </div>
+                    <div class="placar-row">
+                        <span class="placar-nome">${capitalizarNome(p2_apelido)}</span>
+                        <span class="placar-sets">${scoresP2.join('')}</span>
+                    </div>
+                </div>`;
             
-            // Monta o HTML com o link clicável e o contêiner de detalhes oculto
             resultadoHtml = `
                 <p style="margin-top: 8px; margin-bottom: 2px;">
                     <strong>Resultado do Jogo:</strong> 
@@ -475,23 +529,30 @@ function exibirLogs(lista) {
                 </p>
                 <div id="${resultadoId}" style="display: none;">
                     ${detalhesPlacar}
-                </div>
-            `;
-        }
-        // ---> FIM DA ALTERAÇÃO <---
-
-        let detalhesConfirmacao = '';
-        if (log.statusNoMomentoDaExclusao) {
-            let statusStyle = log.statusNoMomentoDaExclusao.includes('pendente') ? 'color: orange;' : log.statusNoMomentoDaExclusao.includes('expirada') ? 'color: red;' : log.statusNoMomentoDaExclusao.includes('cancelada') ? 'color: #db7093;' : 'color: green;';
-            detalhesConfirmacao += `<p style="font-size: 0.9em; margin-top: 8px;"><strong>Status:</strong> <span style="${statusStyle} font-weight: bold;">${log.statusNoMomentoDaExclusao.toUpperCase()}</span></p>`;
-            if (log.organizadorDaReserva) { detalhesConfirmacao += `<p style="font-size: 0.9em;"><strong>Organizador:</strong> ${log.organizadorDaReserva}</p>`; }
+                </div>`;
         }
         
+        let detalhesConfirmacao = '';
+        if (log.statusNoMomentoDaExclusao) {
+            // --- INÍCIO DA ALTERAÇÃO ---
+            let statusStyle = log.statusNoMomentoDaExclusao.includes('pendente') ? 'color: orange;' 
+                            : log.statusNoMomentoDaExclusao.includes('expirada') ? 'color: red;' 
+                            : log.statusNoMomentoDaExclusao.includes('cancelada') ? 'color: #db7093;' 
+                            : log.statusNoMomentoDaExclusao.includes('finalizada') ? 'color: #007bff;' /* Cor AZUL adicionada */
+                            : 'color: green;'; /* Cor Verde para 'confirmada' e outros */
+            // --- FIM DA ALTERAÇÃO ---
+
+            detalhesConfirmacao += `<p style="font-size: 0.9em; margin-top: 8px;"><strong>Status:</strong> <span style="${statusStyle} font-weight: bold;">${log.statusNoMomentoDaExclusao.toUpperCase()}</span></p>`;
+            if (log.organizadorDaReserva) {
+                detalhesConfirmacao += `<p style="font-size: 0.9em;"><strong>Organizador:</strong> ${log.organizadorDaReserva}</p>`;
+            }
+        }
+
         let motivoHtml = '';
         if (log.motivo) {
             motivoHtml = `<p style="font-size: 0.9em;"><strong>Motivo:</strong> <span style="font-style: italic; color: #555;">${log.motivo}</span></p>`;
         }
-        
+
         logEntryDiv.innerHTML = `
             <button onclick="solicitarExclusaoLog(${log.id})" style="float: right; cursor: pointer; background: #f2f2f2; color: #dc3545; border: 1px solid #dc3545; border-radius: 50%; width: 24px; height: 24px; font-size: 14px; font-weight: bold; line-height: 22px; text-align: center; padding: 0;">X</button>
             <p><strong>Exclusão: ${formattedDate}</strong></p>
@@ -503,8 +564,7 @@ function exibirLogs(lista) {
             <p>Excluído por: <strong>${log.usuario || 'N/A'}</strong></p>
             ${detalhesConfirmacao}
             ${motivoHtml} 
-            <hr>
-        `;
+            <hr>`;
         fragment.appendChild(logEntryDiv);
     });
     logsContainer.appendChild(fragment);
@@ -793,9 +853,15 @@ function toggleResultado(resultadoId, linkElement) {
             linkElement.textContent = 'Ocultar Detalhes';
         } else {
             resultadoDiv.style.display = 'none';
-            linkElement.textContent = 'Ver Detalhes';
+            linkElement.textContent = 'Ver Detalhes'; 
         }
     }
+}
+
+// Adicione esta nova função ao seu script
+function capitalizarNome(nome) {
+    if (!nome || typeof nome !== 'string') return "";
+    return nome.toLowerCase().split(' ').map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1)).join(' ');
 }
 
 </script>
