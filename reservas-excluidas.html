@@ -220,6 +220,14 @@
     font-weight: 900;
     color: #333;
 }
+.placar-posicao {
+    font-size: 0.8em; /* Menor que o nome */
+    color: #888; /* Cor mais suave */
+    margin-right: 8px; /* Espaçamento entre a posição e o nome */
+    width: 25px; /* Largura fixa para alinhamento */
+    text-align: right; /* Alinha o número à direita */
+    flex-shrink: 0; /* Impede que seja espremido */
+}
 
 /* --- FIM DO BLOCO DE CÓDIGO --- */	/* Fim de Estilos para o novo placar de resultado */
 
@@ -302,7 +310,7 @@ let logs = [];
 let ordemCrescente = true; // A ordem inicial é crescente
 let logsFiltrados = []; // Armazena os dados filtrados
 let githubToken = ''; // Variável global para armazenar o token
-	
+
 	
 function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -420,7 +428,7 @@ function alternarOrdenacao() {
 		
 		
 
-// Substitua sua função 'exibirLogs' por esta versão completa
+// SUBSTITUA SUA FUNÇÃO 'exibirLogs' POR ESTA VERSÃO FINAL
 function exibirLogs(lista) {
     const logsContainer = document.getElementById('logs');
     logsContainer.innerHTML = '';
@@ -445,103 +453,96 @@ function exibirLogs(lista) {
             duracaoDisplay = duracaoDisplay === 3 ? "2 Horas - Pirâmide" : duracaoDisplay === 2 ? "2 Horas" : "1 Hora";
         }
 
-        let jogadoresHtml = '';
-        if (log.confirmacoes) {
-            let nomesColoridos = [];
-            log.jogadores.forEach(jogador => {
-                const apelido = jogador.split(' - ').pop();
-                const status = log.confirmacoes[apelido];
-                let statusTexto = '';
-                const styleBase = "cursor: pointer; font-weight: bold; -webkit-user-select: none; user-select: none;";
-
-                if (status === 'confirmado') {
-                    statusTexto = 'Confirmado';
-                    nomesColoridos.push(`<span onclick="mostrarStatusJogador('${jogador}', '${statusTexto}')" style="${styleBase} color: green;">${jogador}</span>`);
-                } else if (status === 'pendente') {
-                    statusTexto = 'Pendente';
-                    nomesColoridos.push(`<span onclick="mostrarStatusJogador('${jogador}', '${statusTexto}')" style="${styleBase} color: orange;">${jogador}</span>`);
-                } else if (status === 'recusado') {
-                    statusTexto = 'Recusado';
-                    nomesColoridos.push(`<span onclick="mostrarStatusJogador('${jogador}', '${statusTexto}')" style="${styleBase} color: red;">${jogador}</span>`);
-                } else {
-                    nomesColoridos.push(`<span>${jogador}</span>`);
-                }
-            });
-            jogadoresHtml = nomesColoridos.join(', ');
-        } else {
-            jogadoresHtml = log.jogadores.join(', ');
+        // Lógica para extrair apelidos, compatível com a nova e a antiga estrutura do log
+        let listaDeApelidos = [];
+        if (Array.isArray(log.jogadores)) {
+            listaDeApelidos = log.jogadores.map(j => (typeof j === 'object' ? j.apelido : j));
         }
-        
+        let jogadoresHtml = listaDeApelidos.join(', ');
+
         let resultadoHtml = '';
-        if (log.resultado) {
+        if (log.resultado && Array.isArray(log.jogadores) && log.jogadores.length > 0) {
             const resultadoId = `resultado-${log.id}`;
 
+            // --- INÍCIO DA LÓGICA CORRIGIDA E MAIS ROBUSTA ---
             const vencedorApelido = log.resultado.vencedor.toUpperCase();
-            const jogadoresDaPartida = log.jogadores.map(j => j.toUpperCase());
-            const perdedorApelido = jogadoresDaPartida.find(j => j !== vencedorApelido) || "Oponente";
 
-            const p1_apelido = vencedorApelido;
-            const p2_apelido = perdedorApelido;
-
-            const scoresP1 = [];
-            const scoresP2 = [];
-
-            ['set1', 'set2', 'set3'].forEach(setKey => {
-                const setData = log.resultado[setKey];
-                if (setData) {
-                    const setPlacar = typeof setData === 'string' ? setData : setData.placar;
-                    const setTiebreak = typeof setData === 'object' ? setData.tiebreak : null;
-
-                    if (setPlacar) {
-                        const [sA, sB] = setPlacar.split('x').map(Number);
-                        const scoreVencedor = Math.max(sA, sB);
-                        const scorePerdedor = Math.min(sA, sB);
-
-                        let tbVencedor = '', tbPerdedor = '';
-                        if(setTiebreak) {
-                            const [tbA, tbB] = setTiebreak.split('-').map(Number);
-                            tbVencedor = `<sup>${Math.max(tbA, tbB)}</sup>`;
-                            tbPerdedor = `<sup>${Math.min(tbA, tbB)}</sup>`;
-                        }
-                        
-                        scoresP1.push(`<span class="set-score winner">${scoreVencedor}${tbVencedor}</span>`);
-                        scoresP2.push(`<span class="set-score">${scorePerdedor}${tbPerdedor}</span>`);
-                    }
+            // 1. Normaliza os dados dos jogadores, garantindo que sempre tenhamos um objeto
+            const jogadoresInfo = log.jogadores.map(j => {
+                if (typeof j === 'object' && j !== null) {
+                    return { apelido: j.apelido, posicao: j.posicao };
                 }
+                // Converte logs antigos (strings) para o formato de objeto
+                return { apelido: j, posicao: '0' };
             });
 
-            let detalhesPlacar = `
-                <div class="placar-container">
-                    <div class="placar-row">
-                        <span class="placar-nome match-winner">${capitalizarNome(p1_apelido)}</span>
-                        <span class="placar-sets">${scoresP1.join('')}</span>
-                    </div>
-                    <div class="placar-row">
-                        <span class="placar-nome">${capitalizarNome(p2_apelido)}</span>
-                        <span class="placar-sets">${scoresP2.join('')}</span>
-                    </div>
-                </div>`;
-            
-            resultadoHtml = `
-                <p style="margin-top: 8px; margin-bottom: 2px;">
-                    <strong>Resultado do Jogo:</strong> 
-                    <a href="javascript:void(0);" onclick="toggleResultado('${resultadoId}', this)" style="color: #007bff; text-decoration: none; font-weight: normal;">Ver Detalhes</a>
-                </p>
-                <div id="${resultadoId}" style="display: none;">
-                    ${detalhesPlacar}
-                </div>`;
+            const vencedorObj = jogadoresInfo.find(j => j.apelido.toUpperCase() === vencedorApelido);
+            const perdedorObj = jogadoresInfo.find(j => j.apelido.toUpperCase() !== vencedorApelido);
+            // --- FIM DA LÓGICA CORRIGIDA E MAIS ROBUSTA ---
+
+            if (vencedorObj && perdedorObj) {
+                const p1_rank = getDisplayRank(vencedorObj.posicao);
+                const p2_rank = getDisplayRank(perdedorObj.posicao);
+
+                const p1_posicaoHtml = p1_rank ? `<span class="placar-posicao">${p1_rank}</span>` : '';
+                const p2_posicaoHtml = p2_rank ? `<span class="placar-posicao">${p2_rank}</span>` : '';
+
+                const scoresP1 = [];
+                const scoresP2 = [];
+
+                ['set1', 'set2', 'set3'].forEach(setKey => {
+                    const setData = log.resultado[setKey];
+                    if (setData) {
+                        const setPlacar = typeof setData === 'string' ? setData : setData.placar;
+                        const setTiebreak = typeof setData === 'object' ? setData.tiebreak : null;
+                        if (setPlacar) {
+                            const [sA, sB] = setPlacar.split('x').map(Number);
+                            const scoreVencedor = Math.max(sA, sB);
+                            const scorePerdedor = Math.min(sA, sB);
+                            let tbVencedor = '', tbPerdedor = '';
+                            if(setTiebreak) {
+                                const [tbA, tbB] = setTiebreak.split('-').map(Number);
+                                tbVencedor = `<sup>${Math.max(tbA, tbB)}</sup>`;
+                                tbPerdedor = `<sup>${Math.min(tbA, tbB)}</sup>`;
+                            }
+                            scoresP1.push(`<span class="set-score winner">${scoreVencedor}${tbVencedor}</span>`);
+                            scoresP2.push(`<span class="set-score">${scorePerdedor}${tbPerdedor}</span>`);
+                        }
+                    }
+                });
+
+                let detalhesPlacar = `
+                    <div class="placar-container">
+                        <div class="placar-row">
+                            ${p1_posicaoHtml}
+                            <span class="placar-nome match-winner">${capitalizarNome(vencedorObj.apelido)}</span>
+                            <span class="placar-sets">${scoresP1.join('')}</span>
+                        </div>
+                        <div class="placar-row">
+                            ${p2_posicaoHtml}
+                            <span class="placar-nome">${capitalizarNome(perdedorObj.apelido)}</span>
+                            <span class="placar-sets">${scoresP2.join('')}</span>
+                        </div>
+                    </div>`;
+                
+                resultadoHtml = `
+                    <p style="margin-top: 8px; margin-bottom: 2px;">
+                        <strong>Resultado do Jogo:</strong> 
+                        <a href="javascript:void(0);" onclick="toggleResultado('${resultadoId}', this)" style="color: #007bff; text-decoration: none; font-weight: normal;">Ver Detalhes</a>
+                    </p>
+                    <div id="${resultadoId}" style="display: none;">
+                        ${detalhesPlacar}
+                    </div>`;
+            }
         }
         
         let detalhesConfirmacao = '';
         if (log.statusNoMomentoDaExclusao) {
-            // --- INÍCIO DA ALTERAÇÃO ---
             let statusStyle = log.statusNoMomentoDaExclusao.includes('pendente') ? 'color: orange;' 
                             : log.statusNoMomentoDaExclusao.includes('expirada') ? 'color: red;' 
                             : log.statusNoMomentoDaExclusao.includes('cancelada') ? 'color: #db7093;' 
-                            : log.statusNoMomentoDaExclusao.includes('finalizada') ? 'color: #007bff;' /* Cor AZUL adicionada */
-                            : 'color: green;'; /* Cor Verde para 'confirmada' e outros */
-            // --- FIM DA ALTERAÇÃO ---
-
+                            : log.statusNoMomentoDaExclusao.includes('finalizada') ? 'color: #007bff;'
+                            : 'color: green;';
             detalhesConfirmacao += `<p style="font-size: 0.9em; margin-top: 8px;"><strong>Status:</strong> <span style="${statusStyle} font-weight: bold;">${log.statusNoMomentoDaExclusao.toUpperCase()}</span></p>`;
             if (log.organizadorDaReserva) {
                 detalhesConfirmacao += `<p style="font-size: 0.9em;"><strong>Organizador:</strong> ${log.organizadorDaReserva}</p>`;
@@ -570,6 +571,8 @@ function exibirLogs(lista) {
     logsContainer.appendChild(fragment);
     document.getElementById('total-registros').textContent = `Total de registros: ${lista.length}`;
 }
+
+
 
 
 
@@ -862,6 +865,19 @@ function toggleResultado(resultadoId, linkElement) {
 function capitalizarNome(nome) {
     if (!nome || typeof nome !== 'string') return "";
     return nome.toLowerCase().split(' ').map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1)).join(' ');
+}
+
+// Adicione esta função "calculadora" ao seu script
+function getDisplayRank(piramidePosStr) {
+    if (!piramidePosStr || piramidePosStr === "0") {
+        return null;
+    }
+    const piramidePos = parseInt(piramidePosStr, 10);
+    if (isNaN(piramidePos)) {
+        return null;
+    }
+    // Se a posição for 61 ou maior, subtrai 60 para obter o rank real da pirâmide feminina
+    return piramidePos >= 61 ? piramidePos - 60 : piramidePos;
 }
 
 </script>
