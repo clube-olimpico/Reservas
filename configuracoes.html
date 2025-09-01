@@ -23,17 +23,14 @@ body {
     min-height: 100vh;
     margin: 0;
     overflow-y: auto;
-    box-sizing: border-box;
+    box-sizing: border-box; 
 }
 .container {
     display: flex;
     align-items: center;
-    /* justify-content: space-between;   Remova esta linha */   
     margin-bottom: 10px;
     gap: 10px; 
 }
-
-
 
 .container label[for="Sistema"] {
     width: auto; /* Deixa o label ocupar o espaço necessário */
@@ -44,67 +41,9 @@ body {
     min-width: 100px; /* Define uma largura mínima para o label */
 }
 
-
-
 #sistema {
     font-weight: bold;
 }
-
-
-
-/* Configuração de vDomingo */ 
-.container label[for="vDomingo"] {
-    width: auto    
-	margin-right: 100px;
-    font-weight: bold;
-    display: inline-block;
-    text-align: left;
-    min-width: 180px; /* Ajuste a largura mínima conforme necessário */
-}
-
-
-
-#vDomingo {
-    padding: 5px;
-    width: 60px;
-    box-sizing: border-box;
-    max-width: 75px;
-    min-width: 75px;
-}
-
-
-
-#vDomingo.ajustar-alinhamento {
-    width: 100%;
-    min-width: unset;
-    max-width: unset;
-    flex: 1;
-}
-
-
-
-
-/* Configuração de DiasParaAgendar */
-.container label[for="diasParaAgendar"] {
-    width: auto;
-    margin-right: 17px;
-    font-weight: bold;
-    display: inline-block;
-    text-align: left;
-    min-width: 185px; /* Ajuste a largura mínima conforme necessário */
-}
-
-
-
-#diasParaAgendar {
-    flex: 1;
-    padding: 5px;
-    box-sizing: border-box;
-    width: 95px;
-    min-width: 10px; /* Ajuste a largura mínima conforme necessário */
-}
-
-
 
 /* Modificação para centralizar o item "Ativa" */
 #piramide .piramide-ativa-container {
@@ -112,15 +51,11 @@ body {
 	width: auto; /* Deixe o label se ajustar ao conteúdo */
 }
 
-
-
 #piramide .piramide-ativa-container label {
     width: auto; /* Deixe o label se ajustar ao conteúdo */
     margin-right: 10px;
     font-weight: bold;
 }
-
-
 
 #piramide .piramide-ativa-container select {
     width: 80px; /* Defina uma largura fixa para o select */
@@ -128,8 +63,6 @@ body {
     border-radius: 5px;
 	max-width: 4px; /* Mantenha a largura máxima */
 }
-
-
 
 /* Estilos para o container dos botões (ESPECÍFICO PARA A ABA PIRÂMIDE) */
 #piramide .piramide-botoes-container {
@@ -141,8 +74,6 @@ body {
 	
 }
 
-
-
 /* Estilos para os botões (ESPECÍFICO PARA A ABA PIRÂMIDE) */
 #piramide .piramide-botao {
     flex: 1;
@@ -150,8 +81,6 @@ body {
     padding: 10px;
     box-sizing: border-box;
 }
-
-
 
 #piramide .piramide-botao:first-child {
     margin-left: 0;
@@ -161,16 +90,12 @@ body {
     margin-right: 0;
 }
 
-
-
 /* Ajustes específicos para os contêineres das quadras */
 .quadra-container {
     margin-bottom: 5px;
     gap: 10px;
 	
 }
-
-
 
 /* Estilo do container do formulário */
 .form-container {
@@ -184,8 +109,6 @@ body {
     margin: 10px auto; /* Mantém a centralização */
 }
 
-
-
 .title-container {
     display: flex;
     flex-direction: column;
@@ -193,8 +116,6 @@ body {
     text-align: center;
     margin-bottom: 5px;
 }
-
-
 
 .title-container span {
     font-family: 'Arial', sans-serif; /* Ajusta a fonte */
@@ -205,19 +126,16 @@ body {
     text-align: center; /* Centraliza o texto */
 }
 
-
-
-
+/* REGRA GERAL PARA LABELS */
 label {
     font-weight: bold;
-    width: 200px;
+    width: 190px;
     white-space: nowrap;
     text-align: left;
     display: inline-block; /* Alinhar labels e inputs */
 }
 
-
-
+/* REGRA GERAL PARA SELECTS */
 select {
     flex: 1;
     padding: 5px;
@@ -225,8 +143,6 @@ select {
     width: auto; /* Deixe o select se ajustar ao conteúdo */
     min-width: 80px; /* Largura mínima para selects */
 }
-
-
 
 button {
     margin-top: auto;
@@ -243,19 +159,13 @@ button {
     display: block;
 }
 
-
-
 button:hover {
     background-color: #45a049;
 }
 
-
-
 #sistema {
     font-weight: bold;
 }
-
-
 
 #sistema.on {
     color: white;
@@ -267,44 +177,10 @@ button:hover {
     background-color: red;
 }
 
-
-
-
-
 #piramideAtiva {
     font-weight: bold;
     margin-top: 0; /* Garante que não há margem indesejada */
 }
-
-
-
-#piramide .piramide-ativa-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;   /* Centraliza horizontalmente */
-    width: 100%;               /* Garante que ocupa toda a largura disponível */
-    margin-top: 5px;
-}
-
-
-
-#piramide .piramide-ativa-container label {
-    width: auto;               /* Largura automática para o label */
-    margin-right: 10px;       /* Espaço à direita do label */
-    font-weight: bold;        /* Negrito para o texto "Ativa:" */
-}
-
-
-
-#piramide .piramide-ativa-container select {
-    width: 80px;               /* Largura fixa para o select */
-    border: 1px solid #ccc;   /* Borda */
-    border-radius: 5px;       /* Borda arredondada */
-    max-width: 4px;           /* Largura máxima (pode ser ajustado) */
-    font-weight: bold;        /* Negrito para "ON/OFF" */
-}
-
-
 
 .piramide-on {
     color: green;
@@ -313,8 +189,6 @@ button:hover {
 .piramide-off {
     color: red;
 }
-
-
 
 #loading {
     position: fixed;
@@ -325,8 +199,6 @@ button:hover {
     text-align: center;
     z-index: 1000;
 }
-
-
 
 #content {
     display: none;
@@ -341,14 +213,10 @@ button:hover {
     margin: 10px auto;
 }
 
-
-
 /* Ajustes para a seção de convidados */
 .convidados-container {
     margin-top: 20px;
 }
-
-
 
 .convidados-container,
 .convidados-quadras,
@@ -361,8 +229,6 @@ button:hover {
     padding: 0 10px;
 }
 
-
-
 .convidados-options label {
     display: flex;
     align-items: center;
@@ -370,22 +236,17 @@ button:hover {
     width: 100%;
 }
 
-
-
 #convidados {
     overflow-x: hidden !important;
     max-width: 100% !important;
     width: 100%;
 }
 
-
-
 body.convidados-ativo {
     overflow-x: hidden !important;
 }
 
 /* Ajustes para a seção de piramide */
-
 .piramde-container {
     margin-top: 20px;
 }
@@ -401,8 +262,6 @@ body.convidados-ativo {
     padding: 0 10px;
 }
 
-
-
 .piramde-options label {
     display: flex;
     align-items: center;
@@ -411,22 +270,15 @@ body.convidados-ativo {
 	
 }
 
-
-
 #piramde {
     overflow-x: hidden !important;
     max-width: 100% !important;
     width: 100%;
 }
 
-
-
 body.piramde-ativo {
     overflow-x: hidden !important;
 }
-
-
-
 
 .centraliza-checkbox {
     display: flex;
@@ -436,20 +288,15 @@ body.piramde-ativo {
 	margin-top: 10px;
 }
 
-
 #piramideQuadra1, #piramideQuadra2, #piramideQuadra3 {
     margin-right: 7px;
 }
-
 
 #PiramideDiasQuadra1, #PiramideDiasQuadra2, #PiramideDiasQuadra3 {
     margin-left: 7px;
 }
 
-
-
-/* ----------------- ADIÇÕES PARA A ABA DUPLAS ----------------- */   
-
+/* ----------------- ADIÇÕES PARA A ABA DUPLAS ----------------- */ 
 #DuplasDiasQuadra1.disabled,
 #DuplasDiasQuadra2.disabled,
 #DuplasDiasQuadra3.disabled {
@@ -470,7 +317,6 @@ body.piramde-ativo {
     margin-right: 10px;
     font-weight: bold;
 }
-
 
 #duplas .duplas-ativa-container select {
     width: 80px;
@@ -493,10 +339,6 @@ body.piramde-ativo {
     margin-bottom: 10px; /* Opcional: espaço abaixo do checkbox, ajuste se necessário */
 }
 
-
-
-
-
 #duplas .duplas-botao {
     flex: 1;
     margin: 0 5px;
@@ -505,7 +347,6 @@ body.piramde-ativo {
     background-color: #4CAF50; /* opcional: ou deixe como está se quiser a mesma cor */
     color: white;
 }
-
 
 #duplas .duplas-botao.ativo {
     background-color: #2E7D32;
@@ -531,7 +372,6 @@ body.piramde-ativo {
     margin-bottom: 5px;
 }
 
-
 .duplas-day-container > label {
     font-weight: normal; 
     display: flex;
@@ -548,7 +388,6 @@ body.piramde-ativo {
     padding-left: 5px; /* reduz o espaço entre o checkbox e o campo de hora */
     margin-top: 0px;   /* opcional: remove espaço vertical extra */
 }
-
 
 .horario-input {
     width: 60px;
@@ -578,7 +417,6 @@ body.piramde-ativo {
     font-size: 15px; /* mesmo tamanho dos inputs da pirâmide */
 }
 
-
 /* Adicione estas regras para a aba Duplas */
 #duplas .duplas-ativa-container select {
     font-weight: bold;
@@ -593,6 +431,7 @@ body.piramde-ativo {
 }
 
 
+
 /* Ajustes para dispositivos móveis */
 @media (max-width: 768px) {
     .form-container {
@@ -602,20 +441,145 @@ body.piramde-ativo {
         box-sizing: border-box;
     }
 	
-	#vDomingo {
-	    margin-left: -20px;
-        max-width: 73px;
-        min-width: 73px;
-    }
+	/* --- Ajuste final de tamanho e alinhamento para a linha Sistema --- */
+	#sistema {
+		width: 70px;       /* Define uma largura fixa */
+		min-width: 70px;   /* Garante que ele não encolha */
+		flex: none;        /* Remove completamente o comportamento flex de esticar/encolher */
+	}
 
-    #vDomingo.ajustar-alinhamento {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: unset !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        box-sizing: border-box;
-    }
+	#usuariosOnline {
+		margin-left: auto; /* ESSENCIAL: Empurra a caixa "000" para a direita, alinhando-a com os botões '+' abaixo */
+	}
+		
+	.form-container .container > label {
+		width: 150px; /* Reduz a largura fixa do rótulo SÓ no celular */
+	}
+	
+	/* --- INÍCIO: Layout Definitivo e Corrigido para Aba Reservas (Mobile) --- */   
+
+	/* 1. Define uma largura fixa e igual para TODOS os rótulos da aba Reservas */
+	#reservas .container label {
+		width: 198px;
+		flex-shrink: 0;
+	}
+
+	/* 3. Define a largura MENOR para os demais campos e os alinha à DIREITA */
+	#reservas #diasParaAgendar,
+	#reservas #reservasPorConfirmacao,
+	#reservas #horasParaExpirar,
+	#reservas #edicaoOrganizador,
+	#reservas #quebraHorarioDomingoAtiva { 
+		max-width: 100px;
+		width: 100%;
+		margin-left: auto;
+		flex: initial;
+	}
+
+	/* --- CORREÇÃO DEFINITIVA PARA O CAMPO DOMINGO --- */
+#reservas .container {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    gap: 10px !important;
+}
+
+#reservas .container > label[for="vDomingo"] {
+    flex-shrink: 1 !important;     /* Permite que o rótulo encolha um pouco se precisar de espaço */
+    margin-right: -5px !important; /* Adiciona um espaçamento fixo à direita */
+    text-align: left !important;
+}
+
+
+/* CORREÇÃO: OCULTA COMPLETAMENTE O CONTAINER INTEIRO QUANDO FECHADO */
+#vDomingo[value="fechado"] + #containerHorarioDomingo {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+}
+
+
+/* MOSTRA O CAMPO DE HORÁRIO QUANDO DOMINGO ESTIVER "Aberto" */
+#vDomingo.is-aberto + #containerHorarioDomingo {
+    display: flex !important;
+    visibility: visible !important;
+    width: auto !important; /* Permite que o container se ajuste ao conteúdo */
+    height: auto !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+}
+
+
+
+
+#containerHorarioDomingo {
+    display: none !important;
+    align-items: center !important;
+    gap: 1px !important;
+    flex: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    justify-content: flex-end !important;
+	
+}
+
+#containerHorarioDomingo span {
+    font-size: 16px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+	margin-left: -10px !important; /* espaço entre aberto e relogio */
+}
+
+#vDomingoAte {
+   	width: 40px !important;       /* um pouco menor */
+    flex-shrink: 0 !important;
+    font-size: 14px !important;
+    text-align: center !important;
+    border: 1px solid #ddd !important;
+    background: white !important;
+    padding: 1px 2px !important;  /* mais compacto */
+    border-radius: 3px !important;
+    margin-left: 0px !important;  /* só 2px do relógio */
+}
+
+/* ALINHAMENTO ESPECÍFICO PARA "FECHADO" - DROPDOWN SOZINHO À DIREITA */
+
+
+/* Campo Domingo igual aos outros */
+
+
+#reservas #vDomingo {
+    max-width: 85px !important;
+    width: 100% !important;
+    margin-left: auto !important; /* Empurra para a direita */
+    flex: 1 1 85px !important;
+}
+
+/* ESTILO ESPECIAL (para o estado "Aberto") */
+/* É AQUI QUE VOCÊ AJUSTA O TAMANHO DO CAMPO QUANDO "ABERTO" */
+#reservas #vDomingo.is-aberto {
+    /* 1. Defina a largura desejada */
+    width: 65px !important;
+    max-width: 65px !important;
+    flex: 0 0 65px !important;
+    margin-left: 0 !important;
+
+    /* 2. Force o campo a obedecer a nova largura */
+    padding: 5px 2px !important;       /* Reduz o espaçamento interno */
+    font-size: 15px !important;        /* Reduz o tamanho da fonte do texto "Aberto" */
+    box-sizing: border-box !important; /* Garante que o padding não aumente a largura total */
+}
+
+/* --- FIM DA CORREÇÃO DO CAMPO DOMINGO --- */
+	/* --- FIM: Layout Definitivo e Corrigido para Aba Reservas (Mobile) --- */
 
     select {
         width: 100%;
@@ -747,17 +711,8 @@ body.piramde-ativo {
         padding: 8px 10px;    /* Mantém o padding original do mobile */
         font-size: 16px;       /* Mantém a fonte original do mobile */
     }
-	
-	
-	#reservasPorConfirmacao,
-	#horasParaExpirar,
-	#edicaoOrganizador,
-	#quebraHorarioDomingoAtiva {
-		max-width: 10px !important;
-		width: 100% !important;
-		margin-left: auto !important;
-	}
 }
+/* fim de @media 768px */
 
 
 .tab-content {
@@ -806,7 +761,6 @@ body.piramde-ativo {
     border-bottom-color: #007bff; /* Linha indicadora azul */
 }
 
-
 #usuariosOnline {
     background-color: #f2f2f2;
     font-weight: bold;
@@ -843,7 +797,6 @@ input[id$="Exceto8_12"] {
         width: 100%;
         margin-top: 30px; /* Adiciona margem superior */
     }
-
 
 /* Estilo para elementos desabilitados */
 input:disabled, select:disabled, button:disabled {
@@ -1025,23 +978,6 @@ input:disabled, select:disabled, button:disabled {
 }
 /* --- FIM: Estilo para o modal de Dias da Semana --- */
 
-
-
-#horasParaExpirar {
-    max-width: 130px;
-    width: 100%;
-	margin-left: auto; 
-}
-
-
-/* Estilos para o novo seletor ON/OFF de Confirmação */
-#reservasPorConfirmacao {
-    font-weight: bold;
-    max-width: 130px; /* Adicionado */
-    width: 100%;      /* Adicionado */
-    margin-left: auto;/* Adicionado */
-}
-
 #reservasPorConfirmacao.confirmacao-on {
     color: green;
 }
@@ -1053,27 +989,12 @@ input:disabled, select:disabled, button:disabled {
 /* fim de Estilos para o novo seletor ON/OFF de Confirmação */
 
 /* Estilos para o novo seletor edicaoOrganizador */
-#edicaoOrganizador {
-    font-weight: bold;
-    max-width: 130px;
-    width: 100%;
-    margin-left: auto;
-}
-
 #edicaoOrganizador.edicao-on {
     color: green;
 }
 
 #edicaoOrganizador.edicao-off {
     color: red;
-}
-
-/* Estilos para o novo seletor Quebra Horario Domingo */
-#quebraHorarioDomingoAtiva {
-    font-weight: bold;
-    max-width: 130px;
-    width: 100%;
-    margin-left: auto;
 }
 
 #quebraHorarioDomingoAtiva.quebra-on {
@@ -1097,7 +1018,136 @@ input:disabled, select:disabled, button:disabled {
     user-select: none;         /* Padrão */
 }
 
+/* Estilo para o botão de adicionar (+) ao lado do dropdown */
+/* CORREÇÃO DEFINITIVA para alinhamento do campo com botão */
+.input-group {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.input-group select {
+    width: 100%;
+}
+
+.add-button {
+    /* Anula os estilos problemáticos da regra "button" geral */
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+
+    /* Estilos visuais corretos para o botão '+' */
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1;
+    margin-left: 8px; /* Espaçamento do dropdown */
+}
+
+.add-button:hover {
+    color: #0056b3;
+}
+
+/* Garante que o input de texto também se alinhe dentro do grupo */
+.input-group input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+/* Estilo para o campo de texto não editável */
+#arbitro[readonly] {
+    background-color: #e9ecef; /* Fundo cinza claro */
+    cursor: default;
+}
+
+/* Estilo para o novo botão de Mudar/Trocar (🔁) */
+.swap-button {
+    /* Anula os estilos da regra "button" geral */
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+
+    /* Estilos visuais */
+    background: none;
+    border: none;
+    color: #6c757d; /* Um tom de cinza */
+    cursor: pointer;
+    font-size: 20px; /* Tamanho ajustado para o ícone 🔁 */
+    line-height: 1;
+    margin-left: 8px;
+}
+
+.swap-button:hover {
+    color: #343a40; /* Cinza mais escuro */
+}
+
+
+/* =================================================================== */
+/* REGRA FINAL PARA DIMINUIR E ALINHAR TODOS OS CAMPOS DE RESERVAS   */
+/* =================================================================== */
+
+#reservas .container select {
+    max-width: 170px;   /*  AJUSTE ESTE VALOR PARA MUDAR A LARGURA */
+    width: 100%;
+    margin-left: auto;  /* Empurra os campos para a direita */
+    flex: initial  ;    /* Impede que os campos se estiquem demais */
+}
+
+
+/* ... seu CSS existente termina aqui ... */
+
+/* --- ESTILOS PARA O MODAL DE ADICIONAR ADMINISTRADOR --- */
+.lista-jogadores-scroll {
+    max-height: 300px; /* Altura máxima da lista */
+    overflow-y: auto;  /* Adiciona barra de rolagem vertical */
+    border: 1px solid #eee;
+    border-radius: 4px;
+    margin-top: 15px;
+}
+
+.item-jogador {
+    padding: 12px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 16px;
+}
+
+.item-jogador:last-child {
+    border-bottom: none;
+}
+
+.item-jogador:hover {
+    background-color: #f5f5f5;
+}
+/* --- FIM DOS ESTILOS --- */
+
+
+#containerHorarioDomingo {
+        margin-left: 2px !important;
+        gap: 2px !important;
+    }
+    
+    #vDomingoAte {
+        width: 35px !important;
+        font-size: 13px !important;
+        padding: 1px !important;
+    }
+    
+    #reservas .container {
+        gap: 5px;
+    }
+}
 </style>
+
+
 
 </head>
 <body>
@@ -1129,31 +1179,27 @@ input:disabled, select:disabled, button:disabled {
 				});
 			</script>
 		</div>
-
-        <div class="container">
-            <label for="vDomingo">Estado de Domingo:</label>
-            <select id="vDomingo">
-                <option value="aberto">Aberto</option>
-                <option value="fechado">Fechado</option>
-            </select>
-			<div id="containerHorarioDomingo" style="display:none; align-items: center; gap: 3px; margin-left: -7px; white-space: nowrap;">
-				<span style="font-size: 15px;">🕒</span>
-				<input type="text" id="vDomingoAte" readonly style="border: none; background: transparent; font-weight: bold; font-size: 16px; width: 41px; text-align: center;" />
+		
+		<div class="container">
+			<label for="administradores">Administradores:</label>
+			<div class="input-group">
+				<select id="administradores" 
+						ondblclick="excluirAdministrador()" 
+						title="Selecione um administrador. Dê um duplo clique para excluir.">
+				</select>
+				<button type="button" class="add-button" title="Adicionar Administrador" onclick="abrirModalAdicionarAdmin()">+</button>
 			</div>
+		</div>
+		
+		<div class="container">
+            <label for="arbitro">Árbitro:</label>
+            <div class="input-group">
+                <input type="text" id="arbitro" readonly placeholder="RONALDO TABORDA">
+                <button type="button" class="swap-button" title="Mudar Árbitro" onclick="abrirModalMudarArbitro()">&#128260;</button>
+            </div>
         </div>
 
-        <div class="container">
-            <label for="diasParaAgendar">Dias para Agendar:</label>
-            <select id="diasParaAgendar">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </div>
-
+        
         <div class="container quadra-container">
             <label for="estadoQuadra1">Quadra 1 - Coberta:</label>
             <select id="estadoQuadra1" class="no-select" onfocus="this.oldValue = this.value;" onchange="handleEstadoQuadraChange(this, 1)" ondblclick="handleEstadoQuadraChange(this, 1)">
@@ -1191,16 +1237,42 @@ input:disabled, select:disabled, button:disabled {
 		
 		<div id="reservas" class="tab-content tab-content-active">
 			<div style="border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
+			
+			    <div class="container" style="flex-wrap: nowrap; overflow: visible;">
+    <label for="vDomingo" style="flex-shrink: 0;">Estado de Domingo:</label>
+    <select id="vDomingo" style="flex-shrink: 0;">
+        <option value="aberto">Aberto</option>
+        <option value="fechado">Fechado</option>
+    </select>
+    <div id="containerHorarioDomingo" style="display:none; align-items: center; gap: 0px; white-space: nowrap; flex-shrink: 0; margin-left: 0px;">
+        <span style="font-size: 15px; flex-shrink: 0;">🕒</span>
+        <input type="text" id="vDomingoAte" readonly style="border: 1px solid #ddd; background: white; font-weight: bold; font-size: 14px; width: 45px; text-align: center; padding: 2px; border-radius: 3px; flex-shrink: 0;" />
+    </div>
+</div>
+				
+				
+
+				<div class="container">
+					<label for="diasParaAgendar">Dias para Agendar:</label>
+					<select id="diasParaAgendar">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
+				</div> 
 				
 				<div class="container">
-					<label for="reservasPorConfirmacao" title="ON: Reservas com múltiplos sócios exigem que cada um confirme sua presença.&#10;──────────&#10;OFF: Todas as reservas são confirmadas instantaneamente.">Confirmação de Reservas:</label>
+					<label for="reservasPorConfirmacao" title="ON: Reservas com múltiplos sócios exigem que cada um confirme sua presença.&#10;──────────&#10;OFF: Todas as reservas são confirmadas instantaneamente.">Confirmação Reservas:</label>
 					<select id="reservasPorConfirmacao" onchange="atualizarEstadoConfirmacao()">
 						<option value="ON">ON</option>
 						<option value="OFF">OFF</option>
 					</select>
 				</div>
 
-				<hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+				
 
 				<div class="container">
 					<label for="horasParaExpirar" title="Define o tempo máximo que os jogadores têm para aceitar ou recusar um convite.&#10;──────────&#10;Se o prazo expirar, a reserva é cancelada automaticamente.">Prazo para Confirmação:</label>
@@ -1214,7 +1286,6 @@ input:disabled, select:disabled, button:disabled {
 					</select>
 				</div>
 				
-				<hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
 
 				<div class="container">
 					<label for="edicaoOrganizador" title="ON: Permite que o organizador de uma reserva pendente possa adicionar ou remover jogadores.&#10;──────────&#10;OFF: O organizador pode apenas excluir a reserva.">Edição pelo Organizador:</label>
@@ -1224,7 +1295,7 @@ input:disabled, select:disabled, button:disabled {
 					</select>
 				</div>
 
-				<hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+				
 
 				<div class="container">
 					<label for="quebraHorarioDomingoAtiva" title="ON: Permite agendamentos livres no domingo.&#10;──────────&#10;OFF: Abre uma janela para você escolher em quais quadras a regra de otimização (apenas reservas 8-10h e 10-12h) será aplicada.">Quebra Horário Domingo:</label>
@@ -1572,6 +1643,45 @@ input:disabled, select:disabled, button:disabled {
         <div class="container modal-buttons">
             <button class="btn-fechar" onclick="fecharModalQuebraHorario()">Fechar</button>
             <button class="btn-adicionar" onclick="salvarModalQuebraHorario()">Salvar</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalAdicionarAdmin" class="modal-overlay">
+    <div class="modal-content">
+        <h2>Adicionar Novo Administrador</h2>
+        
+        <div class="container">
+            <input type="text" id="buscaJogadorInput" oninput="filtrarJogadores()" placeholder="Buscar jogador pelo apelido..." style="width: 100%; padding: 8px; font-size: 16px;">
+        </div>
+
+        <div id="listaJogadoresContainer" class="lista-jogadores-scroll">
+            </div>
+        
+        <hr>
+
+        <div class="container modal-buttons">
+            <button class="btn-fechar" onclick="fecharModalAdicionarAdmin()">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalMudarArbitro" class="modal-overlay">
+    <div class="modal-content">
+        <h2>Mudar Árbitro</h2>
+        
+        <div class="container">
+            <input type="text" id="buscaArbitroInput" oninput="filtrarJogadoresArbitro()" placeholder="Buscar jogador pelo nome completo..." style="width: 100%; padding: 8px; font-size: 16px;">
+        </div>
+
+        <div id="listaJogadoresArbitroContainer" class="lista-jogadores-scroll">
+            </div>
+        
+        <hr>
+
+        <div class="container modal-buttons">
+            <button class="btn-fechar" onclick="fecharModalMudarArbitro()">Fechar</button>
         </div>
     </div>
 </div>
@@ -2157,22 +2267,24 @@ function carregarConfiguracoes() {
             .then(snapshot => {
                 const data = snapshot.val();
                 if (data) {
+				    popularAdministradores(data.Administradores); 
                     document.getElementById('sistema').value = data.Abrir ? 'ON' : 'OFF'; 
                     atualizarEstadoSistema();
                     document.getElementById('vDomingo').value = data.vDomingo || "aberto";  
                     document.getElementById('vDomingoAte').value = data.vDomingoAte;
 
                     const campoAte = document.getElementById('vDomingoAte');
-                    const containerHorario = document.getElementById('containerHorarioDomingo');
-                    campoAte.value = data.vDomingoAte || '';
+const containerHorario = document.getElementById('containerHorarioDomingo');
+const vDomingoSelect = document.getElementById('vDomingo'); // Adicionamos uma variável para facilitar
+campoAte.value = data.vDomingoAte || '';
 
-                    if (document.getElementById('vDomingo').value === 'aberto') {
-                        containerHorario.style.display = 'flex';
-                        document.getElementById('vDomingo').classList.remove('ajustar-alinhamento');
-                    } else {
-                        containerHorario.style.display = 'none';
-                        document.getElementById('vDomingo').classList.add('ajustar-alinhamento');
-                    }
+if (vDomingoSelect.value === 'aberto') {
+    containerHorario.style.display = 'flex';
+    vDomingoSelect.classList.add('is-aberto'); // Adiciona a classe no carregamento
+} else {
+    containerHorario.style.display = 'none';
+    vDomingoSelect.classList.remove('is-aberto'); // Remove a classe no carregamento
+}
 
                     document.getElementById('diasParaAgendar').value = (6 - (data.DiasParaLimpar || 6)).toString();
                     document.getElementById('estadoQuadra1').value = data.Quadras?.Quadra1 || "liberada";
@@ -2182,6 +2294,8 @@ function carregarConfiguracoes() {
 					document.getElementById('reservasPorConfirmacao').value = data.ReservasPorConfirmacao ? 'ON' : 'OFF';
 					document.getElementById('horasParaExpirar').value = data.horasParaExpirar || '2';
 					document.getElementById('edicaoOrganizador').value = data.OrganizadorEdicao ? 'ON' : 'OFF';
+					document.getElementById('arbitro').value = data.Arbitro || ''; 
+					
 					// Carrega a nova estrutura de Quebra de Horário
 					const quebraConfig = data.QuebraDeHorarioDomingo || { ativa: true, quadras: {} };
 					document.getElementById('quebraHorarioDomingoAtiva').value = quebraConfig.ativa ? 'ON' : 'OFF';
@@ -2283,6 +2397,8 @@ function carregarConfiguracoes() {
         db.ref("sistemas/config").on("value", (snapshot) => {
             const data = snapshot.val();
             if (data) {
+			    popularAdministradores(data.Administradores);
+				
                 bloqueiosQuadra = data.Quadras?.Bloqueios || {};
                 
                 document.getElementById('sistema').value = data.Abrir ? 'ON' : 'OFF';
@@ -2298,6 +2414,8 @@ function carregarConfiguracoes() {
 				
 				document.getElementById('edicaoOrganizador').value = data.OrganizadorEdicao ? 'ON' : 'OFF';
 				atualizarEstadoEdicaoOrganizador();
+				
+				document.getElementById('arbitro').value = data.Arbitro || ''; 
 				
 				// Carrega a nova estrutura de Quebra de Horário
 				const quebraConfig = data.QuebraDeHorarioDomingo || { ativa: true, quadras: {} };
@@ -2577,6 +2695,8 @@ function salvarConfiguracoes() {
 
         loadingElement.style.display = 'block';
         contentElement.style.display = 'none';
+		
+	
 
         carregarConfiguracoes()
             .then(() => {
@@ -2698,21 +2818,53 @@ document.addEventListener('DOMContentLoaded', function () {
     const vDomingoAteInput = document.getElementById('vDomingoAte');
 
     vDomingoSelect.addEventListener('change', function () {
-		const containerHorario = document.getElementById('containerHorarioDomingo');
+    const containerHorario = document.getElementById('containerHorarioDomingo');
+    const vDomingoAteInput = document.getElementById('vDomingoAte');
+    const isMobile = window.innerWidth <= 768; // Verifica se a tela é de celular
 
-		if (this.value === 'aberto') {
-			const horario = prompt("Até que horas o clube ficará aberto no domingo? (ex: 18:00)", "18:00");
-			if (horario) {
-				vDomingoAteInput.value = horario;
-				containerHorario.style.display = 'flex';
-			}
-			this.classList.remove('ajustar-alinhamento');
-		} else {
-			vDomingoAteInput.value = '';
-			containerHorario.style.display = 'none';
-			this.classList.add('ajustar-alinhamento');
-		}
-	});
+    if (this.value === 'aberto') {
+        const horario = prompt("Até que horas o clube ficará aberto no domingo? (ex: 18:00)", vDomingoAteInput.value || "18:00");
+
+        if (horario) { // Se o usuário deu OK
+            vDomingoAteInput.value = horario;
+            containerHorario.style.display = 'flex';
+
+            if (isMobile) {
+                this.classList.add('is-aberto'); // No celular, adiciona a classe
+            } else {
+                // No computador, mantém o comportamento original que você já tinha
+                this.style.maxWidth = '100px';
+                this.style.width = '120px';
+                this.style.flex = '0 0 120px';
+            }
+        } else { // Se o usuário cancelou o prompt
+            this.value = 'fechado'; // Reverte a seleção
+            containerHorario.style.display = 'none';
+
+            if (isMobile) {
+                this.classList.remove('is-aberto');
+            } else {
+                // No computador, limpa os estilos
+                this.style.maxWidth = '';
+                this.style.width = '';
+                this.style.flex = '';
+            }
+        }
+    } else { // Se o valor for "fechado"
+        vDomingoAteInput.value = '';
+        containerHorario.style.display = 'none';
+
+        if (isMobile) {
+            this.classList.remove('is-aberto');
+        } else {
+            // No computador, limpa os estilos
+            this.style.maxWidth = '';
+            this.style.width = '';
+            this.style.flex = '';
+        }
+    }
+});
+  
 	
 	// --- INÍCIO DO NOVO CÓDIGO PARA TOOLTIPS COM CLIQUE ---
 
@@ -3507,6 +3659,343 @@ function handleQuebraHorarioHold() {
         abrirModalQuebraHorario();
     }
 }
+
+function popularAdministradores(administradoresData) {
+    const administradoresSelect = document.getElementById('administradores');
+    // Limpa as opções existentes para evitar duplicatas em recarregamentos
+    administradoresSelect.innerHTML = ''; 
+
+    // Verifica se existem dados de administradores e se é um objeto
+    if (administradoresData && typeof administradoresData === 'object') {
+        // Itera sobre os valores (os nomes dos administradores)
+        Object.values(administradoresData).forEach(nomeAdmin => {
+            const option = document.createElement('option');
+            option.value = nomeAdmin;
+            option.textContent = nomeAdmin;
+            administradoresSelect.appendChild(option);
+        });
+    }
+}
+
+
+// =======================================================================
+// INÍCIO: LÓGICA PARA ADICIONAR NOVOS ADMINISTRADORES (VERSÃO AJUSTADA)
+// =======================================================================
+
+// Variável global para guardar a lista de jogadores e evitar múltiplas buscas no Firebase
+let listaJogadoresDisponiveis = [];
+
+/**
+ * Fecha o modal de adicionar administrador.
+ */
+function fecharModalAdicionarAdmin() {
+    document.getElementById('modalAdicionarAdmin').style.display = 'none';
+}
+
+/**
+ * Renderiza a lista de jogadores dentro do modal.
+ * @param {object[]} jogadores - Um array de objetos {nomeCompleto, apelido}.
+ */
+function renderizarListaJogadores(jogadores) {
+    const container = document.getElementById('listaJogadoresContainer');
+    container.innerHTML = ''; // Limpa a lista atual
+
+    if (jogadores.length === 0) {
+        container.innerHTML = '<p style="padding: 10px; text-align: center;">Nenhum jogador encontrado.</p>';
+        return;
+    }
+
+    jogadores.forEach(jogador => {
+        const div = document.createElement('div');
+        div.className = 'item-jogador';
+        // Exibe o nome completo para o usuário
+        div.textContent = jogador.nomeCompleto; 
+        // Ao clicar, passa o apelido para a função de seleção
+        div.onclick = () => selecionarNovoAdmin(jogador.apelido);
+        container.appendChild(div);
+    });
+}
+
+/**
+ * Filtra a lista de jogadores com base no que foi digitado no campo de busca.
+ */
+function filtrarJogadores() {
+    const termoBusca = document.getElementById('buscaJogadorInput').value.toLowerCase();
+    const jogadoresFiltrados = listaJogadoresDisponiveis.filter(jogador => 
+        // Procura no nome completo
+        jogador.nomeCompleto.toLowerCase().includes(termoBusca)
+    );
+    renderizarListaJogadores(jogadoresFiltrados);
+}
+
+/**
+ * Função principal que abre o modal, busca os dados e prepara a lista.
+ */
+async function abrirModalAdicionarAdmin() {
+    // 1. Obter a lista de administradores atuais a partir do dropdown
+    const adminSelect = document.getElementById('administradores');
+    // Converte para caixa alta para uma comparação segura
+    const adminsAtuais = Array.from(adminSelect.options).map(opt => opt.value.toUpperCase());
+
+    // 2. Buscar todos os jogadores do Firebase
+    try {
+        const snapshot = await db.ref('sistemas/cadastro/jogadores').once('value');
+        const todosJogadoresObj = snapshot.val();
+        
+        if (!todosJogadoresObj) {
+            alert("Não foi possível carregar la lista de jogadores.");
+            return;
+        }
+
+        // 3. Filtrar e preparar a lista de jogadores que podem ser admins
+        listaJogadoresDisponiveis = Object.entries(todosJogadoresObj)
+            // Mapeia para um objeto com nome completo (a chave) e apelido
+            .map(([nomeCompleto, dados]) => ({
+                nomeCompleto: nomeCompleto,
+                apelido: dados.apelido
+            }))
+            // Filtra jogadores sem apelido ou que já são admins
+            .filter(jogador => 
+                jogador.apelido && !adminsAtuais.includes(jogador.apelido.toUpperCase())
+            ) 
+            // Ordena alfabeticamente pelo nome completo
+            .sort((a, b) => a.nomeCompleto.localeCompare(b.nomeCompleto)); 
+
+        // 4. Renderizar a lista inicial e abrir o modal
+        document.getElementById('buscaJogadorInput').value = ''; // Limpa a busca
+        renderizarListaJogadores(listaJogadoresDisponiveis);
+        document.getElementById('modalAdicionarAdmin').style.display = 'flex';
+
+    } catch (error) {
+        console.error("Erro ao buscar jogadores:", error);
+        alert("Ocorreu um erro ao buscar a lista de jogadores. Verifique o console.");
+    }
+}
+
+/**
+ * Adiciona o jogador selecionado como um novo administrador no Firebase.
+ * @param {string} apelido - O apelido do jogador a ser adicionado.
+ */
+async function selecionarNovoAdmin(apelido) {
+    if (!confirm(`Tem certeza que deseja adicionar "${apelido}" como administrador?`)) {
+        return;
+    }
+
+    try {
+        const adminRef = db.ref('sistemas/config/Administradores');
+        const snapshot = await adminRef.once('value');
+        const adminsObj = snapshot.val() || {};
+
+        let proximoNumero = 1;
+        if (Object.keys(adminsObj).length > 0) {
+            const numeros = Object.keys(adminsObj)
+                .map(key => parseInt(key.replace('admin-', ''), 10))
+                .filter(num => !isNaN(num));
+            if (numeros.length > 0) {
+                proximoNumero = Math.max(...numeros) + 1;
+            }
+        }
+        const novaChave = `admin-${proximoNumero}`;
+        
+        // Converte o apelido para CAIXA ALTA antes de salvar
+        const apelidoEmCaixaAlta = apelido.toUpperCase();
+
+        // Atualiza o Firebase com o novo administrador
+        await adminRef.child(novaChave).set(apelidoEmCaixaAlta);
+        
+        alert(`"${apelido}" foi adicionado como administrador com sucesso!`);
+        fecharModalAdicionarAdmin();
+
+    } catch (error) {
+        console.error("Erro ao adicionar administrador:", error);
+        alert("Ocorreu um erro ao salvar o novo administrador. Verifique o console.");
+    }
+}
+
+// =======================================================================
+// FIM: LÓGICA PARA ADICIONAR NOVOS ADMINISTRADORES (VERSÃO AJUSTADA)
+// =======================================================================
+
+
+// ... sua função selecionarNovoAdmin() termina aqui ...
+
+/**
+ * Exclui o administrador que está selecionado no dropdown,
+ * acionado por um duplo clique no próprio campo <select>.
+ */
+async function excluirAdministrador() {
+    const adminSelect = document.getElementById('administradores');
+    
+    // 1. Verifica se um administrador está realmente selecionado
+    if (adminSelect.selectedIndex === -1) {
+        // Se nada estiver selecionado, não faz nada.
+        return; 
+    }
+    
+    const adminParaExcluir = adminSelect.value;
+
+    // 2. Pede confirmação ao usuário (passo de segurança crucial)
+    if (!confirm(`Tem certeza que deseja remover "${adminParaExcluir}" da lista de administradores?`)) {
+        return;
+    }
+
+    try {
+        const adminRef = db.ref('sistemas/config/Administradores');
+        const snapshot = await adminRef.once('value');
+        const adminsObj = snapshot.val();
+
+        if (!adminsObj) {
+            // Caso raro, mas é bom ter a verificação.
+            alert("Não há administradores para excluir.");
+            return;
+        }
+
+        let chaveParaExcluir = null;
+        // 3. Itera sobre o objeto de administradores para encontrar a chave correta
+        //    (ex: "admin-1") que corresponde ao nome selecionado.
+        for (const chave in adminsObj) {
+            if (adminsObj[chave].toUpperCase() === adminParaExcluir.toUpperCase()) {
+                chaveParaExcluir = chave;
+                break; // Encontrou a chave, pode parar o loop.
+            }
+        }
+
+        // 4. Se encontrou a chave, remove o dado do Firebase.
+        if (chaveParaExcluir) {
+            await adminRef.child(chaveParaExcluir).remove();
+            alert(`Administrador "${adminParaExcluir}" removido com sucesso!`);
+            // A lista será atualizada automaticamente pelo listener .on() que já existe.
+        } else {
+            alert("Não foi possível encontrar o administrador no banco de dados para realizar a exclusão.");
+        }
+
+    } catch (error) {
+        console.error("Erro ao excluir administrador:", error);
+        alert("Ocorreu um erro ao excluir o administrador. Verifique o console.");
+    }
+}
+
+// =======================================================================
+// FIM: LÓGICA PARA ADICIONAR/EXCLUIR NOVOS ADMINISTRADORES
+// =======================================================================
+
+
+// =======================================================================
+// FIM: LÓGICA PARA ADICIONAR/EXCLUIR NOVOS ADMINISTRADORES
+// =======================================================================
+
+
+// =======================================================================
+// INÍCIO: LÓGICA PARA MUDAR O ÁRBITRO
+// =======================================================================
+
+// Variável global para a lista de jogadores disponíveis para serem árbitros
+let listaJogadoresParaArbitro = [];
+
+/**
+ * Fecha o modal de mudança de árbitro.
+ */
+function fecharModalMudarArbitro() {
+    document.getElementById('modalMudarArbitro').style.display = 'none';
+}
+
+/**
+ * Renderiza a lista de jogadores no modal de árbitros.
+ * @param {object[]} jogadores - Array de objetos {nomeCompleto, apelido}.
+ */
+function renderizarListaJogadoresArbitro(jogadores) {
+    const container = document.getElementById('listaJogadoresArbitroContainer');
+    container.innerHTML = '';
+
+    if (jogadores.length === 0) {
+        container.innerHTML = '<p style="padding: 10px; text-align: center;">Nenhum jogador encontrado.</p>';
+        return;
+    }
+
+    jogadores.forEach(jogador => {
+        const div = document.createElement('div');
+        div.className = 'item-jogador';
+        div.textContent = jogador.nomeCompleto;
+        div.onclick = () => selecionarNovoArbitro(jogador.apelido);
+        container.appendChild(div);
+    });
+}
+
+/**
+ * Filtra a lista de jogadores para árbitro com base na busca.
+ */
+function filtrarJogadoresArbitro() {
+    const termoBusca = document.getElementById('buscaArbitroInput').value.toLowerCase();
+    const jogadoresFiltrados = listaJogadoresParaArbitro.filter(jogador =>
+        jogador.nomeCompleto.toLowerCase().includes(termoBusca)
+    );
+    renderizarListaJogadoresArbitro(jogadoresFiltrados);
+}
+
+/**
+ * Abre o modal para escolher o novo árbitro.
+ */
+async function abrirModalMudarArbitro() {
+    // 1. Obter o árbitro atual para excluí-lo da lista de seleção
+    const arbitroAtual = document.getElementById('arbitro').value;
+
+    try {
+        const snapshot = await db.ref('sistemas/cadastro/jogadores').once('value');
+        const todosJogadoresObj = snapshot.val();
+
+        if (!todosJogadoresObj) {
+            alert("Não foi possível carregar a lista de jogadores.");
+            return;
+        }
+
+        // 2. Prepara a lista de jogadores, filtrando o árbitro atual
+        listaJogadoresParaArbitro = Object.entries(todosJogadoresObj)
+            .map(([nomeCompleto, dados]) => ({
+                nomeCompleto: nomeCompleto,
+                apelido: dados.apelido
+            }))
+            .filter(jogador => jogador.apelido && jogador.apelido.toUpperCase() !== arbitroAtual.toUpperCase())
+            .sort((a, b) => a.nomeCompleto.localeCompare(b.nomeCompleto));
+
+        // 3. Renderiza a lista e exibe o modal
+        document.getElementById('buscaArbitroInput').value = '';
+        renderizarListaJogadoresArbitro(listaJogadoresParaArbitro);
+        document.getElementById('modalMudarArbitro').style.display = 'flex';
+
+    } catch (error) {
+        console.error("Erro ao buscar jogadores:", error);
+        alert("Ocorreu um erro ao buscar a lista de jogadores. Verifique o console.");
+    }
+}
+
+/**
+ * Define o jogador selecionado como o novo árbitro no Firebase.
+ * @param {string} apelido - O apelido do jogador escolhido.
+ */
+async function selecionarNovoArbitro(apelido) {
+    if (!confirm(`Deseja definir "${apelido}" como o novo árbitro?`)) {
+        return;
+    }
+
+    try {
+        const novoArbitro = apelido.toUpperCase();
+        
+        // Simplesmente define o novo valor no Firebase. É mais direto que com os admins.
+        await db.ref('sistemas/config/Arbitro').set(novoArbitro);
+
+        alert(`"${apelido}" foi definido como o novo árbitro com sucesso!`);
+        fecharModalMudarArbitro();
+        // O campo na tela principal será atualizado automaticamente pelo listener .on()
+
+    } catch (error) {
+        console.error("Erro ao definir novo árbitro:", error);
+        alert("Ocorreu um erro ao salvar o novo árbitro. Verifique o console.");
+    }
+}
+
+// =======================================================================
+// FIM: LÓGICA PARA MUDAR O ÁRBITRO
+// =======================================================================
 
 </script>
 </body>
