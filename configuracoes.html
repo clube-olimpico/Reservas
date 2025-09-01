@@ -2294,7 +2294,19 @@ if (vDomingoSelect.value === 'aberto') {
 					document.getElementById('reservasPorConfirmacao').value = data.ReservasPorConfirmacao ? 'ON' : 'OFF';
 					document.getElementById('horasParaExpirar').value = data.horasParaExpirar || '2';
 					document.getElementById('edicaoOrganizador').value = data.OrganizadorEdicao ? 'ON' : 'OFF';
-					document.getElementById('arbitro').value = data.Arbitro || ''; 
+					
+					
+					const arbitroData = data.Arbitro;
+					if (arbitroData && typeof arbitroData === 'object' && arbitroData.apelido) {
+						// Se for o novo formato de objeto, exibe o apelido
+						document.getElementById('arbitro').value = arbitroData.apelido;
+					} else if (typeof arbitroData === 'string') {
+						// Se for o formato antigo (apenas texto), exibe o texto
+						document.getElementById('arbitro').value = arbitroData;
+					} else {
+						// Caso contrário, deixa o campo vazio
+						document.getElementById('arbitro').value = '';
+					} 
 					
 					// Carrega a nova estrutura de Quebra de Horário
 					const quebraConfig = data.QuebraDeHorarioDomingo || { ativa: true, quadras: {} };
@@ -2415,7 +2427,17 @@ if (vDomingoSelect.value === 'aberto') {
 				document.getElementById('edicaoOrganizador').value = data.OrganizadorEdicao ? 'ON' : 'OFF';
 				atualizarEstadoEdicaoOrganizador();
 				
-				document.getElementById('arbitro').value = data.Arbitro || ''; 
+				const arbitroData = data.Arbitro;
+					if (arbitroData && typeof arbitroData === 'object' && arbitroData.apelido) {
+						// Se for o novo formato de objeto, exibe o apelido
+						document.getElementById('arbitro').value = arbitroData.apelido;
+					} else if (typeof arbitroData === 'string') {
+						// Se for o formato antigo (apenas texto), exibe o texto
+						document.getElementById('arbitro').value = arbitroData;
+					} else {
+						// Caso contrário, deixa o campo vazio
+						document.getElementById('arbitro').value = '';
+					}  
 				
 				// Carrega a nova estrutura de Quebra de Horário
 				const quebraConfig = data.QuebraDeHorarioDomingo || { ativa: true, quadras: {} };
@@ -3662,17 +3684,22 @@ function handleQuebraHorarioHold() {
 
 function popularAdministradores(administradoresData) {
     const administradoresSelect = document.getElementById('administradores');
-    // Limpa as opções existentes para evitar duplicatas em recarregamentos
     administradoresSelect.innerHTML = ''; 
 
-    // Verifica se existem dados de administradores e se é um objeto
     if (administradoresData && typeof administradoresData === 'object') {
-        // Itera sobre os valores (os nomes dos administradores)
-        Object.values(administradoresData).forEach(nomeAdmin => {
-            const option = document.createElement('option');
-            option.value = nomeAdmin;
-            option.textContent = nomeAdmin;
-            administradoresSelect.appendChild(option);
+        // Itera sobre os valores, que agora são objetos {nomeCompleto, apelido}
+        Object.values(administradoresData).forEach(adminObj => {
+            if (adminObj && adminObj.nomeCompleto && adminObj.apelido) {
+                const option = document.createElement('option');
+                
+                // O VALOR interno (escondido) é o Nome Completo, usado para exclusão
+                option.value = adminObj.nomeCompleto;
+                
+                // O TEXTO exibido para o usuário é o Apelido
+                option.textContent = adminObj.apelido;
+                
+                administradoresSelect.appendChild(option);
+            }
         });
     }
 }
@@ -3711,7 +3738,7 @@ function renderizarListaJogadores(jogadores) {
         // Exibe o nome completo para o usuário
         div.textContent = jogador.nomeCompleto; 
         // Ao clicar, passa o apelido para a função de seleção
-        div.onclick = () => selecionarNovoAdmin(jogador.apelido);
+        div.onclick = () => selecionarNovoAdmin(jogador.nomeCompleto, jogador.apelido);
         container.appendChild(div);
     });
 }
@@ -3776,8 +3803,12 @@ async function abrirModalAdicionarAdmin() {
  * Adiciona o jogador selecionado como um novo administrador no Firebase.
  * @param {string} apelido - O apelido do jogador a ser adicionado.
  */
-async function selecionarNovoAdmin(apelido) {
-    if (!confirm(`Tem certeza que deseja adicionar "${apelido}" como administrador?`)) {
+/**
+ * Adiciona o jogador selecionado como um novo administrador no Firebase,
+ * salvando um objeto com nome completo e apelido.
+ */
+async function selecionarNovoAdmin(nomeCompleto, apelido) { // Agora recebe ambos os parâmetros
+    if (!confirm(`Tem certeza que deseja adicionar "${nomeCompleto}" como administrador?`)) {
         return;
     }
 
@@ -3797,11 +3828,13 @@ async function selecionarNovoAdmin(apelido) {
         }
         const novaChave = `admin-${proximoNumero}`;
         
-        // Converte o apelido para CAIXA ALTA antes de salvar
-        const apelidoEmCaixaAlta = apelido.toUpperCase();
+        // Cria o objeto para salvar
+        const adminData = {
+            nomeCompleto: nomeCompleto.toUpperCase(),
+            apelido: apelido.toUpperCase()
+        };
 
-        // Atualiza o Firebase com o novo administrador
-        await adminRef.child(novaChave).set(apelidoEmCaixaAlta);
+        await adminRef.child(novaChave).set(adminData);
         
         alert(`"${apelido}" foi adicionado como administrador com sucesso!`);
         fecharModalAdicionarAdmin();
@@ -3811,7 +3844,6 @@ async function selecionarNovoAdmin(apelido) {
         alert("Ocorreu um erro ao salvar o novo administrador. Verifique o console.");
     }
 }
-
 // =======================================================================
 // FIM: LÓGICA PARA ADICIONAR NOVOS ADMINISTRADORES (VERSÃO AJUSTADA)
 // =======================================================================
@@ -3831,6 +3863,14 @@ async function excluirAdministrador() {
         // Se nada estiver selecionado, não faz nada.
         return; 
     }
+
+    // --- VALIDAÇÃO DE SEGURANÇA ADICIONADA ---
+    // Verifica se este é o último administrador na lista
+    if (adminSelect.options.length <= 1) {
+        alert("Não é possível remover o último administrador. O sistema precisa de pelo menos um responsável.");
+        return; // Impede a exclusão
+    }
+    // --- FIM DA VALIDAÇÃO ---
     
     const adminParaExcluir = adminSelect.value;
 
@@ -3850,15 +3890,18 @@ async function excluirAdministrador() {
             return;
         }
 
+        // ... dentro da função excluirAdministrador() ...
         let chaveParaExcluir = null;
-        // 3. Itera sobre o objeto de administradores para encontrar a chave correta
-        //    (ex: "admin-1") que corresponde ao nome selecionado.
-        for (const chave in adminsObj) {
-            if (adminsObj[chave].toUpperCase() === adminParaExcluir.toUpperCase()) {
-                chaveParaExcluir = chave;
-                break; // Encontrou a chave, pode parar o loop.
-            }
-        }
+			// 3. Itera sobre o objeto de administradores para encontrar a chave correta
+			//    (ex: "admin-1") que corresponde ao nome selecionado.
+			for (const chave in adminsObj) {
+				// CORREÇÃO: Verifica a propriedade 'nomeCompleto' dentro do objeto
+				if (adminsObj[chave].nomeCompleto && adminsObj[chave].nomeCompleto.toUpperCase() === adminParaExcluir.toUpperCase()) {
+					chaveParaExcluir = chave;
+					break; // Encontrou a chave, pode parar o loop.
+				}
+			}
+	// ...
 
         // 4. Se encontrou a chave, remove o dado do Firebase.
         if (chaveParaExcluir) {
@@ -3874,7 +3917,6 @@ async function excluirAdministrador() {
         alert("Ocorreu um erro ao excluir o administrador. Verifique o console.");
     }
 }
-
 // =======================================================================
 // FIM: LÓGICA PARA ADICIONAR/EXCLUIR NOVOS ADMINISTRADORES
 // =======================================================================
@@ -3916,7 +3958,7 @@ function renderizarListaJogadoresArbitro(jogadores) {
         const div = document.createElement('div');
         div.className = 'item-jogador';
         div.textContent = jogador.nomeCompleto;
-        div.onclick = () => selecionarNovoArbitro(jogador.apelido);
+        div.onclick = () => selecionarNovoArbitro(jogador.nomeCompleto, jogador.apelido);
         container.appendChild(div);
     });
 }
@@ -3972,27 +4014,31 @@ async function abrirModalMudarArbitro() {
  * Define o jogador selecionado como o novo árbitro no Firebase.
  * @param {string} apelido - O apelido do jogador escolhido.
  */
-async function selecionarNovoArbitro(apelido) {
+/**
+ * Define o novo árbitro no Firebase, salvando um objeto com nome completo e apelido.
+ */
+async function selecionarNovoArbitro(nomeCompleto, apelido) { // Agora recebe ambos
     if (!confirm(`Deseja definir "${apelido}" como o novo árbitro?`)) {
         return;
     }
 
     try {
-        const novoArbitro = apelido.toUpperCase();
+        // Cria o objeto para salvar
+        const arbitroData = {
+            nomeCompleto: nomeCompleto.toUpperCase(),
+            apelido: apelido.toUpperCase()
+        };
         
-        // Simplesmente define o novo valor no Firebase. É mais direto que com os admins.
-        await db.ref('sistemas/config/Arbitro').set(novoArbitro);
+        await db.ref('sistemas/config/Arbitro').set(arbitroData);
 
         alert(`"${apelido}" foi definido como o novo árbitro com sucesso!`);
         fecharModalMudarArbitro();
-        // O campo na tela principal será atualizado automaticamente pelo listener .on()
 
     } catch (error) {
         console.error("Erro ao definir novo árbitro:", error);
         alert("Ocorreu um erro ao salvar o novo árbitro. Verifique o console.");
     }
 }
-
 // =======================================================================
 // FIM: LÓGICA PARA MUDAR O ÁRBITRO
 // =======================================================================
