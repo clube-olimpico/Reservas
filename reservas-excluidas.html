@@ -951,7 +951,7 @@ function gerarPlacarDuplasHtml(resultadoDuplas) {
     html += '</div>';
     
     const dataInformado = new Date(resultadoDuplas.dataInformado).toLocaleString('pt-BR');
-    html += `<p style="text-align: left; font-size: 0.8em; color: #888; margin-top: 15px;">Resultado informado por ${resultadoDuplas.informadoPor} em ${dataInformado}.</p>`;
+    html += `<p style="text-align: left; font-size: 0.8em; color: #888; margin-top: 15px;">Informado por ${resultadoDuplas.informadoPor} em ${dataInformado}.</p>`;
 
     return html;
 }
