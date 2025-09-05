@@ -231,7 +231,32 @@
 
 /* --- FIM DO BLOCO DE CÓDIGO --- */	/* Fim de Estilos para o novo placar de resultado */
 
-    </style>
+
+/* ADICIONE ESTE BLOCO DE CSS */
+.matchup-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 0;
+    border-bottom: 1px solid #eee;
+}
+.matchup-row:last-child {
+    border-bottom: none;
+}
+.team-names {
+    font-size: 1em;
+    text-align: center;
+    flex-basis: 40%;
+}
+.score-input-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-basis: 20%;
+    justify-content: center;
+}
+
+</style>
 </head>
 
 <body>
@@ -429,6 +454,7 @@ function alternarOrdenacao() {
 		
 
 // SUBSTITUA SUA FUNÇÃO 'exibirLogs' POR ESTA VERSÃO FINAL
+// SUBSTITUA SUA FUNÇÃO 'exibirLogs' POR ESTA VERSÃO FINAL
 function exibirLogs(lista) {
     const logsContainer = document.getElementById('logs');
     logsContainer.innerHTML = '';
@@ -439,7 +465,7 @@ function exibirLogs(lista) {
         logEntryDiv.className = 'log-entry';
 
         let dataParts = log.exclusao.split(' ');
-        let dataFormatada = dataParts[0].split('/').reverse().join('-') + 'T' + dataParts[1] + ':00';
+        let dataFormatada = dataParts[0].split('/').reverse().join('-') + 'T' + dataParts[1] + ':00';   
         let date = new Date(dataFormatada);
         let formattedDate = isNaN(date) ? 'Data inválida' : date.toLocaleString('pt-BR', {
             day: '2-digit',
@@ -453,43 +479,32 @@ function exibirLogs(lista) {
             duracaoDisplay = duracaoDisplay === 3 ? "2 Horas - Pirâmide" : duracaoDisplay === 2 ? "2 Horas" : "1 Hora";
         }
 
-        // Lógica para extrair apelidos, compatível com a nova e a antiga estrutura do log
         let listaDeApelidos = [];
         if (Array.isArray(log.jogadores)) {
             listaDeApelidos = log.jogadores.map(j => (typeof j === 'object' ? j.apelido : j));
         }
         let jogadoresHtml = listaDeApelidos.join(', ');
 
+        // --- INÍCIO DA ALTERAÇÃO ---
+
         let resultadoHtml = '';
+        const resultadoId = `resultado-${log.id}`; // ID único para o container do resultado
+
         if (log.resultado && Array.isArray(log.jogadores) && log.jogadores.length > 0) {
-            const resultadoId = `resultado-${log.id}`;
-
-            // --- INÍCIO DA LÓGICA CORRIGIDA E MAIS ROBUSTA ---
+            // Lógica existente para jogos de PIRÂMIDE
             const vencedorApelido = log.resultado.vencedor.toUpperCase();
-
-            // 1. Normaliza os dados dos jogadores, garantindo que sempre tenhamos um objeto
-            const jogadoresInfo = log.jogadores.map(j => {
-                if (typeof j === 'object' && j !== null) {
-                    return { apelido: j.apelido, posicao: j.posicao };
-                }
-                // Converte logs antigos (strings) para o formato de objeto
-                return { apelido: j, posicao: '0' };
-            });
-
+            const jogadoresInfo = log.jogadores.map(j => (typeof j === 'object' && j !== null) ? { apelido: j.apelido, posicao: j.posicao } : { apelido: j, posicao: '0' });
             const vencedorObj = jogadoresInfo.find(j => j.apelido.toUpperCase() === vencedorApelido);
             const perdedorObj = jogadoresInfo.find(j => j.apelido.toUpperCase() !== vencedorApelido);
-            // --- FIM DA LÓGICA CORRIGIDA E MAIS ROBUSTA ---
 
             if (vencedorObj && perdedorObj) {
+                // (Toda a lógica para montar o placar da pirâmide continua aqui, intacta)
                 const p1_rank = getDisplayRank(vencedorObj.posicao);
                 const p2_rank = getDisplayRank(perdedorObj.posicao);
-
                 const p1_posicaoHtml = p1_rank ? `<span class="placar-posicao">${p1_rank}</span>` : '';
                 const p2_posicaoHtml = p2_rank ? `<span class="placar-posicao">${p2_rank}</span>` : '';
-
                 const scoresP1 = [];
                 const scoresP2 = [];
-
                 ['set1', 'set2', 'set3'].forEach(setKey => {
                     const setData = log.resultado[setKey];
                     if (setData) {
@@ -510,7 +525,6 @@ function exibirLogs(lista) {
                         }
                     }
                 });
-
                 let detalhesPlacar = `
                     <div class="placar-container">
                         <div class="placar-row">
@@ -524,7 +538,6 @@ function exibirLogs(lista) {
                             <span class="placar-sets">${scoresP2.join('')}</span>
                         </div>
                     </div>`;
-                
                 resultadoHtml = `
                     <p style="margin-top: 8px; margin-bottom: 2px;">
                         <strong>Resultado do Jogo:</strong> 
@@ -534,8 +547,22 @@ function exibirLogs(lista) {
                         ${detalhesPlacar}
                     </div>`;
             }
-        }
         
+        } else if (log.resultadoDuplas) {
+            // NOVA LÓGICA para jogos de DUPLAS
+            const detalhesPlacar = gerarPlacarDuplasHtml(log.resultadoDuplas); // Chama a nova função
+            resultadoHtml = `
+                <p style="margin-top: 8px; margin-bottom: 2px;">
+                    <strong>Resultado do Jogo:</strong> 
+                    <a href="javascript:void(0);" onclick="toggleResultado('${resultadoId}', this)" style="color: #007bff; text-decoration: none; font-weight: normal;">Ver Detalhes</a>
+                </p>
+                <div id="${resultadoId}" style="display: none;">
+                    ${detalhesPlacar}
+                </div>`;
+        }
+
+        // --- FIM DA ALTERAÇÃO ---
+
         let detalhesConfirmacao = '';
         if (log.statusNoMomentoDaExclusao) {
             let statusStyle = log.statusNoMomentoDaExclusao.includes('pendente') ? 'color: orange;' 
@@ -571,7 +598,6 @@ function exibirLogs(lista) {
     logsContainer.appendChild(fragment);
     document.getElementById('total-registros').textContent = `Total de registros: ${lista.length}`;
 }
-
 
 
 
@@ -878,6 +904,56 @@ function getDisplayRank(piramidePosStr) {
     }
     // Se a posição for 61 ou maior, subtrai 60 para obter o rank real da pirâmide feminina
     return piramidePos >= 61 ? piramidePos - 60 : piramidePos;
+}
+
+
+// COLE ESTA NOVA FUNÇÃO NO FINAL DO SEU SCRIPT
+function gerarPlacarDuplasHtml(resultadoDuplas) {
+    if (!resultadoDuplas || !resultadoDuplas.confrontos) return "";
+
+    let html = '<div class="placar-container">';
+
+    resultadoDuplas.confrontos.forEach(jogo => {
+        const [placarA, placarB] = jogo.placar.split('x').map(Number);
+        const timeAVenceu = placarA > placarB;
+
+        const dupla1Nomes = jogo.dupla1.replace(' / ', '<br>');
+        const dupla2Nomes = jogo.dupla2.replace(' / ', '<br>');
+
+        let placarHtml;
+        
+        if (jogo.tiebreak) {
+            const [tbA, tbB] = jogo.tiebreak.split('-');
+            placarHtml = `
+                <span class="set-score ${timeAVenceu ? 'winner' : ''}">${placarA}<sup>${tbA}</sup></span>
+                <span>&times;</span>
+                <span class="set-score ${!timeAVenceu ? 'winner' : ''}">${placarB}<sup>${tbB}</sup></span>
+            `;
+        } else {
+            placarHtml = `
+                <span class="set-score ${timeAVenceu ? 'winner' : ''}">${placarA}</span>
+                <span>&times;</span>
+                <span class="set-score ${!timeAVenceu ? 'winner' : ''}">${placarB}</span>
+            `;
+        }
+
+        html += `
+            <div class="matchup-row" style="padding: 2px 0; font-size: 0.95em; align-items: center;">
+                <span class="team-names" style="font-weight: ${timeAVenceu ? 'bold' : 'normal'}; text-align: center; flex-basis: 40%;">${dupla1Nomes}</span>
+                <div class="score-input-container" style="flex-basis: 20%; display: flex; justify-content: center; gap: 8px; font-weight: bold; font-size: 1.2em;">
+                    ${placarHtml}
+                </div>
+                <span class="team-names" style="font-weight: ${!timeAVenceu ? 'bold' : 'normal'}; text-align: center; flex-basis: 40%;">${dupla2Nomes}</span>
+            </div>
+        `;
+    });
+
+    html += '</div>';
+    
+    const dataInformado = new Date(resultadoDuplas.dataInformado).toLocaleString('pt-BR');
+    html += `<p style="text-align: left; font-size: 0.8em; color: #888; margin-top: 15px;">Resultado informado por ${resultadoDuplas.informadoPor} em ${dataInformado}.</p>`;
+
+    return html;
 }
 
 </script>
