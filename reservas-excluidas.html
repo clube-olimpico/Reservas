@@ -455,6 +455,7 @@ function alternarOrdenacao() {
 
 // SUBSTITUA SUA FUNÇÃO 'exibirLogs' POR ESTA VERSÃO FINAL
 // SUBSTITUA SUA FUNÇÃO 'exibirLogs' POR ESTA VERSÃO FINAL
+// SUBSTITUA SUA FUNÇÃO 'exibirLogs' PELA VERSÃO OTIMIZADA
 function exibirLogs(lista) {
     const logsContainer = document.getElementById('logs');
     logsContainer.innerHTML = '';
@@ -484,73 +485,21 @@ function exibirLogs(lista) {
             listaDeApelidos = log.jogadores.map(j => (typeof j === 'object' ? j.apelido : j));
         }
         let jogadoresHtml = listaDeApelidos.join(', ');
-
-        // --- INÍCIO DA ALTERAÇÃO ---
-
-        let resultadoHtml = '';
-        const resultadoId = `resultado-${log.id}`; // ID único para o container do resultado
-
-        if (log.resultado && Array.isArray(log.jogadores) && log.jogadores.length > 0) {
-            // Lógica existente para jogos de PIRÂMIDE
-            const vencedorApelido = log.resultado.vencedor.toUpperCase();
-            const jogadoresInfo = log.jogadores.map(j => (typeof j === 'object' && j !== null) ? { apelido: j.apelido, posicao: j.posicao } : { apelido: j, posicao: '0' });
-            const vencedorObj = jogadoresInfo.find(j => j.apelido.toUpperCase() === vencedorApelido);
-            const perdedorObj = jogadoresInfo.find(j => j.apelido.toUpperCase() !== vencedorApelido);
-
-            if (vencedorObj && perdedorObj) {
-                // (Toda a lógica para montar o placar da pirâmide continua aqui, intacta)
-                const p1_rank = getDisplayRank(vencedorObj.posicao);
-                const p2_rank = getDisplayRank(perdedorObj.posicao);
-                const p1_posicaoHtml = p1_rank ? `<span class="placar-posicao">${p1_rank}</span>` : '';
-                const p2_posicaoHtml = p2_rank ? `<span class="placar-posicao">${p2_rank}</span>` : '';
-                const scoresP1 = [];
-                const scoresP2 = [];
-                ['set1', 'set2', 'set3'].forEach(setKey => {
-                    const setData = log.resultado[setKey];
-                    if (setData) {
-                        const setPlacar = typeof setData === 'string' ? setData : setData.placar;
-                        const setTiebreak = typeof setData === 'object' ? setData.tiebreak : null;
-                        if (setPlacar) {
-                            const [sA, sB] = setPlacar.split('x').map(Number);
-                            const scoreVencedor = Math.max(sA, sB);
-                            const scorePerdedor = Math.min(sA, sB);
-                            let tbVencedor = '', tbPerdedor = '';
-                            if(setTiebreak) {
-                                const [tbA, tbB] = setTiebreak.split('-').map(Number);
-                                tbVencedor = `<sup>${Math.max(tbA, tbB)}</sup>`;
-                                tbPerdedor = `<sup>${Math.min(tbA, tbB)}</sup>`;
-                            }
-                            scoresP1.push(`<span class="set-score winner">${scoreVencedor}${tbVencedor}</span>`);
-                            scoresP2.push(`<span class="set-score">${scorePerdedor}${tbPerdedor}</span>`);
-                        }
-                    }
-                });
-                let detalhesPlacar = `
-                    <div class="placar-container">
-                        <div class="placar-row">
-                            ${p1_posicaoHtml}
-                            <span class="placar-nome match-winner">${capitalizarNome(vencedorObj.apelido)}</span>
-                            <span class="placar-sets">${scoresP1.join('')}</span>
-                        </div>
-                        <div class="placar-row">
-                            ${p2_posicaoHtml}
-                            <span class="placar-nome">${capitalizarNome(perdedorObj.apelido)}</span>
-                            <span class="placar-sets">${scoresP2.join('')}</span>
-                        </div>
-                    </div>`;
-                resultadoHtml = `
-                    <p style="margin-top: 8px; margin-bottom: 2px;">
-                        <strong>Resultado do Jogo:</strong> 
-                        <a href="javascript:void(0);" onclick="toggleResultado('${resultadoId}', this)" style="color: #007bff; text-decoration: none; font-weight: normal;">Ver Detalhes</a>
-                    </p>
-                    <div id="${resultadoId}" style="display: none;">
-                        ${detalhesPlacar}
-                    </div>`;
-            }
         
+        let resultadoHtml = '';
+        const resultadoId = `resultado-${log.id}`;
+
+        // --- CÓDIGO OTIMIZADO AQUI ---
+        let detalhesPlacar = '';
+        if (log.resultado && Array.isArray(log.jogadores) && log.jogadores.length > 0) {
+            // Chama a nova função para Pirâmide
+            detalhesPlacar = gerarPlacarPiramideHtml(log.resultado, log.jogadores);
         } else if (log.resultadoDuplas) {
-            // NOVA LÓGICA para jogos de DUPLAS
-            const detalhesPlacar = gerarPlacarDuplasHtml(log.resultadoDuplas); // Chama a nova função
+            // Chama a função para Duplas
+            detalhesPlacar = gerarPlacarDuplasHtml(log.resultadoDuplas);
+        }
+
+        if (detalhesPlacar) {
             resultadoHtml = `
                 <p style="margin-top: 8px; margin-bottom: 2px;">
                     <strong>Resultado do Jogo:</strong> 
@@ -560,8 +509,7 @@ function exibirLogs(lista) {
                     ${detalhesPlacar}
                 </div>`;
         }
-
-        // --- FIM DA ALTERAÇÃO ---
+        // --- FIM DA OTIMIZAÇÃO --- 
 
         let detalhesConfirmacao = '';
         if (log.statusNoMomentoDaExclusao) {
@@ -601,7 +549,6 @@ function exibirLogs(lista) {
 
 
 
-
 // Substitua sua função solicitarExclusaoLog por esta
 function solicitarExclusaoLog(logId) {
     // A função agora encontra o log pelo 'id' persistente
@@ -611,11 +558,15 @@ function solicitarExclusaoLog(logId) {
         alert("Erro: Não foi possível encontrar o registro do log para exclusão.");
         return;
     }
+	
+	const nomesDosJogadores = logParaExcluir.jogadores.map(j => j.apelido).join(', ');
+   
 
     const resumoDaReserva = `\n\nQuadra: ${logParaExcluir.quadra}\n` +
                            `Data: ${logParaExcluir.data}\n` +
                            `Horário: ${logParaExcluir.horario}\n` +
-                           `Jogadores: ${logParaExcluir.jogadores.join(', ')}`;
+                           `Jogadores: ${nomesDosJogadores}`; // Usa a nova variável com os nomes corretos
+
 
     if (confirm(`⚠️ Atenção!\n\nTem certeza que deseja excluir este registro do log permanentemente? A ação não pode ser desfeita.` + resumoDaReserva)) {
         
@@ -954,6 +905,63 @@ function gerarPlacarDuplasHtml(resultadoDuplas) {
     html += `<p style="text-align: left; font-size: 0.8em; color: #888; margin-top: 15px;">Informado por ${resultadoDuplas.informadoPor} em ${dataInformado}.</p>`;
 
     return html;
+}
+
+
+// ADICIONE ESTA NOVA FUNÇÃO AO SEU SCRIPT
+function gerarPlacarPiramideHtml(resultado, jogadores) {
+    // Esta função contém a lógica EXATA que estava dentro de exibirLogs, apenas movida para cá.
+    const vencedorApelido = resultado.vencedor.toUpperCase();
+
+    const jogadoresInfo = jogadores.map(j => (typeof j === 'object' && j !== null) ? { apelido: j.apelido, posicao: j.posicao } : { apelido: j, posicao: '0' });
+    const vencedorObj = jogadoresInfo.find(j => j.apelido.toUpperCase() === vencedorApelido);
+    const perdedorObj = jogadoresInfo.find(j => j.apelido.toUpperCase() !== vencedorApelido);
+
+    if (!vencedorObj || !perdedorObj) return ''; // Retorna vazio se não encontrar os jogadores
+
+    const p1_rank = getDisplayRank(vencedorObj.posicao);
+    const p2_rank = getDisplayRank(perdedorObj.posicao);
+
+    const p1_posicaoHtml = p1_rank ? `<span class="placar-posicao">${p1_rank}</span>` : '';
+    const p2_posicaoHtml = p2_rank ? `<span class="placar-posicao">${p2_rank}</span>` : '';
+
+    const scoresP1 = [];
+    const scoresP2 = [];
+
+    ['set1', 'set2', 'set3'].forEach(setKey => {
+        const setData = resultado[setKey];
+        if (setData) {
+            const setPlacar = typeof setData === 'string' ? setData : setData.placar;
+            const setTiebreak = typeof setData === 'object' ? setData.tiebreak : null;
+            if (setPlacar) {
+                const [sA, sB] = setPlacar.split('x').map(Number);
+                const scoreVencedor = Math.max(sA, sB);
+                const scorePerdedor = Math.min(sA, sB);
+                let tbVencedor = '', tbPerdedor = '';
+                if(setTiebreak) {
+                    const [tbA, tbB] = setTiebreak.split('-').map(Number);
+                    tbVencedor = `<sup>${Math.max(tbA, tbB)}</sup>`;
+                    tbPerdedor = `<sup>${Math.min(tbA, tbB)}</sup>`;
+                }
+                scoresP1.push(`<span class="set-score winner">${scoreVencedor}${tbVencedor}</span>`);
+                scoresP2.push(`<span class="set-score">${scorePerdedor}${tbPerdedor}</span>`);
+            }
+        }
+    });
+
+    return `
+        <div class="placar-container">
+            <div class="placar-row">
+                ${p1_posicaoHtml}
+                <span class="placar-nome match-winner">${capitalizarNome(vencedorObj.apelido)}</span>
+                <span class="placar-sets">${scoresP1.join('')}</span>
+            </div>
+            <div class="placar-row">
+                ${p2_posicaoHtml}
+                <span class="placar-nome">${capitalizarNome(perdedorObj.apelido)}</span>
+                <span class="placar-sets">${scoresP2.join('')}</span>
+            </div>
+        </div>`;
 }
 
 </script>
