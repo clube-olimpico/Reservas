@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pirâmides e Ranking do Tênis</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    /* Estilos Gerais */
+    body {
+        background-color: white;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        margin: 0;
+        padding: 0;
+    }
+    .loading-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background-color: white; display: flex; justify-content: center;
+        align-items: center; font-size: 24px; z-index: 1000;
+        transition: opacity 0.5s ease-out;
+    }
+    .tab-container {
+        display: flex;
+        flex-wrap: wrap; 
+        gap: 8px;
+        padding: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: white;
+    }
+    .tab-button {
+        text-align: center;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        border: 2px solid transparent;
+        color: white;
+        padding: 12px 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        position: relative; 
+    }
+    .tab-button:hover {
+        transform: translateY(-2px);
+    }
+    /* Estilos Mobile (Padrão) */
+    .tab-button.masculina, .tab-button.feminina {
+        flex: 1 1 45%; 
+    }
+    .tab-button.duplas {
+        flex: 1 1 100%; 
+        order: 3; 
+    }
+    /* Estilos Desktop */
+    @media (min-width: 769px) {
+        .tab-container {
+            flex-wrap: nowrap; 
+            align-items: center;
+        }
+        .tab-button.masculina { order: 1; flex: 1; }
+        .tab-button.duplas { 
+            order: 2; 
+            flex: 1.5; 
+            font-size: 1.2em;
+        }
+        .tab-button.feminina { order: 3; flex: 1; }
+    }
+    .tab-button.masculina { background-color: #4CAF50; }
+    .tab-button.feminina { background-color: #DB7093; }
+    .tab-button.duplas { background-color: #007BFF; }
+    .tab-button.selected {
+		outline: 2px solid #333;
+		outline-offset: -2px;
+	}
+    .tab-button.selected::after {
+        content: ""; display: block; width: 80%; height: 3px;
+        background-color: #333; position: absolute; bottom: -8px;
+        left: 10%;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .pyramid-container { overflow-x: auto; width: 100%; display: flex; justify-content: center; }
+    .pyramid { display: flex; flex-direction: column; align-items: center; font-family: Arial, sans-serif; font-size: 14px; }
+    .row { display: flex; }
+    .cell {
+      width: 120px; height: 80px; border: 1px solid black; display: flex;
+      justify-content: center; align-items: center; flex-direction: column;
+      font-weight: bold; text-align: center; position: relative;   
+    }
+    .title-container {
+        font-family: Arial, sans-serif; text-align: center; font-size: 1.8em;
+        font-weight: bold; line-height: 1.4; margin-bottom: 30px; margin-top: 20px;
+        -webkit-user-select: none; user-select: none; 
+    }
+    .divider { width: 100%; max-width: 350px; height: 5px; margin: 30px auto; border-radius: 3px; }
+    
+    #piramide-masculina .title-container { color: #2E8B57; }
+    #piramide-masculina .divider { background: linear-gradient(to right, #d3d3d3, #808080, #d3d3d3); }
+    #piramide-masculina .cell .posicao { font-size: 14px; font-weight: bold; color: #333333; position: absolute; top: 10px; }
+    #piramide-masculina .cell .nome { font-size: 18px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); transition: transform 0.2s ease-in-out; margin-top: 15px; }
+    #piramide-masculina .cell .nome:hover { transform: scale(1.1); color: #3498db; }
+    #piramide-masculina .row:nth-child(-n+3) .cell { background-color: lightgray; color: #2c3e50; }
+    #piramide-masculina .row:nth-child(n+4):nth-child(-n+5) .cell { background-color: #b0c4de; color: #1a1a1a; }
+    #piramide-masculina .row:nth-child(n+6):nth-child(-n+7) .cell { background-color: #87ceeb; color: #555555; }
+    #piramide-masculina .row:nth-child(n+8) .cell { background-color: #6495ed; color: #333333; }
+    @media (min-width: 769px) { #piramide-masculina .pyramid { transform: scale(0.85); transform-origin: top center; } }
+    @media (max-width: 768px) { #piramide-masculina .pyramid { transform: scale(0.30); transform-origin: top center; } }
+    
+    #piramide-feminina .title-container { color: #8B008B; }
+    #piramide-feminina .divider { background: linear-gradient(to right, #D8BFD8, #E6E6FA, #D8BFD8); }
+    #piramide-feminina .cell { border: 1.5px solid #777777; border-radius: 15px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.05); background-color: white; }
+    #piramide-feminina .badge { position: absolute; top: 4px; left: 6px; font-size: 1.15em; font-weight: bold; color: #483D8B; }
+    #piramide-feminina .nome { font-size: 1.1em; font-weight: bold; color: #483D8B; margin-top: 8px; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    #piramide-feminina .row { gap: 5px; margin-bottom: 5px; }
+    #piramide-feminina .row:nth-child(1) .cell { background-color: #F8F8FF; }
+    #piramide-feminina .row:nth-child(n+2):nth-child(-n+3) .cell { background-color: #F0F0FA; }
+    #piramide-feminina .row:nth-child(n+4):nth-child(-n+5) .cell { background-color: #FAF0F5; }
+    @media (max-width: 768px) { #piramide-feminina .pyramid { transform: scale(0.5); transform-origin: top center; } }
+
+    .ranking-container { width: 100%; max-width: 800px; margin: 0 auto; }
+    .info-ranking { background-color: #e9ecef; padding: 15px; border-radius: 5px; margin-bottom: 20px; font-size: 0.9em; text-align: center; }
+    .ranking-header, .ranking-row { display: flex; padding: 10px; border-bottom: 1px solid #ddd; align-items: center; }
+    .ranking-header { background-color: #343a40; color: white; font-weight: bold; }
+    .ranking-row:nth-child(even) { background-color: #f8f9fa; }
+    .ranking-row:hover { background-color: #e9ecef; }
+    .posicao { flex-basis: 10%; font-weight: bold; text-align: center; }
+    .jogador { flex-grow: 1; }
+    .pontuacao { flex-basis: 20%; font-weight: bold; text-align: right; }
+    .stats { flex-basis: 35%; font-size: 0.8em; color: #6c757d; text-align: right; }
+    .consolidado-icon { color: #ffc107; margin-left: 5px; font-size: 1.1em; cursor: help; }
+    
+    @media (max-width: 600px) {
+        .pontuacao { flex-basis: 25%; }
+        .stats { display: none; }
+        .info-ranking { display: none; }
+        #pontos-header { cursor: pointer; text-decoration: underline dotted; }
+        
+        /* Adicione esta nova regra aqui */
+        #ranking-duplas .divider {
+            display: none;
+        }
+    }
+  </style>
+
+</head>
+<body onload="inicializarPagina()">
+
+    <div id="loadingOverlay" class="loading-overlay">
+        Carregando... Aguarde.
+    </div>
+
+    <div class="tab-container">
+        <button id="btn-masculina" class="tab-button masculina" onclick="showTab('masculina')">Pirâmide Masculina</button>
+        <button id="btn-duplas" class="tab-button duplas" onclick="showTab('duplas')">🏆 Ranking de Duplas</button>
+        <button id="btn-feminina" class="tab-button feminina" onclick="showTab('feminina')">Pirâmide Feminina</button>
+    </div>
+
+    <div id="piramide-masculina" class="tab-content">
+        <div class="title-container"> Clube Olímpico<br> Pirâmide Masculina <div class="divider"></div> </div>
+        <div class="pyramid-container" style="height: 90vh;"> <div class="pyramid" id="pyramid-masculina-data"></div> </div>
+    </div>
+    
+    <div id="piramide-feminina" class="tab-content">
+        <div class="title-container"> Clube Olímpico<br> Pirâmide Feminina <div class="divider"></div> </div>
+        <div class="pyramid-container">
+            <div class="pyramid" id="pyramid-feminina-data"></div>
+        </div>
+    </div>
+
+    <div id="ranking-duplas" class="tab-content">
+        <div class="title-container"> Clube Olímpico<br> Ranking de Duplas <div class="divider" style="background-color: #007BFF;"></div> </div>
+        <div class="ranking-container">
+            <div class="info-ranking">
+                A pontuação é baseada na sua <strong>% de vitórias</strong>, ponderada por um <strong>Fator de Consolidação</strong>. Após 30 jogos, sua pontuação será exatamente sua % de vitórias.
+            </div>
+            <div class="ranking-header">
+                <div class="posicao">#</div>
+                <div class="jogador">Jogador</div>
+                <div class="stats">(% Vitórias | V / J)</div>
+                <div id="pontos-header" class="pontuacao">Pontos</div>
+            </div>
+            <div id="ranking-list"></div>
+        </div>
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "SUA_API_KEY",
+            authDomain: "agenda-5ce95.firebaseapp.com",
+            databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com/",
+            projectId: "agenda-5ce95",
+            storageBucket: "agenda-5ce95.appspot.com",
+            messagingSenderId: "852007565195",
+            appId: "1:852007565195:web:d7bd789d140858f53f618e"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        function formatarNome(nome) {
+            if (!nome || typeof nome !== 'string') return "";
+            return nome.toLowerCase().split(' ').map(palavra => 
+                palavra.charAt(0).toUpperCase() + palavra.slice(1)
+            ).join(' ');
+        }
+
+        // --- FUNÇÕES DA PIRÂMIDE MASCULINA ---
+        function gerarPiramideMasculinaHTML() {
+            const container = document.getElementById('pyramid-masculina-data');
+            let content = '';
+            for (let i = 0, pos = 1; i < 9; i++) {
+                content += '<div class="row">';
+                for (let j = 0; j <= i; j++, pos++) {
+                    const posicaoHTML = pos === 1 ? '🏆1' : pos;
+                    content += `<div class="cell" id="masc-pos${pos}"><span class="posicao">${posicaoHTML}</span><span class="nome" id="masc-jog${pos}"></span></div>`;
+                }
+                content += '</div>';
+            }
+            container.innerHTML = content;
+        }
+
+        function ajustarCorFonte(elemento, posicao) {
+            // Esta função foi restaurada do seu código original
+            if (posicao <= 3) { elemento.style.color = "#1a1a1a"; } 
+            else if (posicao <= 10) { elemento.style.color = "#2c3e50"; } 
+            else if (posicao <= 21) { elemento.style.color = "#808080 "; } 
+            else { elemento.style.color = "#d9d9d9"; }
+        }
+
+        function carregarPiramideMasculina() {
+            return database.ref("sistemas/cadastro/jogadores").once("value").then(snapshot => {
+                snapshot.forEach(childSnapshot => {
+                    const jogador = childSnapshot.val();
+                    if (jogador.piramide && parseInt(jogador.piramide) >= 1 && parseInt(jogador.piramide) <= 45) {
+                        const posicao = parseInt(jogador.piramide);
+                        const cellNome = document.getElementById(`masc-jog${posicao}`);
+                        if (cellNome) {
+                            cellNome.textContent = jogador.apelido || childSnapshot.key;
+                            const parentCell = cellNome.parentElement;
+                            parentCell.dataset.nome = childSnapshot.key;
+                            parentCell.dataset.classe = jogador.classe || "Sem classe";
+                            ajustarCorFonte(parentCell, posicao);
+                            parentCell.addEventListener("click", function() {
+                                alert(`Nome: ${formatarNome(this.dataset.nome)}\nClasse: ${this.dataset.classe}`);
+                            });
+                        }
+                    }
+                });
+            });
+        }
+        
+        // --- FUNÇÕES DA PIRÂMIDE FEMININA ---
+        function gerarPiramideFemininaHTML() {
+            const container = document.getElementById('pyramid-feminina-data');
+            if (!container) return;
+            let content = '';
+            let pos = 1;
+            for (let i = 1; i <= 5; i++) {
+                content += '<div class="row">';
+                for (let j = 1; j <= i; j++, pos++) {
+                    if (pos > 15) break;
+                    content += `<div class="cell"><div class="badge"></div><div class="nome" id="fem-jog${pos}"></div></div>`;
+                }
+                content += '</div>';
+                if (pos > 15) break;
+            }
+            container.innerHTML = content;
+        }
+
+        function getEmojiNumero(posicao) {
+            if (posicao === 1) return "👑1";
+            if (posicao === 2) return "✨2";
+            if (posicao === 3) return "🌷3";  
+            return "🌿" + posicao;
+        }
+
+        function carregarPiramideFeminina() {
+            return database.ref("sistemas/cadastro/jogadores").once("value").then(snapshot => {
+                snapshot.forEach(childSnapshot => {
+                    const jogador = childSnapshot.val();
+                    if (jogador.piramide) {
+                        const posicaoNoBanco = parseInt(jogador.piramide);
+                        if (posicaoNoBanco >= 61 && posicaoNoBanco <= 75) { 
+                            const posicaoNaTela = posicaoNoBanco - 60;
+                            const nomeDiv = document.getElementById(`fem-jog${posicaoNaTela}`);
+                            if (nomeDiv) {
+                                const nomeFinal = jogador.apelido || childSnapshot.key;
+                                const badge = nomeDiv.parentElement.querySelector(".badge");
+                                badge.textContent = getEmojiNumero(posicaoNaTela);
+                                nomeDiv.innerHTML = nomeFinal.trim().split(" ").map(parte => `<div>${parte}</div>`).join("");
+                                const parentCell = nomeDiv.parentElement;
+                                parentCell.dataset.nome = childSnapshot.key;
+                                parentCell.dataset.classe = jogador.classe || "Feminino";
+                                parentCell.addEventListener("click", function () {
+                                    alert(`Nome: ${formatarNome(this.dataset.nome)}\nClasse: ${this.dataset.classe}`);
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        // --- FUNÇÃO DO RANKING DE DUPLAS ---
+        // SUBSTITUA SUA FUNÇÃO ATUAL POR ESTA VERSÃO
+function carregarRankingDuplas() {
+    return database.ref('sistemas/cadastro/jogadores').once('value').then((snapshot) => {
+        const todosJogadores = snapshot.val();
+        if (!todosJogadores) {
+            document.getElementById('ranking-list').innerHTML = '<div class="ranking-row">Nenhum jogador encontrado.</div>';
+            return;
+        }
+        const jogadoresComStats = Object.keys(todosJogadores)
+            .map(key => ({ nomeCompleto: key, ...todosJogadores[key] }))
+            .filter(jogador => jogador.jogosDeDuplasJogados && jogador.jogosDeDuplasJogados > 0);
+
+        const rankingCalculado = jogadoresComStats.map(jogador => {
+            const K = 3;
+            const LIMITE_CONSOLIDACAO = 30;
+            const vitorias = jogador.vitoriasEmDuplas || 0;
+            const jogos = jogador.jogosDeDuplasJogados || 0;
+            const percVitoria = (jogos > 0) ? (vitorias / jogos) * 100 : 0;
+            let fator = 1.0;
+            if (jogos < LIMITE_CONSOLIDACAO) {
+                fator = jogos / (jogos + K);
+            }
+            const pontuacaoFinal = percVitoria * fator;
+            return { ...jogador, percVitoria, pontuacaoFinal, isConsolidado: jogos >= LIMITE_CONSOLIDACAO };
+        });
+
+        rankingCalculado.sort((a, b) => b.pontuacaoFinal - a.pontuacaoFinal);
+
+        const rankingListDiv = document.getElementById('ranking-list');
+        let rankingHtml = '';
+        rankingCalculado.forEach((jogador, index) => {
+            const consolidadoIcon = jogador.isConsolidado ? `<span class="consolidado-icon" title="Ranking Consolidado!">&#9733;</span>` : '';
+            
+            // --- INÍCIO DA ALTERAÇÃO ---
+
+            // 1. Armazena o texto das estatísticas em uma variável para ser reutilizado
+            const statsText = `(${jogador.percVitoria.toFixed(1)}% | ${jogador.vitoriasEmDuplas} / ${jogador.jogosDeDuplasJogados})`;
+            
+            let pontuacaoDiv;
+            // 2. Verifica se a tela é de celular
+            if (window.innerWidth <= 600) {
+                // Se for celular, adiciona o 'onclick' com o alerta
+				const alertText = `(% Vitórias | Vitórias / Jogos)\\n${statsText}`;
+                pontuacaoDiv = `<div class="pontuacao" onclick="alert('${alertText}')">${jogador.pontuacaoFinal.toFixed(1)}</div>`;
+            } else {
+                // Se for computador, gera o HTML normal, sem 'onclick'
+                pontuacaoDiv = `<div class="pontuacao">${jogador.pontuacaoFinal.toFixed(1)}</div>`;
+            }
+            
+            rankingHtml += `
+                <div class="ranking-row">
+                    <div class="posicao">${index + 1}º</div>
+                    <div class="jogador">${formatarNome(jogador.nomeCompleto)}${consolidadoIcon}</div>
+                    <div class="stats">${statsText}</div>
+                    ${pontuacaoDiv}
+                </div>
+            `;
+            // --- FIM DA ALTERAÇÃO ---
+        });
+        rankingListDiv.innerHTML = rankingHtml || '<div class="ranking-row" style="justify-content: center;">Nenhum jogador classificado ainda.</div>';
+    });
+}
+
+        // --- FUNÇÕES DE CONTROLE ---
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('selected'));
+            const contentId = (tabId === 'duplas') ? 'ranking-duplas' : `piramide-${tabId}`;
+            document.getElementById(contentId).classList.add('active');
+            document.getElementById(`btn-${tabId}`).classList.add('selected');
+        }
+
+        function inicializarPagina() {
+            document.body.style.opacity = 0; 
+            gerarPiramideMasculinaHTML();
+            gerarPiramideFemininaHTML();
+            
+            Promise.all([
+                carregarPiramideMasculina(),
+                carregarPiramideFeminina(),
+                carregarRankingDuplas()
+            ]).then(() => {
+                const loadingOverlay = document.getElementById("loadingOverlay");
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    loadingOverlay.style.display = "none";
+                    document.body.style.transition = 'opacity 0.5s';
+                    document.body.style.opacity = 1; 
+                }, 500);
+            }).catch(error => {
+                console.error("Erro ao carregar os dados da página:", error);
+                document.getElementById("loadingOverlay").innerText = "Erro ao carregar.";
+            });
+            
+            const textoExplicativo = "A pontuação é baseada na sua % de vitórias, ponderada por um 'Fator de Consolidação'. Após 30 jogos, sua pontuação será exatamente sua % de vitórias.";
+            const pontosHeader = document.getElementById('pontos-header');
+            if (window.innerWidth <= 600 && pontosHeader) {
+                pontosHeader.addEventListener('click', () => {
+                    alert(textoExplicativo);
+                });
+            }
+
+            showTab('duplas');
+        }
+
+        // --- CÓDIGO PARA SALVAR IMAGEM ---
+        document.querySelectorAll('.title-container').forEach(title => {
+            title.addEventListener('dblclick', () => {
+                const parentTab = title.closest('.tab-content');
+                if (!parentTab) return;
+                alert('Preparando a imagem para download. Por favor, aguarde...');
+                html2canvas(parentTab, {
+                    backgroundColor: null,
+                    scale: 2
+                }).then(canvas => {
+                    const link = document.createElement("a");
+                    let tabName = "ranking";
+                    const tabId = parentTab.id;
+                    if (tabId.includes("masculina")) { tabName = "piramide_masculina"; }
+                    else if (tabId.includes("feminina")) { tabName = "piramide_feminina"; }
+                    else if (tabId.includes("duplas")) { tabName = "ranking_duplas"; }
+                    link.download = `${tabName}.png`;
+                    link.href = canvas.toDataURL("image/png");
+                    link.click();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
