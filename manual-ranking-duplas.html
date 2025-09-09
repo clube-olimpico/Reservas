@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual - Ranking de Duplas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3, h4 {
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px; 
+        }
+        .container { 
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);   
+        }
+        .highlight {
+            background-color: #e0f7fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #00acc1;
+        }
+        .warning {
+            background-color: #fff8e1;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin: 5px 0;   
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Regulamento Oficial - Ranking de Duplas</h1>
+
+        <h2>1. Objetivo</h2>
+        <p>O objetivo principal do Ranking de Duplas é incentivar a prática da modalidade para otimizar o uso das quadras, promovendo a integração e a competitividade saudável entre os sócios.</p>
+        
+        <h2>2. Participação</h2>
+        <div class="highlight">
+            <p>A participação no ranking <strong>não é obrigatória</strong>.</p>
+            <p>Qualquer sócio que participar de uma partida de duplas com 4 jogadores e registrar o resultado no sistema será <strong>automaticamente incluído</strong> na classificação.</p>
+        </div>
+
+        <h2>3. Formato das Partidas</h2>
+        <ul>
+            <li>As partidas são compostas por <strong>3 (três) jogos</strong> (sets) com trocas de duplas.</li>
+            <li>Para que o resultado seja válido para o ranking, é <strong>obrigatória a realização dos 3 jogos</strong>.</li>
+            <li>Os jogos seguem a contagem de games tradicional, com <strong>tie-break</strong> (disputado até 7 pontos, com diferença de 2) em caso de empate em 6-6.</li>
+        </ul>
+
+        <h2>4. O Cálculo do Ranking</h2>
+        <p>Para garantir uma classificação justa que valorize a habilidade acima do volume de jogos, a pontuação é calculada de forma ponderada e dividida em duas fases:</p>
+
+        <div class="warning">
+            <h4>Fase 1: Jogador "Em Consolidação" (Menos de 30 jogos disputados)</h4>
+            <p>No início, o ranking de um jogador é considerado "em construção". A pontuação é calculada para dar mais "peso" e confiança ao resultado de jogadores com mais experiência.</p>
+            <p><strong>Fórmula:</strong> Pontuação = (% de Vitórias) x (Fator de Consolidação)</p>
+        </div>
+
+        <div class="warning">
+            <h4>Fase 2: Jogador "Consolidado" (30 jogos ou mais)</h4>
+            <p>Ao atingir 30 jogos, o jogador se torna "Consolidado". A partir deste momento, seu desempenho real é refletido diretamente na pontuação.</p>
+            <p><strong>Fórmula:</strong> Pontuação = % de Vitórias</p>
+            <p>Na tela do ranking, jogadores consolidados são marcados com um ícone de estrela (⭐).</p>
+        </div>
+        
+        <h2>5. Informando e Visualizando Resultados</h2>
+        
+        <h3>Quando a opção "Informar Resultado" aparece?</h3>
+        <p>Ao clicar em uma reserva de duplas, a opção para informar o resultado só aparecerá se todas as seguintes condições forem verdadeiras:</p>
+        <ul>
+            <li>A reserva deve conter exatamente <strong>4 sócios</strong> (convidados não participam do ranking).</li>
+            <li>A reserva precisa estar <strong>Confirmada</strong> (ou ter sido criada com o sistema de confirmação desligado).</li>
+            <li>O usuário logado deve ser <strong>um dos participantes</strong> da partida ou um <strong>Administrador</strong>.</li>
+            <li>Nenhum resultado pode ter sido informado para aquela partida ainda.</li>
+        </ul>
+
+        <h3>Como preencher a tela de resultados</h3>
+        <p>Ao clicar em "Informar Resultado", uma nova janela aparecerá com os 3 confrontos da partida. Para cada um dos 3 jogos, preencha os placares nos campos correspondentes. Caso um jogo termine em 7x6 ou 6x7, os campos para o placar do tie-break aparecerão automaticamente. Após preencher tudo, clique em "Salvar".</p>
+
+        <h3>Como visualizar um resultado já salvo</h3>
+        <p>Depois que um resultado é salvo, a opção no menu de ações muda de "Informar Resultado" para <strong>"Ver Resultado"</strong>. Ao clicar, a mesma tela de placares será exibida, mas com algumas diferenças:</p>
+        <ul>
+            <li>Os placares estarão preenchidos com os dados que foram salvos.</li>
+            <li>Os campos estarão <strong>bloqueados</strong> (apenas para visualização).</li>
+            <li>Os nomes da dupla vencedora de cada jogo aparecerão em <strong>negrito</strong>.</li>
+        </ul>
+        <h2>6. Regras Gerais do Ranking de Duplas</h2>
+        <ul>
+            <li><strong>Início:</strong> O ranking começa zerado. Os jogadores entram automaticamente na classificação após informarem o resultado da sua primeira partida de duplas.</li>
+            <li><strong>Atualização:</strong> As estatísticas são atualizadas automaticamente sempre que o resultado de uma partida de 4 jogadores é salvo no sistema.</li>
+            <li><strong>Transparência:</strong> Na tela do ranking, você pode ver não apenas a pontuação final, mas também as estatísticas detalhadas (% de vitórias, vitórias e jogos disputados) de cada jogador.</li>
+        </ul>
+
+        <h2>7. Como Acessar o Ranking</h2>
+        <p>Você pode visualizar a classificação completa a qualquer momento, seguindo estes passos:</p>
+        <ol>
+            <li>Acesse a página de Rankings do clube através do link 🏆 <strong>Rankings (Pirâmides e Duplas)</strong> que está na descrição do grupo do WhatsApp.</li>
+            <li>Na página que abrir, você verá três abas no topo. Clique na aba azul: <strong>🏆 Ranking de Duplas</strong>.</li>
+        </ol>
+        <p>A página exibirá a lista completa de jogadores classificados, ordenados pela pontuação.</p>
+
+        <p style="text-align: center; margin-top: 30px;"><strong>Bons jogos a todos e que vençam os melhores!</strong></p>
+    </div>
+    <footer style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #555;">
+        Desenvolvido por Ronaldo Taborda | Atualizado em Setembro/2025
+    </footer>
+</body>
+</html>
