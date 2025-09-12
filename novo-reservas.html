@@ -1641,9 +1641,9 @@ body.dark-mode .tiebreak-paren {
 // Ajuste manual da versão do Sistema
 const VersaoSistema = 'v1.5.0'; // Versão atual do sistema     
 
-let vDesabilitarF12 = false; // deixar true para fazer o deploy    
-let vAbrirSistema = false; // deixar true para fazer o deploy
-let vPermitirExclusaoAposJogo = true; // Mude para true para permitir que usuários comuns excluam jogos passados durante os testes.
+let vDesabilitarF12 = true; // deixar true para fazer o deploy    
+let vAbrirSistema = true; // deixar true para fazer o deploy
+let vPermitirExclusaoAposJogo = false; // Mude para true para permitir que usuários comuns excluam jogos passados durante os testes.
 
 let piramideInicioTorneio = null;
 let piramideFimTorneio = null;
@@ -1888,7 +1888,9 @@ function InicializarSistema() {
 
                 const config = data.config;
 				
-				vReservasPorConfirmacao = config.ReservasPorConfirmacao || false; // Lê o interruptor do banco
+				//vReservasPorConfirmacao = config.ReservasPorConfirmacao || false; // Lê o interruptor do banco
+				vReservasPorConfirmacao = false; 
+				
 				horasParaExpirarConfig = config.horasParaExpirar || 2; // Lê o valor do banco ou usa 2 como padrão
 				edicaoOrganizadorAtiva = config.OrganizadorEdicao || false;
 				quebraHorarioDomingoConfig = config.QuebraDeHorarioDomingo || { ativa: true, quadras: {} };
@@ -3720,7 +3722,7 @@ async function LimparDiasAnteriores() {
                         reservasParaExcluir.push(logData);
                         // --- FIM DA ADIÇÃO DA LÓGICA DE LOG ---
 
-                        const rankUpdates = processarTrocaDeRanking(reserva);
+                        const rankUpdates = processarTrocaDeRanking(reserva); 
                         Object.assign(updates, rankUpdates);
 
                         const dataReserva = dataParaLimpar.toLocaleDateString('pt-BR');
@@ -3730,13 +3732,13 @@ async function LimparDiasAnteriores() {
                         const perdedorInfo = jogadoresData[perdedorApelido];
 
                         if (vencedorInfo && perdedorInfo) {
-                            // --- INÍCIO DA CORREÇÃO ---
-                            // Mensagem para o VENCEDOR (o oponente é o perdedor)
-                            const msgParaVencedor = `O resultado do seu jogo da Pirâmide contra ${perdedorApelido} (${dataReserva}) foi confirmado automaticamente por decurso de prazo.`;
-                            
-                            // Mensagem para o PERDEDOR (o oponente é o vencedor)
-                            const msgParaPerdedor = `O resultado do seu jogo da Pirâmide contra ${vencedorApelido} (${dataReserva}) foi confirmado automaticamente por decurso de prazo.`;
+                            const decisao = "confirmado automaticamente por decurso de prazo";
+                            const placarFormatado = formatarPlacarParaMensagem(reserva.resultado);
+                            const detalhesAdicionais = `\n${placarFormatado}\nVencedor(a): ${vencedorApelido}.`;
 
+                            const msgParaVencedor = `O resultado do seu jogo da Pirâmide contra ${perdedorApelido} (${dataReserva}) foi ${decisao}.${detalhesAdicionais}`;
+                            const msgParaPerdedor = `O resultado do seu jogo da Pirâmide contra ${vencedorApelido} (${dataReserva}) foi ${decisao}.${detalhesAdicionais}`;
+                            
                             const notificacaoKeyVencedor = database.ref().push().key;
                             const notificacaoKeyPerdedor = database.ref().push().key;
                             
@@ -6417,18 +6419,16 @@ async function salvarResultadoPiramide() {
     const { reserva, key, quadra, jogador1, jogador2 } = reservaResultadoEmEdicao;
     const vencedorNomeCompleto = document.getElementById('resultado-vencedor').textContent;
     const jogadorLogadoCompleto = localStorage.getItem('jogadorLogado');
-    //const isAdmin = jogadorLogadoCompleto === "RONALDO TABORDA";
 
     if (vencedorNomeCompleto === '-') {
         return alert("O placar inserido não define um vencedor. Por favor, corrija os valores.");
     }
     
-    // Validação: Somente o vencedor OU o admin podem salvar.
-    if (!isUsuarioAdmin() && (vencedorNomeCompleto.toUpperCase() !== jogadorLogadoCompleto.toUpperCase())) {
-        return alert("Atenção: Apenas o jogador declarado como vencedor no placar pode salvar o resultado.");
+    if (!isUsuarioAdmin() && !isUsuarioArbitro() && (vencedorNomeCompleto.toUpperCase() !== jogadorLogadoCompleto.toUpperCase())) {
+        return alert("⚠️ Atenção: Apenas o jogador declarado como vencedor, o árbitro ou um administrador podem salvar o resultado.");
     }
 
-    // Coleta os dados do formulário
+    // ... (coleta de dados do formulário permanece igual)
     const s1j1 = document.getElementById('set1-j1').value;
     const s1j2 = document.getElementById('set1-j2').value;
     const tb1j1 = document.getElementById('tb1-j1').value;
@@ -6452,16 +6452,13 @@ async function salvarResultadoPiramide() {
         set3: (s3j1 && s3j2) ? `${s3j1}x${s3j2}` : "",
         vencedor: vencedorApelido,
         perdedor: perdedorApelido,
-        informadoPor: isUsuarioAdmin() ? "Administrador" : (jogadorLogadoApelido || jogadorLogadoCompleto),
+        informadoPor: isUsuarioAdmin() ? "Administrador" : (isUsuarioArbitro() ? "Árbitro" : (jogadorLogadoApelido || jogadorLogadoCompleto)),
         dataInformado: new Date().toISOString()
     };
 
     let updates = {};
     const path1 = `sistemas/reservas/${quadra}/${key}`;
-    
-    // --- LÓGICA CONDICIONAL PARA O STATUS ---
-    // Se for admin, finaliza direto. Se for jogador, fica pendente.
-    const novoStatus = isUsuarioAdmin() ? "finalizada" : "resultado_pendente"; 
+    const novoStatus = (isUsuarioAdmin() || isUsuarioArbitro()) ? "finalizada" : "resultado_pendente"; 
     
     updates[`${path1}/status`] = novoStatus;
     updates[`${path1}/resultado`] = resultadoData;
@@ -6472,16 +6469,28 @@ async function salvarResultadoPiramide() {
         updates[`sistemas/reservas/${quadra}/${key2}/resultado`] = resultadoData;
     }
 
-    // Se for o admin salvando, já processa a troca de ranking imediatamente.
-    if (isUsuarioAdmin()) {
-        const tempReservaParaRank = { resultado: resultadoData }; // Cria um objeto temporário para a função
-        const rankUpdates = processarTrocaDeRanking(tempReservaParaRank);
-        updates = { ...updates, ...rankUpdates }; // Combina as atualizações
+    if (isUsuarioAdmin() || isUsuarioArbitro()) {
+        const tempReservaParaOperacoes = { ...reserva, resultado: resultadoData };
+        const rankUpdates = processarTrocaDeRanking(tempReservaParaOperacoes);
+        
+        // --- ADICIONADO: Gera as notificações ---
+        const decisao = isUsuarioAdmin() ? "informado pelo Administrador" : "corrigido pelo Árbitro";
+        const notificacaoUpdates = enviarNotificacaoResultadoFinalizado(tempReservaParaOperacoes, decisao);
+
+        // Combina todas as atualizações
+        updates = { ...updates, ...rankUpdates, ...notificacaoUpdates };
     }
 
     try {
         await database.ref().update(updates);
-        const mensagemSucesso = isUsuarioAdmin() ? "Resultado salvo e finalizado com sucesso pelo Administrador!" : "Resultado salvo! Aguardando confirmação do oponente.";
+        let mensagemSucesso = '';
+        if (isUsuarioAdmin()) {
+            mensagemSucesso = "Resultado salvo e finalizado com sucesso pelo Administrador! Os jogadores serão notificados.";
+        } else if (isUsuarioArbitro()) {
+            mensagemSucesso = "Resultado salvo e finalizado com sucesso pelo Árbitro! Os jogadores serão notificados.";
+        } else {
+            mensagemSucesso = "Resultado salvo! Aguardando confirmação do oponente.";
+        }
         alert(mensagemSucesso);
         fecharModalResultado();
     } catch (error) {
@@ -6489,6 +6498,7 @@ async function salvarResultadoPiramide() {
         alert("Ocorreu um erro ao salvar o resultado. Tente novamente.");
     }
 }
+
 
 
 
@@ -6642,7 +6652,7 @@ async function aprovarResultado(reservaKey, quadra) {
  */
 // SUBSTITUA SUA FUNÇÃO 'recusarResultado' PELA VERSÃO ABAIXO
 async function recusarResultado(reservaKey, quadra) {
-    if (!confirm("Tem certeza que deseja recusar este resultado? A disputa deverá ser resolvida com o administrador.")) {
+    if (!confirm("Tem certeza que deseja recusar este resultado? A disputa deverá ser resolvida com o Árbitro.")) {
         return;
     }
     
@@ -6666,7 +6676,7 @@ async function recusarResultado(reservaKey, quadra) {
         }
     
         await database.ref().update(updates);
-        alert("Resultado recusado. O status foi atualizado para que o administrador possa resolver a disputa.");
+        alert("Resultado recusado. O status foi atualizado para que o Árbitro possa resolver a disputa.");
         document.getElementById('modalConfirmacaoResultado').style.display = 'none';
     } catch (error) {
         alert("Erro ao recusar o resultado. Tente novamente.");
@@ -6812,7 +6822,7 @@ function fecharModalArbitro() {
  * Ação do árbitro para APROVAR um resultado recusado.
  */
 async function aprovarPeloArbitro(reservaKey, quadra) {
-    if (!confirm("Tem certeza que deseja APROVAR este resultado? A partida será finalizada.")) return;
+    if (!confirm("Tem certeza que deseja APROVAR este resultado? A partida será finalizada e os jogadores notificados.")) return;
 
     try {
         const reservaRef = database.ref(`sistemas/reservas/${quadra}/${reservaKey}`);
@@ -6829,16 +6839,24 @@ async function aprovarPeloArbitro(reservaKey, quadra) {
         }
 
         const rankUpdates = processarTrocaDeRanking(reserva);
-        updates = { ...updates, ...rankUpdates };
+        
+        // --- ADICIONADO: Gera as notificações ---
+        const decisao = isUsuarioAdmin() ? "aprovado pelo Administrador" : "aprovado pelo Árbitro";
+        const notificacaoUpdates = enviarNotificacaoResultadoFinalizado(reserva, decisao);
+        
+        // Combina todas as atualizações
+        updates = { ...updates, ...rankUpdates, ...notificacaoUpdates };
 
         await database.ref().update(updates);
-        alert("Resultado aprovado e finalizado pelo árbitro com sucesso!");
+        alert("Resultado aprovado e finalizado com sucesso! Os jogadores serão notificados.");
         fecharModalArbitro();
     } catch (error) {
         alert("Ocorreu um erro ao aprovar o resultado.");
         console.error("Erro em aprovarPeloArbitro:", error);
     }
 }
+
+
 
 /**
  * Ação do árbitro para ABRIR A EDIÇÃO de um resultado recusado.
@@ -6861,7 +6879,7 @@ async function editarPeloArbitro(reservaKey, quadra) {
  * Ação do árbitro para CANCELAR uma partida com resultado recusado.
  */
 async function cancelarPeloArbitro(reservaKey, quadra) {
-    if (!confirm("Tem certeza que deseja CANCELAR esta partida? O resultado será mantido no histórico, mas a partida será invalidada.")) return;
+    if (!confirm("Tem certeza que deseja CANCELAR esta partida? O resultado será mantido no histórico, a partida será invalidada e os jogadores notificados.")) return;
 
     try {
         const reservaRef = database.ref(`sistemas/reservas/${quadra}/${reservaKey}`);
@@ -6871,15 +6889,21 @@ async function cancelarPeloArbitro(reservaKey, quadra) {
         if (!reserva) return alert("Erro: Reserva não encontrada.");
 
         const updates = {};
-        // Altera o status para 'Cancelada' mas mantém o resultado para histórico
         updates[`sistemas/reservas/${quadra}/${reservaKey}/status`] = 'Cancelada';
         if (reserva.duracao > 1) {
             const key2 = `${reserva.dia}_${reserva.hora + 1}`;
             updates[`sistemas/reservas/${quadra}/${key2}/status`] = 'Cancelada';
         }
 
+        // --- ADICIONADO: Gera as notificações ---
+        const decisao = isUsuarioAdmin() ? "cancelado pelo Administrador" : "cancelado pelo Árbitro";
+        const notificacaoUpdates = enviarNotificacaoResultadoFinalizado(reserva, decisao);
+        
+        // Combina as atualizações
+        Object.assign(updates, notificacaoUpdates);
+
         await database.ref().update(updates);
-        alert("Partida cancelada pelo árbitro com sucesso!");
+        alert("Partida cancelada com sucesso! Os jogadores serão notificados.");
         fecharModalArbitro();
     } catch (error) {
         alert("Ocorreu um erro ao cancelar a partida.");
@@ -6914,10 +6938,31 @@ function verificarDisputasArbitro(todasAsReservas) {
                     <strong>Vencedor Informado:</strong> ${reserva.resultado.vencedor}<br>
                     <strong>Recusado por:</strong> ${reserva.resultado.perdedor}
                 `;
-                
-                placarRecusado.innerHTML = gerarPlacarHtml(reserva.resultado, reserva.resultado.vencedor, reserva.resultado.perdedor);
 
-                // --- BOTÕES AGORA ESTÃO CONECTADOS ---
+                // --- INÍCIO DA CORREÇÃO ---
+                // Lógica para reconstruir a ordem original dos jogadores da partida.
+                let jogador1Original, jogador2Original;
+                if (reserva.jogadores_completo) {
+                    const jogadoresDaPartida = reserva.jogadores_completo.split(',').map(j => j.trim());
+                    jogador1Original = jogadoresDaPartida[0];
+                    jogador2Original = jogadoresDaPartida[1];
+                } else {
+                    // Fallback para reservas antigas sem o campo 'jogadores_completo'.
+                    jogador1Original = reserva.jogadores.split(',').map(j => j.trim())[0];
+                    const keySegundaHora = `${reserva.dia}_${reserva.hora + 1}`;
+                    const reservaSegundaParte = reservasDaQuadra[keySegundaHora];
+                     if (reservaSegundaParte && reservaSegundaParte.jogadores) {
+                        jogador2Original = reservaSegundaParte.jogadores.split(',').map(j => j.trim())[0];
+                    } else {
+                        console.error("Não foi possível reconstruir a lista de jogadores para a tela do árbitro.", reserva);
+                        continue; 
+                    }
+                }
+                
+                // Chamada CORRIGIDA: Usa a ordem original dos jogadores para renderizar o placar.
+                placarRecusado.innerHTML = gerarPlacarHtml(reserva.resultado, jogador1Original, jogador2Original);
+                // --- FIM DA CORREÇÃO ---
+
                 document.getElementById('btnAprovarPeloArbitro').onclick = () => aprovarPeloArbitro(key, quadra);
                 document.getElementById('btnEditarPeloArbitro').onclick = () => editarPeloArbitro(key, quadra);
                 document.getElementById('btnCancelarPeloArbitro').onclick = () => cancelarPeloArbitro(key, quadra);
@@ -6929,6 +6974,7 @@ function verificarDisputasArbitro(todasAsReservas) {
         }
     }
 }
+
 
 /**
  * Verifica se o jogador atualmente logado está na lista de administradores.
@@ -6959,16 +7005,20 @@ async function verificarNotificacoes() {
 
         if (notificacoes) {
             let mensagens = Object.values(notificacoes);
-            // Mostra um alerta com todas as mensagens de uma vez
-            alert("🔔 Você tem as seguintes notificações do sistema:\n\n- " + mensagens.join('\n- '));
             
-            // Apaga as notificações do Firebase após serem exibidas
+            // --- ALTERAÇÕES AQUI ---
+            // 1. Troca o ícone para 'informação'.
+            // 2. Adiciona uma quebra de linha extra antes do primeiro item para melhor espaçamento.
+            alert("ℹ️ Você tem as seguintes notificações do sistema:\n\n- " + mensagens.join('\n\n- '));
+            
             await notificacoesRef.remove();
         }
     } catch (error) {
         console.error("Erro ao verificar notificações:", error);
     }
 }
+
+
 
 /**
  * Abre o modal de resultado de duplas.
@@ -7371,6 +7421,99 @@ function gerarPlacarDuplasHtml(resultadoDuplas) {
     return html;
 }
 
+
+
+/**
+ * Verifica se o jogador atualmente logado é o árbitro do torneio.
+ * @returns {boolean} - Retorna true se for o árbitro, false caso contrário.
+ */
+function isUsuarioArbitro() {
+    const jogadorLogado = localStorage.getItem('jogadorLogado');
+    if (!jogadorLogado || !arbitro || !arbitro.nomeCompleto) {
+        return false;
+    }
+    // Compara o nome do jogador logado com o nome do árbitro (ambos em maiúsculas).
+    return jogadorLogado.toUpperCase() === arbitro.nomeCompleto.toUpperCase();
+}
+
+
+
+/**
+ * Gera as atualizações do banco de dados para notificar os jogadores sobre uma decisão final.
+ * @param {object} reserva - O objeto da reserva com os dados do resultado.
+ * @param {string} decisao - O texto que descreve a decisão (ex: "aprovado pelo Árbitro").
+ * @returns {object} - Um objeto com as chaves de atualização do Firebase para as notificações.
+ */
+function enviarNotificacaoResultadoFinalizado(reserva, decisao) {
+    const notificacaoUpdates = {};
+    if (!reserva || !reserva.resultado) return notificacaoUpdates;
+
+    const { vencedor, perdedor } = reserva.resultado;
+    const vencedorInfo = jogadoresData[vencedor];
+    const perdedorInfo = jogadoresData[perdedor];
+
+    if (vencedorInfo && perdedorInfo) {
+        const dataReserva = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
+        let mensagemBase = '';
+        let detalhesAdicionais = '';
+
+        // --- INÍCIO DA CORREÇÃO ---
+        // Lógica aprimorada para criar mensagens mais específicas e detalhadas
+        if (decisao.includes("cancelad")) {
+            const placarDisputado = formatarPlacarParaMensagem(reserva.resultado).replace('Placar Final: ', '');
+            
+            mensagemBase = `A disputa sobre o resultado do seu jogo da Pirâmide contra NOME_OPONENTE (${dataReserva}) foi ${decisao}.`;
+            detalhesAdicionais = `\nO placar informado de ${placarDisputado} foi invalidado e a partida não afetará o ranking.`;
+        } else {
+            const placarFormatado = formatarPlacarParaMensagem(reserva.resultado);
+            
+            mensagemBase = `O resultado do seu jogo da Pirâmide contra NOME_OPONENTE (${dataReserva}) foi ${decisao}.`;
+            detalhesAdicionais = `\n${placarFormatado}\nVencedor(a): ${vencedor}.`;
+        }
+        // --- FIM DA CORREÇÃO ---
+
+        // Mensagem para o vencedor
+        const msgParaVencedor = mensagemBase.replace('NOME_OPONENTE', perdedor) + detalhesAdicionais;
+        const notificacaoKeyVencedor = database.ref().push().key;
+        notificacaoUpdates[`sistemas/cadastro/jogadores/${vencedorInfo.nomeCompleto}/notificacoes/${notificacaoKeyVencedor}`] = msgParaVencedor;
+        
+        // Mensagem para o perdedor
+        const msgParaPerdedor = mensagemBase.replace('NOME_OPONENTE', vencedor) + detalhesAdicionais;
+        const notificacaoKeyPerdedor = database.ref().push().key;
+        notificacaoUpdates[`sistemas/cadastro/jogadores/${perdedorInfo.nomeCompleto}/notificacoes/${notificacaoKeyPerdedor}`] = msgParaPerdedor;
+    }
+    
+    return notificacaoUpdates;
+}
+
+
+
+
+/**
+ * Formata o objeto de resultado em uma string de placar legível.
+ * @param {object} resultado - O objeto de resultado da partida.
+ * @returns {string} - O placar formatado (ex: "Placar final: 6x4, 7x6(7-5).").
+ */
+function formatarPlacarParaMensagem(resultado) {
+    if (!resultado) return "";
+    let placarString = "Placar final: ";
+    const sets = [];
+    if (resultado.set1 && resultado.set1.placar) {
+        let setStr = resultado.set1.placar;
+        if (resultado.set1.tiebreak) setStr += `(${resultado.set1.tiebreak})`;
+        sets.push(setStr);
+    }
+    if (resultado.set2 && resultado.set2.placar) {
+        let setStr = resultado.set2.placar;
+        if (resultado.set2.tiebreak) setStr += `(${resultado.set2.tiebreak})`;
+        sets.push(setStr);
+    }
+    if (resultado.set3) {
+        sets.push(resultado.set3);
+    }
+    placarString += sets.join(', ');
+    return placarString;
+}
 
 </script>
 </body>
