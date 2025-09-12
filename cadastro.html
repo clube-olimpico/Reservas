@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Jogadores</title>
-    <!-- Inclusão do Firebase App e Database -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
     <style>
+	    html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
         /* Estilos gerais da página */
         body {
             font-family: Arial, sans-serif;
@@ -18,6 +21,8 @@
             padding-bottom: 60px; /* Espaço para o rodapé */
             position: relative;
             min-height: 100vh; 
+            background-color: #f4f7f6;
+			overflow-x: hidden;
         }
 
         /* Estilo do container das abas */
@@ -26,10 +31,12 @@
             justify-content: center;
             width: 100%;
             background-color: white;
-            padding: 5px 0;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);    
+            padding: 5px 10px;
+            gap: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);     
             border-bottom: 3px solid #ccc;
             position: relative; 
+            box-sizing: border-box;
         }
 
         /* Estilo dos botões das abas */ 
@@ -41,7 +48,7 @@
             background-color: #4CAF50;
             color: white;
             font-weight: bold;
-            margin: 0 10px;
+            margin: 0;
             border-radius: 5px;
             transition: 0.3s;
             position: relative;
@@ -64,7 +71,19 @@
             bottom: -8px;
             left: 0;
         }
+        
+        /* Conteúdo das abas (inicialmente escondido) */
+        .tab-content {
+            display: none;
+            width: 100%;
+            align-items: center;
+            flex-direction: column;
+        }
 
+        .tab-content.active {
+            display: flex;
+        }
+        
         /* Estilo do container do formulário */
         .form-container {
             padding: 20px;
@@ -74,13 +93,13 @@
             width: 400px;
             text-align: center;
             margin-top: 10px;
+            background-color: white;
         }
 		
 		.form-container h2 {
-			margin-top: 0px; /* Remove o margin-top padrão do h2 */
+			margin-top: 0px; 
 		}
 
-        /* Estilo dos grupos de campos do formulário */
         .form-group {
             display: flex;
             align-items: center;
@@ -89,115 +108,52 @@
             width: 100%;
         }
 
-        /* Estilo dos rótulos dos campos */
         label {
             flex: 1;
             text-align: left;
             min-width: 100px;
         }
 
-        /* Estilo dos campos de entrada */
         input, select {
-    flex: 3;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    text-align: left;
-    width: 100%; /* Garante que todos os campos tenham a mesma largura */
-    box-sizing: border-box; /* Inclui padding e borda na largura total */
-}
+            flex: 3;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            text-align: left;
+            width: 100%; 
+            box-sizing: border-box; 
+        }
 
-        /* Estilo do botão de ação */
         button {
             margin-top: 1px;
             width: 100%;
             padding: 8px 10px;
             background-color: #4CAF50;
             color: white;
-			font-size: 16px; /* Ajuste o tamanho da fonte se necessário */
+			font-size: 16px; 
             font-weight: bold;
             border: none;
             cursor: pointer;
             border-radius: 3px;
         }
 
-        /* Estilo da tabela de jogadores */
         table {
             width: 99%;
+            max-width: 800px;
             border-collapse: collapse;
             margin-top: 15px;
         }
-
-        /* Estilo das células da tabela */ 
+ 
         th, td {
             border: 1px solid #ccc;
             padding: 7px;
             text-align: center;
         }
 
-        /* Estilo do cabeçalho da tabela */
         th {
             background-color: #f2f2f2;
         }
-
-      
-
-/* Estilos responsivos para telas menores */
-@media (max-width: 480px) {
-
-.form-group label {
-    vertical-align: middle; /* Alinhamento vertical para o meio */
-    line-height: 30px;    /* Ajuste a altura da linha conforme necessário */
-    padding: 1px 0;       /* Adicione espaçamento superior e inferior */
-  }
-
-  .form-group input, .form-group select {
-    vertical-align: middle; /* Alinhamento vertical para o meio */
-  }
-    .form-container {
-        width: 85%; /* Ajusta a largura para ocupar até 90% da tela */
-        max-width: 350px; /* Define um limite máximo */
-		margin-top: px;
-	    }
-    .form-group {
-        position: relative;
-        width: 100%;
-		align-items: flex-start;
-    }
-
-    input, select {
-        width: 100%; /* Garante que os campos ocupem 100% da largura disponível */
-        margin-left: 0; /* Remove o ajuste negativo */
-        max-width: none; /* Remove o limite de largura */
-    }
-
-  label[for="niver"] {
-    line-height: 1.1; /* Ajuste o valor conforme necessário */
-  }
-  
-  #classe {
-        width: 139px !important;/* Reduz a largura do campo "Escolha a Classe" */
-        margin-right: 10px; /* Ajusta a margem à direita */
-    }
-  
-   #piramide {
-        margin-left: -5px !important; /* Ajuste a posição para a esquerda */
-		width: 30px !important;
-    }
-
-    #simbolo_piramide {
-        margin-left: -18px !important; /* Move ainda mais para a esquerda */
-		align-items: center; /* Centraliza verticalmente */
-    }
-	
-	  #filtrarPiramide {
-        margin-left: 3px !important; /* Remove a margem à esquerda */
-        margin-top: 5px; /* Adiciona um espaçamento acima */
-    }
-
-}
-
-        /* Estilo da tela de carregamento */
+        
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -212,139 +168,244 @@
             z-index: 1000;
         }
 
-        /* Estilo do rodapé fixo com efeito de profundidade */
         .footer {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: #f2f2f2; /* Cor cinza igual ao cabeçalho da tabela */
-            color: #333; /* Cor do texto escura para contraste */
+            background-color: #f2f2f2; 
+            color: #333; 
             text-align: center;
             padding: 10px 0;
             font-size: 16px;
             font-weight: bold;
-            box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2); /* Efeito de profundidade */
+            box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2); 
             z-index: 1000;
-        }/* Estiliza o select da classe */
-#classe {
-    width: 200px;
-    margin-right: 110px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-}
+        }
+        
+        #classe {
+            width: 200px;
+            margin-right: 110px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
 
+        #simbolo_piramide {
+            font-size: 24px; 
+            color: black;
+            margin-left: 5px;
+            display: flex;
+            align-items: center; 
+            justify-content: center;
+            height: 100%; 
+        }
 
-
-/* Estiliza o símbolo da pirâmide */
-#simbolo_piramide {
-    font-size: 24px; /* Aumenta o tamanho do símbolo */
-    color: black;
-    margin-left: 5px;
+        .piramide-clicada {
+            color: blue !important; 
+            font-weight: bold;
+            transform: scale(1.3) rotate(0deg); 
+            text-shadow: 2px 2px 8px rgba(0, 0, 255, 0.6); 
+            transition: transform 0.2s ease-in-out, text-shadow 0.3s ease-in-out; 
+        }
+        
+        /* --- ESTILOS PARA A NOVA ABA DE ANIVERSARIANTES --- */
+        .birthday-container {
+            max-width: 800px;
+            width: 95%;
+            margin: 15px auto;
+            background-color: #ffffff;
+            padding: 10px 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+			
+        }
+        .birthday-container h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            margin-top: 0;
+        }
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px; 
+            flex-wrap: wrap;
+        }
+        .filters input, .filters select {
+            flex-grow: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.2s;
+        }
+        .filters input:focus, .filters select:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        #birthdayList {
+            margin-top: 20px;
+            min-height: 100px;
+        }
+        .month-group {
+            margin-bottom: 25px;
+        }
+        .month-group h2 {
+            color: #0056b3;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+.birthday-item {
     display: flex;
-    align-items: center; /* Centraliza verticalmente */
-    justify-content: center;
-    height: 100%; /* Faz com que ocupe toda a altura disponível */
+    align-items: center; /* Adicionado para alinhar verticalmente */
+    padding: 10px 5px;
+    border-bottom: 1px solid #f0f0f0;
 }
-
-/* Classe para a pirâmide vermelha */
-.piramide-vermelha {
-    color: red; /* Cor vermelha */
-}
-
-/* Classe para a pirâmide preta */
-.piramide-preta {
-    color: black; /* Cor preta */
-}
-
-.piramide-clicada {
-    color: blue !important; /* Muda a cor para azul */
+        .birthday-item:last-child {
+            border-bottom: none;
+        }
+.birthday-day {
     font-weight: bold;
-    transform: scale(1.3) rotate(0deg); /* Aumenta e gira levemente */
-    text-shadow: 2px 2px 8px rgba(0, 0, 255, 0.6); /* Brilho azul */
-    transition: transform 0.2s ease-in-out, text-shadow 0.3s ease-in-out; 
+    color: #333;
+    flex-shrink: 0; /* Impede que o texto do dia seja espremido */
+    margin-right: 15px; /* Cria um espaço consistente entre o dia e o nome */
 }
+.birthday-name {
+    color: #555;
+    text-align: left;
+}
+        .nickname {
+            color: #888;
+            margin-left: 5px;
+        }
+        .status-message {
+            text-align: center;
+            color: #888;
+            font-size: 1.1em;
+            padding: 30px;
+        }
+        /* --- FIM DOS ESTILOS DE ANIVERSARIANTES --- */
 
+        @media (max-width: 480px) {
+            .tab-button {
+                flex-grow: 1;
+                text-align: center;
+                padding: 6px 10px;
+            }
+            .form-container { width: 85%; max-width: 350px; }
+            .form-group { position: relative; width: 100%; align-items: flex-start; }
+            input, select { width: 100%; margin-left: 0; max-width: none; }
+            label[for="niver"] { line-height: 1.1; }
+            #classe { width: 139px !important; margin-right: 10px; }
+            #piramide { margin-left: -5px !important; width: 30px !important; }
+            #simbolo_piramide { margin-left: -18px !important; align-items: center; }
+            #filtrarPiramide { margin-left: 3px !important; margin-top: 5px; }
+			.birthday-container {
+				box-sizing: border-box;
+				width: 100%;          /* Faz o container ocupar toda a largura */
+				padding-left: 15px;   /* Define um novo espaçamento esquerdo */
+				padding-right: 15px;  /* Define um novo espaçamento direito */
+			}
+			.filters {
+				gap: 8px; /* Reduz o espaço ENTRE os campos (era 15px) */
+			}
 
-		
-		
-		
+			.filters select {
+				padding-left: 6px;  /* Reduz o espaçamento interno do seletor */
+				padding-right: 6px; /* para o texto caber confortavelmente */
+			}
+        }
     </style>
 </head>
 <body>
-    <!-- Tela de carregamento -->
-    <div id="loadingOverlay" class="loading-overlay"> 
-        Carregando... Aguarde.
-    </div>
+    <div id="loadingOverlay" class="loading-overlay">Carregando... Aguarde.</div>
 
-    <!-- Container das abas -->
     <div class="tab-container">
-        <button class="tab-button selected" onclick="mostrarCadastro(event)">Cadastro</button>
-        <button class="tab-button" onclick="mostrarConsulta(event)">Consulta</button>
+        <button class="tab-button selected" onclick="mostrarAba(event, 'cadastro')">Cadastro</button>
+        <button class="tab-button" onclick="mostrarAba(event, 'consulta')">Consulta</button>
+        <button class="tab-button" onclick="mostrarAba(event, 'aniversarios')">Aniversários</button>
     </div>
 
-    <!-- Container do formulário -->
-    <div class="form-container">
-        <h2 id="titulo">Cadastro de Jogadores</h2>
-        <div class="form-group">
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" placeholder="Digite o nome" required>
+    <div id="cadastroConsultaTab" class="tab-content active">
+        <div class="form-container">
+            <h2 id="titulo">Cadastro de Jogadores</h2>
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" placeholder="Digite o nome" required>
+            </div>
+            <div class="form-group">
+                <label for="apelido">Apelido:</label>
+                <input type="text" id="apelido" placeholder="Digite o apelido" required>
+            </div>
+            <div class="form-group">
+                <label for="niver">Data de Nascimento:</label>
+                <input type="date" id="niver">
+            </div>
+            <div class="form-group">
+                <label for="socio">Sócio:</label>
+                <select id="socio">
+                    <option value="" selected disabled>Escolha um tipo</option>
+                    <option value="titular">Titular</option>
+                    <option value="dependente">Dependente</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="classe">Classe:</label>
+                <select id="classe" style="width: 200px; margin-right: 20px;">
+                    <option value="" selected disabled>Escolha a Classe</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="">(Sem classe)</option>
+                </select>
+                <span id="simbolo_piramide" style="margin-left: 10px; margin-right: 10px;">🔺</span>
+                <input type="text" id="piramide" maxlength="2" style="width: 40px; height: 35px; text-align: center; margin-left: 10px; font-size: 16px; padding: 5px; border: 1px solid #ccc; border-radius: 3px;" value="">
+                <input type="checkbox" id="filtrarPiramide" style="margin-left: 10px;"> 
+            </div>
+            <button id="botaoAcao" onclick="acaoFormulario()">Cadastrar</button>
         </div>
-        <div class="form-group">
-            <label for="apelido">Apelido:</label>
-            <input type="text" id="apelido" placeholder="Digite o apelido" required>
-        </div>
-		
-		<div class="form-group">
-            <label for="niver">Data de Nascimento:</label>
-            <input type="date" id="niver">
-        </div>
-        <div class="form-group">
-            <label for="socio">Sócio:</label>
-            <select id="socio">
-                <option value="" selected disabled>Escolha um tipo</option>
-				<option value="titular">Titular</option>
-                <option value="dependente">Dependente</option>
-            </select>
-        </div>
-		
-		
-        <div class="form-group">
-			<label for="classe">Classe:</label>
-			<select id="classe" style="width: 200px; margin-right: 20px;">
-				<option value="" selected disabled>Escolha a Classe</option>
-				<option value="A">A</option>
-				<option value="B">B</option>
-				<option value="C">C</option>
-				<option value="">(Sem classe)</option>
-			</select>
-			<span id="simbolo_piramide" style="margin-left: 10px; margin-right: 10px;">🔺</span>
-			<input type="text" id="piramide" maxlength="2" style="width: 40px; height: 35px; text-align: center; margin-left: 10px; font-size: 16px; padding: 5px; border: 1px solid #ccc; border-radius: 3px;" value="">
-			<input type="checkbox" id="filtrarPiramide" style="margin-left: 10px;"> 
-		</div>
-
-
-
-		
-		
-        <button id="botaoAcao" onclick="acaoFormulario()">Cadastrar</button>
-		
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Apelido</th>
+                    <th>Sócio</th>
+                </tr>
+            </thead>
+            <tbody id="tabela-jogadores"></tbody>
+        </table>
     </div>
 
-    <!-- Tabela de jogadores -->
-    <table>
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Apelido</th>
-				<th>Sócio</th>
-            </tr>
-        </thead>
-        <tbody id="tabela-jogadores"></tbody>
-    </table> 
+    <div id="aniversariosTab" class="tab-content">
+        <div class="birthday-container">
+            <h1>Aniversariantes</h1>
+            <div class="filters">
+                <input type="text" id="nameSearch" placeholder="nome ou apelido...">
+                <select id="monthFilter">
+                    <option value="0">Todos os meses</option>
+                    <option value="1">Janeiro</option>
+                    <option value="2">Fevereiro</option>
+                    <option value="3">Março</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Maio</option>
+                    <option value="6">Junho</option>
+                    <option value="7">Julho</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Setembro</option>
+                    <option value="10">Outubro</option>
+                    <option value="11">Novembro</option>
+                    <option value="12">Dezembro</option>
+                </select>
+            </div>
+            <div id="birthdayList">
+                <p class="status-message">Carregando aniversariantes...</p>
+            </div>
+        </div>
+    </div>
 
-    <!-- Rodapé fixo com o total de jogadores -->
     <div class="footer" id="footer">
         Total de Jogadores: <span id="totalJogadores">0</span>
     </div>
@@ -364,809 +425,501 @@
         // Inicialização do Firebase
         const app = firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
-        let modoCadastro = true; // Variável para alternar entre cadastro e consulta
+        
+        // =========================================================================
+        // INÍCIO: CÓDIGO ORIGINAL DO cadastro-bk.html (INTACTO)
+        // =========================================================================
+        let modoCadastro = true;
+        let placeholderSpan = null;
+        let criteriosConsulta = { nome: "", apelido: "", socio: "", classe: "", niver: "" };
 
-        // Função para atualizar o total de jogadores exibidos
         function atualizarTotalJogadores() {
             const totalJogadores = document.getElementById("tabela-jogadores").children.length;
             document.getElementById("totalJogadores").textContent = totalJogadores;
         }
 
- function acaoFormulario() {
-    if (document.getElementById("botaoAcao").textContent === "Salvar") {
-        salvarJogador();
-    } else if (modoCadastro) {
-        cadastrarJogador();
-    } else {
-        consultarJogador();
-    }
-}
-
-		
-
-let placeholderSpan = null; // Torna a variável global para manipular depois
-
-function isMobile() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
-
-if (isMobile()) {
-    const niverInput = document.getElementById("niver");
-    const niverLabel = document.querySelector('label[for="niver"]');
-
-    placeholderSpan = document.createElement("span");
-    placeholderSpan.textContent = "dd/mm/aaaa";
-    placeholderSpan.style.color = "#999";
-    placeholderSpan.style.position = "absolute";
-    placeholderSpan.style.left = niverLabel.offsetWidth + 10 + "px";
-    placeholderSpan.style.top = "8px";
-    placeholderSpan.style.pointerEvents = "none";
-
-    niverInput.parentNode.insertBefore(placeholderSpan, niverInput.nextSibling);
-
-    niverInput.addEventListener("focus", () => placeholderSpan.style.display = "none");
-    niverInput.addEventListener("blur", () => {
-        if (niverInput.value === "") {
-            placeholderSpan.style.display = "inline";
-        }
-    });
-}
-
-
-function cadastrarJogador() {
-    const nome = document.getElementById("nome").value.trim().toUpperCase();
-    let apelido = document.getElementById("apelido").value.trim();
-    const socio = document.getElementById("socio").value;
-    const classe = document.getElementById("classe").value;
-    let niver = document.getElementById("niver").value;
-    const piramide = document.getElementById("piramide").value.trim(); // Remove espaços em branco
-
-    // Validação dos campos
-    if (nome === "" || apelido === "" || niver === "") {
-        alert("Preencha todos os campos obrigatórios.");
-        return;
-    }
-
-    // Converte a data para o formato DD/MM/YYYY para salvar depois
-    const partesData = niver.split("-");
-    if (partesData.length === 3) {
-        niver = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
-    }
-
-    // Validação adicional para o nome
-    if (!/^[A-Z\s]+$/.test(nome)) {
-        alert("O nome deve conter apenas letras e espaços.");
-        return;
-    }
-
-    // Validação para o campo Sócio
-    if (socio === "") {
-        alert("Escolha um tipo de sócio.");
-        return;
-    }
-
-    // Validação para o campo Classe
-    if (classe === "" && document.getElementById("classe").selectedIndex === 0) {
-        alert("Escolha uma classe ou selecione '(Sem classe)'");
-        return;
-    }
-
-    // Formata o apelido para ter a primeira letra maiúscula
-    apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
-
-    // Determina o valor de piramide
-    const piramideValue = piramide.trim() === "" ? "" : piramide;
-
-    const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
-    const apelidoRef = database.ref("sistemas/cadastro/apelidos/" + apelido);
-
-    // Novo cálculo correto de idade
-    const ano = parseInt(partesData[0]);
-    const mes = parseInt(partesData[1]) - 1; // Meses começam do 0
-    const dia = parseInt(partesData[2]);
-    const dataNascimento = new Date(ano, mes, dia);
-
-    const hoje = new Date();
-    let idade = hoje.getFullYear() - dataNascimento.getFullYear();
-
-    if (
-        hoje.getMonth() < dataNascimento.getMonth() ||
-        (hoje.getMonth() === dataNascimento.getMonth() && hoje.getDate() < dataNascimento.getDate())
-    ) {
-        idade--;
-    }
-
-    if (idade > 21 && socio === "dependente") {
-        const relacionamento = prompt("Dependente maior de 21 anos. É cônjuge ou filho(a)?").trim().toLowerCase();
-        const conjugeAceito = ["conjuge", "cônjuge", "esposa", "esposo", "marido"].includes(relacionamento);
-
-        if (conjugeAceito) {
-            // Cadastro prossegue normalmente
-        } else {
-            alert("Não é possível cadastrar filho(a) maior de 21 anos como dependente.");
-            limparCampos();
-            return;
-        }
-    }
-
-    // Agora segue o cadastro normalmente
-    jogadorRef.get().then(snapshot => {
-        if (snapshot.exists()) {
-            alert("Já existe um jogador com esse Nome.");
-            limparCampos();
-            return;
-        }
-
-        apelidoRef.get().then(snapshot => {
-            if (snapshot.exists()) {
-                alert("Já existe um jogador com esse Apelido.");
-                limparCampos();
+        function acaoFormulario() {
+            if (document.getElementById("botaoAcao").textContent === "Salvar") {
+                salvarJogador();
+            } else if (modoCadastro) {
+                cadastrarJogador();
             } else {
-                jogadorRef.set({ apelido, socio, classe, niver, piramide: piramideValue })
-                    .then(() => {
-                        apelidoRef.set(true)
-                            .then(() => {
-                                alert("Jogador cadastrado com sucesso!");
-                                limparCampos();
-                                carregarJogadores();
-                            })
-                            .catch(error => {
-                                console.error("Erro ao salvar apelido:", error);
-                                alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
-                            });
-                    })
-                    .catch(error => {
-                        console.error("Erro ao cadastrar jogador:", error);
-                        alert("Ocorreu um erro ao cadastrar o jogador. Tente novamente.");
-                    });
+                consultarJogador();
             }
-        }).catch(error => {
-            console.error("Erro ao verificar apelido:", error);
-            alert("Ocorreu um erro ao verificar o apelido. Tente novamente.");
-        });
-    }).catch(error => {
-        console.error("Erro ao verificar jogador:", error);
-        alert("Ocorreu um erro ao verificar o jogador. Tente novamente.");
-    });
-}
-
-
-// Função para limpar os campos do formulário
-function limparCampos() {
-    document.getElementById("nome").value = "";
-    document.getElementById("apelido").value = "";
-    document.getElementById("niver").value = "";
-    document.getElementById("socio").value = "";
-    document.getElementById("classe").value = "";
-    document.getElementById("piramide").value = "";
-
-
-    // Reativa o campo Nome e remove o efeito visual
-    const nomeInput = document.getElementById("nome");
-    nomeInput.disabled = false;
-    nomeInput.style.backgroundColor = ""; // Volta ao padrão
-    nomeInput.style.border = ""; // Volta ao padrão
-}
-
-
-
-let criteriosConsulta = {
-    nome: "",
-    apelido: "",
-    socio: "",
-    classe: "",
-    niver: ""
-};
-
-
-// Função para consultar jogadores
-function consultarJogador() {
-    // Atualiza os critérios de consulta com os valores atuais dos campos
-    criteriosConsulta.nome = document.getElementById("nome").value.trim().toUpperCase();
-    criteriosConsulta.apelido = document.getElementById("apelido").value.trim().toLowerCase();
-    criteriosConsulta.socio = document.getElementById("socio").value;
-    const classeSelect = document.getElementById("classe");
-    criteriosConsulta.classe = classeSelect.value;
-    criteriosConsulta.niver = document.getElementById("niver").value;
-    let piramide = document.getElementById("piramide").value.trim();
-    const filtrarPiramide = document.getElementById("filtrarPiramide").checked;
-    const simboloPiramide = document.getElementById("simbolo_piramide");
-    const piramideAtivada = simboloPiramide.classList.contains("piramide-clicada");
-
-    console.log("Critérios de consulta:", criteriosConsulta);
-    console.log("Valor de piramide:", piramide);
-    console.log("Filtrar por piramide?", filtrarPiramide);
-    console.log("Pirâmide ativada pelo clique?", piramideAtivada);
-
-    const todosCamposVazios =
-        criteriosConsulta.nome === "" &&
-        criteriosConsulta.apelido === "" &&
-        criteriosConsulta.socio === "" &&
-        criteriosConsulta.classe === "" &&
-        criteriosConsulta.niver === "" &&
-        piramide === "" &&
-        !filtrarPiramide &&
-        !piramideAtivada;
-
-    if (todosCamposVazios) {
-        alert("Digite pelo menos um critério para consulta.");
-        return;
-    }
-
-    const tabela = document.getElementById("tabela-jogadores");
-    tabela.innerHTML = "";
-
-    database.ref("sistemas/cadastro/jogadores").once("value", snapshot => {
-        let encontrado = false;
-
-        snapshot.forEach(childSnapshot => {
-            const jogadorNome = childSnapshot.key;
-            const jogador = childSnapshot.val();
-
-            if (jogadorNome.toUpperCase() === "CONVIDADO") {
-                return;
-            }
-
-            const jogadorApelido = jogador.apelido.toLowerCase();
-            const jogadorSocio = jogador.socio;
-            const jogadorClasse = jogador.classe || ""; // Garante que seja string
-            const jogadorNiver = jogador.niver || "";
-            const jogadorPiramide = jogador.piramide || "";
-
-            console.log("Jogador:", jogadorNome, "Piramide:", jogadorPiramide);
-
-            const filtroNome = criteriosConsulta.nome === "" || jogadorNome.includes(criteriosConsulta.nome);
-            const filtroApelido = criteriosConsulta.apelido === "" || jogadorApelido.includes(criteriosConsulta.apelido);
-
-            // Modificações importantes aqui:
-            let filtroSocio = true;
-            if (criteriosConsulta.socio !== "" && criteriosConsulta.socio !== "todos") {
-                filtroSocio = jogadorSocio === criteriosConsulta.socio;
-            }
-
-            let filtroClasse = true;
-            if (criteriosConsulta.classe === "todos") {
-                // Se "Todos" foi selecionado, não filtre por classe
-            } else if (criteriosConsulta.classe === "") {
-                // Se "Sem classe" foi selecionado, filtre por classe vazia
-                filtroClasse = jogadorClasse === "";
-            } else {
-                // Se uma classe específica foi selecionada, filtre por ela
-                filtroClasse = jogadorClasse === criteriosConsulta.classe;
-            }
-
-            const filtroNiver = criteriosConsulta.niver === "" || jogadorNiver === criteriosConsulta.niver;
-
-            let filtroPiramide = true;
-            if (piramideAtivada && filtrarPiramide) {
-                filtroPiramide = (jogadorPiramide === piramide) && (jogadorPiramide >= 1 && jogadorPiramide <= 99);
-            } else if (piramideAtivada) {
-                filtroPiramide = jogadorPiramide >= 1 && jogadorPiramide <= 99;
-            } else if (filtrarPiramide) {
-                filtroPiramide = piramide === "" ? jogadorPiramide === "" : jogadorPiramide === piramide;
-            }
-
-            console.log("Filtros aplicados:", {
-                nome: filtroNome,
-                apelido: filtroApelido,
-                socio: filtroSocio,
-                classe: filtroClasse,
-                niver: filtroNiver,
-                piramide: filtroPiramide
-            });
-
-            if (filtroNome && filtroApelido && filtroSocio && filtroClasse && filtroNiver && filtroPiramide) {
-                encontrado = true;
-
-                console.log("Jogador encontrado:", jogadorNome, "Piramide:", jogadorPiramide);
-
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td style="text-align: left;">${jogadorNome}</td>
-                    <td style="text-align: left;">${jogadorApelido.replace(/\b\w/g, letra => letra.toUpperCase())}</td>
-                    <td style="text-align: center;">${jogadorSocio}</td>
-                `;
-
-                let clickTimeout;
-                let isDoubleClick = false;
-
-                row.addEventListener("click", (event) => {
-                    clickTimeout = setTimeout(() => {
-                        if (!isDoubleClick) {
-                            excluirJogador(jogadorNome, jogador.apelido);
-                        }
-                    }, 300);
-                });
-
-                row.addEventListener("dblclick", (event) => {
-                    isDoubleClick = true;
-                    clearTimeout(clickTimeout);
-                    editarJogador(jogadorNome);
-                    setTimeout(() => { isDoubleClick = false; }, 350);
-                });
-
-                tabela.appendChild(row);
-            }
-        });
-
-        if (!encontrado) {
-            alert("Nenhum jogador encontrado.");
         }
 
-        atualizarTotalJogadores();
-    }).catch(error => {
-        console.error("Erro ao consultar jogadores:", error);
-        alert("Ocorreu um erro ao consultar os jogadores. Tente novamente.");
-    });
-}
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
 
-
-
-function editarJogador(nome) {
-    const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
-
-    jogadorRef.once("value").then((snapshot) => {
-        if (snapshot.exists()) {
-            const jogador = snapshot.val();
-
-            // Preenche os campos do formulário com os dados do jogador
-            document.getElementById("nome").value = nome;
-            document.getElementById("apelido").value = jogador.apelido;
-            document.getElementById("socio").value = jogador.socio || "";
-            document.getElementById("classe").value = jogador.classe || "";
-
-            // Preenche o campo de data de nascimento
+        if (isMobile()) {
             const niverInput = document.getElementById("niver");
-            if (jogador.niver) {
-                niverInput.value = jogador.niver.split("/").reverse().join("-");
-                if (placeholderSpan) placeholderSpan.style.display = "none"; // Esconde o placeholder
-            } else {
-                niverInput.value = "";
-                if (placeholderSpan) placeholderSpan.style.display = "inline"; // Mostra o placeholder
-            }
+            const niverLabel = document.querySelector('label[for="niver"]');
+            placeholderSpan = document.createElement("span");
+            placeholderSpan.textContent = "dd/mm/aaaa";
+            placeholderSpan.style.cssText = "color: #999; position: absolute; left: " + (niverLabel.offsetWidth + 10) + "px; top: 8px; pointer-events: none;";
+            niverInput.parentNode.insertBefore(placeholderSpan, niverInput.nextSibling);
+            niverInput.addEventListener("focus", () => placeholderSpan.style.display = "none");
+            niverInput.addEventListener("blur", () => {
+                if (niverInput.value === "") placeholderSpan.style.display = "inline";
+            });
+        }
 
-            // Preenche o campo de piramide com o valor correto
-            const piramideInput = document.getElementById("piramide");
-            piramideInput.value = jogador.piramide || ""; // Se não houver valor, mantém vazio
+        function cadastrarJogador() {
+            const nome = document.getElementById("nome").value.trim().toUpperCase();
+            let apelido = document.getElementById("apelido").value.trim();
+            const socio = document.getElementById("socio").value;
+            const classe = document.getElementById("classe").value;
+            let niver = document.getElementById("niver").value;
+            const piramide = document.getElementById("piramide").value.trim();
+
+            if (nome === "" || apelido === "" || niver === "") return alert("Preencha todos os campos obrigatórios.");
             
-            // Habilita o campo piramide ao editar
-            piramideInput.disabled = false; 
+            const partesData = niver.split("-");
+            if (partesData.length === 3) niver = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
+            
+            if (!/^[A-Z\s]+$/.test(nome)) return alert("O nome deve conter apenas letras e espaços.");
+            if (socio === "") return alert("Escolha um tipo de sócio.");
+            if (classe === "" && document.getElementById("classe").selectedIndex === 0) return alert("Escolha uma classe ou selecione '(Sem classe)'");
 
-            // Desabilita o campo de nome e aplica estilo visual
-            const nomeInput = document.getElementById("nome");
-            nomeInput.disabled = true;
-            nomeInput.style.backgroundColor = "#e0e0e0";
-            nomeInput.style.border = "2px solid #888";
-
-            // Atualiza o texto do botão para "Salvar"
-            document.getElementById("botaoAcao").textContent = "Salvar";
-            modoCadastro = false; // Altera o modo para edição
-        } else {
-            alert("Jogador não encontrado.");
-        }
-    }).catch((error) => {
-        console.error("Erro ao carregar jogador:", error);
-    });
-}
-
-
-
-
-
-function salvarJogador() {
-    const nome = document.getElementById("nome").value.trim().toUpperCase();
-    let apelido = document.getElementById("apelido").value.trim();
-    const socio = document.getElementById("socio").value;
-    const classe = document.getElementById("classe").value;
-    let niver = document.getElementById("niver").value;
-    const piramideInput = document.getElementById("piramide");
-    const filtrarPiramideCheckbox = document.getElementById("filtrarPiramide");
-    const piramide = piramideInput.value.trim(); // Remove espaços em branco
-
-    console.log("Modo de cadastro:", modoCadastro);
-    console.log("Dados do jogador a serem salvos:", { nome, apelido, socio, classe, niver, piramide });
-
-    if (modoCadastro) {
-        if (nome === "" || apelido === "" || socio === "" || classe === "" || niver === "") {
-            alert("Preencha todos os campos obrigatórios.");
-            return;
-        }
-    } else {
-        if (nome === "") {
-            alert("O nome é obrigatório.");
-            return;
-        }
-    }
-
-    if (niver) {
-        const partesData = niver.split("-");
-        const ano = parseInt(partesData[0]);
-        const mes = parseInt(partesData[1]) - 1; // Meses começam do 0
-        const dia = parseInt(partesData[2]);
-        const dataNascimento = new Date(ano, mes, dia);
-
-        const hoje = new Date();
-        let idade = hoje.getFullYear() - dataNascimento.getFullYear();
-
-        if (
-            hoje.getMonth() < dataNascimento.getMonth() ||
-            (hoje.getMonth() === dataNascimento.getMonth() && hoje.getDate() < dataNascimento.getDate())
-        ) {
-            idade--;
-        }
-
-        // Atualiza o formato para DD/MM/AAAA para salvar no banco
-        niver = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
-
-        if (idade > 21 && socio === "dependente") {
-            const relacionamento = prompt("Dependente maior de 21 anos. É cônjuge, esposo(a) ou filho(a)?").trim().toLowerCase();
-            const conjugeAceito = ["conjuge", "cônjuge", "esposa", "esposo", "marido"].includes(relacionamento);
-
-            if (!conjugeAceito) {
-                alert("Não é possível cadastrar filho(a) maior de 21 anos como dependente.");
-                return; // Impede o salvamento
-            }
-        }
-    } else {
-        niver = ""; // Se não informado, salva como vazio
-    }
-
-    apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
-    const piramideValue = piramide.trim() === "" ? "" : piramide;
-
-    let mensagemConfirmacao = `
-        Confirme os dados do jogador:
-        Nome: ${nome}
-        Apelido: ${apelido}
-        Sócio: ${socio}
-        Classe: ${classe || "(Sem classe)"}
-        Data de Nascimento: ${niver || "(Não informada)"}
-        Pirâmide: ${piramideValue || "(Não informada)"}
-    `;
-
-    mensagemConfirmacao += `\n\nModo de operação: ${modoCadastro ? "Cadastro" : "Edição"}`;
-
-    const confirmacao = confirm(mensagemConfirmacao);
-    if (!confirmacao) {
-        return;
-    }
-
-    const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
-
-    const criteriosOriginais = { ...criteriosConsulta };
-
-    jogadorRef.update({
-        apelido: apelido || "",
-        socio: socio || "",
-        classe: classe || "",
-        niver: niver,
-        piramide: piramideValue
-    }).then(() => {
-        console.log("Jogador atualizado com sucesso!");
-        alert("Jogador atualizado com sucesso!");
-
-        limparCampos();
-
-        piramideInput.disabled = true;
-        filtrarPiramideCheckbox.checked = false;
-
-        if (!modoCadastro && (criteriosOriginais.nome || criteriosOriginais.apelido || criteriosOriginais.socio ||
-            criteriosOriginais.classe || criteriosOriginais.niver || criteriosOriginais.piramide)) {
-
-            console.log("Reexecutando consulta após salvar...");
-            criteriosConsulta = { ...criteriosOriginais };
-
-            document.getElementById("nome").value = criteriosConsulta.nome;
-            document.getElementById("apelido").value = criteriosConsulta.apelido;
-            document.getElementById("socio").value = criteriosConsulta.socio;
-            document.getElementById("classe").value = criteriosConsulta.classe || "";
-            document.getElementById("niver").value = criteriosConsulta.niver;
-            document.getElementById("piramide").value = criteriosConsulta.piramide || "";
-
-            consultarJogador();
-        } else {
-            carregarJogadores();
-        }
-
-        const abaAtual = document.querySelector(".tab-button.selected").textContent;
-        if (abaAtual === "Cadastro") {
-            document.getElementById("botaoAcao").textContent = "Cadastrar";
-            modoCadastro = true;
-        } else {
-            document.getElementById("botaoAcao").textContent = "Consultar";
-            modoCadastro = false;
-        }
-    }).catch((error) => {
-        console.error("Erro ao atualizar jogador:", error);
-        alert("Ocorreu um erro ao atualizar o jogador.");
-    });
-}
-
-
-
-// Função para carregar todos os jogadores na tabela
-function carregarJogadores() {
-    const tabela = document.getElementById("tabela-jogadores");
-
-    database.ref("sistemas/cadastro/jogadores").on("value", (snapshot) => {
-        tabela.innerHTML = ""; // Limpa a tabela antes de adicionar novos registros
-        snapshot.forEach((childSnapshot) => {
-            const nome = childSnapshot.key; // O nome é a chave
-            const jogador = childSnapshot.val();
-
-            // Ignora o jogador "Convidado"
-            if (nome.toUpperCase() === "CONVIDADO") {
-                return;
-            }
-
-            // Cria uma nova linha na tabela
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td style="text-align: left;">${nome}</td>
-                <td style="text-align: left;">${jogador.apelido}</td>
-                <td style="text-align: center;">${jogador.socio}</td>
-            `;
-
-            let clickTimeout;
-            let isDoubleClick = false;
-
-            // Evento de clique para excluir
-            row.addEventListener("click", (event) => {
-                console.log(`Clique simples detectado em: ${nome}`);
-                clickTimeout = setTimeout(() => {
-                    if (!isDoubleClick) {
-                        console.log(`Excluindo jogador: ${nome}`);
-                        excluirJogador(nome, jogador.apelido);
-                    }
-                }, 300);
-            });
-
-            // Evento de duplo clique para editar
-            row.addEventListener("dblclick", (event) => {
-                console.log(`Duplo clique detectado em: ${nome}`);
-                isDoubleClick = true;
-                clearTimeout(clickTimeout); // Cancela o clique simples
-                editarJogador(nome);
-                setTimeout(() => { isDoubleClick = false; }, 350); // Reseta a variável após o tempo limite
-            });
-
-            // Adiciona a linha na tabela
-            tabela.appendChild(row);
-        });
-
-        // Atualiza o total de jogadores exibidos
-        atualizarTotalJogadores();
-
-        // Esconde a tela de carregamento após carregar os dados
-        document.getElementById("loadingOverlay").style.display = "none";
-    });
-}
-
-
-
-function excluirJogador(nome, apelido) {
-            // Confirmação antes de excluir
-            const confirmacao = confirm(`Tem certeza que deseja excluir o jogador ${nome} (${apelido})?`);
-            if (!confirmacao) return;
-
-            // Referência ao jogador e ao apelido no banco de dados
+            apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
+            const piramideValue = piramide.trim() === "" ? "" : piramide;
             const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
             const apelidoRef = database.ref("sistemas/cadastro/apelidos/" + apelido);
 
-            // Remove o jogador e o apelido
-            jogadorRef.remove()
-                .then(() => {
-                    apelidoRef.remove()
-                        .then(() => {
-                            alert("Jogador excluído com sucesso!");
-                            carregarJogadores(); // Atualiza a tabela após a exclusão
-                        })
-                        .catch(error => {
-                            console.error("Erro ao excluir apelido:", error);
-                            alert("Ocorreu um erro ao excluir o apelido. Tente novamente.");
-                        });
-                })
-                .catch(error => { 
-                    console.error("Erro ao excluir jogador:", error);
-                    alert("Ocorreu um erro ao excluir o jogador. Tente novamente.");
+            const [ano, mes, dia] = partesData;
+            const dataNascimento = new Date(ano, mes - 1, dia);
+            const hoje = new Date();
+            let idade = hoje.getFullYear() - dataNascimento.getFullYear();
+            if (hoje.getMonth() < dataNascimento.getMonth() || (hoje.getMonth() === dataNascimento.getMonth() && hoje.getDate() < dataNascimento.getDate())) {
+                idade--;
+            }
+
+            if (idade > 21 && socio === "dependente") {
+                const relacionamento = prompt("Dependente maior de 21 anos. É cônjuge ou filho(a)?").trim().toLowerCase();
+                const conjugeAceito = ["conjuge", "cônjuge", "esposa", "esposo", "marido"].includes(relacionamento);
+                if (!conjugeAceito) {
+                    alert("Não é possível cadastrar filho(a) maior de 21 anos como dependente.");
+                    limparCampos();
+                    return;
+                }
+            }
+
+            jogadorRef.get().then(snapshot => {
+                if (snapshot.exists()) return alert("Já existe um jogador com esse Nome.");
+                apelidoRef.get().then(snapshot => {
+                    if (snapshot.exists()) return alert("Já existe um jogador com esse Apelido.");
+                    jogadorRef.set({ apelido, socio, classe, niver, piramide: piramideValue })
+                        .then(() => apelidoRef.set(true).then(() => {
+                            alert("Jogador cadastrado com sucesso!");
+                            limparCampos();
+                            carregarJogadores();
+                        }));
                 });
+            });
         }
 
+        function limparCampos() {
+            document.getElementById("nome").value = "";
+            document.getElementById("apelido").value = "";
+            document.getElementById("niver").value = "";
+            document.getElementById("socio").value = "";
+            document.getElementById("classe").value = "";
+            document.getElementById("piramide").value = "";
+            const nomeInput = document.getElementById("nome");
+            nomeInput.disabled = false;
+            nomeInput.style.backgroundColor = "";
+            nomeInput.style.border = "";
+        }
 
-// Função para mostrar a aba de cadastro
-function mostrarCadastro(event) {
-    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('selected'));
-    event.target.classList.add('selected');
+        function consultarJogador() {
+            criteriosConsulta.nome = document.getElementById("nome").value.trim().toUpperCase();
+            criteriosConsulta.apelido = document.getElementById("apelido").value.trim().toLowerCase();
+            criteriosConsulta.socio = document.getElementById("socio").value;
+            criteriosConsulta.classe = document.getElementById("classe").value;
+            criteriosConsulta.niver = document.getElementById("niver").value;
+            let piramide = document.getElementById("piramide").value.trim();
+            const filtrarPiramide = document.getElementById("filtrarPiramide").checked;
+            const piramideAtivada = document.getElementById("simbolo_piramide").classList.contains("piramide-clicada");
 
-    atualizarAba("Cadastro de Jogadores", "Cadastrar");
+            if (Object.values(criteriosConsulta).every(v => v === "") && piramide === "" && !filtrarPiramide && !piramideAtivada) {
+                return alert("Digite pelo menos um critério para consulta.");
+            }
 
-    modoCadastro = true;
-	
-	// Habilita o campo piramide ao clicar no botão Cadastro
-    const piramideInput = document.getElementById("piramide");
-    piramideInput.disabled = false;
+            const tabela = document.getElementById("tabela-jogadores");
+            tabela.innerHTML = "";
+            database.ref("sistemas/cadastro/jogadores").once("value", snapshot => {
+                let encontrado = false;
+                snapshot.forEach(childSnapshot => {
+                    const jogadorNome = childSnapshot.key;
+                    const jogador = childSnapshot.val();
+                    if (jogadorNome.toUpperCase() === "CONVIDADO") return;
 
-    // Desmarca o checkbox "filtrarPiramide"
-    document.getElementById("filtrarPiramide").checked = false;
+                    const jogadorApelido = jogador.apelido.toLowerCase();
+                    const jogadorSocio = jogador.socio;
+                    const jogadorClasse = jogador.classe || "";
+                    const jogadorNiver = jogador.niver || "";
+                    const jogadorPiramide = jogador.piramide || "";
 
-    // Zera os critérios da consulta para evitar exibição filtrada
-    criteriosConsulta = {
-        nome: "",
-        apelido: "",
-        socio: "",
-        classe: "",
-        niver: "",
-        piramide: "" // Reseta critério da pirâmide
-    };
+                    const filtroNome = criteriosConsulta.nome === "" || jogadorNome.includes(criteriosConsulta.nome);
+                    const filtroApelido = criteriosConsulta.apelido === "" || jogadorApelido.includes(criteriosConsulta.apelido);
+                    let filtroSocio = true;
+                    if (criteriosConsulta.socio !== "" && criteriosConsulta.socio !== "todos") filtroSocio = jogadorSocio === criteriosConsulta.socio;
+                    let filtroClasse = true;
+                    if (criteriosConsulta.classe === "todos") {} 
+                    else if (criteriosConsulta.classe === "") filtroClasse = jogadorClasse === "";
+                    else filtroClasse = jogadorClasse === criteriosConsulta.classe;
+                    const filtroNiver = criteriosConsulta.niver === "" || jogadorNiver === criteriosConsulta.niver;
+                    let filtroPiramide = true;
+                    if (piramideAtivada && filtrarPiramide) filtroPiramide = (jogadorPiramide === piramide) && (jogadorPiramide >= 1 && jogadorPiramide <= 99);
+                    else if (piramideAtivada) filtroPiramide = jogadorPiramide >= 1 && jogadorPiramide <= 99;
+                    else if (filtrarPiramide) filtroPiramide = piramide === "" ? jogadorPiramide === "" : jogadorPiramide === piramide;
 
-    limparCampos();
-    carregarJogadores(); // Agora carregará todos os jogadores corretamente
-	
-	// Remover a opção "Todos" se existir
-    const socioSelect = document.getElementById("socio");
-    let todosOption = socioSelect.querySelector('option[value="todos"]');
-    if (todosOption) {
-        socioSelect.removeChild(todosOption);
-    }
-	
-	// Remover a opção "Todos" se existir
-    const classeSelect = document.getElementById("classe");
-    let classeOption = classeSelect.querySelector('option[value="todos"]');
-    if (classeOption) {
-        classeSelect.removeChild(classeOption);
-    }
-	
+                    if (filtroNome && filtroApelido && filtroSocio && filtroClasse && filtroNiver && filtroPiramide) {
+                        encontrado = true;
+                        const row = document.createElement("tr");
+                        row.innerHTML = `<td style="text-align: left;">${jogadorNome}</td><td style="text-align: left;">${jogadorApelido.replace(/\b\w/g, letra => letra.toUpperCase())}</td><td>${jogadorSocio}</td>`;
+                        let clickTimeout, isDoubleClick = false;
+                        row.addEventListener("click", () => {
+                            clickTimeout = setTimeout(() => { if (!isDoubleClick) excluirJogador(jogadorNome, jogador.apelido); }, 300);
+                        });
+                        row.addEventListener("dblclick", () => {
+                            isDoubleClick = true;
+                            clearTimeout(clickTimeout);
+                            editarJogador(jogadorNome);
+                            setTimeout(() => { isDoubleClick = false; }, 350);
+                        });
+                        tabela.appendChild(row);
+                    }
+                });
+                if (!encontrado) alert("Nenhum jogador encontrado.");
+                atualizarTotalJogadores();
+            });
+        }
 
-    // Atualiza o símbolo da pirâmide para vermelho 🔺
-    const simboloPiramide = document.getElementById("simbolo_piramide");
-    if (simboloPiramide) {
-        simboloPiramide.textContent = "🔺"; // Pirâmide vermelha
-        simboloPiramide.dataset.cor = "vermelho"; // Armazena a cor atual
-        simboloPiramide.classList.remove("piramide-clicada"); // Remove o estado clicado
-        console.log("Pirâmide na aba Cadastro (vermelha)");
-    }
+        function editarJogador(nome) {
+            database.ref("sistemas/cadastro/jogadores/" + nome).once("value").then((snapshot) => {
+                if (snapshot.exists()) {
+                    const jogador = snapshot.val();
+                    document.getElementById("nome").value = nome;
+                    document.getElementById("apelido").value = jogador.apelido;
+                    document.getElementById("socio").value = jogador.socio || "";
+                    document.getElementById("classe").value = jogador.classe || "";
+                    const niverInput = document.getElementById("niver");
+                    if (jogador.niver && jogador.niver.includes('/')) {
+                        const [dia, mes, ano] = jogador.niver.split('/');
+                        niverInput.value = `${ano}-${mes}-${dia}`;
+                    } else {
+                        niverInput.value = "";
+                    }
+                    document.getElementById("piramide").value = jogador.piramide || "";
+                    document.getElementById("nome").disabled = true;
+                    document.getElementById("botaoAcao").textContent = "Salvar";
+                    modoCadastro = false;
+                } else {
+                    alert("Jogador não encontrado.");
+                }
+            });
+        }
 
-    // Remove o evento de clique da pirâmide
-    simboloPiramide.removeEventListener("click", alternarCorPiramide);
-    document.getElementById("simbolo_piramide").style.cursor = "default";
-}
+        function salvarJogador() {
+            const nome = document.getElementById("nome").value.trim().toUpperCase();
+            let apelido = document.getElementById("apelido").value.trim();
+            const socio = document.getElementById("socio").value;
+            const classe = document.getElementById("classe").value;
+            let niver = document.getElementById("niver").value;
+            const piramide = document.getElementById("piramide").value.trim();
+            if (niver) niver = niver.split("-").reverse().join("/");
+            apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
+            const piramideValue = piramide.trim() === "" ? "" : piramide;
+            
+            database.ref("sistemas/cadastro/jogadores/" + nome).update({
+                apelido: apelido || "", socio: socio || "", classe: classe || "", niver: niver, piramide: piramideValue
+            }).then(() => {
+                alert("Jogador atualizado com sucesso!");
+                limparCampos();
+                if (!modoCadastro) consultarJogador();
+                else carregarJogadores();
+                document.getElementById("botaoAcao").textContent = modoCadastro ? "Cadastrar" : "Consultar";
+            });
+        }
 
-// Função para mostrar a aba de consulta
-function mostrarConsulta(event) {
-    atualizarAba("Consulta de Jogadores", "Consultar");
-    modoCadastro = false;
+        function excluirJogador(nome, apelido) {
+            if (!confirm(`Tem certeza que deseja excluir o jogador ${nome} (${apelido})?`)) return;
+            database.ref("sistemas/cadastro/jogadores/" + nome).remove()
+                .then(() => database.ref("sistemas/cadastro/apelidos/" + apelido).remove()
+                    .then(() => {
+                        alert("Jogador excluído com sucesso!");
+                        carregarJogadores();
+                    }));
+        }
 
-    // Desmarca o checkbox "filtrarPiramide"
-    document.getElementById("filtrarPiramide").checked = false;
+        function carregarJogadores() {
+            const tabela = document.getElementById("tabela-jogadores");
+            database.ref("sistemas/cadastro/jogadores").on("value", (snapshot) => {
+                tabela.innerHTML = "";
+                snapshot.forEach((childSnapshot) => {
+                    const nome = childSnapshot.key;
+                    const jogador = childSnapshot.val();
+                    if (nome.toUpperCase() === "CONVIDADO") return;
+                    const row = document.createElement("tr");
+                    row.innerHTML = `<td style="text-align: left;">${nome}</td><td>${jogador.apelido}</td><td>${jogador.socio}</td>`;
+                    let clickTimeout, isDoubleClick = false;
+                    row.addEventListener("click", () => {
+                        clickTimeout = setTimeout(() => { if (!isDoubleClick) excluirJogador(nome, jogador.apelido); }, 300);
+                    });
+                    row.addEventListener("dblclick", () => {
+                        isDoubleClick = true;
+                        clearTimeout(clickTimeout);
+                        editarJogador(nome);
+                        setTimeout(() => { isDoubleClick = false; }, 350);
+                    });
+                    tabela.appendChild(row);
+                });
+                atualizarTotalJogadores();
+                document.getElementById("loadingOverlay").style.display = "none";
+            });
+        }
 
-    // Zera os critérios da consulta para evitar exibição filtrada
-    criteriosConsulta = {
-        nome: "",
-        apelido: "",
-        socio: "",
-        classe: "",
-        niver: "",
-        piramide: "" // Reseta critério da pirâmide
-    };
+        function mostrarCadastro(event) {
+            document.getElementById("titulo").textContent = "Cadastro de Jogadores";
+            document.getElementById("botaoAcao").textContent = "Cadastrar";
+            modoCadastro = true;
+            document.getElementById("piramide").disabled = false;
+            document.getElementById("filtrarPiramide").checked = false;
+            limparCampos();
+            carregarJogadores();
+            const socioSelect = document.getElementById("socio");
+            let todosOption = socioSelect.querySelector('option[value="todos"]');
+            if (todosOption) socioSelect.removeChild(todosOption);
+            const classeSelect = document.getElementById("classe");
+            let classeOption = classeSelect.querySelector('option[value="todos"]');
+            if (classeOption) classeSelect.removeChild(classeOption);
+            const simboloPiramide = document.getElementById("simbolo_piramide");
+            if (simboloPiramide) {
+                simboloPiramide.textContent = "🔺";
+                simboloPiramide.classList.remove("piramide-clicada");
+                simboloPiramide.removeEventListener("click", alternarCorPiramide);
+                simboloPiramide.style.cursor = "default";
+            }
+        }
 
-    limparCampos(); // Limpa os campos ao mudar para a aba Consulta
-    carregarJogadores(); // Adiciona os eventos de clique para exclusão na aba Consulta
-	
-	// Adicionar a opção "Todos" se não existir
-    const socioSelect = document.getElementById("socio");
-    let todosOption = socioSelect.querySelector('option[value="todos"]');
-
-    if (!todosOption) {
-        todosOption = document.createElement("option");
-        todosOption.value = "todos";
-        todosOption.textContent = "Todos";
-        // Insere "Todos" após a primeira opção (Escolha um tipo)
-        socioSelect.insertBefore(todosOption, socioSelect.options[1]);
-    }
-	
-	// Seleciona a opção "Todos"
-    socioSelect.value = "todos";  // Adicione esta linha!
-	
-	// Adicionar a opção "Todos" se não existir
-    const classeSelect = document.getElementById("classe");
-    let classeOption = classeSelect.querySelector('option[value="todos"]');
-
-    if (!classeOption) {
-        classeOption = document.createElement("option");
-        classeOption.value = "todos";
-        classeOption.textContent = "Todos";
-        // Insere "Todos" após a primeira opção (Escolha um tipo)
-        classeSelect.insertBefore(classeOption, classeSelect.options[1]);
-    }
-	
-	// Seleciona a opção "Todos"
-    classeSelect.value = "todos";  // Adicione esta linha!
-
-    // Mantém a pirâmide vermelha ao entrar na tela de consulta
-    const simboloPiramide = document.getElementById("simbolo_piramide");
-    if (simboloPiramide) {
-        simboloPiramide.textContent = "🔺"; // Pirâmide vermelha
-        simboloPiramide.dataset.cor = "vermelho"; // Armazena a cor atual
-        simboloPiramide.classList.remove("piramide-clicada"); // Remove o estado clicado
-        console.log("Pirâmide na aba Consulta (vermelha)");
-    }
-
-    // Adiciona o evento de clique na pirâmide para alternar entre vermelho e preto
-    simboloPiramide.addEventListener("click", alternarCorPiramide);
-    document.getElementById("simbolo_piramide").style.cursor = "pointer";
-}
-
-
-function alternarCorPiramide() {
-    const simboloPiramide = document.getElementById("simbolo_piramide");
-
-    if (simboloPiramide) {
-        simboloPiramide.classList.toggle("piramide-clicada"); // Alterna o estado visual
-        console.log("Critério de pirâmide alterado:", simboloPiramide.classList.contains("piramide-clicada"));
-    }
-}
-
-
-
-
-        // Função para atualizar a aba selecionada
-        function atualizarAba(titulo, textoBotao) { 
+        function mostrarConsulta(event) {
+            document.getElementById("titulo").textContent = "Consulta de Jogadores";
+            document.getElementById("botaoAcao").textContent = "Consultar";
+            modoCadastro = false;
+            document.getElementById("filtrarPiramide").checked = false;
+            limparCampos();
+            carregarJogadores();
+            const socioSelect = document.getElementById("socio");
+            if (!socioSelect.querySelector('option[value="todos"]')) {
+                const todosOption = document.createElement("option");
+                todosOption.value = "todos";
+                todosOption.textContent = "Todos";
+                socioSelect.insertBefore(todosOption, socioSelect.options[1]);
+            }
+            socioSelect.value = "todos";
+            const classeSelect = document.getElementById("classe");
+            if (!classeSelect.querySelector('option[value="todos"]')) {
+                const classeOption = document.createElement("option");
+                classeOption.value = "todos";
+                classeOption.textContent = "Todos";
+                classeSelect.insertBefore(classeOption, classeSelect.options[1]);
+            }
+            classeSelect.value = "todos";
+            const simboloPiramide = document.getElementById("simbolo_piramide");
+            if (simboloPiramide) {
+                simboloPiramide.textContent = "🔺";
+                simboloPiramide.classList.remove("piramide-clicada");
+                simboloPiramide.addEventListener("click", alternarCorPiramide);
+                simboloPiramide.style.cursor = "pointer";
+            }
+        }
+        
+        function alternarCorPiramide() {
+            const simboloPiramide = document.getElementById("simbolo_piramide");
+            if (simboloPiramide) {
+                simboloPiramide.classList.toggle("piramide-clicada");
+            }
+        }
+        
+        function atualizarAba(titulo, textoBotao) {
             document.getElementById("titulo").textContent = titulo;
             document.getElementById("botaoAcao").textContent = textoBotao;
-            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('selected'));
-            event.target.classList.add('selected');
         }
 
-        // Carrega os jogadores ao carregar a página
         window.onload = function() {
             carregarJogadores();
         };
-		
-document.addEventListener("DOMContentLoaded", function () {
-        const piramideInput = document.getElementById("piramide");
-        const filtrarPiramideCheckbox = document.getElementById("filtrarPiramide");
-        const cadastroTab = document.querySelector(".tab-button:nth-child(1)"); // Aba Cadastro
-        const consultaTab = document.querySelector(".tab-button:nth-child(2)"); // Aba Consulta
 
-        // Garante que o campo piramide e o checkbox começam desativados na aba Cadastro
-        function configurarCadastro() {
-            //piramideInput.disabled = true;
-            piramideInput.value = ""; // Limpa o campo ao mudar para Cadastro
-            filtrarPiramideCheckbox.checked = false;
-            filtrarPiramideCheckbox.disabled = true; // Desabilita o checkbox na aba Cadastro
+        document.addEventListener("DOMContentLoaded", function () {
+            const piramideInput = document.getElementById("piramide");
+            const filtrarPiramideCheckbox = document.getElementById("filtrarPiramide");
+            const cadastroTab = document.querySelector(".tab-button:nth-child(1)");
+            const consultaTab = document.querySelector(".tab-button:nth-child(2)");
+            function configurarCadastro() {
+                piramideInput.value = "";
+                filtrarPiramideCheckbox.checked = false;
+                filtrarPiramideCheckbox.disabled = true;
+            }
+            filtrarPiramideCheckbox.addEventListener("change", function () {
+                if (this.checked) {
+                    piramideInput.disabled = false;
+                    piramideInput.focus();
+                } else {
+                    piramideInput.value = "";
+                    piramideInput.disabled = true;
+                }
+            });
+            configurarCadastro();
+            cadastroTab.addEventListener("click", configurarCadastro);
+            consultaTab.addEventListener("click", function () {
+                piramideInput.disabled = true;
+                piramideInput.value = "";
+                filtrarPiramideCheckbox.checked = false;
+                filtrarPiramideCheckbox.disabled = false;
+            });
+        });
+        // =========================================================================
+        // FIM: CÓDIGO ORIGINAL DO cadastro-bk.html
+        // =========================================================================
+
+
+        // =========================================================================
+        // INÍCIO: CÓDIGO NOVO PARA A FUNCIONALIDADE DE ANIVERSÁRIOS
+        // =========================================================================
+        let allPlayersBirthday = [];
+        const nameSearch = document.getElementById('nameSearch');
+        const monthFilter = document.getElementById('monthFilter');
+        const birthdayList = document.getElementById('birthdayList');
+        const monthNames = ["", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        const monthlyBirthdayCounts = {};
+
+        function capitalizeWords(str) {
+            if (!str) return '';
+            return str.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
         }
 
-        // Quando o checkbox for marcado, habilita o campo e coloca o foco nele
-        filtrarPiramideCheckbox.addEventListener("change", function () {
-            if (this.checked) {
-                piramideInput.disabled = false;
-                piramideInput.focus(); // Coloca o foco no campo
-            } else {
-                piramideInput.value = ""; // Limpa o campo antes de desabilitar
-                piramideInput.disabled = true;
+        function loadBirthdayData() {
+            if (allPlayersBirthday.length > 0) {
+                renderBirthdayList();
+                return;
             }
+            const playersRef = database.ref('sistemas/cadastro/jogadores');
+            playersRef.once('value').then(snapshot => {
+                const playerData = snapshot.val();
+                if (!playerData) {
+                    birthdayList.innerHTML = '<p class="status-message">Nenhum jogador encontrado.</p>';
+                    return;
+                }
+                for (const fullName in playerData) {
+                    const player = playerData[fullName];
+                    if (player.niver && player.niver.length === 10 && player.niver !== "01/01/2001") {
+                        const [day, month] = player.niver.split('/');
+                        const monthInt = parseInt(month);
+                        allPlayersBirthday.push({
+                            fullName: capitalizeWords(fullName),
+                            nickname: capitalizeWords(player.apelido),
+                            day: parseInt(day),
+                            month: monthInt,
+                        });
+                        monthlyBirthdayCounts[monthInt] = (monthlyBirthdayCounts[monthInt] || 0) + 1;
+                    }
+                }
+                renderBirthdayList();
+            });
+        }
+
+        function renderBirthdayList() {
+            const searchTerm = nameSearch.value.toLowerCase();
+            const selectedMonth = parseInt(monthFilter.value);
+            const filteredPlayers = allPlayersBirthday.filter(player => 
+                (player.fullName.toLowerCase().includes(searchTerm) || player.nickname.toLowerCase().includes(searchTerm)) &&
+                (selectedMonth === 0 || player.month === selectedMonth)
+            );
+
+            birthdayList.innerHTML = '';
+            if (filteredPlayers.length === 0) {
+                birthdayList.innerHTML = '<p class="status-message">Nenhum aniversariante encontrado.</p>';
+                return;
+            }
+
+            const groupedByMonth = {};
+            filteredPlayers.forEach(player => {
+                if (!groupedByMonth[player.month]) groupedByMonth[player.month] = [];
+                groupedByMonth[player.month].push(player);
+            });
+            for (const month in groupedByMonth) {
+                groupedByMonth[month].sort((a, b) => a.day - b.day);
+            }
+            
+            Object.keys(groupedByMonth).sort((a,b) => a - b).forEach(month => {
+                const monthDiv = document.createElement('div');
+                monthDiv.className = 'month-group';
+                monthDiv.innerHTML = `<h2>${monthNames[month]}</h2>`;
+                const totalPlayerCountInMonth = monthlyBirthdayCounts[month] || 0;
+                groupedByMonth[month].forEach(player => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'birthday-item';
+                    const daySpan = document.createElement('span');
+                    daySpan.className = 'birthday-day';
+                    daySpan.textContent = (totalPlayerCountInMonth === 1) ? `Dia ${String(player.day).padStart(2, '0')}` : String(player.day).padStart(2, '0');
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'birthday-name';
+                    nameSpan.textContent = player.fullName;
+                    if (player.fullName.toLowerCase() !== player.nickname.toLowerCase()) {
+                        const nicknameSpan = document.createElement('span');
+                        nicknameSpan.className = 'nickname';
+                        nicknameSpan.textContent = `(${player.nickname})`;
+                        nameSpan.appendChild(nicknameSpan);
+                    }
+                    itemDiv.appendChild(daySpan);
+                    itemDiv.appendChild(nameSpan);
+                    monthDiv.appendChild(itemDiv);
+                });
+                birthdayList.appendChild(monthDiv);
+            });
+        }
+        
+        // Função principal para controlar a visibilidade das abas
+        function mostrarAba(event, abaId) {
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('selected'));
+            event.target.classList.add('selected');
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            const footer = document.getElementById('footer');
+
+            if (abaId === 'aniversarios') {
+                document.getElementById('aniversariosTab').classList.add('active');
+                footer.style.display = 'none';
+                loadBirthdayData();
+            } else {
+                document.getElementById('cadastroConsultaTab').classList.add('active');
+                footer.style.display = 'block';
+                if (abaId === 'cadastro') {
+                    // Chama a função original para configurar a aba de cadastro
+                    const cadastroTabButton = document.querySelector('.tab-button[onclick*="cadastro"]');
+                    mostrarCadastro({ target: cadastroTabButton });
+                } else {
+                    // Chama a função original para configurar a aba de consulta
+                    const consultaTabButton = document.querySelector('.tab-button[onclick*="consulta"]');
+                    mostrarConsulta({ target: consultaTabButton });
+                }
+            }
+        }
+        
+        // Inicializa a página
+        document.addEventListener('DOMContentLoaded', () => {
+            // A função `mostrarAba` já cuida de chamar `mostrarCadastro`
+            const selectedButton = document.querySelector('.tab-button.selected');
+            mostrarAba({ target: selectedButton }, 'cadastro');
+            
+            // Listeners para a aba de aniversários
+            nameSearch.addEventListener('input', renderBirthdayList);
+            monthFilter.addEventListener('change', renderBirthdayList);
         });
-
-        // Selecione a aba Cadastro ao carregar a página e configure os campos
-        configurarCadastro();
-
-        // Evento ao clicar na aba Cadastro
-        cadastroTab.addEventListener("click", function () {
-            configurarCadastro();
-        });
-
-        // Evento ao clicar na aba Consulta
-        consultaTab.addEventListener("click", function () {
-            piramideInput.disabled = true;
-            piramideInput.value = ""; // Limpa o campo ao mudar para Consulta
-            filtrarPiramideCheckbox.checked = false;
-            filtrarPiramideCheckbox.disabled = false; // Habilita o checkbox na aba Consulta
-        });
-    });
-	
-
-
-	
+        // =========================================================================
+        // FIM: CÓDIGO NOVO PARA A FUNCIONALIDADE DE ANIVERSÁRIOS
+        // =========================================================================
     </script>
 </body>
 </html>
