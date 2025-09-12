@@ -8,24 +8,21 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
     <style>
 	    html, body {
-    width: 100%;
-    overflow-x: hidden;
-}
-        /* Estilos gerais da página */
+            width: 100%;
+            overflow-x: hidden;
+        }
         body {
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             margin: 0;
-            padding-bottom: 60px; /* Espaço para o rodapé */
+            padding-bottom: 60px;
             position: relative;
             min-height: 100vh; 
             background-color: #f4f7f6;
 			overflow-x: hidden;
         }
-
-        /* Estilo do container das abas */
         .tab-container {
             display: flex; 
             justify-content: center;
@@ -38,8 +35,6 @@
             position: relative; 
             box-sizing: border-box;
         }
-
-        /* Estilo dos botões das abas */ 
         .tab-button {
             padding: 6px 20px;
             font-size: 16px;
@@ -53,14 +48,10 @@
             transition: 0.3s;
             position: relative;
         }
-
-        /* Estilo do botão selecionado */
         .tab-button.selected {
             background-color: #228B22;
             border: 2px solid black;
         }
-
-        /* Linha inferior do botão selecionado */
         .tab-button.selected::after {
             content: "";
             display: block;
@@ -71,20 +62,15 @@
             bottom: -8px;
             left: 0;
         }
-        
-        /* Conteúdo das abas (inicialmente escondido) */
         .tab-content {
             display: none;
             width: 100%;
             align-items: center;
             flex-direction: column;
         }
-
         .tab-content.active {
             display: flex;
         }
-        
-        /* Estilo do container do formulário */
         .form-container {
             padding: 20px;
             border: 1px solid #ccc;
@@ -95,11 +81,9 @@
             margin-top: 10px;
             background-color: white;
         }
-		
 		.form-container h2 {
 			margin-top: 0px; 
 		}
-
         .form-group {
             display: flex;
             align-items: center;
@@ -107,13 +91,11 @@
             margin-bottom: 10px;
             width: 100%;
         }
-
         label {
             flex: 1;
             text-align: left;
             min-width: 100px;
         }
-
         input, select {
             flex: 3;
             padding: 8px;
@@ -123,7 +105,6 @@
             width: 100%; 
             box-sizing: border-box; 
         }
-
         button {
             margin-top: 1px;
             width: 100%;
@@ -136,24 +117,21 @@
             cursor: pointer;
             border-radius: 3px;
         }
+table {
+    width: 100%;              /* ocupa toda a tela */
+    max-width: none;          /* remove limite de 800px */
+    border-collapse: collapse;
+    margin-top: 15px;
+}
 
-        table {
-            width: 99%;
-            max-width: 800px;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
- 
         th, td {
             border: 1px solid #ccc;
             padding: 7px;
             text-align: center;
         }
-
         th {
             background-color: #f2f2f2;
         }
-        
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -167,7 +145,6 @@
             font-size: 24px;
             z-index: 1000;
         }
-
         .footer {
             position: fixed;
             bottom: 0;
@@ -182,7 +159,6 @@
             box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2); 
             z-index: 1000;
         }
-        
         #classe {
             width: 200px;
             margin-right: 110px;
@@ -190,7 +166,6 @@
             border: 1px solid #ccc;
             border-radius: 3px;
         }
-
         #simbolo_piramide {
             font-size: 24px; 
             color: black;
@@ -200,7 +175,6 @@
             justify-content: center;
             height: 100%; 
         }
-
         .piramide-clicada {
             color: blue !important; 
             font-weight: bold;
@@ -208,8 +182,6 @@
             text-shadow: 2px 2px 8px rgba(0, 0, 255, 0.6); 
             transition: transform 0.2s ease-in-out, text-shadow 0.3s ease-in-out; 
         }
-        
-        /* --- ESTILOS PARA A NOVA ABA DE ANIVERSARIANTES --- */
         .birthday-container {
             max-width: 800px;
             width: 95%;
@@ -218,7 +190,6 @@
             padding: 10px 30px 20px;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-			
         }
         .birthday-container h1 {
             text-align: center;
@@ -258,25 +229,25 @@
             border-bottom: 1px solid #eee;
             padding-bottom: 5px;
         }
-.birthday-item {
-    display: flex;
-    align-items: center; /* Adicionado para alinhar verticalmente */
-    padding: 10px 5px;
-    border-bottom: 1px solid #f0f0f0;
-}
+        .birthday-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 5px;
+            border-bottom: 1px solid #f0f0f0;
+        }
         .birthday-item:last-child {
             border-bottom: none;
         }
-.birthday-day {
-    font-weight: bold;
-    color: #333;
-    flex-shrink: 0; /* Impede que o texto do dia seja espremido */
-    margin-right: 15px; /* Cria um espaço consistente entre o dia e o nome */
-}
-.birthday-name {
-    color: #555;
-    text-align: left;
-}
+        .birthday-day {
+            font-weight: bold;
+            color: #333;
+            flex-shrink: 0;
+            margin-right: 15px;
+        }
+        .birthday-name {
+            color: #555;
+            text-align: left;
+        }
         .nickname {
             color: #888;
             margin-left: 5px;
@@ -287,8 +258,6 @@
             font-size: 1.1em;
             padding: 30px;
         }
-        /* --- FIM DOS ESTILOS DE ANIVERSARIANTES --- */
-
         @media (max-width: 480px) {
             .tab-button {
                 flex-grow: 1;
@@ -305,17 +274,16 @@
             #filtrarPiramide { margin-left: 3px !important; margin-top: 5px; }
 			.birthday-container {
 				box-sizing: border-box;
-				width: 100%;          /* Faz o container ocupar toda a largura */
-				padding-left: 15px;   /* Define um novo espaçamento esquerdo */
-				padding-right: 15px;  /* Define um novo espaçamento direito */
+				width: 100%;
+				padding-left: 15px;
+				padding-right: 15px;
 			}
 			.filters {
-				gap: 8px; /* Reduz o espaço ENTRE os campos (era 15px) */
+				gap: 8px;
 			}
-
 			.filters select {
-				padding-left: 6px;  /* Reduz o espaçamento interno do seletor */
-				padding-right: 6px; /* para o texto caber confortavelmente */
+				padding-left: 6px;
+				padding-right: 6px;
 			}
         }
     </style>
@@ -367,17 +335,18 @@
             </div>
             <button id="botaoAcao" onclick="acaoFormulario()">Cadastrar</button>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Apelido</th>
-                    <th>Sócio</th>
-                </tr>
-            </thead>
-            <tbody id="tabela-jogadores"></tbody>
-        </table>
     </div>
+
+    <table id="tabelaJogadoresContainer">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Apelido</th>
+                <th>Sócio</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-jogadores"></tbody>
+    </table>
 
     <div id="aniversariosTab" class="tab-content">
         <div class="birthday-container">
@@ -411,7 +380,6 @@
     </div>
 
     <script>
-        // Configuração do Firebase
         const firebaseConfig = {
             apiKey: "SUA_API_KEY",
             authDomain: "agenda-5ce95.firebaseapp.com",
@@ -421,14 +389,9 @@
             messagingSenderId: "852007565195",
             appId: "1:852007565195:web:d7bd789d140858f53f618e"
         };
-
-        // Inicialização do Firebase
         const app = firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
         
-        // =========================================================================
-        // INÍCIO: CÓDIGO ORIGINAL DO cadastro-bk.html (INTACTO)
-        // =========================================================================
         let modoCadastro = true;
         let placeholderSpan = null;
         let criteriosConsulta = { nome: "", apelido: "", socio: "", classe: "", niver: "" };
@@ -472,21 +435,16 @@
             const classe = document.getElementById("classe").value;
             let niver = document.getElementById("niver").value;
             const piramide = document.getElementById("piramide").value.trim();
-
             if (nome === "" || apelido === "" || niver === "") return alert("Preencha todos os campos obrigatórios.");
-            
             const partesData = niver.split("-");
             if (partesData.length === 3) niver = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
-            
             if (!/^[A-Z\s]+$/.test(nome)) return alert("O nome deve conter apenas letras e espaços.");
             if (socio === "") return alert("Escolha um tipo de sócio.");
             if (classe === "" && document.getElementById("classe").selectedIndex === 0) return alert("Escolha uma classe ou selecione '(Sem classe)'");
-
             apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
             const piramideValue = piramide.trim() === "" ? "" : piramide;
             const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
             const apelidoRef = database.ref("sistemas/cadastro/apelidos/" + apelido);
-
             const [ano, mes, dia] = partesData;
             const dataNascimento = new Date(ano, mes - 1, dia);
             const hoje = new Date();
@@ -494,7 +452,6 @@
             if (hoje.getMonth() < dataNascimento.getMonth() || (hoje.getMonth() === dataNascimento.getMonth() && hoje.getDate() < dataNascimento.getDate())) {
                 idade--;
             }
-
             if (idade > 21 && socio === "dependente") {
                 const relacionamento = prompt("Dependente maior de 21 anos. É cônjuge ou filho(a)?").trim().toLowerCase();
                 const conjugeAceito = ["conjuge", "cônjuge", "esposa", "esposo", "marido"].includes(relacionamento);
@@ -504,11 +461,18 @@
                     return;
                 }
             }
-
             jogadorRef.get().then(snapshot => {
-                if (snapshot.exists()) return alert("Já existe um jogador com esse Nome.");
+                if (snapshot.exists()) {
+                    alert("Já existe um jogador com esse Nome.");
+                    limparCampos();
+                    return;
+                }
                 apelidoRef.get().then(snapshot => {
-                    if (snapshot.exists()) return alert("Já existe um jogador com esse Apelido.");
+                    if (snapshot.exists()) {
+                        alert("Já existe um jogador com esse Apelido.");
+                        limparCampos();
+                        return;
+                    }
                     jogadorRef.set({ apelido, socio, classe, niver, piramide: piramideValue })
                         .then(() => apelidoRef.set(true).then(() => {
                             alert("Jogador cadastrado com sucesso!");
@@ -541,11 +505,9 @@
             let piramide = document.getElementById("piramide").value.trim();
             const filtrarPiramide = document.getElementById("filtrarPiramide").checked;
             const piramideAtivada = document.getElementById("simbolo_piramide").classList.contains("piramide-clicada");
-
             if (Object.values(criteriosConsulta).every(v => v === "") && piramide === "" && !filtrarPiramide && !piramideAtivada) {
                 return alert("Digite pelo menos um critério para consulta.");
             }
-
             const tabela = document.getElementById("tabela-jogadores");
             tabela.innerHTML = "";
             database.ref("sistemas/cadastro/jogadores").once("value", snapshot => {
@@ -554,13 +516,11 @@
                     const jogadorNome = childSnapshot.key;
                     const jogador = childSnapshot.val();
                     if (jogadorNome.toUpperCase() === "CONVIDADO") return;
-
                     const jogadorApelido = jogador.apelido.toLowerCase();
                     const jogadorSocio = jogador.socio;
                     const jogadorClasse = jogador.classe || "";
                     const jogadorNiver = jogador.niver || "";
                     const jogadorPiramide = jogador.piramide || "";
-
                     const filtroNome = criteriosConsulta.nome === "" || jogadorNome.includes(criteriosConsulta.nome);
                     const filtroApelido = criteriosConsulta.apelido === "" || jogadorApelido.includes(criteriosConsulta.apelido);
                     let filtroSocio = true;
@@ -574,7 +534,6 @@
                     if (piramideAtivada && filtrarPiramide) filtroPiramide = (jogadorPiramide === piramide) && (jogadorPiramide >= 1 && jogadorPiramide <= 99);
                     else if (piramideAtivada) filtroPiramide = jogadorPiramide >= 1 && jogadorPiramide <= 99;
                     else if (filtrarPiramide) filtroPiramide = piramide === "" ? jogadorPiramide === "" : jogadorPiramide === piramide;
-
                     if (filtroNome && filtroApelido && filtroSocio && filtroClasse && filtroNiver && filtroPiramide) {
                         encontrado = true;
                         const row = document.createElement("tr");
@@ -609,8 +568,14 @@
                     if (jogador.niver && jogador.niver.includes('/')) {
                         const [dia, mes, ano] = jogador.niver.split('/');
                         niverInput.value = `${ano}-${mes}-${dia}`;
+                        if (placeholderSpan) {
+                            placeholderSpan.style.display = 'none';
+                        }
                     } else {
                         niverInput.value = "";
+                        if (placeholderSpan) {
+                            placeholderSpan.style.display = 'inline';
+                        }
                     }
                     document.getElementById("piramide").value = jogador.piramide || "";
                     document.getElementById("nome").disabled = true;
@@ -620,7 +585,7 @@
                     alert("Jogador não encontrado.");
                 }
             });
-        }
+	    }
 
         function salvarJogador() {
             const nome = document.getElementById("nome").value.trim().toUpperCase();
@@ -629,18 +594,49 @@
             const classe = document.getElementById("classe").value;
             let niver = document.getElementById("niver").value;
             const piramide = document.getElementById("piramide").value.trim();
-            if (niver) niver = niver.split("-").reverse().join("/");
+            if (niver) {
+                niver = niver.split("-").reverse().join("/");
+            }
             apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
             const piramideValue = piramide.trim() === "" ? "" : piramide;
-            
+            let mensagemConfirmacao = `
+                Confirme os dados do jogador:
+                Nome: ${nome}
+                Apelido: ${apelido}
+                Sócio: ${socio}
+                Classe: ${classe || "(Sem classe)"}
+                Data de Nascimento: ${niver || "(Não informada)"}
+                Pirâmide: ${piramideValue || "(Não informada)"}
+            `;
+            const confirmacao = confirm(mensagemConfirmacao);
+            if (!confirmacao) {
+                return;
+            }
+            const criteriosOriginais = { ...criteriosConsulta };
             database.ref("sistemas/cadastro/jogadores/" + nome).update({
-                apelido: apelido || "", socio: socio || "", classe: classe || "", niver: niver, piramide: piramideValue
+                apelido: apelido || "",
+                socio: socio || "",
+                classe: classe || "",
+                niver: niver,
+                piramide: piramideValue
             }).then(() => {
                 alert("Jogador atualizado com sucesso!");
                 limparCampos();
-                if (!modoCadastro) consultarJogador();
-                else carregarJogadores();
+                if (!modoCadastro && (criteriosOriginais.nome || criteriosOriginais.apelido || criteriosOriginais.socio || criteriosOriginais.classe || criteriosOriginais.niver)) {
+                    criteriosConsulta = { ...criteriosOriginais };
+                    document.getElementById("nome").value = criteriosConsulta.nome;
+                    document.getElementById("apelido").value = criteriosConsulta.apelido;
+                    document.getElementById("socio").value = criteriosConsulta.socio;
+                    document.getElementById("classe").value = criteriosConsulta.classe || "";
+                    document.getElementById("niver").value = criteriosConsulta.niver;
+                    consultarJogador();
+                } else {
+                    carregarJogadores();
+                }
                 document.getElementById("botaoAcao").textContent = modoCadastro ? "Cadastrar" : "Consultar";
+            }).catch((error) => {
+                console.error("Erro ao atualizar jogador:", error);
+                alert("Ocorreu um erro ao atualizar o jogador.");
             });
         }
 
@@ -743,51 +739,31 @@
             }
         }
         
-        function atualizarAba(titulo, textoBotao) {
-            document.getElementById("titulo").textContent = titulo;
-            document.getElementById("botaoAcao").textContent = textoBotao;
-        }
-
-        window.onload = function() {
-            carregarJogadores();
-        };
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const piramideInput = document.getElementById("piramide");
-            const filtrarPiramideCheckbox = document.getElementById("filtrarPiramide");
-            const cadastroTab = document.querySelector(".tab-button:nth-child(1)");
-            const consultaTab = document.querySelector(".tab-button:nth-child(2)");
-            function configurarCadastro() {
-                piramideInput.value = "";
-                filtrarPiramideCheckbox.checked = false;
-                filtrarPiramideCheckbox.disabled = true;
-            }
-            filtrarPiramideCheckbox.addEventListener("change", function () {
-                if (this.checked) {
-                    piramideInput.disabled = false;
-                    piramideInput.focus();
+        function mostrarAba(event, abaId) {
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('selected'));
+            event.target.classList.add('selected');
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            const footer = document.getElementById('footer');
+            const tabela = document.getElementById('tabelaJogadoresContainer');
+            if (abaId === 'aniversarios') {
+                document.getElementById('aniversariosTab').classList.add('active');
+                footer.style.display = 'none';
+                tabela.style.display = 'none';
+                loadBirthdayData();
+            } else {
+                document.getElementById('cadastroConsultaTab').classList.add('active');
+                footer.style.display = 'block';
+                tabela.style.display = 'table';
+                if (abaId === 'cadastro') {
+                    const cadastroTabButton = document.querySelector('.tab-button[onclick*="cadastro"]');
+                    mostrarCadastro({ target: cadastroTabButton });
                 } else {
-                    piramideInput.value = "";
-                    piramideInput.disabled = true;
+                    const consultaTabButton = document.querySelector('.tab-button[onclick*="consulta"]');
+                    mostrarConsulta({ target: consultaTabButton });
                 }
-            });
-            configurarCadastro();
-            cadastroTab.addEventListener("click", configurarCadastro);
-            consultaTab.addEventListener("click", function () {
-                piramideInput.disabled = true;
-                piramideInput.value = "";
-                filtrarPiramideCheckbox.checked = false;
-                filtrarPiramideCheckbox.disabled = false;
-            });
-        });
-        // =========================================================================
-        // FIM: CÓDIGO ORIGINAL DO cadastro-bk.html
-        // =========================================================================
-
-
-        // =========================================================================
-        // INÍCIO: CÓDIGO NOVO PARA A FUNCIONALIDADE DE ANIVERSÁRIOS
-        // =========================================================================
+            }
+        }
+        
         let allPlayersBirthday = [];
         const nameSearch = document.getElementById('nameSearch');
         const monthFilter = document.getElementById('monthFilter');
@@ -837,13 +813,11 @@
                 (player.fullName.toLowerCase().includes(searchTerm) || player.nickname.toLowerCase().includes(searchTerm)) &&
                 (selectedMonth === 0 || player.month === selectedMonth)
             );
-
             birthdayList.innerHTML = '';
             if (filteredPlayers.length === 0) {
                 birthdayList.innerHTML = '<p class="status-message">Nenhum aniversariante encontrado.</p>';
                 return;
             }
-
             const groupedByMonth = {};
             filteredPlayers.forEach(player => {
                 if (!groupedByMonth[player.month]) groupedByMonth[player.month] = [];
@@ -852,7 +826,6 @@
             for (const month in groupedByMonth) {
                 groupedByMonth[month].sort((a, b) => a.day - b.day);
             }
-            
             Object.keys(groupedByMonth).sort((a,b) => a - b).forEach(month => {
                 const monthDiv = document.createElement('div');
                 monthDiv.className = 'month-group';
@@ -881,45 +854,13 @@
             });
         }
         
-        // Função principal para controlar a visibilidade das abas
-        function mostrarAba(event, abaId) {
-            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('selected'));
-            event.target.classList.add('selected');
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            const footer = document.getElementById('footer');
-
-            if (abaId === 'aniversarios') {
-                document.getElementById('aniversariosTab').classList.add('active');
-                footer.style.display = 'none';
-                loadBirthdayData();
-            } else {
-                document.getElementById('cadastroConsultaTab').classList.add('active');
-                footer.style.display = 'block';
-                if (abaId === 'cadastro') {
-                    // Chama a função original para configurar a aba de cadastro
-                    const cadastroTabButton = document.querySelector('.tab-button[onclick*="cadastro"]');
-                    mostrarCadastro({ target: cadastroTabButton });
-                } else {
-                    // Chama a função original para configurar a aba de consulta
-                    const consultaTabButton = document.querySelector('.tab-button[onclick*="consulta"]');
-                    mostrarConsulta({ target: consultaTabButton });
-                }
-            }
-        }
-        
-        // Inicializa a página
         document.addEventListener('DOMContentLoaded', () => {
-            // A função `mostrarAba` já cuida de chamar `mostrarCadastro`
             const selectedButton = document.querySelector('.tab-button.selected');
             mostrarAba({ target: selectedButton }, 'cadastro');
-            
-            // Listeners para a aba de aniversários
             nameSearch.addEventListener('input', renderBirthdayList);
             monthFilter.addEventListener('change', renderBirthdayList);
         });
-        // =========================================================================
-        // FIM: CÓDIGO NOVO PARA A FUNCIONALIDADE DE ANIVERSÁRIOS
-        // =========================================================================
     </script>
 </body>
 </html>
+}
