@@ -11,7 +11,7 @@
 <style>
 /* Estilos globais */
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif; 
     margin: 0;
     padding: 0;
 }
@@ -997,7 +997,7 @@ body.dark-mode #loading {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.5.0'; // Versão atual do sistema
+const VersaoSistema = 'v1.5.1'; // Versão atual do sistema
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -1988,6 +1988,13 @@ function validarDiaReserva(jogadores) {
 
 async function validarSeTemReserva(jogadores) {
     console.log("Iniciando validação de reservas...");
+	
+	// Verifica se o usuário logado é o 'ERIK MANUTENCAO'.
+    const jogadorLogado = localStorage.getItem('jogadorLogado');
+    if (jogadorLogado && jogadorLogado.trim().toUpperCase() === 'ERIK MANUTENCAO') {
+        console.log("Validação de reserva ativa ignorada para o usuário de manutenção.");
+        return true; // Se for, permite o agendamento e encerra a função aqui.
+    }
 
 	// Se algum jogador for "aula" , retorna true imediatamente
 	if (jogadores.some(jogador => {
