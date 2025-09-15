@@ -16,7 +16,7 @@
     }
 
     h1 {
-      text-align: center;
+      text-align: center; 
       color: #0056b3;
     }
 
@@ -35,13 +35,18 @@
 
     h3 {
       margin-top: 25px;
-      border-bottom: 1px solid #eee; 
+      border-bottom: 1px solid #eee;  
       padding-bottom: 5px;
     }
 
-    ul {
+    ul, ol {
       list-style-type: none;
       padding: 0;
+    }
+    
+    ol {
+        padding-left: 20px;
+        list-style-type: decimal;
     }
 
     li {
@@ -135,9 +140,9 @@
     <ul>
       <li>Os encontros devem ser realizados nas <strong>quadras do ECO Olímpico</strong>.</li>
       <li>A quadra padrão é a <strong>Quadra 2 - Aberta</strong>, mas outras poderão ser liberadas pela Coordenação.</li>
-      <li>A reserva das quadras deve ser feita no <strong>Sistema de Reservas</strong> no grupo "Amigos do Tênis Olímpico" no WhatsApp, na opção "Pirâmide".</li>
-      <li>A data e hora do encontro devem ser comunicadas pelo <strong>DESAFIANTE</strong> no grupo do WhatsApp da Pirâmide.</li>
-      <li>Após o encontro, o vencedor deve comunicar o resultado com os parciais no grupo da Pirâmide.</li>
+      <li>A reserva das quadras deve ser feita no <strong>Sistema de Reservas</strong>, selecionando a opção "Pirâmide".</li>
+      <li>A data e hora do encontro podem ser comunicadas pelo <strong>DESAFIANTE</strong> no grupo do WhatsApp da Pirâmide para fins de organização.</li>
+      <li>Após o encontro, o vencedor deve <strong>informar o resultado diretamente no Sistema de Reservas</strong>.</li>
     </ul>
     <p style="font-size: 0.9em; font-weight: bold; font-style: italic; background-color: #fff8dc; padding: 10px; border-radius: 5px; text-align: justify;">
       <strong>Atenção:</strong> Partidas da Pirâmide podem ocorrer sem reserva no sistema, por conta e risco dos jogadores. Sócios com agendamento prévio terão prioridade na quadra.
@@ -155,8 +160,47 @@
   </div>
 
   <div class="section">
-    <h2>Atualização do Ranking e Contribuição</h2>
-    <p>O ranking será atualizado pela coordenação após o vencedor enviar o resultado da partida via WhatsApp. Será cobrado um valor de <strong>R$ 5,00 por jogo</strong> para cobrir despesas, pago via Pix.</p>
+    <h2>Informando Resultados e Atualização do Ranking</h2>
+    <p>O processo de registro de resultados e atualização do ranking agora é feito de forma automática e transparente pelo sistema.</p>
+    
+    <h3>Passo 1: Informando o Resultado (Ação do Vencedor)</h3>
+    <p>Após a partida, o <strong>vencedor</strong> deve acessar o Sistema de Reservas, clicar na reserva do jogo e selecionar a opção <strong>"Informar Resultado"</strong>. Uma tela aparecerá para que os placares de cada set sejam inseridos. Após salvar, o resultado fica "pendente de confirmação".</p>
+    <p class="highlight">Atenção: Apenas o jogador declarado como vencedor no placar pode salvar o resultado.</p>
+
+    <h3>Passo 2: Confirmação do Resultado (Ação do Oponente)</h3>
+    <p>O oponente (perdedor) receberá uma notificação no sistema para validar o placar informado. Ele terá três opções, que aparecerão como botões na tela:</p>
+    
+    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+        <button style="background-color: transparent; border: none; padding: 0; cursor: default; font-size: 1em; text-align: left; color: inherit;">
+            ✅ <strong style="background-color: #28a745; color: white; padding: 2px 8px; border-radius: 5px;">Aprovar</strong>: Confirma o resultado. A partida é finalizada e o ranking é atualizado.
+        </button>
+        <button style="background-color: transparent; border: none; padding: 0; cursor: default; font-size: 1em; text-align: left; color: inherit;">
+            ❌ <strong style="background-color: #dc3545; color: white; padding: 2px 8px; border-radius: 5px;">Recusar</strong>: Contesta o resultado. A partida entra em "disputa" e o Árbitro do torneio é notificado para resolver.
+        </button>
+        <button style="background-color: transparent; border: none; padding: 0; cursor: default; font-size: 1em; text-align: left; color: inherit;">
+            🕒 <strong style="background-color: #ffc107; color: #333; padding: 2px 8px; border-radius: 5px;">Depois</strong>: Adia a decisão. A notificação aparecerá novamente no próximo acesso.
+        </button>
+    </div>
+
+    <h3>Passo 3: Atualização Automática do Ranking</h3>
+    <p>Assim que o resultado é <strong>aprovado</strong> pelo oponente, o sistema realiza a atualização do ranking instantaneamente:</p>
+    <ul>
+        <li>Se o desafiante (com ranking mais baixo) vencer, o sistema **troca automaticamente** a posição dele com a do desafiado.</li>
+        <li>Se o desafiado (com ranking mais alto) vencer, as posições permanecem as mesmas.</li>
+    </ul>
+
+    <h3>Contribuição</h3>
+    <p>A taxa de <strong>R$ 5,00 por jogador</strong> para a premiação do torneio continua e deve ser paga via Pix para a Coordenação.</p>
+  </div>
+
+  <div class="section">
+    <h2>Como Acessar o Ranking</h2>
+    <p>Você pode visualizar a classificação completa a qualquer momento, seguindo estes passos:</p>
+    <ol>
+        <li>Acesse a página de Rankings do clube através do link 🏆 <strong>Rankings (Pirâmides e Duplas)</strong> que está na descrição do grupo do WhatsApp.</li>
+        <li>Na página que abrir, clique na aba correspondente à pirâmide que deseja visualizar (<strong style="background-color: #28a745; color: white; padding: 2px 8px; border-radius: 5px;">Pirâmide Masculina</strong> ou <strong style="background-color: #c2185b; color: white; padding: 2px 8px; border-radius: 5px;">Pirâmide Feminina</strong>).</li>
+    </ol>
+    <p>A página exibirá a pirâmide com a posição atualizada de cada jogador.</p>
   </div>
 
   <div class="section">
