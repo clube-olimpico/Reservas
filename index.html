@@ -997,7 +997,7 @@ body.dark-mode #loading {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.5.1'; // Versão atual do sistema
+const VersaoSistema = 'v1.5.2'; // Versão atual do sistema
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -1728,9 +1728,15 @@ function carregarReservas(quadra) {
 
                         let corFundo;
                         //if (jogadores.toLowerCase().includes('aula')) {
-						if (jogadores.toLowerCase().trim() === 'aula') {
-                            corFundo = 'lightcoral';
-                            cell.innerHTML = "aula";
+						const textoNormalizado = jogadores.toLowerCase().trim();
+                        if (textoNormalizado === 'aula' || textoNormalizado === 'manutencao') {
+                        corFundo = 'lightcoral';
+                            // Define o texto correto para cada caso
+                            if (textoNormalizado === 'aula') {
+                                cell.innerHTML = "aula";
+                            } else {
+                                cell.innerHTML = "Manutencao";
+                            }
                         } else if (duracao === 3 || (reservas[key.split('_')[0] + '_' + (hora - 1)] && reservas[key.split('_')[0] + '_' + (hora - 1)].duracao === 3)) {
                             corFundo = corPiramide; // APLICA A COR CORRETA DA PIRÂMIDE
 
