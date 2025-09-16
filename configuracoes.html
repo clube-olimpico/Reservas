@@ -1145,6 +1145,26 @@ input:disabled, select:disabled, button:disabled {
         gap: 5px;
     }
 }
+
+/* Atualiza o estilo do seletor 'Ativa' (adiciona negrito) */
+#duplasAtiva.duplas-on {
+    color: green;
+    font-weight: bold;
+}
+#duplasAtiva.duplas-off {
+    color: red;
+    font-weight: bold;
+}
+
+/* NOVO BLOCO: Estilo para o novo seletor 'Ranking' */
+#duplasRanking.ranking-on {
+    color: green;
+    font-weight: bold;
+}
+#duplasRanking.ranking-off {
+    color: red;
+    font-weight: bold;
+}
 </style>
 
 
@@ -1260,7 +1280,6 @@ input:disabled, select:disabled, button:disabled {
 						<option value="2">2</option>
 						<option value="3">3</option>
 						<option value="4">4</option>
-						<option value="5">5</option>
 					</select>
 				</div> 
 				
@@ -1411,6 +1430,12 @@ input:disabled, select:disabled, button:disabled {
             <div class="container duplas-ativa-container">
                 <label for="duplasAtiva">Ativa:</label>
                 <select id="duplasAtiva" onchange="atualizarEstadoDuplas()">
+                    <option value="ON">ON</option>
+                    <option value="OFF">OFF</option>
+                </select>
+                
+                <label for="duplasRanking" style="margin-left: 15px;">Ranking:</label> 
+                <select id="duplasRanking" onchange="atualizarEstadoDuplasRanking()">
                     <option value="ON">ON</option>
                     <option value="OFF">OFF</option>
                 </select>
@@ -2270,21 +2295,34 @@ function carregarConfiguracoes() {
 				    popularAdministradores(data.Administradores); 
                     document.getElementById('sistema').value = data.Abrir ? 'ON' : 'OFF'; 
                     atualizarEstadoSistema();
-                    document.getElementById('vDomingo').value = data.vDomingo || "aberto";  
-                    document.getElementById('vDomingoAte').value = data.vDomingoAte;
+					
+                    document.getElementById('vDomingo').value = data.vDomingo || "aberto";
+					document.getElementById('vDomingoAte').value = data.vDomingoAte || '';
 
-                    const campoAte = document.getElementById('vDomingoAte');
-const containerHorario = document.getElementById('containerHorarioDomingo');
-const vDomingoSelect = document.getElementById('vDomingo'); // Adicionamos uma variável para facilitar
-campoAte.value = data.vDomingoAte || '';
+					const vDomingoSelect = document.getElementById('vDomingo');
+					const containerHorario = document.getElementById('containerHorarioDomingo');
 
-if (vDomingoSelect.value === 'aberto') {
-    containerHorario.style.display = 'flex';
-    vDomingoSelect.classList.add('is-aberto'); // Adiciona a classe no carregamento
-} else {
-    containerHorario.style.display = 'none';
-    vDomingoSelect.classList.remove('is-aberto'); // Remove a classe no carregamento
-}
+					// --- INÍCIO DA CORREÇÃO ---
+					// Lógica que agora aplica o layout correto no carregamento da página
+					if (vDomingoSelect.value === 'aberto') {
+						containerHorario.style.display = 'flex';
+						if (window.innerWidth > 768) { // Aplica apenas no computador
+							vDomingoSelect.style.maxWidth = '100px';
+							vDomingoSelect.style.width = '120px';
+							vDomingoSelect.style.flex = '0 0 120px';
+						} else { // Aplica no celular
+							vDomingoSelect.classList.add('is-aberto');
+						}
+					} else {
+						containerHorario.style.display = 'none';
+						if (window.innerWidth > 768) { // Limpa os estilos no computador
+							vDomingoSelect.style.maxWidth = '';
+							vDomingoSelect.style.width = '';
+							vDomingoSelect.style.flex = '';
+						} else { // Limpa a classe no celular
+							vDomingoSelect.classList.remove('is-aberto');
+						}
+					}
 
                     document.getElementById('diasParaAgendar').value = (6 - (data.DiasParaLimpar || 6)).toString();
                     document.getElementById('estadoQuadra1').value = data.Quadras?.Quadra1 || "liberada";
@@ -2367,6 +2405,10 @@ if (vDomingoSelect.value === 'aberto') {
                     const quadra2D = duplas["Quadra-2"] || {};
                     const quadra3D = duplas["Quadra-3"] || {};
                     document.getElementById('duplasAtiva').value = duplas.ativa ? 'ON' : 'OFF';
+					
+					document.getElementById('duplasRanking').value = duplas.Ranking ? 'ON' : 'OFF';
+                    atualizarEstadoDuplasRanking();
+				
                     document.getElementById('duplasQuadra1Ativa').checked = quadra1D["Quadra-1-ativa"] || false;
                     document.getElementById('1-duplasSemana').checked = quadra1D["1-DiasDeSemana"] || false;
                     document.getElementById('1-duplasSemanaInicio').value = quadra1D["1-DiasDeSemana-Inicio"] || '';
@@ -2504,6 +2546,10 @@ if (vDomingoSelect.value === 'aberto') {
                 const quadra2D = duplas["Quadra-2"] || {};
                 const quadra3D = duplas["Quadra-3"] || {};
                 document.getElementById('duplasAtiva').value = duplas.ativa ? 'ON' : 'OFF';
+				
+				document.getElementById('duplasRanking').value = duplas.Ranking ? 'ON' : 'OFF';
+                atualizarEstadoDuplasRanking();
+				
                 document.getElementById('duplasQuadra1Ativa').checked = quadra1D["Quadra-1-ativa"] || false;
                 document.getElementById('1-duplasSemana').checked = quadra1D["1-DiasDeSemana"] || false;
                 document.getElementById('1-duplasSemanaInicio').value = quadra1D["1-DiasDeSemana-Inicio"] || '';
@@ -2631,6 +2677,7 @@ function salvarConfiguracoes() {
     // --- INÍCIO DA NOVA SEÇÃO PARA DUPLAS ---
     const duplas = {
         ativa: document.getElementById('duplasAtiva').value === 'ON',
+		Ranking: document.getElementById('duplasRanking').value === 'ON',
         "Quadra-1": {
             "Quadra-1-ativa": document.getElementById('duplasQuadra1Ativa').checked,
             "1-DiasDeSemana": document.getElementById('1-duplasSemana').checked,
@@ -3670,7 +3717,7 @@ function handleQuebraHorarioChange() {
     // Depois, verifica se o valor é OFF para abrir o modal
     const quebraSelect = document.getElementById('quebraHorarioDomingoAtiva');
     if (quebraSelect.value === 'OFF') {
-        abrirModalQuebraHorario();
+        abrirModalQuebraHorario(); 
     }
 }
 
@@ -4042,6 +4089,22 @@ async function selecionarNovoArbitro(nomeCompleto, apelido) { // Agora recebe am
 // =======================================================================
 // FIM: LÓGICA PARA MUDAR O ÁRBITRO
 // =======================================================================
+
+
+// ADICIONE ESTA NOVA FUNÇÃO COMPLETA
+function atualizarEstadoDuplasRanking() {
+    const rankingSelect = document.getElementById('duplasRanking');
+    const isAtiva = rankingSelect.value === 'ON';
+
+    if (isAtiva) {
+        rankingSelect.classList.remove('ranking-off');
+        rankingSelect.classList.add('ranking-on');
+    } else {
+        rankingSelect.classList.remove('ranking-on');
+        rankingSelect.classList.add('ranking-off');
+    }
+}
+
 
 </script>
 </body>
