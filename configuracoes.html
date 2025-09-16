@@ -1165,6 +1165,18 @@ input:disabled, select:disabled, button:disabled {
     color: red;
     font-weight: bold;
 }
+
+
+/* --- INÍCIO DOS AJUSTES VISUAIS DO LABEL RANKING --- */
+#labelDuplasRanking.clickable-reset {
+    cursor: pointer;           /* 1. Altera o cursor para a "mãozinha" */
+    user-select: none;         /* 2. Impede a seleção do texto (padrão) */
+    -webkit-user-select: none; /* Para navegadores Chrome/Safari */
+    -ms-user-select: none;     /* Para navegadores Microsoft */
+}
+/* --- FIM DOS AJUSTES --- */
+
+
 </style>
 
 
@@ -1434,7 +1446,7 @@ input:disabled, select:disabled, button:disabled {
                     <option value="OFF">OFF</option>
                 </select>
                 
-                <label for="duplasRanking" style="margin-left: 15px;">Ranking:</label> 
+                <label id="labelDuplasRanking" for="duplasRanking" style="margin-left: 15px;" title="Com o Ranking em OFF, dê um triplo clique aqui para zerar os dados do ranking.">Ranking:</label> 
                 <select id="duplasRanking" onchange="atualizarEstadoDuplasRanking()">
                     <option value="ON">ON</option>
                     <option value="OFF">OFF</option>
@@ -4094,16 +4106,124 @@ async function selecionarNovoArbitro(nomeCompleto, apelido) { // Agora recebe am
 // ADICIONE ESTA NOVA FUNÇÃO COMPLETA
 function atualizarEstadoDuplasRanking() {
     const rankingSelect = document.getElementById('duplasRanking');
+    const labelRanking = document.getElementById('labelDuplasRanking'); // Pega o elemento do label
     const isAtiva = rankingSelect.value === 'ON';
 
     if (isAtiva) {
         rankingSelect.classList.remove('ranking-off');
         rankingSelect.classList.add('ranking-on');
+        // Se o ranking está ON, remove a classe clicável do label
+        if (labelRanking) {
+            labelRanking.classList.remove('clickable-reset');
+        }
     } else {
         rankingSelect.classList.remove('ranking-on');
         rankingSelect.classList.add('ranking-off');
+        // Se o ranking está OFF, adiciona a classe clicável ao label
+        if (labelRanking) {
+            labelRanking.classList.add('clickable-reset');
+        }
     }
 }
+
+
+
+// =======================================================================
+// INÍCIO: LÓGICA PARA ZERAR O RANKING DE DUPLAS
+// =======================================================================
+
+/**
+ * Zera os campos 'jogosDeDuplasJogados' e 'vitoriasEmDuplas' para todos os jogadores.
+ */
+async function zerarRankingDuplas() {
+    console.log("Iniciando processo para zerar o ranking de duplas...");
+    const jogadoresRef = db.ref('sistemas/cadastro/jogadores');
+    
+    try {
+        const snapshot = await jogadoresRef.once('value');
+        const jogadores = snapshot.val();
+        
+        if (!jogadores) {
+            alert("Nenhum jogador encontrado no cadastro.");
+            return;
+        }
+
+        const updates = {};
+        let jogadoresAfetados = 0;
+
+        // Itera sobre cada jogador para preparar a atualização
+        for (const nomeCompleto in jogadores) {
+            const jogador = jogadores[nomeCompleto];
+            // Verifica se o jogador tem dados de ranking para serem zerados
+            if (jogador.jogosDeDuplasJogados || jogador.vitoriasEmDuplas) {
+                updates[`sistemas/cadastro/jogadores/${nomeCompleto}/jogosDeDuplasJogados`] = 0;
+                updates[`sistemas/cadastro/jogadores/${nomeCompleto}/vitoriasEmDuplas`] = 0;
+                jogadoresAfetados++;
+            }
+        }
+
+        if (jogadoresAfetados === 0) {
+            alert("Nenhum jogador com dados de ranking para zerar.");
+            return;
+        }
+
+        // Envia todas as atualizações para o Firebase de uma só vez
+        await db.ref().update(updates);
+        
+        alert(`O ranking de duplas foi zerado com sucesso para ${jogadoresAfetados} jogador(es)!`);
+        console.log("Ranking de duplas zerado com sucesso.");
+
+    } catch (error) {
+        console.error("Erro ao zerar o ranking de duplas:", error);
+        alert("Ocorreu um erro ao tentar zerar o ranking. Verifique o console para mais detalhes.");
+    }
+}
+
+// =======================================================================
+// FIM: LÓGICA PARA ZERAR O RANKING DE DUPLAS
+// =======================================================================
+
+
+// --- LÓGICA PARA O GATILHO DE TRIPLO CLIQUE ---
+document.addEventListener('DOMContentLoaded', function() {
+    const labelRanking = document.getElementById('labelDuplasRanking');
+    if (!labelRanking) return;
+
+    let clickCount = 0;
+    let clickTimer = null;
+
+    labelRanking.addEventListener('click', function() {
+        clickCount++;
+
+        if (clickCount === 1) {
+            clickTimer = setTimeout(() => {
+                // Reseta o contador se o tempo expirar
+                clickCount = 0;
+            }, 600); // O usuário tem 600ms entre os cliques
+        }
+
+        if (clickCount === 3) {
+            clearTimeout(clickTimer);
+            clickCount = 0;
+            
+            // 1. Condição: Verifica se o Ranking está OFF
+            const rankingSelect = document.getElementById('duplasRanking');
+            if (rankingSelect.value === 'OFF') {
+                
+                // 2. Primeira confirmação
+                if (confirm("Deseja zerar permanentemente todo o histórico do Ranking de Duplas?")) {
+                    
+                    // 3. Segunda confirmação
+                    if (confirm("ATENÇÃO: Esta operação não pode ser desfeita. Tem certeza absoluta?")) {
+                        
+                        // 4. Ação
+                        zerarRankingDuplas();
+                    }
+                }
+            }
+        }
+    });
+});
 
 
 </script>
