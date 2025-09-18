@@ -1639,7 +1639,7 @@ body.dark-mode .tiebreak-paren {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.5.3'; // Versão atual do sistema      
+const VersaoSistema = 'v1.5.4'; // Versão atual do sistema      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -2523,14 +2523,16 @@ function carregarReservas(quadra) {
 											
 							const textoNormalizado = jogadores.toLowerCase().trim();
                             if (textoNormalizado === 'aula' || textoNormalizado === 'manutencao') {
-                                corFundo = 'lightcoral';
-                                // Define o texto correto para cada caso
-                                if (textoNormalizado === 'aula') {
-                                    cell.innerHTML = "aula";
-                                } else {
-                                    cell.innerHTML = "Manutencao";
-                                }
-                            }
+								corFundo = 'lightcoral';
+								// Define o texto E a cor para cada caso
+								if (textoNormalizado === 'aula') {
+									cell.innerHTML = "aula";
+									cell.style.color = ''; // <-- LINHA ADICIONADA: Reseta para a cor padrão (preto)
+								} else {
+									cell.innerHTML = "💦 Manutenção";
+									cell.style.color = 'white'; // Mantém a cor branca para Manutenção
+								}
+							}
                             else if (reserva.duracao === 3 || (reservas[`${dia}_${hora - 1}`] && reservas[`${dia}_${hora - 1}`].duracao === 3)) {
                                 corFundo = corPiramide;
                                 const jogadoresArray = jogadoresVisiveis.split(', ');
