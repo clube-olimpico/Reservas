@@ -1639,7 +1639,7 @@ body.dark-mode .tiebreak-paren {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.5.4'; // Versão atual do sistema      
+const VersaoSistema = 'v1.5.5'; // Versão atual do sistema      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -5269,6 +5269,42 @@ function fecharModalDetalhes() {
 function exibirDetalhesReserva(reserva) {
     if (!reserva) return;
 
+    // --- INÍCIO DA NOVA FUNCIONALIDADE ---
+    // Verifica se a reserva é de Manutenção
+    if ((reserva.jogadores || "").toLowerCase().trim() === 'manutencao') {
+        const modal = document.getElementById('modalDetalhesReserva');
+        const modalTitle = document.querySelector('#modalDetalhesReserva h3');
+        const organizadorRow = document.getElementById('modal-organizador').parentElement;
+        const jogadoresDiv = document.getElementById('modal-jogadores');
+        const jogadoresLabel = jogadoresDiv.previousElementSibling;
+        const statusElement = document.getElementById('modal-status');
+        const resultadoContainer = document.getElementById('modal-resultado-container');
+
+        // Garante que os elementos que não são de manutenção estejam no estado correto (visíveis)
+        modalTitle.textContent = 'Detalhes da Manutenção';
+        organizadorRow.style.display = 'none'; // Esconde a linha do organizador
+        if (jogadoresLabel) jogadoresLabel.style.display = 'none'; // Esconde o rótulo "Jogadores"
+        resultadoContainer.style.display = 'none'; // Garante que a seção de resultado não apareça
+
+        // Preenche os detalhes da manutenção
+        document.getElementById('modal-quadra').textContent = quadraSelecionada;
+        document.getElementById('modal-dia').textContent = document.querySelector(`#dia option[value="${reserva.dia}"]`).textContent;
+        document.getElementById('modal-data').textContent = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
+        document.getElementById('modal-duracao').textContent = '1 Hora';
+        document.getElementById('modal-horario').textContent = `${String(reserva.hora).padStart(2, '0')}:00 - ${String(reserva.hora + 1).padStart(2, '0')}:00`;
+        statusElement.textContent = 'Manutenção';
+        statusElement.style.color = ''; // Remove cor especial de status
+
+        // Adiciona a mensagem personalizada
+        jogadoresDiv.innerHTML = `<p style="margin: 0;">Este horário está reservado para a manutenção periódica da quadra.</p>`;
+
+        modal.style.display = 'flex';
+        return; // Interrompe a função aqui para não executar a lógica de reservas normais
+    }
+    // --- FIM DA NOVA FUNCIONALIDADE ---
+
+    // O CÓDIGO ORIGINAL E FUNCIONAL COMEÇA AQUI E PERMANECE INTOCADO
+
     let listaDeApelidos = [];
     if (reserva.jogadores_completo) {
         listaDeApelidos = reserva.jogadores_completo.split(',').map(j => j.trim());
@@ -5285,6 +5321,12 @@ function exibirDetalhesReserva(reserva) {
             }
         }
     }
+
+    // Garante que o título e os labels estejam visíveis para reservas normais
+    document.querySelector('#modalDetalhesReserva h3').textContent = 'Detalhes da Reserva';
+    document.getElementById('modal-organizador').parentElement.style.display = 'block';
+    const jogadoresLabelOriginal = document.getElementById('modal-jogadores').previousElementSibling;
+    if(jogadoresLabelOriginal) jogadoresLabelOriginal.style.display = 'block';
 
     // Preenche os detalhes básicos da reserva
     document.getElementById('modal-quadra').textContent = quadraSelecionada;
@@ -5320,19 +5362,12 @@ function exibirDetalhesReserva(reserva) {
     } else {
         statusElement.style.color = isDarkMode ? '#66BB6A' : 'green';
     }
-    
-    // --- INÍCIO DA ATUALIZAÇÃO DA LÓGICA DE EXIBIÇÃO ---
-
+	
     const temResultado = reserva.resultado || reserva.resultadoDuplas;
 
     if (temResultado) {
-        // Cenário 1: Com Resultado (lista de jogadores simplificada)
-        //jogadoresDiv.innerHTML = `<p style="margin: 0; font-size: 0.95em;">${listaDeApelidos.map(j => j.toUpperCase()).join(', ')}</p>`;
-		//jogadoresDiv.innerHTML = `<p style="margin: 0; font-size: 0.95em;"><strong>Jogadores:</strong> <em>${listaDeApelidos.map(j => capitalizarNome(j)).join(', ')}</em></p>`;
 		jogadoresDiv.innerHTML = `<p style="margin: 0; font-size: 0.95em;"><em>${listaDeApelidos.map(j => capitalizarNome(j)).join(', ')}</em></p>`;
-
         
-        // Exibe o placar correspondente
         resultadoContainer.style.display = 'block';
         if (reserva.resultado) { // Pirâmide
             resultadoPlacarDiv.innerHTML = gerarPlacarHtml(reserva.resultado, listaDeApelidos[0], listaDeApelidos[1]);
@@ -5356,11 +5391,9 @@ function exibirDetalhesReserva(reserva) {
         jogadoresHtml += '</ul>';
         jogadoresDiv.innerHTML = jogadoresHtml;
     }
-    // --- FIM DA ATUALIZAÇÃO DA LÓGICA DE EXIBIÇÃO ---
-
+    
     document.getElementById('modalDetalhesReserva').style.display = 'flex';
 }
-
 
 
 
