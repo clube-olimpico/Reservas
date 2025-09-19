@@ -1639,7 +1639,7 @@ body.dark-mode .tiebreak-paren {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.5.5'; // Versão atual do sistema      
+const VersaoSistema = 'v1.5.6'; // Versão atual do sistema      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -2498,7 +2498,6 @@ function carregarReservas(quadra) {
                             }
 
                         } else {
-                            // --- INÍCIO DA CORREÇÃO ---
                             // Lógica para reservas simples (Confirmação OFF)
                             const { jogadores, borda, confirmacoes } = reserva;
                             const isDarkMode = document.body.classList.contains('dark-mode');
@@ -2506,12 +2505,10 @@ function carregarReservas(quadra) {
                             const corReserva2h = isDarkMode ? 'CornflowerBlue' : 'lightblue';
                             const corPiramide = isDarkMode ? 'goldenrod' : '#FFEB99';
                             let corFundo;
-							
-							
-                            // Função auxiliar para filtrar jogadores recusados ANTES de exibir
+
                             const getJogadoresVisiveis = (listaJogadores, confirmacoesObj) => {
                                 if (!confirmacoesObj) {
-                                    return listaJogadores; // Se for reserva antiga, mostra todos
+                                    return listaJogadores;
                                 }
                                 const jogadoresArray = listaJogadores.split(', ').map(j => j.trim());
                                 const filtrados = jogadoresArray.filter(apelido => confirmacoesObj[apelido] !== 'recusado');
@@ -2519,22 +2516,21 @@ function carregarReservas(quadra) {
                             };
 
                             const jogadoresVisiveis = getJogadoresVisiveis(jogadores, confirmacoes);
-							
-											
-							const textoNormalizado = jogadores.toLowerCase().trim();
+                            
+                            const textoNormalizado = jogadores.toLowerCase().trim();
                             if (textoNormalizado === 'aula' || textoNormalizado === 'manutencao') {
 								corFundo = 'lightcoral';
-								// Define o texto E a cor para cada caso
 								if (textoNormalizado === 'aula') {
 									cell.innerHTML = "aula";
-									cell.style.color = ''; // <-- LINHA ADICIONADA: Reseta para a cor padrão (preto)
+									cell.style.color = ''; 
 								} else {
-									cell.innerHTML = "💦 Manutenção";
-									cell.style.color = 'white'; // Mantém a cor branca para Manutenção
+									cell.innerHTML = "🧹 Manutenção";
+									cell.style.color = 'white';
 								}
 							}
                             else if (reserva.duracao === 3 || (reservas[`${dia}_${hora - 1}`] && reservas[`${dia}_${hora - 1}`].duracao === 3)) {
                                 corFundo = corPiramide;
+                                cell.style.color = ''; // <-- CORREÇÃO ADICIONADA AQUI
                                 const jogadoresArray = jogadoresVisiveis.split(', ');
                                 const jogadoresFormatados = jogadoresArray.map(apelido => {
                                     const jogadorInfo = jogadoresData[apelido.trim()];
@@ -2550,6 +2546,7 @@ function carregarReservas(quadra) {
                             else {
                                 corFundo = reserva.duracao === 1 ? corReserva1h : corReserva2h;
                                 cell.innerHTML = jogadoresVisiveis;
+                                cell.style.color = ''; // <-- CORREÇÃO ADICIONADA AQUI
                             }
 
                             cell.style.backgroundColor = corFundo;
@@ -2587,7 +2584,6 @@ function carregarReservas(quadra) {
                                     }
                                 }
                             }
-                            // --- FIM DA CORREÇÃO ---
                         }
                     }
                 }
@@ -2597,7 +2593,6 @@ function carregarReservas(quadra) {
             }
         } 
         configurarEventosDaTabela();
-        //verificarConfirmacoesResultado();		
     });
 }
 
@@ -3148,7 +3143,7 @@ const isReservaParaHoje = (diaSelecionado === diaDaSemanaHoje);
         const reservas = snapshot.val() || {};
         const loopDuracao = duracao === 3 ? 2 : duracao;
         for (let i = 0; i < loopDuracao; i++) {
-            const horarioChave = `${dia}_${horaSelecionada + i}`;
+            const horarioChave = `${dia}_${horaSelecionada + i}`; 
             if (reservas[horarioChave]) {
                 throw new Error('Um ou mais horários já estão reservados para essa quadra!');
             }
