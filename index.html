@@ -1948,8 +1948,8 @@ function InicializarSistema() {
 				  // Permissão para abrir o sistema
 				  if (config && config.Abrir === false) {
 				    alert("⚠️ Atenção:\n\nO sistema está em manutenção provisória no momento.\nPor favor, tente novamente mais tarde.\n\nObrigado pela compreensão.");
-					 //location.reload(true);
-					 window.close();
+					 location.reload(true);
+					 //window.close();
 					return;
 				  }
 				} else {
