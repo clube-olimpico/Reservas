@@ -31,6 +31,7 @@ body {
     width: 95%;
     max-width: 350px;
     text-align: center; 
+	z-index: 1000; /* ADICIONE ESTA LINHA */
 }
 
 /* Cabeçalho da tela de login */
@@ -1115,6 +1116,21 @@ body.dark-mode .tiebreak-paren {
     z-index: 1001;      /* Um valor alto, mas MENOR que o z-index dos modais (2000) */
 }
 
+
+
+/* Estilo para o fundo desfocado da página inteira */
+.page-overlay {
+    display: none; /* Começa oculto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Usa o mesmo fundo dos outros modais */
+    backdrop-filter: blur(5px); /* O efeito de desfoque */
+    z-index: 999; /* Fica atrás da janela de login, mas na frente do resto */
+}
+
 </style>
 
 
@@ -1124,7 +1140,7 @@ body.dark-mode .tiebreak-paren {
 <body> 
 
  <!-- Tela de carregamento -->
-    <div id="loading" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem; background-color: white; width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center; z-index: 9999;">
+    <div id="pageOverlay" class="page-overlay"></div> <div id="loading" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem; background-color: white; width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center; z-index: 9999;">
         Carregando... Aguarde.
     </div>
 
@@ -1624,7 +1640,7 @@ body.dark-mode .tiebreak-paren {
     toggleButton.addEventListener('click', function () {
         if (senhaInput.type === 'password') {
             senhaInput.type = 'text';
-            toggleButton.textContent = '🙈'; // Ícone de olho fechado
+            toggleButton.textContent = '🙈'; // Ícone de olho fechado 
         } else {
             senhaInput.type = 'password';
             toggleButton.textContent = '👁️'; // Ícone de olho aberto
@@ -1639,7 +1655,7 @@ body.dark-mode .tiebreak-paren {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.5.7'; // Versão atual do sistema      
+const VersaoSistema = 'v1.5.8'; // Versão atual do sistema      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -3996,6 +4012,7 @@ window.onload = function () {
                     checarAniversario();
                 } else {
                     // Se o usuário não está logado, mostra a tela de login
+					document.getElementById('pageOverlay').style.display = 'block';
                     loginScreen.style.display = 'block';
                 }
             }, 500); // Meio segundo de atraso. Ajuste se desejar.
@@ -4180,7 +4197,8 @@ function fazerLogin() {
         if (confirmacao) {
             // Grava o nome completo no localStorage
             localStorage.setItem('jogadorLogado', nomeCompleto); // Salva o nome completo
-			//alert('Resultado do teste isUsuarioAdmin(): ' + isUsuarioAdmin());
+			document.getElementById('pageOverlay').style.display = 'none'; // <-- ADICIONE ESTA LINHA
+            //alert('Resultado do teste isUsuarioAdmin(): ' + isUsuarioAdmin());
             loginScreen.style.display = 'none';
             contentElement.style.display = 'block';
 			atualizarPrimeiroAcesso(nomeCompleto); 
