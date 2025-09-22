@@ -1131,32 +1131,7 @@ body.dark-mode .tiebreak-paren {
     z-index: 999; /* Fica atrás da janela de login, mas na frente do resto */
 }
 
-/* Estilos para a tela de bloqueio de versão */
-#versao-desatualizada-overlay {
-    display: none; /* Começa oculto */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(20, 20, 20, 0.9);
-    backdrop-filter: blur(8px);
-    z-index: 99999; /* Fica na frente de absolutamente tudo */
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
-}
 
-#versao-desatualizada-overlay .mensagem-overlay {
-    padding: 20px;
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-#versao-desatualizada-overlay h1 {
-    color: #ffc107; /* Amarelo para destaque */
-}
 
 </style>
 
@@ -1682,7 +1657,7 @@ body.dark-mode .tiebreak-paren {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.5.9'; // Versão atual do sistema      
+const VersaoSistema = 'v1.6.0'; // Versão atual do sistema      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -1925,17 +1900,12 @@ function InicializarSistema() {
 
             if (data) {
                 const minVersion = data.version;
-                if (VersaoSistema !== minVersion) {
-                    // Exibe a nossa nova camada de bloqueio
-                    const overlay = document.getElementById('versao-desatualizada-overlay');
-                    if (overlay) {
-                        overlay.style.display = 'flex';
-                    }
-                    
-                    // Interrompe completamente o carregamento do sistema.
-                    // O usuário não poderá fazer mais nada a não ser reabrir a aba.
-                    return; 
-                }
+				if (VersaoSistema !== minVersion) {
+					alert("Sua versão está desatualizada. O aplicativo será recarregado para aplicar a atualização.");
+					location.reload(true);
+					//window.close();
+					return; // Importante para parar a execução
+				}
 
                 const config = data.config;
 				
@@ -1978,7 +1948,8 @@ function InicializarSistema() {
 				  // Permissão para abrir o sistema
 				  if (config && config.Abrir === false) {
 				    alert("⚠️ Atenção:\n\nO sistema está em manutenção provisória no momento.\nPor favor, tente novamente mais tarde.\n\nObrigado pela compreensão.");
-					window.close();
+					 //location.reload(true);
+					 window.close();
 					return;
 				  }
 				} else {
@@ -7597,11 +7568,6 @@ function formatarPlacarParaMensagem(resultado) {
 }
 
 </script>
-<div id="versao-desatualizada-overlay">
-    <div class="mensagem-overlay">
-        <h1>Versão Desatualizada</h1>
-        <p>Por favor, feche e reabra o aplicativo para aplicar a atualização.</p>
-    </div>
-</div>
+
 </body>
 </html>
