@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -1133,6 +1134,34 @@ body.dark-mode .tiebreak-paren {
 
 
 
+/* Estilos para a tela de bloqueio de versão */
+#versao-desatualizada-overlay {
+    display: none; /* Começa oculto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(20, 20, 20, 0.9);
+    backdrop-filter: blur(8px);
+    z-index: 99999; /* Fica na frente de absolutamente tudo */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+#versao-desatualizada-overlay .mensagem-overlay {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#versao-desatualizada-overlay h1 {
+    color: #ffc107; /* Amarelo para destaque */
+}
+
+
 </style>
 
 
@@ -1657,7 +1686,7 @@ body.dark-mode .tiebreak-paren {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.6.0'; // Versão atual do sistema      
+const VersaoSistema = 'v1.6.1'; // Versão atual do sistema      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -1901,10 +1930,13 @@ function InicializarSistema() {
             if (data) {
                 const minVersion = data.version;
 				if (VersaoSistema !== minVersion) {
-					alert("Sua versão está desatualizada. O aplicativo será recarregado para aplicar a atualização.");
-					location.reload(true);
-					//window.close();
-					return; // Importante para parar a execução
+					const overlay = document.getElementById('versao-desatualizada-overlay');
+					if (overlay) {
+						overlay.querySelector('h1').textContent = 'Versão Desatualizada';
+						overlay.querySelector('p').textContent = 'Por favor, feche e reabra o aplicativo para aplicar a atualização.';
+						overlay.style.display = 'flex';
+					}
+					return; // Interrompe o carregamento
 				}
 
                 const config = data.config;
@@ -1944,22 +1976,15 @@ function InicializarSistema() {
 				verificarDisputasArbitro(data.reservas);
 				verificarNotificacoes(); 
 			   
-			    if (vAbrirSistema) {
-				  // Permissão para abrir o sistema
-				  if (config && config.Abrir === false) {
-				    alert("⚠️ Atenção:\n\nO sistema está em manutenção provisória no momento.\nPor favor, tente novamente mais tarde.\n\nObrigado pela compreensão.");
-					 location.reload(true);
-					 //window.close();
-					return;
-				  }
-				} else {
-				  // O código está comentado (não será executado)
-				  /*
-				  if (config && config.Abrir === false) {
-					window.close();
-					return;
-				  }
-				  */
+			    // A verificação agora é feita diretamente, sem a condição 'if (vAbrirSistema)'
+				if (config && config.Abrir === false) {
+					const overlay = document.getElementById('versao-desatualizada-overlay');
+					if (overlay) {
+						overlay.querySelector('h1').textContent = 'Sistema em Manutenção';
+						overlay.querySelector('p').textContent = 'O sistema está passando por uma manutenção provisória. Por favor, tente novamente mais tarde.';
+						overlay.style.display = 'flex';
+					}
+					return; // Interrompe o carregamento do sistema
 				}
 		        
 				
@@ -7568,6 +7593,11 @@ function formatarPlacarParaMensagem(resultado) {
 }
 
 </script>
+
+<div id="versao-desatualizada-overlay">
+    <div class="mensagem-overlay">
+        <h1></h1> <p></p>   </div>
+</div>
 
 </body>
 </html>
