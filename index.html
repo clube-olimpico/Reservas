@@ -1900,7 +1900,8 @@ function InicializarSistema() {
                 const minVersion = data.version;
                 if (VersaoSistema !== minVersion) {
                     alert("Sua versão está desatualizada. Atualize o aplicativo para continuar.");
-                    window.close();
+                    //window.close();
+					self.close();
                 }
 
                 const config = data.config;
