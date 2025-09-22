@@ -537,6 +537,43 @@ body.dark-mode #loginScreen {
     box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
 }
 
+body.dark-mode #loginScreen {
+    background-color: #2a2a2a; /* Um cinza um pouco mais claro que o fundo */
+    border: 1px solid #444;    /* Uma borda sutil para definir a caixa */
+    color: #f1f1f1;            /* Define o texto padrão como branco */
+}
+
+/* Garante que o texto dos labels e títulos fique branco */
+body.dark-mode #loginScreen h2,
+body.dark-mode #loginScreen .label-senha {
+    color: #f1f1f1;
+}
+
+/* Estilo para o título principal "Clube Olímpico" */
+body.dark-mode #loginHeader h1 {
+    color: #ffc107; /* Amarelo/Laranja para destaque, como em outros lugares */
+    text-shadow: 0 0 8px rgba(255, 193, 7, 0.5); /* Adiciona um brilho sutil */
+}
+
+/* Estilo para o subtítulo "Quadras de Tênis" */
+body.dark-mode #loginHeader h2 {
+    color: #ccc; /* Mantém o cinza claro */
+}
+
+/* Estilo para o título "Sistema de Reservas" */
+body.dark-mode #loginHeader h3 {
+    color: #007bff; /* Traz o azul de volta! */
+    text-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Adiciona um brilho sutil azul */
+}
+
+/* Garante que os campos de input e select tenham o estilo escuro correto */
+body.dark-mode #loginScreen #jogadorSelect,
+body.dark-mode #loginScreen #senha {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
 body.dark-mode h1,
 body.dark-mode h2,
 body.dark-mode h3 {
@@ -1685,7 +1722,7 @@ body.dark-mode .tiebreak-paren {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.6.2'; // Versão atual do sistema      
+const VersaoSistema = 'v1.6.3'; // Versão atual do sistema      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
