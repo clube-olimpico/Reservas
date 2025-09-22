@@ -1682,7 +1682,7 @@ body.dark-mode .tiebreak-paren {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.5.8'; // Versão atual do sistema      
+const VersaoSistema = 'v1.5.9'; // Versão atual do sistema      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -1926,8 +1926,15 @@ function InicializarSistema() {
             if (data) {
                 const minVersion = data.version;
                 if (VersaoSistema !== minVersion) {
-                    alert("Sua versão está desatualizada. Atualize o aplicativo para continuar.");
-                    window.close();
+                    // Exibe a nossa nova camada de bloqueio
+                    const overlay = document.getElementById('versao-desatualizada-overlay');
+                    if (overlay) {
+                        overlay.style.display = 'flex';
+                    }
+                    
+                    // Interrompe completamente o carregamento do sistema.
+                    // O usuário não poderá fazer mais nada a não ser reabrir a aba.
+                    return; 
                 }
 
                 const config = data.config;
