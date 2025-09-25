@@ -1722,7 +1722,7 @@ body.dark-mode .tiebreak-paren {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.6.6'; // Versão atual do sistema      
+const VersaoSistema = 'v1.6.7'; // Versão atual do sistema      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -1733,6 +1733,9 @@ let piramideFimTorneio = null;
 let piramideAtivaGlobal = false;
 
 let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário 
+let vDomingoAnterior = null;
+let vDomingoAteAnterior = null;
+
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
 let vLimparDiasAnteriores = false;
@@ -1758,6 +1761,7 @@ let administradores = [];
 let rankingDuplasAtivo = false;
 
 let clickTimer = null;
+
 
 //***********************************************************************************************************************************************************************
 
@@ -2049,8 +2053,21 @@ function InicializarSistema() {
 
                 if (config) {
                     window.DiasParaLimpar = config.DiasParaLimpar || 4;
-                    window.vDomingo = config.vDomingo || "fechado";
-                    window.vDomingoAte = config.vDomingoAte || "23:00"; // Valor padrão caso não esteja definido
+                    //window.vDomingo = config.vDomingo || "fechado";
+                    //window.vDomingoAte = config.vDomingoAte || "23:00"; // Valor padrão caso não esteja definido
+					window.vDomingo = config.vDomingo || "fechado";
+					window.vDomingoAte = config.vDomingoAte || "23:00";
+
+					// --- INÍCIO DA LÓGICA DE DETECÇÃO DE MUDANÇA ---
+					// A condição (vDomingoAnterior !== null) impede a execução na primeira carga da página.
+					if (vDomingoAnterior !== null && (window.vDomingo !== vDomingoAnterior || window.vDomingoAte !== vDomingoAteAnterior)) {
+						console.log("Detectada mudança na configuração de Domingo. Forçando atualização dos horários.");
+						atualizarOpcoesHorario(); // Força a atualização do dropdown
+					}
+
+					// Atualiza os valores anteriores para a próxima verificação
+					vDomingoAnterior = window.vDomingo;
+					vDomingoAteAnterior = window.vDomingoAte;
 					
 					duplasConfigGlobais = config.Duplas || {}; // Carrega a config de Duplas na variável global
 					
@@ -2325,25 +2342,7 @@ function atualizarEstadoDomingo() {
             }
         }
     }
-	
-	// --- PROTEÇÃO: só atualiza as opções de horário se o usuário ainda
-        // não escolheu um horário (ou se quisermos forçar a atualização) ---
-        const horaSelect = document.getElementById('hora');
-        if (!horaSelect) {
-            //console.warn('[atualizarEstadoDomingo] #hora não encontrado — pulando atualizarOpcoesHorario.');
-            return;
-        }
 
-        // se já existe um valor (usuário escolheu) -> pular atualização automática
-        if (horaSelect.value) {
-            //console.log('[atualizarEstadoDomingo] Pulando atualizarOpcoesHorario() porque #hora já tem valor ->', horaSelect.value);
-            return;
-        }
-
-        // caso não haja horário selecionado, atualiza normalmente
-        //console.log('[atualizarEstadoDomingo] Chamando atualizarOpcoesHorario() (nenhum horário selecionado).');
-	//alert('atualizarEstadoDomingo');
-	atualizarOpcoesHorario();
 }
 
 
