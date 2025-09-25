@@ -1722,7 +1722,7 @@ body.dark-mode .tiebreak-paren {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.6.5'; // Versão atual do sistema      
+const VersaoSistema = 'v1.6.6'; // Versão atual do sistema      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -2068,10 +2068,13 @@ function InicializarSistema() {
 
                     atualizarDatas();
 					
+					//alert(" inicializarSistema vatualizarOpcoesHorario = " + vatualizarOpcoesHorario);
+
 					if (vatualizarOpcoesHorario) {
 					  atualizarOpcoesHorario();
 					  document.getElementById('quadra').selectedIndex = 0;
 					  vatualizarOpcoesHorario = false;
+					  //alert(" primeira execução vatualizarOpcoesHorario = " + vatualizarOpcoesHorario);
 					}
                 }
             } else {
@@ -2322,6 +2325,24 @@ function atualizarEstadoDomingo() {
             }
         }
     }
+	
+	// --- PROTEÇÃO: só atualiza as opções de horário se o usuário ainda
+        // não escolheu um horário (ou se quisermos forçar a atualização) ---
+        const horaSelect = document.getElementById('hora');
+        if (!horaSelect) {
+            //console.warn('[atualizarEstadoDomingo] #hora não encontrado — pulando atualizarOpcoesHorario.');
+            return;
+        }
+
+        // se já existe um valor (usuário escolheu) -> pular atualização automática
+        if (horaSelect.value) {
+            //console.log('[atualizarEstadoDomingo] Pulando atualizarOpcoesHorario() porque #hora já tem valor ->', horaSelect.value);
+            return;
+        }
+
+        // caso não haja horário selecionado, atualiza normalmente
+        //console.log('[atualizarEstadoDomingo] Chamando atualizarOpcoesHorario() (nenhum horário selecionado).');
+	//alert('atualizarEstadoDomingo');
 	atualizarOpcoesHorario();
 }
 
@@ -2998,6 +3019,9 @@ function gerarMensagemErro(diasParaLimpar) {
 }
 
 window.atualizarOpcoesHorario = function() {
+
+ 
+
     const duracao = document.getElementById('duracao').value;
     const dia = document.getElementById('dia').value;
     const quadra = document.getElementById('quadra').value; // Pega a quadra selecionada
@@ -3562,6 +3586,7 @@ function limparCampos() {
     document.getElementById('dataForm').reset(); // Reseta o formulário
     document.getElementById('jogador1').value = ''; // Mantém o campo "Jogador 1"
     document.getElementById('duracao').value = '1'; // Reseta a duração para 1 hora
+	//alert('limparCampos');
     atualizarOpcoesHorario(); // Atualiza as opções de horário
 	
 	// Procura e remove a opção 'Aula' de todos os seletores de jogador
@@ -4270,6 +4295,7 @@ function fazerLogin() {
             loginScreen.style.display = 'none';
             contentElement.style.display = 'block';
 			atualizarPrimeiroAcesso(nomeCompleto); 
+			checarAniversario();
         } else {
             // Se o usuário cancelar, limpa os campos jogador e senha
             jogadorSelect.value = '';
