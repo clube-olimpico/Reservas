@@ -1021,6 +1021,17 @@
       },
       "DiasParaLimpar": 3,
       "Duplas": {
+        "DatasEspeciais": {
+          "Quadra-2": {
+            "2025-09-26": {
+              "descricao": "Teste de duplas",
+              "regras": {
+                "fim": "08:00",
+                "inicio": "06:00"
+              }
+            }
+          }
+        },
         "Quadra-1": {
           "1-DiasDeSemana": false,
           "1-DiasDeSemana-Fim": "",
@@ -1059,7 +1070,7 @@
             "quarta": true,
             "quinta": false,
             "segunda": true,
-            "sexta": true,
+            "sexta": false,
             "terca": false
           },
           "Quadra-3-ativa": true
@@ -1254,14 +1265,6 @@
           "duracao": 1,
           "hora": 11,
           "jogadores": "aula"
-        },
-        "3_13": {
-          "borda": "1h",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 13,
-          "jogadores": "Manutencao",
-          "organizador": "Manutencao"
         },
         "3_14": {
           "borda": "1h",
@@ -1551,6 +1554,20 @@
           "jogadores": "Arthur Amorim",
           "organizador": "Isa"
         },
+        "6_16": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 3,
+          "hora": 16,
+          "jogadores": "Bernardo",
+          "organizador": "Makoto"
+        },
+        "6_17": {
+          "dia": 6,
+          "hora": 17,
+          "jogadores": "Makoto",
+          "organizador": "Makoto"
+        },
         "6_7": {
           "borda": "1h",
           "dia": 6,
@@ -1581,51 +1598,6 @@
           "jogadores": "Rodrigo Pereira",
           "organizador": "Ana Paula Pereira"
         },
-        "3_16": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 16,
-          "jogadores": "Danielle Pereira",
-          "organizador": "Danielle Pereira"
-        },
-        "3_17": {
-          "dia": 3,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Silvanio Pereira",
-          "organizador": "Danielle Pereira"
-        },
-        "3_19": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 19,
-          "jogadores": "Giovani Lima",
-          "organizador": "Giovani Lima"
-        },
-        "3_20": {
-          "dia": 3,
-          "duracao": 2,
-          "hora": 20,
-          "jogadores": "Buiu",
-          "organizador": "Giovani Lima"
-        },
-        "3_6": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 6,
-          "jogadores": "Danielle Pereira",
-          "organizador": "Danielle Pereira"
-        },
-        "3_7": {
-          "dia": 3,
-          "duracao": 2,
-          "hora": 7,
-          "jogadores": "Silvanio Pereira",
-          "organizador": "Danielle Pereira"
-        },
         "4_14": {
           "borda": "1h",
           "dia": 4,
@@ -1633,21 +1605,6 @@
           "hora": 14,
           "jogadores": "Manutencao",
           "organizador": "Manutencao"
-        },
-        "4_16": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 16,
-          "jogadores": "Danielle Pereira",
-          "organizador": "Danielle Pereira"
-        },
-        "4_17": {
-          "dia": 4,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Silvanio Pereira",
-          "organizador": "Danielle Pereira"
         },
         "4_19": {
           "borda": "1h",
@@ -1672,55 +1629,9 @@
           "hora": 14,
           "jogadores": "Pedro Azevedo",
           "organizador": "Pedro Azevedo"
-        },
-        "6_10": {
-          "dia": 6,
-          "duracao": 2,
-          "hora": 10,
-          "jogadores": "Gustavo Ferraz",
-          "organizador": "Edemar"
-        },
-        "6_9": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 9,
-          "jogadores": "Edemar",
-          "organizador": "Edemar"
         }
       },
       "Quadra 3 - Coberta": {
-        "3_13": {
-          "borda": "1h",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 13,
-          "jogadores": "Manutencao",
-          "organizador": "Manutencao"
-        },
-        "3_17": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Almir, Flavio Ferraz",
-          "organizador": "Marco Ribeiro"
-        },
-        "3_18": {
-          "dia": 3,
-          "duracao": 2,
-          "hora": 18,
-          "jogadores": "Frank Fast, Marco Ribeiro",
-          "organizador": "Marco Ribeiro"
-        },
-        "3_21": {
-          "borda": "1h",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 21,
-          "jogadores": "Paulinho",
-          "organizador": "Paulinho"
-        },
         "4_13": {
           "borda": "1h",
           "dia": 4,
@@ -1774,6 +1685,59 @@
           "jogadores": "Makoto",
           "organizador": "Alessandro Xavier"
         },
+        "5_10": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 10,
+          "jogadores": "Ana Paula Pereira",
+          "organizador": "Rodrigo Pereira"
+        },
+        "5_11": {
+          "dia": 5,
+          "duracao": 2,
+          "hora": 11,
+          "jogadores": "Rodrigo Pereira",
+          "organizador": "Rodrigo Pereira"
+        },
+        "5_13": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 13,
+          "jogadores": "Danielle Pereira",
+          "organizador": "Danielle Pereira"
+        },
+        "5_14": {
+          "dia": 5,
+          "duracao": 2,
+          "hora": 14,
+          "jogadores": "Silvanio Pereira",
+          "organizador": "Danielle Pereira"
+        },
+        "5_16": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 16,
+          "jogadores": "Taborda",
+          "organizador": "Taborda"
+        },
+        "5_17": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Flavio Ferraz",
+          "organizador": "Flavio Ferraz"
+        },
+        "5_18": {
+          "dia": 5,
+          "duracao": 2,
+          "hora": 18,
+          "jogadores": "Marco Ribeiro",
+          "organizador": "Flavio Ferraz"
+        },
         "6_10": {
           "borda": "2h",
           "dia": 6,
@@ -1789,6 +1753,14 @@
           "jogadores": "Marcos Colombo",
           "organizador": "Gilson Oliveira"
         },
+        "6_13": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 13,
+          "jogadores": "Diosnei",
+          "organizador": "Diosnei"
+        },
         "6_14": {
           "borda": "2h",
           "dia": 6,
@@ -1803,9 +1775,69 @@
           "hora": 15,
           "jogadores": "Luis Warkentin",
           "organizador": "Arthur Warkentin"
+        },
+        "6_8": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 8,
+          "jogadores": "Edemar",
+          "organizador": "Edemar"
+        },
+        "6_9": {
+          "dia": 6,
+          "duracao": 2,
+          "hora": 9,
+          "jogadores": "Leo Carrara",
+          "organizador": "Edemar"
+        },
+        "7_10": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 10,
+          "jogadores": "Felipe Mikuska",
+          "organizador": "Felipe Mikuska"
+        },
+        "7_11": {
+          "dia": 7,
+          "duracao": 2,
+          "hora": 11,
+          "jogadores": "Amora",
+          "organizador": "Felipe Mikuska"
+        },
+        "7_13": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 13,
+          "jogadores": "Caio Benites",
+          "organizador": "Caio Benites"
+        },
+        "7_8": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 8,
+          "jogadores": "Giovani Lima",
+          "organizador": "Giovani Lima"
+        },
+        "7_9": {
+          "dia": 7,
+          "duracao": 2,
+          "hora": 9,
+          "jogadores": "Buiu",
+          "organizador": "Giovani Lima"
         }
       }
     },
-    "version": "v1.6.5"
+    "usuariosOnline": {
+      "xllafuafw": {
+        "sessionId": "xllafuafw",
+        "timestamp": 1758854880960,
+        "usuario": "ANA MARIA MARINHO"
+      }
+    },
+    "version": "v1.6.7"
   }
 }
