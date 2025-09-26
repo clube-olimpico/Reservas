@@ -1722,7 +1722,7 @@ body.dark-mode .tiebreak-paren {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.6.7'; // Versão atual do sistema      
+const VersaoSistema = 'v1.6.8'; // Versão atual do sistema      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -2955,15 +2955,25 @@ async function validarSeTemReserva(jogadores) {
                             // --- INÍCIO DA SOLUÇÃO DEFINITIVA ---
                             // Pega a data completa (DD/MM/AAAA) diretamente da linha de datas da tabela, eliminando a adivinhação.
                             const dataDaTabelaString = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
+							
                             const [dia, mes, ano] = dataDaTabelaString.split('/');
+							
                             
                             // Cria a data da reserva com precisão total. O mês em JavaScript é 0-indexado (Janeiro=0).
                             const reservaDataHoraInicio = new Date(ano, mes - 1, dia, reserva.hora, 0, 0, 0);
+							
                             // --- FIM DA SOLUÇÃO DEFINITIVA ---
                             
-                            const reservaDuracao = parseInt(reserva.duracao, 10) || 1;
+                            //const reservaDuracao = parseInt(reserva.duracao, 10) || 1;
+							const reservaDuracao = (reserva.borda) ? parseInt(reserva.duracao, 10) || 1 : 1;
+							
                             const reservaDataHoraFim = new Date(reservaDataHoraInicio);
+							
                             reservaDataHoraFim.setHours(reservaDataHoraInicio.getHours() + reservaDuracao);
+							
+							if (reservaDataHoraFim < agora) {
+                                return; // Ignora esta reserva e continua a verificação.
+                            }
                             
                             // A lógica de verificação agora funciona corretamente pois a data está precisa.
                             if (reservaDataHoraInicio > agora) {
@@ -2972,13 +2982,8 @@ async function validarSeTemReserva(jogadores) {
                                     jogadoresComConflito.push(jogador);
                                 }
                             }
-
-                            if (agora >= reservaDataHoraInicio && agora < reservaDataHoraFim) {
-                                conflito = true;
-                                if (!jogadoresComConflito.includes(jogador)) {
-                                    jogadoresComConflito.push(jogador);
-                                }
-                            }
+							
+							                           
                         }
                     });
                 }
