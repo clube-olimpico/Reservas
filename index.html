@@ -1722,7 +1722,7 @@ body.dark-mode .tiebreak-paren {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.6.8'; // Versão atual do sistema      
+const VersaoSistema = 'v1.6.9'; // Versão atual do sistema      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -2972,22 +2972,22 @@ async function validarSeTemReserva(jogadores) {
                             reservaDataHoraFim.setHours(reservaDataHoraInicio.getHours() + reservaDuracao);
 							
 							if (reservaDataHoraFim < agora) {
-                                return; // Ignora esta reserva e continua a verificação.
-                            }
-                            
-                            // A lógica de verificação agora funciona corretamente pois a data está precisa.
-                            if (reservaDataHoraInicio > agora) {
-                                conflito = true;
-                                if (!jogadoresComConflito.includes(jogador)) {
-                                    jogadoresComConflito.push(jogador);
-                                }
-                            }
+								return; // Ignora esta reserva e continua a verificação.
+							}
+
+							// A lógica de verificação agora funciona corretamente pois a data está precisa.
+							if (reservaDataHoraFim > agora) { // <--- CORREÇÃO APLICADA AQUI
+								conflito = true;
+								if (!jogadoresComConflito.includes(jogador)) {
+									jogadoresComConflito.push(jogador);
+								}
+							}
 							
 							                           
                         }
                     });
                 }
-                if (conflito) break;
+                if (conflito) break; 
             }
 
             if (conflito) {
