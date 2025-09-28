@@ -1045,7 +1045,7 @@
           "Quadra-1-ativa": false
         },
         "Quadra-2": {
-          "2-DiasDeSemana": false,
+          "2-DiasDeSemana": true,
           "2-DiasDeSemana-Fim": "",
           "2-DiasDeSemana-Inicio": "",
           "2-Domingo": false,
@@ -1054,6 +1054,13 @@
           "2-Sabado": false,
           "2-Sabado-Fim": "",
           "2-Sabado-Inicio": "",
+          "DiasDeSemanaConfig": {
+            "quarta": true,
+            "quinta": true,
+            "segunda": true,
+            "sexta": true,
+            "terca": true
+          },
           "Quadra-2-ativa": false
         },
         "Quadra-3": {
@@ -1448,21 +1455,6 @@
           "hora": 11,
           "jogadores": "aula"
         },
-        "5_12": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 12,
-          "jogadores": "Felipe Mikuska",
-          "organizador": "Felipe Mikuska"
-        },
-        "5_13": {
-          "dia": 5,
-          "duracao": 2,
-          "hora": 13,
-          "jogadores": "Amora",
-          "organizador": "Felipe Mikuska"
-        },
         "5_14": {
           "borda": "1h",
           "dia": 5,
@@ -1569,36 +1561,6 @@
           "jogadores": "Flavia Titon",
           "organizador": "Lucas Titon"
         },
-        "6_14": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 14,
-          "jogadores": "Isa",
-          "organizador": "Isa"
-        },
-        "6_15": {
-          "dia": 6,
-          "duracao": 2,
-          "hora": 15,
-          "jogadores": "Arthur Amorim",
-          "organizador": "Isa"
-        },
-        "6_16": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 16,
-          "jogadores": "Makoto",
-          "organizador": "Makoto"
-        },
-        "6_17": {
-          "dia": 6,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Sidnei Novack",
-          "organizador": "Makoto"
-        },
         "6_18": {
           "borda": "2h",
           "dia": 6,
@@ -1667,42 +1629,44 @@
         }
       },
       "Quadra 2 - Aberta": {
-        "2_20": {
-          "dia": 2,
+        "1_17": {
+          "borda": "2h",
+          "dia": 1,
           "duracao": 2,
-          "hora": 20,
+          "hora": 17,
           "jogadores": "Rodrigo Pereira",
-          "organizador": "Ana Paula Pereira"
+          "organizador": "Rodrigo Pereira"
         },
-        "6_10": {
-          "borda": "2h",
-          "dia": 6,
+        "1_18": {
+          "dia": 1,
           "duracao": 2,
-          "hora": 10,
-          "jogadores": "Marcelo Silva",
-          "organizador": "Marcelo Silva"
+          "hora": 18,
+          "jogadores": "Ana Paula Pereira",
+          "organizador": "Rodrigo Pereira"
         },
-        "6_11": {
-          "dia": 6,
-          "duracao": 2,
-          "hora": 11,
-          "jogadores": "Heloisa Silva",
-          "organizador": "Marcelo Silva"
+        "1_19": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 19,
+          "jogadores": "Ivan Balboa",
+          "organizador": "Ivan Balboa"
         },
-        "6_14": {
-          "borda": "2h",
+        "6_16": {
+          "borda": "1h",
           "dia": 6,
-          "duracao": 2,
-          "hora": 14,
-          "jogadores": "Danielle Pereira",
-          "organizador": "Danielle Pereira"
+          "duracao": 1,
+          "hora": 16,
+          "jogadores": "Vitor Zamprogna",
+          "organizador": "Vitor Zamprogna"
         },
-        "6_15": {
-          "dia": 6,
-          "duracao": 2,
-          "hora": 15,
-          "jogadores": "Silvanio Pereira",
-          "organizador": "Danielle Pereira"
+        "7_8": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "Alessandro Xavier",
+          "organizador": "Alessandro Xavier"
         }
       },
       "Quadra 3 - Coberta": {
@@ -1712,20 +1676,35 @@
           "jogadores": "Susan",
           "organizador": "Isabelle Balboa"
         },
+        "1_17": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Flavio Ferraz, Nivaldo",
+          "organizador": "Flavio Ferraz"
+        },
+        "1_18": {
+          "dia": 1,
+          "duracao": 2,
+          "hora": 18,
+          "jogadores": "Frank Fast, Marco Ribeiro",
+          "organizador": "Flavio Ferraz"
+        },
         "1_19": {
           "borda": "2h",
           "dia": 1,
           "duracao": 2,
           "hora": 19,
-          "jogadores": "Ivan Balboa",
-          "organizador": "Ivan Balboa"
+          "jogadores": "Diego Paraiso",
+          "organizador": "Diego Paraiso"
         },
         "1_20": {
           "dia": 1,
           "duracao": 2,
           "hora": 20,
-          "jogadores": "Caina Balboa",
-          "organizador": "Ivan Balboa"
+          "jogadores": "Bernardo",
+          "organizador": "Diego Paraiso"
         },
         "1_9": {
           "borda": "2h",
@@ -1735,81 +1714,19 @@
           "jogadores": "Isabelle Balboa",
           "organizador": "Isabelle Balboa"
         },
-        "5_10": {
+        "2_20": {
           "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 10,
-          "jogadores": "Ana Paula Pereira",
-          "organizador": "Rodrigo Pereira"
-        },
-        "5_11": {
-          "dia": 5,
-          "duracao": 2,
-          "hora": 11,
-          "jogadores": "Rodrigo Pereira",
-          "organizador": "Rodrigo Pereira"
-        },
-        "5_13": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 13,
-          "jogadores": "Danielle Pereira",
-          "organizador": "Danielle Pereira"
-        },
-        "5_14": {
-          "dia": 5,
-          "duracao": 2,
-          "hora": 14,
-          "jogadores": "Silvanio Pereira",
-          "organizador": "Danielle Pereira"
-        },
-        "5_15": {
-          "borda": "1h",
-          "dia": 5,
-          "duracao": 1,
-          "hora": 15,
-          "jogadores": "Taborda",
-          "organizador": "Taborda"
-        },
-        "5_16": {
-          "borda": "1h",
-          "dia": 5,
-          "duracao": 1,
-          "hora": 16,
-          "jogadores": "Felipe Mikuska",
-          "organizador": "Felipe Mikuska"
-        },
-        "5_17": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Flavio Ferraz",
-          "organizador": "Flavio Ferraz"
-        },
-        "5_18": {
-          "dia": 5,
-          "duracao": 2,
-          "hora": 18,
-          "jogadores": "Marco Ribeiro",
-          "organizador": "Flavio Ferraz"
-        },
-        "5_19": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 19,
-          "jogadores": "Alexandre Camargo",
-          "organizador": "Alexandre Camargo"
-        },
-        "5_20": {
-          "dia": 5,
-          "duracao": 2,
+          "dia": 2,
+          "duracao": 3,
           "hora": 20,
-          "jogadores": "Luciano Cavalheiro",
-          "organizador": "Alexandre Camargo"
+          "jogadores": "Makoto",
+          "organizador": "Sidnei Novack"
+        },
+        "2_21": {
+          "dia": 2,
+          "hora": 21,
+          "jogadores": "Sidnei Novack",
+          "organizador": "Sidnei Novack"
         },
         "6_10": {
           "borda": "2h",
@@ -1849,20 +1766,28 @@
           "jogadores": "Luis Warkentin",
           "organizador": "Arthur Warkentin"
         },
-        "6_16": {
+        "6_18": {
           "borda": "2h",
           "dia": 6,
           "duracao": 2,
-          "hora": 16,
-          "jogadores": "Diego Paraiso",
-          "organizador": "Diego Paraiso"
+          "hora": 18,
+          "jogadores": "Silvanio Pereira",
+          "organizador": "Silvanio Pereira"
         },
-        "6_17": {
+        "6_19": {
           "dia": 6,
           "duracao": 2,
-          "hora": 17,
-          "jogadores": "Jean Souza",
-          "organizador": "Diego Paraiso"
+          "hora": 19,
+          "jogadores": "Danielle Pereira",
+          "organizador": "Silvanio Pereira"
+        },
+        "6_20": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Ana Paula Pereira",
+          "organizador": "Ana Paula Pereira"
         },
         "6_8": {
           "borda": "2h",
@@ -1878,6 +1803,21 @@
           "hora": 9,
           "jogadores": "Felipe Muraski",
           "organizador": "Felipe Muraski"
+        },
+        "7_10": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 10,
+          "jogadores": "Felipe Mikuska",
+          "organizador": "Felipe Mikuska"
+        },
+        "7_11": {
+          "dia": 7,
+          "duracao": 2,
+          "hora": 11,
+          "jogadores": "Amora",
+          "organizador": "Felipe Mikuska"
         },
         "7_13": {
           "borda": "1h",
@@ -1904,6 +1844,6 @@
         }
       }
     },
-    "version": "v1.6.8"
+    "version": "v1.6.9"
   }
 }
