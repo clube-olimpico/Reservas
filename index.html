@@ -1722,7 +1722,7 @@ body.dark-mode .tiebreak-paren {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.7.0'; // Versão atual do sistema      
+const VersaoSistema = 'v1.7.1'; // Versão atual do sistema      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -2908,31 +2908,31 @@ async function validarSeTemReserva(jogadores) {
         console.log("Validação de reserva ativa ignorada para o usuário de manutenção.");
         return true; // Se for, permite o agendamento e encerra a função aqui.
     }
-	
-	// Se algum jogador for "aula" , retorna true imediatamente
-	if (jogadores.some(jogador => {
-		let nome = jogador.toLowerCase();
-		return nome === "aula";
-	})) {
-		console.log("Reserva marcada como 'aula'. Validação interrompida.");
-		return true;
-	}
-	
-		
+
+    // Se algum jogador for "aula" , retorna true imediatamente
+    if (jogadores.some(jogador => {
+        let nome = jogador.toLowerCase();
+        return nome === "aula";
+    })) {
+        console.log("Reserva marcada como 'aula'. Validação interrompida.");
+        return true;
+    }
+
     return new Promise((resolve) => {
         let conflito = false;
         let jogadoresComConflito = [];
 
         const reservasRef = database.ref("sistemas/reservas");
         reservasRef.once("value").then((snapshot) => {
-            const reservas = snapshot.val() || {};
+            const todasAsReservas = snapshot.val() || {};
             const agora = new Date();
-            
+
             // Verificando reservas existentes
-            for (const quadra in reservas) {
-                for (const key in reservas[quadra]) {
-                    const reserva = reservas[quadra][key];
-                    
+            for (const quadra in todasAsReservas) {
+                const reservasDaQuadra = todasAsReservas[quadra];
+                for (const key in reservasDaQuadra) {
+                    let reserva = reservasDaQuadra[key];
+
                     if (typeof reserva.jogadores === 'undefined' || reserva.jogadores === null) {
                         const erroMsg = `⚠️ Erro de Dados Encontrado!\n\nExiste uma reserva antiga ou corrompida que impede a validação do seu agendamento.\n\nPor favor, envie esta informação para o administrador:\n\n- Quadra: ${quadra}\n- Chave do Problema: ${key}`;
                         alert(erroMsg);
@@ -2940,66 +2940,75 @@ async function validarSeTemReserva(jogadores) {
                         break;
                     }
 
+                    // Pula para a próxima iteração se a reserva não tiver a propriedade 'borda',
+                    // pois isso indica que é a segunda (ou terceira) hora de uma reserva mais longa.
+                    if (reserva.borda === undefined) {
+                        continue;
+                    }
+                    
+                    const jogadoresNaReservaCompleta = [];
+                    // Adiciona os jogadores da primeira hora
+                    jogadoresNaReservaCompleta.push(...(reserva.jogadores_completo || reserva.jogadores).split(',').map(j => j.trim()));
+
+                    // Se for uma reserva de mais de 1h, busca os jogadores da(s) hora(s) seguinte(s)
+                    if (reserva.duracao > 1) {
+                        const duracaoReal = reserva.duracao === 3 ? 2 : reserva.duracao;
+                        for (let i = 1; i < duracaoReal; i++) {
+                            const chaveProximaHora = `${reserva.dia}_${reserva.hora + i}`;
+                            const reservaProximaHora = reservasDaQuadra[chaveProximaHora];
+                            if (reservaProximaHora) {
+                                jogadoresNaReservaCompleta.push(...(reservaProximaHora.jogadores_completo || reservaProximaHora.jogadores).split(',').map(j => j.trim()));
+                            }
+                        }
+                    }
+                    const jogadoresUnicosNaReserva = [...new Set(jogadoresNaReservaCompleta)];
+					
+					if (typeof reserva.jogadores === 'undefined' || reserva.jogadores === null) {
+                        const erroMsg = `⚠️ Erro de Dados Encontrado!\n\nExiste uma reserva antiga ou corrompida que impede a validação do seu agendamento.\n\nPor favor, envie esta informação para o administrador:\n\n- Quadra: ${quadra}\n- Chave do Problema: ${key}`;
+                        //alert(erroMsg);
+						mostrarNotificacao(erroMsg, 'error');
+                        conflito = true;
+                        break;
+                    }
+
+                    // Agora, verifica se algum dos jogadores que estão tentando agendar está nesta reserva completa
                     jogadores.forEach(jogador => {
-					    if (jogador === "Convidado") {
-							return;
-						}
-                        
-                        const jogadoresNaReserva = (reserva.jogadores_completo || reserva.jogadores).split(', ');
-                        if (jogadoresNaReserva.includes(jogador)) {
+                        if (jogador === "Convidado") return;
+
+                        if (jogadoresUnicosNaReserva.includes(jogador)) {
                             
                             if (reserva.confirmacoes && reserva.confirmacoes[jogador] === 'recusado') {
                                 return;
                             }
 
-                            // --- INÍCIO DA SOLUÇÃO DEFINITIVA ---
-                            // Pega a data completa (DD/MM/AAAA) diretamente da linha de datas da tabela, eliminando a adivinhação.
                             const dataDaTabelaString = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
-							
                             const [dia, mes, ano] = dataDaTabelaString.split('/');
-							
-                            
-                            // Cria a data da reserva com precisão total. O mês em JavaScript é 0-indexado (Janeiro=0).
                             const reservaDataHoraInicio = new Date(ano, mes - 1, dia, reserva.hora, 0, 0, 0);
-							
-                            // --- FIM DA SOLUÇÃO DEFINITIVA ---
-                            
-                            //const reservaDuracao = parseInt(reserva.duracao, 10) || 1;
-							let duracaoNumerica = parseInt(reserva.duracao, 10);
-							if (duracaoNumerica === 3) {
-								duracaoNumerica = 2; // Trata a Pirâmide como 2 horas para o cálculo
-							}
-							const reservaDuracao = (reserva.borda) ? duracaoNumerica || 1 : 1;
-							
-                            const reservaDataHoraFim = new Date(reservaDataHoraInicio);
-							
-                            reservaDataHoraFim.setHours(reservaDataHoraInicio.getHours() + reservaDuracao);
-							
-							if (reservaDataHoraFim < agora) {
-								return; // Ignora esta reserva e continua a verificação.
-							}
 
-							// A lógica de verificação agora funciona corretamente pois a data está precisa.
-							if (reservaDataHoraFim > agora) { // <--- CORREÇÃO APLICADA AQUI
-								conflito = true;
-								if (!jogadoresComConflito.includes(jogador)) {
-									jogadoresComConflito.push(jogador);
-								}
-							}
-							
-							                           
+                            // Lógica corrigida para calcular a duração real
+                            const duracaoCorrigida = reserva.duracao === 3 ? 2 : parseInt(reserva.duracao, 10);
+                            
+                            const reservaDataHoraFim = new Date(reservaDataHoraInicio);
+                            reservaDataHoraFim.setHours(reservaDataHoraInicio.getHours() + duracaoCorrigida);
+
+                            if (reservaDataHoraFim > agora) {
+                                conflito = true;
+                                if (!jogadoresComConflito.includes(jogador)) {
+                                    jogadoresComConflito.push(jogador);
+                                }
+                            }
                         }
                     });
                 }
-                if (conflito) break; 
+                if (conflito) break;
             }
 
             if (conflito) {
                 if (jogadoresComConflito.length > 0) {
-                     const mensagem = jogadoresComConflito.length > 1
+                    const mensagem = jogadoresComConflito.length > 1
                         ? `Os jogadores ${jogadoresComConflito.join(", ")} ainda têm uma reserva ativa e não podem agendar outra antes de finalizá-la.`
                         : `O jogador ${jogadoresComConflito[0]} ainda tem uma reserva ativa e não pode agendar outra antes de finalizá-la.`;
-                     alert(mensagem);
+                    alert(mensagem); // Mantido o alert() original
                 }
                 resolve(false);
             } else {
@@ -3008,8 +3017,6 @@ async function validarSeTemReserva(jogadores) {
         });
     });
 }
-
-
 
 function gerarMensagemErro(diasParaLimpar) {
     let diasAntecedencia;
