@@ -1722,7 +1722,7 @@ body.dark-mode .tiebreak-paren {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.6.9'; // Versão atual do sistema      
+const VersaoSistema = 'v1.7.0'; // Versão atual do sistema      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -2965,7 +2965,11 @@ async function validarSeTemReserva(jogadores) {
                             // --- FIM DA SOLUÇÃO DEFINITIVA ---
                             
                             //const reservaDuracao = parseInt(reserva.duracao, 10) || 1;
-							const reservaDuracao = (reserva.borda) ? parseInt(reserva.duracao, 10) || 1 : 1;
+							let duracaoNumerica = parseInt(reserva.duracao, 10);
+							if (duracaoNumerica === 3) {
+								duracaoNumerica = 2; // Trata a Pirâmide como 2 horas para o cálculo
+							}
+							const reservaDuracao = (reserva.borda) ? duracaoNumerica || 1 : 1;
 							
                             const reservaDataHoraFim = new Date(reservaDataHoraInicio);
 							
