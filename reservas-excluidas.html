@@ -664,7 +664,15 @@ async function salvarLogsNoGithub(logsParaSalvar) {
 			logsFiltrados = logs.filter(log => {
 				const condQuadra = quadra === "" || quadra.toLowerCase() === "todas" || log.quadra === quadra;
 				const condData = !data || log.data === data.split('-').reverse().join('-');
-				const condJogador = !jogador || log.jogadores.some(j => j.toLowerCase().includes(jogador));
+				const condJogador = !jogador || log.jogadores.some(j => {
+					if (typeof j === "string") {
+						return j.toLowerCase().includes(jogador);
+					} else if (j && typeof j === "object" && j.apelido) {
+						return j.apelido.toLowerCase().includes(jogador);
+					}
+					return false;
+				});
+
 
 				let condDuracao = true;
 				if (duracao === "Pirâmide") {
