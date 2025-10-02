@@ -222,6 +222,29 @@ label {
 /* Responsividade: ajuste para dispositivos móveis */
 @media (max-width: 600px) {
 
+.motivo-resultado {
+    text-align: center;
+    font-size: 0.9em;
+    font-style: italic;
+    color: #666;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+body.dark-mode .motivo-resultado {
+    color: #ccc;
+}
+
+/* --- AJUSTE PARA O FORMULÁRIO DE W.O. NO CELULAR (SUGESTÃO 2) --- */
+#wo-controls .form-row {
+    flex-wrap: nowrap; /* Impede que a linha quebre */
+    justify-content: flex-start; /* Alinha o conteúdo à esquerda */
+}
+
+#wo-controls .form-row label {
+    white-space: nowrap; /* Impede que o texto do label quebre */
+    font-size: 0.9em; /* Reduz um pouco o tamanho da fonte para caber */
+}
+
 /* Aumenta o espaço vertical entre as linhas de confronto no modal de INFORMAR resultado */
 #modalResultadoDuplas .duplas-match-container {
     margin-bottom: 20px;
@@ -1051,14 +1074,7 @@ body.dark-mode .set-score.winner {
     margin-left: -2px;
     font-weight: normal; 
 }
-/* Estilo para o nome do vencedor da partida */
-.placar-nome.match-winner {
-    font-weight: 900; 
-    color: #333;
-}
-body.dark-mode .placar-nome.match-winner {
-    color: #fff;
-}
+
 
 #modal-resultado-placar .placar-container {
     margin-top: 10px;
@@ -1197,6 +1213,148 @@ body.dark-mode .tiebreak-paren {
     color: #ffc107; /* Amarelo para destaque */
 }
 
+
+
+/* ================================================== */
+/* --- ESTILOS PARA O MENU DE OPÇÕES DO RESULTADO --- */
+/* ================================================== */
+
+/* Botão de ícone (3 pontos) */
+#btn-mais-opcoes {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    font-weight: bold;
+    cursor: pointer;
+    color: #888;
+    padding: 0 10px;
+    width: auto !important; /* Sobrescreve regras gerais de botão */
+}
+#btn-mais-opcoes:hover {
+    color: #333;
+}
+body.dark-mode #btn-mais-opcoes {
+    color: #aaa;
+}
+body.dark-mode #btn-mais-opcoes:hover {
+    color: #fff;
+}
+
+/* O menu suspenso (dropdown) */
+.menu-dropdown {
+    display: none; /* Começa oculto */
+    position: absolute;
+    top: 100%; /* Posiciona abaixo do cabeçalho */
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 10;
+    width: 200px;
+}
+body.dark-mode .menu-dropdown {
+    background-color: #444;
+    border-color: #666;
+}
+
+/* Itens dentro do menu */
+.menu-dropdown a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+}
+body.dark-mode .menu-dropdown a {
+    color: #f1f1f1;
+}
+.menu-dropdown a:hover {
+    background-color: #f5f5f5;
+}
+body.dark-mode .menu-dropdown a:hover {
+    background-color: #555;
+}
+
+/* Classe para mostrar o menu */
+.menu-dropdown.visivel {
+    display: block;
+}
+
+
+/* ================================================================ */
+/* --- ESTILOS FINAIS PARA A EXIBIÇÃO DO PLACAR (NEGRITO E RET) --- */
+/* ================================================================ */
+
+/* Estilo unificado para o NOME do vencedor da partida em qualquer tela */
+.placar-nome.match-winner,
+#modal-resultado-placar .placar-nome.match-winner {
+    font-weight: 900 !important; /* Garante o negrito máximo em todos os locais */
+    color: #333;
+}
+
+/* Garante que a cor do nome do vencedor no modo escuro seja branca */
+body.dark-mode .placar-nome.match-winner,
+body.dark-mode #modal-resultado-placar .placar-nome.match-winner {
+    color: #fff;
+}
+
+
+
+/* Estilo para a tag [RET] de desistência */
+.ret-indicator {
+    display: inline-block;
+    background-color: #dc3545; /* Vermelho */
+    color: white;
+    font-size: 0.6em;
+    font-weight: bold;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Estilo para os inputs de placar quando desabilitados */
+#placar-fields-container input:disabled {
+    background-color: #f0f0f0; /* Fundo cinza claro */
+    cursor: not-allowed;
+}
+
+body.dark-mode #placar-fields-container input:disabled {
+    background-color: #3a3a3a; /* Fundo cinza escuro para o modo escuro */
+}
+
+/* Container para alinhar os botões Salvar/Cancelar lado a lado */
+.botoes-acao-container {
+    display: flex;
+    justify-content: center; /* Centraliza o par de botões */
+    gap: 15px; /* Cria um espaço de 15px entre os botões */
+    margin-top: 20px; /* Mantém o espaço acima dos botões */
+}
+
+/* Ajuste para que os botões no container não ocupem 100% da largura */
+.botoes-acao-container button {
+    width: auto !important; /* Permite que o botão tenha a largura do seu conteúdo */
+    padding: 10px 25px; /* Aumenta o espaço interno para um visual melhor */
+}
+
+
+.motivo-resultado {
+    text-align: center;
+    font-size: 0.9em;
+    font-style: italic;
+    color: #666;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+body.dark-mode .motivo-resultado {
+    color: #ccc;
+}
 
 </style>
 
@@ -1340,55 +1498,111 @@ body.dark-mode .tiebreak-paren {
 
 <div id="modalResultadoPiramide" class="modal-overlay">
     <div class="modal-content">
-        <h3 style="margin-top: 0; text-align: center;">Resultado da Pirâmide</h3>
-        
-        <h4 id="resultado-matchup" style="text-align: center; margin-bottom: 20px;">Jogador 1 vs. Jogador 2</h4>
-
-        <div class="form-row" style="justify-content: center; align-items: center; gap: 5px;">
-            <label style="width: auto;">1º Set:</label>
-            <input type="number" id="set1-j1" style="width: 50px; text-align: center;" min="0">
-            <span>&times;</span>
-            <input type="number" id="set1-j2" style="width: 50px; text-align: center;" min="0">
+        <div style="position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+            <h3 style="margin-top: 0; margin-bottom: 0; text-align: center;">Resultado da Pirâmide</h3>
             
-            <div class="tiebreak-container" id="tiebreak1-container" style="display: none; margin-left: 10px; align-items: center; gap: 5px;">
-                <span>(</span>
-                <input type="number" id="tb1-j1" style="width: 40px; text-align: center;" min="0" oninput="this.value=this.value.slice(0,2)">
-                <span>-</span>
-                <input type="number" id="tb1-j2" style="width: 40px; text-align: center;" min="0" oninput="this.value=this.value.slice(0,2)">
-                <span>)</span>
-            </div>
-        </div>
+            <button id="btn-mais-opcoes" type="button" title="Mais Opções">⋮</button>
 
-        <div class="form-row" style="justify-content: center; align-items: center; gap: 5px;">
-            <label style="width: auto;">2º Set:</label>
-            <input type="number" id="set2-j1" style="width: 50px; text-align: center;" min="0">
-            <span>&times;</span>
-            <input type="number" id="set2-j2" style="width: 50px; text-align: center;" min="0">
-
-            <div class="tiebreak-container" id="tiebreak2-container" style="display: none; margin-left: 10px; align-items: center; gap: 5px;">
-                <span>(</span>
-                <input type="number" id="tb2-j1" style="width: 40px; text-align: center;" min="0" oninput="this.value=this.value.slice(0,2)">
-                <span>-</span>
-                <input type="number" id="tb2-j2" style="width: 40px; text-align: center;" min="0" oninput="this.value=this.value.slice(0,2)">
-                <span>)</span>
-            </div>
-        </div>
-
-        <div id="terceiro-set-container" class="form-row" style="justify-content: center; align-items: center; gap: 10px; display: none;">
-            <label style="width: auto;">3º Set:</label>
-            <input type="number" id="set3-j1" style="width: 50px; text-align: center;" min="0" oninput="this.value=this.value.slice(0,2)">
-            <span>&times;</span>
-            <input type="number" id="set3-j2" style="width: 50px; text-align: center;" min="0" oninput="this.value=this.value.slice(0,2)">
+            <div id="menu-opcoes-resultado" class="menu-dropdown">
+				<a href="#" id="acao-jogo-normal">Jogo Normal</a>
+				<a href="#" id="acao-wo">W.O.</a>
+				<a href="#" id="acao-desistencia">Desistência</a>
+			</div>
         </div>
         
+        <h4 id="resultado-matchup" style="text-align: center; margin-top:-10px; margin-bottom: 15px;">Jogador 1 vs. Jogador 2</h4>
+
+        <div id="placar-fields-container">
+            <div class="form-row" style="justify-content: center; align-items: center; gap: 5px;">
+                <label style="width: auto;">1º Set:</label>
+                <input type="number" id="set1-j1" style="width: 50px; text-align: center;" min="0">
+                <span>&times;</span>
+                <input type="number" id="set1-j2" style="width: 50px; text-align: center;" min="0">
+                
+                <div class="tiebreak-container" id="tiebreak1-container" style="display: none; margin-left: 10px; align-items: center; gap: 5px;">
+                    <span>(</span>
+                    <input type="number" id="tb1-j1" style="width: 40px; text-align: center;" min="0" oninput="this.value=this.value.slice(0,2)">
+                    <span>-</span>
+                    <input type="number" id="tb1-j2" style="width: 40px; text-align: center;" min="0" oninput="this.value=this.value.slice(0,2)">
+                    <span>)</span>
+                </div>
+            </div>
+
+            <div class="form-row" style="justify-content: center; align-items: center; gap: 5px;">
+                <label style="width: auto;">2º Set:</label>
+                <input type="number" id="set2-j1" style="width: 50px; text-align: center;" min="0">
+                <span>&times;</span>
+                <input type="number" id="set2-j2" style="width: 50px; text-align: center;" min="0">
+
+                <div class="tiebreak-container" id="tiebreak2-container" style="display: none; margin-left: 10px; align-items: center; gap: 5px;">
+                    <span>(</span>
+                    <input type="number" id="tb2-j1" style="width: 40px; text-align: center;" min="0" oninput="this.value=this.value.slice(0,2)">
+                    <span>-</span>
+                    <input type="number" id="tb2-j2" style="width: 40px; text-align: center;" min="0" oninput="this.value=this.value.slice(0,2)">
+                    <span>)</span>
+                </div>
+            </div>
+
+            <div id="terceiro-set-container" class="form-row" style="justify-content: center; align-items: center; gap: 10px; display: none;">
+                <label style="width: auto;">3º Set:</label>
+                <input type="number" id="set3-j1" style="width: 50px; text-align: center;" min="0" oninput="this.value=this.value.slice(0,2)">
+                <span>&times;</span>
+                <input type="number" id="set3-j2" style="width: 50px; text-align: center;" min="0" oninput="this.value=this.value.slice(0,2)">
+            </div>
+        </div>
+
+        <div id="wo-controls" style="display: none; text-align: center; margin-bottom: 15px;">
+            <div class="form-row" style="justify-content: center;">
+                <label for="select-vencedor-wo" style="width: auto; margin-right: 10px;">Vencedor:</label>
+                <select id="select-vencedor-wo" style="width: 180px !important;"></select>
+            </div>
+            <div class="form-row" style="justify-content: center; margin-top: 10px;">
+                <label for="select-motivo-wo" style="width: auto; margin-right: 10px;">Motivo:</label>
+                <select id="select-motivo-wo" style="width: 180px !important;">
+                    <option value="">Selecione o motivo</option>
+                    <option value="Não comparecimento">Não comparecimento</option>
+                    <option value="Lesão ou Doença (pré-jogo)">Lesão ou Doença (pré-jogo)</option>
+                    <option value="Desistência do Torneio">Desistência do Torneio</option>
+                    <option value="Desqualificação">Desqualificação</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="desistencia-controls" style="display: none; text-align: center; margin-bottom: 15px;">
+             <div class="form-row" style="justify-content: center;">
+                <label for="select-desistente" style="width: auto; margin-right: 10px;">Quem desistiu?</label>
+                <select id="select-desistente" style="width: 180px !important;"></select>
+            </div>
+            <div class="form-row" style="justify-content: center; margin-top: 10px;">
+                <label for="select-motivo-desistencia" style="width: auto; margin-right: 10px;">Motivo:</label>
+                <select id="select-motivo-desistencia" style="width: 180px !important;">
+                    <option value="">Selecione o motivo</option>
+                    <option value="Lesão">Lesão</option>
+                    <option value="Doença">Doença</option>
+                    <option value="Fadiga extrema">Fadiga extrema</option>
+                    <option value="Motivos pessoais">Motivos pessoais</option>
+                </select>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-bottom: 15px;">
+            <a href="#" id="link-voltar-placar" style="display: none; font-size: 0.9em;">Voltar a inserir placar</a>
+        </div>
+
         <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
 
-        <p style="text-align: center; font-size: 1.1em;"><strong>Vencedor:</strong> <span id="resultado-vencedor" style="color: green; font-weight: bold;">-</span></p>
+        <p style="text-align: center; font-size: 1.1em;"><strong id="label-vencedor-final">Vencedor:</strong> <span id="resultado-vencedor" style="color: green; font-weight: bold;">-</span></p>
         
-        <button id="btnSalvarResultado" style="background-color: #28a745;">Salvar Resultado</button>
-        <button id="btnCancelarResultado" style="background-color: #6c757d; margin-top: 10px;">Cancelar</button>
+        <div class="botoes-acao-container">
+			<button id="btnSalvarResultado" style="background-color: #28a745;">Salvar Resultado</button>
+			<button id="btnCancelarResultado" style="background-color: #6c757d;">Cancelar</button>
+		</div>
     </div>
 </div>
+
+
+
+
 
 
 
@@ -1722,7 +1936,7 @@ body.dark-mode .tiebreak-paren {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.7.2'; // Versão atual do sistema      
+const VersaoSistema = 'v1.7.3'; // Versão atual do sistema       
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -1744,6 +1958,7 @@ window.vDomingo = undefined; // Valor padrão: fechado, pois o clube não abre a
 const jogadoresRestritos = ["YURI HARDER", "EDUARDO BERGMAN","BIANCA KROKER","MANUELA KROKER","WILMAR KROKER"]; // jogadores que só tem acesso às quadra 1 e 2.
 
 let arbitro = ""; 
+let isArbitroEditing = false; // para a janela do Árbritro nao ficar abrindo "do nada"
 
 let quadrasInativas = new Set();
 let reservasPorQuadra = {};
@@ -3210,15 +3425,78 @@ const isReservaParaHoje = (diaSelecionado === diaDaSemanaHoje);
             }
         }
     }
-
-    const isApenasConvidado = jogadores.length === 1 && jogadores[0] === "Convidado";
-    if (isApenasConvidado) { alert("Reservas não podem conter apenas um Convidado. É necessário um sócio acompanhando."); limparCampos(); return; }
-    const duracao = parseInt(document.getElementById('duracao').value);
-	if (duracao === 2 && (jogadores.length < 2 || jogadores.length > 4)) { alert('Reservas de 2 horas precisam ter no mínimo 2 e no máximo 4 jogadores.'); return; }
-    const quadra = document.getElementById('quadra').value;
-	if (quadrasInativas.has(quadra)) { alert(`A ${quadra} está interditada provisoriamente.`); limparCampos(); return; }
+	
+	
+	const quadra = document.getElementById('quadra').value;
     const dia = parseInt(document.getElementById('dia').value, 10);
     const horaSelecionada = parseInt(document.getElementById('hora').value, 10);
+    const duracao = parseInt(document.getElementById('duracao').value);
+
+    const isConvidado = jogadores.includes("Convidado");
+	if (isConvidado) {
+		// Agora, em vez de buscar no banco, usamos a variável global.
+		const convidadoConfig = convidadoConfigGlobais;
+
+		if (!convidadoConfig) {
+			alert("Configurações do convidado não encontradas.");
+			return;
+		}
+
+		// Verifica se todas as quadras estão desativadas OU todos os dias estão desativados
+		if (
+			(!convidadoConfig.Quadra1 && !convidadoConfig.Quadra2 && !convidadoConfig.Quadra3) || // Todas as quadras desativadas
+			(!convidadoConfig.DiasDeSemana && !convidadoConfig.FimDeSemana) // Todos os dias desativados
+		) {
+			alert("Convidados não podem jogar, pois todas as quadras ou todos os dias estão desativados para não sócios.");
+			return;
+		}
+
+		// Verifica se a quadra selecionada é permitida para o convidado
+		const quadraPermitida = convidadoConfig[`Quadra${quadra.split(' ')[1]}`];
+		if (!quadraPermitida) {
+			// Monta a mensagem informando quais quadras são permitidas
+			const quadrasPermitidas = [];
+			if (convidadoConfig.Quadra1) quadrasPermitidas.push("Quadra 1 - Coberta");
+			if (convidadoConfig.Quadra2) quadrasPermitidas.push("Quadra 2 - Aberta");
+			if (convidadoConfig.Quadra3) quadrasPermitidas.push("Quadra 3 - Coberta");
+
+			const mensagemQuadras = quadrasPermitidas.length > 0
+				? `Convidados só podem utilizar as seguintes quadras: ${quadrasPermitidas.join(", ")}.`
+				: "Convidados não podem utilizar nenhuma quadra.";
+			limparCampos();
+			alert(mensagemQuadras);
+			return;
+		}
+
+		// Verifica os dias permitidos para o convidado
+		const diaDaSemana = dia >= 1 && dia <= 5; // Segunda a sexta
+		const fimDeSemana = dia === 6 || dia === 7; // Sábado e domingo
+
+		if (!convidadoConfig.DiasDeSemana && !convidadoConfig.FimDeSemana) {
+			alert("Convidados não podem fazer reservas em nenhum dia.");
+			limparCampos();
+			return;
+		}
+
+		if (!convidadoConfig.DiasDeSemana && diaDaSemana) {
+			alert("Convidados só podem fazer reservas no fim de semana (sábado e domingo).");
+			limparCampos();
+			return;
+		}
+
+		if (!convidadoConfig.FimDeSemana && fimDeSemana) {
+			alert("Convidados só podem fazer reservas durante a semana (segunda a sexta).");
+			limparCampos();
+			return;
+		}
+	}
+	
+	//const duracao = parseInt(document.getElementById('duracao').value);
+	if (duracao === 2 && (jogadores.length < 2 || jogadores.length > 4)) { alert('Reservas de 2 horas precisam ter no mínimo 2 e no máximo 4 jogadores.'); return; }
+    //const quadra = document.getElementById('quadra').value;
+	if (quadrasInativas.has(quadra)) { alert(`A ${quadra} está interditada provisoriamente.`); limparCampos(); return; }
+    //const dia = parseInt(document.getElementById('dia').value, 10);
+    //const horaSelecionada = parseInt(document.getElementById('hora').value, 10);
     if (!validarDiaReserva(jogadores)) { limparCampos(); return; }
     const reservaValida = await validarSeTemReserva(jogadores);
     if (!reservaValida) { limparCampos(); return; }
@@ -5364,11 +5642,17 @@ function fecharModalDetalhes() {
  * @param {object} reserva - O objeto da reserva do Firebase.
  */
 // SUBSTITUA A SUA FUNÇÃO INTEIRA PELA VERSÃO CORRIGIDA ABAIXO
+// SUBSTITUA A SUA FUNÇÃO 'exibirDetalhesReserva' PELA VERSÃO ABAIXO
+
 function exibirDetalhesReserva(reserva) {
     if (!reserva) return;
 
+    // --- CÓDIGO DE DEBUG (PARTE 1) ---
+    console.log("--- DEBUG: DADOS DA RESERVA ANTES DE GERAR O PLACAR ---");
+    console.log("Objeto 'reserva' completo:", reserva);
+    // --- FIM DO CÓDIGO DE DEBUG ---
+
     // --- INÍCIO DA NOVA FUNCIONALIDADE ---
-    // Verifica se a reserva é de Manutenção
     if ((reserva.jogadores || "").toLowerCase().trim() === 'manutencao') {
         const modal = document.getElementById('modalDetalhesReserva');
         const modalTitle = document.querySelector('#modalDetalhesReserva h3');
@@ -5378,36 +5662,30 @@ function exibirDetalhesReserva(reserva) {
         const statusElement = document.getElementById('modal-status');
         const resultadoContainer = document.getElementById('modal-resultado-container');
 
-        // Garante que os elementos que não são de manutenção estejam no estado correto (visíveis)
         modalTitle.textContent = 'Detalhes da Manutenção';
-        organizadorRow.style.display = 'none'; // Esconde a linha do organizador
-        if (jogadoresLabel) jogadoresLabel.style.display = 'none'; // Esconde o rótulo "Jogadores"
-        resultadoContainer.style.display = 'none'; // Garante que a seção de resultado não apareça
+        organizadorRow.style.display = 'none'; 
+        if (jogadoresLabel) jogadoresLabel.style.display = 'none'; 
+        resultadoContainer.style.display = 'none'; 
 
-        // Preenche os detalhes da manutenção
         document.getElementById('modal-quadra').textContent = quadraSelecionada;
         document.getElementById('modal-dia').textContent = document.querySelector(`#dia option[value="${reserva.dia}"]`).textContent;
         document.getElementById('modal-data').textContent = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
         document.getElementById('modal-duracao').textContent = '1 Hora';
         document.getElementById('modal-horario').textContent = `${String(reserva.hora).padStart(2, '0')}:00 - ${String(reserva.hora + 1).padStart(2, '0')}:00`;
         statusElement.textContent = 'Manutenção';
-        statusElement.style.color = ''; // Remove cor especial de status
+        statusElement.style.color = ''; 
 
-        // Adiciona a mensagem personalizada
         jogadoresDiv.innerHTML = `<p style="margin: 0;">Este horário está reservado para a manutenção periódica da quadra.</p>`;
 
         modal.style.display = 'flex';
-        return; // Interrompe a função aqui para não executar a lógica de reservas normais
+        return; 
     }
     // --- FIM DA NOVA FUNCIONALIDADE ---
-
-    // O CÓDIGO ORIGINAL E FUNCIONAL COMEÇA AQUI E PERMANECE INTOCADO
 
     let listaDeApelidos = [];
     if (reserva.jogadores_completo) {
         listaDeApelidos = reserva.jogadores_completo.split(',').map(j => j.trim());
     } else {
-        // Lógica de fallback para reservas antigas
         const jogador1 = (reserva.jogadores || "").split(',').map(j => j.trim());
         listaDeApelidos.push(...jogador1);
         if (reserva.duracao > 1) {
@@ -5420,13 +5698,11 @@ function exibirDetalhesReserva(reserva) {
         }
     }
 
-    // Garante que o título e os labels estejam visíveis para reservas normais
     document.querySelector('#modalDetalhesReserva h3').textContent = 'Detalhes da Reserva';
     document.getElementById('modal-organizador').parentElement.style.display = 'block';
     const jogadoresLabelOriginal = document.getElementById('modal-jogadores').previousElementSibling;
     if(jogadoresLabelOriginal) jogadoresLabelOriginal.style.display = 'block';
 
-    // Preenche os detalhes básicos da reserva
     document.getElementById('modal-quadra').textContent = quadraSelecionada;
     document.getElementById('modal-dia').textContent = document.querySelector(`#dia option[value="${reserva.dia}"]`).textContent;
     document.getElementById('modal-data').textContent = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
@@ -5450,7 +5726,6 @@ function exibirDetalhesReserva(reserva) {
     
     const statusPrincipal = reserva.status || 'confirmada';
     statusElement.textContent = capitalizarNome(statusPrincipal.replace(/_/g, ' '));
-    // Lógica de cores do status
     if (statusPrincipal.includes('pendente')) {
         statusElement.style.color = isDarkMode ? '#FFA726' : 'orange';
     } else if (statusPrincipal.includes('recusado') || statusPrincipal.toLowerCase().includes('cancelada')) {
@@ -5467,14 +5742,16 @@ function exibirDetalhesReserva(reserva) {
 		jogadoresDiv.innerHTML = `<p style="margin: 0; font-size: 0.95em;"><em>${listaDeApelidos.map(j => capitalizarNome(j)).join(', ')}</em></p>`;
         
         resultadoContainer.style.display = 'block';
-        if (reserva.resultado) { // Pirâmide
+        if (reserva.resultado) { 
+            // --- CÓDIGO DE DEBUG (PARTE 2) ---
+            console.log("Chamando 'gerarPlacarHtml' com:", reserva.resultado, listaDeApelidos[0], listaDeApelidos[1]);
+            // --- FIM DO CÓDIGO DE DEBUG ---
             resultadoPlacarDiv.innerHTML = gerarPlacarHtml(reserva.resultado, listaDeApelidos[0], listaDeApelidos[1]);
-        } else if (reserva.resultadoDuplas) { // Duplas
+        } else if (reserva.resultadoDuplas) { 
             resultadoPlacarDiv.innerHTML = gerarPlacarDuplasHtml(reserva.resultadoDuplas);
         }
 
     } else {
-        // Cenário 2: Sem Resultado (lista detalhada com status, como antes)
         let jogadoresHtml = '<ul>';
         listaDeApelidos.forEach(apelido => {
             let statusTexto = '';
@@ -5492,7 +5769,6 @@ function exibirDetalhesReserva(reserva) {
     
     document.getElementById('modalDetalhesReserva').style.display = 'flex';
 }
-
 
 
 
@@ -6396,6 +6672,7 @@ function mostrarOpcoesPiramide(reserva, key, quadra) {
 async function abrirModalResultado(reserva, key, quadra, modoVisualizacao) {
     // --- INÍCIO DA CORREÇÃO ---
     let listaDeJogadores;
+	modoResultado = 'placar';
 
     // 1. Verifica se a lista completa de jogadores já existe.
     if (reserva.jogadores_completo) {
@@ -6421,6 +6698,23 @@ async function abrirModalResultado(reserva, key, quadra, modoVisualizacao) {
     // --- FIM DA CORREÇÃO ---
 
     reservaResultadoEmEdicao = { reserva, key, quadra, jogador1: jogador1Apelido, jogador2: jogador2Apelido };
+	
+	// --- INÍCIO DAS NOVAS MODIFICAÇÕES ---
+
+    // 1. Resetar a interface para o estado padrão (placar)
+    document.getElementById('placar-fields-container').style.display = 'block';
+    document.getElementById('wo-controls').style.display = 'none';
+    document.getElementById('desistencia-controls').style.display = 'none';
+    document.getElementById('link-voltar-placar').style.display = 'none';
+    document.getElementById('menu-opcoes-resultado').classList.remove('visivel');
+
+    // 2. Popular os novos menus <select> com os nomes dos jogadores
+    const selectVencedorWo = document.getElementById('select-vencedor-wo');
+    const selectDesistente = document.getElementById('select-desistente');
+    selectVencedorWo.innerHTML = `<option value="">Selecione</option><option value="${jogador1Apelido}">${jogador1Apelido}</option><option value="${jogador2Apelido}">${jogador2Apelido}</option>`;
+    selectDesistente.innerHTML = `<option value="">Selecione</option><option value="${jogador1Apelido}">${jogador1Apelido}</option><option value="${jogador2Apelido}">${jogador2Apelido}</option>`;
+
+    // --- FIM DAS NOVAS MODIFICAÇÕES ---
     
     const modal = document.getElementById('modalResultadoPiramide');
     const matchup = document.getElementById('resultado-matchup');
@@ -6473,6 +6767,167 @@ async function abrirModalResultado(reserva, key, quadra, modoVisualizacao) {
     
     modal.style.display = 'flex';
 }
+
+// --- NOVO BLOCO DE CÓDIGO PARA CONTROLE DA INTERFACE DO MENU ---
+
+// Estado para controlar o modo de preenchimento
+// ==============================================================================
+// NOVO BLOCO DE LÓGICA PARA O MENU DE 3 OPÇÕES E CONTROLE DOS CAMPOS
+// ==============================================================================
+
+// Estado para controlar o modo de preenchimento
+let modoResultado = 'placar'; // pode ser 'placar', 'wo' ou 'desistencia'
+
+// Nova função auxiliar para habilitar/desabilitar os campos de placar
+function setPlacarFieldsState(disabled) {
+    const container = document.getElementById('placar-fields-container');
+    const inputs = container.querySelectorAll('input[type="number"]');
+    inputs.forEach(input => {
+        input.disabled = disabled;
+
+        // --- LÓGICA ADICIONADA AQUI ---
+        // Se a função está sendo usada para desabilitar os campos...
+        if (disabled) {
+            // ...ela também limpa o valor de cada um.
+            input.value = '';
+        }
+    });
+}
+
+// Função para resetar a UI para o modo de placar padrão
+function resetarParaModoPlacar() {
+    modoResultado = 'placar';
+
+    // Oculta os painéis de W.O. e Desistência
+    document.getElementById('wo-controls').style.display = 'none';
+    document.getElementById('desistencia-controls').style.display = 'none';
+
+    // Restaura os labels para o padrão
+    document.querySelector('label[for="select-vencedor-wo"]').textContent = 'Vencedor:';
+    document.getElementById('label-vencedor-final').textContent = 'Vencedor:';
+
+    // --- LÓGICA PRINCIPAL DA CORREÇÃO ---
+    // Verifica se há um resultado original guardado na memória (caso de edição)
+    if (reservaResultadoEmEdicao && reservaResultadoEmEdicao.reserva.resultado) {
+        const resultadoOriginal = reservaResultadoEmEdicao.reserva.resultado;
+
+        // Repopula os campos com os dados originais
+        if (resultadoOriginal.set1 && resultadoOriginal.set1.placar) {
+            [document.getElementById('set1-j1').value, document.getElementById('set1-j2').value] = resultadoOriginal.set1.placar.split('x');
+            if (resultadoOriginal.set1.tiebreak) {
+                [document.getElementById('tb1-j1').value, document.getElementById('tb1-j2').value] = resultadoOriginal.set1.tiebreak.split('-');
+            }
+        }
+        if (resultadoOriginal.set2 && resultadoOriginal.set2.placar) {
+            [document.getElementById('set2-j1').value, document.getElementById('set2-j2').value] = resultadoOriginal.set2.placar.split('x');
+            if (resultadoOriginal.set2.tiebreak) {
+                [document.getElementById('tb2-j1').value, document.getElementById('tb2-j2').value] = resultadoOriginal.set2.tiebreak.split('-');
+            }
+        }
+        if (resultadoOriginal.set3) {
+            [document.getElementById('set3-j1').value, document.getElementById('set3-j2').value] = resultadoOriginal.set3.split('x');
+        }
+
+        // Recalcula o vencedor e atualiza os tie-breaks visíveis
+        calcularVencedorPiramide();
+
+    } else {
+        // Se não for uma edição (resultado novo), apenas limpa os campos
+        setPlacarFieldsState(true); // Usamos o "desabilitar" para forçar a limpeza
+        document.getElementById('resultado-vencedor').textContent = '-';
+    }
+
+    // Garante que os campos de placar fiquem habilitados
+    setPlacarFieldsState(false);
+}
+
+// Event listener para o botão de mais opções (⋮) - Sem alterações
+// Event listener para o botão de mais opções (⋮) - VERSÃO ATUALIZADA
+document.getElementById('btn-mais-opcoes').addEventListener('click', function() {
+    // Primeiro, pega a referência de todos os itens do menu
+    const itemJogoNormal = document.getElementById('acao-jogo-normal');
+    const itemWo = document.getElementById('acao-wo');
+    const itemDesistencia = document.getElementById('acao-desistencia');
+
+    // Deixa todos os itens visíveis por padrão, antes de fazer a checagem
+    itemJogoNormal.style.display = 'block';
+    itemWo.style.display = 'block';
+    itemDesistencia.style.display = 'block';
+
+    // Agora, esconde o item que corresponde ao modo atual
+    if (modoResultado === 'placar') {
+        itemJogoNormal.style.display = 'none';
+    } else if (modoResultado === 'wo') {
+        itemWo.style.display = 'none';
+    } else if (modoResultado === 'desistencia') {
+        itemDesistencia.style.display = 'none';
+    }
+
+    // Finalmente, mostra ou esconde o container do menu
+    document.getElementById('menu-opcoes-resultado').classList.toggle('visivel');
+});
+
+// Event listener para a opção "Jogo Normal"
+document.getElementById('acao-jogo-normal').addEventListener('click', function(e) {
+    e.preventDefault();
+    resetarParaModoPlacar();
+    document.getElementById('menu-opcoes-resultado').classList.remove('visivel');
+});
+
+// Event listener para a opção "W.O."
+document.getElementById('acao-wo').addEventListener('click', function(e) {
+    e.preventDefault();
+    modoResultado = 'wo';
+    setPlacarFieldsState(true); // Desabilita os campos de placar
+    document.getElementById('wo-controls').style.display = 'block';
+    document.getElementById('desistencia-controls').style.display = 'none';
+    document.getElementById('menu-opcoes-resultado').classList.remove('visivel');
+    
+    // --- LINHA ADICIONADA ---
+    document.querySelector('label[for="select-vencedor-wo"]').textContent = 'Vencedor por W.O.:';
+	document.getElementById('label-vencedor-final').textContent = 'Vencedor por W.O.:';
+});
+
+// Event listener para a opção "Desistência"
+document.getElementById('acao-desistencia').addEventListener('click', function(e) {
+    e.preventDefault();
+    modoResultado = 'desistencia';
+    setPlacarFieldsState(false); // Garante que os campos de placar estejam habilitados
+    document.getElementById('wo-controls').style.display = 'none';
+    document.getElementById('desistencia-controls').style.display = 'block';
+    document.getElementById('menu-opcoes-resultado').classList.remove('visivel');
+	document.getElementById('label-vencedor-final').textContent = 'Vencedor por Desistência:';
+});
+
+// --- O RESTANTE DAS FUNÇÕES DE CONTROLE PERMANECE O MESMO ---
+
+// Atualiza o vencedor automaticamente ao selecionar no menu de W.O.
+document.getElementById('select-vencedor-wo').addEventListener('change', function() {
+    const vencedor = this.value;
+    document.getElementById('resultado-vencedor').textContent = vencedor || '-';
+});
+
+// Atualiza o vencedor automaticamente ao selecionar quem desistiu (lógica inversa)
+document.getElementById('select-desistente').addEventListener('change', function() {
+    const desistente = this.value;
+    if (!desistente) {
+        document.getElementById('resultado-vencedor').textContent = '-';
+        return;
+    }
+    const { jogador1, jogador2 } = reservaResultadoEmEdicao;
+    const vencedor = (desistente === jogador1) ? jogador2 : jogador1;
+    document.getElementById('resultado-vencedor').textContent = vencedor;
+});
+
+// Fecha o menu de opções se clicar fora dele
+window.addEventListener('click', function(e) {
+    const menu = document.getElementById('menu-opcoes-resultado');
+    const botao = document.getElementById('btn-mais-opcoes');
+    if (menu && botao && !menu.contains(e.target) && !botao.contains(e.target)) {
+        menu.classList.remove('visivel');
+    }
+});
+
 
 
 
@@ -6557,63 +7012,134 @@ function calcularVencedorPiramide() {
     spanApelidoJ2.style.color = '';
 
     if (vencedorApelido) {
-        const nomeCompletoVencedor = jogadoresData[vencedorApelido]?.nomeCompleto || vencedorApelido;
-        vencedorFinalSpan.textContent = nomeCompletoVencedor;
-        if (vencedorApelido === jogador1Apelido) spanApelidoJ1.style.color = 'green';
-        else if (vencedorApelido === jogador2Apelido) spanApelidoJ2.style.color = 'green';
-    } else {
-        vencedorFinalSpan.textContent = '-';
-    }
+        vencedorFinalSpan.textContent = vencedorApelido; // Alterado para usar apenas o apelido
+
+        if (vencedorApelido === jogador1Apelido) spanApelidoJ1.style.color = 'green';
+        else if (vencedorApelido === jogador2Apelido) spanApelidoJ2.style.color = 'green';
+    } else {
+        vencedorFinalSpan.textContent = '-';
+    }
+    
 }
 
 
 /**
  * Salva os dados do resultado, agora com a nova estrutura de tie-break.
  */
-async function salvarResultadoPiramide() {
+// NOVA VERSÃO: AGORA CHAMA O MODAL DE CONFIRMAÇÃO
+// VERSÃO ATUALIZADA: SALVA DIRETAMENTE, SEM MODAL DE CONFIRMAÇÃO
+// VERSÃO ATUALIZADA COM VALIDAÇÃO OBRIGATÓRIA PARA DESISTÊNCIA
+function salvarResultadoPiramide() {
+    if (!reservaResultadoEmEdicao) return;
+
+    const { jogador1, jogador2 } = reservaResultadoEmEdicao;
+    const jogadorLogadoCompleto = localStorage.getItem('jogadorLogado');
+    let resultadoData = {};
+
+    if (modoResultado === 'placar') {
+        calcularVencedorPiramide();
+        const vencedorApelido = document.getElementById('resultado-vencedor').textContent;
+
+        if (vencedorApelido === '-') {
+            return alert("O placar inserido não define um vencedor. Por favor, corrija os valores.");
+        }
+        
+        // --- VALIDAÇÃO DE PERMISSÃO PRIMEIRO ---
+        const vencedorInfo = jogadoresData[vencedorApelido];
+        const vencedorNomeCompleto = vencedorInfo ? vencedorInfo.nomeCompleto : vencedorApelido;
+        if (!isUsuarioAdmin() && !isUsuarioArbitro() && (jogadorLogadoCompleto.toUpperCase() !== vencedorNomeCompleto.toUpperCase())) {
+            return alert("Atenção: Apenas o jogador declarado como vencedor, o árbitro ou um administrador podem salvar o resultado.");
+        }
+
+        resultadoData = {
+            tipo: 'Placar Normal',
+            vencedor: vencedorApelido,
+            perdedor: (vencedorApelido === jogador1) ? jogador2 : jogador1,
+            set1: { placar: `${document.getElementById('set1-j1').value}x${document.getElementById('set1-j2').value}`, tiebreak: (document.getElementById('tb1-j1').value && document.getElementById('tb1-j2').value) ? `${document.getElementById('tb1-j1').value}-${document.getElementById('tb1-j2').value}` : "" },
+            set2: { placar: `${document.getElementById('set2-j1').value}x${document.getElementById('set2-j2').value}`, tiebreak: (document.getElementById('tb2-j1').value && document.getElementById('tb2-j2').value) ? `${document.getElementById('tb2-j1').value}-${document.getElementById('tb2-j2').value}` : "" },
+            set3: (document.getElementById('set3-j1').value && document.getElementById('set3-j2').value) ? `${document.getElementById('set3-j1').value}x${document.getElementById('set3-j2').value}` : ""
+        };
+
+    } else if (modoResultado === 'wo') {
+        const vencedorApelido = document.getElementById('select-vencedor-wo').value;
+        const motivo = document.getElementById('select-motivo-wo').value;
+
+        if (!vencedorApelido || !motivo) {
+            return alert("Por favor, selecione o vencedor e o motivo do W.O.");
+        }
+        
+        // --- VALIDAÇÃO DE PERMISSÃO PRIMEIRO ---
+        const vencedorInfo = jogadoresData[vencedorApelido];
+        const vencedorNomeCompleto = vencedorInfo ? vencedorInfo.nomeCompleto : vencedorApelido;
+        if (!isUsuarioAdmin() && !isUsuarioArbitro() && (jogadorLogadoCompleto.toUpperCase() !== vencedorNomeCompleto.toUpperCase())) {
+            return alert("Atenção: Apenas o jogador declarado como vencedor, o árbitro ou um administrador podem salvar o resultado.");
+        }
+		
+		
+        
+        resultadoData = {
+            tipo: 'W.O.',
+            vencedor: vencedorApelido,
+            perdedor: (vencedorApelido === jogador1) ? jogador2 : jogador1,
+            motivo: motivo
+        };
+        
+    } else if (modoResultado === 'desistencia') {
+        const desistente = document.getElementById('select-desistente').value;
+        const motivo = document.getElementById('select-motivo-desistencia').value;
+        const s1j1 = document.getElementById('set1-j1').value;
+        const s1j2 = document.getElementById('set1-j2').value;
+
+        if (!desistente) {
+            return alert("Por favor, selecione quem desistiu da partida.");
+        }
+        
+        const vencedorApelido = (desistente === jogador1) ? jogador2 : jogador1;
+
+        // --- VALIDAÇÃO DE PERMISSÃO PRIMEIRO ---
+        const vencedorInfo = jogadoresData[vencedorApelido];
+        const vencedorNomeCompleto = vencedorInfo ? vencedorInfo.nomeCompleto : vencedorApelido;
+        if (!isUsuarioAdmin() && !isUsuarioArbitro() && (jogadorLogadoCompleto.toUpperCase() !== vencedorNomeCompleto.toUpperCase())) {
+            return alert("Atenção: Apenas o jogador declarado como vencedor, o árbitro ou um administrador podem salvar o resultado.");
+        }
+        
+        // Validações restantes
+        if (s1j1 === '' || s1j2 === '') {
+            return alert("Para Desistência, é obrigatório preencher o placar parcial (pelo menos do 1º Set).");
+        }
+        if (!motivo) {
+            return alert("Por favor, selecione o motivo da desistência.");
+        }
+
+        resultadoData = {
+            tipo: 'Desistência',
+            vencedor: vencedorApelido,
+            perdedor: desistente,
+            motivo: motivo,
+            set1: { placar: `${s1j1}x${s1j2}`, tiebreak: (document.getElementById('tb1-j1').value && document.getElementById('tb1-j2').value) ? `${document.getElementById('tb1-j1').value}-${document.getElementById('tb1-j2').value}` : "" },
+            set2: { placar: `${document.getElementById('set2-j1').value}x${document.getElementById('set2-j2').value}`, tiebreak: (document.getElementById('tb2-j1').value && document.getElementById('tb2-j2').value) ? `${document.getElementById('tb2-j1').value}-${document.getElementById('tb2-j2').value}` : "" },
+            set3: (document.getElementById('set3-j1').value && document.getElementById('set3-j2').value) ? `${document.getElementById('set3-j1').value}x${document.getElementById('set3-j2').value}` : ""
+        };
+    }
+
+    // Se passou por todas as validações, chama a função de salvamento
+    executarSalvamentoResultado(resultadoData);
+}
+
+
+
+
+
+async function executarSalvamentoResultado(resultadoData) {
     if (!reservaResultadoEmEdicao) return;
     
-    const { reserva, key, quadra, jogador1, jogador2 } = reservaResultadoEmEdicao;
-    const vencedorNomeCompleto = document.getElementById('resultado-vencedor').textContent;
     const jogadorLogadoCompleto = localStorage.getItem('jogadorLogado');
-
-    if (vencedorNomeCompleto === '-') {
-        return alert("O placar inserido não define um vencedor. Por favor, corrija os valores.");
-    }
-    
-    if (!isUsuarioAdmin() && !isUsuarioArbitro() && (vencedorNomeCompleto.toUpperCase() !== jogadorLogadoCompleto.toUpperCase())) {
-        return alert("⚠️ Atenção: Apenas o jogador declarado como vencedor, o árbitro ou um administrador podem salvar o resultado.");
-    }
-
-    // ... (coleta de dados do formulário permanece igual)
-    const s1j1 = document.getElementById('set1-j1').value;
-    const s1j2 = document.getElementById('set1-j2').value;
-    const tb1j1 = document.getElementById('tb1-j1').value;
-    const tb1j2 = document.getElementById('tb1-j2').value;
-    const s2j1 = document.getElementById('set2-j1').value;
-    const s2j2 = document.getElementById('set2-j2').value;
-    const tb2j1 = document.getElementById('tb2-j1').value;
-    const tb2j2 = document.getElementById('tb2-j2').value;
-    const s3j1 = document.getElementById('set3-j1').value;
-    const s3j2 = document.getElementById('set3-j2').value;
-    
-    if (!s1j1 || !s1j2) return alert("Por favor, preencha o placar do primeiro set.");
-    
-    const vencedorApelido = Object.keys(jogadoresData).find(apelido => jogadoresData[apelido].nomeCompleto.toUpperCase() === vencedorNomeCompleto.toUpperCase()) || vencedorNomeCompleto;
-    const perdedorApelido = vencedorApelido === jogador1 ? jogador2 : jogador1;
     const jogadorLogadoApelido = Object.keys(jogadoresData).find(apelido => jogadoresData[apelido].nomeCompleto.toUpperCase() === jogadorLogadoCompleto.toUpperCase());
-    
-    const resultadoData = {
-        set1: { placar: `${s1j1}x${s1j2}`, tiebreak: (tb1j1 && tb1j2) ? `${tb1j1}-${tb1j2}` : "" },
-        set2: { placar: `${s2j1}x${s2j2}`, tiebreak: (tb2j1 && tb2j2) ? `${tb2j1}-${tb2j2}` : "" },
-        set3: (s3j1 && s3j2) ? `${s3j1}x${s3j2}` : "",
-        vencedor: vencedorApelido,
-        perdedor: perdedorApelido,
-        informadoPor: isUsuarioAdmin() ? "Administrador" : (isUsuarioArbitro() ? "Árbitro" : (jogadorLogadoApelido || jogadorLogadoCompleto)),
-        dataInformado: new Date().toISOString()
-    };
+    resultadoData.informadoPor = isUsuarioAdmin() ? "Administrador" : (isUsuarioArbitro() ? "Árbitro" : (jogadorLogadoApelido || jogadorLogadoCompleto));
+    resultadoData.dataInformado = new Date().toISOString();
 
-    let updates = {};
+    const { reserva, key, quadra } = reservaResultadoEmEdicao;
+    const updates = {};
     const path1 = `sistemas/reservas/${quadra}/${key}`;
     const novoStatus = (isUsuarioAdmin() || isUsuarioArbitro()) ? "finalizada" : "resultado_pendente"; 
     
@@ -6629,13 +7155,8 @@ async function salvarResultadoPiramide() {
     if (isUsuarioAdmin() || isUsuarioArbitro()) {
         const tempReservaParaOperacoes = { ...reserva, resultado: resultadoData };
         const rankUpdates = processarTrocaDeRanking(tempReservaParaOperacoes);
-        
-        // --- ADICIONADO: Gera as notificações ---
-        const decisao = isUsuarioAdmin() ? "informado pelo Administrador" : "corrigido pelo Árbitro";
-        const notificacaoUpdates = enviarNotificacaoResultadoFinalizado(tempReservaParaOperacoes, decisao);
-
-        // Combina todas as atualizações
-        updates = { ...updates, ...rankUpdates, ...notificacaoUpdates };
+        const notificacaoUpdates = enviarNotificacaoResultadoFinalizado(tempReservaParaOperacoes, isUsuarioAdmin() ? "informado pelo Administrador" : "corrigido pelo Árbitro");
+        Object.assign(updates, rankUpdates, notificacaoUpdates);
     }
 
     try {
@@ -6649,7 +7170,10 @@ async function salvarResultadoPiramide() {
             mensagemSucesso = "Resultado salvo! Aguardando confirmação do oponente.";
         }
         alert(mensagemSucesso);
+        
+        // Fecha apenas o modal principal de resultado
         fecharModalResultado();
+
     } catch (error) {
         console.error("Erro ao salvar resultado:", error);
         alert("Ocorreu um erro ao salvar o resultado. Tente novamente.");
@@ -6724,7 +7248,7 @@ async function verificarConfirmacoesResultado(todasAsReservas) {
                 resumoPartida.innerHTML = `
                     <strong>Quadra:</strong> ${quadra}<br>
                     <strong>Data:</strong> ${document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent}<br>
-                    <strong>Vencedor Informado:</strong> ${reserva.resultado.vencedor}
+                    <strong>Vencedor:</strong> ${reserva.resultado.vencedor}
                 `;
                 
                 // LÓGICA PARA RECONSTRUIR A ORDEM ORIGINAL DOS JOGADORES
@@ -6842,6 +7366,14 @@ async function recusarResultado(reservaKey, quadra) {
 }
 
 
+// Esta função verifica se um placar de set é conclusivo.
+function isSetConcluido(s1, s2) {
+    return (
+        (s1 === 6 && s2 <= 4) || (s2 === 6 && s1 <= 4) ||
+        (s1 === 7 && s2 === 5) || (s2 === 7 && s1 === 5) ||
+        (s1 === 7 && s2 === 6) || (s2 === 7 && s1 === 6)
+    );
+}
 
 
 // Adicione esta nova função ao seu script
@@ -6853,12 +7385,41 @@ async function recusarResultado(reservaKey, quadra) {
  * @param {string} jogador2Apelido - O apelido do outro jogador.
  * @returns {string} - O HTML completo do placar.
  */
-// SUBSTITUA SUA FUNÇÃO 'gerarPlacarHtml' PELA VERSÃO ABAIXO
+// SUBSTITUA SUA FUNÇÃO 'gerarPlacarHtml' PELA VERSÃO FINAL ABAIXO
+
+// VERSÃO FINAL E COMPLETA DA FUNÇÃO - SUBSTITUA A SUA ATUAL POR ESTA
+
 function gerarPlacarHtml(resultado, jogador1Apelido, jogador2Apelido) {
     if (!resultado) return "";
 
     const jogador1Info = jogadoresData[jogador1Apelido] || { nomeCompleto: jogador1Apelido, piramide: '0' };
     const jogador2Info = jogadoresData[jogador2Apelido] || { nomeCompleto: jogador2Apelido, piramide: '0' };
+    const vencedorDoResultado = resultado.vencedor;
+
+    // ==========================================================
+    // INÍCIO DA CORREÇÃO DEFINITIVA (LÓGICA ROBUSTA DO VENCEDOR)
+    // ==========================================================
+    let p1_is_match_winner = false;
+    let p2_is_match_winner = false;
+
+    // Tentativa 1: Compara o apelido (padrão correto para novos resultados)
+    if (jogador1Apelido.toUpperCase() === vencedorDoResultado.toUpperCase()) {
+        p1_is_match_winner = true;
+    } else if (jogador2Apelido.toUpperCase() === vencedorDoResultado.toUpperCase()) {
+        p2_is_match_winner = true;
+    }
+
+    // Tentativa 2 (Fallback): Se a primeira falhou, compara o nome completo (para corrigir dados antigos)
+    if (!p1_is_match_winner && !p2_is_match_winner) {
+        if (jogador1Info && jogador1Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase()) {
+            p1_is_match_winner = true;
+        } else if (jogador2Info && jogador2Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase()) {
+            p2_is_match_winner = true;
+        }
+    }
+    // ==========================================================
+    // FIM DA CORREÇÃO DEFINITIVA
+    // ==========================================================
 
     let posicaoHtmlP1 = '';
     if (jogador1Info && jogador1Info.piramide && jogador1Info.piramide !== "0") {
@@ -6866,7 +7427,6 @@ function gerarPlacarHtml(resultado, jogador1Apelido, jogador2Apelido) {
         const displayRank = piramidePos >= 61 ? piramidePos - 60 : piramidePos;
         posicaoHtmlP1 = `<span class="placar-posicao">${displayRank}</span>`;
     }
-    let nomeExibicaoP1 = formatarNomeCompleto(jogador1Info.nomeCompleto);
 
     let posicaoHtmlP2 = '';
     if (jogador2Info && jogador2Info.piramide && jogador2Info.piramide !== "0") {
@@ -6874,43 +7434,80 @@ function gerarPlacarHtml(resultado, jogador1Apelido, jogador2Apelido) {
         const displayRank = piramidePos >= 61 ? piramidePos - 60 : piramidePos;
         posicaoHtmlP2 = `<span class="placar-posicao">${displayRank}</span>`;
     }
-    let nomeExibicaoP2 = formatarNomeCompleto(jogador2Info.nomeCompleto);
 
-    const vencedorApelido = resultado.vencedor;
-    const p1_is_winner = jogador1Apelido === vencedorApelido;
-    const p2_is_winner = jogador2Apelido === vencedorApelido;
-    const scoresP1 = [], scoresP2 = [];
+    const scoresP1 = [];
+    const scoresP2 = [];
 
     ['set1', 'set2', 'set3'].forEach(setKey => {
         const setData = resultado[setKey];
         if (setData && (setData.placar || typeof setData === 'string')) {
             const setPlacar = typeof setData === 'string' ? setData : setData.placar;
-            // Lógica original que usa .map(Number) para garantir que a comparação seja numérica
-            const [s1, s2] = setPlacar.split('x').map(Number);
-            const p1_ganhou_set = s1 > s2;
-            
-            let tb1_html = '', tb2_html = '';
-            if (typeof setData === 'object' && setData.tiebreak) {
-                const [tb1, tb2] = setData.tiebreak.split('-');
-                tb1_html = `<sup>${tb1}</sup>`;
-                tb2_html = `<sup>${tb2}</sup>`;
+            if (setPlacar.includes('x')) {
+                const [s1, s2] = setPlacar.split('x').map(Number);
+                const p1_ganhou_set = s1 > s2;
+                let tb1_html = '', tb2_html = '';
+                if (typeof setData === 'object' && setData.tiebreak && setData.tiebreak.includes('-')) {
+                    const [tb1, tb2] = setData.tiebreak.split('-');
+                    tb1_html = `<sup>${tb1}</sup>`;
+                    tb2_html = `<sup>${tb2}</sup>`;
+                }
+                scoresP1.push(`<span class="set-score ${p1_ganhou_set ? 'winner' : ''}">${s1}${tb1_html}</span>`);
+                scoresP2.push(`<span class="set-score ${!p1_ganhou_set ? 'winner' : ''}">${s2}${tb2_html}</span>`);
             }
-            
-            scoresP1.push(`<span class="set-score ${p1_ganhou_set ? 'winner' : ''}">${s1}${tb1_html}</span>`);
-            scoresP2.push(`<span class="set-score ${!p1_ganhou_set ? 'winner' : ''}">${s2}${tb2_html}</span>`);
         }
     });
 
+    const motivoHtml = resultado.motivo ? `<p class="motivo-resultado">Motivo: ${resultado.motivo}</p>` : '';
+
+    // Lógica para W.O. (PRESERVADA)
+    if (resultado.tipo === 'W.O.') {
+        return `
+            <div class="placar-container">
+                <div class="placar-row">
+                    ${posicaoHtmlP1}
+                    <span class="placar-nome ${p1_is_match_winner ? 'match-winner' : ''}">${formatarNomeCompleto(jogador1Info.nomeCompleto)}</span>
+                    <span class="placar-sets">${p1_is_match_winner ? '<span class="set-score winner">W.O.</span>' : ''}</span>
+                </div>
+                <div class="placar-row">
+                    ${posicaoHtmlP2}
+                    <span class="placar-nome ${p2_is_match_winner ? 'match-winner' : ''}">${formatarNomeCompleto(jogador2Info.nomeCompleto)}</span>
+                    <span class="placar-sets">${p2_is_match_winner ? '<span class="set-score winner">W.O.</span>' : ''}</span>
+                </div>
+            </div>${motivoHtml}`;
+    }
+
+    // Lógica para Desistência (PRESERVADA)
+    if (resultado.tipo === 'Desistência') {
+        const p1_is_loser = jogador1Apelido === resultado.perdedor;
+        const p2_is_loser = jogador2Apelido === resultado.perdedor;
+        return `
+            <div class="placar-container">
+                <div class="placar-row">
+                    ${posicaoHtmlP1}
+                    <span class="placar-nome ${p1_is_match_winner ? 'match-winner' : ''}">${formatarNomeCompleto(jogador1Info.nomeCompleto)}</span>
+                    ${p1_is_loser ? '<span class="ret-indicator">RET</span>' : ''}
+                    <span class="placar-sets">${scoresP1.join('')}</span>
+                </div>
+                <div class="placar-row">
+                    ${posicaoHtmlP2}
+                    <span class="placar-nome ${p2_is_match_winner ? 'match-winner' : ''}">${formatarNomeCompleto(jogador2Info.nomeCompleto)}</span>
+                    ${p2_is_loser ? '<span class="ret-indicator">RET</span>' : ''}
+                    <span class="placar-sets">${scoresP2.join('')}</span>
+                </div>
+            </div>${motivoHtml}`;
+    }
+
+    // Retorno padrão para Jogo Normal (PRESERVADO)
     return `
       <div class="placar-container">
         <div class="placar-row">
           ${posicaoHtmlP1}
-          <span class="placar-nome ${p1_is_winner ? 'match-winner' : ''}">${nomeExibicaoP1}</span>
+          <span class="placar-nome ${p1_is_match_winner ? 'match-winner' : ''}">${formatarNomeCompleto(jogador1Info.nomeCompleto)}</span>
           <span class="placar-sets">${scoresP1.join('')}</span>
         </div>
         <div class="placar-row">
           ${posicaoHtmlP2}
-          <span class="placar-nome ${p2_is_winner ? 'match-winner' : ''}">${nomeExibicaoP2}</span>
+          <span class="placar-nome ${p2_is_match_winner ? 'match-winner' : ''}">${formatarNomeCompleto(jogador2Info.nomeCompleto)}</span>
           <span class="placar-sets">${scoresP2.join('')}</span>
         </div>
       </div>`;
@@ -7025,7 +7622,7 @@ async function editarPeloArbitro(reservaKey, quadra) {
     const reserva = snapshot.val();
 
     if (!reserva) return alert("Erro: Reserva não encontrada.");
-
+    isArbitroEditing = true; // Avisa ao sistema que a edição começou
     fecharModalArbitro();
     await abrirModalResultado(reserva, reservaKey, quadra, false); // Adicionado await
 }
@@ -7071,6 +7668,7 @@ async function cancelarPeloArbitro(reservaKey, quadra) {
 
 // SUBSTITUA SUA FUNÇÃO 'verificarDisputasArbitro' PELA VERSÃO ABAIXO
 function verificarDisputasArbitro(todasAsReservas) {
+    if (isArbitroEditing) return; // Se o árbitro está editando, não faz nada.
     const jogadorLogadoCompleto = localStorage.getItem('jogadorLogado');
     
     if (!jogadorLogadoCompleto || !arbitro.nomeCompleto || jogadorLogadoCompleto.toUpperCase() !== arbitro.nomeCompleto.toUpperCase()) {
@@ -7181,11 +7779,6 @@ async function verificarNotificacoes() {
  * Abre o modal de resultado de duplas.
  * Futuramente, esta função também irá gerar os confrontos.
  */
-// SUBSTITUA A SUA FUNÇÃO INTEIRA PELA VERSÃO ABAIXO
-// SUBSTITUA A SUA FUNÇÃO INTEIRA PELA VERSÃO ABAIXO
-// SUBSTITUA SUA FUNÇÃO ATUAL POR ESTA VERSÃO CORRIGIDA
-// SUBSTITUA SUA FUNÇÃO ATUAL PELA VERSÃO ATUALIZADA ABAIXO
-// SUBSTITUA SUA FUNÇÃO ATUAL PELA VERSÃO CORRIGIDA ABAIXO
 function abrirModalResultadoDuplas(reserva, key, quadra, modoVisualizacao = false) {
     const container = document.getElementById('duplasMatchupsContainer');
     const jogadoresInfo = document.getElementById('duplasJogadoresInfo');
