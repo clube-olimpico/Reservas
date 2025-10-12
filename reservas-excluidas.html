@@ -20,7 +20,7 @@
 
         .filters {
             display: grid;  
-            grid-template-columns: 120px 1fr;  
+            grid-template-columns: 120px 1fr;   
             gap: 10px;
             margin-bottom: 15px;
             align-items: center;
@@ -920,60 +920,81 @@ function gerarPlacarDuplasHtml(resultadoDuplas) {
 
 
 // ADICIONE ESTA NOVA FUNÇÃO AO SEU SCRIPT
+// SUBSTITUA SUA FUNÇÃO ATUAL POR ESTA VERSÃO CORRIGIDA
+// SUBSTITUA SUA FUNÇÃO ATUAL POR ESTA VERSÃO CORRIGIDA
 function gerarPlacarPiramideHtml(resultado, jogadores) {
-    // Esta função contém a lógica EXATA que estava dentro de exibirLogs, apenas movida para cá.
-    const vencedorApelido = resultado.vencedor.toUpperCase();
+    if (!resultado || !Array.isArray(jogadores) || !resultado.vencedor) return '';
 
-    const jogadoresInfo = jogadores.map(j => (typeof j === 'object' && j !== null) ? { apelido: j.apelido, posicao: j.posicao } : { apelido: j, posicao: '0' });
-    const vencedorObj = jogadoresInfo.find(j => j.apelido.toUpperCase() === vencedorApelido);
-    const perdedorObj = jogadoresInfo.find(j => j.apelido.toUpperCase() !== vencedorApelido);
+    // Jogadores na ordem em que foram salvos no log (fonte da verdade)
+    const jogador1Obj = (typeof jogadores[0] === 'object') ? jogadores[0] : { apelido: jogadores[0], posicao: '0' };
+    const jogador2Obj = (typeof jogadores[1] === 'object') ? jogadores[1] : { apelido: jogadores[1], posicao: '0' };
 
-    if (!vencedorObj || !perdedorObj) return ''; // Retorna vazio se não encontrar os jogadores
+    // Identifica o vencedor e o perdedor DA PARTIDA para ordenar as linhas
+    const jogador1DaListaEhVencedorDaPartida = resultado.vencedor.toUpperCase() === jogador1Obj.apelido.toUpperCase();
+    const vencedorDaPartida = jogador1DaListaEhVencedorDaPartida ? jogador1Obj : jogador2Obj;
+    const perdedorDaPartida = jogador1DaListaEhVencedorDaPartida ? jogador2Obj : jogador1Obj;
 
-    const p1_rank = getDisplayRank(vencedorObj.posicao);
-    const p2_rank = getDisplayRank(perdedorObj.posicao);
-
-    const p1_posicaoHtml = p1_rank ? `<span class="placar-posicao">${p1_rank}</span>` : '';
-    const p2_posicaoHtml = p2_rank ? `<span class="placar-posicao">${p2_rank}</span>` : '';
-
-    const scoresP1 = [];
-    const scoresP2 = [];
+    // Arrays para guardar os scores HTML de cada set
+    const scoresVencedorPartida = [];
+    const scoresPerdedorPartida = [];
 
     ['set1', 'set2', 'set3'].forEach(setKey => {
         const setData = resultado[setKey];
         if (setData) {
             const setPlacar = typeof setData === 'string' ? setData : setData.placar;
             const setTiebreak = typeof setData === 'object' ? setData.tiebreak : null;
-            if (setPlacar) {
-                const [sA, sB] = setPlacar.split('x').map(Number);
-                const scoreVencedor = Math.max(sA, sB);
-                const scorePerdedor = Math.min(sA, sB);
-                let tbVencedor = '', tbPerdedor = '';
-                if(setTiebreak) {
-                    const [tbA, tbB] = setTiebreak.split('-').map(Number);
-                    tbVencedor = `<sup>${Math.max(tbA, tbB)}</sup>`;
-                    tbPerdedor = `<sup>${Math.min(tbA, tbB)}</sup>`;
+
+            if (setPlacar && setPlacar.includes('x')) {
+                // s1 é o score do jogador1 da lista, s2 é o score do jogador2 da lista
+                const [s1_str, s2_str] = setPlacar.split('x');
+                const s1 = parseInt(s1_str, 10);
+                const s2 = parseInt(s2_str, 10);
+                
+                let tb1_str = '', tb2_str = '';
+                if(setTiebreak && setTiebreak.includes('-')){
+                    [tb1_str, tb2_str] = setTiebreak.split('-');
                 }
-                scoresP1.push(`<span class="set-score winner">${scoreVencedor}${tbVencedor}</span>`);
-                scoresP2.push(`<span class="set-score">${scorePerdedor}${tbPerdedor}</span>`);
+
+                // Determina quem venceu ESTE SET para aplicar o negrito
+                const jogador1VenceuEsteSet = s1 > s2;
+
+                // Monta o HTML para o score de cada jogador neste set
+                const score1Html = `<span class="set-score ${jogador1VenceuEsteSet ? 'winner' : ''}">${s1_str}${tb1_str ? `<sup>${tb1_str}</sup>` : ''}</span>`;
+                const score2Html = `<span class="set-score ${!jogador1VenceuEsteSet ? 'winner' : ''}">${s2_str}${tb2_str ? `<sup>${tb2_str}</sup>` : ''}</span>`;
+
+                // Adiciona o HTML do score no array correto (do vencedor da partida vs perdedor da partida)
+                if (jogador1DaListaEhVencedorDaPartida) {
+                    scoresVencedorPartida.push(score1Html);
+                    scoresPerdedorPartida.push(score2Html);
+                } else {
+                    scoresVencedorPartida.push(score2Html);
+                    scoresPerdedorPartida.push(score1Html);
+                }
             }
         }
     });
 
+    const rankVencedor = getDisplayRank(vencedorDaPartida.posicao);
+    const rankPerdedor = getDisplayRank(perdedorDaPartida.posicao);
+    const vencedorPosicaoHtml = rankVencedor ? `<span class="placar-posicao">${rankVencedor}</span>` : '';
+    const perdedorPosicaoHtml = rankPerdedor ? `<span class="placar-posicao">${rankPerdedor}</span>` : '';
+
     return `
         <div class="placar-container">
             <div class="placar-row">
-                ${p1_posicaoHtml}
-                <span class="placar-nome match-winner">${capitalizarNome(vencedorObj.apelido)}</span>
-                <span class="placar-sets">${scoresP1.join('')}</span>
+                ${vencedorPosicaoHtml}
+                <span class="placar-nome match-winner">${capitalizarNome(vencedorDaPartida.apelido)}</span>
+                <span class="placar-sets">${scoresVencedorPartida.join('')}</span>
             </div>
             <div class="placar-row">
-                ${p2_posicaoHtml}
-                <span class="placar-nome">${capitalizarNome(perdedorObj.apelido)}</span>
-                <span class="placar-sets">${scoresP2.join('')}</span>
+                ${perdedorPosicaoHtml}
+                <span class="placar-nome">${capitalizarNome(perdedorDaPartida.apelido)}</span>
+                <span class="placar-sets">${scoresPerdedorPartida.join('')}</span>
             </div>
         </div>`;
 }
+
+
 
 </script>
 	
