@@ -180,6 +180,42 @@
     /* IMPORTANTE: Limita a largura máxima do placar em telas grandes */
     max-width: 450px; 
 }
+
+
+/* COLE ESTE BLOCO DE CÓDIGO ABAIXO DO COMENTÁRIO */
+
+.loading-screen {
+    position: fixed;          /* Posição fixa para cobrir a tela inteira */
+    top: 0;
+    left: 0;
+    width: 100%;              /* Ocupa toda a largura */
+    height: 100vh;            /* Ocupa toda a altura */
+    background-color: rgba(255, 255, 255, 0.95); /* Fundo branco para cobrir o conteúdo */
+    display: flex;            /* Usa flexbox para centralizar o conteúdo */
+    flex-direction: column;   /* Empilha o spinner e o texto verticalmente */
+    justify-content: center;  /* Centraliza verticalmente */
+    align-items: center;      /* Centraliza horizontalmente */
+    z-index: 9999;            /* Garante que fique na frente de tudo */
+    font-size: 1.2em;
+    color: #333;
+}
+
+.loading-spinner {
+    border: 8px solid #f3f3f3; /* Cinza claro */
+    border-top: 8px solid #007bff; /* Azul, para combinar com o botão */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite; /* Animação de rotação */
+    margin-bottom: 20px; /* Espaço entre o spinner e o texto */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
 .placar-row {
     display: flex;
     align-items: center;
