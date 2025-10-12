@@ -84,7 +84,6 @@
         "Manu": true,
         "Manutencao": true,
         "Marcelo Silva": true,
-        "Marcelo Zoti": true,
         "Marco Ribeiro": true,
         "Marcos Colombo": true,
         "Marcus Scauri": true,
@@ -215,6 +214,9 @@
           "classe": "",
           "jogosDeDuplasJogados": 0,
           "niver": "01/01/2001",
+          "notificacoes": {
+            "-ObLMK_cM3acAiniZnSH": "O resultado do seu jogo da Pirâmide contra An Alice (10/10/2025) foi confirmado automaticamente por decurso de prazo.\nPlacar final: 6x1, 7x6(7-0)\nVencedor(a): Ana Francisca."
+          },
           "piramide": "82",
           "socio": "titular",
           "vitoriasEmDuplas": 0
@@ -233,18 +235,19 @@
           "classe": "",
           "jogosDeDuplasJogados": 0,
           "niver": "01/01/2001",
+          "notificacoes": {
+            "-ObLMK_cM3acAiniZnSI": "O resultado do seu jogo da Pirâmide contra Ana Francisca (10/10/2025) foi confirmado automaticamente por decurso de prazo.\nPlacar final: 6x1, 7x6(7-0)\nVencedor(a): Ana Francisca."
+          },
           "piramide": "84",
           "socio": "titular",
           "vitoriasEmDuplas": 0
         },
         "ANA MARIA MARINHO": {
           "apelido": "Ana Maria",
-          "classe": "B",
-          "jogosDeDuplasJogados": 0,
+          "classe": "C",
           "niver": "01/01/2001",
           "piramide": "81",
-          "socio": "titular",
-          "vitoriasEmDuplas": 0
+          "socio": "titular"
         },
         "ANA PAULA KESSLER PEREIRA": {
           "apelido": "Ana Paula Pereira",
@@ -712,13 +715,6 @@
           "piramide": "2",
           "socio": "titular"
         },
-        "MARCELO ZOTI": {
-          "apelido": "Marcelo Zoti",
-          "classe": "A",
-          "niver": "08/10/1985",
-          "piramide": "12",
-          "socio": "titular"
-        },
         "MARCO RIBEIRO": {
           "apelido": "Marco Ribeiro",
           "classe": "A",
@@ -1009,8 +1005,8 @@
         }
       },
       "Arbitro": {
-        "apelido": "LEO CARRARA",
-        "nomeCompleto": "LEONARDO CARRARA"
+        "apelido": "JOAO BENTO",
+        "nomeCompleto": "JOAO BENTO PEREIRA"
       },
       "Convidados": {
         "DiasDeSemana": true,
@@ -1364,14 +1360,6 @@
           "hora": 11,
           "jogadores": "aula"
         },
-        "4_13": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 13,
-          "jogadores": "Manutencao",
-          "organizador": "Manutencao"
-        },
         "4_14": {
           "borda": "1h",
           "dia": 4,
@@ -1462,14 +1450,6 @@
           "duracao": 1,
           "hora": 11,
           "jogadores": "aula"
-        },
-        "5_13": {
-          "borda": "1h",
-          "dia": 5,
-          "duracao": 1,
-          "hora": 13,
-          "jogadores": "Manutencao",
-          "organizador": "Manutencao"
         },
         "5_14": {
           "borda": "1h",
@@ -1666,6 +1646,21 @@
           "jogadores": "Pedro Lachowski",
           "organizador": "Gabriel Martins"
         },
+        "7_13": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 13,
+          "jogadores": "Natan",
+          "organizador": "Natan"
+        },
+        "7_14": {
+          "dia": 7,
+          "duracao": 2,
+          "hora": 14,
+          "jogadores": "Vivianne Laverde",
+          "organizador": "Natan"
+        },
         "7_15": {
           "borda": "2h",
           "dia": 7,
@@ -1680,67 +1675,94 @@
           "hora": 16,
           "jogadores": "Paulinho",
           "organizador": "Paulinho"
+        },
+        "7_8": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 8,
+          "jogadores": "Helio Oliveira",
+          "organizador": "Rafael Gregorio"
+        },
+        "7_9": {
+          "dia": 7,
+          "duracao": 2,
+          "hora": 9,
+          "jogadores": "Rafael Gregorio",
+          "organizador": "Rafael Gregorio"
         }
       },
       "Quadra 2 - Aberta": {
-        "4_14": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 14,
-          "jogadores": "Manutencao",
-          "organizador": "Manutencao"
-        },
-        "5_21": {
+        "1_18": {
           "borda": "2h",
-          "dia": 5,
-          "duracao": 3,
-          "hora": 21,
-          "jogadores": "Ana Francisca",
-          "organizador": "Ana Francisca",
-          "resultado": {
-            "dataInformado": "2025-10-11T02:27:27.777Z",
-            "informadoPor": "Ana Francisca",
-            "perdedor": "An Alice",
-            "set1": {
-              "placar": "6x1",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "7x6",
-              "tiebreak": "7-0"
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": "Ana Francisca"
-          },
-          "status": "resultado_pendente"
+          "dia": 1,
+          "duracao": 2,
+          "hora": 18,
+          "jogadores": "Diego Paraiso",
+          "organizador": "Diego Paraiso"
         },
-        "5_22": {
-          "dia": 5,
-          "hora": 22,
-          "jogadores": "An Alice",
-          "organizador": "Ana Francisca",
-          "resultado": {
-            "dataInformado": "2025-10-11T02:27:27.777Z",
-            "informadoPor": "Ana Francisca",
-            "perdedor": "An Alice",
-            "set1": {
-              "placar": "6x1",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "7x6",
-              "tiebreak": "7-0"
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": "Ana Francisca"
-          },
-          "status": "resultado_pendente"
+        "1_19": {
+          "dia": 1,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Bernardo",
+          "organizador": "Diego Paraiso"
+        },
+        "6_17": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Danielle Pereira",
+          "organizador": "Danielle Pereira"
+        },
+        "6_18": {
+          "dia": 6,
+          "duracao": 2,
+          "hora": 18,
+          "jogadores": "Silvanio Pereira",
+          "organizador": "Danielle Pereira"
+        },
+        "6_19": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 19,
+          "jogadores": "Rodrigo Pereira",
+          "organizador": "Rodrigo Pereira"
         }
       },
       "Quadra 3 - Coberta": {
+        "1_15": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Edemar",
+          "organizador": "Edemar"
+        },
+        "1_16": {
+          "dia": 1,
+          "duracao": 2,
+          "hora": 16,
+          "jogadores": "Jean Souza",
+          "organizador": "Edemar"
+        },
+        "1_17": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Frank Fast, Almir",
+          "organizador": "Frank Fast"
+        },
+        "1_18": {
+          "dia": 1,
+          "duracao": 2,
+          "hora": 18,
+          "jogadores": "Marco Ribeiro, Nivaldo",
+          "organizador": "Frank Fast"
+        },
         "1_19": {
           "borda": "2h",
           "dia": 1,
@@ -1756,181 +1778,13 @@
           "jogadores": "Pamela Balboa",
           "organizador": "Ivan Balboa"
         },
-        "4_11": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 11,
-          "jogadores": "Danielle Pereira",
-          "organizador": "Silvanio Pereira"
-        },
-        "4_12": {
-          "dia": 4,
-          "duracao": 2,
-          "hora": 12,
-          "jogadores": "Silvanio Pereira",
-          "organizador": "Silvanio Pereira"
-        },
-        "4_13": {
+        "1_21": {
           "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 13,
-          "jogadores": "Manutencao",
-          "organizador": "Manutencao"
-        },
-        "4_14": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 14,
-          "jogadores": "Rodrigo Pereira",
-          "organizador": "Rodrigo Pereira"
-        },
-        "4_15": {
-          "dia": 4,
-          "duracao": 2,
-          "hora": 15,
-          "jogadores": "Luciano Cavalheiro",
-          "organizador": "Rodrigo Pereira"
-        },
-        "4_16": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 16,
-          "jogadores": "Silvanio Pereira",
-          "organizador": "Silvanio Pereira"
-        },
-        "4_17": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Flavio Ferraz",
-          "organizador": "Flavio Ferraz"
-        },
-        "4_18": {
-          "dia": 4,
-          "duracao": 2,
-          "hora": 18,
-          "jogadores": "Marcelo Zoti",
-          "organizador": "Flavio Ferraz"
-        },
-        "4_19": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 19,
-          "jogadores": "Pamela Balboa",
-          "organizador": "Pamela Balboa"
-        },
-        "4_21": {
-          "borda": "1h",
-          "dia": 4,
+          "dia": 1,
           "duracao": 1,
           "hora": 21,
-          "jogadores": "Kaiser",
-          "organizador": "Kaiser"
-        },
-        "4_7": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 7,
-          "jogadores": "Natan",
-          "organizador": "Natan"
-        },
-        "4_8": {
-          "dia": 4,
-          "duracao": 2,
-          "hora": 8,
-          "jogadores": "Vivianne Laverde",
-          "organizador": "Natan"
-        },
-        "5_11": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 11,
-          "jogadores": "Danielle Pereira",
-          "organizador": "Danielle Pereira"
-        },
-        "5_12": {
-          "dia": 5,
-          "duracao": 2,
-          "hora": 12,
-          "jogadores": "Ana Paula Pereira",
-          "organizador": "Danielle Pereira"
-        },
-        "5_13": {
-          "borda": "1h",
-          "dia": 5,
-          "duracao": 1,
-          "hora": 13,
-          "jogadores": "Manutencao",
-          "organizador": "Manutencao"
-        },
-        "5_14": {
-          "borda": "1h",
-          "dia": 5,
-          "duracao": 1,
-          "hora": 14,
-          "jogadores": "Rodrigo Pereira",
-          "organizador": "Rodrigo Pereira"
-        },
-        "5_15": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 15,
-          "jogadores": "Almir",
-          "organizador": "Edemar"
-        },
-        "5_16": {
-          "dia": 5,
-          "duracao": 2,
-          "hora": 16,
-          "jogadores": "Edemar",
-          "organizador": "Edemar"
-        },
-        "5_17": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Gustavo Ferraz",
-          "organizador": "Marco Ribeiro"
-        },
-        "5_18": {
-          "dia": 5,
-          "duracao": 2,
-          "hora": 18,
-          "jogadores": "Marco Ribeiro",
-          "organizador": "Marco Ribeiro"
-        },
-        "5_19": {
-          "borda": "1h",
-          "dia": 5,
-          "duracao": 1,
-          "hora": 19,
-          "jogadores": "Natan",
-          "organizador": "Natan"
-        },
-        "5_7": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 2,
-          "hora": 7,
-          "jogadores": "Rodrigo Voj",
-          "organizador": "Rodrigo Voj"
-        },
-        "5_8": {
-          "dia": 5,
-          "duracao": 2,
-          "hora": 8,
-          "jogadores": "Julia Voj",
-          "organizador": "Rodrigo Voj"
+          "jogadores": "Luciano Cavalheiro",
+          "organizador": "Luciano Cavalheiro"
         },
         "6_10": {
           "borda": "2h",
@@ -2000,6 +1854,21 @@
           "jogadores": "Ana Paula Pereira",
           "organizador": "Ana Paula Pereira"
         },
+        "6_19": {
+          "borda": "2h",
+          "dia": 6,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Rodrigo Voj",
+          "organizador": "Rodrigo Voj"
+        },
+        "6_20": {
+          "dia": 6,
+          "duracao": 2,
+          "hora": 20,
+          "jogadores": "Alexandre Voj",
+          "organizador": "Rodrigo Voj"
+        },
         "6_7": {
           "borda": "1h",
           "dia": 6,
@@ -2037,6 +1906,21 @@
           "hora": 11,
           "jogadores": "Gustavo Ferraz",
           "organizador": "Flavio Ferraz"
+        },
+        "7_13": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 13,
+          "jogadores": "Danielle Pereira",
+          "organizador": "Danielle Pereira"
+        },
+        "7_14": {
+          "dia": 7,
+          "duracao": 2,
+          "hora": 14,
+          "jogadores": "Silvanio Pereira",
+          "organizador": "Danielle Pereira"
         },
         "7_15": {
           "borda": "2h",
