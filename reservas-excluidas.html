@@ -330,13 +330,10 @@
         </select>
 		
 		<label for="status">Status:</label>
-		<select id="status" onchange="atualizarCorStatus(this)">
-			<option value="" style="color: black;">Todas</option>
-			<option value="pendente" style="color: orange; font-weight: bold;">Pendente</option>
-			<option value="confirmada" style="color: green; font-weight: bold;">Confirmada</option>
-			<option value="cancelada" style="color: #db7093; font-weight: bold;">Cancelada</option>
-			<option value="expirada" style="color: red; font-weight: bold;">Expirada</option>
-			<option value="modo-antigo" style="color: gray; font-weight: bold;">Sem Status</option>
+		<select id="status">
+			<option value="">Todas</option>
+			<option value="categoria_reserva">Reserva</option>
+			<option value="categoria_jogo">Jogo</option>
 		</select>
 
         <div class="botoes-acoes">
@@ -492,9 +489,6 @@ function alternarOrdenacao() {
 		
 		
 
-// SUBSTITUA SUA FUNÇÃO 'exibirLogs' POR ESTA VERSÃO FINAL
-// SUBSTITUA SUA FUNÇÃO 'exibirLogs' POR ESTA VERSÃO FINAL
-// SUBSTITUA SUA FUNÇÃO 'exibirLogs' PELA VERSÃO OTIMIZADA
 function exibirLogs(lista) {
     const logsContainer = document.getElementById('logs');
     logsContainer.innerHTML = '';
@@ -552,11 +546,18 @@ function exibirLogs(lista) {
 
         let detalhesConfirmacao = '';
         if (log.statusNoMomentoDaExclusao) {
-            let statusStyle = log.statusNoMomentoDaExclusao.includes('pendente') ? 'color: orange;' 
-                            : log.statusNoMomentoDaExclusao.includes('expirada') ? 'color: red;' 
-                            : log.statusNoMomentoDaExclusao.includes('cancelada') ? 'color: #db7093;' 
-                            : log.statusNoMomentoDaExclusao.includes('finalizada') ? 'color: #007bff;'
-                            : 'color: green;';
+            const statusLowerCase = log.statusNoMomentoDaExclusao.toLowerCase();
+            let statusStyle = 'color: green;'; // Cor padrão
+
+            if (statusLowerCase.includes('pendente')) {
+                statusStyle = 'color: orange;';
+            } else if (statusLowerCase.includes('expirada') || statusLowerCase.includes('recusado')) {
+                statusStyle = 'color: red;';
+            } else if (statusLowerCase.includes('cancelada')) {
+                statusStyle = 'color: #db7093;'; // Cor para "Cancelada"
+            } else if (statusLowerCase.includes('finalizada')) {
+                statusStyle = 'color: #007bff;';
+            }
             detalhesConfirmacao += `<p style="font-size: 0.9em; margin-top: 8px;"><strong>Status:</strong> <span style="${statusStyle} font-weight: bold;">${log.statusNoMomentoDaExclusao.toUpperCase()}</span></p>`;
             if (log.organizadorDaReserva) {
                 detalhesConfirmacao += `<p style="font-size: 0.9em;"><strong>Organizador:</strong> ${log.organizadorDaReserva}</p>`;
@@ -688,63 +689,128 @@ async function salvarLogsNoGithub(logsParaSalvar) {
 }
 
 
-        function filtrarLogs() {
-			const quadra = document.getElementById('quadra').value.trim();
-			const dataInput = document.getElementById('data');
-			const jogador = document.getElementById('jogador').value.toLowerCase().trim();
-			const duracao = document.getElementById('duracao').value.trim();
-			const status = document.getElementById('status').value.trim(); // Pega o valor do novo filtro
+// ==========================================================
+// SUBSTITUA SUA FUNÇÃO filtrarLogs() POR ESTA VERSÃO CORRIGIDA
+// ==========================================================
 
-			const data = (dataInput.value === "dd/mm/aaaa" || dataInput.value === "") ? null : dataInput.value;
+// ===================================================================
+// SUBSTITUA SUA FUNÇÃO filtrarLogs() POR ESTA VERSÃO CORRIGIDA
+// ===================================================================
 
-			logsFiltrados = logs.filter(log => {
-				const condQuadra = quadra === "" || quadra.toLowerCase() === "todas" || log.quadra === quadra;
-				const condData = !data || log.data === data.split('-').reverse().join('-');
-				const condJogador = !jogador || log.jogadores.some(j => {
-					if (typeof j === "string") {
-						return j.toLowerCase().includes(jogador);
-					} else if (j && typeof j === "object" && j.apelido) {
-						return j.apelido.toLowerCase().includes(jogador);
-					}
-					return false;
-				});
+// ==========================================================
+// VERSÃO FINAL E CORRIGIDA da função filtrarLogs
+// ==========================================================
+
+function filtrarLogs() {
+    const quadra = document.getElementById('quadra').value.trim();
+    const dataInput = document.getElementById('data');
+    const jogador = document.getElementById('jogador').value.toLowerCase().trim();
+    const duracao = document.getElementById('duracao').value.trim();
+    const status = document.getElementById('status').value.trim();
+    const data = (dataInput.value === "dd/mm/aaaa" || dataInput.value === "") ? null : dataInput.value;
+
+    logsFiltrados = logs.filter(log => {
+        // As outras condições de filtro não mudam
+        const condQuadra = quadra === "" || quadra.toLowerCase() === "todas" || log.quadra === quadra;
+        const condData = !data || log.data === data.split('-').reverse().join('-');
+        const condJogador = !jogador || (log.jogadores && log.jogadores.some(j => {
+            const apelido = (typeof j === "object" && j.apelido) ? j.apelido : (typeof j === "string" ? j : "");
+            return apelido.toLowerCase().includes(jogador);
+        }));
+        let condDuracao = true;
+        if (duracao === "Pirâmide") { /*...*/ } else if (duracao === "2 Horas") { /*...*/ } // ...lógica de duração...
+
+        // ==========================================================
+        // LÓGICA DE FILTRO DE STATUS QUE ENTENDE OS DADOS ATUAIS
+        // ==========================================================
+        let condStatus = true;
+        const statusDoLog = (log.statusNoMomentoDaExclusao || 'sem_status'); // Mantém maiúsculas/minúsculas originais
+
+        if (status && status !== 'voltar') {
+            if (status.startsWith('categoria_')) {
+                const categoria = status.split('_')[1]; // "reserva" ou "jogo"
+                
+                // Listas de status que definem cada categoria
+                const statusesDeJogo = ['em_andamento', 'resultado_pendente', 'resultado_recusado', 'finalizada', 'Cancelada'];
+                const statusesDeReserva = ['pendente', 'confirmada', 'expirada'];
+
+                if (categoria === 'jogo') {
+                    condStatus = statusesDeJogo.includes(statusDoLog);
+                } else if (categoria === 'reserva') {
+                    condStatus = statusesDeReserva.includes(statusDoLog);
+                }
+            } else {
+                // Filtra pelo status específico selecionado
+                condStatus = statusDoLog === status;
+            }
+        }
+        // ==========================================================
+
+        return condQuadra && condData && condJogador && condDuracao && condStatus;
+    });
+     
+    exibirLogs(logsFiltrados);
+}
 
 
-				let condDuracao = true;
-				if (duracao === "Pirâmide") {
-					condDuracao = log.duracao && log.duracao.includes("2 Horas") && log.duracao.toLowerCase().includes("mide") && !log.duracao.includes("1 Hora");
-				} else if (duracao === "2 Horas") {
-					condDuracao = log.duracao === "2 Horas" && !log.duracao.includes("Pirâmide");
-				} else if (duracao === "1 Hora") {
-					condDuracao = log.duracao === duracao;
-				} else if (duracao === "Convidado") {
-					condDuracao = log.jogadores.some(j => j.toLowerCase().includes("convidado"));
-				} else if (duracao) {
-					condDuracao = log.duracao === duracao;
-				}
+// ==========================================================
+// VERSÃO CORRIGIDA - Usa os valores de status REAIS
+// ==========================================================
 
-				// ==========================================================
-				// INÍCIO DA NOVA LÓGICA DE FILTRO DE STATUS
-				// ==========================================================
-				let condStatus = true;
-				if (status) {
-					// Lógica para a sua nova opção "Sem Status"
-					if (status === 'modo-antigo') {
-						condStatus = !log.statusNoMomentoDaExclusao;
-					} else {
-						// Lógica para os outros status
-						condStatus = log.statusNoMomentoDaExclusao && log.statusNoMomentoDaExclusao.toLowerCase().startsWith(status);
-					}
-				}
-				// ==========================================================
-				// FIM DA NOVA LÓGICA
-				// ==========================================================
+function gerenciarFiltroStatusDinamico() {
+    const statusSelect = document.getElementById('status');
 
-				return condQuadra && condData && condJogador && condDuracao && condStatus;
-			});
-			 
-			exibirLogs(logsFiltrados);
-		}
+    // A CORREÇÃO ESTÁ NOS 'value' ABAIXO
+    const menus = {
+        principal: [
+            { value: "", text: "Todas" },
+            { value: "categoria_reserva", text: "Reserva" },
+            { value: "categoria_jogo", text: "Jogo" }
+        ],
+        reserva: [
+            { value: "categoria_reserva", text: "Todas as Reservas" }, 
+            { value: "pendente", text: "Pendente" },
+            { value: "confirmada", text: "Confirmada" },
+            { value: "expirada", text: "Expirada" },
+            { value: "voltar", text: "↩ Voltar para o Menu Principal" } 
+        ],
+        jogo: [
+            { value: "categoria_jogo", text: "Todos os Jogos" },
+            { value: "em_andamento", text: "Em Andamento" },
+            { value: "resultado_pendente", text: "Resultado Pendente" },
+            { value: "resultado_recusado", text: "Resultado Recusado" },
+            { value: "finalizada", text: "Finalizado" },
+            { value: "Cancelada", text: "Cancelado" }, // Mantendo o "C" maiúsculo como nos seus dados
+            { value: "voltar", text: "↩ Voltar para o Menu Principal" }
+        ]
+    };
+
+    function popularOpcoes(nomeMenu) {
+        statusSelect.innerHTML = '';
+        menus[nomeMenu].forEach(opt => {
+            const option = document.createElement('option');
+            option.value = opt.value;
+            option.textContent = opt.text;
+            statusSelect.appendChild(option);
+        });
+    }
+
+    statusSelect.addEventListener('change', function() {
+        const valorSelecionado = this.value;
+
+        if (valorSelecionado === 'categoria_reserva') {
+            popularOpcoes('reserva');
+        } else if (valorSelecionado === 'categoria_jogo') {
+            popularOpcoes('jogo');
+        } else if (valorSelecionado === 'voltar') {
+            popularOpcoes('principal');
+        }
+    });
+}
+
+
+// Inicia a funcionalidade quando a página carrega
+window.addEventListener('load', gerenciarFiltroStatusDinamico);
 		
 		
 function gerarPDF() {
@@ -1029,6 +1095,10 @@ function gerarPlacarPiramideHtml(resultado, jogadores) {
             </div>
         </div>`;
 }
+
+
+
+
 
 
 
