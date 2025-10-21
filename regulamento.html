@@ -31,8 +31,46 @@
             text-align: center;
             color: #003366; /* Azul bem escuro para o título principal */
             border-bottom-width: 3px;
+            margin-bottom: 25px; /* Adicionado espaço abaixo do H1 */
+        }
+        /* Estilos para o Menu */
+        #menu {
+            background-color: #e9ecef;
+            padding: 15px 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border: 1px solid #ced4da;
+        }
+        #menu h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #adb5bd;
+            color: #495057;
+            font-size: 1.1em;
+        }
+        #menu ol {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+            /* Colunas definidas nas media queries abaixo */
+        }
+        #menu li {
+            margin-bottom: 8px;
+        }
+        #menu a {
+            text-decoration: none;
+            color: #0056b3;
+            font-weight: normal;
+            font-size: 0.95em;
+        }
+        #menu a:hover {
+            text-decoration: underline;
+            color: #003366;
         }
         .section {
+            /* Padrão: Seções visíveis */
+            display: block;
             margin-bottom: 30px;
         }
         .subsection {
@@ -68,8 +106,6 @@
             font-size: 0.9em;
             color: #6c757d;
         }
-        /* Classe version removida do CSS pois não é mais usada */
-        /* Estilo para link (opcional, pode ajustar) */
         a.system-link {
             color: #007bff;
             text-decoration: none;
@@ -78,7 +114,6 @@
         a.system-link:hover {
             text-decoration: underline;
         }
-        /* Estilo para exemplos */
         .example {
             background-color: #e9ecef;
             padding: 10px;
@@ -87,259 +122,399 @@
             font-style: italic;
             border: 1px dashed #ced4da;
         }
+        .faq-question {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Opcional: Adiciona rolagem suave ao clicar nos links */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* --- INÍCIO DOS AJUSTES PARA CELULAR --- */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px; /* Reduz o padding geral do body */
+            }
+            .container {
+                padding: 15px; /* Reduz padding interno do container */
+                margin: 10px auto; /* Reduz margem superior/inferior */
+            }
+            h1, h2, h3 {
+                margin-top: 20px; /* Reduz margem superior dos títulos */
+                padding-bottom: 8px; /* Reduz padding inferior */
+            }
+            h1 {
+                font-size: 1.8em; /* Ajusta tamanho do título principal */
+            }
+            h2 {
+                font-size: 1.4em; /* Ajusta tamanho dos títulos de seção */
+            }
+            #menu {
+                 padding: 10px 15px; /* Reduz padding do menu */
+            }
+            #menu li {
+                 margin-bottom: 5px; /* Reduz espaço entre itens do menu */
+            }
+            .subsection, .example {
+                padding: 10px; /* Reduz padding das subseções e exemplos */
+            }
+            li {
+                margin-bottom: 8px; /* Reduz espaço entre itens de lista */
+            }
+            /* Mobile: Esconde o container das seções INICIALMENTE */
+            #content-sections.initially-hidden-mobile {
+                display: none;
+            }
+            /* Garante que o menu no celular seja coluna única */
+             #menu ol {
+                columns: 1;
+                -webkit-columns: 1;
+                -moz-columns: 1;
+            }
+        }
+        /* --- FIM DOS AJUSTES PARA CELULAR --- */
+
+         /* Desktop: Garante que o menu seja 2 colunas */
+         @media (min-width: 601px) {
+             #menu ol {
+                columns: 2;
+                -webkit-columns: 2;
+                -moz-columns: 2;
+            }
+             /* Garante que o container esteja sempre visível no desktop */
+             #content-sections {
+                 display: block !important;
+             }
+         }
+
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Regulamento de Uso das Quadras de Tênis</h1>
-        <div class="section">
-            <h2>1. Objetivo</h2>
-            <p>Este regulamento tem como objetivo estabelecer as normas para a utilização das quadras de tênis do Clube Olímpico, visando garantir o uso justo e organizado das instalações, promover a boa convivência entre os sócios e seus convidados, e zelar pela manutenção e conservação do patrimônio do clube.</p>
-        </div>
 
-        <div class="section">
-            <h2>2. Regras Gerais de Conduta e Uso</h2>
-            <ul>
-                <li><strong>Trajes e Calçados:</strong> É obrigatório o uso de trajes esportivos adequados e, fundamentalmente, <strong>calçados apropriados para a prática de tênis</strong> em quadras de saibro. A utilização de calçados inadequados pode danificar a quadra e será sujeita a sanções.</li>
-                <li><strong>Preparação da Quadra:</strong> Ao término de sua reserva, os jogadores são responsáveis por preparar (varrer) a quadra, deixando-a em boas condições para os próximos usuários. Recomenda-se encerrar a partida <strong>5 minutos antes</strong> do fim do horário para essa finalidade.</li>
-                <li><strong>Pontualidade:</strong> Respeite os horários de início e término de sua reserva. Atrasos podem prejudicar os sócios com reservas subsequentes.</li>
-                <li><strong>Conduta Esportiva:</strong> Mantenha uma conduta respeitosa e cordial com os demais jogadores, funcionários do clube e espectadores. Zele pelo espírito esportivo.</li>
-                <li><strong>Conservação:</strong> Cuide das instalações, redes, bancos e demais equipamentos das quadras. Qualquer dano deve ser comunicado imediatamente à administração do clube.</li>
-                <li><strong>Aulas Particulares:</strong> Apenas professores credenciados pelo clube podem ministrar aulas nas quadras, mediante agendamento específico no sistema (identificado como "Aula").</li>
-                <li><strong>Silêncio:</strong> Evite ruídos excessivos que possam perturbar outros jogadores ou áreas adjacentes do clube.</li>
-            </ul>
+        <div id="menu">
+            <h3>Índice</h3>
+            <ol>
+                <li><a href="#secao1">1. Objetivo</a></li>
+                <li><a href="#secao2">2. Regras Gerais</a></li>
+                <li><a href="#secao3">3. Sistema de Reservas</a></li>
+                <li><a href="#secao4">4. Tipos de Reserva</a></li>
+                <li><a href="#secao5">5. Política de Convidados</a></li>
+                <li><a href="#secao6">6. Cancelamentos</a></li>
+                <li><a href="#secao7">7. Torneios e Rankings</a></li>
+                <li><a href="#secao8">8. Sanções</a></li>
+                <li><a href="#secao9">9. Disposições Finais</a></li>
+                <li><a href="#secao10">10. Perguntas Frequentes</a></li>
+            </ol>
         </div>
+        <div id="content-sections">
 
-        <div class="section">
-            <h2>3. Sistema de Reservas</h2>
-            <div class="subsection">
-                <h3>3.1. Obrigatoriedade de Uso</h3>
-                <p>A utilização das quadras de tênis é <strong>exclusivamente</strong> mediante reserva prévia realizada através do Sistema de Reservas do clube, conforme link na descrição do grupo: <a href="https://clube-olimpico.github.io/Reservas/" target="_blank" class="system-link">https://clube-olimpico.github.io/Reservas/</a>.</p>
+            <div class="section" id="secao1">
+                <h2>1. Objetivo</h2>
+                <p>Este regulamento tem como objetivo estabelecer as normas para a utilização das quadras de tênis do Clube Olímpico, visando garantir o uso justo e organizado das instalações, promover a boa convivência entre os sócios e seus convidados, e zelar pela manutenção e conservação do patrimônio do clube.</p>
             </div>
-            <div class="subsection">
-                <h3>3.2. Limites e Restrições</h3>
-                <ul>
-                    <li><strong>Antecedência:</strong> As reservas podem ser realizadas com até <strong>3 dias</strong> de antecedência, podendo ser alterada pela diretoria.</li>
-                    <li><strong>Reserva Ativa Única:</strong> Um sócio não pode constar como participante em mais de uma reserva ativa (futura ou em andamento) simultaneamente no sistema. É necessário que a reserva anterior seja concluída para realizar um novo agendamento.</li>
-                    <li><strong>Acesso às Quadras:</strong> Sócios podem ter acesso restrito a determinadas quadras conforme definições da diretoria (ex: jogadores específicos com acesso apenas às Quadras 1 e 2).</li>
-                    <li><strong>Horários Bloqueados:</strong> Horários destinados à manutenção, aulas credenciadas ou eventos do clube serão bloqueados no sistema e não estarão disponíveis para reserva.</li>
-                </ul>
-            </div>
-             <div class="subsection warning">
-                <h3>3.3. Sistema de Confirmação (Reservas Futuras)</h3>
-                <p>Com exceção das reservas feitas para o mesmo dia, todas as demais reservas que incluem mais de um sócio seguirão o fluxo de confirmação:</p>
-                <ul>
-                    <li>A reserva inicia com status <strong>"Pendente"</strong>.</li>
-                    <li>Cada sócio convidado receberá uma notificação no sistema para <strong>Confirmar</strong> ou <strong>Recusar</strong> a participação.</li>
-                    <li>Há um <strong>prazo de 1 hora</strong> para que todos os sócios confirmem, podendo ser alterado pela Diretoria.</li>
-                    <li>Se todos confirmarem dentro do prazo, a reserva muda para <strong>"Confirmada"</strong>.</li>
-                    <li>Se o prazo expirar antes de todas as confirmações, a reserva é <strong>automaticamente cancelada</strong>.</li>
-                    <li>Se uma recusa resultar no não cumprimento das regras mínimas de ocupação da reserva (por exemplo, deixando uma reserva de 2 horas com menos de 2 sócios, ou uma reserva apenas com convidados), a reserva também será <strong>cancelada</strong>.</li>
-                </ul>
-                <p><strong>Observação:</strong> O organizador da reserva (quem a criou) é automaticamente considerado confirmado.</p>
-            </div>
-        </div>
 
-        <div class="section">
-            <h2>4. Tipos de Reserva e Regras de Ocupação</h2>
-            <div class="subsection">
-                <h3>4.1. Reserva de 1 Hora</h3>
+            <div class="section" id="secao2">
+                <h2>2. Regras Gerais de Conduta e Uso</h2>
                 <ul>
-                    <li>Permite de <strong>1 a 4 jogadores</strong> no total na quadra.</li>
-                    <li>Ideal para treinos individuais, aulas (agendadas pelo professor) ou jogos diversos.</li>
-                    <li>O <strong>sócio que realizou a reserva</strong> (organizador, registrado no sistema) tem autonomia sobre o horário e deve <strong>estar presente</strong> durante todo o período.</li>
-                    <li>O organizador pode utilizar o horário sozinho, com outros sócios (registrados ou não na reserva) ou com convidados, respeitando o limite máximo de 4 pessoas na quadra.</li>
-                    <li>Qualquer <strong>convidado (não-sócio)</strong> presente deve ser <strong>obrigatoriamente registrado</strong> na reserva no sistema (ver item 5) para fins de controle e cobrança. O registro de outros sócios participantes, embora não obrigatório, é recomendado.</li>
+                    <li><strong>Trajes e Calçados:</strong> É obrigatório o uso de trajes esportivos adequados e, fundamentalmente, <strong>calçados apropriados para a prática de tênis</strong> em quadras de saibro. A utilização de calçados inadequados pode danificar a quadra e será sujeita a sanções.</li>
+                    <li><strong>Preparação da Quadra:</strong> Ao término de sua reserva, os jogadores são responsáveis por preparar (varrer) a quadra, deixando-a em boas condições para os próximos usuários. Recomenda-se encerrar a partida <strong>5 minutos antes</strong> do fim do horário para essa finalidade.</li>
+                    <li><strong>Pontualidade:</strong> Respeite os horários de início e término de sua reserva. Atrasos podem prejudicar os sócios com reservas subsequentes.</li>
+                    <li><strong>Conduta Esportiva:</strong> Mantenha uma conduta respeitosa e cordial com os demais jogadores, funcionários do clube e espectadores. Zele pelo espírito esportivo.</li>
+                    <li><strong>Conservação:</strong> Cuide das instalações, redes, bancos e demais equipamentos das quadras. Qualquer dano deve ser comunicado imediatamente à administração do clube.</li>
+                    <li><strong>Aulas Particulares:</strong> Apenas professores credenciados pelo clube podem ministrar aulas nas quadras, mediante agendamento específico no sistema (identificado como "Aula").</li>
+                    <li><strong>Silêncio:</strong> Evite ruídos excessivos que possam perturbar outros jogadores ou áreas adjacentes do clube.</li>
                 </ul>
             </div>
-            <div class="subsection">
-                <h3>4.2. Reserva de 2 Horas</h3>
-                <ul>
-                    <li>Exige um mínimo de <strong>2 (dois) sócios registrados</strong> na reserva (organizadores) e permite um máximo de <strong>4 (quatro) jogadores</strong> no total na quadra (sócios + convidados).</li>
-                    <li>Ideal para jogos de duplas ou partidas de simples mais longas.</li>
-                    <li>Os <strong>sócios responsáveis pela reserva</strong> (no mínimo dois, conforme registrado no sistema) têm autonomia sobre o horário e devem <strong>estar presentes</strong> durante todo o período.</li>
-                    <li>Os organizadores podem utilizar o horário entre si, com outros sócios (registrados ou não na reserva) ou com convidados, respeitando o limite máximo de 4 pessoas na quadra.</li>
-                    <li>Qualquer <strong>convidado (não-sócio)</strong> presente deve ser <strong>obrigatoriamente registrado</strong> na reserva no sistema (ver item 5) para fins de controle e cobrança. O registro de outros sócios participantes, embora não obrigatório, é recomendado.</li>
-                </ul>
-            </div>
-            <div class="subsection">
-                <h3>4.3. Reserva "Pirâmide"</h3>
-                <ul>
-                    <li>Reservada exclusivamente para jogos válidos pelo <strong>Torneio Pirâmide</strong> do clube.</li>
-                    <li>Exige exatamente <strong>2 (dois) sócios</strong> participantes do torneio, registrados na reserva.</li>
-                    <li>A duração é fixada em <strong>2 horas</strong> no sistema.</li>
-                    <li>Segue regras específicas de dias/horários e quadras disponíveis, conforme definido no regulamento do Torneio Pirâmide e configurado no sistema de reservas.</li>
-                    <li>Não é permitida a inclusão de convidados ou outros sócios não registrados na partida.</li>
-                </ul>
-            </div>
-             <div class="subsection">
-                <h3>4.4. Reserva "Aula"</h3>
-                <ul>
-                    <li>Destinada exclusivamente aos professores credenciados pelo clube.</li>
-                    <li>Só pode ser agendada pelos professores autorizados ou pela administração.</li>
-                    <li>Identificada pela cor específica na planilha de reservas.</li>
-                </ul>
-            </div>
-        </div>
 
-        <div class="section">
-            <h2>5. Política de Convidados</h2>
-            <div class="subsection important">
-                <h3>5.1. Registro Obrigatório</h3>
-                <p>A presença de qualquer não-sócio (convidado) na quadra durante um horário reservado exige que ele seja <strong>explicitamente adicionado como "Convidado" no Sistema de Reservas</strong> no momento do agendamento.</p>
-                <p>O número de "Convidados" registrados na reserva deve corresponder exatamente ao número de não-sócios que participarão da atividade na quadra.</p>
-                <div class="example">
-                    <p><strong>Exemplo 1:</strong> Uma reserva com 2 sócios e 1 convidado (não-sócio).<br>
-                    No sistema, devem ser registrados os 2 sócios + 1 "Convidado".</p>
-                    <p><strong>Exemplo 2:</strong> Uma reserva com 1 sócio e 3 convidados (não-sócios).<br>
-                    No sistema, deve ser registrado o sócio + 3 "Convidados".</p>
+            <div class="section" id="secao3">
+                <h2>3. Sistema de Reservas</h2>
+                <div class="subsection">
+                    <h3>3.1. Obrigatoriedade de Uso</h3>
+                    <p>A utilização das quadras de tênis é <strong>exclusivamente</strong> mediante reserva prévia realizada através do Sistema de Reservas do clube, conforme link na descrição do grupo: <a href="https://clube-olimpico.github.io/Reservas/" target="_blank" class="system-link">https://clube-olimpico.github.io/Reservas/</a>.</p>
+                </div>
+                <div class="subsection">
+                    <h3>3.2. Limites e Restrições</h3>
+                    <ul>
+                        <li><strong>Antecedência:</strong> As reservas podem ser realizadas com até <strong>3 dias</strong> de antecedência, podendo ser alterada pela diretoria.</li>
+                        <li><strong>Reserva Ativa Única:</strong> Um sócio não pode constar como participante em mais de uma reserva ativa (futura ou em andamento) simultaneamente no sistema. É necessário que a reserva anterior seja concluída para realizar um novo agendamento.</li>
+                        <li><strong>Acesso às Quadras:</strong> Sócios podem ter acesso restrito a determinadas quadras conforme definições da diretoria (ex: jogadores específicos com acesso apenas às Quadras 1 e 2).</li>
+                        <li><strong>Horários Bloqueados:</strong> Horários destinados à manutenção, aulas credenciadas ou eventos do clube serão bloqueados no sistema e não estarão disponíveis para reserva.</li>
+                    </ul>
+                </div>
+                 <div class="subsection warning">
+                    <h3>3.3. Sistema de Confirmação (Reservas Futuras)</h3>
+                    <p>Com exceção das reservas feitas para o mesmo dia, todas as demais reservas que incluem mais de um sócio seguirão o fluxo de confirmação:</p>
+                    <ul>
+                        <li>A reserva inicia com status <strong>"Pendente"</strong>.</li>
+                        <li>Cada sócio convidado receberá uma notificação no sistema para <strong>Confirmar</strong> ou <strong>Recusar</strong> a participação.</li>
+                        <li>Há um <strong>prazo de 1 hora</strong> para que todos os sócios confirmem, podendo ser alterado pela Diretoria.</li>
+                        <li>Se todos confirmarem dentro do prazo, a reserva muda para <strong>"Confirmada"</strong>.</li>
+                        <li>Se o prazo expirar antes de todas as confirmações, a reserva é <strong>automaticamente cancelada</strong>.</li>
+                        <li>Se uma recusa resultar no não cumprimento das regras mínimas de ocupação da reserva (por exemplo, deixando uma reserva de 2 horas com menos de 2 sócios, ou uma reserva apenas com convidados), a reserva também será <strong>cancelada</strong>.</li>
+                    </ul>
+                    <p><strong>Observação:</strong> O organizador da reserva (quem a criou) é automaticamente considerado confirmado.</p>
                 </div>
             </div>
-            <div class="subsection">
-                <h3>5.2. Responsabilidade do Sócio</h3>
+
+            <div class="section" id="secao4">
+                <h2>4. Tipos de Reserva e Regras de Ocupação</h2>
+                <div class="subsection">
+                    <h3>4.1. Reserva de 1 Hora</h3>
+                    <ul>
+                        <li>Permite de <strong>1 a 4 jogadores</strong> no total na quadra.</li>
+                        <li>Ideal para treinos individuais, aulas (agendadas pelo professor) ou jogos diversos.</li>
+                        <li>O <strong>sócio que realizou a reserva</strong> (organizador, registrado no sistema) tem autonomia sobre o horário e deve <strong>estar presente</strong> durante todo o período.</li>
+                        <li>O organizador pode utilizar o horário sozinho, com outros sócios (registrados ou não na reserva) ou com convidados, respeitando o limite máximo de 4 pessoas na quadra.</li>
+                        <li>Qualquer <strong>convidado (não-sócio)</strong> presente deve ser <strong>obrigatoriamente registrado</strong> na reserva no sistema (ver item 5) para fins de controle e cobrança. O registro de outros sócios participantes, embora não obrigatório, é recomendado.</li>
+                    </ul>
+                </div>
+                <div class="subsection">
+                    <h3>4.2. Reserva de 2 Horas</h3>
+                    <ul>
+                        <li>Exige um mínimo de <strong>2 (dois) sócios registrados</strong> na reserva (organizadores) e permite um máximo de <strong>4 (quatro) jogadores</strong> no total na quadra (sócios + convidados).</li>
+                        <li>Ideal para jogos de duplas ou partidas de simples mais longas.</li>
+                        <li>Os <strong>sócios responsáveis pela reserva</strong> (no mínimo dois, conforme registrado no sistema) têm autonomia sobre o horário e devem <strong>estar presentes</strong> durante todo o período.</li>
+                        <li>Os organizadores podem utilizar o horário entre si, com outros sócios (registrados ou não na reserva) ou com convidados, respeitando o limite máximo de 4 pessoas na quadra.</li>
+                        <li>Qualquer <strong>convidado (não-sócio)</strong> presente deve ser <strong>obrigatoriamente registrado</strong> na reserva no sistema (ver item 5) para fins de controle e cobrança. O registro de outros sócios participantes, embora não obrigatório, é recomendado.</li>
+                    </ul>
+                </div>
+                <div class="subsection">
+                    <h3>4.3. Reserva "Pirâmide"</h3>
+                    <ul>
+                        <li>Reservada exclusivamente para jogos válidos pelo <strong>Torneio Pirâmide</strong> do clube.</li>
+                        <li>Exige exatamente <strong>2 (dois) sócios</strong> participantes do torneio, registrados na reserva.</li>
+                        <li>A duração é fixada em <strong>2 horas</strong> no sistema.</li>
+                        <li>Segue regras específicas de dias/horários e quadras disponíveis, conforme definido no regulamento do Torneio Pirâmide e configurado no sistema de reservas.</li>
+                        <li>Não é permitida a inclusão de convidados ou outros sócios não registrados na partida.</li>
+                    </ul>
+                </div>
+                 <div class="subsection">
+                    <h3>4.4. Reserva "Aula"</h3>
+                    <ul>
+                        <li>Destinada exclusivamente aos professores credenciados pelo clube.</li>
+                        <li>Só pode ser agendada pelos professores autorizados ou pela administração.</li>
+                        <li>Identificada pela cor específica na planilha de reservas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="secao5">
+                <h2>5. Política de Convidados</h2>
+                <div class="subsection important">
+                    <h3>5.1. Registro Obrigatório</h3>
+                    <p>A presença de qualquer não-sócio (convidado) na quadra durante um horário reservado exige que ele seja <strong>explicitamente adicionado como "Convidado" no Sistema de Reservas</strong> no momento do agendamento.</p>
+                    <p>O número de "Convidados" registrados na reserva deve corresponder exatamente ao número de não-sócios que participarão da atividade na quadra.</p>
+                    <div class="example">
+                        <p><strong>Exemplo 1:</strong> Uma reserva com 2 sócios e 1 convidado (não-sócio).<br>
+                        No sistema, devem ser registrados os 2 sócios + 1 "Convidado".</p>
+                        <p><strong>Exemplo 2:</strong> Uma reserva com 1 sócio e 3 convidados (não-sócios).<br>
+                        No sistema, deve ser registrado o sócio + 3 "Convidados".</p>
+                    </div>
+                </div>
+                <div class="subsection">
+                    <h3>5.2. Responsabilidade do Sócio</h3>
+                    <ul>
+                        <li>O <strong>sócio anfitrião</strong> (um dos organizadores da reserva registrado no sistema) é responsável por garantir o registro correto do(s) convidado(s) no sistema.</li>
+                        <li>O sócio anfitrião deve <strong>permanecer na quadra</strong> durante todo o período em que o convidado estiver jogando.</li>
+                        <li>O sócio anfitrião é responsável pelo pagamento da taxa referente ao convidado e pela conduta do mesmo nas dependências do clube.</li>
+                    </ul>
+                </div>
+                <div class="subsection">
+                    <h3>5.3. Taxa e Pagamento</h3>
+                    <ul>
+                        <li>Será cobrada uma taxa por convidado, por período de reserva, conforme valor definido pela diretoria (atualmente R$ 50,00).</li>
+                        <li>O pagamento deve ser efetuado junto à secretaria ou conforme orientação da diretoria (atualmente, pagamento ao Toni).</li>
+                    </ul>
+                </div>
+                <div class="subsection warning">
+                    <h3>5.4. Restrições de Uso</h3>
+                    <ul>
+                        <li>Convidados podem ter restrições quanto aos dias da semana e/ou quadras que podem utilizar (atualmente, permitido apenas na Quadra 2 - Aberta, sujeito a alterações).</li>
+                        <li>Convidados <strong>não podem participar</strong> de reservas em horários designados como exclusivos para sócios (ex: horários prioritários de duplas) ou reservas do tipo "Pirâmide".</li>
+                        <li>Reservas com convidados podem ter <strong>menor prioridade</strong>. A diretoria pode solicitar o cancelamento de uma reserva com convidado (com aviso prévio de 4 horas) caso um grupo de sócios necessite do horário.</li>
+                    </ul>
+                </div>
+            </div>
+
+             <div class="section" id="secao6">
+                <h2>6. Cancelamentos e Não Comparecimento ("No-Show")</h2>
                 <ul>
-                    <li>O <strong>sócio anfitrião</strong> (um dos organizadores da reserva registrado no sistema) é responsável por garantir o registro correto do(s) convidado(s) no sistema.</li>
-                    <li>O sócio anfitrião deve <strong>permanecer na quadra</strong> durante todo o período em que o convidado estiver jogando.</li>
-                    <li>O sócio anfitrião é responsável pelo pagamento da taxa referente ao convidado e pela conduta do mesmo nas dependências do clube.</li>
+                    <li><strong>Como Cancelar:</strong> Cancelamentos devem ser feitos exclusivamente através do Sistema de Reservas (clique simples na reserva > Excluir Reserva).</li>
+                    <li><strong>Prazo para Cancelamento:</strong> Uma reserva pode ser cancelada por um participante autorizado (ver item 3.3) a qualquer momento <strong>antes do horário de término</strong> da mesma. Após o término, a reserva não pode mais ser excluída.</li>
+                    <li><strong>Importância do Cancelamento:</strong> É fundamental cancelar reservas que não serão utilizadas com a maior antecedência possível, liberando o horário para outros sócios. Recomenda-se também avisar sobre o cancelamento nos grupos de comunicação do clube.</li>
+                    <li><strong>Não Comparecimento ("No-Show"):</strong> O não comparecimento a uma reserva confirmada, sem o devido cancelamento, é considerado uma infração às normas de boa convivência e pode estar sujeito às sanções administrativas previstas neste regulamento.</li>
                 </ul>
             </div>
-            <div class="subsection">
-                <h3>5.3. Taxa e Pagamento</h3>
+
+            <div class="section" id="secao7">
+                <h2>7. Torneios e Rankings (Pirâmide e Duplas)</h2>
+                <p>O clube organiza modalidades de ranking para sócios:</p>
                 <ul>
-                    <li>Será cobrada uma taxa por convidado, por período de reserva, conforme valor definido pela diretoria (atualmente R$ 50,00).</li>
-                    <li>O pagamento deve ser efetuado junto à secretaria ou conforme orientação da diretoria (atualmente, pagamento ao Toni).</li>
+                    <li><strong>Torneio Pirâmide:</strong> Competição individual contínua com desafios para ascensão no ranking. Possui regulamento próprio e regras específicas de agendamento no sistema.</li>
+                    <li><strong>Ranking de Duplas:</strong> Sistema lúdico de pontuação para jogos em duplas, visando integração. Possui regras de pontuação e formato definidos em documento próprio. Reservas seguem as regras gerais para 2 horas (mínimo 2 sócios, máximo 4 jogadores).</li>
                 </ul>
-            </div>
-            <div class="subsection warning">
-                <h3>5.4. Restrições de Uso</h3>
+                <p>Consulte os manuais específicos e a página de rankings no sistema para mais detalhes:</p>
                 <ul>
-                    <li>Convidados podem ter restrições quanto aos dias da semana e/ou quadras que podem utilizar (atualmente, permitido apenas na Quadra 2 - Aberta, sujeito a alterações).</li>
-                    <li>Convidados <strong>não podem participar</strong> de reservas em horários designados como exclusivos para sócios (ex: horários prioritários de duplas) ou reservas do tipo "Pirâmide".</li>
-                    <li>Reservas com convidados podem ter <strong>menor prioridade</strong>. A diretoria pode solicitar o cancelamento de uma reserva com convidado (com aviso prévio de 4 horas) caso um grupo de sócios necessite do horário.</li>
+                   <li>🏆 <strong>Rankings (Pirâmides e Duplas):</strong> <a href="https://clube-olimpico.github.io/Reservas/ranking.html" target="_blank" class="system-link">https://clube-olimpico.github.io/Reservas/ranking.html</a></li>
+                   <li>📖 <strong>Manual do Ranking de Duplas:</strong> <a href="https://clube-olimpico.github.io/Reservas/manual-ranking-duplas.html" target="_blank" class="system-link">https://clube-olimpico.github.io/Reservas/manual-ranking-duplas.html</a></li>
+                   <li>📜 <strong>Regras da Pirâmide:</strong> <a href="https://clube-olimpico.github.io/Reservas/piramide-regras.html" target="_blank" class="system-link">https://clube-olimpico.github.io/Reservas/piramide-regras.html</a></li>
                 </ul>
             </div>
-        </div>
 
-         <div class="section">
-            <h2>6. Cancelamentos e Não Comparecimento ("No-Show")</h2>
-            <ul>
-                <li><strong>Como Cancelar:</strong> Cancelamentos devem ser feitos exclusivamente através do Sistema de Reservas (clique simples na reserva > Excluir Reserva).</li>
-                <li><strong>Prazo para Cancelamento:</strong> Uma reserva pode ser cancelada por um participante autorizado (ver item 3.3) a qualquer momento <strong>antes do horário de término</strong> da mesma. Após o término, a reserva não pode mais ser excluída.</li>
-                <li><strong>Importância do Cancelamento:</strong> É fundamental cancelar reservas que não serão utilizadas com a maior antecedência possível, liberando o horário para outros sócios. Recomenda-se também avisar sobre o cancelamento nos grupos de comunicação do clube.</li>
-                <li><strong>Não Comparecimento ("No-Show"):</strong> O não comparecimento a uma reserva confirmada, sem o devido cancelamento, é considerado uma infração às normas de boa convivência e pode estar sujeito às sanções administrativas previstas neste regulamento.</li>
-            </ul>
-        </div>
+             <div class="section" id="secao8">
+                <h2>8. Sanções por Descumprimento</h2>
+                <p>O cumprimento deste regulamento é essencial para o bom funcionamento das atividades de tênis no clube. O descumprimento das normas aqui estabelecidas poderá acarretar sanções, aplicadas pela Diretoria ou por órgão competente designado.</p>
+                <div class="subsection important">
+                    <h3>8.1. Sanções Administrativas (Sócios)</h3>
+                    <p>Infrações como:</p>
+                    <ul>
+                        <li>Uso de calçado inadequado.</li>
+                        <li>Não preparação da quadra ao final do uso.</li>
+                        <li>Não cancelamento de reserva ("No-Show") de forma recorrente.</li>
+                        <li>Conduta antidesportiva ou desrespeitosa.</li>
+                        <li>Realizar reserva sem estar presente (não cumprimento da regra de presença do organizador).</li>
+                        <li>Desrespeito às regras de ocupação mínima/máxima ou composição (sócios/convidados).</li>
+                    </ul>
+                    <p>...poderão resultar em:</p>
+                    <ul>
+                        <li>Advertência verbal ou escrita.</li>
+                        <li>Suspensão temporária do direito de reservar quadras.</li>
+                        <li>Outras medidas administrativas cabíveis, a critério da Diretoria.</li>
+                    </ul>
+                </div>
+                <div class="subsection important">
+                    <h3>8.2. Sanções por Convidados Não Registrados</h3>
+                    <p>A presença de convidado(s) na quadra sem o devido registro no Sistema de Reservas é considerada falta grave.</p>
+                    <ul>
+                        <li>O <strong>sócio responsável</strong> (um dos organizadores presentes) pela reserva será notificado.</li>
+                        <li>Será cobrada a <strong>taxa de convidado em dobro</strong> referente ao(s) não-sócio(s) presente(s).</li>
+                        <li>Adicionalmente, poderão ser aplicadas <strong>sanções administrativas</strong> ao sócio responsável, como advertência ou suspensão do direito de reserva, especialmente em caso de reincidência.</li>
+                    </ul>
+                </div>
+                 <p>A Diretoria avaliará cada caso individualmente, garantindo o direito à defesa antes da aplicação de sanções mais severas.</p>
+            </div>
 
-        <div class="section">
-            <h2>7. Torneios e Rankings (Pirâmide e Duplas)</h2>
-            <p>O clube organiza modalidades de ranking para sócios:</p>
-            <ul>
-                <li><strong>Torneio Pirâmide:</strong> Competição individual contínua com desafios para ascensão no ranking. Possui regulamento próprio e regras específicas de agendamento no sistema.</li>
-                <li><strong>Ranking de Duplas:</strong> Sistema lúdico de pontuação para jogos em duplas, visando integração. Possui regras de pontuação e formato definidos em documento próprio. Reservas seguem as regras gerais para 2 horas (mínimo 2 sócios, máximo 4 jogadores).</li>
-            </ul>
-            <p>Consulte os manuais específicos e a página de rankings no sistema para mais detalhes:</p>
-            <ul>
-               <li>🏆 <strong>Rankings (Pirâmides e Duplas):</strong> <a href="https://clube-olimpico.github.io/Reservas/ranking.html" target="_blank" class="system-link">https://clube-olimpico.github.io/Reservas/ranking.html</a></li>
-               <li>📖 <strong>Manual do Ranking de Duplas:</strong> <a href="https://clube-olimpico.github.io/Reservas/manual-ranking-duplas.html" target="_blank" class="system-link">https://clube-olimpico.github.io/Reservas/manual-ranking-duplas.html</a></li>
-               <li>📜 <strong>Regras da Pirâmide:</strong> <a href="https://clube-olimpico.github.io/Reservas/piramide-regras.html" target="_blank" class="system-link">https://clube-olimpico.github.io/Reservas/piramide-regras.html</a></li>
-            </ul>
-        </div>
-
-         <div class="section">
-            <h2>8. Sanções por Descumprimento</h2>
-            <p>O cumprimento deste regulamento é essencial para o bom funcionamento das atividades de tênis no clube. O descumprimento das normas aqui estabelecidas poderá acarretar sanções, aplicadas pela Diretoria ou por órgão competente designado.</p>
-            <div class="subsection important">
-                <h3>8.1. Sanções Administrativas (Sócios)</h3>
-                <p>Infrações como:</p>
+            <div class="section" id="secao9">
+                <h2>9. Disposições Finais</h2>
                 <ul>
-                    <li>Uso de calçado inadequado.</li>
-                    <li>Não preparação da quadra ao final do uso.</li>
-                    <li>Não cancelamento de reserva ("No-Show") de forma recorrente.</li>
-                    <li>Conduta antidesportiva ou desrespeitosa.</li>
-                    <li>Realizar reserva sem estar presente (não cumprimento da regra de presença do organizador).</li>
-                    <li>Desrespeito às regras de ocupação mínima/máxima ou composição (sócios/convidados).</li>
-                </ul>
-                <p>...poderão resultar em:</p>
-                <ul>
-                    <li>Advertência verbal ou escrita.</li>
-                    <li>Suspensão temporária do direito de reservar quadras.</li>
-                    <li>Outras medidas administrativas cabíveis, a critério da Diretoria.</li>
-                </ul>
-            </div>
-            <div class="subsection important">
-                <h3>8.2. Sanções por Convidados Não Registrados</h3>
-                <p>A presença de convidado(s) na quadra sem o devido registro no Sistema de Reservas é considerada falta grave.</p>
-                <ul>
-                    <li>O <strong>sócio responsável</strong> (um dos organizadores presentes) pela reserva será notificado.</li>
-                    <li>Será cobrada a <strong>taxa de convidado em dobro</strong> referente ao(s) não-sócio(s) presente(s).</li>
-                    <li>Adicionalmente, poderão ser aplicadas <strong>sanções administrativas</strong> ao sócio responsável, como advertência ou suspensão do direito de reserva, especialmente em caso de reincidência.</li>
-                </ul>
-            </div>
-             <p>A Diretoria avaliará cada caso individualmente, garantindo o direito à defesa antes da aplicação de sanções mais severas.</p>
-        </div>
-
-        <div class="section">
-            <h2>9. Disposições Finais</h2>
-            <ul>
-                <li>Casos omissos neste regulamento serão resolvidos pela Diretoria de Tênis ou pela Diretoria Geral do Clube Olímpico.</li>
-                <li>Este regulamento poderá ser alterado ou atualizado a qualquer momento pela Diretoria, com a devida comunicação aos sócios.</li>
-                <li>Sugestões para melhoria do sistema ou do regulamento podem ser encaminhadas à Diretoria ou ao administrador do sistema.</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>10. Perguntas Frequentes (FAQ)</h2>
-
-            <div class="subsection">
-                <p><strong>Quando começa a funcionar esse sistema de ter que confirmar a reserva? Minhas reservas antigas serão canceladas?</strong></p>
-                <ul>
-                    <li>Ainda não há uma data definida para começar. A Diretoria avisará quando essa função for ativada.</li>
-                    <li>Não se preocupe, as reservas que você fez <strong>antes</strong> de o sistema novo começar continuarão valendo normalmente.</li>
-                    <li>Quando o sistema novo estiver ativo, reservas para <strong>dias futuros</strong> com mais de um sócio ficarão "Pendentes". Cada jogador incluído precisará entrar no sistema com sua senha e clicar em "Confirmar" dentro de 1 hora (esse tempo pode mudar). Se alguém não confirmar, a reserva será cancelada.</li>
+                    <li>Casos omissos neste regulamento serão resolvidos pela Diretoria de Tênis ou pela Diretoria Geral do Clube Olímpico.</li>
+                    <li>Este regulamento poderá ser alterado ou atualizado a qualquer momento pela Diretoria, com a devida comunicação aos sócios.</li>
+                    <li>Sugestões para melhoria do sistema ou do regulamento podem ser encaminhadas à Diretoria ou ao administrador do sistema.</li>
                 </ul>
             </div>
 
-            <div class="subsection">
-                 <p><strong>Posso reservar a quadra mais de uma vez no mesmo dia?</strong></p>
-                 <ul>
-                    <li>Pode jogar várias vezes no mesmo dia, sim. A regra principal é que cada sócio só pode ter <strong>uma reserva ativa por vez</strong> no sistema.</li>
-                    <li>Uma reserva é considerada "ativa" enquanto o horário dela ainda não terminou (seja uma reserva futura ou que está acontecendo agora).</li>
-                    <li>Essa regra existe para dar oportunidade a mais sócios de conseguirem jogar.</li>
-                    <li>Assim que o horário da sua reserva acabar, você já está liberado para fazer outra, inclusive para o horário seguinte, se ele estiver vago.</li>
-                    <li class="example"><strong>Exemplo:</strong> Você reservou e jogou das 10:00 às 11:00. Assim que der 11:01, se a quadra estiver livre das 11:00 às 12:00, você já pode fazer essa nova reserva e continuar jogando. O que não pode é, às 9:00, já reservar o horário das 10:00 *e* o das 11:00 ao mesmo tempo.</li>
-                    <li>Lembre-se: a regra de "uma reserva ativa por vez" vale para cada sócio individualmente (titulares e dependentes).</li>
-                </ul>
-            </div>
+            <div class="section" id="secao10">
+                <h2>10. Perguntas Frequentes (FAQ)</h2>
 
-            <div class="subsection">
-                <p><strong>O sistema evita que alguém use o nome de outra pessoa só para "segurar" um horário (a chamada "reserva fake")?</strong></p>
-                 <ul>
-                    <li>O sistema ajuda bastante a evitar isso. Primeiro, cada um precisa entrar com seu nome e senha pessoal para usar o sistema.</li>
-                    <li>Quando o **sistema de confirmação** estiver ativo, fica ainda mais difícil: se alguém te incluir numa reserva, você terá que entrar com *sua própria senha* para aceitar o convite. Se você não aceitar, a reserva é cancelada. Isso torna a prática da "reserva fake" muito mais complicada.</li>
-                    <li>Além disso, as regras dizem que quem reserva precisa estar presente na quadra. Usar o nome de outra pessoa sem a intenção de jogar pode gerar punições. Os administradores também podem verificar quem fez e cancelou reservas para identificar abusos.</li>
-                    <li>Embora não seja 100% à prova de falhas, o sistema dificulta muito as reservas "fantasmas".</li>
-                </ul>
-            </div>
+                <div class="subsection">
+                    <p class="faq-question">1. Quando começa a funcionar esse sistema de ter que confirmar a reserva? Minhas reservas antigas serão canceladas?</p>
+                    <ul>
+                        <li>Ainda não há uma data definida para começar. A Diretoria avisará quando essa função for ativada.</li>
+                        <li>Não se preocupe, as reservas que você fez <strong>antes</strong> de o sistema novo começar continuarão valendo normalmente.</li>
+                        <li>Quando o sistema novo estiver ativo, reservas para <strong>dias futuros</strong> com mais de um sócio ficarão "Pendentes". Cada jogador incluído precisará entrar no sistema com sua senha e clicar em "Confirmar" dentro de 1 hora (esse tempo pode mudar). Se alguém não confirmar, a reserva será cancelada.</li>
+                    </ul>
+                </div>
 
-             <div class="subsection">
-                <p><strong>Posso reservar a quadra e levar outros sócios que não estejam registrados na reserva?</strong></p>
-                 <ul>
-                    <li>Sim, você pode levar outros sócios que não foram adicionados na reserva do sistema, **desde que as seguintes condições sejam respeitadas:**</li>
-                    <li>Você (o organizador da reserva) deve estar presente durante todo o horário.</li>
-                    <li>O limite máximo de 4 pessoas na quadra não pode ser ultrapassado (contando você, os sócios registrados, os sócios não registrados e eventuais convidados).</li>
-                    <li>Se for uma reserva de 2 horas, a regra de ter pelo menos 2 sócios responsáveis (registrados no sistema) deve ser cumprida.</li>
-                    <li>**Importante:** Qualquer convidado (não-sócio) presente *obrigatoriamente* precisa estar registrado como "Convidado" na reserva feita no sistema. A regra de levar acompanhantes sem registro vale apenas para outros sócios.</li>
-                    <li>Embora não seja obrigatório registrar todos os sócios participantes no sistema (exceto os organizadores mínimos para 2h), é recomendado para melhor organização.</li>
-                 </ul>
-            </div>
+                <div class="subsection">
+                     <p class="faq-question">2. Posso reservar a quadra mais de uma vez no mesmo dia?</p>
+                     <ul>
+                        <li>Pode jogar várias vezes no mesmo dia, sim. A regra principal é que cada sócio só pode ter <strong>uma reserva ativa por vez</strong> no sistema.</li>
+                        <li>Uma reserva é considerada "ativa" enquanto o horário dela ainda não terminou (seja uma reserva futura ou que está acontecendo agora).</li>
+                        <li>Essa regra existe para dar oportunidade a mais sócios de conseguirem jogar.</li>
+                        <li>Assim que o horário da sua reserva acabar, você já está liberado para fazer outra, inclusive para o horário seguinte, se ele estiver vago.</li>
+                        <li class="example"><strong>Exemplo:</strong> Você reservou e jogou das 10:00 às 11:00. Assim que der 11:01, se a quadra estiver livre das 11:00 às 12:00, você já pode fazer essa nova reserva e continuar jogando. O que não pode é, às 9:00, já reservar o horário das 10:00 *e* o das 11:00 ao mesmo tempo.</li>
+                        <li>Lembre-se: a regra de "uma reserva ativa por vez" vale para cada sócio individualmente (titulares e dependentes).</li>
+                    </ul>
+                </div>
 
-             <div class="subsection warning">
-                 <p>Para outras dúvidas, entre em contato com a Diretoria de Tênis ou com o administrador do sistema.</p>
+                <div class="subsection">
+                    <p class="faq-question">3. O sistema evita que alguém use o nome de outra pessoa só para "segurar" um horário (a chamada "reserva fake")?</p>
+                     <ul>
+                        <li>O sistema ajuda bastante a evitar isso. Primeiro, cada um precisa entrar com seu nome e senha pessoal para usar o sistema.</li>
+                        <li>Quando o **sistema de confirmação** estiver ativo, fica ainda mais difícil: se alguém te incluir numa reserva, você terá que entrar com *sua própria senha* para aceitar o convite. Se você não aceitar, a reserva é cancelada. Isso torna a prática da "reserva fake" muito mais complicada.</li>
+                        <li>Além disso, as regras dizem que quem reserva precisa estar presente na quadra. Usar o nome de outra pessoa sem a intenção de jogar pode gerar punições. Os administradores também podem verificar quem fez e cancelou reservas para identificar abusos.</li>
+                        <li>Embora não seja 100% à prova de falhas, o sistema dificulta muito as reservas "fantasmas".</li>
+                    </ul>
+                </div>
+
+                 <div class="subsection">
+                    <p class="faq-question">4. Posso reservar a quadra e levar outros sócios que não estejam registrados na reserva?</p>
+                     <ul>
+                        <li>Sim, você pode levar outros sócios que não foram adicionados na reserva do sistema, **desde que as seguintes condições sejam respeitadas:**</li>
+                        <li>Você (o organizador da reserva) deve estar presente durante todo o horário.</li>
+                        <li>O limite máximo de 4 pessoas na quadra não pode ser ultrapassado (contando você, os sócios registrados, os sócios não registrados e eventuais convidados).</li>
+                        <li>Se for uma reserva de 2 horas, a regra de ter pelo menos 2 sócios responsáveis (registrados no sistema) deve ser cumprida.</li>
+                        <li>**Importante:** Qualquer convidado (não-sócio) presente *obrigatoriamente* precisa estar registrado como "Convidado" na reserva feita no sistema. A regra de levar acompanhantes sem registro vale apenas para outros sócios.</li>
+                        <li>Embora não seja obrigatório registrar todos os sócios participantes no sistema (exceto os organizadores mínimos para 2h), é recomendado para melhor organização.</li>
+                     </ul>
+                </div>
+
+                 <div class="subsection warning">
+                     <p>Para outras dúvidas, entre em contato com a Diretoria de Tênis ou com o administrador do sistema.</p>
+                </div>
             </div>
-        </div>
-        <footer>
+            </div> <footer>
             Clube Olímpico | Diretoria de Tênis<br>
         </footer>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contentSections = document.getElementById('content-sections');
+            const menuLinks = document.querySelectorAll('#menu a');
+            const mobileMaxWidth = 600;
+
+            // Função para revelar o conteúdo no mobile
+            function revealMobileContent() {
+                if (window.innerWidth <= mobileMaxWidth && contentSections && contentSections.classList.contains('initially-hidden-mobile')) {
+                    contentSections.classList.remove('initially-hidden-mobile');
+                    // Remove os listeners para que a função execute apenas uma vez
+                    window.removeEventListener('scroll', revealMobileContentOnFirstAction);
+                    window.removeEventListener('touchstart', revealMobileContentOnFirstAction);
+                    menuLinks.forEach(link => link.removeEventListener('click', revealMobileContent));
+                }
+            }
+
+            // Handler para scroll ou touch
+            function revealMobileContentOnFirstAction() {
+                revealMobileContent();
+            }
+
+            // Verifica no carregamento se é mobile para adicionar a classe e os listeners
+            if (window.innerWidth <= mobileMaxWidth) {
+                if (contentSections) {
+                    contentSections.classList.add('initially-hidden-mobile');
+
+                    // Adiciona listener para o primeiro scroll ou toque
+                    window.addEventListener('scroll', revealMobileContentOnFirstAction, { once: true });
+                    window.addEventListener('touchstart', revealMobileContentOnFirstAction, { once: true });
+
+                    // Adiciona listener para cliques nos links do menu (para revelar antes de rolar)
+                    menuLinks.forEach(link => link.addEventListener('click', revealMobileContent));
+                }
+            }
+
+            // Opcional: Lidar com redimensionamento (principalmente para testes)
+             window.addEventListener('resize', () => {
+                 if (contentSections) {
+                     if (window.innerWidth > mobileMaxWidth) {
+                         // Garante visibilidade se redimensionar para desktop
+                         contentSections.classList.remove('initially-hidden-mobile');
+                     } else if (!contentSections.classList.contains('initially-hidden-mobile')) {
+                         // Se já foi revelado no mobile, mantém revelado
+                     } else {
+                         // Se redimensionar para mobile e ainda não foi revelado, adiciona a classe novamente
+                          contentSections.classList.add('initially-hidden-mobile');
+                     }
+                 }
+             });
+        });
+    </script>
+
 </body>
 </html>
