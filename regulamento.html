@@ -136,16 +136,46 @@
         .example p {
             text-align: left; /* Ou 'inherit' para herdar do pai */
         }
-        .faq-question {
+        .faq-question { /* Estilo removido pois agora usamos summary */
+        }
+        /* ****** INÍCIO ESTILO FAQ ACORDEÃO ****** */
+        #secao10 details {
+            margin-bottom: 15px; /* Espaço entre perguntas */
+            background-color: #f8f9fa; /* Mesmo fundo das subseções */
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 5px solid #007bff;
+        }
+        #secao10 summary {
             font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-            text-align: left; /* Garante que a pergunta não seja justificada */
+            cursor: pointer; /* Indica que é clicável */
+            margin: -15px -15px 0px -20px; /* Ajusta margens para alinhar com o box */
+            padding: 15px 15px 15px 20px; /* Ajusta padding interno */
+            outline: none; /* Remove borda de foco padrão */
+            position: relative; /* Para posicionar pseudo-elementos se necessário */
         }
-        /* Garante que itens de lista dentro da FAQ não sejam justificados */
-        #secao10 .subsection ul li {
+        /* Estilo para a seta (pode variar entre navegadores) */
+        #secao10 summary::marker {
+            color: #007bff; /* Cor da seta */
+        }
+        #secao10 details[open] summary {
+            margin-bottom: 10px; /* Mais espaço quando aberto */
+             border-bottom: 1px solid #dee2e6; /* Linha separadora */
+        }
+        #secao10 details > *:not(summary) {
+             /* margin-left: 0; */ /* Remove indentação extra, pois já está dentro do box */
+             padding-top: 10px; /* Adiciona espaço acima da resposta */
+        }
+        /* Garante que itens de lista dentro da FAQ não sejam justificados e tenham margem */
+        #secao10 .subsection ul li, #secao10 details ul li {
              text-align: left; /* Ou inherit */
+             margin-bottom: 8px; /* Restaura margem padrão de li */
         }
+         /* Remove margem inferior extra do UL dentro do details */
+        #secao10 details ul {
+            margin-bottom: 0;
+        }
+        /* ****** FIM ESTILO FAQ ACORDEÃO ****** */
 
 
         /* Opcional: Adiciona rolagem suave ao clicar nos links */
@@ -178,8 +208,12 @@
             #menu li {
                  margin-bottom: 5px; /* Reduz espaço entre itens do menu */
             }
-            .subsection, .example {
-                padding: 10px; /* Reduz padding das subseções e exemplos */
+            .subsection, .example, #secao10 details { /* Aplica ao details também */
+                padding: 10px;
+            }
+             #secao10 summary {
+                margin: -10px -10px 0px -15px; /* Ajusta margens do summary no mobile */
+                padding: 10px 10px 10px 15px; /* Ajusta padding do summary no mobile */
             }
             li {
                 margin-bottom: 8px; /* Reduz espaço entre itens de lista */
@@ -189,8 +223,13 @@
                 text-align: left; /* Ou inherit */
             }
              /* Garante que itens de lista dentro da FAQ não sejam justificados no mobile */
-            #secao10 .subsection ul li {
+            #secao10 .subsection ul li, #secao10 details ul li {
                  text-align: left; /* Ou inherit */
+                 margin-bottom: 5px; /* Reduz margem no mobile */
+            }
+             #secao10 details > *:not(summary) {
+                 /* margin-left: 0; */ /* Mantém sem indentação extra */
+                 padding-top: 5px; /* Reduz espaço acima da resposta */
             }
             /* Mobile: Esconde o container das seções INICIALMENTE */
             #content-sections.initially-hidden-mobile {
@@ -277,7 +316,7 @@
                 <div class="subsection">
                     <h3>3.1. Obrigatoriedade de Uso</h3>
                     <p>A utilização das quadras de tênis é <strong>exclusivamente</strong> mediante reserva prévia realizada através do <a href="https://clube-olimpico.github.io/Reservas/" target="_blank" class="system-link">Sistema de Reservas Online</a> do clube.</p>
-                    </div>
+                </div>
                 <div class="subsection">
                     <h3>3.2. Limites e Restrições</h3>
                     <ul>
@@ -480,48 +519,68 @@
             <div class="section" id="secao10">
                 <h2>10. Perguntas Frequentes (FAQ)</h2>
 
-                <div class="subsection">
-                    <p class="faq-question">1. Quando começa a funcionar esse sistema de ter que confirmar a reserva? Minhas reservas antigas serão canceladas?</p>
-                    <ul>
-                        <li>Ainda não há uma data definida para começar. A Diretoria avisará quando essa função for ativada.</li>
-                        <li>Não se preocupe, as reservas que você fez <strong>antes</strong> de o sistema novo começar continuarão valendo normalmente.</li>
-                        <li>Quando o sistema novo estiver ativo, reservas para <strong>dias futuros</strong> com mais de um sócio ficarão "Pendentes". Cada jogador incluído precisará entrar no sistema com sua senha e clicar em "Confirmar" dentro de 1 hora (esse tempo pode mudar). Se alguém não confirmar, a reserva será cancelada.</li>
-                    </ul>
+                 <div class="subsection">
+                    <details>
+                        <summary>1. Quando começa a funcionar esse sistema de ter que confirmar a reserva? Minhas reservas antigas serão canceladas?</summary>
+                        <ul>
+                            <li>Ainda não há uma data definida para começar. A Diretoria avisará quando essa função for ativada.</li>
+                            <li>Não se preocupe, as reservas que você fez <strong>antes</strong> de o sistema novo começar continuarão valendo normalmente.</li>
+                            <li>Quando o sistema novo estiver ativo, reservas para <strong>dias futuros</strong> com mais de um sócio ficarão "Pendentes". Cada jogador incluído precisará entrar no sistema com sua senha e clicar em "Confirmar" dentro de 1 hora (esse tempo pode mudar). Se alguém não confirmar, a reserva será cancelada.</li>
+                        </ul>
+                    </details>
                 </div>
 
                 <div class="subsection">
-                     <p class="faq-question">2. Posso reservar a quadra mais de uma vez no mesmo dia?</p>
-                     <ul>
-                        <li>Pode jogar várias vezes no mesmo dia, sim. A regra principal é que cada sócio só pode ter <strong>uma reserva ativa por vez</strong> no sistema.</li>
-                        <li>Uma reserva é considerada "ativa" enquanto o horário dela ainda não terminou (seja uma reserva futura ou que está acontecendo agora).</li>
-                        <li>Essa regra existe para dar oportunidade a mais sócios de conseguirem jogar.</li>
-                        <li>Assim que o horário da sua reserva acabar, você já está liberado para fazer outra, inclusive para o horário seguinte, se ele estiver vago.</li>
-                        <li class="example"><strong>Exemplo:</strong> Você reservou e jogou das 10:00 às 11:00. Assim que der 11:01, se a quadra estiver livre das 11:00 às 12:00, você já pode fazer essa nova reserva e continuar jogando. O que não pode é, às 9:00, já reservar o horário das 10:00 *e* o das 11:00 ao mesmo tempo.</li>
-                        <li>Lembre-se: a regra de "uma reserva ativa por vez" vale para cada sócio individualmente (titulares e dependentes).</li>
-                    </ul>
+                    <details>
+                         <summary>2. Posso reservar a quadra mais de uma vez no mesmo dia?</summary>
+                         <ul>
+                            <li>Pode jogar várias vezes no mesmo dia, sim. A regra principal é que cada sócio só pode ter <strong>uma reserva ativa por vez</strong> no sistema.</li>
+                            <li>Uma reserva é considerada "ativa" enquanto o horário dela ainda não terminou (seja uma reserva futura ou que está acontecendo agora).</li>
+                            <li>Essa regra existe para dar oportunidade a mais sócios de conseguirem jogar.</li>
+                            <li>Assim que o horário da sua reserva acabar, você já está liberado para fazer outra, inclusive para o horário seguinte, se ele estiver vago.</li>
+                            <li class="example"><strong>Exemplo:</strong> Você reservou e jogou das 10:00 às 11:00. Assim que der 11:01, se a quadra estiver livre das 11:00 às 12:00, você já pode fazer essa nova reserva e continuar jogando. O que não pode é, às 9:00, já reservar o horário das 10:00 *e* o das 11:00 ao mesmo tempo.</li>
+                            <li>Lembre-se: a regra de "uma reserva ativa por vez" vale para cada sócio individualmente (titulares e dependentes).</li>
+                        </ul>
+                    </details>
                 </div>
 
                 <div class="subsection">
-                    <p class="faq-question">3. O sistema evita que alguém use o nome de outra pessoa só para "segurar" um horário (a chamada "reserva fake")?</p>
-                     <ul>
-                        <li>O sistema ajuda bastante a evitar isso. Primeiro, cada um precisa entrar com seu nome e senha pessoal para usar o sistema.</li>
-                        <li>Quando o **sistema de confirmação** estiver ativo, fica ainda mais difícil: se alguém te incluir numa reserva, você terá que entrar com *sua própria senha* para aceitar o convite. Se você não aceitar, a reserva é cancelada. Isso torna a prática da "reserva fake" muito mais complicada.</li>
-                        <li>Além disso, as regras dizem que quem reserva precisa estar presente na quadra. Usar o nome de outra pessoa sem a intenção de jogar pode gerar punições. Os administradores também podem verificar quem fez e cancelou reservas para identificar abusos.</li>
-                        <li>Embora não seja 100% à prova de falhas, o sistema dificulta muito as reservas "fantasmas".</li>
-                    </ul>
+                     <details>
+                        <summary>3. O sistema evita que alguém use o nome de outra pessoa só para "segurar" um horário (a chamada "reserva fake")?</summary>
+                         <ul>
+                            <li>O sistema ajuda bastante a evitar isso. Primeiro, cada um precisa entrar com seu nome e senha pessoal para usar o sistema.</li>
+                            <li>Quando o <strong>sistema de confirmação</strong> estiver ativo, fica ainda mais difícil: se alguém te incluir numa reserva, você terá que entrar com <strong>sua própria senha</strong> para aceitar o convite. Se você não aceitar, a reserva é cancelada. Isso torna a prática da "reserva fake" muito mais complicada.</li>
+                            <li>Além disso, as regras dizem que quem reserva precisa estar presente na quadra. Usar o nome de outra pessoa sem a intenção de jogar pode gerar punições. Os administradores também podem verificar quem fez e cancelou reservas para identificar abusos.</li>
+                            <li>Embora não seja 100% à prova de falhas, o sistema dificulta muito as reservas "fantasmas".</li>
+                        </ul>
+                    </details>
                 </div>
 
                  <div class="subsection">
-                    <p class="faq-question">4. Posso reservar a quadra e levar outros sócios que não estejam registrados na reserva?</p>
-                     <ul>
-                        <li>Sim, você pode levar outros sócios que não foram adicionados na reserva do sistema, **desde que as seguintes condições sejam respeitadas:**</li>
-                        <li>Você (o organizador da reserva) deve estar presente durante todo o horário.</li>
-                        <li>O limite máximo de 4 pessoas na quadra não pode ser ultrapassado (contando você, os sócios registrados, os sócios não registrados e eventuais convidados).</li>
-                        <li>Se for uma reserva de 2 horas, a regra de ter pelo menos 2 sócios responsáveis (registrados no sistema) deve ser cumprida.</li>
-                        <li>**Importante:** Qualquer convidado (não-sócio) presente *obrigatoriamente* precisa estar registrado como "Convidado" na reserva feita no sistema. A regra de levar acompanhantes sem registro vale apenas para outros sócios.</li>
-                        <li>Embora não seja obrigatório registrar todos os sócios participantes no sistema (exceto os organizadores mínimos para 2h), é recomendado para melhor organização.</li>
-                     </ul>
+                     <details>
+                        <summary>4. Posso reservar a quadra e levar outros sócios que não estejam registrados na reserva?</summary>
+                         <ul>
+                            <li>Sim, você pode levar outros sócios que não foram adicionados na reserva do sistema, <strong>desde que as seguintes condições sejam respeitadas:</strong></li>
+                            <li>Você (o organizador da reserva) deve estar presente durante todo o horário.</li>
+                            <li>O limite máximo de 4 pessoas na quadra não pode ser ultrapassado (contando você, os sócios registrados, os sócios não registrados e eventuais convidados).</li>
+                            <li>Se for uma reserva de 2 horas, a regra de ter pelo menos 2 sócios responsáveis (registrados no sistema) deve ser cumprida.</li>
+                            <li><strong>Importante:</strong> Qualquer convidado (não-sócio) presente <strong>obrigatoriamente</strong> precisa estar registrado como "Convidado" na reserva feita no sistema. A regra de levar acompanhantes sem registro vale apenas para outros sócios.</li>
+                            <li>Embora não seja obrigatório registrar todos os sócios participantes no sistema (exceto os organizadores mínimos para 2h), é recomendado para melhor organização.</li>
+                         </ul>
+                    </details>
                 </div>
+
+                <div class="subsection">
+                    <details>
+                        <summary>5. Quem pode ser incluído como dependente no sistema?</summary>
+                         <ul>
+                            <li><strong>Cadastro:</strong> Cônjuges e filhos menores de 21 anos do titular, conforme as regras do clube, podem ser cadastrados no sistema pelo administrador.</li>
+                            <li><strong>Seleção:</strong> Após o cadastro, o nome do dependente estará na lista para ser incluído como participante em uma reserva.</li>
+                            <li><strong>Uso Obrigatório:</strong> Lembre-se que <strong>todos</strong> os nomes incluídos na reserva, incluindo dependentes, <strong>devem realmente utilizar a quadra</strong>. Usar nomes de dependentes que não vão jogar para segurar horários ("reserva fake") é proibido e sujeito a sanções.</li>
+                         </ul>
+                    </details>
+                </div>
+
 
                  <div class="subsection warning">
                      <p>Para outras dúvidas, entre em contato com a Diretoria de Tênis ou com o administrador do sistema.</p>
