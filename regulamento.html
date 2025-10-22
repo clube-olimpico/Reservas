@@ -88,12 +88,22 @@
             background-color: #f8d7da;
             border-left-color: #dc3545; /* Vermelho para importante */
         }
+        p, li { /* Aplica a parágrafos E itens de lista */
+            text-align: justify; /* <<<--- JUSTIFICADO ---<<< */
+            margin-bottom: 10px; /* Adiciona um pequeno espaço abaixo */
+        }
         ul {
             padding-left: 25px;
             margin-top: 10px;
         }
-        li {
-            margin-bottom: 10px;
+        /* Ajuste para remover margem extra do último 'li' dentro de 'ul' */
+        ul li:last-child {
+             margin-bottom: 0;
+        }
+        /* Garante que 'li' dentro do menu não seja justificado */
+        #menu li {
+            text-align: left; /* Ou inherit */
+            margin-bottom: 8px; /* Restaura margem específica do menu */
         }
         strong {
             color: #495057;
@@ -122,11 +132,21 @@
             font-style: italic;
             border: 1px dashed #ced4da;
         }
+        /* Ajuste para parágrafos dentro de .example não serem justificados (mantido) */
+        .example p {
+            text-align: left; /* Ou 'inherit' para herdar do pai */
+        }
         .faq-question {
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
+            text-align: left; /* Garante que a pergunta não seja justificada */
         }
+        /* Garante que itens de lista dentro da FAQ não sejam justificados */
+        #secao10 .subsection ul li {
+             text-align: left; /* Ou inherit */
+        }
+
 
         /* Opcional: Adiciona rolagem suave ao clicar nos links */
         html {
@@ -164,6 +184,14 @@
             li {
                 margin-bottom: 8px; /* Reduz espaço entre itens de lista */
             }
+             /* Garante que 'li' dentro do menu não seja justificado no mobile */
+            #menu li {
+                text-align: left; /* Ou inherit */
+            }
+             /* Garante que itens de lista dentro da FAQ não sejam justificados no mobile */
+            #secao10 .subsection ul li {
+                 text-align: left; /* Ou inherit */
+            }
             /* Mobile: Esconde o container das seções INICIALMENTE */
             #content-sections.initially-hidden-mobile {
                 display: none;
@@ -189,6 +217,19 @@
                  display: block !important;
              }
          }
+
+         /* ------ INÍCIO CSS PLACEHOLDER ------ */
+         .loading-placeholder::after {
+             content: "...";
+             display: inline-block;
+             animation: loading-dots 1s infinite steps(3, end);
+         }
+         @keyframes loading-dots {
+             0%, 20% { content: "."; }
+             40% { content: ".."; }
+             60%, 100% { content: "..."; }
+         }
+         /* ------ FIM CSS PLACEHOLDER ------ */
 
     </style>
 </head>
@@ -235,12 +276,12 @@
                 <h2>3. Sistema de Reservas</h2>
                 <div class="subsection">
                     <h3>3.1. Obrigatoriedade de Uso</h3>
-                    <p>A utilização das quadras de tênis é <strong>exclusivamente</strong> mediante reserva prévia realizada através do Sistema de Reservas do clube, conforme link na descrição do grupo: <a href="https://clube-olimpico.github.io/Reservas/" target="_blank" class="system-link">https://clube-olimpico.github.io/Reservas/</a>.</p>
-                </div>
+                    <p>A utilização das quadras de tênis é <strong>exclusivamente</strong> mediante reserva prévia realizada através do <a href="https://clube-olimpico.github.io/Reservas/" target="_blank" class="system-link">Sistema de Reservas Online</a> do clube.</p>
+                    </div>
                 <div class="subsection">
                     <h3>3.2. Limites e Restrições</h3>
                     <ul>
-                        <li><strong>Antecedência:</strong> As reservas podem ser realizadas com até <strong>3 dias</strong> de antecedência, podendo ser alterada pela diretoria.</li>
+                        <li><strong>Antecedência:</strong> As reservas podem ser realizadas com até <strong id="dias-antecedencia-regulamento" class="loading-placeholder">?</strong><span id="dias-unidade-regulamento"> dia(s)</span><strong>*</strong> de antecedência.<br><small style="font-style: italic; display: block; margin-top: -5px;">*Este valor pode ser alterado pela diretoria.</small></li>
                         <li><strong>Reserva Ativa Única:</strong> Um sócio não pode constar como participante em mais de uma reserva ativa (futura ou em andamento) simultaneamente no sistema. É necessário que a reserva anterior seja concluída para realizar um novo agendamento.</li>
                         <li><strong>Acesso às Quadras:</strong> Sócios podem ter acesso restrito a determinadas quadras conforme definições da diretoria (ex: jogadores específicos com acesso apenas às Quadras 1 e 2).</li>
                         <li><strong>Horários Bloqueados:</strong> Horários destinados à manutenção, aulas credenciadas ou eventos do clube serão bloqueados no sistema e não estarão disponíveis para reserva.</li>
@@ -252,13 +293,41 @@
                     <ul>
                         <li>A reserva inicia com status <strong>"Pendente"</strong>.</li>
                         <li>Cada sócio convidado receberá uma notificação no sistema para <strong>Confirmar</strong> ou <strong>Recusar</strong> a participação.</li>
-                        <li>Há um <strong>prazo de 1 hora</strong> para que todos os sócios confirmem, podendo ser alterado pela Diretoria.</li>
+                        <li>Há um prazo de <strong id="horas-expirar-regulamento" class="loading-placeholder">?</strong><span id="horas-unidade-regulamento"> hora(s)</span><strong>*</strong> para que todos os sócios confirmem.<br><small style="font-style: italic; display: block; margin-top: -5px;">*Este valor pode ser alterado pela Diretoria.</small></li>
                         <li>Se todos confirmarem dentro do prazo, a reserva muda para <strong>"Confirmada"</strong>.</li>
                         <li>Se o prazo expirar antes de todas as confirmações, a reserva é <strong>automaticamente cancelada</strong>.</li>
                         <li>Se uma recusa resultar no não cumprimento das regras mínimas de ocupação da reserva (por exemplo, deixando uma reserva de 2 horas com menos de 2 sócios, ou uma reserva apenas com convidados), a reserva também será <strong>cancelada</strong>.</li>
                     </ul>
                     <p><strong>Observação:</strong> O organizador da reserva (quem a criou) é automaticamente considerado confirmado.</p>
                 </div>
+
+                <div class="subsection" id="secao3.4"> <h3>3.4. Regras Específicas de Horários</h3>
+
+                    <div class="subsection warning" style="margin-top: 15px;"> <h4>Otimização de Domingo:</h4>
+                        <ul>
+                            <li>Para garantir o máximo aproveitamento das quadras, uma regra especial de agendamento pode estar ativa. Esta regra é válida apenas quando o horário do clube aos domingos for das <strong>8:00 às 12:00</strong>.</li>
+                            <li><strong>Como funciona?</strong> O sistema só permitirá agendamentos de <strong>2 horas</strong>, começando às <strong>8:00</strong> ou às <strong>10:00</strong>.</li>
+                            <li>Qualquer outra tentativa (reservas de 1 hora ou começando em horários diferentes) será bloqueada com uma mensagem explicativa.</li>
+                            <li><strong>Importante:</strong> Esta regra <strong>não se aplica</strong> se você estiver agendando no próprio domingo. Nesse caso, pode agendar qualquer horário vago normalmente.</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection" style="margin-top: 15px;"> <h4>Horários Prioritários para Duplas:</h4>
+                        <ul>
+                            <li>A diretoria pode definir horários exclusivos para duplas.</li>
+                            <li>Nesses períodos, reservas antecipadas devem obrigatoriamente ter <strong>4 sócios</strong> registrados.</li>
+                            <li>Se o horário não for preenchido com antecedência por uma dupla completa, ele poderá ser liberado para outras configurações (menos jogadores, simples) no mesmo dia da reserva.</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection important" style="margin-top: 15px;"> <h4>Horários Bloqueados:</h4>
+                        <ul>
+                            <li>Horários com fundo ou indicação visual específica (como vermelho ou cinza, dependendo do tema) no sistema estão reservados para manutenção, aulas ou eventos do clube.</li>
+                            <li>Estes horários <strong>não podem ser agendados</strong> pelos sócios.</li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
 
             <div class="section" id="secao4">
@@ -270,7 +339,7 @@
                         <li>Ideal para treinos individuais, aulas (agendadas pelo professor) ou jogos diversos.</li>
                         <li>O <strong>sócio que realizou a reserva</strong> (organizador, registrado no sistema) tem autonomia sobre o horário e deve <strong>estar presente</strong> durante todo o período.</li>
                         <li>O organizador pode utilizar o horário sozinho, com outros sócios (registrados ou não na reserva) ou com convidados, respeitando o limite máximo de 4 pessoas na quadra.</li>
-                        <li>Qualquer <strong>convidado (não-sócio)</strong> presente deve ser <strong>obrigatoriamente registrado</strong> na reserva no sistema (ver item 5) para fins de controle e cobrança. O registro de outros sócios participantes, embora não obrigatório, é recomendado.</li>
+                        <li>Qualquer <strong>convidado (não-sócio)</strong> presente deve ser <strong>obrigatoriamente registrado</strong> como 'Convidado' na reserva feita no sistema, para fins de controle e cobrança. O registro de outros sócios participantes, embora não obrigatório, é recomendado.</li>
                     </ul>
                 </div>
                 <div class="subsection">
@@ -280,7 +349,7 @@
                         <li>Ideal para jogos de duplas ou partidas de simples mais longas.</li>
                         <li>Os <strong>sócios responsáveis pela reserva</strong> (no mínimo dois, conforme registrado no sistema) têm autonomia sobre o horário e devem <strong>estar presentes</strong> durante todo o período.</li>
                         <li>Os organizadores podem utilizar o horário entre si, com outros sócios (registrados ou não na reserva) ou com convidados, respeitando o limite máximo de 4 pessoas na quadra.</li>
-                        <li>Qualquer <strong>convidado (não-sócio)</strong> presente deve ser <strong>obrigatoriamente registrado</strong> na reserva no sistema (ver item 5) para fins de controle e cobrança. O registro de outros sócios participantes, embora não obrigatório, é recomendado.</li>
+                        <li>Qualquer <strong>convidado (não-sócio)</strong> presente deve ser <strong>obrigatoriamente registrado</strong> como 'Convidado' na reserva feita no sistema, para fins de controle e cobrança. O registro de outros sócios participantes, embora não obrigatório, é recomendado.</li>
                     </ul>
                 </div>
                 <div class="subsection">
@@ -345,7 +414,7 @@
                 <h2>6. Cancelamentos e Não Comparecimento ("No-Show")</h2>
                 <ul>
                     <li><strong>Como Cancelar:</strong> Cancelamentos devem ser feitos exclusivamente através do Sistema de Reservas (clique simples na reserva > Excluir Reserva).</li>
-                    <li><strong>Prazo para Cancelamento:</strong> Uma reserva pode ser cancelada por um participante autorizado (ver item 3.3) a qualquer momento <strong>antes do horário de término</strong> da mesma. Após o término, a reserva não pode mais ser excluída.</li>
+                    <li><strong>Prazo para Cancelamento:</strong> Uma reserva pode ser cancelada pelo <strong>organizador (se pendente), qualquer participante (se confirmada), ou um administrador</strong>, a qualquer momento <strong>antes do horário de término</strong> da mesma. Após o término, a reserva não pode mais ser excluída.</li>
                     <li><strong>Importância do Cancelamento:</strong> É fundamental cancelar reservas que não serão utilizadas com a maior antecedência possível, liberando o horário para outros sócios. Recomenda-se também avisar sobre o cancelamento nos grupos de comunicação do clube.</li>
                     <li><strong>Não Comparecimento ("No-Show"):</strong> O não comparecimento a uma reserva confirmada, sem o devido cancelamento, é considerado uma infração às normas de boa convivência e pode estar sujeito às sanções administrativas previstas neste regulamento.</li>
                 </ul>
@@ -463,57 +532,172 @@
         </footer>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
     <script>
+        // --------------- INÍCIO: Script para buscar valores do Firebase ---------------
+
+        // !!! IMPORTANTE: SUBSTITUA PELAS SUAS CREDENCIAIS REAIS DO FIREBASE !!!
+        const firebaseConfig = {
+            apiKey: "SUA_API_KEY", // SUBSTITUA AQUI
+            authDomain: "agenda-5ce95.firebaseapp.com", // Mantenha ou ajuste se necessário
+            databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com", // Verifique se esta URL está correta
+            projectId: "agenda-5ce95", // Mantenha ou ajuste se necessário
+            storageBucket: "agenda-5ce95.appspot.com", // Mantenha ou ajuste se necessário
+            messagingSenderId: "852007565195", // Mantenha ou ajuste se necessário
+            appId: "1:852007565195:web:d7bd789d140858f53f618e" // Mantenha ou ajuste se necessário
+        };
+
+        // Inicializa o Firebase
+        try {
+            if (!firebase.apps.length) { // Evita reinicialização
+                 firebase.initializeApp(firebaseConfig);
+            }
+            const database = firebase.database();
+
+            // Função para buscar as configurações e atualizar o HTML
+            function carregarConfigRegulamento() {
+                const configRef = database.ref('sistemas/config');
+                configRef.once('value').then((snapshot) => {
+                    const config = snapshot.val();
+                    const diasSpan = document.getElementById('dias-antecedencia-regulamento');
+                    const unidadeSpan = document.getElementById('dias-unidade-regulamento');
+                    const horasSpanReg = document.getElementById('horas-expirar-regulamento');
+                    const horasUnidadeSpanReg = document.getElementById('horas-unidade-regulamento');
+
+                    if (config) {
+                        // --- Lógica para Dias ---
+                        if (diasSpan && unidadeSpan) {
+                            if (config.DiasParaLimpar !== undefined) {
+                                let diasAntecedencia = 0;
+                                switch (parseInt(config.DiasParaLimpar)) {
+                                    case 1: diasAntecedencia = 5; break;
+                                    case 2: diasAntecedencia = 4; break;
+                                    case 3: diasAntecedencia = 3; break;
+                                    case 4: diasAntecedencia = 2; break;
+                                    case 5: diasAntecedencia = 1; break;
+                                    case 6: diasAntecedencia = 0; break;
+                                    default: diasAntecedencia = 2;
+                                }
+                                diasSpan.textContent = diasAntecedencia;
+                                unidadeSpan.textContent = parseInt(diasAntecedencia) === 1 ? ' dia' : ' dias';
+                                diasSpan.classList.remove('loading-placeholder');
+                            } else {
+                                diasSpan.textContent = '2';
+                                unidadeSpan.textContent = ' dias';
+                                diasSpan.classList.remove('loading-placeholder');
+                            }
+                        }
+
+                        // --- Lógica para Horas ---
+                        if (horasSpanReg && horasUnidadeSpanReg) {
+                            const horasValor = config.horasParaExpirar || '1';
+                            horasSpanReg.textContent = horasValor;
+                            horasUnidadeSpanReg.textContent = parseInt(horasValor) === 1 ? ' hora' : ' horas';
+                            horasSpanReg.classList.remove('loading-placeholder');
+                        }
+
+                    } else {
+                        // Fallback se config não for encontrado
+                        console.warn("Nó 'sistemas/config' não encontrado no Firebase. Usando valores padrão.");
+                        if(diasSpan && unidadeSpan) {
+                            diasSpan.textContent = '2';
+                            unidadeSpan.textContent = ' dias';
+                            diasSpan.classList.remove('loading-placeholder');
+                        }
+                        if(horasSpanReg && horasUnidadeSpanReg) {
+                            horasSpanReg.textContent = '1';
+                            horasUnidadeSpanReg.textContent = ' hora';
+                            horasSpanReg.classList.remove('loading-placeholder');
+                        }
+                    }
+                }).catch((error) => {
+                    // Fallback em caso de erro na busca
+                    console.error("Erro ao buscar configurações do Firebase:", error);
+                    const diasSpan = document.getElementById('dias-antecedencia-regulamento');
+                    const unidadeSpan = document.getElementById('dias-unidade-regulamento');
+                    const horasSpanReg = document.getElementById('horas-expirar-regulamento');
+                    const horasUnidadeSpanReg = document.getElementById('horas-unidade-regulamento');
+                    if(diasSpan && unidadeSpan) {
+                        diasSpan.textContent = '2';
+                        unidadeSpan.textContent = ' dias';
+                        diasSpan.classList.remove('loading-placeholder');
+                    }
+                    if(horasSpanReg && horasUnidadeSpanReg) {
+                        horasSpanReg.textContent = '1';
+                        horasUnidadeSpanReg.textContent = ' hora';
+                        horasSpanReg.classList.remove('loading-placeholder');
+                    }
+                });
+            }
+
+            // Chama a função após o carregamento da página
+            document.addEventListener('DOMContentLoaded', carregarConfigRegulamento);
+
+        } catch (e) {
+            // Fallback se Firebase falhar na inicialização
+            console.error("Erro ao inicializar o Firebase. Verifique suas credenciais.", e);
+             document.addEventListener('DOMContentLoaded', () => {
+                 const diasSpan = document.getElementById('dias-antecedencia-regulamento');
+                 const unidadeSpan = document.getElementById('dias-unidade-regulamento');
+                 const horasSpanReg = document.getElementById('horas-expirar-regulamento');
+                 const horasUnidadeSpanReg = document.getElementById('horas-unidade-regulamento');
+                 if(diasSpan && unidadeSpan) {
+                    diasSpan.textContent = '2';
+                    unidadeSpan.textContent = ' dias';
+                    diasSpan.classList.remove('loading-placeholder');
+                 }
+                 if(horasSpanReg && horasUnidadeSpanReg) {
+                    horasSpanReg.textContent = '1';
+                    horasUnidadeSpanReg.textContent = ' hora';
+                    horasSpanReg.classList.remove('loading-placeholder');
+                 }
+             });
+        }
+        // --------------- FIM: Script para buscar valores do Firebase ---------------
+    </script>
+    <script>
+        // ------ INÍCIO SCRIPT MOBILE MENU ------
         document.addEventListener('DOMContentLoaded', function() {
             const contentSections = document.getElementById('content-sections');
             const menuLinks = document.querySelectorAll('#menu a');
             const mobileMaxWidth = 600;
 
-            // Função para revelar o conteúdo no mobile
             function revealMobileContent() {
                 if (window.innerWidth <= mobileMaxWidth && contentSections && contentSections.classList.contains('initially-hidden-mobile')) {
                     contentSections.classList.remove('initially-hidden-mobile');
-                    // Remove os listeners para que a função execute apenas uma vez
                     window.removeEventListener('scroll', revealMobileContentOnFirstAction);
                     window.removeEventListener('touchstart', revealMobileContentOnFirstAction);
                     menuLinks.forEach(link => link.removeEventListener('click', revealMobileContent));
                 }
             }
 
-            // Handler para scroll ou touch
             function revealMobileContentOnFirstAction() {
                 revealMobileContent();
             }
 
-            // Verifica no carregamento se é mobile para adicionar a classe e os listeners
             if (window.innerWidth <= mobileMaxWidth) {
                 if (contentSections) {
                     contentSections.classList.add('initially-hidden-mobile');
-
-                    // Adiciona listener para o primeiro scroll ou toque
                     window.addEventListener('scroll', revealMobileContentOnFirstAction, { once: true });
                     window.addEventListener('touchstart', revealMobileContentOnFirstAction, { once: true });
-
-                    // Adiciona listener para cliques nos links do menu (para revelar antes de rolar)
                     menuLinks.forEach(link => link.addEventListener('click', revealMobileContent));
                 }
             }
 
-            // Opcional: Lidar com redimensionamento (principalmente para testes)
              window.addEventListener('resize', () => {
                  if (contentSections) {
                      if (window.innerWidth > mobileMaxWidth) {
-                         // Garante visibilidade se redimensionar para desktop
                          contentSections.classList.remove('initially-hidden-mobile');
                      } else if (!contentSections.classList.contains('initially-hidden-mobile')) {
-                         // Se já foi revelado no mobile, mantém revelado
+                         // Mantém revelado se já foi
                      } else {
-                         // Se redimensionar para mobile e ainda não foi revelado, adiciona a classe novamente
                           contentSections.classList.add('initially-hidden-mobile');
                      }
                  }
              });
         });
+        // ------ FIM SCRIPT MOBILE MENU ------
     </script>
 
 </body>
