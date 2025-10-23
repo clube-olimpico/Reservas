@@ -182,7 +182,7 @@
             justify-content: center;
             gap: 10px;
             margin: 20px 0;
-            flex-wrap: wrap; /* Para quebra de linha em telas pequenas */
+            flex-wrap: nowrap; /* <<<--- CORRIGIDO DE 'wrap' PARA 'nowrap' ---<<< */
         }
         /* Estilo base do botão (pílula cinza), copiado de app-reservas.html */
         .manual-tab-button {
@@ -309,6 +309,11 @@
             .manual-tab-button {
                 padding: 8px 15px;
                 font-size: 0.9em;
+            }
+            
+            /* <<<--- ADICIONADO PARA AJUSTAR O ESPAÇAMENTO NO CELULAR ---<<< */
+            .manual-tabs-container {
+                gap: 5px; /* Reduz o espaço entre os botões */
             }
 
 
