@@ -214,19 +214,19 @@
         "ANA FRANCISCA SANTOS": {
           "apelido": "Ana Francisca",
           "classe": "",
-          "jogosDeDuplasJogados": 0,
+          "jogosDeDuplasJogados": 3,
           "niver": "01/01/2001",
           "notificacoes": {
             "-ObXHVzCINxb6NHwIWss": "O resultado do seu jogo da Pirâmide contra An Alice (12/10/2025) foi confirmado automaticamente por decurso de prazo.\nPlacar final: 7x6(7-1), 6x7(4-7), 10x8\nVencedor(a): An Alice."
           },
           "piramide": "84",
           "socio": "titular",
-          "vitoriasEmDuplas": 0
+          "vitoriasEmDuplas": 2
         },
         "ANA JULIA MARTINS": {
           "apelido": "Ana Julia",
           "classe": "",
-          "jogosDeDuplasJogados": 0,
+          "jogosDeDuplasJogados": 3,
           "niver": "01/01/2001",
           "piramide": "83",
           "socio": "titular",
@@ -235,7 +235,7 @@
         "ANA LICE DOURADO": {
           "apelido": "An Alice",
           "classe": "",
-          "jogosDeDuplasJogados": 0,
+          "jogosDeDuplasJogados": 3,
           "niver": "01/01/2001",
           "notificacoes": {
             "-ObLMK_cM3acAiniZnSI": "O resultado do seu jogo da Pirâmide contra Ana Francisca (10/10/2025) foi confirmado automaticamente por decurso de prazo.\nPlacar final: 6x1, 7x6(7-0)\nVencedor(a): Ana Francisca.",
@@ -243,16 +243,16 @@
           },
           "piramide": "82",
           "socio": "titular",
-          "vitoriasEmDuplas": 0
+          "vitoriasEmDuplas": 2
         },
         "ANA MARIA MARINHO GOMES": {
           "apelido": "Ana Maria Marinho",
           "classe": "C",
-          "jogosDeDuplasJogados": 0,
+          "jogosDeDuplasJogados": 3,
           "niver": "01/01/2001",
           "piramide": "81",
           "socio": "titular",
-          "vitoriasEmDuplas": 0
+          "vitoriasEmDuplas": 2
         },
         "ANA PAULA KESSLER PEREIRA": {
           "apelido": "Ana Paula Pereira",
@@ -1274,21 +1274,6 @@
           "hora": 21,
           "jogadores": "aula"
         },
-        "2_7": {
-          "borda": "2h",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 7,
-          "jogadores": "Leo Carrara",
-          "organizador": "Taborda"
-        },
-        "2_8": {
-          "dia": 2,
-          "duracao": 2,
-          "hora": 8,
-          "jogadores": "Taborda",
-          "organizador": "Taborda"
-        },
         "3_10": {
           "borda": "1h",
           "dia": 3,
@@ -1615,6 +1600,14 @@
         }
       },
       "Quadra 2 - Aberta": {
+        "3_13": {
+          "borda": "1h",
+          "dia": 3,
+          "duracao": 1,
+          "hora": 13,
+          "jogadores": "Rodrigo Pereira",
+          "organizador": "Rodrigo Pereira"
+        },
         "3_14": {
           "borda": "1h",
           "dia": 3,
@@ -1622,6 +1615,14 @@
           "hora": 14,
           "jogadores": "Manutencao",
           "organizador": "Manutencao"
+        },
+        "3_17": {
+          "borda": "1h",
+          "dia": 3,
+          "duracao": 1,
+          "hora": 17,
+          "jogadores": "Fernando Cavalheiro",
+          "organizador": "Fernando Cavalheiro"
         },
         "3_19": {
           "borda": "1h",
@@ -1636,15 +1637,80 @@
           "dia": 3,
           "duracao": 2,
           "hora": 20,
-          "jogadores": "Convidado",
+          "jogadores": "Paulinho",
           "organizador": "Paulinho"
         },
         "3_21": {
           "dia": 3,
           "duracao": 2,
           "hora": 21,
-          "jogadores": "Paulinho",
+          "jogadores": "Convidado",
           "organizador": "Paulinho"
+        },
+        "3_6": {
+          "borda": "2h",
+          "dia": 3,
+          "duracao": 2,
+          "hora": 6,
+          "jogadores": "Ana Francisca, An Alice",
+          "organizador": "Ana Maria Marinho",
+          "resultadoDuplas": {
+            "confrontos": [
+              {
+                "dupla1": "Ana Francisca / An Alice",
+                "dupla2": "Ana Julia / Ana Maria Marinho",
+                "placar": "7x6",
+                "tiebreak": "7-1"
+              },
+              {
+                "dupla1": "Ana Francisca / Ana Julia",
+                "dupla2": "An Alice / Ana Maria Marinho",
+                "placar": "6x7",
+                "tiebreak": "4-7"
+              },
+              {
+                "dupla1": "Ana Francisca / Ana Maria Marinho",
+                "dupla2": "An Alice / Ana Julia",
+                "placar": "7x6",
+                "tiebreak": "12-10"
+              }
+            ],
+            "dataInformado": "2025-10-22T21:12:30.918Z",
+            "informadoPor": "Ana Maria Marinho"
+          },
+          "status": "finalizada"
+        },
+        "3_7": {
+          "dia": 3,
+          "duracao": 2,
+          "hora": 7,
+          "jogadores": "Ana Julia, Ana Maria Marinho",
+          "organizador": "Ana Maria Marinho",
+          "resultadoDuplas": {
+            "confrontos": [
+              {
+                "dupla1": "Ana Francisca / An Alice",
+                "dupla2": "Ana Julia / Ana Maria Marinho",
+                "placar": "7x6",
+                "tiebreak": "7-1"
+              },
+              {
+                "dupla1": "Ana Francisca / Ana Julia",
+                "dupla2": "An Alice / Ana Maria Marinho",
+                "placar": "6x7",
+                "tiebreak": "4-7"
+              },
+              {
+                "dupla1": "Ana Francisca / Ana Maria Marinho",
+                "dupla2": "An Alice / Ana Julia",
+                "placar": "7x6",
+                "tiebreak": "12-10"
+              }
+            ],
+            "dataInformado": "2025-10-22T21:12:30.918Z",
+            "informadoPor": "Ana Maria Marinho"
+          },
+          "status": "finalizada"
         },
         "4_14": {
           "borda": "1h",
@@ -1653,6 +1719,21 @@
           "hora": 14,
           "jogadores": "Manutencao",
           "organizador": "Manutencao"
+        },
+        "4_17": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Edemar",
+          "organizador": "Edemar"
+        },
+        "4_18": {
+          "dia": 4,
+          "duracao": 2,
+          "hora": 18,
+          "jogadores": "Frank Fast",
+          "organizador": "Edemar"
         },
         "4_20": {
           "borda": "2h",
@@ -1671,44 +1752,6 @@
         }
       },
       "Quadra 3 - Coberta": {
-        "2_17": {
-          "borda": "2h",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Danielle Pereira",
-          "organizador": "Danielle Pereira"
-        },
-        "2_18": {
-          "dia": 2,
-          "duracao": 2,
-          "hora": 18,
-          "jogadores": "Silvanio Pereira",
-          "organizador": "Danielle Pereira"
-        },
-        "2_19": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 19,
-          "jogadores": "Thomas August",
-          "organizador": "Thomas August"
-        },
-        "2_20": {
-          "borda": "2h",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 20,
-          "jogadores": "Edna Bittencourt",
-          "organizador": "Sidnei Novack"
-        },
-        "2_21": {
-          "dia": 2,
-          "duracao": 2,
-          "hora": 21,
-          "jogadores": "Sidnei Novack",
-          "organizador": "Sidnei Novack"
-        },
         "3_13": {
           "borda": "1h",
           "dia": 3,
@@ -1716,6 +1759,29 @@
           "hora": 13,
           "jogadores": "Manutencao",
           "organizador": "Manutencao"
+        },
+        "3_14": {
+          "borda": "2h",
+          "dia": 3,
+          "duracao": 2,
+          "hora": 14,
+          "jogadores": "Danielle Pereira",
+          "organizador": "Danielle Pereira"
+        },
+        "3_15": {
+          "dia": 3,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Silvanio Pereira",
+          "organizador": "Danielle Pereira"
+        },
+        "3_16": {
+          "borda": "1h",
+          "dia": 3,
+          "duracao": 1,
+          "hora": 16,
+          "jogadores": "Fernando Cavalheiro",
+          "organizador": "Fernando Cavalheiro"
         },
         "3_17": {
           "borda": "2h",
@@ -1731,14 +1797,6 @@
           "hora": 18,
           "jogadores": "Frank Fast, Marco Ribeiro",
           "organizador": "Marco Ribeiro"
-        },
-        "3_20": {
-          "borda": "1h",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 20,
-          "jogadores": "Isa",
-          "organizador": "Isa"
         },
         "3_7": {
           "borda": "2h",
@@ -1762,21 +1820,6 @@
           "hora": 13,
           "jogadores": "Manutencao",
           "organizador": "Manutencao"
-        },
-        "4_16": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 16,
-          "jogadores": "Edemar",
-          "organizador": "Edemar"
-        },
-        "4_17": {
-          "dia": 4,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Flavio Ferraz",
-          "organizador": "Edemar"
         },
         "4_18": {
           "borda": "2h",
@@ -1807,6 +1850,37 @@
           "hora": 21,
           "jogadores": "Marcos Colombo",
           "organizador": "Gilson Oliveira"
+        },
+        "5_17": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 17,
+          "jogadores": "Flavio Ferraz",
+          "organizador": "Flavio Ferraz"
+        },
+        "5_18": {
+          "dia": 5,
+          "duracao": 2,
+          "hora": 18,
+          "jogadores": "Nivaldo",
+          "organizador": "Flavio Ferraz"
+        },
+        "5_19": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 19,
+          "jogadores": "Leonardo Zamprogna",
+          "organizador": "Leonardo Zamprogna"
+        },
+        "5_20": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Victoria Zeni",
+          "organizador": "Victoria Zeni"
         }
       }
     },
