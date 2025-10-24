@@ -104,7 +104,7 @@
             /* Justificação herdada, mas pode ser sobrescrita se necessário */
         }
         /* Exceção: Itens da legenda de cores não justificados */
-         #secao9 ul ul li {
+         #secao9 ul ul li { /* *** CORRIGIDO id para secao9 *** */
             text-align: left; /* Garante alinhamento à esquerda */
          }
         .color-box {
@@ -298,6 +298,7 @@
              ul ul, ol ol { margin-top: 3px; margin-bottom: 5px; }
              ul ul li, ol ol li { margin-bottom: 3px; }
              /* Exceção mobile: Itens da legenda de cores não justificados */
+             /* *** CORRIGIDO id para secao9 *** */
              #secao9 ul ul li {
                 text-align: left; /* Garante alinhamento à esquerda no mobile */
              }
@@ -371,8 +372,8 @@
                 <li><a href="#secao3">3. Reserva por Confirmação</a></li>
                 <li><a href="#secao4">4. Visualizando as Quadras</a></li>
                 <li><a href="#secao5">5. Como Fazer uma Reserva</a></li>
-                <li><a href="#secao6">6. Torneio Pirâmide e Ranking de Duplas</a></li>
-                <li><a href="#secao7">7. Gerenciando Suas Reservas</a></li>
+                <li><a href="#secao6">6. Gerenciando Suas Reservas</a></li>
+                <li><a href="#secao7">7. Torneio Pirâmide e Ranking de Duplas</a></li>
                 <li><a href="#secao8">8. Jogo "Ao Vivo" (Pirâmide)</a></li>
                 <li><a href="#secao9">9. Dicas e Recursos Adicionais</a></li>
             </ol>
@@ -481,18 +482,7 @@
             <h3>5. Finalizando a reserva</h3>
             <p>Clique em <strong>Agendar</strong>. Se a reserva for para um dia futuro, ela ficará pendente de confirmação; se for para o mesmo dia, será confirmada na hora.</p>
 
-            <h2 id="secao6">6. Torneio Pirâmide e Ranking de Duplas</h2>
-            <p><strong>Torneio Pirâmide (Competitivo):</strong> Um formato de desafio contínuo onde o objetivo é "escalar" a pirâmide, desafiando jogadores em posições acima da sua para tomar o lugar deles. É ideal para quem busca jogos mais sérios e quer evoluir no ranking individual.</p>
-            <p><strong>Ranking de Duplas (Lúdico):</strong> Um sistema de pontuação contínuo que incentiva a integração e a diversão. Jogue com diferentes parceiros, some pontos e acompanhe sua evolução em um ambiente mais descontraído. O foco é a participação e o rodízio de jogadores.</p>
-
-            <p>Para mais informações sobre o funcionamento, regras e pontuações, acesse os links rápidos (disponíveis também no painel "Sobre o Sistema" - duplo clique na versão no rodapé):</p>
-            <ul>
-               <li>🏆 <strong>Rankings (Pirâmides e Duplas):</strong> <a href="https://clube-olimpico.github.io/Reservas/ranking.html" target="_blank" class="system-link">Ver Rankings</a></li>
-               <li>📖 <strong>Manual do Ranking de Duplas:</strong> <a href="https://clube-olimpico.github.io/Reservas/manual-ranking-duplas.html" target="_blank" class="system-link">Ver Manual (Duplas)</a></li>
-               <li>📜 <strong>Regras da Pirâmide:</strong> <a href="https://clube-olimpico.github.io/Reservas/piramide-regras.html" target="_blank" class="system-link">Ver Regras (Pirâmide)</a></li>
-            </ul>
-
-            <h2 id="secao7">7. Gerenciando Suas Reservas</h2>
+            <h2 id="secao6">6. Gerenciando Suas Reservas</h2>
             <ul>
                 <li><strong>Clique Simples (Ações):</strong> Ao clicar uma vez em uma reserva na planilha onde você é participante (ou admin/árbitro), um menu de opções aparecerá (Ex: "Excluir", "Editar Jogadores", "Informar Resultado", "Delegar Placar"). As opções disponíveis dependem do tipo de reserva, do status dela e da sua permissão.</li>
                 <li><strong>Duplo Clique (Ver Detalhes):</strong> Ao clicar duas vezes em qualquer reserva, a janela "Detalhes da Reserva" será exibida, com todas as informações sobre a partida, jogadores e status de confirmação (se aplicável).</li>
@@ -529,6 +519,17 @@
                 </ul>
                 <p><strong>Importante:</strong> É uma boa prática avisar no grupo do WhatsApp sobre o cancelamento para que outros sócios possam aproveitar o horário.</p>
             </div>
+
+            <h2 id="secao7">7. Torneio Pirâmide e Ranking de Duplas</h2>
+            <p><strong>Torneio Pirâmide (Competitivo):</strong> Um formato de desafio contínuo onde o objetivo é "escalar" a pirâmide, desafiando jogadores em posições acima da sua para tomar o lugar deles. É ideal para quem busca jogos mais sérios e quer evoluir no ranking individual.</p>
+            <p><strong>Ranking de Duplas (Lúdico):</strong> Um sistema de pontuação contínuo que incentiva a integração e a diversão. Jogue com diferentes parceiros, some pontos e acompanhe sua evolução em um ambiente mais descontraído. O foco é a participação e o rodízio de jogadores.</p>
+
+            <p>Para mais informações sobre o funcionamento, regras e pontuações, acesse os links rápidos (disponíveis também no painel "Sobre o Sistema" - duplo clique na versão no rodapé):</p>
+            <ul>
+               <li>🏆 <strong>Rankings (Pirâmides e Duplas):</strong> <a href="https://clube-olimpico.github.io/Reservas/ranking.html" target="_blank" class="system-link">Ver Rankings</a></li>
+               <li>📖 <strong>Manual do Ranking de Duplas:</strong> <a href="https://clube-olimpico.github.io/Reservas/manual-ranking-duplas.html" target="_blank" class="system-link">Ver Manual (Duplas)</a></li>
+               <li>📜 <strong>Regras da Pirâmide:</strong> <a href="https://clube-olimpico.github.io/Reservas/piramide-regras.html" target="_blank" class="system-link">Ver Regras (Pirâmide)</a></li>
+            </ul>
 
             <h2 id="secao8">8. Acompanhando um Jogo "Ao Vivo" (Pirâmide)</h2>
             <p>Para saber se uma partida da Pirâmide já começou, o sistema mostra um indicador especial. Quando o horário de uma reserva de Pirâmide se inicia, um pequeno ponto vermelho pulsante (<span class="live-indicator-manual"></span>) aparecerá no canto da reserva. Isso significa que o jogo está 'Ao Vivo' e em andamento.</p>
