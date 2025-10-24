@@ -492,13 +492,28 @@
                <li>📜 <strong>Regras da Pirâmide:</strong> <a href="https://clube-olimpico.github.io/Reservas/piramide-regras.html" target="_blank" class="system-link">Ver Regras (Pirâmide)</a></li>
             </ul>
 
-            <h2 id="secao7">7. Gerenciando Suas Reservas</h2> <ul>
+            <h2 id="secao7">7. Gerenciando Suas Reservas</h2>
+            <ul>
                 <li><strong>Clique Simples (Ações):</strong> Ao clicar uma vez em uma reserva na planilha onde você é participante (ou admin/árbitro), um menu de opções aparecerá (Ex: "Excluir", "Editar Jogadores", "Informar Resultado", "Delegar Placar"). As opções disponíveis dependem do tipo de reserva, do status dela e da sua permissão.</li>
                 <li><strong>Duplo Clique (Ver Detalhes):</strong> Ao clicar duas vezes em qualquer reserva, a janela "Detalhes da Reserva" será exibida, com todas as informações sobre a partida, jogadores e status de confirmação (se aplicável).</li>
                 <li><strong>Contador de Expiração:</strong> Ao visualizar os detalhes de uma reserva <strong style="color: orange;">Pendente</strong>, você verá um contador em tempo real mostrando quanto tempo resta para as confirmações.</li>
             </ul>
 
-            <h3>Cancelando uma reserva</h3>
+            <h3 style="margin-top: 25px;">Editando uma reserva (Organizador)</h3>
+            <p>Se uma reserva ainda estiver com o status "Pendente", o jogador que a criou (organizador) ou um administrador podem alterar os participantes. Veja como:</p>
+            <ol>
+                <li><strong>Clique simples</strong> na reserva pendente que você organizou.</li>
+                <li>No menu de ações, selecione a opção <strong>Editar Jogadores</strong>.</li>
+                <li>Uma janela será aberta exibindo os jogadores atuais e seus status (Confirmado, Pendente, Recusado).</li>
+                <li><strong>Para remover:</strong> Clique no ícone de lixeira (🗑️) ao lado do nome do jogador. Você só pode remover jogadores com status "Pendente" ou "Recusado". Jogadores já confirmados não podem ser removidos nesta tela.</li>
+                <li><strong>Para adicionar:</strong> Clique no botão "Adicionar Jogador" e selecione o novo participante na lista.</li>
+                <li>Após fazer as alterações, clique em <strong>Salvar Alterações</strong>.</li>
+            </ol>
+            <div class="section-box warning" style="padding: 10px; margin-top: 5px;">
+                  <p style="margin: 0; text-align: left;"><em><strong>Importante:</strong> Ao salvar, novos convites serão enviados aos jogadores adicionados. Se a remoção de um jogador fizer com que a reserva não atenda mais às regras mínimas (ex: menos de 2 jogadores para 2h), ela poderá ser cancelada automaticamente pelo sistema.</em></p>
+             </div>
+
+            <h3 style="margin-top: 25px;">Cancelando uma reserva</h3>
             <p>Para cancelar uma reserva da qual você faz parte:</p>
             <ol>
                 <li><strong>Clique</strong> na reserva que deseja cancelar (na tabela de horários).</li>
@@ -703,7 +718,7 @@
                     contentSections.classList.remove('initially-hidden-mobile');
                     window.removeEventListener('scroll', revealMobileContentOnFirstAction);
                     window.removeEventListener('touchstart', revealMobileContentOnFirstAction);
-                    menuLinks.forEach(link => link.removeEventListener('click', revealMobileContent)); 
+                    menuLinks.forEach(link => link.removeEventListener('click', revealMobileContent));
                 }
             }
 
