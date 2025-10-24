@@ -5,50 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manual de Uso - Sistema de Reservas do Clube Olímpico</title>
     <style>
-        /* SEU CSS ORIGINAL - COM AJUSTES DE JUSTIFICAÇÃO */
+        /* ESTILOS GERAIS (MODO CLARO PADRÃO) */
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 20px;
             background-color: #f4f4f9;
-            color: #333; /* Adicionado para garantir cor padrão */
+            color: #333;
         }
         .container {
             max-width: 800px;
-            margin: 20px auto; /* Mantido auto para centralizar, adicionado margem vertical */
+            margin: 20px auto;
             background: white;
             padding: 25px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-        h1, h2, h3, h4 { /* Incluído h4 nos seletores base */
+        h1, h2, h3, h4 {
             color: #333;
             border-bottom: 1px solid #eee;
             padding-bottom: 10px;
-             margin-top: 30px; /* Adicionado margem superior padrão */
-             margin-bottom: 15px; /* Adicionado margem inferior padrão */
+             margin-top: 30px;
+             margin-bottom: 15px;
         }
         h1 {
             text-align: center;
             border-bottom: 2px solid #007bff;
-            margin-bottom: 25px; /* Espaço após H1 */
-            line-height: 1.2; /* Ajusta o espaçamento entre linhas do H1 */
+            margin-bottom: 25px;
+            line-height: 1.2;
         }
-        /* Esconde a quebra de linha e o hífen extra por padrão (Desktop) */
         h1 br.mobile-break { display: none; }
         h1 span.hifen-desktop { display: inline; }
 
-        h3 { /* Estilo específico para H3 */
-             font-size: 1.2em;
-        }
-         h4 { /* Estilo específico para H4 */
+        h3 { font-size: 1.2em; }
+        h4 {
              font-size: 1.1em;
-             border-bottom: none; /* H4 não tem linha */
-             margin-top: 0; /* H4 dentro de caixas não tem margem superior extra */
+             border-bottom: none;
+             margin-top: 0;
              margin-bottom: 10px;
              padding-bottom: 0;
-             color: #495057; /* Cor ligeiramente diferente */
+             color: #495057;
         }
         .section-box {
             background-color: #f9f9f9;
@@ -57,386 +54,163 @@
             margin: 20px 0;
             border-left: 5px solid #007bff;
         }
-
-        /* -------- INÍCIO DA ADIÇÃO DE CLASSE "SECTION" -------- */
-        /* Adiciona margem padrão para a div .section */
         .section {
             display: block;
             margin-bottom: 30px;
         }
-        /* -------- FIM DA ADIÇÃO DE CLASSE "SECTION" -------- */
+        .section-box p { text-align: justify; }
+        .section-box.warning p[style*="text-align: left"] { text-align: left !important; }
+        .section-box.warning ul li[style*="text-align: left"] { text-align: left !important; }
 
-
-        /* Parágrafos dentro de section-box também justificados */
-        .section-box p {
-             text-align: justify;
-        }
-        /* Garante alinhamento à esquerda para observação de horário */
-        .section-box.warning p[style*="text-align: left"] {
-             text-align: left !important;
-        }
-        /* Garante alinhamento à esquerda para itens de lista dentro da observação de horário */
-        .section-box.warning ul li[style*="text-align: left"] {
-            text-align: left !important;
-        }
+        /* Estilo base (modo claro) para a caixa de aviso */
         .warning {
             background-color: #fff3cd;
             border-left-color: #ffc107;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
+        .warning strong { transition: color 0.3s ease; }
+
         .important {
             background-color: #f8d7da;
             border-left-color: #dc3545;
         }
-         p { /* Adicionado espaçamento padrão para parágrafos */
-            margin-bottom: 15px;
-            text-align: justify; /* <<<--- JUSTIFICADO ---<<< */
-         }
-         /* Parágrafo final centralizado (sobrescreve a regra geral) */
-         p[style*="text-align: center"] {
-             text-align: center !important;
-         }
-        ul, ol { /* Aplicado a ambas as listas */
-            padding-left: 20px;
-             margin-top: 10px; /* Adicionado margem superior */
-             margin-bottom: 15px; /* Adicionado margem inferior */
-        }
-        li {
-            margin-bottom: 8px;
-            text-align: justify; /* <<<--- JUSTIFICADO ---<<< */
-        }
-         /* Estilo para listas dentro de listas */
-        ul ul, ol ol {
-            margin-top: 5px;
-            margin-bottom: 10px;
-        }
-        ul ul li, ol ol li {
-            margin-bottom: 5px;
-            /* Justificação herdada, mas pode ser sobrescrita se necessário */
-        }
-        /* Exceção: Itens da legenda de cores não justificados */
-         #secao9 ul ul li {
-            text-align: left; /* Garante alinhamento à esquerda */
-         }
-        .color-box {
-            padding: 3px 8px;
-            border-radius: 4px;
-            display: inline-block;
-            font-weight: bold;
-            color: #333;
-            margin: 2px 0; /* Adicionado pequena margem */
-            border: 1px solid rgba(0,0,0,0.1); /* Adicionada borda sutil */
-        }
-        /* Cores específicas para as legendas (classe separada) */
+        p { margin-bottom: 15px; text-align: justify; }
+        p[style*="text-align: center"] { text-align: center !important; }
+        ul, ol { padding-left: 20px; margin-top: 10px; margin-bottom: 15px; }
+        li { margin-bottom: 8px; text-align: justify; }
+        ul ul, ol ol { margin-top: 5px; margin-bottom: 10px; }
+        ul ul li, ol ol li { margin-bottom: 5px; }
+        #secao9 ul ul li { text-align: left; }
+
+        .color-box { padding: 3px 8px; border-radius: 4px; display: inline-block; font-weight: bold; color: #333; margin: 2px 0; border: 1px solid rgba(0,0,0,0.1); }
         .color-box.hora1 { background-color: lightgreen; }
         .color-box.hora2 { background-color: lightblue; }
         .color-box.piramide { background-color: #FFEB99; }
         .color-box.aula { background-color: lightcoral; }
 
-        .live-indicator-manual {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: #ff0000;
-            border-radius: 50%;
-            border: 1px solid #fff;
-            box-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
-            vertical-align: middle;
-            margin: 0 2px; /* Adicionada pequena margem */
-        }
-        .ret-indicator-manual {
-            display: inline-block; /* Para permitir background e padding */
-            background-color: #dc3545; /* Cor vermelha (mesma do botão Recusar) */
-            color: white; /* Texto branco */
-            padding: 2px 5px; /* Espaçamento interno (ajuste se necessário) */
-            border-radius: 4px; /* Cantos levemente arredondados */
-            font-weight: bold;
-            font-size: 0.9em; /* Um pouco menor para caber melhor inline */
-            vertical-align: middle; /* Alinha verticalmente com o texto ao redor */
-            margin: 0 2px; /* Pequeno espaçamento lateral */
-        }
+        .live-indicator-manual { display: inline-block; width: 8px; height: 8px; background-color: #ff0000; border-radius: 50%; border: 1px solid #fff; box-shadow: 0 0 5px rgba(255, 0, 0, 0.7); vertical-align: middle; margin: 0 2px; }
+        .ret-indicator-manual { display: inline-block; background-color: #dc3545; color: white; padding: 2px 5px; border-radius: 4px; font-weight: bold; font-size: 0.9em; vertical-align: middle; margin: 0 2px; }
 
-        /* --- INÍCIO DA CORREÇÃO DO RODAPÉ --- */
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px; /* Adicionado padding superior */
-            border-top: 1px solid #eee; /* Adicionada linha superior */
-            font-size: 0.9em;
-            color: #666;
-            line-height: 1.5; /* Adicionado para melhor espaçamento na quebra */
-        }
-        /* Por padrão (desktop), esconde o <br> e mostra o pipe */
-        footer .break-mobile {
-            display: none;
-        }
-        footer .pipe-desktop {
-            display: inline;
-        }
-        /* --- FIM DA CORREÇÃO DO RODAPÉ --- */
+        footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; font-size: 0.9em; color: #666; line-height: 1.5; }
+        footer .break-mobile { display: none; }
+        footer .pipe-desktop { display: inline; }
 
-        a.system-link {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        a.system-link:hover {
-            text-decoration: underline;
-        }
-         /* Estilo para botões inline de exemplo */
-        .inline-button {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 4px;
-            color: white;
-            font-size: 0.9em;
-            vertical-align: middle;
-            text-align: center;
-            min-width: 60px; /* Largura mínima */
-        }
-        .btn-confirm { background-color: #28a745; } /* Verde */
-        .btn-later { background-color: #6c757d; } /* Cinza */
-        .btn-refuse { background-color: #dc3545; } /* Vermelho */
+        a.system-link { color: #007bff; text-decoration: none; font-weight: bold; }
+        a.system-link:hover { text-decoration: underline; }
 
-        /* ****** INÍCIO ESTILOS BOTÕES DAS QUADRAS ****** */
-        .manual-tabs-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-            flex-wrap: nowrap;
-        }
+        .inline-button { display: inline-block; padding: 3px 8px; border-radius: 4px; color: white; font-size: 0.9em; vertical-align: middle; text-align: center; min-width: 60px; }
+        .btn-confirm { background-color: #28a745; }
+        .btn-later { background-color: #6c757d; }
+        .btn-refuse { background-color: #dc3545; }
+
+        /* Estilo base (modo claro) para os botões de exemplo */
+        .manual-tabs-container { display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: nowrap; }
         .manual-tab-button {
             background-color: #f1f1f1;
             color: #555;
-            font-weight: bold;
-            border: none;
-            padding: 10px 20px;
-            margin: 5px;
-            border-radius: 50px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            line-height: 1.3;
+            font-weight: bold; border: none; padding: 10px 20px; margin: 5px;
+            border-radius: 50px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center; line-height: 1.3; transition: all 0.3s ease;
         }
         .manual-tab-button.selected {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #4CAF50; color: white;
             box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
         }
         .manual-tab-button.interditada {
-            background-color: #dc3545;
-            color: white;
-            cursor: not-allowed;
+            background-color: #dc3545; color: white; cursor: not-allowed;
             box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
         }
-        /* ****** FIM ESTILOS BOTÕES DAS QUADRAS ****** */
 
+        #menu { background-color: #e9ecef; padding: 15px 20px; border-radius: 5px; margin-bottom: 30px; border: 1px solid #ced4da; }
+        #menu h3 { margin-top: 0; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #adb5bd; color: #495057; font-size: 1.1em; }
+        #menu ol { list-style-type: none; padding-left: 0; margin: 0; }
+        #menu li { margin-bottom: 8px; text-align: left; }
+        #menu a { text-decoration: none; color: #0056b3; font-weight: normal; font-size: 0.95em; }
+        #menu a:hover { text-decoration: underline; color: #003366; }
 
-        /* --- CSS ADICIONADO PARA MENU E COMPORTAMENTO HÍBRIDO --- */
-        #menu {
-            background-color: #e9ecef;
-            padding: 15px 20px;
-            border-radius: 5px;
-            margin-bottom: 30px;
-            border: 1px solid #ced4da;
-        }
-        #menu h3 {
-            margin-top: 0;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 1px solid #adb5bd;
-            color: #495057;
-            font-size: 1.1em;
-        }
-        #menu ol {
-            list-style-type: none;
-            padding-left: 0;
-            margin: 0;
-            /* Colunas definidas nas media queries abaixo */
-        }
-        #menu li {
-            margin-bottom: 8px;
-            text-align: left; /* Garante alinhamento à esquerda */
-        }
-        #menu a {
-            text-decoration: none;
-            color: #0056b3;
-            font-weight: normal;
-            font-size: 0.95em;
-        }
-        #menu a:hover {
-            text-decoration: underline;
-            color: #003366;
-        }
+        #secao10 details { margin-bottom: 15px; background-color: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 5px solid #007bff; display: block; }
+        #secao10 summary { font-weight: bold; cursor: pointer; margin: 0; padding: 0 0 0 5px; outline: none; position: relative; text-align: left; }
+        #secao10 summary::marker { color: #007bff; }
+        #secao10 details[open] summary { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #dee2e6; }
+        #secao10 details > *:not(summary) { margin-left: 0; padding-top: 0; }
+        #secao10 details ul { margin-bottom: 0; margin-top: 5px; padding-left: 20px; }
+        #secao10 details ul li { text-align: left; margin-bottom: 8px; }
 
-        /* ****** INÍCIO ESTILO FAQ ACORDEÃO (COPIADO DE REGULAMENTO.HTML) ****** */
-        #secao10 details {
-            margin-bottom: 15px;
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            border-left: 5px solid #007bff;
-            display: block;
-        }
-        #secao10 summary {
-            font-weight: bold;
-            cursor: pointer;
-            margin: 0;
-            padding: 0 0 0 5px;
-            outline: none;
-            position: relative;
-            text-align: left; /* Garante que a pergunta não seja justificada */
-        }
-        #secao10 summary::marker { /* Estilo do marcador/seta */
-            color: #007bff;
-        }
-        #secao10 details[open] summary { /* Estilo do título quando aberto */
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #dee2e6;
-        }
-        #secao10 details > *:not(summary) { /* Estilo do conteúdo (resposta) */
-             margin-left: 0; /* Remove indentação extra */
-             padding-top: 0; /* Remove padding extra */
-        }
-        /* Ajustes específicos para listas dentro da FAQ */
-        #secao10 details ul {
-            margin-bottom: 0;
-            margin-top: 5px;
-            padding-left: 20px;
-        }
-        #secao10 details ul li {
-             text-align: left; /* Garante que itens da lista não sejam justificados */
-             margin-bottom: 8px;
-        }
-        /* ****** FIM ESTILO FAQ ACORDEÃO ****** */
+        html { scroll-behavior: smooth; }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-         /* --- AJUSTES VISUAIS PARA CELULAR --- */
         @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            .container {
-                padding: 15px;
-                margin: 10px auto;
-            }
-            h1, h2, h3, h4 {
-                margin-top: 20px;
-                padding-bottom: 8px;
-                 margin-bottom: 10px;
-            }
+            body { padding: 10px; }
+            .container { padding: 15px; margin: 10px auto; }
+            h1, h2, h3, h4 { margin-top: 20px; padding-bottom: 8px; margin-bottom: 10px; }
             h1 { font-size: 1.8em; margin-bottom: 20px;}
             h1 br.mobile-break { display: block; }
             h1 span.hifen-desktop { display: none; }
             h2 { font-size: 1.4em; }
             h3 { font-size: 1.1em; border-bottom-width: 1px;}
             h4 { font-size: 1.0em; margin-bottom: 8px;}
-            #menu {
-                 padding: 10px 15px;
-            }
-            #menu li {
-                 margin-bottom: 5px;
-                 text-align: left;
-            }
-            .section-box {
-                padding: 15px;
-                margin: 15px 0;
-            }
-            /* Ajuste para section no mobile */
-            .section {
-                 margin-bottom: 20px;
-            }
+            #menu { padding: 10px 15px; }
+            #menu li { margin-bottom: 5px; text-align: left; }
+            .section-box { padding: 15px; margin: 15px 0; }
+            .section { margin-bottom: 20px; }
             ul, ol { padding-left: 20px; margin-bottom: 10px;}
             li { margin-bottom: 8px; }
-             ul ul, ol ol { margin-top: 3px; margin-bottom: 5px; }
-             ul ul li, ol ol li { margin-bottom: 3px; }
-             #secao9 ul ul li {
-                text-align: left;
-             }
-            .section-box.warning ul li[style*="text-align: left"] {
-                text-align: left !important;
-            }
-            .manual-tab-button {
-                padding: 8px 15px;
-                font-size: 0.9em;
-            }
-            .manual-tabs-container {
-                gap: 5px;
-            }
-            /* --- INÍCIO AJUSTES FAQ MOBILE --- */
-            #secao10 details {
-                padding: 10px;
-            }
-             #secao10 summary {
-                margin: 0;
-                padding: 0 0 0 5px;
-            }
-            #secao10 details[open] summary {
-                margin-bottom: 8px;
-                padding-bottom: 8px;
-            }
-            #secao10 details ul li {
-                 text-align: left;
-                 margin-bottom: 5px;
-            }
-             #secao10 details > *:not(summary) {
-                 padding-top: 5px;
-            }
-             #secao10 details ul {
-                 padding-left: 15px;
-            }
-            /* --- FIM AJUSTES FAQ MOBILE --- */
-
-            /* --- INÍCIO CORREÇÃO RODAPÉ MOBILE --- */
-            footer {
-                line-height: 1.4; /* Ajuste fino para mobile */
-            }
-            footer .break-mobile {
-                display: block; /* Força a quebra de linha */
-            }
-            footer .pipe-desktop {
-                display: none; /* Esconde o pipe */
-            }
-            /* --- FIM CORREÇÃO RODAPÉ MOBILE --- */
-
-            #content-sections.initially-hidden-mobile {
-                display: none;
-            }
-            #menu ol {
-                columns: 1;
-                -webkit-columns: 1;
-                -moz-columns: 1;
-            }
+            ul ul, ol ol { margin-top: 3px; margin-bottom: 5px; }
+            ul ul li, ol ol li { margin-bottom: 3px; }
+            #secao9 ul ul li { text-align: left; }
+            .section-box.warning ul li[style*="text-align: left"] { text-align: left !important; }
+            .manual-tab-button { padding: 8px 15px; font-size: 0.9em; }
+            .manual-tabs-container { gap: 5px; }
+            #secao10 details { padding: 10px; }
+            #secao10 summary { margin: 0; padding: 0 0 0 5px; }
+            #secao10 details[open] summary { margin-bottom: 8px; padding-bottom: 8px; }
+            #secao10 details ul li { text-align: left; margin-bottom: 5px; }
+            #secao10 details > *:not(summary) { padding-top: 5px; }
+            #secao10 details ul { padding-left: 15px; }
+            footer { line-height: 1.4; }
+            footer .break-mobile { display: block; }
+            footer .pipe-desktop { display: none; }
+            #content-sections.initially-hidden-mobile { display: none; }
+            #menu ol { columns: 1; -webkit-columns: 1; -moz-columns: 1; }
         }
-         /* --- FIM DOS AJUSTES VISUAIS PARA CELULAR --- */
 
-         /* Desktop: Garante que o menu seja 2 colunas e conteúdo visível */
-         @media (min-width: 601px) {
-             #menu ol {
-                columns: 2;
-                -webkit-columns: 2;
-                -moz-columns: 2;
-            }
-             #content-sections {
-                 display: block !important;
-             }
-         }
-         /* --- FIM DO CSS ADICIONADO --- */
+        @media (min-width: 601px) {
+             #menu ol { columns: 2; -webkit-columns: 2; -moz-columns: 2; }
+             #content-sections { display: block !important; }
+        }
 
-         /* Estilo para placeholders enquanto carrega */
-         .loading-placeholder::after {
-             content: "...";
-             display: inline-block;
-             animation: loading-dots 1s infinite steps(3, end);
-         }
-         @keyframes loading-dots {
-             0%, 20% { content: "."; }
-             40% { content: ".."; }
-             60%, 100% { content: "..."; }
-         }
+        .loading-placeholder::after { content: "..."; display: inline-block; animation: loading-dots 1s infinite steps(3, end); }
+        @keyframes loading-dots { 0%, 20% { content: "."; } 40% { content: ".."; } 60%, 100% { content: "..."; } }
+
+        /* ****** INÍCIO ESTILOS MODO ESCURO (APENAS BOTÕES EXEMPLO E CAIXA DE AVISO SEÇÃO 4) ****** */
+        body.dark-mode .manual-tab-button {
+            background-color: #333; /* Fundo escuro para botões não selecionados */
+            color: #ccc; /* Texto claro */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra adaptada */
+        }
+        body.dark-mode .manual-tab-button.selected {
+            background-color: #4CAF50; /* Verde mantém */
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.5); /* Sombra verde adaptada */
+        }
+        body.dark-mode .manual-tab-button.interditada {
+            background-color: #dc3545; /* Vermelho mantém */
+            color: white;
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.5); /* Sombra vermelha adaptada */
+        }
+        /* Seletor mais específico para afetar APENAS a caixa de aviso na seção 4 */
+        body.dark-mode #secao4 + .section-box.warning {
+             background-color: rgba(255, 193, 7, 0.2);
+             border-left-color: #ffc107;
+             color: #ffecb3;
+        }
+        body.dark-mode #secao4 + .section-box.warning p {
+             color: #ffecb3; /* Garante que o texto do parágrafo mude */
+        }
+        body.dark-mode #secao4 + .section-box.warning strong {
+             color: #ffc107; /* Destaque amarelo */
+        }
+        /* ****** FIM ESTILOS MODO ESCURO (APENAS BOTÕES EXEMPLO E CAIXA DE AVISO SEÇÃO 4) ****** */
+
     </style>
 </head>
 <body>
@@ -468,6 +242,7 @@
                 <li>Clique em "Entrar" e confirme seu nome.</li>
             </ol>
             <div class="section-box">
+                 <h4>Detalhes do Login</h4>
                 <p>✅ <strong>Acesso Simplificado:</strong> Após o primeiro login, o sistema te reconhecerá automaticamente nos próximos acessos.</p>
                 <p>🔑 <strong>Problemas com a senha?</strong> Entre em contato com o administrador do sistema (Ronaldo Taborda).</p>
             </div>
@@ -478,7 +253,7 @@
             <div class="section-box">
                 <h4>Como Funciona na Prática:</h4>
                 <ul>
-                    <li><strong>⏳ Reserva Pendente:</strong> Ao agendar um jogo com outros sócios, a reserva é criada como "Pendente". O sistema aguardará a resposta dos convidados. Na planilha, você verá o status de cada jogador:
+                    <li><strong>⏳ Reserva Pendente:</strong> Ao agendar um jogo com outros sócios para um dia futuro, a reserva é criada como "Pendente". O sistema aguardará a resposta dos convidados. Na planilha, você verá o status de cada jogador:
                         <ul>
                             <li>Nomes em <strong>preto</strong>: Jogadores que já confirmaram.</li>
                             <li>Nomes em <strong style="color: red;">vermelho</strong>: Jogadores com convite pendente.</li>
@@ -493,21 +268,20 @@
             <div class="section-box important">
                 <h4>Regras Importantes da Nova Funcionalidade:</h4>
                  <ul>
-                    <li><strong>Exceção:</strong> Reservas feitas para o <strong>mesmo dia</strong> não precisam de confirmação e são agendadas na hora, como antes.</li>
-                    <li><strong>Edição:</strong> Apenas o <strong>organizador</strong> da reserva (ou um admin) pode editar os jogadores enquanto ela estiver "Pendente".</li>
+                    <li><strong>Exceção:</strong> Reservas feitas para o <strong>mesmo dia</strong> não precisam de confirmação e são agendadas na hora, como antes. Reservas individuais, com convidados ou do tipo "Aula" também são confirmadas imediatamente.</li>
+                    <li><strong>Edição (Organizador):</strong> Apenas o <strong>organizador</strong> da reserva (ou um admin) pode editar os jogadores enquanto ela estiver "Pendente", se a opção estiver habilitada pela diretoria.</li>
                     <li><strong>Exclusão:</strong>
                         <ul>
                             <li>Reservas <strong>Pendentes</strong> só podem ser excluídas pelo <strong>organizador</strong> (ou admin).</li>
-                            <li>Reservas <strong>Confirmadas</strong> podem ser excluídas por <strong>qualquer participante</strong> (ou admin).</li>
+                            <li>Reservas <strong>Confirmadas</strong> podem ser excluídas por <strong>qualquer participante</strong> (ou admin), antes do horário de término.</li>
                         </ul>
                     </li>
-                    <li><strong>Recusa e Cancelamento:</strong> Se um jogador recusar um convite e, com isso, a reserva deixar de atender a uma regra (ex: mínimo de 2 jogadores para 2h), o sistema a cancelará automaticamente.</li>
+                    <li><strong>Recusa e Cancelamento Automático:</strong> Se um jogador recusar um convite e, com isso, a reserva deixar de atender a uma regra (ex: mínimo de 2 jogadores para 2h, horário de duplas ficar com menos de 4, ou restar apenas convidados), o sistema a cancelará automaticamente.</li>
                  </ul>
             </div>
 
-
             <h2 id="secao4">4. Visualizando as Quadras</h2>
-            <p>No topo da página, clique em uma das quadras para visualizar sua agenda:</p>
+            <p>No topo da página, clique em uma das quadras para visualizar a agenda de jogos:</p>
 
             <div class="manual-tabs-container">
                 <div class="manual-tab-button selected">Quadra 1<br>Coberta</div>
@@ -518,6 +292,7 @@
             <div class="section-box warning" style="margin-top: 15px; padding: 10px;">
                 <p style="margin: 0; text-align: left;"><strong>Atenção:</strong> Quadras interditadas aparecem com o botão vermelho (como no exemplo acima) e não podem ser selecionadas.</p>
             </div>
+
             <h2 id="secao5">5. Como Fazer uma Reserva</h2> <p>Agendar um horário é simples. Basta preencher os campos na ordem:</p>
 
             <h3>1. Escolhendo a quadra</h3>
@@ -540,8 +315,7 @@
             </ul>
             <p>Para incluir os participantes, selecione o primeiro jogador e clique no botão <strong>+</strong> para adicionar os demais.</p>
 
-            <div class="section-box warning">
-                <h4>Como adicionar convidados no sistema:</h4>
+            <div class="section-box warning"> <h4>Como adicionar convidados no sistema:</h4>
                 <p>Obrigatoriamente, selecione o nome do sócio e adicione um "Convidado" para cada pessoa não-sócia que for jogar.</p>
                 <p><em>Exemplo: Se houver 2 convidados, adicione o nome do sócio + "Convidado" + "Convidado".</em></p>
                 <p style="font-size: 0.9em; font-style: italic; margin-top: 10px;">Importante: A participação de convidados segue regras específicas definidas pela Diretoria (como taxa de uso, dias e quadras permitidas), as quais podem ser atualizadas periodicamente.</p>
@@ -549,27 +323,26 @@
 
             <div class="section-box important">
                  <h4>Atenção! Você Precisa se Incluir!</h4>
-                <p>O jogador que está fazendo a reserva (logado no sistema) <strong>DEVE</strong> obrigatoriamente se incluir na lista de jogadores.</p>
+                <p>O jogador que está fazendo a reserva (logado no sistema) <strong>DEVE</strong> obrigatoriamente se incluir na lista de jogadores (exceto se for Admin agendando para outros).</p>
             </div>
 
             <h3>4. Selecionando o horário</h3>
             <p>Escolha o <strong>horário</strong> desejado no menu "Horário".</p>
-             <div class="section-box warning" style="padding: 10px; margin-top: 5px;">
-                  <p style="margin: 0; text-align: left;"><em><strong>Observação:</strong> Horários indisponíveis por manutenção ou eventos do clube não são exibidos. Regras específicas, como a otimização aos domingos, podem restringir certas opções.</em></p>
+             <div class="section-box warning" style="padding: 10px; margin-top: 5px;"> <p style="margin: 0; text-align: left;"><em><strong>Observação:</strong> Horários indisponíveis por manutenção, aulas ou eventos do clube não são exibidos. Regras específicas, como a otimização aos domingos ou horários prioritários para duplas, podem restringir certas opções.</em></p>
              </div>
 
             <h3>5. Finalizando a reserva</h3>
-            <p>Clique em <strong>Agendar</strong>. Se a reserva for para um dia futuro, ela ficará pendente de confirmação; se for para o mesmo dia, será confirmada na hora.</p>
+            <p>Clique em <strong>Agendar</strong>. Se a reserva for para um dia futuro e precisar de confirmação, ela ficará pendente; caso contrário (mesmo dia, aula, individual, com convidados ou Pirâmide), será confirmada na hora.</p>
 
             <h2 id="secao6">6. Gerenciando Suas Reservas</h2>
             <ul>
-                <li><strong>Clique Simples (Ações):</strong> Ao clicar uma vez em uma reserva na planilha onde você é participante (ou admin/árbitro), um menu de opções aparecerá (Ex: "Excluir", "Editar Jogadores", "Informar Resultado", "Delegar Placar"). As opções disponíveis dependem do tipo de reserva, do status dela e da sua permissão.</li>
+                <li><strong>Clique Simples (Ações):</strong> Ao clicar uma vez em uma reserva na planilha onde você é participante (ou admin/árbitro/delegado), um menu de opções aparecerá (Ex: "Ver Detalhes", "Excluir", "Editar Jogadores", "Informar Resultado", "Delegar Placar"). As opções disponíveis dependem do tipo de reserva, do status dela e da sua permissão.</li>
                 <li><strong>Duplo Clique (Ver Detalhes):</strong> Ao clicar duas vezes em qualquer reserva, a janela "Detalhes da Reserva" será exibida, com todas as informações sobre a partida, jogadores e status de confirmação (se aplicável).</li>
                 <li><strong>Contador de Expiração:</strong> Ao visualizar os detalhes de uma reserva <strong style="color: orange;">Pendente</strong>, você verá um contador em tempo real mostrando quanto tempo resta para as confirmações.</li>
             </ul>
 
-            <h3 style="margin-top: 25px;">Editando uma reserva (Organizador)</h3>
-            <p>Se uma reserva ainda estiver com o status "Pendente", o jogador que a criou (organizador) ou um administrador podem alterar os participantes. Veja como:</p>
+            <h3 style="margin-top: 25px;">Editando uma reserva pendente (Organizador/Admin)</h3>
+            <p>Se uma reserva ainda estiver com o status "Pendente" e a opção de edição estiver habilitada pela diretoria, o jogador que a criou (organizador) ou um administrador podem alterar os participantes. Veja como:</p>
             <ol>
                 <li><strong>Clique simples</strong> na reserva pendente que você organizou.</li>
                 <li>No menu de ações, selecione a opção <strong>Editar Jogadores</strong>.</li>
@@ -578,8 +351,7 @@
                 <li><strong>Para adicionar:</strong> Clique no botão "Adicionar Jogador" e selecione o novo participante na lista.</li>
                 <li>Após fazer as alterações, clique em <strong>Salvar Alterações</strong>.</li>
             </ol>
-            <div class="section-box warning" style="padding: 10px; margin-top: 5px;">
-                  <p style="margin: 0; text-align: left;"><em><strong>Importante:</strong> Ao salvar, novos convites serão enviados aos jogadores adicionados. Se a remoção de um jogador fizer com que a reserva não atenda mais às regras mínimas (ex: menos de 2 jogadores para 2h), ela poderá ser cancelada automaticamente pelo sistema.</em></p>
+            <div class="section-box warning" style="padding: 10px; margin-top: 5px;"> <p style="margin: 0; text-align: left;"><em><strong>Importante:</strong> Ao salvar, novos convites serão enviados aos jogadores adicionados. Se a remoção de um jogador fizer com que a reserva não atenda mais às regras mínimas (ex: menos de 2 jogadores para 2h, horário de duplas ficar com menos de 4, restar apenas convidados), ela poderá ser cancelada automaticamente pelo sistema.</em></p>
              </div>
 
             <h3 style="margin-top: 25px;">Cancelando uma reserva</h3>
@@ -593,8 +365,8 @@
                  <h4>Atenção às Regras de Exclusão:</h4>
                 <ul>
                     <li><strong>Reservas Pendentes:</strong> Apenas o <strong>organizador</strong> da reserva (ou um administrador) pode excluí-la.</li>
-                    <li><strong>Reservas Confirmadas:</strong> Qualquer <strong>participante</strong> da reserva (ou um administrador) pode excluí-la.</li>
-                    <li><strong>Limite de Tempo:</strong> Uma reserva <strong>não pode mais ser cancelada</strong> após o seu horário de FIM. Essa medida é necessária para manter um histórico dos jogos. As reservas passadas são removidas automaticamente do sistema após 2 dias.</li>
+                    <li><strong>Reservas Confirmadas (ou outros status):</strong> Qualquer <strong>participante</strong> da reserva (ou um administrador) pode excluí-la, <strong>desde que o horário de término ainda não tenha passado</strong>.</li>
+                    <li><strong>Limite de Tempo:</strong> Uma reserva <strong>não pode mais ser cancelada</strong> após o seu horário de término ter passado (exceto por Admins ou se habilitado para testes). Isso é necessário para manter o histórico dos jogos e resultados. Reservas passadas são removidas automaticamente do sistema após alguns dias.</li>
                 </ul>
                 <p><strong>Importante:</strong> É uma boa prática avisar no grupo do WhatsApp sobre o cancelamento para que outros sócios possam aproveitar o horário.</p>
             </div>
@@ -610,11 +382,12 @@
                <li>📜 <strong>Regras da Pirâmide:</strong> <a href="https://clube-olimpico.github.io/Reservas/piramide-regras.html" target="_blank" class="system-link">Ver Regras (Pirâmide)</a></li>
             </ul>
 
-            <h2 id="secao8">8. Acompanhando um Jogo "Ao Vivo" (Pirâmide)</h2>
+            <h2 id="secao8">8. Jogo "Ao Vivo" (Pirâmide)</h2>
             <p>Para saber se uma partida da Pirâmide já começou, o sistema mostra um indicador especial. Quando o horário de uma reserva de Pirâmide se inicia, um pequeno ponto vermelho pulsante (<span class="live-indicator-manual"></span>) aparecerá no canto da reserva. Isso significa que o jogo está 'Ao Vivo' e em andamento.</p>
-            <p>Há duas formas de acompanhar o placar:</p>
+            <p>Há duas formas de acompanhar ou interagir com o placar:</p>
             <ul>
-                <li><strong>Placar Parcial:</strong> Dê um <strong>duplo clique</strong> na reserva com o indicador 'Ao Vivo'. A tela de "Detalhes da Reserva" será aberta e mostrará uma seção de "Placar em Andamento" que é atualizada à medida que os jogadores informam o resultado.</li>
+                 <li><strong>Informar/Continuar Placar:</strong> Se você for um dos jogadores, o Árbitro, Admin ou um jogador delegado, ao clicar na reserva 'Ao Vivo', terá a opção "Informar Resultado" (ou "Continuar Resultado"). Isso abrirá o modal para inserir ou atualizar as parciais do jogo.</li>
+                <li><strong>Placar Parcial (Visualização):</strong> Dê um <strong>duplo clique</strong> na reserva com o indicador 'Ao Vivo'. A tela de "Detalhes da Reserva" será aberta e mostrará uma seção de "Placar em Andamento" que é atualizada à medida que o resultado é informado.</li>
                 <li><strong>📺 Modo Placar (Tela Cheia):</strong> Dentro da janela "Detalhes da Reserva", clique no botão <strong>📺 Modo Placar</strong>. Uma tela escura e otimizada para visualização será exibida em tela cheia, ideal para acompanhar em tempo real ou exibir em uma tela maior.
                     <ul>
                         <li><strong>Nomes:</strong> No computador ou com o celular na horizontal, o <strong>nome completo</strong> dos jogadores é exibido. Com o celular na vertical, apenas o <strong>apelido</strong> é mostrado.</li>
@@ -622,15 +395,16 @@
                         <li><strong>Sair:</strong> Clique no "X" no canto superior direito ou use os gestos do seu celular para sair da tela cheia.</li>
                     </ul>
                 </li>
+                 <li><strong>Delegar Placar:</strong> Se você é participante, Admin ou Árbitro, pode clicar na reserva 'Ao Vivo' e escolher "Delegar Placar" para permitir que outro jogador online atualize as parciais.</li>
             </ul>
 
             <h2 id="secao9">9. Dicas e Recursos Adicionais</h2>
             <ul>
-                <li><strong>Tela Cheia:</strong> Dê um duplo clique no título "Horários" na planilha para expandi-la e facilitar a visualização. Clique duas vezes novamente para voltar ao normal.</li>
+                <li><strong>Tela Cheia (Planilha):</strong> Dê um duplo clique no título "Horários" na planilha para expandi-la e facilitar a visualização. Clique duas vezes novamente para voltar ao normal.</li>
                 <li><strong>Alternando entre Tema Claro e Escuro:</strong>
                     <p style="margin-bottom: 5px;">Para maior conforto visual, o sistema agora oferece um tema claro (padrão) e um tema escuro. Você pode alternar entre eles a qualquer momento.</p>
                     <ol style="padding-left: 15px; margin-top: 0; margin-bottom: 5px;">
-                        <li>Procure por um <strong>botão flutuante com o ícone de uma lua (🌙)</strong> no canto inferior direito da tela.</li>
+                        <li>Procure por um <strong>botão flutuante com o ícone de uma lua (🌙) ou sol (☀️)</strong> no canto inferior direito da tela.</li>
                         <li>Clique no botão para alternar instantaneamente entre os modos.</li>
                     </ol>
                     <p style="margin-top: 5px;">Sua preferência de tema será salva e aplicada automaticamente em seus próximos acessos.</p>
@@ -640,11 +414,11 @@
                         <li><span class="color-box hora1">Reserva de 1 Hora</span></li>
                         <li><span class="color-box hora2">Reserva de 2 Horas</span></li>
                         <li><span class="color-box piramide">Reserva Pirâmide</span></li>
-                        <li><span class="color-box aula">Aula / Bloqueado</span></li>
+                        <li><span class="color-box aula">Aula / Bloqueado / Manutenção</span></li>
                     </ul>
                 </li>
-                 <li><strong>Painel "Sobre o Sistema":</strong> Dê um duplo clique na versão do sistema (ex: v1.1) no rodapé da página para abrir um painel com seu login, links rápidos (manuais, rankings, contatos) e botão de logout.</li>
-                <li><strong>Problemas?</strong> Se encontrar dificuldades: recarregue a página, verifique a internet e, se persistir, contate o administrador (Ronaldo Taborda).</li>
+                 <li><strong>Painel "Sobre o Sistema":</strong> Dê um duplo clique na versão do sistema (ex: v1.7.3) no rodapé da página para abrir um painel com seu login, links rápidos (manuais, rankings, contatos) e botão de logout.</li>
+                <li><strong>Problemas?</strong> Se encontrar dificuldades: recarregue a página (Ctrl+Shift+R ou Cmd+Shift+R), verifique a internet e, se persistir, contate o administrador (Ronaldo Taborda).</li>
             </ul>
 
             <div class="section" id="secao10">
@@ -653,51 +427,68 @@
 
                 <details>
                     <summary>1. Minha reserva aparece como 'Pendente'. O que isso significa e o que preciso fazer?</summary>
-                    <p>O status "Pendente" significa que o sistema está aguardando a confirmação dos outros jogadores que você convidou. Você, como organizador, já está confirmado. Os convidados verão uma notificação ao entrarem no sistema e precisarão clicar em "Confirmar". Se todos confirmarem dentro do prazo estipulado (atualmente 1 hora), a reserva muda para "Confirmada". Se o prazo expirar, ela será cancelada automaticamente.</p>
-                </details>
-
-                <details>
-                    <summary>2. Preciso esperar confirmação para reservas feitas no mesmo dia?</summary>
-                    <p>Não. Reservas agendadas para o <em>mesmo dia</em> são uma exceção à regra. Elas são confirmadas imediatamente no momento do agendamento, exatamente como funcionava antes da introdução do sistema de confirmação.</p>
-                </details>
-
-                <details>
-                    <summary>3. Quem pode cancelar uma reserva e até quando?</summary>
-                    <p>As regras de cancelamento dependem do status da reserva:</p>
-                    <ul>
-                        <li><strong>Reservas Pendentes:</strong> Somente o <em>organizador</em> da reserva (ou um administrador) pode cancelá-la.</li>
-                        <li><strong>Reservas Confirmadas:</strong> <em>Qualquer participante</em> da reserva (ou um administrador) pode cancelá-la.</li>
-                        <li><strong>Limite de Tempo:</strong> Em ambos os casos, uma reserva <em>não pode mais ser cancelada</em> após o horário final do jogo ter passado.</li>
+                    <p>O status "Pendente" significa que o sistema está aguardando a confirmação dos outros jogadores que você convidou para um jogo futuro. Você, como organizador, já está confirmado.</p>
+                     <ul>
+                        <li>Os convidados verão uma notificação ao entrarem no sistema e precisarão clicar em "Confirmar".</li>
+                        <li>Se todos confirmarem dentro do prazo estipulado (atualmente <span class="loading-placeholder">?</span> hora(s)), a reserva muda para "Confirmada".</li>
+                        <li>Se o prazo expirar antes de todos confirmarem, ou se uma recusa invalidar a reserva (ex: menos de 2 jogadores para 2h), ela será cancelada automaticamente.</li>
                     </ul>
                 </details>
 
                 <details>
-                    <summary>4. Fiz uma reserva pendente, mas preciso trocar um dos jogadores convidados. É possível?</summary>
-                    <p>Sim, desde que a reserva ainda esteja "Pendente". Apenas o <em>organizador</em> da reserva (ou um administrador) pode fazer isso. Clique na reserva na planilha, escolha "Editar Jogadores", remova o jogador que não vai mais (desde que ele não tenha confirmado) e adicione o novo. O novo jogador receberá o convite para confirmar.</p>
+                    <summary>2. Preciso esperar confirmação para reservas feitas no mesmo dia?</summary>
+                    <p>Não. Reservas agendadas para o <em>mesmo dia</em> são confirmadas imediatamente, assim como reservas individuais (1 jogador), com convidados, do tipo "Aula" ou "Pirâmide". A confirmação só é necessária para jogos futuros com múltiplos sócios.</p>
+                </details>
+
+                <details>
+                    <summary>3. Quem pode cancelar uma reserva e até quando?</summary>
+                    <p>As regras de cancelamento dependem do status e do tempo:</p>
+                    <ul>
+                        <li><strong>Reservas Pendentes:</strong> Somente o <em>organizador</em> da reserva (ou um administrador) pode cancelá-la.</li>
+                        <li><strong>Reservas Confirmadas (ou outros status):</strong> <em>Qualquer participante</em> da reserva (ou um administrador) pode cancelá-la, mas <strong>apenas antes do horário de término</strong> da reserva.</li>
+                        <li><strong>Após o término:</strong> Uma reserva não pode mais ser cancelada pelo sistema normal (exceto por Admins ou para testes) para preservar o histórico.</li>
+                    </ul>
+                </details>
+
+                <details>
+                    <summary>4. Fiz uma reserva pendente, mas preciso trocar um dos jogadores. É possível?</summary>
+                    <p>Sim, <strong>se a opção de edição estiver habilitada pela diretoria</strong> e a reserva ainda estiver "Pendente". Apenas o <em>organizador</em> (ou um administrador) pode fazer isso.</p>
+                    <ul>
+                        <li>Clique na reserva na planilha, escolha "Editar Jogadores".</li>
+                        <li>Remova o jogador que não vai mais (apenas se ele ainda não confirmou ou se recusou).</li>
+                        <li>Adicione o novo jogador. Ele receberá o convite para confirmar.</li>
+                        <li><strong>Atenção:</strong> Se a alteração invalidar a reserva (ex: menos de 2 jogadores para 2h), ela será cancelada ao salvar.</li>
+                    </ul>
                 </details>
 
                 <details>
                     <summary>5. Como posso saber quem já confirmou ou recusou minha reserva pendente?</summary>
                     <p>Há duas formas:</p>
                     <ul>
-                        <li><strong>Na Planilha:</strong> Os nomes dos jogadores dentro da célula da reserva terão cores ou estilos diferentes: preto para confirmados, vermelho para pendentes e vermelho riscado para quem recusou.</li>
-                        <li><strong>Detalhes da Reserva:</strong> Dê um duplo clique na reserva. A janela de detalhes mostrará a lista de jogadores com o status de confirmação (Confirmado, Pendente, Recusado) ao lado de cada nome.</li>
+                        <li><strong>Na Planilha:</strong> Os nomes dentro da célula da reserva terão cores/estilos: preto (confirmado), vermelho (pendente), vermelho riscado (recusado).</li>
+                        <li><strong>Detalhes da Reserva (Duplo Clique):</strong> A janela de detalhes mostra a lista de jogadores com o status (Confirmado, Pendente, Recusado) ao lado de cada nome.</li>
                     </ul>
                 </details>
 
                 <details>
                     <summary>6. Cliquei em "Recusar" sem querer! Posso mudar minha resposta?</summary>
-                    <p>Não diretamente. Uma vez que você recusa um convite, sua participação naquela reserva específica é cancelada. Se você mudou de ideia, precisa entrar em contato com o <em>organizador</em> da reserva. Ele pode te remover da lista (já que você recusou) e te adicionar novamente, o que gerará um novo convite para você.</p>
+                    <p>Não diretamente. Uma vez recusado, sua participação é cancelada. Se mudou de ideia:</p>
+                     <ul>
+                        <li>Contate o <em>organizador</em> da reserva.</li>
+                        <li>Peça para ele te remover da lista (já que você recusou) e te adicionar novamente.</li>
+                        <li>Isso gerará um novo convite para você confirmar.</li>
+                    </ul>
                 </details>
 
                 <details>
                     <summary>7. Jogos da Pirâmide também ficam pendentes de confirmação?</summary>
-                    <p>Geralmente não. Jogos da Pirâmide, por terem apenas 2 jogadores e regras específicas, costumam ser agendados diretamente, como as reservas para o mesmo dia. No entanto, se futuramente houver alguma regra específica da Diretoria que exija confirmação para a Pirâmide em dias futuros, o sistema se adaptará. Por padrão, hoje, elas são confirmadas na hora.</p>
+                    <p>Não. Jogos da Pirâmide, por terem regras específicas e apenas 2 jogadores, são confirmados imediatamente no momento do agendamento, assim como as reservas para o mesmo dia.</p>
                 </details>
 
                 <details>
                     <summary>8. Como os jogadores são avisados que têm um convite pendente?</summary>
-                    <p>A notificação é <em>dentro do sistema</em>. Ao acessar o site/aplicativo de reservas, o jogador convidado verá imediatamente uma janela com os detalhes da reserva pendente e os botões para Confirmar, Recusar ou responder Depois. Não há envio de notificações por WhatsApp ou e-mail.</p>
+                    <p>A notificação é <em>dentro do sistema</em>. Ao acessar o site/aplicativo de reservas, o jogador convidado verá uma janela pop-up com os detalhes da reserva e os botões para <strong class="inline-button btn-confirm">Confirmar</strong>, <strong class="inline-button btn-later">Depois</strong> ou <strong class="inline-button btn-refuse">Recusar</strong>.</p>
+                     <p>Não há envio de notificações externas (como WhatsApp ou e-mail).</p>
                 </details>
 
                 <details>
@@ -706,8 +497,7 @@
                     <p>O objetivo principal deste ranking é ser mais lúdico, incentivando a integração e a prática da modalidade entre os membros do clube.</p>
                     <p>A participação é automática: basta que um sócio jogue uma partida de duplas (com 3 outros sócios) e que o resultado seja informado no sistema para que ele entre na classificação.</p>
                 </details>
-                <div class="section-box warning" style="margin-top: 20px;">
-                    <p style="text-align: left; margin-bottom: 0;">Para outras dúvidas, entre em contato com o administrador do sistema.</p>
+                <div class="section-box warning" style="margin-top: 20px;"> <p style="text-align: left; margin-bottom: 0;">Para outras dúvidas, entre em contato com a Diretoria de Tênis ou com o administrador do sistema.</p>
                 </div>
 
             </div> <p style="text-align: center; font-weight: bold; margin-top: 30px;">Bom jogo e aproveite as quadras do Clube Olímpico!</p>
@@ -726,130 +516,68 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
     <script>
         // --------------- INÍCIO: Script para buscar valores do Firebase ---------------
-
-        // !!! IMPORTANTE: SUBSTITUA PELAS SUAS CREDENCIAIS REAIS DO FIREBASE !!!
-        const firebaseConfig = {
-            apiKey: "SUA_API_KEY", // SUBSTITUA AQUI
-            authDomain: "agenda-5ce95.firebaseapp.com", // Mantenha ou ajuste se necessário
-            databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com", // Verifique se esta URL está correta
-            projectId: "agenda-5ce95", // Mantenha ou ajuste se necessário
-            storageBucket: "agenda-5ce95.appspot.com", // Mantenha ou ajuste se necessário
-            messagingSenderId: "852007565195", // Mantenha ou ajuste se necessário
-            appId: "1:852007565195:web:d7bd789d140858f53f618e" // Mantenha ou ajuste se necessário
-        };
-
-        // Inicializa o Firebase
+        const firebaseConfig = { apiKey: "SUA_API_KEY", authDomain: "agenda-5ce95.firebaseapp.com", databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com", projectId: "agenda-5ce95", storageBucket: "agenda-5ce95.appspot.com", messagingSenderId: "852007565195", appId: "1:852007565195:web:d7bd789d140858f53f618e" };
         try {
-            if (!firebase.apps.length) { // Evita reinicialização
-                 firebase.initializeApp(firebaseConfig);
-            }
+            if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
             const database = firebase.database();
-
-            // Função para buscar as configurações e atualizar o HTML
             function carregarValoresConfig() {
                 const configRef = database.ref('sistemas/config');
                 configRef.once('value').then((snapshot) => {
                     const config = snapshot.val();
-                    if (config) {
-                        // Atualiza horas para expirar (com unidade dinâmica)
-                        const horasSpan = document.getElementById('horas-expirar-valor');
-                        const unidadeSpan = document.getElementById('horas-expirar-unidade');
-                        if (horasSpan && unidadeSpan) {
-                            const horasValor = config.horasParaExpirar || '1'; // Usa 1 como padrão
-                            horasSpan.textContent = horasValor;
-                            unidadeSpan.textContent = parseInt(horasValor) === 1 ? ' hora' : ' horas'; // Define singular ou plural
-                            horasSpan.classList.remove('loading-placeholder'); // Remove animação
-                        }
-
-
-                        // ATUALIZAÇÃO JS 1: Buscar o novo span de unidade
-                        const diasSpan = document.getElementById('dias-antecedencia-valor');
-                        const diasUnidadeSpan = document.getElementById('dias-antecedencia-unidade'); // <-- ADICIONADO
-
-                        // ATUALIZAÇÃO JS 2: Verificar também o diasUnidadeSpan
-                        if (diasSpan && diasUnidadeSpan && config.DiasParaLimpar !== undefined) { // <-- MODIFICADO
-                            let diasAntecedencia = 0;
-                            // Lógica de conversão
-                            switch (parseInt(config.DiasParaLimpar)) {
-                                case 1: diasAntecedencia = 5; break;
-                                case 2: diasAntecedencia = 4; break;
-                                case 3: diasAntecedencia = 3; break;
-                                case 4: diasAntecedencia = 2; break;
-                                case 5: diasAntecedencia = 1; break;
-                                case 6: diasAntecedencia = 0; break; // Apenas dia atual
-                                default: diasAntecedencia = 2; // Padrão de fallback
-                            }
-                            diasSpan.textContent = diasAntecedencia;
-                            // ATUALIZAÇÃO JS 3: Definir singular/plural para dias
-                            diasUnidadeSpan.textContent = parseInt(diasAntecedencia) === 1 ? ' dia' : ' dias'; // <-- ADICIONADO
-                            diasSpan.classList.remove('loading-placeholder');
-                        } else if (diasSpan) {
-                             diasSpan.textContent = '2'; // Valor padrão de fallback se DiasParaLimpar não existir
-                             if (diasUnidadeSpan) diasUnidadeSpan.textContent = ' dias'; // <-- ADICIONADO fallback
-                             diasSpan.classList.remove('loading-placeholder');
-                        }
-                    } else {
-                        console.warn("Nó 'sistemas/config' não encontrado no Firebase. Usando valores padrão.");
-                        // Define valores padrão se não encontrar config
-                        const horasSpan = document.getElementById('horas-expirar-valor');
-                        const unidadeSpan = document.getElementById('horas-expirar-unidade');
-                        const diasSpan = document.getElementById('dias-antecedencia-valor');
-                        const diasUnidadeSpan = document.getElementById('dias-antecedencia-unidade'); // <-- ADICIONADO
-                        if(horasSpan && unidadeSpan) {
-                            horasSpan.textContent = '1'; // Valor padrão
-                            unidadeSpan.textContent = ' hora'; // Unidade padrão (singular para 1)
-                            horasSpan.classList.remove('loading-placeholder');
-                        }
-                        if(diasSpan) {
-                            diasSpan.textContent = '2';
-                            diasSpan.classList.remove('loading-placeholder');
-                            if(diasUnidadeSpan) diasUnidadeSpan.textContent = ' dias'; // <-- ADICIONADO
-                        }
-                    }
-                }).catch((error) => {
-                    console.error("Erro ao buscar configurações do Firebase:", error);
-                    // Define valores padrão em caso de erro
                     const horasSpan = document.getElementById('horas-expirar-valor');
                     const unidadeSpan = document.getElementById('horas-expirar-unidade');
                     const diasSpan = document.getElementById('dias-antecedencia-valor');
-                    const diasUnidadeSpan = document.getElementById('dias-antecedencia-unidade'); // <-- ADICIONADO
-                    if(horasSpan && unidadeSpan) {
-                        horasSpan.textContent = '1'; // Valor padrão
-                        unidadeSpan.textContent = ' hora'; // Unidade padrão (singular para 1)
-                        horasSpan.classList.remove('loading-placeholder');
+                    const diasUnidadeSpan = document.getElementById('dias-antecedencia-unidade');
+                    if (config) {
+                        if (horasSpan && unidadeSpan) {
+                            const horasValor = config.horasParaExpirar || '1';
+                            horasSpan.textContent = horasValor;
+                            unidadeSpan.textContent = parseInt(horasValor) === 1 ? ' hora' : ' horas';
+                            horasSpan.classList.remove('loading-placeholder');
+                        }
+                        if (diasSpan && diasUnidadeSpan && config.DiasParaLimpar !== undefined) {
+                            let diasAntecedencia = 0;
+                            switch (parseInt(config.DiasParaLimpar)) {
+                                case 1: diasAntecedencia = 5; break; case 2: diasAntecedencia = 4; break;
+                                case 3: diasAntecedencia = 3; break; case 4: diasAntecedencia = 2; break;
+                                case 5: diasAntecedencia = 1; break; case 6: diasAntecedencia = 0; break;
+                                default: diasAntecedencia = 2;
+                            }
+                            diasSpan.textContent = diasAntecedencia;
+                            diasUnidadeSpan.textContent = parseInt(diasAntecedencia) === 1 ? ' dia' : ' dias';
+                            diasSpan.classList.remove('loading-placeholder');
+                        } else if (diasSpan) {
+                             diasSpan.textContent = '2';
+                             if (diasUnidadeSpan) diasUnidadeSpan.textContent = ' dias';
+                             diasSpan.classList.remove('loading-placeholder');
+                        }
+                    } else {
+                        console.warn("Nó 'sistemas/config' não encontrado. Usando valores padrão.");
+                        if(horasSpan && unidadeSpan) { horasSpan.textContent = '1'; unidadeSpan.textContent = ' hora'; horasSpan.classList.remove('loading-placeholder'); }
+                        if(diasSpan) { diasSpan.textContent = '2'; if(diasUnidadeSpan) diasUnidadeSpan.textContent = ' dias'; diasSpan.classList.remove('loading-placeholder'); }
                     }
-                    if(diasSpan) {
-                        diasSpan.textContent = '2';
-                        diasSpan.classList.remove('loading-placeholder');
-                        if(diasUnidadeSpan) diasUnidadeSpan.textContent = ' dias'; // <-- ADICIONADO
-                    }
+                }).catch((error) => {
+                    console.error("Erro ao buscar configurações:", error);
+                    const horasSpan = document.getElementById('horas-expirar-valor');
+                    const unidadeSpan = document.getElementById('horas-expirar-unidade');
+                    const diasSpan = document.getElementById('dias-antecedencia-valor');
+                    const diasUnidadeSpan = document.getElementById('dias-antecedencia-unidade');
+                    if(horasSpan && unidadeSpan) { horasSpan.textContent = '1'; unidadeSpan.textContent = ' hora'; horasSpan.classList.remove('loading-placeholder'); }
+                    if(diasSpan) { diasSpan.textContent = '2'; if(diasUnidadeSpan) diasUnidadeSpan.textContent = ' dias'; diasSpan.classList.remove('loading-placeholder'); }
                 });
             }
-
-            // Chama a função após o carregamento da página
             document.addEventListener('DOMContentLoaded', carregarValoresConfig);
-
         } catch (e) {
-            console.error("Erro ao inicializar o Firebase. Verifique suas credenciais.", e);
-             // Define valores padrão se Firebase falhar
+            console.error("Erro ao inicializar Firebase:", e);
              document.addEventListener('DOMContentLoaded', () => {
                  const horasSpan = document.getElementById('horas-expirar-valor');
                  const unidadeSpan = document.getElementById('horas-expirar-unidade');
                  const diasSpan = document.getElementById('dias-antecedencia-valor');
-                 const diasUnidadeSpan = document.getElementById('dias-antecedencia-unidade'); // <-- ADICIONADO
-                 if(horasSpan && unidadeSpan) {
-                    horasSpan.textContent = '1'; // Valor padrão
-                    unidadeSpan.textContent = ' hora'; // Unidade padrão (singular para 1)
-                    horasSpan.classList.remove('loading-placeholder');
-                 }
-                 if(diasSpan) {
-                    diasSpan.textContent = '2';
-                    diasSpan.classList.remove('loading-placeholder');
-                    if(diasUnidadeSpan) diasUnidadeSpan.textContent = ' dias'; // <-- ADICIONADO
-                 }
+                 const diasUnidadeSpan = document.getElementById('dias-antecedencia-unidade');
+                 if(horasSpan && unidadeSpan) { horasSpan.textContent = '1'; unidadeSpan.textContent = ' hora'; horasSpan.classList.remove('loading-placeholder'); }
+                 if(diasSpan) { diasSpan.textContent = '2'; if(diasUnidadeSpan) diasUnidadeSpan.textContent = ' dias'; diasSpan.classList.remove('loading-placeholder'); }
              });
         }
-
         // --------------- FIM: Script para buscar valores do Firebase ---------------
     </script>
 
@@ -859,8 +587,6 @@
             const contentSections = document.getElementById('content-sections');
             const menuLinks = document.querySelectorAll('#menu a');
             const mobileMaxWidth = 600;
-
-            // --- LÓGICA DO MENU MOBILE (EXISTENTE) ---
             function revealMobileContent() {
                 if (window.innerWidth <= mobileMaxWidth && contentSections && contentSections.classList.contains('initially-hidden-mobile')) {
                     contentSections.classList.remove('initially-hidden-mobile');
@@ -869,11 +595,7 @@
                     menuLinks.forEach(link => link.removeEventListener('click', revealMobileContent));
                 }
             }
-
-            function revealMobileContentOnFirstAction() {
-                revealMobileContent();
-            }
-
+            function revealMobileContentOnFirstAction() { revealMobileContent(); }
             if (window.innerWidth <= mobileMaxWidth) {
                 if (contentSections) {
                     contentSections.classList.add('initially-hidden-mobile');
@@ -882,21 +604,26 @@
                     menuLinks.forEach(link => link.addEventListener('click', revealMobileContent));
                 }
             }
-
             window.addEventListener('resize', () => {
                  if (contentSections) {
-                     if (window.innerWidth > mobileMaxWidth) {
-                         contentSections.classList.remove('initially-hidden-mobile');
-                     } else if (!contentSections.classList.contains('initially-hidden-mobile')) {
-                         // Mantém revelado se já foi
-                     } else {
-                          contentSections.classList.add('initially-hidden-mobile');
-                     }
+                     if (window.innerWidth > mobileMaxWidth) { contentSections.classList.remove('initially-hidden-mobile'); }
+                     else if (!contentSections.classList.contains('initially-hidden-mobile')) { /* Mantém revelado */ }
+                     else { contentSections.classList.add('initially-hidden-mobile'); }
                  }
              });
-             // --- FIM DA LÓGICA DO MENU MOBILE ---
         });
         // --------------- FIM: Script para Menu Mobile ---------------
+    </script>
+
+    <script>
+        // --------------- INÍCIO: Script para aplicar tema do sistema ---------------
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+        // --------------- FIM: Script para aplicar tema do sistema ---------------
     </script>
 
 </body>
