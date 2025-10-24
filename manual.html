@@ -57,6 +57,16 @@
             margin: 20px 0;
             border-left: 5px solid #007bff;
         }
+
+        /* -------- INÍCIO DA ADIÇÃO DE CLASSE "SECTION" -------- */
+        /* Adiciona margem padrão para a div .section */
+        .section {
+            display: block;
+            margin-bottom: 30px;
+        }
+        /* -------- FIM DA ADIÇÃO DE CLASSE "SECTION" -------- */
+
+
         /* Parágrafos dentro de section-box também justificados */
         .section-box p {
              text-align: justify;
@@ -104,7 +114,7 @@
             /* Justificação herdada, mas pode ser sobrescrita se necessário */
         }
         /* Exceção: Itens da legenda de cores não justificados */
-         #secao9 ul ul li { /* *** CORRIGIDO id para secao9 *** */
+         #secao9 ul ul li {
             text-align: left; /* Garante alinhamento à esquerda */
          }
         .color-box {
@@ -144,6 +154,8 @@
             vertical-align: middle; /* Alinha verticalmente com o texto ao redor */
             margin: 0 2px; /* Pequeno espaçamento lateral */
         }
+
+        /* --- INÍCIO DA CORREÇÃO DO RODAPÉ --- */
         footer {
             text-align: center;
             margin-top: 30px;
@@ -151,7 +163,17 @@
             border-top: 1px solid #eee; /* Adicionada linha superior */
             font-size: 0.9em;
             color: #666;
+            line-height: 1.5; /* Adicionado para melhor espaçamento na quebra */
         }
+        /* Por padrão (desktop), esconde o <br> e mostra o pipe */
+        footer .break-mobile {
+            display: none;
+        }
+        footer .pipe-desktop {
+            display: inline;
+        }
+        /* --- FIM DA CORREÇÃO DO RODAPÉ --- */
+
         a.system-link {
             color: #007bff;
             text-decoration: none;
@@ -176,36 +198,32 @@
         .btn-refuse { background-color: #dc3545; } /* Vermelho */
 
         /* ****** INÍCIO ESTILOS BOTÕES DAS QUADRAS ****** */
-        /* Container para centralizar os botões de exemplo */
         .manual-tabs-container {
             display: flex;
             justify-content: center;
             gap: 10px;
             margin: 20px 0;
-            flex-wrap: nowrap; /* <<<--- CORRIGIDO DE 'wrap' PARA 'nowrap' ---<<< */
+            flex-wrap: nowrap;
         }
-        /* Estilo base do botão (pílula cinza), copiado de app-reservas.html */
         .manual-tab-button {
-            background-color: #f1f1f1; /* Cor neutra/cinza */
-            color: #555; /* Texto escuro */
+            background-color: #f1f1f1;
+            color: #555;
             font-weight: bold;
             border: none;
             padding: 10px 20px;
             margin: 5px;
-            border-radius: 50px; /* Estilo "pílula" */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* */
+            border-radius: 50px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             text-align: center;
             line-height: 1.3;
         }
-        /* Estilo do botão selecionado (verde), copiado de app-reservas.html */
         .manual-tab-button.selected {
-            background-color: #4CAF50; /* Verde principal */
-            color: white; /* */
-            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4); /* */
+            background-color: #4CAF50;
+            color: white;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
         }
-        /* Estilo extra para o exemplo de quadra interditada */
         .manual-tab-button.interditada {
-            background-color: #dc3545; /* Vermelho (cor do .btn-refuse) */
+            background-color: #dc3545;
             color: white;
             cursor: not-allowed;
             box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
@@ -214,8 +232,6 @@
 
 
         /* --- CSS ADICIONADO PARA MENU E COMPORTAMENTO HÍBRIDO --- */
-
-        /* Estilos básicos para o Menu (pode ajustar cores/fontes se desejar) */
         #menu {
             background-color: #e9ecef;
             padding: 15px 20px;
@@ -237,23 +253,63 @@
             margin: 0;
             /* Colunas definidas nas media queries abaixo */
         }
-        /* Exceção: Itens do menu não justificados */
         #menu li {
             margin-bottom: 8px;
             text-align: left; /* Garante alinhamento à esquerda */
         }
         #menu a {
             text-decoration: none;
-            color: #0056b3; /* Cor do link no menu */
+            color: #0056b3;
             font-weight: normal;
             font-size: 0.95em;
         }
         #menu a:hover {
             text-decoration: underline;
-            color: #003366; /* Cor do link no menu ao passar o mouse */
+            color: #003366;
         }
 
-        /* Opcional: Adiciona rolagem suave ao clicar nos links */
+        /* ****** INÍCIO ESTILO FAQ ACORDEÃO (COPIADO DE REGULAMENTO.HTML) ****** */
+        #secao10 details {
+            margin-bottom: 15px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 5px solid #007bff;
+            display: block;
+        }
+        #secao10 summary {
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0;
+            padding: 0 0 0 5px;
+            outline: none;
+            position: relative;
+            text-align: left; /* Garante que a pergunta não seja justificada */
+        }
+        #secao10 summary::marker { /* Estilo do marcador/seta */
+            color: #007bff;
+        }
+        #secao10 details[open] summary { /* Estilo do título quando aberto */
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        #secao10 details > *:not(summary) { /* Estilo do conteúdo (resposta) */
+             margin-left: 0; /* Remove indentação extra */
+             padding-top: 0; /* Remove padding extra */
+        }
+        /* Ajustes específicos para listas dentro da FAQ */
+        #secao10 details ul {
+            margin-bottom: 0;
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+        #secao10 details ul li {
+             text-align: left; /* Garante que itens da lista não sejam justificados */
+             margin-bottom: 8px;
+        }
+        /* ****** FIM ESTILO FAQ ACORDEÃO ****** */
+
         html {
             scroll-behavior: smooth;
         }
@@ -261,69 +317,95 @@
          /* --- AJUSTES VISUAIS PARA CELULAR --- */
         @media (max-width: 600px) {
             body {
-                padding: 10px; /* Reduz padding geral */
+                padding: 10px;
             }
             .container {
-                padding: 15px; /* Reduz padding interno */
-                margin: 10px auto; /* Reduz margens */
+                padding: 15px;
+                margin: 10px auto;
             }
-            /* Ajusta margens e paddings de títulos */
             h1, h2, h3, h4 {
                 margin-top: 20px;
                 padding-bottom: 8px;
-                 margin-bottom: 10px; /* Margem inferior mais consistente */
+                 margin-bottom: 10px;
             }
-            h1 { font-size: 1.8em; margin-bottom: 20px;} /* Ajusta H1 */
-            /* Mostra a quebra de linha e esconde o hífen no H1 em mobile */
+            h1 { font-size: 1.8em; margin-bottom: 20px;}
             h1 br.mobile-break { display: block; }
             h1 span.hifen-desktop { display: none; }
-
-            h2 { font-size: 1.4em; } /* Ajusta H2 */
-            h3 { font-size: 1.1em; border-bottom-width: 1px;} /* Ajusta H3 */
-            h4 { font-size: 1.0em; margin-bottom: 8px;} /* Ajusta H4 */
-
+            h2 { font-size: 1.4em; }
+            h3 { font-size: 1.1em; border-bottom-width: 1px;}
+            h4 { font-size: 1.0em; margin-bottom: 8px;}
             #menu {
-                 padding: 10px 15px; /* Reduz padding do menu */
+                 padding: 10px 15px;
             }
             #menu li {
-                 margin-bottom: 5px; /* Reduz espaço entre itens do menu */
-                 text-align: left; /* Garante alinhamento à esquerda no mobile */
+                 margin-bottom: 5px;
+                 text-align: left;
             }
             .section-box {
-                padding: 15px; /* Reduz padding das caixas */
-                margin: 15px 0; /* Ajusta margem das caixas */
+                padding: 15px;
+                margin: 15px 0;
             }
-            ul, ol { padding-left: 20px; margin-bottom: 10px;} /* Reduz recuo e margem de listas */
-            li { margin-bottom: 8px; } /* Reduz espaço entre itens */
+            /* Ajuste para section no mobile */
+            .section {
+                 margin-bottom: 20px;
+            }
+            ul, ol { padding-left: 20px; margin-bottom: 10px;}
+            li { margin-bottom: 8px; }
              ul ul, ol ol { margin-top: 3px; margin-bottom: 5px; }
              ul ul li, ol ol li { margin-bottom: 3px; }
-             /* Exceção mobile: Itens da legenda de cores não justificados */
-             /* *** CORRIGIDO id para secao9 *** */
              #secao9 ul ul li {
-                text-align: left; /* Garante alinhamento à esquerda no mobile */
+                text-align: left;
              }
-            /* Exceção mobile: Itens da observação de horário */
             .section-box.warning ul li[style*="text-align: left"] {
                 text-align: left !important;
             }
-            /* Ajuste para botões de quadra no mobile */
             .manual-tab-button {
                 padding: 8px 15px;
                 font-size: 0.9em;
             }
-            
-            /* <<<--- ADICIONADO PARA AJUSTAR O ESPAÇAMENTO NO CELULAR ---<<< */
             .manual-tabs-container {
-                gap: 5px; /* Reduz o espaço entre os botões */
+                gap: 5px;
             }
+            /* --- INÍCIO AJUSTES FAQ MOBILE --- */
+            #secao10 details {
+                padding: 10px;
+            }
+             #secao10 summary {
+                margin: 0;
+                padding: 0 0 0 5px;
+            }
+            #secao10 details[open] summary {
+                margin-bottom: 8px;
+                padding-bottom: 8px;
+            }
+            #secao10 details ul li {
+                 text-align: left;
+                 margin-bottom: 5px;
+            }
+             #secao10 details > *:not(summary) {
+                 padding-top: 5px;
+            }
+             #secao10 details ul {
+                 padding-left: 15px;
+            }
+            /* --- FIM AJUSTES FAQ MOBILE --- */
 
+            /* --- INÍCIO CORREÇÃO RODAPÉ MOBILE --- */
+            footer {
+                line-height: 1.4; /* Ajuste fino para mobile */
+            }
+            footer .break-mobile {
+                display: block; /* Força a quebra de linha */
+            }
+            footer .pipe-desktop {
+                display: none; /* Esconde o pipe */
+            }
+            /* --- FIM CORREÇÃO RODAPÉ MOBILE --- */
 
-            /* Mobile: Esconde o container das seções INICIALMENTE */
             #content-sections.initially-hidden-mobile {
                 display: none;
             }
-            /* Garante que o menu no celular seja coluna única */
-             #menu ol {
+            #menu ol {
                 columns: 1;
                 -webkit-columns: 1;
                 -moz-columns: 1;
@@ -338,12 +420,10 @@
                 -webkit-columns: 2;
                 -moz-columns: 2;
             }
-             /* Garante que o container esteja sempre visível no desktop */
              #content-sections {
                  display: block !important;
              }
          }
-
          /* --- FIM DO CSS ADICIONADO --- */
 
          /* Estilo para placeholders enquanto carrega */
@@ -357,8 +437,6 @@
              40% { content: ".."; }
              60%, 100% { content: "..."; }
          }
-
-
     </style>
 </head>
 <body>
@@ -376,6 +454,7 @@
                 <li><a href="#secao7">7. Torneio Pirâmide e Ranking de Duplas</a></li>
                 <li><a href="#secao8">8. Jogo "Ao Vivo" (Pirâmide)</a></li>
                 <li><a href="#secao9">9. Dicas e Recursos Adicionais</a></li>
+                <li><a href="#secao10">10. Perguntas Frequentes (FAQ)</a></li>
             </ol>
         </div>
         <div id="content-sections">
@@ -429,13 +508,13 @@
 
             <h2 id="secao4">4. Visualizando as Quadras</h2>
             <p>No topo da página, clique em uma das quadras para visualizar sua agenda:</p>
-            
+
             <div class="manual-tabs-container">
                 <div class="manual-tab-button selected">Quadra 1<br>Coberta</div>
                 <div class="manual-tab-button">Quadra 2<br>Aberta</div>
                 <div class="manual-tab-button interditada">Quadra 3<br>Coberta</div>
             </div>
-            
+
             <div class="section-box warning" style="margin-top: 15px; padding: 10px;">
                 <p style="margin: 0; text-align: left;"><strong>Atenção:</strong> Quadras interditadas aparecem com o botão vermelho (como no exemplo acima) e não podem ser selecionadas.</p>
             </div>
@@ -568,12 +647,80 @@
                 <li><strong>Problemas?</strong> Se encontrar dificuldades: recarregue a página, verifique a internet e, se persistir, contate o administrador (Ronaldo Taborda).</li>
             </ul>
 
-            <p style="text-align: center; font-weight: bold; margin-top: 30px;">Bom jogo e aproveite as quadras do Clube Olímpico!</p>
+            <div class="section" id="secao10">
 
-        </div> <footer>
-            Desenvolvido por Ronaldo Taborda | Atualizado em Outubro/2025
+                <h2>10. Perguntas Frequentes (FAQ)</h2>
+
+                <details>
+                    <summary>1. Minha reserva aparece como 'Pendente'. O que isso significa e o que preciso fazer?</summary>
+                    <p>O status "Pendente" significa que o sistema está aguardando a confirmação dos outros jogadores que você convidou. Você, como organizador, já está confirmado. Os convidados verão uma notificação ao entrarem no sistema e precisarão clicar em "Confirmar". Se todos confirmarem dentro do prazo estipulado (atualmente 1 hora), a reserva muda para "Confirmada". Se o prazo expirar, ela será cancelada automaticamente.</p>
+                </details>
+
+                <details>
+                    <summary>2. Preciso esperar confirmação para reservas feitas no mesmo dia?</summary>
+                    <p>Não. Reservas agendadas para o <em>mesmo dia</em> são uma exceção à regra. Elas são confirmadas imediatamente no momento do agendamento, exatamente como funcionava antes da introdução do sistema de confirmação.</p>
+                </details>
+
+                <details>
+                    <summary>3. Quem pode cancelar uma reserva e até quando?</summary>
+                    <p>As regras de cancelamento dependem do status da reserva:</p>
+                    <ul>
+                        <li><strong>Reservas Pendentes:</strong> Somente o <em>organizador</em> da reserva (ou um administrador) pode cancelá-la.</li>
+                        <li><strong>Reservas Confirmadas:</strong> <em>Qualquer participante</em> da reserva (ou um administrador) pode cancelá-la.</li>
+                        <li><strong>Limite de Tempo:</strong> Em ambos os casos, uma reserva <em>não pode mais ser cancelada</em> após o horário final do jogo ter passado.</li>
+                    </ul>
+                </details>
+
+                <details>
+                    <summary>4. Fiz uma reserva pendente, mas preciso trocar um dos jogadores convidados. É possível?</summary>
+                    <p>Sim, desde que a reserva ainda esteja "Pendente". Apenas o <em>organizador</em> da reserva (ou um administrador) pode fazer isso. Clique na reserva na planilha, escolha "Editar Jogadores", remova o jogador que não vai mais (desde que ele não tenha confirmado) e adicione o novo. O novo jogador receberá o convite para confirmar.</p>
+                </details>
+
+                <details>
+                    <summary>5. Como posso saber quem já confirmou ou recusou minha reserva pendente?</summary>
+                    <p>Há duas formas:</p>
+                    <ul>
+                        <li><strong>Na Planilha:</strong> Os nomes dos jogadores dentro da célula da reserva terão cores ou estilos diferentes: preto para confirmados, vermelho para pendentes e vermelho riscado para quem recusou.</li>
+                        <li><strong>Detalhes da Reserva:</strong> Dê um duplo clique na reserva. A janela de detalhes mostrará a lista de jogadores com o status de confirmação (Confirmado, Pendente, Recusado) ao lado de cada nome.</li>
+                    </ul>
+                </details>
+
+                <details>
+                    <summary>6. Cliquei em "Recusar" sem querer! Posso mudar minha resposta?</summary>
+                    <p>Não diretamente. Uma vez que você recusa um convite, sua participação naquela reserva específica é cancelada. Se você mudou de ideia, precisa entrar em contato com o <em>organizador</em> da reserva. Ele pode te remover da lista (já que você recusou) e te adicionar novamente, o que gerará um novo convite para você.</p>
+                </details>
+
+                <details>
+                    <summary>7. Jogos da Pirâmide também ficam pendentes de confirmação?</summary>
+                    <p>Geralmente não. Jogos da Pirâmide, por terem apenas 2 jogadores e regras específicas, costumam ser agendados diretamente, como as reservas para o mesmo dia. No entanto, se futuramente houver alguma regra específica da Diretoria que exija confirmação para a Pirâmide em dias futuros, o sistema se adaptará. Por padrão, hoje, elas são confirmadas na hora.</p>
+                </details>
+
+                <details>
+                    <summary>8. Como os jogadores são avisados que têm um convite pendente?</summary>
+                    <p>A notificação é <em>dentro do sistema</em>. Ao acessar o site/aplicativo de reservas, o jogador convidado verá imediatamente uma janela com os detalhes da reserva pendente e os botões para Confirmar, Recusar ou responder Depois. Não há envio de notificações por WhatsApp ou e-mail.</p>
+                </details>
+
+                <details>
+                    <summary>9. Qualquer um pode participar do Ranking de Duplas?</summary>
+                    <p>Não, a participação no Ranking de Duplas é exclusiva para os sócios do Clube Olímpico. Convidados (não-sócios) não são incluídos na classificação e não pontuam.</p>
+                    <p>O objetivo principal deste ranking é ser mais lúdico, incentivando a integração e a prática da modalidade entre os membros do clube.</p>
+                    <p>A participação é automática: basta que um sócio jogue uma partida de duplas (com 3 outros sócios) e que o resultado seja informado no sistema para que ele entre na classificação.</p>
+                </details>
+                <div class="section-box warning" style="margin-top: 20px;">
+                    <p style="text-align: left; margin-bottom: 0;">Para outras dúvidas, entre em contato com o administrador do sistema.</p>
+                </div>
+
+            </div> <p style="text-align: center; font-weight: bold; margin-top: 30px;">Bom jogo e aproveite as quadras do Clube Olímpico!</p>
+
+        </div>
+
+        <footer>
+            Desenvolvido por Ronaldo Taborda
+            <span class="pipe-desktop"> | </span>
+            <br class="break-mobile">
+            Atualizado em Outubro/2025
         </footer>
-    </div>
+        </div>
 
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
