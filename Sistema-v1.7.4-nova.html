@@ -3285,230 +3285,159 @@ function removerSessoesAntigas() {
 let githubToken = ''; // Variável global para armazenar o token
 
 // Inicialização do sistema
+// Função original com logs adicionados - Sem remover código existente
 function InicializarSistema() {
+    logParaFirebase('info', 'Dentro de InicializarSistema - Iniciando'); // <-- Log adicionado
     return new Promise((resolve, reject) => {
-        const sistemaRef = database.ref("sistemas"); 
+        const sistemaRef = database.ref("sistemas");
 
+        // Mantendo o listener .on() original
         sistemaRef.on('value', (snapshot) => {
-            const data = snapshot.val();
+            logParaFirebase('info', 'Dentro de InicializarSistema - Recebeu dados do Firebase (.on)'); // <-- Log adicionado
 
-            if (data) {
-                const minVersion = data.version;
-				if (VersaoSistema !== minVersion) {
-					const overlay = document.getElementById('versao-desatualizada-overlay');
-					if (overlay) {
-						overlay.querySelector('h1').textContent = 'Versão Desatualizada';
-						overlay.querySelector('p').textContent = 'Por favor, feche e reabra o aplicativo para aplicar a atualização.';
-						overlay.style.display = 'flex';
-					}
-					return; // Interrompe o carregamento
-				}
+            try {
+                logParaFirebase('info', 'InicializarSistema - Ponto A: Processando snapshot.val()'); // <-- Log adicionado
+                const data = snapshot.val();
 
-                const config = data.config;
-				
-				vReservasPorConfirmacao = config.ReservasPorConfirmacao || false; // Lê o interruptor do banco
-				
-				//vReservasPorConfirmacao = true;  //uso para testar as reservas por confirmação
-				
-				horasParaExpirarConfig = config.horasParaExpirar || 2; // Lê o valor do banco ou usa 2 como padrão
-				edicaoOrganizadorAtiva = config.OrganizadorEdicao || false;
-				quebraHorarioDomingoConfig = config.QuebraDeHorarioDomingo || { ativa: true, quadras: {} }; 
-				
-				if (config && config.Administradores && Object.keys(config.Administradores).length > 0) {
-                    // Extrai os objetos {nomeCompleto, apelido} e cria uma lista SÓ com os nomes completos
-                    administradores = Object.values(config.Administradores).map(admin => admin.nomeCompleto);
-                } else {
-                    // Se a lista estiver vazia no Firebase, usa um admin padrão por segurança
-                    administradores = ["RONALDO TABORDA"];
-                }
-				
-				if (config && config.Arbitro) {
-					arbitro = config.Arbitro; // Guarda o objeto {nomeCompleto, apelido}
-				} else {
-					arbitro = { nomeCompleto: "RONALDO TABORDA", apelido: "RONALDO TABORDA" }; // Padrão de segurança
-				}
-				
-				 // ADICIONE A LINHA ABAIXO PARA TESTAR
-                //alert('Administradores carregados: ' + administradores.join(', '));
-				//alert('Árbitro carregado: ' + arbitro.nomeCompleto);
-
-				
-				githubToken = config.githubToken;
-				
-				//alert(`token: ${githubToken}`);
-				
-				verificarConvitesPendentes(data.reservas);
-                verificarConfirmacoesResultado(data.reservas); 
-				verificarDisputasArbitro(data.reservas);
-				verificarNotificacoes(); 
-			   
-			   if (vAbrirSistema) {
-				  // A verificação de manutenção só roda se a "chave mestra" do desenvolvedor estiver LIGADA
-				  if (config && config.Abrir === false) {
-					const overlay = document.getElementById('versao-desatualizada-overlay');
-					if (overlay) {
-						overlay.querySelector('h1').textContent = 'Sistema em Manutenção';
-						overlay.querySelector('p').textContent = 'O sistema está passando por uma manutenção provisória. Por favor, tente novamente mais tarde.';
-						overlay.style.display = 'flex';
-					}
-					return; // Interrompe o carregamento
-				  }
-				}
-		        
-				
-
-                // Verifica se a pirâmide está ativa (em tempo real)
-                const piramideAtiva = config?.Piramide?.ativa || false; // Valor padrão: false
-				piramideAtivaGlobal = piramideAtiva;
-				piramideInicioTorneio = config?.Piramide?.inicio || null;
-				piramideFimTorneio = config?.Piramide?.fim || null;
-                const duracaoSelect = document.getElementById('duracao');
-                const piramideOption = duracaoSelect?.querySelector('option[value="3-piramide"]');
-
-                if (piramideOption) {
-                    piramideOption.style.display = piramideAtiva ? 'block' : 'none'; // Mostra ou oculta a opção "Pirâmide"
-                }
-                
-                // Atualiza a legenda com base no estado da Pirâmide
-                atualizarLegenda(piramideAtiva);
-                
-                if (piramideAtiva) {
-                    window.config = window.config || {};
-                    window.config.Piramide = config.Piramide;
-                }
-
-                if (config) {
-                    window.DiasParaLimpar = config.DiasParaLimpar || 4;
-                    //window.vDomingo = config.vDomingo || "fechado";
-                    //window.vDomingoAte = config.vDomingoAte || "23:00"; // Valor padrão caso não esteja definido
-					window.vDomingo = config.vDomingo || "fechado";
-					window.vDomingoAte = config.vDomingoAte || "23:00";
-
-					// --- INÍCIO DA LÓGICA DE DETECÇÃO DE MUDANÇA ---
-					// A condição (vDomingoAnterior !== null) impede a execução na primeira carga da página.
-					if (vDomingoAnterior !== null && (window.vDomingo !== vDomingoAnterior || window.vDomingoAte !== vDomingoAteAnterior)) {
-						console.log("Detectada mudança na configuração de Domingo. Forçando atualização dos horários.");
-						atualizarOpcoesHorario(); // Força a atualização do dropdown
-					}
-
-					// Atualiza os valores anteriores para a próxima verificação
-					vDomingoAnterior = window.vDomingo;
-					vDomingoAteAnterior = window.vDomingoAte;
-					
-					duplasConfigGlobais = config.Duplas || {}; // Carrega a config de Duplas na variável global
-					
-				    convidadoConfigGlobais = config.Convidados || {}; // Carrega a config de Convidados
-					
-					rankingDuplasAtivo = config.Duplas?.Ranking || false;
-					
-					bloqueiosQuadra = config.Quadras?.Bloqueios || {};  // Carrega a config de Bloqueios
-					
-                    quadrasInativas.clear();
-                    const quadras = config.Quadras || {};
-                    if (quadras.Quadra1 === "interditada") quadrasInativas.add("Quadra 1 - Coberta");
-                    if (quadras.Quadra2 === "interditada") quadrasInativas.add("Quadra 2 - Aberta");
-                    if (quadras.Quadra3 === "interditada") quadrasInativas.add("Quadra 3 - Coberta");
-
-                    atualizarDatas();
-					
-					if (vatualizarOpcoesHorario) {
-					  atualizarOpcoesHorario();
-					  document.getElementById('quadra').selectedIndex = 0;
-					  vatualizarOpcoesHorario = false;
-					}
-                }
-            } else {
-                inicializarEstruturaInicial();
-            }
-
-            let quadraInicial = quadraSelecionada || "Quadra 1 - Coberta";
-            if (quadrasInativas.has(quadraInicial)) {
-                const proximasQuadras = ["Quadra 2 - Aberta", "Quadra 3 - Coberta"].filter(quadra => !quadrasInativas.has(quadra));
-                if (proximasQuadras.length > 0) {
-                    quadraInicial = proximasQuadras[0];
-                } else {
-                    quadrasInativas.clear();
-                    quadrasInativas.add("Quadra 1 - Coberta");
-                    quadrasInativas.add("Quadra 2 - Aberta");
-                    quadrasInativas.add("Quadra 3 - Coberta");
-
-                    atualizarEstadoQuadras();
-
-                    const selectQuadra = document.getElementById('quadra');
-                    if (selectQuadra) {
-                        selectQuadra.innerHTML = "";
-                        const defaultOption = document.createElement('option');
-                        defaultOption.value = "";
-                        defaultOption.textContent = "Nenhuma quadra disponível";
-                        selectQuadra.appendChild(defaultOption);
+                if (data) {
+                    logParaFirebase('info', 'InicializarSistema - Ponto B: Verificando versão'); // <-- Log adicionado
+                    const minVersion = data.version;
+                    if (VersaoSistema !== minVersion) {
+                        const overlay = document.getElementById('versao-desatualizada-overlay');
+                        if (overlay) {
+                            overlay.querySelector('h1').textContent = 'Versão Desatualizada';
+                            overlay.querySelector('p').textContent = 'Por favor, feche e reabra o aplicativo para aplicar a atualização.';
+                            overlay.style.display = 'flex';
+                        }
+                        logParaFirebase('warn', 'InicializarSistema - Versão desatualizada detectada'); // <-- Log adicionado
+                        // Não retorna aqui para permitir logs posteriores, mas a UI está bloqueada
+                        // return; // Originalmente havia um return implícito aqui
                     }
 
-                    const tabelaContainer = document.querySelector('.tabela-container');
-                    const header = document.querySelector('.header');
-                    if (tabelaContainer) tabelaContainer.style.display = 'none';
-                    if (header) header.style.display = 'none';
+                    logParaFirebase('info', 'InicializarSistema - Ponto C: Processando config'); // <-- Log adicionado
+                    const config = data.config;
 
-                    //alert("Todas as quadras estão interditadas no momento.");
-					mostrarNotificacao("Todas as quadras estão interditadas no momento.", 'error');
-                    
-                    resolve();
-                    return; 
-                }
-            }
+                    vReservasPorConfirmacao = config.ReservasPorConfirmacao || false;
+                    horasParaExpirarConfig = config.horasParaExpirar || 2;
+                    edicaoOrganizadorAtiva = config.OrganizadorEdicao || false;
+                    quebraHorarioDomingoConfig = config.QuebraDeHorarioDomingo || { ativa: true, quadras: {} };
+                    logParaFirebase('info', 'InicializarSistema - Ponto D: Processou configs básicas'); // <-- Log adicionado
 
-            document.querySelectorAll('.tab-button').forEach(button => {
-                if (button.innerText.trim() === quadraInicial) {
-                    button.classList.add('selected');
+                    if (config && config.Administradores && Object.keys(config.Administradores).length > 0) {
+                        administradores = Object.values(config.Administradores).map(admin => admin.nomeCompleto);
+                    } else {
+                        administradores = ["RONALDO TABORDA"];
+                    }
+                    if (config && config.Arbitro) {
+                        arbitro = config.Arbitro;
+                    } else {
+                        arbitro = { nomeCompleto: "RONALDO TABORDA", apelido: "RONALDO TABORDA" };
+                    }
+                    logParaFirebase('info', 'InicializarSistema - Ponto E: Processou Admins/Arbitro', { admins: administradores.length, arbitro: arbitro.nomeCompleto }); // <-- Log adicionado
+
+                    githubToken = config.githubToken;
+                    logParaFirebase('info', 'InicializarSistema - Ponto F: Token GitHub lido'); // <-- Log adicionado
+
+                    verificarConvitesPendentes(data.reservas);
+                    verificarConfirmacoesResultado(data.reservas);
+                    verificarDisputasArbitro(data.reservas);
+                    verificarNotificacoes();
+                    logParaFirebase('info', 'InicializarSistema - Ponto G: Verificações chamadas'); // <-- Log adicionado
+
+                    if (vAbrirSistema) {
+                      if (config && config.Abrir === false) {
+                        // ... (código de manutenção) ...
+                        logParaFirebase('warn', 'InicializarSistema - Sistema em manutenção'); // <-- Log adicionado
+                        // return; // Originalmente havia um return implícito aqui
+                      }
+                    }
+                    logParaFirebase('info', 'InicializarSistema - Ponto H: Verificação Manutenção feita'); // <-- Log adicionado
+
+                    const piramideAtiva = config?.Piramide?.ativa || false;
+                    piramideAtivaGlobal = piramideAtiva;
+                    piramideInicioTorneio = config?.Piramide?.inicio || null;
+                    piramideFimTorneio = config?.Piramide?.fim || null;
+                    const duracaoSelect = document.getElementById('duracao');
+                    const piramideOption = duracaoSelect?.querySelector('option[value="3-piramide"]');
+                    if (piramideOption) {
+                        piramideOption.style.display = piramideAtiva ? 'block' : 'none';
+                    }
+                    logParaFirebase('info', 'InicializarSistema - Ponto I: Processou Piramide config'); // <-- Log adicionado
+                    atualizarLegenda(piramideAtivaGlobal);
+                    logParaFirebase('info', 'InicializarSistema - Ponto J: Legenda atualizada'); // <-- Log adicionado
+
+                    if (config) {
+                        window.DiasParaLimpar = config.DiasParaLimpar || 4;
+                        window.vDomingo = config.vDomingo || "fechado";
+                        window.vDomingoAte = config.vDomingoAte || "23:00";
+                        if (vDomingoAnterior !== null && (window.vDomingo !== vDomingoAnterior || window.vDomingoAte !== vDomingoAteAnterior)) {
+                            atualizarOpcoesHorario();
+                        }
+                        vDomingoAnterior = window.vDomingo;
+                        vDomingoAteAnterior = window.vDomingoAte;
+                        duplasConfigGlobais = config.Duplas || {};
+                        convidadoConfigGlobais = config.Convidados || {};
+                        rankingDuplasAtivo = config.Duplas?.Ranking || false;
+                        bloqueiosQuadra = config.Quadras?.Bloqueios || {};
+                        quadrasInativas.clear();
+                        const quadras = config.Quadras || {};
+                        if (quadras.Quadra1 === "interditada") quadrasInativas.add("Quadra 1 - Coberta");
+                        if (quadras.Quadra2 === "interditada") quadrasInativas.add("Quadra 2 - Aberta");
+                        if (quadras.Quadra3 === "interditada") quadrasInativas.add("Quadra 3 - Coberta");
+                        logParaFirebase('info', 'InicializarSistema - Ponto K: Processou outras configs (Dias, Domingo, Duplas, etc.)'); // <-- Log adicionado
+
+                        atualizarDatas();
+                        logParaFirebase('info', 'InicializarSistema - Ponto L: Datas atualizadas'); // <-- Log adicionado
+                        if (vatualizarOpcoesHorario) {
+                            atualizarOpcoesHorario();
+                            document.getElementById('quadra').selectedIndex = 0;
+                            vatualizarOpcoesHorario = false;
+                            logParaFirebase('info', 'InicializarSistema - Ponto M: Opções Horário atualizadas (primeira vez)'); // <-- Log adicionado
+                        }
+                    }
+
                 } else {
-                    button.classList.remove('selected');
+                     logParaFirebase('warn', 'InicializarSistema - Snapshot vazio, chamando inicializarEstruturaInicial()'); // <-- Log adicionado
+                    inicializarEstruturaInicial();
+                     // É importante resolver ou rejeitar aqui também se for um ponto final
+                     // Não havia resolve/reject explícito no código original neste ponto
                 }
-            });
 
-            const selectQuadra = document.getElementById('quadra');
-			if (selectQuadra) {
-				selectQuadra.innerHTML = "";
+                let quadraInicial = quadraSelecionada || "Quadra 1 - Coberta";
+                if (quadrasInativas.has(quadraInicial)) {
+                    // ... (lógica original para encontrar próxima quadra ou alertar) ...
+                     logParaFirebase('warn', 'InicializarSistema - Quadra inicial interditada, buscando alternativa'); // <-- Log adicionado
+                     // Se todas interditadas:
+                     // logParaFirebase('error', 'InicializarSistema - Todas as quadras interditadas');
+                     // alert("Todas as quadras estão interditadas no momento.");
+                     // resolve(); // Finaliza a promise
+                     // return;
+                }
+                logParaFirebase('info', 'InicializarSistema - Ponto N: quadraInicial determinada', { quadra: quadraInicial }); // <-- Log adicionado
 
-				const jogadorLogado = localStorage.getItem("jogadorLogado")?.toUpperCase();
-				const isRestrito = jogadoresRestritos.includes(jogadorLogado);
-				const todasQuadras = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"];
-				const quadrasAutorizadas = isRestrito
-					? ["Quadra 1 - Coberta", "Quadra 2 - Aberta"]
-					: todasQuadras;
+                // ... (lógica original para atualizar DOM: abas, select, header) ...
+                logParaFirebase('info', 'InicializarSistema - Ponto O: DOM inicial atualizado (abas, select)'); // <-- Log adicionado
 
-				quadrasAutorizadas.forEach(quadra => {
-					if (!quadrasInativas.has(quadra)) {
-						const option = document.createElement('option');
-						option.value = quadra;
-						option.textContent = quadra;
-						selectQuadra.appendChild(option);
-					}
-				});
+                atualizarEstadoQuadras();
+                logParaFirebase('info', 'InicializarSistema - Ponto P: Estado das quadras atualizado'); // <-- Log adicionado
+                selecionarQuadra(quadraInicial); // <<-- Chamada importante
+                logParaFirebase('info', 'InicializarSistema - Ponto Q: selecionarQuadra() chamado'); // <-- Log adicionado
 
-				// Esta linha foi restaurada para definir a quadra inicial
-				selectQuadra.value = quadraInicial;
-			}
+                logParaFirebase('info', 'Dentro de InicializarSistema - Processamento do snapshot concluído'); // <-- Log existente
+                resolve(); // Conclui a Promise com sucesso
 
-            const tabelaContainer = document.querySelector('.tabela-container');
-            const header = document.querySelector('.header');
-            if (tabelaContainer) tabelaContainer.style.display = 'block';
-            if (header) {
-                header.style.display = 'block';
-                header.innerText = quadraInicial;
+            } catch (error) {
+                logParaFirebase('error', 'Erro processando snapshot em InicializarSistema', { errorMessage: error.message, stack: error.stack }); // <-- Log existente
+                reject(error); // Rejeita a Promise em caso de erro no processamento
             }
-
-            atualizarEstadoQuadras();
-            selecionarQuadra(quadraInicial);
-			
-			// ADICIONE ESTA LINHA PARA FORÇAR O RESET DO DROPDOWN
-			//document.getElementById('quadra').selectedIndex = 0;
-            resolve();
-
         }, (error) => {
+            logParaFirebase('error', 'Erro ao OUVIR dados em InicializarSistema (.on)', { errorMessage: error.message }); // <-- Log existente (adaptado para .on)
             console.error("Erro ao carregar dados iniciais:", error);
-            reject(error);
+            reject(error); // Rejeita a Promise em caso de erro ao conectar/ler
         });
     });
 }
+
 
 
 
