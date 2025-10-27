@@ -2997,7 +2997,9 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
     };
 
     gatilhoPainel.addEventListener('dblclick', () => {
-        navigator.vibrate(50);
+        if (navigator.vibrate) { // Verifica se a função existe
+			navigator.vibrate(50);
+		}
         const jogadorLogado = localStorage.getItem('jogadorLogado') || 'Não identificado';
         let status = 'Sócio';
         if (isUsuarioAdmin()) {
@@ -3015,12 +3017,16 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
     });
 
     logoutBtn.addEventListener('click', () => { 
-        navigator.vibrate(50);
+        if (navigator.vibrate) { // Verifica se a função existe
+			navigator.vibrate(50);
+		}
 		fecharModal();
         confirmarLogout(); 
     });
     closeBtn.addEventListener('click', () => {
-        navigator.vibrate(50);
+        if (navigator.vibrate) { // Verifica se a função existe
+			navigator.vibrate(50);
+		}
         fecharModal();
     });
     modalOverlay.addEventListener('click', (event) => {
@@ -3706,7 +3712,9 @@ function limparTabela() {
 
 // Função para selecionar a quadra e carregar suas reservas
 function selecionarQuadra(quadra) {
-    navigator.vibrate(50);
+    if (navigator.vibrate) { // Verifica se a função existe
+		navigator.vibrate(50);
+	}
     // Obtém o nome original da quadra
     const botoes = document.querySelectorAll('.tab-button');
     let nomeOriginal = null;
@@ -4478,7 +4486,9 @@ window.atualizarOpcoesHorario = function() {
 
 // Substitua sua função inteira por esta
 window.adicionarJogador = function() {
-navigator.vibrate(50);
+    if (navigator.vibrate) { // Verifica se a função existe
+		navigator.vibrate(50);
+	}
     if (jogadorCount < 4) {
         jogadorCount++;
         const jogadoresContainer = document.getElementById('jogadoresContainer');
@@ -4537,7 +4547,9 @@ navigator.vibrate(50);
 // SUBSTITUA SUA FUNÇÃO 'atualizarTabela' PELA VERSÃO ABAIXO
 async function atualizarTabela() {
 
-navigator.vibrate(50);
+    if (navigator.vibrate) { // Verifica se a função existe
+		navigator.vibrate(50);
+	}
 
 const diaSelecionado = parseInt(document.getElementById('dia').value, 10);
 const hoje = new Date();
@@ -5826,7 +5838,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function fazerLogin() {
-    navigator.vibrate(50);
+    if (navigator.vibrate) { // Verifica se a função existe
+		navigator.vibrate(50);
+	}
     let jogadorSelect = document.getElementById('jogadorSelect');
     let jogadorSelecionado = jogadorSelect.value; // Apelido selecionado
     let senhaInput = document.getElementById("senha");
@@ -6349,7 +6363,9 @@ function encontrarLinha(posicao) {
 
 // Função para alternar entre os temas
 function toggleTheme() {
-    navigator.vibrate(50);
+    if (navigator.vibrate) { // Verifica se a função existe
+		navigator.vibrate(50);
+	}
     const body = document.body;
     body.classList.toggle('dark-mode');
 
@@ -6464,7 +6480,9 @@ function fecharModalConvites() {
 // Substitua a função confirmarPresenca por esta
 // COLE ESTE CÓDIGO COMPLETO NO LUGAR DA SUA FUNÇÃO ATUAL
 async function confirmarPresenca(reservaKey, quadra) {
-    navigator.vibrate(50);
+    if (navigator.vibrate) { // Verifica se a função existe
+		navigator.vibrate(50);
+	}
     const jogadorLogadoCompleto = localStorage.getItem('jogadorLogado');
     const jogadorLogadoApelido = Object.keys(jogadoresData).find(
         apelido => jogadoresData[apelido].nomeCompleto === jogadorLogadoCompleto
@@ -6558,7 +6576,9 @@ async function confirmarPresenca(reservaKey, quadra) {
 
 
 async function recusarPresenca(reservaKey, quadra) {
-navigator.vibrate(50);
+    if (navigator.vibrate) { // Verifica se a função existe
+		navigator.vibrate(50);
+	}
     const jogadorLogadoCompleto = localStorage.getItem('jogadorLogado');
     const jogadorLogadoApelido = Object.keys(jogadoresData).find(
         apelido => jogadoresData[apelido].nomeCompleto === jogadorLogadoCompleto
@@ -7503,7 +7523,9 @@ function mostrarOpcoesReserva(reserva, key, quadra) {
 
 
 function iniciarModoEdicao(reserva, key, quadra) {
-navigator.vibrate(50);
+    if (navigator.vibrate) { // Verifica se a função existe
+		navigator.vibrate(50);
+	}
     reservaEmEdicao = { key, quadra, dadosOriginais: reserva };
 
     const container = document.getElementById('edit-jogadores-container');
@@ -7574,7 +7596,9 @@ navigator.vibrate(50);
 
 
 async function salvarEdicao() {
-navigator.vibrate(50);
+    if (navigator.vibrate) { // Verifica se a função existe
+		navigator.vibrate(50);
+	}
     if (!reservaEmEdicao) return;
 
     // Pega os dados dos jogadores de dentro do modal
@@ -8944,7 +8968,9 @@ async function verificarConfirmacoesResultado(todasAsReservas) {
  * Altera o status da reserva para 'finalizada' quando o perdedor aprova.
  */
 async function aprovarResultado(reservaKey, quadra) {
-    navigator.vibrate(50);
+    if (navigator.vibrate) { // Verifica se a função existe
+		navigator.vibrate(50);
+	}
     try {
         const reservaRef = database.ref(`sistemas/reservas/${quadra}/${reservaKey}`);
         const snapshot = await reservaRef.once('value');
@@ -8986,7 +9012,9 @@ async function aprovarResultado(reservaKey, quadra) {
  * Altera o status da reserva para 'resultado_recusado' quando o perdedor recusa.
  */
 async function recusarResultado(reservaKey, quadra) {
-navigator.vibrate(50);
+    if (navigator.vibrate) { // Verifica se a função existe
+		navigator.vibrate(50);
+	}
     const mensagem = "Tem certeza que deseja recusar este resultado?<br><br>A disputa deverá ser resolvida com o Árbitro.";
     
     const acaoAoConfirmar = async () => {
@@ -9492,7 +9520,9 @@ async function verificarNotificacoes() {
 // ===== FUNÇÃO ABRIRMODALRESULTADODUPLAS ATUALIZADA =====
 // ==========================================================
 function abrirModalResultadoDuplas(reserva, key, quadra, modoVisualizacao = false) {
-    navigator.vibrate(50);
+    if (navigator.vibrate) { // Verifica se a função existe
+		navigator.vibrate(50);
+	}
     const container = document.getElementById('duplasMatchupsContainer');
     const jogadoresInfo = document.getElementById('duplasJogadoresInfo'); // Declaração original mantida
     const modal = document.getElementById('modalResultadoDuplas');       // Declaração original mantida
@@ -9716,7 +9746,9 @@ function controlarTieBreakDuplas(jogoNum) {
  * Valida, salva o resultado de uma partida de duplas e atualiza o ranking.
  */
 async function salvarResultadoDuplas(reserva, key, quadra) {
-navigator.vibrate(50);
+    if (navigator.vibrate) { // Verifica se a função existe
+		navigator.vibrate(50);
+	}
     const vitorias = {};
     const confrontosInfo = [];
 
@@ -10135,7 +10167,9 @@ function mostrarConfirmacao(mensagem, acaoAoConfirmar, acaoAoCancelar, tipoAcao 
     btnCancelar.textContent = 'Cancelar';
 
     modalMensagem.innerHTML = mensagem;
-	navigator.vibrate(50);
+	if (navigator.vibrate) { // Verifica se a função existe
+		navigator.vibrate(50);
+	}
     modalOverlay.style.display = 'flex';
 
     // Limpa listeners antigos para evitar múltiplas execuções
@@ -10146,7 +10180,9 @@ function mostrarConfirmacao(mensagem, acaoAoConfirmar, acaoAoCancelar, tipoAcao 
     btnCancelar.parentNode.replaceChild(btnCancelarNovo, btnCancelar);
 
     btnConfirmarNovo.addEventListener('click', () => {
-	    navigator.vibrate(50);
+	    if (navigator.vibrate) { // Verifica se a função existe
+			navigator.vibrate(50);
+		}
         modalOverlay.style.display = 'none';
         if (typeof acaoAoConfirmar === 'function') {
             acaoAoConfirmar();
@@ -10190,7 +10226,9 @@ function mostrarConfirmacaoCustomizada(mensagem, acaoAoConfirmar, acaoAoCancelar
     btnCancelar.parentNode.replaceChild(btnCancelarNovo, btnCancelar);
 
     btnConfirmarNovo.addEventListener('click', () => {
-	    navigator.vibrate(50);
+	    if (navigator.vibrate) { // Verifica se a função existe
+			navigator.vibrate(50);
+		}
         modalOverlay.style.display = 'none';
         if (typeof acaoAoConfirmar === 'function') {
             acaoAoConfirmar();
