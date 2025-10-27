@@ -3292,7 +3292,7 @@ function InicializarSistema() {
         const sistemaRef = database.ref("sistemas");
 
         // Mantendo o listener .on() original
-        sistemaRef.on('value', (snapshot) => {
+        sistemaRef.once('value', (snapshot) => {
             logParaFirebase('info', 'Dentro de InicializarSistema - Recebeu dados do Firebase (.on)'); // <-- Log adicionado
 
             try {
@@ -3428,10 +3428,11 @@ function InicializarSistema() {
 
             } catch (error) {
                 logParaFirebase('error', 'Erro processando snapshot em InicializarSistema', { errorMessage: error.message, stack: error.stack }); // <-- Log existente
-                reject(error); // Rejeita a Promise em caso de erro no processamento
+				reject(error); // Rejeita a Promise em caso de erro no processamento
             }
         }, (error) => {
             logParaFirebase('error', 'Erro ao OUVIR dados em InicializarSistema (.on)', { errorMessage: error.message }); // <-- Log existente (adaptado para .on)
+			logParaFirebase('error', 'Erro ao LER dados em InicializarSistema (.once)', { errorMessage: error.message }); // <-- Mudei o log
             console.error("Erro ao carregar dados iniciais:", error);
             reject(error); // Rejeita a Promise em caso de erro ao conectar/ler
         });
