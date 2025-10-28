@@ -1170,7 +1170,7 @@
           "Quadra-3": true
         }
       },
-      "ReservasPorConfirmacao": false,
+      "ReservasPorConfirmacao": true,
       "githubToken": "***SEGREDO_REMOVIDO***",
       "horasParaExpirar": 2,
       "vDomingo": "aberto",
@@ -1297,6 +1297,14 @@
           "duracao": 1,
           "hora": 21,
           "jogadores": "aula"
+        },
+        "2_8": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "Taborda",
+          "organizador": "Taborda"
         },
         "3_10": {
           "borda": "1h",
@@ -1585,66 +1593,6 @@
           "hora": 11,
           "jogadores": "aula"
         },
-        "6_12": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 12,
-          "jogadores": "Giovani Lima",
-          "organizador": "Giovani Lima"
-        },
-        "6_13": {
-          "dia": 6,
-          "duracao": 2,
-          "hora": 13,
-          "jogadores": "Amora",
-          "organizador": "Giovani Lima"
-        },
-        "6_14": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 14,
-          "jogadores": "Felipe Mikuska",
-          "organizador": "Felipe Mikuska"
-        },
-        "6_15": {
-          "dia": 6,
-          "duracao": 2,
-          "hora": 15,
-          "jogadores": "Buiu",
-          "organizador": "Felipe Mikuska"
-        },
-        "6_16": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 16,
-          "jogadores": "Lucas Titon",
-          "organizador": "Lucas Titon"
-        },
-        "6_17": {
-          "dia": 6,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Flavia Titon",
-          "organizador": "Lucas Titon"
-        },
-        "6_19": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 19,
-          "jogadores": "Pedro Lachowski",
-          "organizador": "Pedro Lachowski"
-        },
-        "6_20": {
-          "dia": 6,
-          "duracao": 2,
-          "hora": 20,
-          "jogadores": "Gabriel Martins",
-          "organizador": "Pedro Lachowski"
-        },
         "6_7": {
           "borda": "1h",
           "dia": 6,
@@ -1705,24 +1653,23 @@
           "organizador": "Rafael Gregorio"
         }
       },
-      "Quadra 2 - Aberta": {
-        "1_20": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 20,
-          "jogadores": "Luciano Cavalheiro",
-          "organizador": "Luciano Cavalheiro"
-        },
-        "1_21": {
-          "dia": 1,
-          "duracao": 2,
-          "hora": 21,
-          "jogadores": "Fernando Cavalheiro",
-          "organizador": "Luciano Cavalheiro"
-        }
-      },
       "Quadra 3 - Coberta": {
+        "1_13": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 13,
+          "jogadores": "Manutencao",
+          "organizador": "Manutencao"
+        },
+        "1_14": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 14,
+          "jogadores": "Ana Paula Pereira",
+          "organizador": "Ana Paula Pereira"
+        },
         "1_15": {
           "borda": "2h",
           "dia": 1,
@@ -1768,6 +1715,52 @@
           "jogadores": "Pamela Balboa",
           "organizador": "Ivan Balboa"
         },
+        "1_21": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 2,
+          "hora": 21,
+          "jogadores": "Fernando Cavalheiro",
+          "organizador": "Fernando Cavalheiro"
+        },
+        "1_22": {
+          "dia": 1,
+          "duracao": 2,
+          "hora": 22,
+          "jogadores": "Luciano Cavalheiro",
+          "organizador": "Fernando Cavalheiro"
+        },
+        "2_13": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 13,
+          "jogadores": "Silvanio Pereira",
+          "organizador": "Silvanio Pereira"
+        },
+        "2_14": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 14,
+          "jogadores": "Danielle Pereira",
+          "organizador": "Danielle Pereira"
+        },
+        "2_15": {
+          "borda": "2h",
+          "dia": 2,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Felipe Mikuska",
+          "organizador": "Felipe Mikuska"
+        },
+        "2_16": {
+          "dia": 2,
+          "duracao": 2,
+          "hora": 16,
+          "jogadores": "Natan",
+          "organizador": "Felipe Mikuska"
+        },
         "2_17": {
           "borda": "2h",
           "dia": 2,
@@ -1797,6 +1790,35 @@
           "hora": 20,
           "jogadores": "Isabelle Balboa",
           "organizador": "Isabelle Balboa"
+        },
+        "2_21": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Amora": true,
+            "Giovani Lima": true
+          },
+          "dia": 2,
+          "duracao": 2,
+          "expiraEm": 1761604981915,
+          "hora": 21,
+          "jogadores": "Amora",
+          "jogadores_completo": "Amora, Giovani Lima",
+          "organizador": "Giovani Lima",
+          "status": "confirmada"
+        },
+        "2_22": {
+          "confirmacoes": {
+            "Amora": true,
+            "Giovani Lima": true
+          },
+          "dia": 2,
+          "duracao": 2,
+          "expiraEm": 1761604981915,
+          "hora": 22,
+          "jogadores": "Giovani Lima",
+          "jogadores_completo": "Amora, Giovani Lima",
+          "organizador": "Giovani Lima",
+          "status": "confirmada"
         },
         "3_19": {
           "borda": "2h",
@@ -1828,121 +1850,28 @@
           "jogadores": "Makoto",
           "organizador": "Sidnei Novack"
         },
-        "6_10": {
+        "4_19": {
           "borda": "2h",
-          "dia": 6,
+          "dia": 4,
           "duracao": 2,
-          "hora": 10,
-          "jogadores": "Thomas August",
-          "organizador": "Thomas August"
-        },
-        "6_11": {
-          "dia": 6,
-          "duracao": 2,
-          "hora": 11,
-          "jogadores": "Susan",
-          "organizador": "Thomas August"
-        },
-        "6_13": {
-          "borda": "1h",
-          "dia": 6,
-          "duracao": 1,
-          "hora": 13,
-          "jogadores": "Danielle Pereira",
-          "organizador": "Danielle Pereira"
-        },
-        "6_14": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 14,
-          "jogadores": "Rodrigo Pereira",
-          "organizador": "Rodrigo Pereira"
-        },
-        "6_15": {
-          "dia": 6,
-          "duracao": 2,
-          "hora": 15,
-          "jogadores": "Ana Paula Pereira",
-          "organizador": "Rodrigo Pereira"
-        },
-        "6_16": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 2,
-          "hora": 16,
-          "jogadores": "Amora",
-          "organizador": "Giovani Lima"
-        },
-        "6_17": {
-          "dia": 6,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Giovani Lima",
-          "organizador": "Giovani Lima"
-        },
-        "6_18": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 3,
-          "hora": 18,
-          "jogadores": "Edemar",
-          "organizador": "Edemar",
-          "resultado": {
-            "dataInformado": "2025-10-25T22:48:49.804Z",
-            "informadoPor": "Sidnei Novack",
-            "perdedor": "Edemar",
-            "set1": {
-              "placar": "3x6",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "5x7",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": "Sidnei Novack"
-          },
-          "status": "finalizada"
-        },
-        "6_19": {
-          "dia": 6,
           "hora": 19,
-          "jogadores": "Sidnei Novack",
-          "organizador": "Edemar",
-          "resultado": {
-            "dataInformado": "2025-10-25T22:48:49.804Z",
-            "informadoPor": "Sidnei Novack",
-            "perdedor": "Edemar",
-            "set1": {
-              "placar": "3x6",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "5x7",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": "Sidnei Novack"
-          },
-          "status": "finalizada"
+          "jogadores": "Vitor Zamprogna, Allana Barbosa",
+          "organizador": "Victoria Zeni"
         },
-        "6_7": {
-          "borda": "2h",
-          "dia": 6,
+        "4_20": {
+          "dia": 4,
           "duracao": 2,
-          "hora": 7,
-          "jogadores": "Leo Carrara",
-          "organizador": "Taborda"
+          "hora": 20,
+          "jogadores": "Leonardo Zamprogna, Victoria Zeni",
+          "organizador": "Victoria Zeni"
         },
-        "6_8": {
-          "dia": 6,
-          "duracao": 2,
-          "hora": 8,
-          "jogadores": "Taborda",
-          "organizador": "Taborda"
+        "4_21": {
+          "borda": "1h",
+          "dia": 4,
+          "duracao": 1,
+          "hora": 21,
+          "jogadores": "Kaiser",
+          "organizador": "Kaiser"
         },
         "7_10": {
           "borda": "2h",
@@ -1976,13 +1905,6 @@
         }
       }
     },
-    "usuariosOnline": {
-      "xllafuafw": {
-        "sessionId": "xllafuafw",
-        "timestamp": 1761532306781,
-        "usuario": "ANA MARIA MARINHO GOMES"
-      }
-    },
-    "version": "v1.7.3"
+    "version": "v1.7.5"
   }
 }
