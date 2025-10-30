@@ -505,18 +505,20 @@
         "FLAVIO FERRAZ": {
           "apelido": "Flavio Ferraz",
           "classe": "A",
-          "jogosDeDuplasJogados": 0,
+          "jogosDeDuplasJogados": 3,
           "niver": "27/03/1972",
           "piramide": "",
           "socio": "titular",
-          "vitoriasEmDuplas": 0
+          "vitoriasEmDuplas": 1
         },
         "FRANK FAST": {
           "apelido": "Frank Fast",
           "classe": "A",
+          "jogosDeDuplasJogados": 3,
           "niver": "01/01/2001",
           "piramide": "",
-          "socio": "titular"
+          "socio": "titular",
+          "vitoriasEmDuplas": 1
         },
         "FRANK HEINRICHS": {
           "apelido": "Frank Heinrichs",
@@ -691,9 +693,11 @@
         "LUCAS SETIM TITON": {
           "apelido": "Lucas Titon",
           "classe": "B",
+          "jogosDeDuplasJogados": 3,
           "niver": "07/07/1996",
           "piramide": "29",
-          "socio": "titular"
+          "socio": "titular",
+          "vitoriasEmDuplas": 1
         },
         "LUCIANE VIEIRA": {
           "apelido": "Luciane Vieira",
@@ -791,9 +795,11 @@
         "NIVALDO PEREIRA": {
           "apelido": "Nivaldo",
           "classe": "A",
+          "jogosDeDuplasJogados": 3,
           "niver": "27/10/1970",
           "piramide": "15",
-          "socio": "titular"
+          "socio": "titular",
+          "vitoriasEmDuplas": 3
         },
         "PAMELA BALBOA": {
           "apelido": "Pamela Balboa",
@@ -1121,7 +1127,7 @@
           },
           "Quadra-3-ativa": true
         },
-        "Ranking": false,
+        "Ranking": true,
         "ativa": true
       },
       "OrganizadorEdicao": true,
@@ -1242,14 +1248,6 @@
           "jogadores": "aula",
           "organizador": "Joao Dario"
         },
-        "2_13": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 13,
-          "jogadores": "Manutencao",
-          "organizador": "Manutencao"
-        },
         "2_14": {
           "borda": "1h",
           "dia": 2,
@@ -1305,14 +1303,6 @@
           "duracao": 1,
           "hora": 21,
           "jogadores": "aula"
-        },
-        "2_8": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 8,
-          "jogadores": "Taborda",
-          "organizador": "Taborda"
         },
         "3_10": {
           "borda": "1h",
@@ -1617,6 +1607,35 @@
           "hora": 11,
           "jogadores": "aula"
         },
+        "6_12": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Gilson Oliveira": true,
+            "Marcos Colombo": true
+          },
+          "dia": 6,
+          "duracao": 2,
+          "expiraEm": 1761752080323,
+          "hora": 12,
+          "jogadores": "Marcos Colombo",
+          "jogadores_completo": "Marcos Colombo, Gilson Oliveira",
+          "organizador": "Marcos Colombo",
+          "status": "confirmada"
+        },
+        "6_13": {
+          "confirmacoes": {
+            "Gilson Oliveira": true,
+            "Marcos Colombo": true
+          },
+          "dia": 6,
+          "duracao": 2,
+          "expiraEm": 1761752080323,
+          "hora": 13,
+          "jogadores": "Gilson Oliveira",
+          "jogadores_completo": "Marcos Colombo, Gilson Oliveira",
+          "organizador": "Marcos Colombo",
+          "status": "confirmada"
+        },
         "6_7": {
           "borda": "1h",
           "dia": 6,
@@ -1640,162 +1659,35 @@
         }
       },
       "Quadra 3 - Coberta": {
-        "1_13": {
+        "3_11": {
           "borda": "1h",
-          "dia": 1,
+          "dia": 3,
           "duracao": 1,
-          "hora": 13,
-          "jogadores": "Manutencao",
-          "organizador": "Manutencao"
-        },
-        "1_14": {
-          "borda": "1h",
-          "dia": 1,
-          "duracao": 1,
-          "hora": 14,
-          "jogadores": "Ana Paula Pereira",
-          "organizador": "Ana Paula Pereira"
-        },
-        "1_15": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 15,
-          "jogadores": "Danielle Pereira",
-          "organizador": "Danielle Pereira"
-        },
-        "1_16": {
-          "dia": 1,
-          "duracao": 2,
-          "hora": 16,
-          "jogadores": "Silvanio Pereira",
-          "organizador": "Danielle Pereira"
-        },
-        "1_17": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Almir, Gustavo Ferraz",
-          "organizador": "Marco Ribeiro"
-        },
-        "1_18": {
-          "dia": 1,
-          "duracao": 2,
-          "hora": 18,
-          "jogadores": "Frank Fast, Marco Ribeiro",
-          "organizador": "Marco Ribeiro"
-        },
-        "1_19": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 19,
-          "jogadores": "Ivan Balboa",
-          "organizador": "Ivan Balboa"
-        },
-        "1_20": {
-          "dia": 1,
-          "duracao": 2,
-          "hora": 20,
-          "jogadores": "Pamela Balboa",
-          "organizador": "Ivan Balboa"
-        },
-        "1_21": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 2,
-          "hora": 21,
-          "jogadores": "Fernando Cavalheiro",
-          "organizador": "Fernando Cavalheiro"
-        },
-        "1_22": {
-          "dia": 1,
-          "duracao": 2,
-          "hora": 22,
-          "jogadores": "Luciano Cavalheiro",
-          "organizador": "Fernando Cavalheiro"
-        },
-        "2_13": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 13,
+          "hora": 11,
           "jogadores": "Silvanio Pereira",
           "organizador": "Silvanio Pereira"
         },
-        "2_14": {
+        "3_12": {
           "borda": "1h",
-          "dia": 2,
+          "dia": 3,
           "duracao": 1,
-          "hora": 14,
+          "hora": 12,
           "jogadores": "Danielle Pereira",
           "organizador": "Danielle Pereira"
-        },
-        "2_17": {
-          "borda": "2h",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Edemar",
-          "organizador": "Edemar"
-        },
-        "2_18": {
-          "dia": 2,
-          "duracao": 2,
-          "hora": 18,
-          "jogadores": "Leo Carrara",
-          "organizador": "Edemar"
-        },
-        "2_19": {
-          "borda": "2h",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 19,
-          "jogadores": "Caina Balboa",
-          "organizador": "Isabelle Balboa"
-        },
-        "2_20": {
-          "dia": 2,
-          "duracao": 2,
-          "hora": 20,
-          "jogadores": "Isabelle Balboa",
-          "organizador": "Isabelle Balboa"
-        },
-        "2_21": {
-          "borda": "2h",
-          "confirmacoes": {
-            "Amora": true,
-            "Giovani Lima": true
-          },
-          "dia": 2,
-          "duracao": 2,
-          "expiraEm": 1761604981915,
-          "hora": 21,
-          "jogadores": "Amora",
-          "jogadores_completo": "Amora, Giovani Lima",
-          "organizador": "Giovani Lima",
-          "status": "confirmada"
-        },
-        "2_22": {
-          "confirmacoes": {
-            "Amora": true,
-            "Giovani Lima": true
-          },
-          "dia": 2,
-          "duracao": 2,
-          "expiraEm": 1761604981915,
-          "hora": 22,
-          "jogadores": "Giovani Lima",
-          "jogadores_completo": "Amora, Giovani Lima",
-          "organizador": "Giovani Lima",
-          "status": "confirmada"
         },
         "3_13": {
           "borda": "1h",
           "dia": 3,
           "duracao": 1,
           "hora": 13,
+          "jogadores": "Manutencao",
+          "organizador": "Manutencao"
+        },
+        "3_14": {
+          "borda": "1h",
+          "dia": 3,
+          "duracao": 1,
+          "hora": 14,
           "jogadores": "Manutencao",
           "organizador": "Manutencao"
         },
@@ -1843,7 +1735,31 @@
           "jogadores": "Flavio Ferraz, Frank Fast",
           "jogadores_completo": "Flavio Ferraz, Frank Fast, Nivaldo, Lucas Titon",
           "organizador": "Flavio Ferraz",
-          "status": "confirmada"
+          "resultadoDuplas": {
+            "confrontos": [
+              {
+                "dupla1": "Flavio Ferraz / Frank Fast",
+                "dupla2": "Nivaldo / Lucas Titon",
+                "placar": "4x6",
+                "tiebreak": ""
+              },
+              {
+                "dupla1": "Flavio Ferraz / Nivaldo",
+                "dupla2": "Frank Fast / Lucas Titon",
+                "placar": "6x2",
+                "tiebreak": ""
+              },
+              {
+                "dupla1": "Flavio Ferraz / Lucas Titon",
+                "dupla2": "Frank Fast / Nivaldo",
+                "placar": "1x6",
+                "tiebreak": ""
+              }
+            ],
+            "dataInformado": "2025-10-30T00:49:57.393Z",
+            "informadoPor": "Lucas Titon"
+          },
+          "status": "finalizada"
         },
         "3_18": {
           "confirmacoes": {
@@ -1859,7 +1775,31 @@
           "jogadores": "Nivaldo, Lucas Titon",
           "jogadores_completo": "Flavio Ferraz, Frank Fast, Nivaldo, Lucas Titon",
           "organizador": "Flavio Ferraz",
-          "status": "confirmada"
+          "resultadoDuplas": {
+            "confrontos": [
+              {
+                "dupla1": "Flavio Ferraz / Frank Fast",
+                "dupla2": "Nivaldo / Lucas Titon",
+                "placar": "4x6",
+                "tiebreak": ""
+              },
+              {
+                "dupla1": "Flavio Ferraz / Nivaldo",
+                "dupla2": "Frank Fast / Lucas Titon",
+                "placar": "6x2",
+                "tiebreak": ""
+              },
+              {
+                "dupla1": "Flavio Ferraz / Lucas Titon",
+                "dupla2": "Frank Fast / Nivaldo",
+                "placar": "1x6",
+                "tiebreak": ""
+              }
+            ],
+            "dataInformado": "2025-10-30T00:49:57.393Z",
+            "informadoPor": "Lucas Titon"
+          },
+          "status": "finalizada"
         },
         "3_19": {
           "borda": "2h",
@@ -1891,6 +1831,28 @@
           "jogadores": "Makoto",
           "organizador": "Sidnei Novack"
         },
+        "4_10": {
+          "confirmacoes": {
+            "Felipe Mikuska": true,
+            "Natan": true
+          },
+          "dia": 4,
+          "duracao": 2,
+          "expiraEm": 1761786568750,
+          "hora": 10,
+          "jogadores": "Natan",
+          "jogadores_completo": "Felipe Mikuska, Natan",
+          "organizador": "Felipe Mikuska",
+          "status": "confirmada"
+        },
+        "4_11": {
+          "borda": "1h",
+          "dia": 4,
+          "duracao": 1,
+          "hora": 11,
+          "jogadores": "Josiane Kamiya",
+          "organizador": "Josiane Kamiya"
+        },
         "4_13": {
           "borda": "1h",
           "dia": 4,
@@ -1898,6 +1860,64 @@
           "hora": 13,
           "jogadores": "Manutencao",
           "organizador": "Manutencao"
+        },
+        "4_15": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Fernando Cavalheiro": true,
+            "Rodrigo Pereira": true
+          },
+          "dia": 4,
+          "duracao": 2,
+          "expiraEm": 1761786480516,
+          "hora": 15,
+          "jogadores": "Rodrigo Pereira",
+          "jogadores_completo": "Rodrigo Pereira, Fernando Cavalheiro",
+          "organizador": "Rodrigo Pereira",
+          "status": "confirmada"
+        },
+        "4_16": {
+          "confirmacoes": {
+            "Fernando Cavalheiro": true,
+            "Rodrigo Pereira": true
+          },
+          "dia": 4,
+          "duracao": 2,
+          "expiraEm": 1761786480516,
+          "hora": 16,
+          "jogadores": "Fernando Cavalheiro",
+          "jogadores_completo": "Rodrigo Pereira, Fernando Cavalheiro",
+          "organizador": "Rodrigo Pereira",
+          "status": "confirmada"
+        },
+        "4_17": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Danielle Pereira": true,
+            "Silvanio Pereira": true
+          },
+          "dia": 4,
+          "duracao": 2,
+          "expiraEm": 1761790670008,
+          "hora": 17,
+          "jogadores": "Danielle Pereira",
+          "jogadores_completo": "Danielle Pereira, Silvanio Pereira",
+          "organizador": "Danielle Pereira",
+          "status": "confirmada"
+        },
+        "4_18": {
+          "confirmacoes": {
+            "Danielle Pereira": true,
+            "Silvanio Pereira": true
+          },
+          "dia": 4,
+          "duracao": 2,
+          "expiraEm": 1761790670008,
+          "hora": 18,
+          "jogadores": "Silvanio Pereira",
+          "jogadores_completo": "Danielle Pereira, Silvanio Pereira",
+          "organizador": "Danielle Pereira",
+          "status": "confirmada"
         },
         "4_19": {
           "borda": "2h",
@@ -1937,6 +1957,79 @@
           "organizador": "Robert Menendez",
           "status": "confirmada"
         },
+        "4_7": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Leo Carrara": true,
+            "Taborda": true
+          },
+          "dia": 4,
+          "duracao": 2,
+          "expiraEm": 1761790022439,
+          "hora": 7,
+          "jogadores": "Leo Carrara",
+          "jogadores_completo": "Leo Carrara, Taborda",
+          "organizador": "Taborda",
+          "status": "confirmada"
+        },
+        "4_8": {
+          "confirmacoes": {
+            "Leo Carrara": true,
+            "Taborda": true
+          },
+          "dia": 4,
+          "duracao": 2,
+          "expiraEm": 1761790022439,
+          "hora": 8,
+          "jogadores": "Taborda",
+          "jogadores_completo": "Leo Carrara, Taborda",
+          "organizador": "Taborda",
+          "status": "confirmada"
+        },
+        "4_9": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Felipe Mikuska": true,
+            "Natan": true
+          },
+          "dia": 4,
+          "duracao": 2,
+          "expiraEm": 1761786568750,
+          "hora": 9,
+          "jogadores": "Felipe Mikuska",
+          "jogadores_completo": "Felipe Mikuska, Natan",
+          "organizador": "Felipe Mikuska",
+          "status": "confirmada"
+        },
+        "5_18": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Caina Balboa": true,
+            "Ivan Balboa": true
+          },
+          "dia": 5,
+          "duracao": 2,
+          "expiraEm": 1761758283818,
+          "hora": 18,
+          "jogadores": "Caina Balboa",
+          "jogadores_completo": "Caina Balboa, Ivan Balboa",
+          "organizador": "Ivan Balboa",
+          "status": "confirmada"
+        },
+        "5_19": {
+          "confirmacoes": {
+            "Caina Balboa": true,
+            "Ivan Balboa": true
+          },
+          "dia": 5,
+          "duracao": 2,
+          "expiraEm": 1761758283818,
+          "hora": 19,
+          "jogadores": "Ivan Balboa",
+          "jogadores_completo": "Caina Balboa, Ivan Balboa",
+          "organizador": "Ivan Balboa",
+          "status": "confirmada"
+        },
         "5_20": {
           "borda": "1h",
           "dia": 5,
@@ -1973,6 +2066,14 @@
           "jogadores_completo": "Giovani Lima, Amora",
           "organizador": "Giovani Lima",
           "status": "confirmada"
+        },
+        "6_11": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 11,
+          "jogadores": "Isa",
+          "organizador": "Isa"
         }
       }
     },
