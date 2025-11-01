@@ -385,18 +385,18 @@
                         <li><strong>Horários Bloqueados:</strong> Horários destinados à manutenção, aulas credenciadas ou eventos do clube serão bloqueados no sistema e não estarão disponíveis para reserva.</li>
                     </ul>
                 </div>
+                 
                  <div class="subsection warning" id="secao4.3"> <h3>4.3. Sistema de Confirmação (Reservas Futuras)</h3> <p>Com exceção das reservas feitas para o mesmo dia, todas as demais reservas que incluem mais de um sócio seguirão o fluxo de confirmação:</p>
                     <ul>
-                        <li>A reserva inicia com status <strong>"Pendente"</strong>.</li>
-                        <li>Cada sócio convidado receberá uma notificação no sistema para <strong>Confirmar</strong> ou <strong>Recusar</strong> a participação.</li>
+                        <li>A reserva inicia com status <strong style="color: orange;">"Pendente"</strong>.</li>
+                        <li>Cada sócio convidado receberá uma notificação no sistema para <strong style="color: green;">Confirmar</strong> ou <strong style="color: red;">Recusar</strong> a participação.</li>
                         <li>Há um prazo de <strong id="horas-expirar-regulamento" class="loading-placeholder">?</strong><span id="horas-unidade-regulamento"> hora(s)</span><strong>*</strong> para que todos os sócios confirmem.<br><small style="font-style: italic; display: block; margin-top: -5px;">*Este valor pode ser alterado pela Diretoria.</small></li>
-                        <li>Se todos confirmarem dentro do prazo, a reserva muda para <strong>"Confirmada"</strong>.</li>
-                        <li>Se o prazo expirar antes de todas as confirmações, a reserva é <strong>automaticamente cancelada</strong>.</li>
-                        <li>Se uma recusa resultar no não cumprimento das regras mínimas de ocupação da reserva (por exemplo, deixando uma reserva de 2 horas com menos de 2 sócios, ou uma reserva apenas com convidados), a reserva também será <strong>cancelada</strong>.</li>
+                        <li>Se todos confirmarem dentro do prazo, a reserva muda para <strong style="color: green;">"Confirmada"</strong>.</li>
+                        <li>Se o prazo expirar antes de todas as confirmações, a reserva é <strong style="color: red;">automaticamente cancelada</strong>.</li>
+                        <li>Se uma recusa resultar no não cumprimento das regras mínimas de ocupação da reserva (por exemplo, deixando uma reserva de 2 horas com menos de 2 sócios, ou uma reserva apenas com convidados), a reserva também será <strong style="color: red;">cancelada</strong>.</li>
                     </ul>
                     <p><strong>Observação:</strong> O organizador da reserva (quem a criou) é automaticamente considerado confirmado.</p>
                 </div>
-
                 <div class="subsection" id="secao4.4"> <h3>4.4. Regras Específicas de Horários</h3> <div class="subsection warning" style="margin-top: 15px;"> <h4>Otimização de Domingo:</h4>
                         <ul>
                             <li>Para garantir o máximo aproveitamento das quadras, uma regra especial de agendamento pode estar ativa. Esta regra é válida apenas quando o horário do clube aos domingos for das <strong>8:00 às 12:00</strong>.</li>
@@ -610,7 +610,7 @@
                 </div>
             </div>
             </div> 
-            </div>
+    </div>
     
     <footer>
         Clube Olímpico
@@ -618,6 +618,8 @@
         <br class="break-mobile">
         Diretoria de Tênis
     </footer>
+
+
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
     <script>
