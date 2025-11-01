@@ -190,15 +190,50 @@ body {
 
 /* Contêiner principal do formulário */
 .form-container {
-    padding: 20px; /* Mais espaço interno */
-    margin: 75px auto 20px; /* Centraliza e adiciona espaço acima/abaixo */
     max-width: 500px;
     background-color: #ffffff; /* Fundo branco explícito */
-    margin-bottom: 0px;
-    /* Estilo "Card Flutuante" */
     border-radius: 15px;
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+
+    /* --- NOVAS LINHAS (ETAPA 1 - TENTATIVA 3: max-height) --- */
+    margin: 0 auto 20px; /* Centraliza horizontalmente, remove margem superior, mantém inferior */
+    box-sizing: border-box;
+    overflow: hidden;    /* Esconde o conteúdo quando height é 0 */
+    max-height: 0;       /* Começa colapsado */
+    opacity: 0;          /* Começa invisível */
+    visibility: hidden;  /* Garante que não é acessível */
+    padding-top: 0;      /* Remove padding superior no estado colapsado */
+    padding-bottom: 0;   /* Remove padding inferior no estado colapsado */
+
+    /* A transição agora inclui max-height, padding e opacity */
+	transition: max-height 0.4s ease-out, padding 0.4s ease-out, opacity 0.3s ease-out 0.1s, visibility 0.4s, margin-top 0.4s ease-out; /* Adicionado margin-top */
+    /* --- FIM DAS NOVAS LINHAS --- */
+}
+
+
+/* Esta classe será adicionada/removida pelo JavaScript na próxima etapa */
+.form-container.visible {
+    max-height: 600px;
+    opacity: 1;
+    visibility: visible;
+    padding-top: 20px;    /* Mantém padding superior */
+    padding-bottom: 20px; /* Mantém padding inferior */
+
+    /* --- ADICIONE ESTAS LINHAS --- */
+    padding-left: 20px;   /* Adiciona padding interno esquerdo */
+    padding-right: 20px;  /* Adiciona padding interno direito */
+    /* --- FIM DAS LINHAS ADICIONADAS --- */
+
+    /* Mantém as margens explícitas que definimos antes */
+    margin-top: 70px;
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-left: auto;
+}
+
+/* Remove a margem extra do header/legenda quando o formulário está visível */
+.form-container.visible ~ .header-legenda-container {
+    margin-top: 10px; /* Volta para a margem original */
 }
 
 /* Configuração das linhas do formulário */
@@ -227,22 +262,12 @@ label {
 
 /* Ajusta o tamanho do select de jogadores */
     #jogador1 {
-        width: 100% !important;
-        max-width: 313px;
+        width: 260px !important; /* LARGURA FIXA (290px Menos 30px do botão) */
+        /* max-width: 313px; REMOVIDO */
     }
-	#jogador2 {
-        width: 100% !important;
-        max-width: 330px;
-    }
-	#jogador3 {
-        width: 100% !important;
-        max-width: 330px;
-    }
-	#jogador4 {
-        width: 100% !important;
-        max-width: 300px;
-    }
-	
+	/* As regras para #jogador2, #jogador3 e #jogador4 foram removidas.
+	   Eles agora obedecerão a regra geral de 290px. */
+		
 	
 #botaoAgendar {
     background-color: #4CAF50; /* Cor de fundo verde padrão */
@@ -271,13 +296,45 @@ label {
 /* Efeito ao CLICAR (feedback tátil) */
 #botaoAgendar:active {
     transform: scale(0.98); /* Diminui o botão para simular o clique */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombra diminui junto */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombra diminui junto */ 
 }
 
 
 
 /* Responsividade: ajuste para dispositivos móveis */
 @media (max-width: 600px) {
+
+footer {
+    color: transparent !important;   /* Mantém o texto "Desenvolvido por..." invisível */
+    margin-top: 7px !important;   /* Define um espaço PEQUENO acima da versão (vence o 20px inline) */
+    margin-bottom: 0px !important; /* Define um espaço PEQUENO abaixo da versão */
+    padding: 0;                      /* Remove qualquer padding interno */
+}
+footer #VersaoSistema {
+    font-size: 0.9rem !important;    /* Mantém a fonte visível (correto) */
+    display: block !important;       /* Força a ser um bloco (correto) */
+    
+    /* --- A MUDANÇA ESTÁ AQUI --- */
+    
+    width: 100px; /* Define uma largura fixa (suficiente para "v1.7.5") */
+    
+    /* Centraliza o texto DENTRO da caixa de 100px */
+    text-align: center !important; 
+    
+    /* Centraliza a PRÓPRIA caixa (o bloco) na tela */
+    margin-left: auto !important;
+    margin-right: auto !important;
+    
+    /* Remove as margens verticais (vencendo o 70px inline) */
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+#fab-toggle-form {
+    width: 50px !important; /* Força o botão a ter 50px, sobrescrevendo o "width: 100% !important" */
+    height: 50px !important; /* Garante a altura para formar o círculo */
+}
+
 .motivo-resultado {
     text-align: center;
     font-size: 0.9em;
@@ -313,14 +370,13 @@ body.dark-mode .motivo-resultado {
 
 
 .form-container {
-    margin-top: 65px; /* Reduzimos a margem superior de 20px para 10px apenas no celular */
 	margin-bottom: 0px;
 	padding-top: 5px;    /* NOVO: Diminui o espaço de cima */
     padding-bottom: 5px; /* NOVO: Diminui o espaço de baixo */
 }
 
 table {
-    margin-top: 5px !important; /* Reduzimos a margem de 20px para 10px no celular */
+    margin-top: 15px !important; /* Reduzimos a margem de 20px para 10px no celular */
 }
 
 /* Aumenta o espaço vertical entre as linhas de confronto no modal de INFORMAR resultado */
@@ -374,54 +430,54 @@ table {
         width: 100% !important; /* Campo ocupa toda a largura disponível */
         max-width: 175px; /* Limita a largura máxima */
     }
-
+    
+	label {
+		width: 90px; /* Reduz o label de 160px para 90px */
+		margin-right: 5px; /* Reduz a margem */
+		flex-shrink: 0; /* Impede que o label encolha */
+		font-size: 0.95rem; /* Opcional: leve redução da fonte */
+	}
     /* Aumenta a largura dos campos de entrada em dispositivos móveis */
-    input, select, button {
-        width: 100% !important; /* Faz com que os campos ocupem toda a largura disponível */
-        max-width: 400px; /* Define uma largura máxima para evitar que fiquem muito largos */
+    
+	
+	
+	/* 1. Regra para campos NORMAIS (Quadra, Dia, Jogador 2, 3, 4) */
+    /* Largura = 100% da tela - 90px(label) - 5px(margin) = 95px */
+    .form-row input, 
+    .form-row select:not(#jogador1) {
+        width: calc(100% - 95px) !important; 
+        flex-grow: 0 !important;   /* DESLIGA o flex-grow */
+        flex-shrink: 0 !important; /* DESLIGA o flex-shrink */
+        max-width: none !important;
     }
 
-    /* Ajusta o tamanho do select de jogadores */
+    /* 2. Regra ESPECÍFICA para o #jogador1 (campo problemático) */
+    /* Largura = 100% da tela - 95px(label) - 30px(botão) - 5px(margin) = 130px */
     #jogador1 {
-        width: 100% !important;
-        max-width: 193px;
+        width: calc(100% - 130px) !important;
+        flex-grow: 0 !important;     /* DESLIGA o flex-grow */
+        flex-shrink: 0 !important;  /* DESLIGA o flex-shrink */
+        max-width: none !important; 
     }
-	#jogador2 {
-        width: 100% !important;
-        max-width: 210px;
+    
+    /* 3. Regra ESPECÍFICA para o botão '+' (com largura fixa) */
+    .add-jogador {
+        width: 30px !important;     /* LARGURA FIXA (igual ao PC) */
+        flex-grow: 0 !important;    /* Não cresce */
+        flex-shrink: 0 !important;  /* NÃO ENCOLHE */
+        text-align: center;
+        margin-left: 5px;
     }
-	#jogador3 {
+    
+    /* 4. Regra do Botão Agendar (que já está funcionando) */
+    #botaoAgendar {
         width: 100% !important;
-        max-width: 210px;
     }
-	#jogador4 {
-        width: 100% !important;
-        max-width: 210px;
-    }
-
-    /* Ajusta o tamanho do select de quadra */
-    #quadra {
-        width: 100% !important;
-        max-width: 210px;
-    }
-
-    /* Ajusta o tamanho do select de dia */
-    #dia {
-        width: 100% !important;
-        max-width: 210px;
-    }
-
-    /* Ajusta o tamanho do select de duração */
-    #duracao {
-        width: 100% !important;
-        max-width: 210px;
-    }
-
-    /* Ajusta o tamanho do select de horário */
-    #hora {
-        width: 100% !important;
-        max-width: 210px;
-    }
+	
+	
+	
+    
+    
 	.horario {
         padding: 5px 4px;
         height: 25px;
@@ -445,7 +501,8 @@ table {
 
 /* Estilização geral para inputs, selects e botões */
 input, select, button {
-    flex-grow: 1;
+    /* flex-grow: 1; */ /* REMOVA ESTA LINHA */
+    width: 290px;     /* ADICIONE ESTA LARGURA FIXA */
     padding: 5px;
     font-size: 1rem;
 }
@@ -457,12 +514,19 @@ input, select, button {
     margin-top: 0px;
 }
 
+/* Esconde os labels "Jogador:" extras (2, 3, 4) */
+.jogadores-container .form-row:not(:first-child) label {
+    visibility: hidden;
+}
+
 /* Botão de adicionar jogador */
 .add-jogador {
     font-size: 2rem;
     cursor: pointer;
     color: blue;
     margin-top: 1px;
+    width: 30px; /* LARGURA FIXA DO BOTÃO */
+    text-align: right; /* Alinha o "+" à direita */
 }
 
 /* Estilização dos botões */
@@ -2235,6 +2299,166 @@ body.dark-mode .motivo-resultado { color: #ccc; }
     }
 }
 
+/* === ESTILOS PARA LEGENDA RECOLHÍVEL === */
+.header-legenda-container {
+    padding: 0 10px; /* Espaçamento lateral, ajuste se necessário */
+    margin-bottom: 10px; /* Espaço abaixo antes da tabela */
+	margin-top: 10px;
+	/* --- LINHAS ADICIONADAS --- */
+    margin-top: 70px; /* Empurra para baixo das abas fixas (ajuste o valor se necessário) */
+    transition: margin-top 0.4s ease-out; /* Anima a mudança de margem */
+    /* --- FIM DAS LINHAS ADICIONADAS --- */
+}
+
+.header-legenda-linha {
+    display: flex;
+    justify-content: space-between; /* Título à esquerda, Legenda à direita */
+    align-items: center; /* Alinha verticalmente */
+    margin-bottom: 5px; /* Pequeno espaço antes da legenda expandida */
+}
+
+/* Ajusta o título para não ter margem extra */
+.header-legenda-container .header {
+    margin: 0;
+    font-size: 20px;
+    flex-grow: 1; /* Permite que o título ocupe o espaço disponível */
+    margin-right: 15px; /* Espaço entre o título e o "Legenda:" */
+}
+
+.legenda-trigger {
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #555; /* Cor padrão do texto */
+    white-space: nowrap; /* Impede que "Legenda: ▼" quebre linha */
+    user-select: none; /* Evita seleção de texto ao clicar */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+body.dark-mode .legenda-trigger {
+    color: #ccc; /* Cor no modo escuro */
+}
+
+#legenda-icone {
+    display: inline-block;
+    transition: transform 0.2s ease-in-out; /* Animação suave da seta */
+}
+
+.legenda-trigger.expandido #legenda-icone {
+    transform: rotate(180deg); /* Gira a seta para ▲ */
+}
+
+.legenda-conteudo {
+    display: none; /* Começa oculto */
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-top: 5px; /* Espaço entre o trigger e o conteúdo */
+}
+
+body.dark-mode .legenda-conteudo {
+    border-color: #444;
+    background-color: #2a2a2a;
+}
+
+/* --- NOVOS ESTILOS PARA LEGENDA INTERNA EM LINHA ÚNICA --- */
+
+/* Título "Legenda:" dentro do conteúdo */
+.legenda-conteudo strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+/* Container que segura todos os itens da legenda */
+.legenda-itens-linha-unica {
+    display: flex; /* Coloca os itens lado a lado */
+    flex-wrap: wrap; /* Permite quebrar linha em telas MUITO pequenas */
+    align-items: center; /* Alinha verticalmente */
+    gap: 15px; /* Espaço HORIZONTAL entre os itens da legenda */
+}
+
+/* Estilo para cada par ÍCONE + TEXTO */
+.legenda-item {
+    display: inline-flex; /* Faz o ícone e o texto ficarem juntos na linha */
+    align-items: center; /* Alinha ícone e texto verticalmente */
+    gap: 4px; /* Espaço PEQUENO entre o ícone e o texto */
+}
+
+/* Estilo para o QUADRADO colorido (ícone) */
+.legenda-icone-cor {
+    display: inline-block;
+    width: 15px;
+    height: 15px; /* Deixa quadrado */
+    border: 1px solid rgba(0,0,0,0.1); /* Borda sutil opcional */
+}
+
+/* Estilo para o TEXTO da legenda */
+.legenda-texto {
+    font-size: 12px;
+}
+/* --- FIM DOS NOVOS ESTILOS --- */
+
+/* === FIM DOS ESTILOS === */
+
+
+/* --- ESTILOS PARA O NOVO BOTÃO FLUTUANTE (FAB) --- */
+#fab-toggle-form {
+    position: fixed;
+    bottom: 20px;
+    left: 20px; /* Canto inferior esquerdo */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #4CAF50; /* Cor verde principal */
+    color: white;
+    border: none;
+    font-size: 30px; /* Tamanho do ícone '+' */
+    font-weight: bold;
+    
+    cursor: pointer;
+    z-index: 1001; /* Mesma elevação do botão de tema */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    
+    /* Transição para a futura animação do ícone */
+    transition: background-color 0.3s ease, transform 0.3s ease-in-out; 
+    outline: none;
+	/* --- LINHAS ADICIONADAS PARA CENTRALIZAÇÃO PERFEITA --- */
+    display: flex;           /* Ativa o Flexbox */
+    align-items: center;     /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    /* --- FIM DAS LINHAS ADICIONADAS --- */
+}
+
+/* Estilo do botão QUANDO o painel estiver visível */
+#fab-toggle-form.active {
+    background-color: #dc3545; /* Vermelho (cor "danger" que você já usa) */
+    transform: rotate(45deg);  /* Gira o '+' para formar um 'X' */
+}
+
+@media (max-width: 600px) {
+  #fab-toggle-form.active {
+		background-color: #dc3545 !important; /* Vermelho (cor "danger" que você já usa) */
+		transform: rotate(45deg);  /* Gira o '+' para formar um 'X' */
+	}
+}
+
+#fab-toggle-form:hover {
+    background-color: #45a049; /* Verde mais escuro */
+}
+
+/* Efeito de clique */
+#fab-toggle-form:active {
+    transform: scale(0.95);
+}
+
+#fab-toggle-form:focus {
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.5); /* Aura verde (acessibilidade) */
+}
+
 </style>
 
 
@@ -2321,15 +2545,7 @@ body.dark-mode .motivo-resultado { color: #ccc; }
         <div class="form-row">
             <label for="dia">Dia:</label>
             <select id="dia"  onchange="atualizarOpcoesHorario()">
-				<option value="1">Segunda-Feira</option>
-				<option value="2">Terça-Feira</option>
-				<option value="3">Quarta-Feira</option>
-				<option value="4">Quinta-Feira</option>
-				<option value="5">Sexta-Feira</option>
-				<option value="6">Sábado</option>
-				<option value="7">Domingo</option>
-			</select>
-
+                </select>
         </div>
 
         <div class="form-row">
@@ -2481,29 +2697,15 @@ body.dark-mode .motivo-resultado { color: #ccc; }
 </div>
 
 
-<div style="display: flex; justify-content: space-between; align-items: center;">
-    <h2 class="header" style="margin: 1; font-size: 20px;">Quadra 1 - Coberta</h2> <!-- Título à esquerda -->
-
-    
-    <div id="legenda" style="margin-left: 20px; margin-right: 10px; text-align: left; margin-bottom: 10px;">
-    <strong style="font-size: 14px;">Legenda:</strong>
-    <div style="display: flex; flex-direction: column; gap: 5px;">
-        <!-- Primeira linha: 1 Hora e 2 Horas -->
-        <div id="linha-1" style="display: flex; align-items: center;">
-            <span style="display: inline-block; width: 15px; height: 17px; background-color: lightgreen; margin-right: 2px;"></span>
-            <span style="font-size: 12px;">1 Hora</span>
-            <span style="display: inline-block; width: 15px; height: 18px; background-color: lightblue; margin-right: 2px; margin-left: 10px;"></span>
-            <span style="font-size: 12px;">2 Horas</span>
-        </div>
-        <!-- Segunda linha: Aula e Pirâmide -->
-        <div id="linha-2" style="display: flex; align-items: center;">
-            <span style="display: inline-block; width: 15px; height: 18px; background-color: lightcoral; margin-right: 5px;"></span>
-            <span style="font-size: 12px;">Aula</span>
-            <span id="piramide-span" style="display: inline-block; width: 15px; height: 18px; background-color: #FFEB99 ; margin-left: 19px; margin-right: 1px;"></span>
-            <span id="piramide-text" style="font-size: 12px;">Pirâmide</span>
+<div class="header-legenda-container">
+    <div class="header-legenda-linha">
+        <h2 class="header">Quadra 1 - Coberta</h2>
+        <div id="legenda-trigger" class="legenda-trigger">
+            Legenda: <span id="legenda-icone">▼</span>
         </div>
     </div>
-	</div>
+    <div id="legenda" class="legenda-conteudo">
+        </div>
 </div>
 
 <div id="modalDetalhesReserva" class="modal-overlay">
@@ -2759,7 +2961,7 @@ body.dark-mode .motivo-resultado { color: #ccc; }
         <td class="horario">07:00 - 08:00</td>
         <td></td><td></td><td></td><td></td><td></td>
         <td></td>
-        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo -->
+        <td style="background-color: #f2f2f2; pointer-events: none; cursor: not-allowed;"></td> <!-- Domingo --> 
         <td class="horario">07:00 - 08:00</td>
     </tr>
     <tr>
@@ -2908,7 +3110,7 @@ body.dark-mode .motivo-resultado { color: #ccc; }
 				<li><a href="https://clube-olimpico.github.io/Reservas/manual.html" target="_blank">Manual do Sistema</a></li>
 				<li><a href="https://clube-olimpico.github.io/Reservas/ranking.html" target="_blank">Rankings (Pirâmides e Duplas)</a></li>
 				<li><a href="https://wa.me/5541999176972" target="_blank">Admin Sistema (Ronaldo Taborda)</a></li>
-				<li><a href="https://wa.me/5541999770929" target="_blank">Admin Pirâmide (Edemar Titschkowski)</a></li>
+				<li><a href="https://wa.me/5541999478950" target="_blank">Admin Pirâmide (Edemar Titschkowski)</a></li>
 				<li><a href="https://wa.me/5541998409631" target="_blank">Árbitro Pirâmide (Lenardo Carrara)</a></li
      		</ul>
         </div>
@@ -2933,6 +3135,8 @@ body.dark-mode .motivo-resultado { color: #ccc; }
     Desenvolvido por Ronaldo Taborda
 </footer>
 
+
+<button id="fab-toggle-form">+</button>
 <button id="theme-toggle-button">🌙</button>
 
 
@@ -2976,6 +3180,92 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    // ... (seu código existente do toggleSenha está aqui) ...
+
+
+    // ==============================================
+    // --- INÍCIO DO CÓDIGO DA ETAPA 2 (PAINEL FAB) ---
+    // ==============================================
+    
+    const fabToggleBtn = document.getElementById('fab-toggle-form');
+    const formContainer = document.querySelector('.form-container');
+
+    // Verifica se os dois elementos essenciais existem
+    if (fabToggleBtn && formContainer) {
+        
+        fabToggleBtn.addEventListener('click', () => {
+            // Vibra o dispositivo (ótimo para feedback tátil no celular)
+            if (navigator.vibrate) { 
+                navigator.vibrate(50);
+            }
+
+            // 1. Verifica o estado ATUAL (se o painel está visível)
+            const isVisible = formContainer.classList.contains('visible');
+
+            if (isVisible) {
+                // --- SE ESTÁ VISÍVEL, VAMOS ESCONDER ---
+                formContainer.classList.remove('visible');
+                
+                // 1. Remove a classe 'active' (CSS vai cuidar da cor e rotação)
+                fabToggleBtn.classList.remove('active');
+                
+                // --- NOVA LINHA ADICIONADA ---
+                // 2. Rola a tela para o topo para a visão da planilha 
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                
+            } else {
+                // --- SE ESTÁ ESCONDIDO, VAMOS MOSTRAR ---
+
+                // 1. Limpa o formulário e remove jogadores extras
+                limparCampos(); 
+
+                // --- NOVA LÓGICA ADICIONADA ---
+                // 1.1. Preenche o Jogador 1 com o nome do usuário logado
+                try {
+                    const jogadorLogadoNome = localStorage.getItem('jogadorLogado');
+                    if (jogadorLogadoNome && jogadoresData) {
+                        // Encontra o 'apelido' (usado no dropdown) a partir do 'nomeCompleto' (salvo no localStorage)
+                        const apelidoDoLogado = Object.keys(jogadoresData).find(
+                            apelido => jogadoresData[apelido].nomeCompleto.toUpperCase() === jogadorLogadoNome.toUpperCase()
+                        );
+                        
+                        if (apelidoDoLogado) {
+                            document.getElementById('jogador1').value = apelidoDoLogado;
+                        }
+                    }
+                } catch (e) {
+                    console.error("Erro ao tentar preencher o jogador logado:", e);
+                }
+                // --- FIM DA NOVA LÓGICA ---
+
+                formContainer.classList.add('visible')
+
+                // 2. Adiciona a classe 'active' (CSS vai cuidar da cor e rotação)
+                fabToggleBtn.classList.add('active');
+                
+                // 3. Rola a tela para o topo para exibir o formulário
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+    // ============================================
+    // --- FIM DO CÓDIGO DA ETAPA 2 (PAINEL FAB) ---
+    // ============================================
+    
+
+    // ... (seu código existente do painel "Sobre o Sistema", etc., continua aqui) ...
+
+});
+
+
 
 // --- CÓDIGO PARA O PAINEL "SOBRE O SISTEMA" ---
 const gatilhoPainel = document.getElementById('VersaoSistema');
@@ -3024,7 +3314,7 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
         confirmarLogout(); 
     });
     closeBtn.addEventListener('click', () => {
-        if (navigator.vibrate) { // Verifica se a função existe
+        if (navigator.vibrate) { // Verifica se a função existe 
 			navigator.vibrate(50);
 		}
         fecharModal();
@@ -3045,7 +3335,7 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.7.3'; // Versão atual do sistema      
+const VersaoSistema = 'v1.7.5'; // Versão atual do sistema      
 
 let vDesabilitarF12 = false; // deixar true para fazer o deploy    
 let vAbrirSistema = false; // deixar true para fazer o deploy
@@ -3160,92 +3450,57 @@ function inicializarEstruturaInicial() {
         });
 }
 
+// ====== COLE ESTA NOVA FUNÇÃO NO LUGAR DA ANTIGA ======
+// ====== SUBSTITUA NOVAMENTE a função atualizaLegenda POR ESTA ======
 function atualizarLegenda(piramideAtiva) {
-    const legendaContainer = document.querySelector('#legenda');
+    const legendaContainer = document.getElementById('legenda'); // Usa o ID do container de conteúdo
     if (!legendaContainer) {
-        console.error("Container da legenda não encontrado!");
+        console.error("Container da legenda (#legenda) não encontrado!");
         return;
     }
 
-    // ---- INÍCIO DA ALTERAÇÃO ----
-    // LÓGICA DE CORES DO TEMA
+    // LÓGICA DE CORES DO TEMA (mantida)
     const isDarkMode = document.body.classList.contains('dark-mode');
     const cor1h = isDarkMode ? 'mediumseagreen' : 'lightgreen';
     const cor2h = isDarkMode ? 'CornflowerBlue' : 'lightblue';
-    const corAula = isDarkMode ? '#CD5C5C' : 'lightcoral'; // Usando um vermelho mais escuro para o modo escuro
+    const corAula = isDarkMode ? '#CD5C5C' : 'lightcoral';
     const corPiramide = isDarkMode ? 'goldenrod' : '#FFEB99';
-    // ---- FIM DA ALTERAÇÃO ----
 
+    // Limpa o conteúdo anterior e adiciona o título interno
     legendaContainer.innerHTML = '<strong style="font-size: 14px;">Legenda:</strong>';
 
-    if (!piramideAtiva) {
-        // USA AS CORES DO TEMA
-        const itens = [
-            { cor: cor1h, texto: '1 Hora' },
-            { cor: cor2h, texto: '2 Horas' },
-            { cor: corAula, texto: 'Aula' }
-        ];
+    // Cria um ÚNICO div para conter todos os itens da legenda lado a lado
+    const itensContainer = document.createElement('div');
+    itensContainer.className = 'legenda-itens-linha-unica'; // Nova classe para estilização
 
-        itens.forEach((item, index) => {
-            const linha = document.createElement('div');
-            linha.style.display = 'flex';
-            linha.style.alignItems = 'center';
-            linha.style.marginBottom = '2px';
+    // Define os itens da legenda
+    const itens = [
+        { cor: cor1h, texto: '1 Hora' },
+        { cor: cor2h, texto: '2 Horas' },
+        { cor: corAula, texto: 'Aula' } // Ajuste o texto se precisar incluir "Bloqueado"
+    ];
 
-            if (index === itens.length - 1) {
-                linha.style.marginBottom = '-5px';
-            }
-
-            const icone = document.createElement('span');
-            icone.style.display = 'inline-block';
-            icone.style.width = '15px';
-            icone.style.height = '17px';
-            icone.style.backgroundColor = item.cor; // USA A COR DO TEMA
-            icone.style.marginRight = '5px';
-
-            const texto = document.createElement('span');
-            texto.style.fontSize = '12px';
-            texto.textContent = item.texto;
-
-            linha.appendChild(icone);
-            linha.appendChild(texto);
-            legendaContainer.appendChild(linha);
-        });
-    } else {
-        const linha1 = document.createElement('div');
-        linha1.id = 'linha-1';
-        linha1.style.display = 'flex';
-        linha1.style.alignItems = 'center';
-        linha1.style.gap = '2px';
-        linha1.style.marginTop = '5px';
-        linha1.style.marginBottom = '5px';
-
-        const linha2 = document.createElement('div');
-        linha2.id = 'linha-2';
-        linha2.style.display = 'flex';
-        linha2.style.alignItems = 'center';
-        linha2.style.gap = '2px';
-
-        // USA AS CORES DO TEMA
-        linha1.innerHTML = `
-            <span style="display: inline-block; width: 15px; height: 17px; background-color: ${cor1h}; margin-right: 2px;"></span>
-            <span style="font-size: 12px;">1 Hora</span>
-            <span style="display: inline-block; width: 15px; height: 18px; background-color: ${cor2h}; margin-right: 2px; margin-left: 10px;"></span>
-            <span style="font-size: 12px;">2 Horas</span>
-        `;
-
-        // USA AS CORES DO TEMA
-        linha2.innerHTML = `
-            <span style="display: inline-block; width: 15px; height: 18px; background-color: ${corAula}; margin-right: 5px;"></span>
-            <span style="font-size: 12px;">Aula</span>
-            <span id="piramide-span" style="display: inline-block; width: 15px; height: 18px; background-color: ${corPiramide}; margin-left: 19px; margin-right: 1px;"></span>
-            <span id="piramide-text" style="font-size: 12px;">Pirâmide</span>
-        `;
-
-        legendaContainer.appendChild(linha1);
-        legendaContainer.appendChild(linha2);
+    // Adiciona Pirâmide APENAS se estiver ativa
+    if (piramideAtiva) {
+        itens.push({ cor: corPiramide, texto: 'Pirâmide' });
     }
+
+    // Cria e adiciona cada item (ícone + texto) ao container
+    itens.forEach(item => {
+        const itemSpan = document.createElement('span');
+        itemSpan.className = 'legenda-item'; // Classe para cada par ícone+texto
+        itemSpan.innerHTML = `
+            <span class="legenda-icone-cor" style="background-color: ${item.cor};"></span>
+            <span class="legenda-texto">${item.texto}</span>
+        `;
+        itensContainer.appendChild(itemSpan);
+    });
+
+    // Adiciona o container com todos os itens ao container principal da legenda
+    legendaContainer.appendChild(itensContainer);
 }
+// ====== FIM DA NOVA FUNÇÃO ======
+
 
 
 function removerSessoesAntigas() {
@@ -4850,34 +5105,7 @@ const isReservaParaHoje = (diaSelecionado === diaDaSemanaHoje);
 		agendamentoEmAndamento = false;
 	}
 
-    /*if (reservaSalvaComSucesso) {
-        const isPiramide = document.getElementById('duracao').value === '3-piramide';
-        const organizadorApelido = Object.keys(jogadoresData).find(apelido => jogadoresData[apelido].nomeCompleto === jogadorLogado);
-        const outrosJogadores = jogadores.filter(j => j !== organizadorApelido);
-        const restoSaoConvidados = outrosJogadores.length > 0 && outrosJogadores.every(j => j.toLowerCase() === 'convidado');
-        //const precisaConfirmacao = vReservasPorConfirmacao && !isAula && jogadores.length > 1 && !isPiramide && !restoSaoConvidados;
-		const precisaConfirmacao = vReservasPorConfirmacao && !isReservaParaHoje && !isAula && jogadores.length > 1 && !isPiramide && !restoSaoConvidados;
-    
-        
-        if (precisaConfirmacao) {
-			const mensagem = '<b>Reserva pré-agendada!</b><br>Os outros jogadores precisam confirmar a participação para que o horário seja garantido.';
-			mostrarNotificacao(mensagem, 'warning'); // Usamos 'success' para a cor verde
-		} else {
-			mostrarNotificacao('Reserva efetuada com sucesso!', 'success');
-		}
-		
-        if (jogadores.includes("Convidado")) { 
-            exibirMensagemConvidado();
-        }
-        if (isPiramide) {
-            exibirMensagemPiramide();
-        }
-    }
-    
-    limparCampos();
-    selecionarQuadra(quadra);*/
-
-
+   
     if (reservaSalvaComSucesso) {
         // --- INÍCIO DA NOVA LÓGICA DE NOTIFICAÇÃO UNIFICADA ---
 
@@ -4918,6 +5146,14 @@ const isReservaParaHoje = (diaSelecionado === diaDaSemanaHoje);
     
     limparCampos();
     selecionarQuadra(quadra);
+	
+	// Fecha o painel do formulário após o agendamento
+    const fabToggleBtn = document.getElementById('fab-toggle-form');
+    const formContainer = document.querySelector('.form-container');
+    if (formContainer && fabToggleBtn && formContainer.classList.contains('visible')) {
+        formContainer.classList.remove('visible');
+        fabToggleBtn.classList.remove('active');
+    }
 }
 
 
@@ -5219,7 +5455,60 @@ reservasRef.on('value', (snapshot) => {
     }
 });
 
+
+
+
 function atualizarDatas() {
+  
+  // --- INÍCIO DA NOVA IMPLEMENTAÇÃO ---
+  // 1. Pega a configuração de dias de antecedência
+  const diasParaLimpar = window.DiasParaLimpar || 4; // Padrão de 4 (resultando em 2 dias) se falhar
+  let maxDiasPermitidos;
+  
+  // 2. Converte a configuração 'DiasParaLimpar' no número de dias futuros permitidos
+  // (Esta lógica foi copiada da função validarDiaReserva)
+  switch (diasParaLimpar) {
+      case 1: maxDiasPermitidos = 5; break; // 6 dias no total (Hoje + 5)
+      case 2: maxDiasPermitidos = 4; break; // 5 dias no total (Hoje + 4)
+      case 3: maxDiasPermitidos = 3; break; // 4 dias no total (Hoje + 3)
+      case 4: maxDiasPermitidos = 2; break; // 3 dias no total (Hoje + 2)
+      case 5: maxDiasPermitidos = 1; break; // 2 dias no total (Hoje + 1)
+      case 6: maxDiasPermitidos = 0; break; // 1 dia no total (Hoje)
+      default: maxDiasPermitidos = 2; // Padrão de 3 dias caso algo falhe
+  }
+
+  // 3. Prepara os elementos e os nomes dos dias
+  const diaSelect = document.getElementById('dia');
+  diaSelect.innerHTML = ''; // Limpa o dropdown para garantir
+  
+  // Nomes dos dias na ordem do JS (0=Domingo, 1=Segunda... 6=Sábado)
+  const nomesDias = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"];
+  
+  // Pega o índice do dia de hoje (0=Dom, 1=Seg... 6=Sab)
+  const hojeIndex = new Date().getDay();
+
+  // 4. Loop para preencher o dropdown apenas com os dias permitidos
+  for (let i = 0; i <= maxDiasPermitidos; i++) {
+      const diaIndex = (hojeIndex + i) % 7; // Calcula o índice do dia (0-6)
+      
+      // Converte o índice (0-6) para o valor (1-7) usado pelo sistema
+      // (Domingo=0 -> 7, Segunda=1 -> 1, ..., Sábado=6 -> 6)
+      const valorDia = (diaIndex === 0) ? 7 : diaIndex; 
+
+      const option = document.createElement('option');
+      option.value = valorDia;
+      option.textContent = nomesDias[diaIndex];
+
+      if (i === 0) {
+          option.selected = true; // Seleciona o dia de hoje por padrão
+      }
+      
+      diaSelect.appendChild(option);
+  }
+  // --- FIM DA NOVA IMPLEMENTAÇÃO ---
+
+
+  // --- INÍCIO DA LÓGICA ORIGINAL (PARA O CABEÇALHO DA TABELA) ---
   const dataInicio = new Date();
   
   let diaDaSemana = dataInicio.getDay(); 
@@ -5237,8 +5526,6 @@ function atualizarDatas() {
         console.error("Erro ao limpar dias anteriores:", error);
     }
 
-
-  
   //alert(`dia da semana: ${diaDaSemana}`);
   
   switch (DiasParaLimpar) {
@@ -5321,8 +5608,11 @@ function atualizarDatas() {
       }
       break;
   }
-  
+  // --- FIM DA LÓGICA ORIGINAL ---
 }
+
+
+
 
 function preencherCeldas(dataInicio, ajustes, linhaDatas) {
   for (let i = 0; i < ajustes.length; i++) {
@@ -7587,8 +7877,9 @@ function iniciarModoEdicao(reserva, key, quadra) {
     });
 
     document.getElementById('btnAdicionarJogadorEdicao').onclick = adicionarJogadorNaEdicao;
+	
     document.getElementById('btnSalvarEdicao').onclick = salvarEdicao;
-
+	
     document.getElementById('modalEdicaoReserva').style.display = 'flex';
 }
 
@@ -7621,10 +7912,15 @@ async function salvarEdicao() {
 
     const { key, quadra, dadosOriginais } = reservaEmEdicao;
 
-    // VALIDAÇÃO 1: REGRAS DE DUPLAS
-    const isRegraDuplasOk = await validarRegraDeDuplas(novosApelidos, quadra, dadosOriginais.dia, dadosOriginais.hora, dadosOriginais.duracao);
-    if (!isRegraDuplasOk) {
-        return;
+    // VALIDAÇÃO 1: REGRAS DE DUPLAS (VERSÃO CORRIGIDA)
+    const resultadoDuplasOk = await validarRegraDeDuplas(novosApelidos, quadra, dadosOriginais.dia, dadosOriginais.hora, dadosOriginais.duracao);
+    
+    // VERIFICA SE O RETORNO NÃO FOI ESTRITAMENTE 'true'
+    if (resultadoDuplasOk !== true) {
+        // Se não for 'true', é porque é a string de erro.
+        // Então, exibimos essa string como uma notificação e paramos.
+        mostrarNotificacao(resultadoDuplasOk, 'warning');
+        return; 
     }
 
     // VALIDAÇÃO 2: CONFLITO DE RESERVAS (APENAS PARA JOGADORES ADICIONADOS)
@@ -11016,6 +11312,39 @@ window.addEventListener('online', () => {
         tentarEnviarLogsPendentes();
     }
 });
+
+
+// === JAVASCRIPT PARA LEGENDA RECOLHÍVEL ===
+document.addEventListener('DOMContentLoaded', function() {
+    const legendaTrigger = document.getElementById('legenda-trigger');
+    const legendaConteudo = document.getElementById('legenda');
+    const legendaIcone = document.getElementById('legenda-icone');
+
+    if (legendaTrigger && legendaConteudo && legendaIcone) {
+        legendaTrigger.addEventListener('click', function() {
+            // Verifica se o conteúdo está visível ou não
+            const isVisivel = legendaConteudo.style.display === 'block';
+
+            if (isVisivel) {
+                legendaConteudo.style.display = 'none';
+                legendaTrigger.classList.remove('expandido');
+                // legendaIcone.textContent = '▼'; // O CSS já faz isso com rotate
+            } else {
+                legendaConteudo.style.display = 'block';
+                legendaTrigger.classList.add('expandido');
+                // legendaIcone.textContent = '▲'; // O CSS já faz isso com rotate
+
+                // Importante: Chama a função para garantir que o conteúdo da legenda
+                // seja (re)gerado corretamente ao expandir
+                atualizarLegenda(piramideAtivaGlobal);
+            }
+        });
+
+        // Garante que a legenda seja populada na carga inicial, mesmo estando oculta
+        atualizarLegenda(piramideAtivaGlobal);
+    }
+});
+// === FIM DO JAVASCRIPT ===
 
 </script>
 
