@@ -121,8 +121,10 @@
             color: #6c757d; /* Mantido o cinza original do regulamento */
             line-height: 1.5; /* Adicionado */
         }
+        /* === REGRAS REMOVIDAS === 
         footer .break-mobile { display: none; }
         footer .pipe-desktop { display: inline; }
+        */
         /* --- FIM: ESTILO DO RODAPÉ (MODIFICADO) --- */
 
         a.system-link {
@@ -277,8 +279,10 @@
 
             /* --- INÍCIO: REGRAS DO RODAPÉ PARA CELULAR --- */
             footer { line-height: 1.4; }
+            /* === REGRAS REMOVIDAS ===
             footer .break-mobile { display: block; }
             footer .pipe-desktop { display: none; }
+            */
             /* --- FIM: REGRAS DO RODAPÉ PARA CELULAR --- */
         }
         /* --- FIM DOS AJUSTES PARA CELULAR --- */
@@ -388,12 +392,12 @@
                  
                  <div class="subsection warning" id="secao4.3"> <h3>4.3. Sistema de Confirmação (Reservas Futuras)</h3> <p>Com exceção das reservas feitas para o mesmo dia, todas as demais reservas que incluem mais de um sócio seguirão o fluxo de confirmação:</p>
                     <ul>
-                        <li>A reserva inicia com status <strong style="color: orange;">"Pendente"</strong>.</li>
-                        <li>Cada sócio convidado receberá uma notificação no sistema para <strong style="color: green;">Confirmar</strong> ou <strong style="color: red;">Recusar</strong> a participação.</li>
+                        <li>A reserva inicia com status <strong style="color: #fd7e14; font-weight: bold;">"Pendente"</strong>.</li>
+                        <li>Cada sócio convidado receberá uma notificação no sistema para <strong style="color: #28a745; font-weight: bold;">Confirmar</strong> ou <strong style="color: #dc3545; font-weight: bold;">Recusar</strong> a participação.</li>
                         <li>Há um prazo de <strong id="horas-expirar-regulamento" class="loading-placeholder">?</strong><span id="horas-unidade-regulamento"> hora(s)</span><strong>*</strong> para que todos os sócios confirmem.<br><small style="font-style: italic; display: block; margin-top: -5px;">*Este valor pode ser alterado pela Diretoria.</small></li>
-                        <li>Se todos confirmarem dentro do prazo, a reserva muda para <strong style="color: green;">"Confirmada"</strong>.</li>
-                        <li>Se o prazo expirar antes de todas as confirmações, a reserva é <strong style="color: red;">automaticamente cancelada</strong>.</li>
-                        <li>Se uma recusa resultar no não cumprimento das regras mínimas de ocupação da reserva (por exemplo, deixando uma reserva de 2 horas com menos de 2 sócios, ou uma reserva apenas com convidados), a reserva também será <strong style="color: red;">cancelada</strong>.</li>
+                        <li>Se todos confirmarem dentro do prazo, a reserva muda para <strong style="color: #28a745; font-weight: bold;">"Confirmada"</strong>.</li>
+                        <li>Se o prazo expirar antes de todas as confirmações, a reserva é <strong style="color: #dc3545; font-weight: bold;">automaticamente cancelada</strong>.</li>
+                        <li>Se uma recusa resultar no não cumprimento das regras mínimas de ocupação da reserva (por exemplo, deixando uma reserva de 2 horas com menos de 2 sócios, ou uma reserva apenas com convidados), a reserva também será <strong style="color: #dc3545; font-weight: bold;">cancelada</strong>.</li>
                     </ul>
                     <p><strong>Observação:</strong> O organizador da reserva (quem a criou) é automaticamente considerado confirmado.</p>
                 </div>
@@ -613,13 +617,10 @@
     </div>
     
     <footer>
-        Clube Olímpico
-        <span class="pipe-desktop"> | </span>
-        <br class="break-mobile">
-        Diretoria de Tênis
+        Clube Olímpico | Diretoria de Tênis
+        <br>
+        <span id="data-atualizacao">Atualizado em Novembro/2025</span>
     </footer>
-
-
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
     <script>
@@ -788,5 +789,32 @@
         // ------ FIM SCRIPT MOBILE MENU ------
     </script>
 
-</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // Tenta pegar a data da última modificação do documento
+                const lastMod = new Date(document.lastModified);
+                
+                // Formata o Mês (ex: "Novembro") e o Ano (ex: "2025")
+                const mes = lastMod.toLocaleString('pt-BR', { month: 'long' });
+                const ano = lastMod.getFullYear();
+                
+                // Capitaliza o mês (ex: "novembro" -> "Novembro")
+                const mesCapitalizado = mes.charAt(0).toUpperCase() + mes.slice(1);
+                
+                // Monta a string final
+                const dataString = `Atualizado em ${mesCapitalizado}/${ano}`;
+                
+                // Encontra o elemento no rodapé e atualiza seu texto
+                const dataElement = document.getElementById('data-atualizacao');
+                if (dataElement) {
+                    dataElement.textContent = dataString;
+                }
+            } catch (e) {
+                console.error("Erro ao atualizar data de modificação:", e);
+                // Se der erro, o texto estático "Atualizado em Novembro/2025" será mantido.
+            }
+        });
+    </script>
+    </body>
 </html>
