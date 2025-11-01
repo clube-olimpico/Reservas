@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
-            padding: 20px;
+            padding: 20px 20px 5px 20px; /* <<< AJUSTADO (era padding: 20px) */
             background-color: #f4f4f9; 
             color: #333;
         }
@@ -109,14 +109,22 @@
         strong {
             color: #495057;
         }
+
+        /* --- INÍCIO: ESTILO DO RODAPÉ (MODIFICADO) --- */
         footer {
             text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
+            margin-top: 20px; /* Reduzido (era 40px) */
+            padding-top: 10px; /* Reduzido (era 20px) */
+            padding-bottom: 10px; /* Adicionado */
             border-top: 1px solid #eee;
             font-size: 0.9em;
-            color: #6c757d;
+            color: #6c757d; /* Mantido o cinza original do regulamento */
+            line-height: 1.5; /* Adicionado */
         }
+        footer .break-mobile { display: none; }
+        footer .pipe-desktop { display: inline; }
+        /* --- FIM: ESTILO DO RODAPÉ (MODIFICADO) --- */
+
         a.system-link {
             color: #007bff;
             text-decoration: none;
@@ -196,7 +204,7 @@
         /* --- INÍCIO DOS AJUSTES PARA CELULAR --- */
         @media (max-width: 600px) {
             body {
-                padding: 10px; /* Reduz o padding geral do body */
+                padding: 10px 10px 0 10px; /* <<< AJUSTADO (era padding: 10px) */
             }
             .container {
                 padding: 10px 15px 15px; /* Padding superior reduzido para 10px */
@@ -266,6 +274,12 @@
                 -webkit-columns: 1;
                 -moz-columns: 1;
             }
+
+            /* --- INÍCIO: REGRAS DO RODAPÉ PARA CELULAR --- */
+            footer { line-height: 1.4; }
+            footer .break-mobile { display: block; }
+            footer .pipe-desktop { display: none; }
+            /* --- FIM: REGRAS DO RODAPÉ PARA CELULAR --- */
         }
         /* --- FIM DOS AJUSTES PARA CELULAR --- */
 
@@ -294,6 +308,21 @@
              60%, 100% { content: "..."; }
          }
          /* ------ FIM CSS PLACEHOLDER ------ */
+
+        /* --- INÍCIO: AJUSTE EXCLUSIVO PARA CELULAR: Rodapé mais próximo da borda inferior --- */
+        @media (max-width: 600px) {
+            footer {
+                margin-top: 10px !important;      /* reduz espaço acima do rodapé */
+                padding-top: 5px !important;      /* reduz o espaço interno superior */
+                padding-bottom: 2px !important;   /* reduz o espaço interno inferior */
+                position: relative;
+            }
+
+            body {
+                padding-bottom: 0 !important;     /* remove espaçamento global abaixo */
+            }
+        }
+        /* --- FIM: AJUSTE EXCLUSIVO PARA CELULAR --- */
 
     </style>
 </head>
@@ -580,11 +609,15 @@
                 <div class="subsection warning"> <p>Para outras dúvidas, entre em contato com a Diretoria de Tênis ou com o administrador do sistema.</p>
                 </div>
             </div>
-            </div> <footer>
-            Clube Olímpico | Diretoria de Tênis<br>
-        </footer>
-    </div>
-
+            </div> 
+            </div>
+    
+    <footer>
+        Clube Olímpico
+        <span class="pipe-desktop"> | </span>
+        <br class="break-mobile">
+        Diretoria de Tênis
+    </footer>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
     <script>
