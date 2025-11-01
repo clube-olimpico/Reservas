@@ -10,14 +10,14 @@
             line-height: 1.6;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f9;
+            background-color: #f4f4f9; 
             color: #333;
         }
         .container {
             max-width: 800px;
-            margin: 20px auto;
+            margin: 10px auto 20px; /* Margem superior do container (fora da caixa) */
             background: white;
-            padding: 30px;
+            padding: 20px 30px 30px; /* Padding superior (dentro da caixa) reduzido de 30px para 20px */
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
@@ -31,7 +31,8 @@
             text-align: center;
             color: #003366; /* Azul bem escuro para o título principal */
             border-bottom-width: 3px;
-            margin-bottom: 25px; /* Adicionado espaço abaixo do H1 */
+            margin-bottom: 20px; /* Margem inferior (espaço até o índice) reduzida de 25px para 20px */
+            margin-top: 0; 
         }
         /* Estilos para o Menu */
         #menu {
@@ -139,7 +140,7 @@
         /* Removido estilo .faq-question */
 
         /* ****** INÍCIO ESTILO FAQ ACORDEÃO CORRIGIDO ****** */
-        #secao10 details {
+        #secao11 details { /* <-- ATUALIZADO DE 10 PARA 11 */
             margin-bottom: 15px; /* Espaço entre perguntas */
             background-color: #f8f9fa; /* Mesmo fundo das subseções */
             padding: 15px;
@@ -147,7 +148,7 @@
             border-left: 5px solid #007bff; /* <<<--- Adiciona a barra azul aqui ---<<< */
             display: block; /* Garante que details ocupe a linha toda */
         }
-        #secao10 summary {
+        #secao11 summary { /* <-- ATUALIZADO DE 10 PARA 11 */
             font-weight: bold;
             cursor: pointer; /* Indica que é clicável */
             /* Remove margens negativas, padding será herdado do details */
@@ -158,28 +159,28 @@
             text-align: left; /* Garante que a pergunta não seja justificada */
         }
         /* Estilo para a seta (pode variar entre navegadores) */
-        #secao10 summary::marker {
+        #secao11 summary::marker { /* <-- ATUALIZADO DE 10 PARA 11 */
             color: #007bff; /* Cor da seta */
             /* padding-right: 5px; */ /* Espaço entre marcador e texto (opcional) */
         }
         /* Ajusta o espaçamento abaixo do summary quando aberto */
-        #secao10 details[open] summary {
+        #secao11 details[open] summary { /* <-- ATUALIZADO DE 10 PARA 11 */
             margin-bottom: 10px;
             padding-bottom: 10px; /* Adiciona padding inferior para linha */
             border-bottom: 1px solid #dee2e6; /* Linha separadora */
         }
          /* Remove indentação extra da resposta */
-        #secao10 details > *:not(summary) {
+        #secao11 details > *:not(summary) { /* <-- ATUALIZADO DE 10 PARA 11 */
              margin-left: 0;
              padding-top: 0; /* Remove padding extra, pois já tem margem no summary */
         }
         /* Garante que itens de lista dentro da FAQ não sejam justificados e tenham margem */
-        #secao10 details ul li { /* Seletor mais específico */
+        #secao11 details ul li { /* <-- ATUALIZADO DE 10 PARA 11 */
              text-align: left; /* Ou inherit */
              margin-bottom: 8px; /* Restaura margem padrão de li */
         }
          /* Remove margem inferior extra do UL dentro do details */
-        #secao10 details ul {
+        #secao11 details ul { /* <-- ATUALIZADO DE 10 PARA 11 */
             margin-bottom: 0;
             margin-top: 5px; /* Pequena margem acima da lista */
             padding-left: 20px; /* Mantém indentação da lista */
@@ -198,7 +199,7 @@
                 padding: 10px; /* Reduz o padding geral do body */
             }
             .container {
-                padding: 15px; /* Reduz padding interno do container */
+                padding: 10px 15px 15px; /* Padding superior reduzido para 10px */
                 margin: 10px auto; /* Reduz margem superior/inferior */
             }
             h1, h2, h3 {
@@ -207,6 +208,9 @@
             }
             h1 {
                 font-size: 1.8em; /* Ajusta tamanho do título principal */
+                margin-top: 0; 
+                margin-bottom: 15px; /* Margem inferior reduzida para 15px */
+                line-height: 1.2; /* <-- AJUSTE AQUI: Reduz o espaço entre as linhas do título */
             }
             h2 {
                 font-size: 1.4em; /* Ajusta tamanho dos títulos de seção */
@@ -221,15 +225,15 @@
                 padding: 10px;
             }
             /* Aplica padding menor ao details no mobile */
-             #secao10 details {
+             #secao11 details { /* <-- ATUALIZADO DE 10 PARA 11 */
                 padding: 10px;
             }
-             #secao10 summary {
+             #secao11 summary { /* <-- ATUALIZADO DE 10 PARA 11 */
                 /* Remove margens e paddings específicos do desktop */
                 margin: 0;
                 padding: 0 0 0 5px;
             }
-            #secao10 details[open] summary {
+            #secao11 details[open] summary { /* <-- ATUALIZADO DE 10 PARA 11 */
                 margin-bottom: 8px; /* Reduz espaço no mobile */
                 padding-bottom: 8px;
             }
@@ -241,15 +245,15 @@
                 text-align: left; /* Ou inherit */
             }
              /* Garante que itens de lista dentro da FAQ não sejam justificados no mobile */
-            #secao10 details ul li { /* Seletor corrigido */
+            #secao11 details ul li { /* <-- ATUALIZADO DE 10 PARA 11 */
                  text-align: left; /* Ou inherit */
                  margin-bottom: 5px; /* Reduz margem no mobile */
             }
-             #secao10 details > *:not(summary) {
+             #secao11 details > *:not(summary) { /* <-- ATUALIZADO DE 10 PARA 11 */
                  /* margin-left: 0; */ /* Mantém sem indentação extra */
                  padding-top: 5px; /* Reduz espaço acima da resposta */
             }
-             #secao10 details ul {
+             #secao11 details ul { /* <-- ATUALIZADO DE 10 PARA 11 */
                  padding-left: 15px; /* Reduz indentação da lista no mobile */
             }
             /* Mobile: Esconde o container das seções INICIALMENTE */
@@ -302,14 +306,14 @@
             <ol>
                 <li><a href="#secao1">1. Objetivo</a></li>
                 <li><a href="#secao2">2. Regras Gerais</a></li>
-                <li><a href="#secao3">3. Sistema de Reservas</a></li>
-                <li><a href="#secao4">4. Tipos de Reserva</a></li>
-                <li><a href="#secao5">5. Política de Convidados</a></li>
-                <li><a href="#secao6">6. Cancelamentos</a></li>
-                <li><a href="#secao7">7. Torneios e Rankings</a></li>
-                <li><a href="#secao8">8. Sanções</a></li>
-                <li><a href="#secao9">9. Disposições Finais</a></li>
-                <li><a href="#secao10">10. Perguntas Frequentes</a></li>
+                <li><a href="#secao3">3. Grupo de WhatsApp</a></li> <li><a href="#secao4">4. Sistema de Reservas</a></li>
+                <li><a href="#secao5">5. Tipos de Reserva</a></li>
+                <li><a href="#secao6">6. Política de Convidados</a></li>
+                <li><a href="#secao7">7. Cancelamentos</a></li>
+                <li><a href="#secao8">8. Torneios e Rankings</a></li>
+                <li><a href="#secao9">9. Sanções</a></li>
+                <li><a href="#secao10">10. Disposições Finais</a></li>
+                <li><a href="#secao11">11. Perguntas Frequentes</a></li>
             </ol>
         </div>
         <div id="content-sections">
@@ -333,23 +337,26 @@
             </div>
 
             <div class="section" id="secao3">
-                <h2>3. Sistema de Reservas</h2>
-                <div class="subsection">
-                    <h3>3.1. Obrigatoriedade de Uso</h3>
-                    <p>A utilização das quadras de tênis é <strong>exclusivamente</strong> mediante reserva prévia realizada através do <a href="https://clube-olimpico.github.io/Reservas/" target="_blank" class="system-link">Sistema de Reservas Online</a> do clube.</p>
-                </div>
-                <div class="subsection">
-                    <h3>3.2. Limites e Restrições</h3>
+                <h2>3. Canal de Comunicação Oficial (Grupo de WhatsApp)</h2>
+                <p>O grupo de WhatsApp "<strong>Amigos do Tênis Olímpico</strong>" é o canal oficial de comunicação da Diretoria de Tênis. Ele é utilizado para anúncios importantes, organização de eventos e como ferramenta principal para os sócios encontrarem parceiros de jogo.</p> <p>Por decisão da Diretoria, visando otimizar a comunicação e manter um canal direto com os responsáveis, a participação neste grupo é restrita aos <strong>Sócios Titulares</strong>.</p>
+                <p>Os titulares ficam responsáveis por repassar as informações relevantes do grupo aos seus dependentes cadastrados. As normas de conduta e respeito mútuo descritas neste regulamento aplicam-se igualmente às interações no grupo.</p>
+            </div>
+            <div class="section" id="secao4"> <h2>4. Sistema de Reservas</h2> <div class="subsection" id="secao4.1"> <h3>4.1. Obrigatoriedade de Uso e Autorização de Acesso</h3> <p>A utilização das quadras de tênis é <strong>exclusivamente</strong> mediante reserva prévia realizada através do <a href="https://clube-olimpico.github.io/Reservas/" target="_blank" class="system-link">Sistema de Reservas Online</a> do clube.</p>
+                    <p>Para utilização do Sistema de Reservas Online, é necessário possuir um cadastro ativo. Estão autorizados a ter acesso:</p>
                     <ul>
+                        <li><strong>Sócios titulares</strong>, com direito pleno de reserva e participação.</li>
+                        <li><strong>Dependentes</strong> com <strong>idade entre 14 e 21 anos</strong>, desde que o sócio titular <strong>confirme formalmente</strong> que o dependente pratica tênis e utilizará efetivamente as quadras. Esta confirmação visa <strong>evitar cadastros e reservas falsas.</strong></li>
+                    </ul>
+                    <p>O uso indevido ou de <strong>má-fé</strong> do sistema, como criar reservas fictícias ou utilizar nomes de terceiros que não participarão do jogo, poderá resultar em <strong>advertência ou suspensão temporária do direito de reserva</strong>, conforme previsto na <a href="#secao9" class="system-link">Seção 9 (<strong>Sanções</strong>)</a> deste regulamento.</p> </div>
+                
+                <div class="subsection" id="secao4.2"> <h3>4.2. Limites e Restrições</h3> <ul>
                         <li><strong>Antecedência:</strong> As reservas podem ser realizadas com até <strong id="dias-antecedencia-regulamento" class="loading-placeholder">?</strong><span id="dias-unidade-regulamento"> dia(s)</span><strong>*</strong> de antecedência.<br><small style="font-style: italic; display: block; margin-top: -5px;">*Este valor pode ser alterado pela diretoria.</small></li>
                         <li><strong>Reserva Ativa Única:</strong> Um sócio não pode constar como participante em mais de uma reserva ativa (futura ou em andamento) simultaneamente no sistema. É necessário que a reserva anterior seja concluída para realizar um novo agendamento.</li>
                         <li><strong>Acesso às Quadras:</strong> Sócios podem ter acesso restrito a determinadas quadras conforme definições da diretoria (ex: jogadores específicos com acesso apenas às Quadras 1 e 2).</li>
                         <li><strong>Horários Bloqueados:</strong> Horários destinados à manutenção, aulas credenciadas ou eventos do clube serão bloqueados no sistema e não estarão disponíveis para reserva.</li>
                     </ul>
                 </div>
-                 <div class="subsection warning">
-                    <h3>3.3. Sistema de Confirmação (Reservas Futuras)</h3>
-                    <p>Com exceção das reservas feitas para o mesmo dia, todas as demais reservas que incluem mais de um sócio seguirão o fluxo de confirmação:</p>
+                 <div class="subsection warning" id="secao4.3"> <h3>4.3. Sistema de Confirmação (Reservas Futuras)</h3> <p>Com exceção das reservas feitas para o mesmo dia, todas as demais reservas que incluem mais de um sócio seguirão o fluxo de confirmação:</p>
                     <ul>
                         <li>A reserva inicia com status <strong>"Pendente"</strong>.</li>
                         <li>Cada sócio convidado receberá uma notificação no sistema para <strong>Confirmar</strong> ou <strong>Recusar</strong> a participação.</li>
@@ -361,9 +368,7 @@
                     <p><strong>Observação:</strong> O organizador da reserva (quem a criou) é automaticamente considerado confirmado.</p>
                 </div>
 
-                <div class="subsection" id="secao3.4"> <h3>3.4. Regras Específicas de Horários</h3>
-
-                    <div class="subsection warning" style="margin-top: 15px;"> <h4>Otimização de Domingo:</h4>
+                <div class="subsection" id="secao4.4"> <h3>4.4. Regras Específicas de Horários</h3> <div class="subsection warning" style="margin-top: 15px;"> <h4>Otimização de Domingo:</h4>
                         <ul>
                             <li>Para garantir o máximo aproveitamento das quadras, uma regra especial de agendamento pode estar ativa. Esta regra é válida apenas quando o horário do clube aos domingos for das <strong>8:00 às 12:00</strong>.</li>
                             <li><strong>Como funciona?</strong> O sistema só permitirá agendamentos de <strong>2 horas</strong>, começando às <strong>8:00</strong> ou às <strong>10:00</strong>.</li>
@@ -388,22 +393,16 @@
                     </div>
                 </div>
 
-                <div class="subsection important" id="secao3.5">
-                    <h3>3.5. Uso de Quadras Ociosas (Uso Imediato)</h3>
-                    <p>Quadras que estejam visivelmente vazias e sem reserva no sistema para o horário corrente podem ser utilizadas pelos sócios.</p>
+                <div class="subsection important" id="secao4.5"> <h3>4.5. Uso de Quadras Ociosas (Uso Imediato)</h3> <p>Quadras que estejam visivelmente vazias e sem reserva no sistema para o horário corrente podem ser utilizadas pelos sócios.</p>
                     <ul>
                         <li>Contudo, a prioridade de uso é <strong>sempre</strong> da reserva feita no <a href="https://clube-olimpico.github.io/Reservas/" target="_blank" class="system-link">Sistema de Reservas Online</a>.</li>
                         <li>Caso outro sócio efetue uma reserva online para o horário que está em uso, os jogadores que ocuparam a quadra sem reserva deverão desocupá-la imediatamente.</li>
-                        <li>A presença de convidados nesta modalidade de uso (sem reserva prévia) ainda exige o cumprimento integral da Política de Convidados (Seção 5), incluindo o devido registro e pagamento da taxa.</li>
-                    </ul>
+                        <li>A presença de convidados nesta modalidade de uso (sem reserva prévia) ainda exige o cumprimento integral da Política de Convidados (<a href="#secao6" class="system-link">Seção 6</a>), incluindo o devido registro e pagamento da taxa.</li> </ul>
                 </div>
-                </div>
+            </div>
 
-            <div class="section" id="secao4">
-                <h2>4. Tipos de Reserva e Regras de Ocupação</h2>
-                <div class="subsection">
-                    <h3>4.1. Reserva de 1 Hora</h3>
-                    <ul>
+            <div class="section" id="secao5"> <h2>5. Tipos de Reserva e Regras de Ocupação</h2> <div class="subsection">
+                    <h3>5.1. Reserva de 1 Hora</h3> <ul>
                         <li>Permite de <strong>1 a 4 jogadores</strong> no total na quadra.</li>
                         <li>Ideal para treinos individuais, aulas (agendadas pelo professor) ou jogos diversos.</li>
                         <li>O <strong>sócio que realizou a reserva</strong> (organizador, registrado no sistema) tem autonomia sobre o horário e deve <strong>estar presente</strong> durante todo o período.</li>
@@ -412,8 +411,7 @@
                     </ul>
                 </div>
                 <div class="subsection">
-                    <h3>4.2. Reserva de 2 Horas</h3>
-                    <ul>
+                    <h3>5.2. Reserva de 2 Horas</h3> <ul>
                         <li>Exige um mínimo de <strong>2 (dois) sócios registrados</strong> na reserva (organizadores) e permite um máximo de <strong>4 (quatro) jogadores</strong> no total na quadra (sócios + convidados).</li>
                         <li>Ideal para jogos de duplas ou partidas de simples mais longas.</li>
                         <li>Os <strong>sócios responsáveis pela reserva</strong> (no mínimo dois, conforme registrado no sistema) têm autonomia sobre o horário e devem <strong>estar presentes</strong> durante todo o período.</li>
@@ -422,8 +420,7 @@
                     </ul>
                 </div>
                 <div class="subsection">
-                    <h3>4.3. Reserva "Pirâmide"</h3>
-                    <ul>
+                    <h3>5.3. Reserva "Pirâmide"</h3> <ul>
                         <li>Reservada exclusivamente para jogos válidos pelo <strong>Torneio Pirâmide</strong> do clube.</li>
                         <li>Exige exatamente <strong>2 (dois) sócios</strong> participantes do torneio, registrados na reserva.</li>
                         <li>A duração é fixada em <strong>2 horas</strong> no sistema.</li>
@@ -432,8 +429,7 @@
                     </ul>
                 </div>
                  <div class="subsection">
-                    <h3>4.4. Reserva "Aula"</h3>
-                    <ul>
+                    <h3>5.4. Reserva "Aula"</h3> <ul>
                         <li>Destinada exclusivamente aos professores credenciados pelo clube.</li>
                         <li>Só pode ser agendada pelos professores autorizados ou pela administração.</li>
                         <li>Identificada pela cor específica na planilha de reservas.</li>
@@ -441,11 +437,8 @@
                 </div>
             </div>
 
-            <div class="section" id="secao5">
-                <h2>5. Política de Convidados</h2>
-                <div class="subsection important">
-                    <h3>5.1. Registro Obrigatório</h3>
-                    <p>A presença de qualquer não-sócio (convidado) na quadra durante um horário reservado exige que ele seja <strong>explicitamente adicionado como "Convidado" no Sistema de Reservas</strong> no momento do agendamento.</p>
+            <div class="section" id="secao6"> <h2>6. Política de Convidados</h2> <div class="subsection important">
+                    <h3>6.1. Registro Obrigatório</h3> <p>A presença de qualquer não-sócio (convidado) na quadra durante um horário reservado exige que ele seja <strong>explicitamente adicionado como "Convidado" no Sistema de Reservas</strong> no momento do agendamento.</p>
                     <p>O número de "Convidados" registrados na reserva deve corresponder exatamente ao número de não-sócios que participarão da atividade na quadra.</p>
                     <div class="example">
                         <p><strong>Exemplo 1:</strong> Uma reserva com 2 sócios e 1 convidado (não-sócio).<br>
@@ -455,23 +448,20 @@
                     </div>
                 </div>
                 <div class="subsection">
-                    <h3>5.2. Responsabilidade do Sócio</h3>
-                    <ul>
+                    <h3>6.2. Responsabilidade do Sócio</h3> <ul>
                         <li>O <strong>sócio anfitrião</strong> (um dos organizadores da reserva registrado no sistema) é responsável por garantir o registro correto do(s) convidado(s) no sistema.</li>
                         <li>O sócio anfitrião deve <strong>permanecer na quadra</strong> durante todo o período em que o convidado estiver jogando.</li>
                         <li>O sócio anfitrião é responsável pelo pagamento da taxa referente ao convidado e pela conduta do mesmo nas dependências do clube.</li>
                     </ul>
                 </div>
                 <div class="subsection">
-                    <h3>5.3. Taxa e Pagamento</h3>
-                    <ul>
+                    <h3>6.3. Taxa e Pagamento</h3> <ul>
                         <li>Será cobrada uma taxa por convidado, por período de reserva, conforme valor definido pela diretoria (atualmente R$ 50,00).</li>
                         <li>O pagamento deve ser efetuado junto à secretaria ou conforme orientação da diretoria (atualmente, pagamento ao Toni).</li>
                     </ul>
                 </div>
                 <div class="subsection warning">
-                    <h3>5.4. Restrições de Uso</h3>
-                    <ul>
+                    <h3>6.4. Restrições de Uso</h3> <ul>
                         <li>Convidados podem ter restrições quanto aos dias da semana e/ou quadras que podem utilizar (atualmente, permitido apenas na Quadra 2 - Aberta, sujeito a alterações).</li>
                         <li>Convidados <strong>não podem participar</strong> de reservas em horários designados como exclusivos para sócios (ex: horários prioritários de duplas) ou reservas do tipo "Pirâmide".</li>
                         <li>Reservas com convidados podem ter <strong>menor prioridade</strong>. A diretoria pode solicitar o cancelamento de uma reserva com convidado (com aviso prévio de 4 horas) caso um grupo de sócios necessite do horário.</li>
@@ -479,9 +469,7 @@
                 </div>
             </div>
 
-             <div class="section" id="secao6">
-                <h2>6. Cancelamentos e Não Comparecimento ("No-Show")</h2>
-                <ul>
+             <div class="section" id="secao7"> <h2>7. Cancelamentos e Não Comparecimento ("No-Show")</h2> <ul>
                     <li><strong>Como Cancelar:</strong> Cancelamentos devem ser feitos exclusivamente através do Sistema de Reservas (clique simples na reserva > Excluir Reserva).</li>
                     <li><strong>Prazo para Cancelamento:</strong> Uma reserva pode ser cancelada pelo <strong>organizador (se pendente), qualquer participante (se confirmada), ou um administrador</strong>, a qualquer momento <strong>antes do horário de término</strong> da mesma. Após o término, a reserva não pode mais ser excluída.</li>
                     <li><strong>Importância do Cancelamento:</strong> É fundamental cancelar reservas que não serão utilizadas com a maior antecedência possível, liberando o horário para outros sócios. Recomenda-se também avisar sobre o cancelamento nos grupos de comunicação do clube.</li>
@@ -489,9 +477,7 @@
                 </ul>
             </div>
 
-            <div class="section" id="secao7">
-                <h2>7. Torneios e Rankings (Pirâmide e Duplas)</h2>
-                <p>O clube organiza modalidades de ranking para sócios:</p>
+            <div class="section" id="secao8"> <h2>8. Torneios e Rankings (Pirâmide e Duplas)</h2> <p>O clube organiza modalidades de ranking para sócios:</p>
                 <ul>
                     <li><strong>Torneio Pirâmide:</strong> Competição individual contínua com desafios para ascensão no ranking. Possui regulamento próprio e regras específicas de agendamento no sistema.</li>
                     <li><strong>Ranking de Duplas:</strong> Sistema lúdico de pontuação para jogos em duplas, visando integração. Possui regras de pontuação e formato definidos em documento próprio. Reservas seguem as regras gerais para 2 horas (mínimo 2 sócios, máximo 4 jogadores).</li>
@@ -504,12 +490,9 @@
                 </ul>
             </div>
 
-             <div class="section" id="secao8">
-                <h2>8. Sanções por Descumprimento</h2>
-                <p>O cumprimento deste regulamento é essencial para o bom funcionamento das atividades de tênis no clube. O descumprimento das normas aqui estabelecidas poderá acarretar sanções, aplicadas pela Diretoria ou por órgão competente designado.</p>
+             <div class="section" id="secao9"> <h2>9. Sanções por Descumprimento</h2> <p>O cumprimento deste regulamento é essencial para o bom funcionamento das atividades de tênis no clube. O descumprimento das normas aqui estabelecidas poderá acarretar sanções, aplicadas pela Diretoria ou por órgão competente designado.</p>
                 <div class="subsection important">
-                    <h3>8.1. Sanções Administrativas (Sócios)</h3>
-                    <p>Infrações como:</p>
+                    <h3>9.1. Sanções Administrativas (Sócios)</h3> <p>Infrações como:</p>
                     <ul>
                         <li>Uso de calçado inadequado.</li>
                         <li>Não preparação da quadra ao final do uso.</li>
@@ -526,8 +509,7 @@
                     </ul>
                 </div>
                 <div class="subsection important">
-                    <h3>8.2. Sanções por Convidados Não Registrados</h3>
-                    <p>A presença de convidado(s) na quadra sem o devido registro no Sistema de Reservas é considerada falta grave.</p>
+                    <h3>9.2. Sanções por Convidados Não Registrados</h3> <p>A presença de convidado(s) na quadra sem o devido registro no Sistema de Reservas é considerada falta grave.</p>
                     <ul>
                         <li>O <strong>sócio responsável</strong> (um dos organizadores presentes) pela reserva será notificado.</li>
                         <li>Será cobrada a <strong>taxa de convidado em dobro</strong> referente ao(s) não-sócio(s) presente(s).</li>
@@ -537,19 +519,14 @@
                  <p>A Diretoria avaliará cada caso individualmente, garantindo o direito à defesa antes da aplicação de sanções mais severas.</p>
             </div>
 
-            <div class="section" id="secao9">
-                <h2>9. Disposições Finais</h2>
-                <ul>
+            <div class="section" id="secao10"> <h2>10. Disposições Finais</h2> <ul>
                     <li>Casos omissos neste regulamento serão resolvidos pela Diretoria de Tênis ou pela Diretoria Geral do Clube Olímpico.</li>
                     <li>Este regulamento poderá ser alterado ou atualizado a qualquer momento pela Diretoria, com a devida comunicação aos sócios.</li>
                     <li>Sugestões para melhoria do sistema ou do regulamento podem ser encaminhadas à Diretoria ou ao administrador do sistema.</li>
                 </ul>
             </div>
 
-            <div class="section" id="secao10">
-                <h2>10. Perguntas Frequentes (FAQ)</h2>
-
-                 <details>
+            <div class="section" id="secao11"> <h2>11. Perguntas Frequentes (FAQ)</h2> <details>
                         <summary>1. Quando começa a funcionar esse sistema de ter que confirmar a reserva? Minhas reservas antigas serão canceladas?</summary>
                         <ul>
                             <li>Ainda não há uma data definida para começar. A Diretoria avisará quando essa função for ativada.</li>
