@@ -2470,7 +2470,7 @@ body.dark-mode .legenda-conteudo {
  <!-- Tela de carregamento -->
     <div id="pageOverlay" class="page-overlay"></div> <div id="loading" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.2rem; background-color: white; width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999;">
 		<div id="loadingSpinner"></div>
-		<div>Carregando... Aguarde.</div>
+		<div>Carregando... Aguarde.</div> 
 	</div>
 	
 	
@@ -3336,8 +3336,8 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.7.6'; // Versão atual do sistema   
-const DataVersaoSistema = '02/11/2025';   
+const VersaoSistema = 'v1.7.7'; // Versão atual do sistema   
+const DataVersaoSistema = '03/11/2025';   
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -3600,6 +3600,8 @@ function InicializarSistema() {
 				
 				//alert(`token: ${githubToken}`);
 				
+				atualizarDatas();
+				
 				verificarConvitesPendentes(data.reservas);
                 verificarConfirmacoesResultado(data.reservas); 
 				verificarDisputasArbitro(data.reservas);
@@ -3672,7 +3674,7 @@ function InicializarSistema() {
                     if (quadras.Quadra2 === "interditada") quadrasInativas.add("Quadra 2 - Aberta");
                     if (quadras.Quadra3 === "interditada") quadrasInativas.add("Quadra 3 - Coberta");
 
-                    atualizarDatas();
+                    //atualizarDatas();
 					
 					if (vatualizarOpcoesHorario) {
 					  atualizarOpcoesHorario();
