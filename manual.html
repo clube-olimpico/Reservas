@@ -218,7 +218,7 @@ html, body {
             transition: all 0.3s ease;
 
             /* Modo Claro (Fundo branco/claro, + azul) */
-            background-color: #f1f1f1;
+            background-color: #f1f1ff;
             color: blue;
             border: 1px solid #ccc;
         }
@@ -496,7 +496,7 @@ html, body {
             <div class="section-box">
                 <h4>Como Funciona na Prática:</h4>
                 <ul>
-                    <li><strong>⏳ Reserva Pendente:</strong> Ao agendar um jogo com outros sócios para um dia futuro, a reserva é criada como "Pendente". O sistema aguardará a resposta dos convidados. Na planilha, você verá o status de cada jogador:
+                    <li><strong>⏳ Reserva Pendente:</strong> Ao agendar um jogo com outros sócios para um dia futuro, a reserva é criada como "<strong class="status-manual-pendente">Pendente</strong>". O sistema aguardará a resposta dos convidados. Na planilha, você verá o status de cada jogador:
                         <ul>
                             <li>Nomes em <strong>preto</strong>: Jogadores que já confirmaram.</li>
                             <li>Nomes em <strong style="color: red;">vermelho</strong>: Jogadores com convite pendente.</li>
@@ -518,15 +518,15 @@ html, body {
             <div class="section-box important">
                 <h4>Regras Importantes da Nova Funcionalidade:</h4>
                  <ul>
-                    <li><strong>Exceção:</strong> Reservas feitas para o <strong>mesmo dia</strong> não precisam de confirmação e são agendadas na hora, como antes. Reservas individuais, com convidados ou do tipo "Aula" também são confirmadas imediatamente.</li>
+                    <li><strong>Exceção:</strong> Reservas feitas para o <strong>mesmo dia</strong> não precisam de confirmação e são agendadas na hora, como antes. Reservas individuais, com convidados ou do tipo "Aula" também são <strong class="status-manual-confirmado">confirmadas</strong> imediatamente.</li>
                     <li><strong>Edição (Organizador):</strong> Apenas o <strong>organizador</strong> da reserva (ou um admin) pode editar os jogadores enquanto ela estiver "<strong class="status-manual-pendente">Pendente</strong>", se a opção estiver habilitada pela diretoria.</li>
                     <li><strong>Exclusão:</strong>
                         <ul>
-                            <li>Reservas <strong>Pendentes</strong> só podem ser excluídas pelo <strong>organizador</strong> (ou admin).</li>
-                            <li>Reservas <strong>Confirmadas</strong> podem ser excluídas por <strong>qualquer participante</strong> (ou admin), antes do horário de término.</li>
+                            <li>Reservas <strong class="status-manual-pendente">Pendentes</strong> só podem ser excluídas pelo <strong>organizador</strong> (ou admin).</li>
+                            <li>Reservas <strong class="status-manual-confirmado">Confirmadas</strong> podem ser excluídas por <strong>qualquer participante</strong> (ou admin), antes do horário de término.</li>
                         </ul>
                     </li>
-                    <li><strong>Recusa e Cancelamento Automático:</strong> Se um jogador recusar um convite e, com isso, a reserva deixar de atender a uma regra (ex: mínimo de 2 jogadores para 2h, horário de duplas ficar com menos de 4, ou restar apenas convidados), o sistema a cancelará automaticamente.</li>
+                    <li><strong>Recusa e Cancelamento Automático:</strong> Se um jogador recusar um convite e, com isso, a reserva deixar de atender a uma regra (ex: mínimo de 2 jogadores para 2h, horário de duplas ficar com menos de 4, ou restar apenas convidados), o sistema a <strong>cancelará automaticamente</strong>.</li>
                  </ul>
             </div>
 
@@ -618,12 +618,12 @@ html, body {
             </div>
 
             <h3 style="margin-top: 25px;">Finalizando a reserva</h3>
-            <p>Clique em <span class="btn-agendar-manual">Agendar</span>. Se a reserva for para um dia futuro e precisar de confirmação, ela ficará pendente; caso contrário (mesmo dia, aula, individual, com convidados ou Pirâmide), será confirmada na hora.</p>
+            <p>Clique em <span class="btn-agendar-manual">Agendar</span>. Se a reserva for para um dia futuro e precisar de confirmação, ela ficará <strong class="status-manual-pendente">pendente</strong>; caso contrário (mesmo dia, aula, individual, com convidados ou Pirâmide), será <strong class="status-manual-confirmado">confirmada</strong> na hora.</p>
             <p>Após o agendamento ser salvo com sucesso, <strong>o painel de agendamento fechará automaticamente</strong> e a reserva aparecerá na planilha.</p>
             
             <h2 id="secao6">6. Gerenciando Suas Reservas</h2>
             <ul>
-                <li><strong>Clique Simples (Ações):</strong> Ao clicar uma vez em uma reserva na planilha where você é participante (ou admin/árbitro/delegado), um menu de opções aparecerá:
+                <li><strong>Clique Simples (Ações):</strong> Ao clicar uma vez em uma reserva na planilha em que você é participante (ou admin/árbitro/delegado), um menu de opções aparecerá:
                     <ul style="margin-top: 10px; margin-bottom: 10px; padding-left: 25px; list-style-type: none;">
                         <li style="text-align: left; margin-bottom: 5px;"><strong class="inline-button btn-manual-ver" style="min-width: 150px;">Ver Detalhes</strong></li>
                         <li style="text-align: left; margin-bottom: 5px;"><strong class="inline-button btn-manual-excluir" style="min-width: 150px;">Excluir Reserva</strong></li>
@@ -633,20 +633,20 @@ html, body {
                     </ul>
                 As opções disponíveis dependem do tipo de reserva, do status dela e da sua permissão.</li>
                 <li><strong>Duplo Clique (Ver Detalhes):</strong> Ao clicar duas vezes em qualquer reserva, a janela "Detalhes da Reserva" será exibida, com todas as informações sobre a partida, jogadores e status de confirmação (se aplicável).</li>
-                <li><strong>Contador de Expiração:</strong> Ao visualizar os detalhes de uma reserva <strong style="color: orange;">Pendente</strong>, você verá um contador em tempo real mostrando quanto tempo resta para as confirmações.</li>
+                <li><strong>Contador de Expiração:</strong> Ao visualizar os detalhes de uma reserva <strong class="status-manual-pendente">Pendente</strong>, você verá um contador em tempo real mostrando quanto tempo resta para as confirmações.</li>
             </ul>
 
             <h3 style="margin-top: 25px;">Editando uma reserva pendente (Organizador/Admin)</h3>
-            <p>Se uma reserva ainda estiver com o status "Pendente" e a opção de edição estiver habilitada pela diretoria, o jogador que a criou (organizador) ou um administrador podem alterar os participantes. Veja como:</p>
+            <p>Se uma reserva ainda estiver com o status "<strong class="status-manual-pendente">Pendente</strong>" e a opção de edição estiver habilitada pela diretoria, o jogador que a criou (organizador) ou um administrador podem alterar os participantes. Veja como:</p>
             <ol>
                 <li><strong>Clique simples</strong> na reserva pendente que você organizou.</li>
                 <li>No menu de ações, selecione a opção <strong class="inline-button btn-manual-editar">Editar Jogadores</strong>.</li>
                 <li>Uma janela será aberta exibindo os jogadores atuais e seus status (<strong class="status-manual-confirmado">Confirmado</strong>, <strong class="status-manual-pendente">Pendente</strong>, <strong class="status-manual-recusado">Recusado</strong>).</li>
-                <li><strong>Para remover:</strong> Clique no ícone <span class="btn-manual-remove">&times;</span> ao lado do nome do jogador. Você só pode remover jogadores com status "Pendente" ou "Recusado". Jogadores já confirmados não podem ser removidos nesta tela.</li>
+                <li><strong>Para remover:</strong> Clique no ícone <span class="btn-manual-remove">&times;</span> ao lado do nome do jogador. Você só pode remover jogadores com status "<strong class="status-manual-pendente">Pendente</strong>" ou "<strong class="status-manual-recusado">Recusado</strong>". Jogadores já <strong class="status-manual-confirmado">confirmados</strong> não podem ser removidos nesta tela.</li>
                 <li><strong>Para adicionar:</strong> Clique no botão:<br><strong class="btn-manual-adicionar">Adicionar Jogador</strong><br>e selecione o novo participante na lista.</li>
                 <li>Após fazer as alterações, clique em <strong>Salvar Alterações</strong>.</li>
             </ol>
-            <div class="section-box warning" style="padding: 10px; margin-top: 5px;"> <p style="margin: 0; text-align: left;"><em><strong>Importante:</strong> Ao salvar, novos convites serão enviados aos jogadores adicionados. Se a remoção de um jogador fizer com que a reserva não atenda mais às regras mínimas (ex: menos de 2 jogadores para 2h, horário de duplas ficar com menos de 4, restar apenas convidados), ela poderá ser cancelada automaticamente pelo sistema.</em></p>
+            <div class="section-box warning" style="padding: 10px; margin-top: 5px;"> <p style="margin: 0; text-align: left;"><em><strong>Importante:</strong> Ao salvar, novos convites serão enviados aos jogadores adicionados. Se a remoção de um jogador fizer com que a reserva não atenda mais às regras mínimas (ex: menos de 2 jogadores para 2h, horário de duplas ficar com menos de 4, restar apenas convidados), ela poderá ser <strong class="status-manual-recusado">cancelada</strong> automaticamente pelo sistema.</em></p>
              </div>
 
             <h3 style="margin-top: 25px;">Cancelando uma reserva</h3>
@@ -659,8 +659,8 @@ html, body {
              <div class="section-box important">
                  <h4>Atenção às Regras de Exclusão:</h4>
                 <ul>
-                    <li><strong>Reservas Pendentes:</strong> Apenas o <strong>organizador</strong> da reserva (ou um administrador) pode excluí-la.</li>
-                    <li><strong>Reservas Confirmadas (ou outros status):</strong> <em>Qualquer participante</em> da reserva (ou um administrador) pode excluí-la, <strong>desde que o horário de término ainda não tenha passado</strong>.</li>
+                    <li><strong>Reservas <span class="status-manual-pendente">Pendentes</span>:</strong> Apenas o <strong>organizador</strong> da reserva (ou um administrador) pode excluí-la.</li>
+                    <li><strong>Reservas <span class="status-manual-confirmado">Confirmadas</span> (ou outros status):</strong> <em>Qualquer participante</em> da reserva (ou um administrador) pode excluí-la, <strong>desde que o horário de término ainda não tenha passado</strong>.</li>
                     <li><strong>Limite de Tempo:</strong> Uma reserva <strong>não pode mais ser cancelada</strong> após o seu horário de término ter passado (exceto por Admins ou se habilitado para testes). Isso é necessário para manter o histórico dos jogos e resultados. Reservas passadas são removidas automaticamente do sistema após alguns dias.</li>
                 </ul>
                 <p><strong>Importante:</strong> É uma boa prática avisar no grupo do WhatsApp sobre o cancelamento para que outros sócios possam aproveitar o horário.</p>
@@ -732,67 +732,67 @@ html, body {
                 <h2>10. Perguntas Frequentes (FAQ)</h2>
 
                 <details>
-                    <summary>1. Minha reserva aparece como 'Pendente'. O que isso significa e o que preciso fazer?</summary>
-                    <p>O status "Pendente" significa que o sistema está aguardando a confirmação dos outros jogadores que você convidou para um jogo futuro. Você, como organizador, já está confirmado.</p>
+                    <summary>1. Minha reserva aparece como '<span class="status-manual-pendente">Pendente</span>'. O que isso significa e o que preciso fazer?</summary>
+                    <p>O status "<strong class="status-manual-pendente">Pendente</strong>" significa que o sistema está aguardando a confirmação dos outros jogadores que você convidou para um jogo futuro. Você, como organizador, já está confirmado.</p>
                      <ul>
                         <li>Os convidados verão uma notificação ao entrarem no sistema e precisarão clicar em "Confirmar".</li>
-                        <li>Se todos confirmarem dentro do prazo estipulado (atualmente <span class="loading-placeholder">?</span> hora(s)), a reserva muda para "Confirmada".</li>
-                        <li>Se o prazo expirar antes de todos confirmarem, ou se uma recusa invalidar a reserva (ex: menos de 2 jogadores para 2h), ela será cancelada automaticamente.</li>
+                        <li>Se todos confirmarem dentro do prazo estipulado (atualmente <span class="loading-placeholder">?</span> hora(s)), a reserva muda para "<strong class="status-manual-confirmado">Confirmada</strong>".</li>
+                        <li>Se o prazo expirar antes de todos confirmarem, ou se uma recusa invalidar a reserva (ex: menos de 2 jogadores para 2h), ela será <strong>cancelada automaticamente</strong>.</li>
                     </ul>
                 </details>
 
                 <details>
                     <summary>2. Preciso esperar confirmação para reservas feitas no mesmo dia?</summary>
-                    <p>Não. Reservas agendadas para o <em>mesmo dia</em> são confirmadas imediatamente, assim como reservas individuais (1 jogador), com convidados, do tipo "Aula" ou "Pirâmide". A confirmação só é necessária para jogos futuros com múltiplos sócios.</p>
+                    <p>Não. Reservas agendadas para o <em>mesmo dia</em> são <strong>confirmadas imediatamente</strong>, assim como reservas individuais (1 jogador), com convidados, do tipo "Aula" ou "Pirâmide". A <strong class="status-manual-confirmado">confirmação</strong> só é necessária para jogos futuros com múltiplos sócios.</p>
                 </details>
 
                 <details>
                     <summary>3. Quem pode cancelar uma reserva e até quando?</summary>
                     <p>As regras de cancelamento dependem do status e do tempo:</p>
                     <ul>
-                        <li><strong>Reservas Pendentes:</strong> Somente o <em>organizador</em> da reserva (ou um administrador) pode cancelá-la.</li>
-                        <li><strong>Reservas Confirmadas (ou outros status):</strong> <em>Qualquer participante</em> da reserva (ou um administrador) pode cancelá-la, mas <strong>apenas antes do horário de término</strong> da reserva.</li>
+                        <li><strong>Reservas <span class="status-manual-pendente">Pendentes</span>:</strong> Somente o <em>organizador</em> da reserva (ou um administrador) pode cancelá-la.</li>
+                        <li><strong>Reservas <span class="status-manual-confirmado">Confirmadas</span> (ou outros status):</strong> <em>Qualquer participante</em> da reserva (ou um administrador) pode cancelá-la, mas <strong>apenas antes do horário de término</strong> da reserva.</li>
                         <li><strong>Após o término:</strong> Uma reserva <strong>não pode mais ser cancelada</strong> pelo sistema normal (exceto por Admins ou para testes) para preservar o histórico.</li>
                     </ul>
                 </details>
 
                 <details>
-                    <summary>4. Fiz uma reserva pendente, mas preciso trocar um dos jogadores. É possível?</summary>
-                    <p>Sim, <strong>se a opção de edição estiver habilitada pela diretoria</strong> e a reserva ainda estiver "Pendente". Apenas o <em>organizador</em> (ou um administrador) pode fazer isso.</p>
+                    <summary>4. Fiz uma reserva <strong class="status-manual-pendente">pendente</strong>, mas preciso trocar um dos jogadores. É possível?</summary>
+                    <p>Sim, <strong>se a opção de edição estiver habilitada pela diretoria</strong> e a reserva ainda estiver "<strong class="status-manual-pendente">Pendente</strong>". Apenas o <em>organizador</em> (ou um administrador) pode fazer isso.</p>
                     <ul>
                         <li>Clique na reserva na planilha, escolha "Editar Jogadores".</li>
                         <li>Remova o jogador que não vai mais (apenas se ele ainda não confirmou ou se recusou).</li>
                         <li>Adicione o novo jogador. Ele receberá o convite para confirmar.</li>
-                        <li><strong>Atenção:</strong> Se a alteração invalidar a reserva (ex: menos de 2 jogadores para 2h), ela será cancelada ao salvar.</li>
+                        <li><strong>Atenção:</strong> Se a alteração invalidar a reserva (ex: menos de 2 jogadores para 2h), ela será <strong class="status-manual-recusado">cancelada</strong> ao salvar.</li>
                     </ul>
                 </details>
 
                 <details>
-                    <summary>5. Como posso saber quem já confirmou ou recusou minha reserva pendente?</summary>
+                    <summary>5. Como posso saber quem já confirmou ou recusou minha reserva <strong class="status-manual-pendente">pendente</strong>?</summary>
                     <p>Há duas formas:</p>
                     <ul>
-                        <li><strong>Na Planilha:</strong> Os nomes dentro da célula da reserva terão cores/estilos: preto (confirmado), vermelho (pendente), vermelho riscado (recusado).</li>
-                        <li><strong>Detalhes da Reserva (Duplo Clique):</strong> A janela de detalhes mostra a lista de jogadores com o status (Confirmado, Pendente, Recusado) ao lado de cada nome.</li>
+                        <li><strong>Na Planilha:</strong> Os nomes dentro da célula da reserva terão cores/estilos: preto (<strong class="status-manual-confirmado">confirmado</strong>), vermelho (<strong class="status-manual-pendente">pendente</strong>), vermelho riscado (<strong class="status-manual-recusado">recusado</strong>).</li>
+                        <li><strong>Detalhes da Reserva (Duplo Clique):</strong> A janela de detalhes mostra a lista de jogadores com o status (<strong class="status-manual-confirmado">Confirmado</strong>, <strong class="status-manual-pendente">Pendente</strong>, <strong class="status-manual-recusado">Recusado</strong>) ao lado de cada nome.</li>
                     </ul>
                 </details>
 
                 <details>
                     <summary>6. Cliquei em "Recusar" sem querer! Posso mudar minha resposta?</summary>
-                    <p>Não diretamente. Uma vez recusado, sua participação é cancelada. Se mudou de ideia:</p>
+                    <p>Não diretamente. Uma vez <strong class="status-manual-recusado">recusado</strong>, sua participação é cancelada. Se mudou de ideia:</p>
                      <ul>
                         <li>Contate o <em>organizador</em> da reserva.</li>
-                        <li>Peça para ele te remover da lista (já que você recusou) e te adicionar novamente.</li>
+                        <li>Peça para ele te remover da lista (já que você <strong class="status-manual-recusado">recusou</strong>) e te adicionar novamente.</li>
                         <li>Isso gerará um novo convite para você confirmar.</li>
                     </ul>
                 </de-tails>
 
                 <details>
-                    <summary>7. Jogos da Pirâmide também ficam pendentes de confirmação?</summary>
-                    <p>Não. Jogos da Pirâmide, por terem regras específicas e apenas 2 jogadores, são confirmados imediatamente no momento do agendamento, assim como as reservas para o mesmo dia.</p>
+                    <summary>7. Jogos da Pirâmide também ficam <strong>pendentes de confirmação</strong>?</summary>
+                    <p>Não. Jogos da Pirâmide, por terem regras específicas e apenas 2 jogadores, são <strong>confirmados imediatamente</strong> no momento do agendamento, assim como as reservas para o mesmo dia.</p>
                 </details>
 
                 <details>
-                    <summary>8. Como os jogadores são avisados que têm um convite pendente?</summary>
+                    <summary>8. Como os jogadores são avisados que têm um convite <strong class="status-manual-pendente">pendente</strong>?</summary>
                     <p>A notificação é <em>dentro do sistema</em>. Ao acessar o site/aplicativo de reservas, o jogador convidado verá uma janela pop-up com os detalhes da reserva e os botões para <strong class="inline-button btn-confirm">Confirmar</strong>, <strong class="inline-button btn-later">Depois</strong> ou <strong class="inline-button btn-refuse">Recusar</strong>.</p>
                      <p>Não há envio de notificações externas (como WhatsApp ou e-mail).</p>
                 </details>
