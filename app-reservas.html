@@ -2470,7 +2470,7 @@ body.dark-mode .legenda-conteudo {
  <!-- Tela de carregamento -->
     <div id="pageOverlay" class="page-overlay"></div> <div id="loading" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.2rem; background-color: white; width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999;">
 		<div id="loadingSpinner"></div>
-		<div>Carregando... Aguarde.</div>
+		<div>Carregando... Aguarde.</div> 
 	</div>
 	
 	
@@ -3119,7 +3119,7 @@ body.dark-mode .legenda-conteudo {
 
         <div class="info-section about-section">
             <p><strong>Versão do Sistema:</strong> <span id="info-modal-version">Carregando...</span></p>
-            <p>Desenvolvido por Ronaldo Taborda</p>
+            <p><strong>Atualizado em:</strong> <span id="info-modal-data-versao">Carregando...</span></p> <p>Desenvolvido por Ronaldo Taborda</p>
         </div>
 
         <button id="infoModalCloseBtn">Fechar</button>
@@ -3277,10 +3277,10 @@ const logoutBtn = document.getElementById('inlineLogoutBtn');
 
 if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
     const userNameSpan = document.getElementById('info-modal-user-name');
-    //const userStatusSpan = document.getElementById('info-modal-user-status');
     const versionSpan = document.getElementById('info-modal-version');
-	const adminsSpan = document.getElementById('info-modal-admins'); // <-- ADICIONE ESTA LINHA
+	const adminsSpan = document.getElementById('info-modal-admins'); 
     const arbitroSpan = document.getElementById('info-modal-arbitro');
+	const dataVersaoSpan = document.getElementById('info-modal-data-versao');
 
     const fecharModal = () => {
         modalOverlay.style.display = 'none';
@@ -3300,6 +3300,7 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
         userNameSpan.textContent = jogadorLogado;
        // userStatusSpan.textContent = status;
         versionSpan.textContent = VersaoSistema;
+		dataVersaoSpan.textContent = DataVersaoSistema;
 		adminsSpan.textContent = (administradores || []).join(', '); // <-- ADICIONE ESTA LINHA
         arbitroSpan.textContent = (arbitro || {}).nomeCompleto || 'Não definido'; // <-- ADICIONE ESTA LINHA
 
@@ -3335,7 +3336,8 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.7.5'; // Versão atual do sistema      
+const VersaoSistema = 'v1.7.6'; // Versão atual do sistema   
+const DataVersaoSistema = '02/11/2025';   
 
 let vDesabilitarF12 = false; // deixar true para fazer o deploy    
 let vAbrirSistema = false; // deixar true para fazer o deploy
@@ -3598,6 +3600,8 @@ function InicializarSistema() {
 				
 				//alert(`token: ${githubToken}`);
 				
+				atualizarDatas();
+				
 				verificarConvitesPendentes(data.reservas);
                 verificarConfirmacoesResultado(data.reservas); 
 				verificarDisputasArbitro(data.reservas);
@@ -3670,7 +3674,7 @@ function InicializarSistema() {
                     if (quadras.Quadra2 === "interditada") quadrasInativas.add("Quadra 2 - Aberta");
                     if (quadras.Quadra3 === "interditada") quadrasInativas.add("Quadra 3 - Coberta");
 
-                    atualizarDatas();
+                    //atualizarDatas();
 					
 					if (vatualizarOpcoesHorario) {
 					  atualizarOpcoesHorario();
@@ -5582,7 +5586,7 @@ function atualizarDatas() {
         case 3: preencherCeldas(dataInicio, [-2, -1, 0, 1, -5, -4, -3], linhaDatas); break;
         case 4: preencherCeldas(dataInicio, [-3, -2, -1, 0, 1, -5, -4], linhaDatas); break;
         case 5: preencherCeldas(dataInicio, [-4, -3, -2, -1, 0, 1, -5], linhaDatas); break;
-        case 6: preencherCeldas(dataInicio, [-5, -4, -3, -2, -1, 0, 1], linhaDatas); break;
+        case 6: preencherCeldas(dataInicio, [-5, -4, -3, -2, -1, 0, 1], linhaDatas); break; 
       }
       break;
     case 6:
