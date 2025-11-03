@@ -2,9 +2,17 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Manual de Uso - Sistema de Reservas do Clube Olímpico</title>
     <style>
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
         /* ESTILOS GERAIS (MODO CLARO PADRÃO) */
         body {
             font-family: Arial, sans-serif;
@@ -13,6 +21,8 @@
             padding: 20px 20px 5px 20px; /* <-- ALTERAÇÃO: Padding inferior global reduzido para 5px */
             background-color: #f4f4f9;
             color: #333;
+            -webkit-text-size-adjust: 100%; /* Impede o Safari/WebView de mudar o tamanho da fonte */
+            text-size-adjust: 100%; /* Padrão para outros navegadores */
         }
         .container {
             max-width: 800px;
@@ -274,10 +284,12 @@
             color: #555; /* Cor sutil no modo claro */
         }
         
+        /* === INÍCIO DA CORREÇÃO MODO ESCURO === */
         /* Adaptação para o modo escuro */
         body.dark-mode .dias-antecedencia-info {
-            color: #ccc; /* Cor mais clara no modo escuro */
+            color: #555; /* FORÇA a cor do modo claro */
         }
+        /* === FIM DA CORREÇÃO MODO ESCURO === */
         
         /* NOVO: Estilo para o Bloco de Exemplo (Seção 5) */
         .example-box {
@@ -310,14 +322,23 @@
         .example-box p:last-child {
             margin-bottom: 0;
         }
-        /* Adaptação para o modo escuro */
+        
+        /* === INÍCIO DA CORREÇÃO MODO ESCURO === */
+        /* Força o .example-box a ficar com o estilo claro, mesmo no modo escuro */
         body.dark-mode .example-box {
-            background-color: #3a3a3a;
-            border-left-color: #888;
+            background-color: #e9ecef; /* FORÇA o fundo claro */
+            border-left-color: #6c757d; /* FORÇA a borda do modo claro */
         }
         body.dark-mode .example-box h4 {
-            color: #eee;
+            color: #333; /* FORÇA o texto do título escuro */
         }
+        body.dark-mode .example-box p,
+        body.dark-mode .example-box ul,
+        body.dark-mode .example-box li {
+            color: #333; /* FORÇA o texto da lista escuro */
+        }
+        /* === FIM DA CORREÇÃO MODO ESCURO === */
+        
         /* FIM DO NOVO BLOCO */
 
         @media (max-width: 600px) {
