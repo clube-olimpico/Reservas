@@ -3336,8 +3336,8 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.7.6'; // Versão atual do sistema   
-const DataVersaoSistema = '02/11/2025';   
+const VersaoSistema = 'v1.7.8'; // Versão atual do sistema    
+const DataVersaoSistema = '04/11/2025';   
 
 let vDesabilitarF12 = false; // deixar true para fazer o deploy    
 let vAbrirSistema = false; // deixar true para fazer o deploy
@@ -3562,7 +3562,7 @@ function InicializarSistema() {
 					if (overlay) {
 						overlay.querySelector('h1').textContent = 'Versão Desatualizada';
 						overlay.querySelector('p').textContent = 'Por favor, feche e reabra o aplicativo para aplicar a atualização.';
-						overlay.style.display = 'flex';
+						overlay.style.display = 'flex'; 
 					}
 					return; // Interrompe o carregamento
 				}
@@ -3600,7 +3600,7 @@ function InicializarSistema() {
 				
 				//alert(`token: ${githubToken}`);
 				
-				atualizarDatas();
+				// A LINHA "atualizarDatas()" FOI REMOVIDA DAQUI
 				
 				verificarConvitesPendentes(data.reservas);
                 verificarConfirmacoesResultado(data.reservas); 
@@ -3674,7 +3674,8 @@ function InicializarSistema() {
                     if (quadras.Quadra2 === "interditada") quadrasInativas.add("Quadra 2 - Aberta");
                     if (quadras.Quadra3 === "interditada") quadrasInativas.add("Quadra 3 - Coberta");
 
-                    //atualizarDatas();
+                    // 2. AGORA CHAMAMOS A FUNÇÃO (LOCAL CORRETO)
+                    atualizarDatas();
 					
 					if (vatualizarOpcoesHorario) {
 					  atualizarOpcoesHorario();
@@ -6719,6 +6720,15 @@ function verificarConvitesPendentes(todasAsReservas) {
     if (!todasAsReservas || !jogadorLogadoApelido) return;
 
     let encontrouConvite = false;
+	
+	// ==========================================================
+    // ===== A CORREÇÃO ESTÁ AQUI (Mapa de Nomes de Dias) =====
+    // ==========================================================
+    const nomesDiasMap = {
+        1: "Segunda-Feira", 2: "Terça-Feira", 3: "Quarta-Feira",
+        4: "Quinta-Feira", 5: "Sexta-Feira", 6: "Sábado", 7: "Domingo"
+    };
+    // ==========================================================
 
     for (const quadra in todasAsReservas) {
         const reservasDaQuadra = todasAsReservas[quadra];
@@ -6746,7 +6756,7 @@ function verificarConvitesPendentes(todasAsReservas) {
 					const listaDeJogadores = reserva.jogadores_completo || reserva.jogadores; 
 
 					li.innerHTML = `
-						<span><strong>${quadra}</strong><br>${document.querySelector(`#dia option[value="${reserva.dia}"]`).textContent} das ${reserva.hora}:00 às ${horaFim}:00</span><br>
+						<span><strong>${quadra}</strong><br>${nomesDiasMap[reserva.dia] || `Dia ${reserva.dia}`} das ${reserva.hora}:00 às ${horaFim}:00</span><br>
 						<span style="font-size: 0.9em;">Com: ${listaDeJogadores}<br>(Org: ${reserva.organizador})</span>
 						<div style="margin-top: 8px; display: flex; justify-content: center; gap: 10px;">
 							<button onclick="confirmarPresenca('${key}', '${quadra}')" style="padding: 8px 15px; font-size: 0.9em; width: auto !important; background-color: #4CAF50; color: white; border-radius: 5px; border: none; cursor: pointer;">Confirmar</button>
@@ -7414,7 +7424,29 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
             const jogadoresLabelOriginal = document.getElementById('modal-jogadores').previousElementSibling;
             if(jogadoresLabelOriginal) jogadoresLabelOriginal.style.display = 'block';
             document.getElementById('modal-quadra').textContent = quadra;
-            document.getElementById('modal-dia').textContent = document.querySelector(`#dia option[value="${reserva.dia}"]`).textContent;
+			
+			// ==========================================================
+            // ===== A CORREÇÃO DO BUG ESTÁ AQUI =====
+            // ==========================================================
+            // Mapeamento robusto para obter o nome do dia, pois o dropdown #dia pode não conter dias passados.
+            const nomesDiasMap = {
+                1: "Segunda-Feira",
+                2: "Terça-Feira",
+                3: "Quarta-Feira",
+                4: "Quinta-Feira",
+                5: "Sexta-Feira",
+                6: "Sábado",
+                7: "Domingo"
+            };
+            // Usamos o mapeamento em vez de consultar o dropdown #dia
+            document.getElementById('modal-dia').textContent = nomesDiasMap[reserva.dia] || "Data Inválida";
+            // ==========================================================
+            // ===== FIM DA CORREÇÃO =====
+            // ==========================================================
+			
+			
+            //document.getElementById('modal-dia').textContent = document.querySelector(`#dia option[value="${reserva.dia}"]`).textContent;
+					
             document.getElementById('modal-data').textContent = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
             let duracaoTexto = reserva.duracao === 1 ? "1 Hora" : "2 Horas";
             if (reserva.duracao === 3) duracaoTexto = "2 Horas - Pirâmide";
