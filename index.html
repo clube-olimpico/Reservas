@@ -3336,8 +3336,8 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
 //***********************************************************************************************************************************************************************
 
 // Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.7.7'; // Versão atual do sistema   
-const DataVersaoSistema = '03/11/2025';   
+const VersaoSistema = 'v1.7.8'; // Versão atual do sistema    
+const DataVersaoSistema = '04/11/2025';   
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -7414,7 +7414,29 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
             const jogadoresLabelOriginal = document.getElementById('modal-jogadores').previousElementSibling;
             if(jogadoresLabelOriginal) jogadoresLabelOriginal.style.display = 'block';
             document.getElementById('modal-quadra').textContent = quadra;
-            document.getElementById('modal-dia').textContent = document.querySelector(`#dia option[value="${reserva.dia}"]`).textContent;
+			
+			// ==========================================================
+            // ===== A CORREÇÃO DO BUG ESTÁ AQUI =====
+            // ==========================================================
+            // Mapeamento robusto para obter o nome do dia, pois o dropdown #dia pode não conter dias passados.
+            const nomesDiasMap = {
+                1: "Segunda-Feira",
+                2: "Terça-Feira",
+                3: "Quarta-Feira",
+                4: "Quinta-Feira",
+                5: "Sexta-Feira",
+                6: "Sábado",
+                7: "Domingo"
+            };
+            // Usamos o mapeamento em vez de consultar o dropdown #dia
+            document.getElementById('modal-dia').textContent = nomesDiasMap[reserva.dia] || "Data Inválida";
+            // ==========================================================
+            // ===== FIM DA CORREÇÃO =====
+            // ==========================================================
+			
+			
+            //document.getElementById('modal-dia').textContent = document.querySelector(`#dia option[value="${reserva.dia}"]`).textContent;
+					
             document.getElementById('modal-data').textContent = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
             let duracaoTexto = reserva.duracao === 1 ? "1 Hora" : "2 Horas";
             if (reserva.duracao === 3) duracaoTexto = "2 Horas - Pirâmide";
