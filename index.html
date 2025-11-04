@@ -3333,15 +3333,17 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
 	
 <script>
 	
-//***********************************************************************************************************************************************************************
 
-// Ajuste manual da versão do Sistema
-const VersaoSistema = 'v1.7.8'; // Versão atual do sistema    
+// Ajuste manual da atualização de versão do Sistema ******
+
+const VersaoSistema = 'v1.7.9'; // Versão atual do sistema    
 const DataVersaoSistema = '04/11/2025';   
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
 let vPermitirExclusaoAposJogo = false; // Mude para true para permitir que usuários comuns excluam jogos passados durante os testes.
+
+//********************************************************
 
 let piramideInicioTorneio = null;
 let piramideFimTorneio = null;
@@ -3562,7 +3564,7 @@ function InicializarSistema() {
 					if (overlay) {
 						overlay.querySelector('h1').textContent = 'Versão Desatualizada';
 						overlay.querySelector('p').textContent = 'Por favor, feche e reabra o aplicativo para aplicar a atualização.';
-						overlay.style.display = 'flex';
+						overlay.style.display = 'flex'; 
 					}
 					return; // Interrompe o carregamento
 				}
@@ -3600,7 +3602,7 @@ function InicializarSistema() {
 				
 				//alert(`token: ${githubToken}`);
 				
-				atualizarDatas();
+				// A LINHA "atualizarDatas()" FOI REMOVIDA DAQUI
 				
 				verificarConvitesPendentes(data.reservas);
                 verificarConfirmacoesResultado(data.reservas); 
@@ -3674,7 +3676,8 @@ function InicializarSistema() {
                     if (quadras.Quadra2 === "interditada") quadrasInativas.add("Quadra 2 - Aberta");
                     if (quadras.Quadra3 === "interditada") quadrasInativas.add("Quadra 3 - Coberta");
 
-                    //atualizarDatas();
+                    // 2. AGORA CHAMAMOS A FUNÇÃO (LOCAL CORRETO)
+                    atualizarDatas();
 					
 					if (vatualizarOpcoesHorario) {
 					  atualizarOpcoesHorario();
@@ -6719,6 +6722,15 @@ function verificarConvitesPendentes(todasAsReservas) {
     if (!todasAsReservas || !jogadorLogadoApelido) return;
 
     let encontrouConvite = false;
+	
+	// ==========================================================
+    // ===== A CORREÇÃO ESTÁ AQUI (Mapa de Nomes de Dias) =====
+    // ==========================================================
+    const nomesDiasMap = {
+        1: "Segunda-Feira", 2: "Terça-Feira", 3: "Quarta-Feira",
+        4: "Quinta-Feira", 5: "Sexta-Feira", 6: "Sábado", 7: "Domingo"
+    };
+    // ==========================================================
 
     for (const quadra in todasAsReservas) {
         const reservasDaQuadra = todasAsReservas[quadra];
@@ -6746,7 +6758,7 @@ function verificarConvitesPendentes(todasAsReservas) {
 					const listaDeJogadores = reserva.jogadores_completo || reserva.jogadores; 
 
 					li.innerHTML = `
-						<span><strong>${quadra}</strong><br>${document.querySelector(`#dia option[value="${reserva.dia}"]`).textContent} das ${reserva.hora}:00 às ${horaFim}:00</span><br>
+						<span><strong>${quadra}</strong><br>${nomesDiasMap[reserva.dia] || `Dia ${reserva.dia}`} das ${reserva.hora}:00 às ${horaFim}:00</span><br>
 						<span style="font-size: 0.9em;">Com: ${listaDeJogadores}<br>(Org: ${reserva.organizador})</span>
 						<div style="margin-top: 8px; display: flex; justify-content: center; gap: 10px;">
 							<button onclick="confirmarPresenca('${key}', '${quadra}')" style="padding: 8px 15px; font-size: 0.9em; width: auto !important; background-color: #4CAF50; color: white; border-radius: 5px; border: none; cursor: pointer;">Confirmar</button>
@@ -7299,12 +7311,7 @@ function fecharModalDetalhes() {
  * @param {string} key - A chave da reserva no Firebase.
  * @param {string} quadra - A quadra onde a reserva está.
  */
-/**
- * Abre o modal de detalhes e ATIVA o monitoramento em tempo real para a reserva.
- * @param {object} reservaInicial - O objeto da reserva no momento do clique.
- * @param {string} key - A chave da reserva no Firebase.
- * @param {string} quadra - A quadra onde a reserva está.
- */
+
 async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos a função async
     // Garante que qualquer listener ou timer anterior seja desligado antes de criar um novo.
     fecharModalDetalhes(); 
@@ -7332,6 +7339,13 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
             mostrarNotificacao("<b>Reserva Expirada</b><br>Esta reserva já havia expirado e foi removida do sistema.", 'warning');
             return;
         }
+		
+		// ==========================================================
+        const nomesDiasMap = {
+            1: "Segunda-Feira", 2: "Terça-Feira", 3: "Quarta-Feira",
+            4: "Quinta-Feira", 5: "Sexta-Feira", 6: "Sábado", 7: "Domingo"
+        };
+        // ==========================================================
         
         const pExpiraEm = document.getElementById('p-expira-em');
         if (timerContadorExpiracao) clearInterval(timerContadorExpiracao);
@@ -7356,7 +7370,10 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
             if (jogadoresLabel) jogadoresLabel.style.display = 'none'; 
             resultadoContainer.style.display = 'none'; 
             document.getElementById('modal-quadra').textContent = quadra;
-            document.getElementById('modal-dia').textContent = document.querySelector(`#dia option[value="${reserva.dia}"]`).textContent;
+			
+            //document.getElementById('modal-dia').textContent = document.querySelector(`#dia option[value="${reserva.dia}"]`).textContent;
+			document.getElementById('modal-dia').textContent = nomesDiasMap[reserva.dia] || "Data Inválida";
+			
             document.getElementById('modal-data').textContent = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
             document.getElementById('modal-duracao').textContent = '1 Hora';
             document.getElementById('modal-horario').textContent = `${String(reserva.hora).padStart(2, '0')}:00 - ${String(reserva.hora + 1).padStart(2, '0')}:00`;
@@ -7415,20 +7432,7 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
             if(jogadoresLabelOriginal) jogadoresLabelOriginal.style.display = 'block';
             document.getElementById('modal-quadra').textContent = quadra;
 			
-			// ==========================================================
-            // ===== A CORREÇÃO DO BUG ESTÁ AQUI =====
-            // ==========================================================
-            // Mapeamento robusto para obter o nome do dia, pois o dropdown #dia pode não conter dias passados.
-            const nomesDiasMap = {
-                1: "Segunda-Feira",
-                2: "Terça-Feira",
-                3: "Quarta-Feira",
-                4: "Quinta-Feira",
-                5: "Sexta-Feira",
-                6: "Sábado",
-                7: "Domingo"
-            };
-            // Usamos o mapeamento em vez de consultar o dropdown #dia
+			// Usamos o mapeamento em vez de consultar o dropdown #dia
             document.getElementById('modal-dia').textContent = nomesDiasMap[reserva.dia] || "Data Inválida";
             // ==========================================================
             // ===== FIM DA CORREÇÃO =====
