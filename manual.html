@@ -242,6 +242,141 @@ html, body {
         /* --- FIM DO NOVO ESTILO --- */
 
 
+        /* ======================================= */
+        /* === ESTILOS PARA AGENDA RECOLHÍVEL === */
+        /* ======================================= */
+
+        .agenda-trigger {
+            font-size: 16px; /* Tamanho do texto/ícone */
+            font-weight: bold;
+            cursor: pointer;
+            color: #555; /* Cor padrão */
+            white-space: nowrap;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            
+            /* Alinha o 📅 e o ▼ */
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        body.dark-mode .agenda-trigger {
+            color: #ccc; /* Cor no modo escuro */
+        }
+
+        #agenda-icone {
+            display: inline-block;
+            transition: transform 0.2s ease-in-out; /* Animação suave da seta */
+            font-size: 14px; /* Deixa a seta um pouco menor que o 📅 */
+        }
+
+        /* Gira a seta quando o painel estiver aberto */
+        .agenda-trigger.expandido #agenda-icone {
+            transform: rotate(180deg);
+        }
+
+        /* O painel expansível da agenda */
+        .agenda-conteudo {
+            display: none; /* Começa oculto */
+            padding: 15px; /* Mais espaço interno que a legenda */
+            border: 1px solid #eee;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            margin-top: 5px;
+            margin-bottom: 10px; /* Espaço antes da tabela */
+        }
+
+        body.dark-mode .agenda-conteudo {
+            border-color: #444;
+            background-color: #2a2a2a;
+        }
+
+        /* Estilos para o conteúdo interno do painel da agenda */
+        .agenda-info p {
+            margin: 4px 0;
+            font-size: 1.05em;
+            line-height: 1.5;
+            text-align: left; /* Garante alinhamento à esquerda */
+        }
+        .agenda-info strong {
+            display: inline-block;
+            min-width: 80px; /* Alinha os campos "Quadra:", "Data:", etc. */
+        }
+
+        /* Estilo para a mensagem "Nenhuma reserva" */
+        .agenda-nenhuma-reserva {
+            text-align: center;
+            font-size: 1.05em;
+            font-style: italic;
+            color: #888;
+            margin: 5px 0;
+        }
+
+        body.dark-mode .agenda-nenhuma-reserva {
+            color: #aaa;
+        }
+
+        /* Destaque para jogos "Hoje" */
+        .agenda-hoje-destaque {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        body.dark-mode .agenda-hoje-destaque {
+            color: #66BB6A;
+        }
+
+        /* === ESTILOS PARA TÍTULO RESPONSIVO === */
+        /* (Copiado de app-reservas.html para consistência) */
+        
+        /* NOVO: Estilo para a linha do cabeçalho de exemplo (Seção 9) */
+        .header-legenda-linha {
+            display: flex;
+            justify-content: space-between; /* Itens nas pontas */
+            align-items: center; /* Alinha verticalmente */
+        }
+        /* NOVO: Estilo para o título de exemplo (Seção 9) */
+        .header-legenda-linha .header-main {
+            font-size: 20px; /* Tamanho do título */
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 1; /* Ocupa o espaço central */
+        }
+        /* NOVO: Estilo para o gatilho de legenda de exemplo (Seção 9) */
+        .legenda-trigger {
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+            white-space: nowrap;
+        }
+        
+        .header-sub {
+            display: inline;
+            font-size: 0.9em;
+            color: #888;
+        }
+        body.dark-mode .header-sub {
+            color: #aaa;
+        }
+        @media (max-width: 600px) and (orientation: portrait) {
+            .header-sub {
+                display: none;
+            }
+            .header-main {
+                width: 100%;
+                text-align: center;
+            }
+            .header-legenda-linha {
+                justify-content: space-between;
+            }
+            .header-legenda-container .header {
+                flex-grow: 0;
+            }
+        }
+
+
         /* Estilo base (modo claro) para os botões de exemplo */
         .manual-tabs-container { display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: nowrap; }
         .manual-tab-button {
@@ -470,6 +605,7 @@ html, body {
                 <li><a href="#secao6">6. Gerenciando Suas Reservas</a></li>
                 <li><a href="#secao7">7. Torneio Pirâmide e Ranking de Duplas</a></li>
                 <li><a href="#secao8">8. Jogo "Ao Vivo" (Pirâmide)</a></li>
+                
                 <li><a href="#secao9">9. Dicas e Recursos Adicionais</a></li>
                 <li><a href="#secao10">10. Perguntas Frequentes (FAQ)</a></li>
             </ol>
@@ -538,7 +674,7 @@ html, body {
                 <div class="manual-tab-button">Quadra 2<br>Aberta</div>
                 <div class="manual-tab-button interditada">Quadra 3<br>Coberta</div>
             </div>
-
+            
             <div class="section-box warning" style="margin-top: 15px; padding: 10px;">
                 <p style="margin: 0; text-align: left;"><strong>Atenção:</strong> Quadras interditadas aparecem com o botão vermelho (como no exemplo acima) e não podem ser selecionadas.</p>
             </div>
@@ -702,11 +838,34 @@ html, body {
                  <li><strong>Delegar Placar:</strong> Se você é participante, Admin ou Árbitro, pode clicar na reserva 'Ao Vivo' e escolher <strong class="inline-button btn-manual-delegar">Delegar Placar</strong> para permitir que outro jogador online atualize as parciais.</li>
             </ul>
 
-
             <h2 id="secao9">9. Dicas e Recursos Adicionais</h2>
             <ul>
-                <li><strong>Tela Cheia (Planilha):</strong> Dê um duplo clique no título "Horários" na planilha para expandi-la e facilitar a visualização. Clique duas vezes novamente para voltar ao normal.</li>
-                <li><strong>Alternando entre Tema Claro e Escuro:</strong>
+                <li id="secao9-agenda">
+                    <strong>Atalho "Minha Agenda" (📅):</strong>
+                    <p style="margin-bottom: 5px;">Ao lado do título da quadra , você encontrará o novo atalho da agenda.</p>
+                    
+                    <div class="header-legenda-linha" style="background-color: #f0f0f0; padding: 10px; border-radius: 5px; justify-content: space-between; display: flex; align-items: center; margin: 10px 0;">
+                        <span class="agenda-trigger" style="font-size: 16px; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px;">
+                            📅 <span style="font-size: 14px;">▼</span>
+                        </span>
+                        <span class="header-main" style="font-size: 20px; font-weight: bold; text-align: center;">Quadra 1</span>
+                        <span class="legenda-trigger" style="font-size: 14px; font-weight: bold; color: #555;">
+                            Legenda: <span>▼</span>
+                        </span>
+                    </div>
+                    <p style="margin-top: 5px; margin-bottom: 5px;">Este é um recurso "sob demanda": nada acontece até você clicar nele.</p>
+                    <p style="margin-top: 15px; margin-bottom: 5px;"><strong>Ao clicar no ícone 📅 ▼:</strong></p>
+                    <ol style="padding-left: 20px; margin-top: 0; margin-bottom: 10px;">
+                        <li>O sistema fará uma busca <strong>em tempo real</strong> por sua próxima reserva futura (em qualquer quadra).</li>
+                        <li>O painel se expandirá para mostrar os detalhes (Quadra, Data, Horário e Parceiros).</li>
+                        <li>O sistema pulará automaticamente a visualização da planilha para a quadra de sua reserva.</li>
+                    </ol>
+                    <p style="margin-top: 5px;">Clique no 📅 ▲ novamente para fechar o painel.</p>
+                </li>
+
+                <li id="secao9-tela-cheia"><strong>Tela Cheia (Planilha):</strong> Dê um duplo clique no título "Horários" na planilha para expandi-la e facilitar a visualização. Clique duas vezes novamente para voltar ao normal.</li>
+                
+                <li id="secao9-tema"><strong>Alternando entre Tema Claro e Escuro:</strong>
                     <p style="margin-bottom: 5px;">Para maior conforto visual, o sistema agora oferece um tema claro (padrão) e um tema escuro. Você pode alternar entre eles a qualquer momento.</p>
                     <ol style="padding-left: 15px; margin-top: 0; margin-bottom: 5px;">
                         <li>Procure por um <strong>botão flutuante com o ícone de uma lua (🌙) ou sol (☀️)</strong> no canto inferior direito da tela.</li>
@@ -714,8 +873,10 @@ html, body {
                     </ol>
                     <p style="margin-top: 5px;">Sua preferência de tema será salva e aplicada automaticamente em seus próximos acessos.</p>
                 </li>
+                
                 <li><strong>Legenda de Cores (Planilha):</strong>
-                    <ul>
+                    <p style="margin-top: 5px; margin-bottom: 5px;">Para ver a legenda de cores, clique no atalho <strong>[ Legenda: ▼ ]</strong> ao lado do título da quadra. O painel de legenda se expandirá. Clique novamente em <strong>[ Legenda: ▲ ]</strong> para fechá-lo.</p>
+                    <ul style="margin-top: 10px;">
                         <li><span class="color-box hora1">Reserva de 1 Hora</span></li>
                         <li><span class="color-box hora2">Reserva de 2 Horas</span></li>
                         <li><span class="color-box piramide">Reserva Pirâmide</span></li>
@@ -726,7 +887,6 @@ html, body {
                 <li><strong>Painel "Sobre o Sistema":</strong> Dê um duplo clique na versão do sistema (<span id="manual-versao-sistema" class="loading-placeholder">v?.?.?</span>) no rodapé da página para abrir um painel com seu login, links rápidos (manuais, rankings, contatos) e botão de logout.</li>
                 <li><strong>Problemas?</strong> Se encontrar dificuldades: recarregue a página (Ctrl+Shift+R ou Cmd+Shift+R), verifique a internet e, se persistir, contate o administrador (Ronaldo Taborda).</li>
             </ul>
-
             <div class="section" id="secao10">
 
                 <h2>10. Perguntas Frequentes (FAQ)</h2>
@@ -994,7 +1154,7 @@ html, body {
                 const mes = lastMod.toLocaleString('pt-BR', { month: 'long' });
                 const ano = lastMod.getFullYear();
                 
-                // Capitaliza o mês (ex: "novembro" -> "Novembro")
+                // Capitaliza o mês (ex: "novembro" -> "Novemvro")
                 const mesCapitalizado = mes.charAt(0).toUpperCase() + mes.slice(1);
                 
                 // Monta a string final
