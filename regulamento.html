@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
-            padding: 20px 20px 5px 20px; /* <<< AJUSTADO (era padding: 20px) */
+            padding: 20px 20px 5px 20px; /* <<< AJUSTADO (era padding: 20px) */ 
             background-color: #f4f4f9; 
             color: #333;
         }
@@ -188,7 +188,7 @@
         /* Garante que itens de lista dentro da FAQ não sejam justificados e tenham margem */
         #secao11 details ul li { /* <-- ATUALIZADO DE 10 PARA 11 */
              text-align: left; /* Ou inherit */
-             margin-bottom: 8px; /* Restaura margem padrão de li */
+             margin-bottom: 8px; /* Restaura margem específica do menu */
         }
          /* Remove margem inferior extra do UL dentro do details */
         #secao11 details ul { /* <-- ATUALIZADO DE 10 PARA 11 */
@@ -375,13 +375,18 @@
                 <p>O grupo de WhatsApp "<strong>Amigos do Tênis Olímpico</strong>" é o canal oficial de comunicação da Diretoria de Tênis. Ele é utilizado para anúncios importantes, organização de eventos e como ferramenta principal para os sócios encontrarem parceiros de jogo.</p> <p>Por decisão da Diretoria, visando otimizar a comunicação e manter um canal direto com os responsáveis, a participação neste grupo é restrita aos <strong>Sócios Titulares</strong>.</p>
                 <p>Os titulares ficam responsáveis por repassar as informações relevantes do grupo aos seus dependentes cadastrados. As normas de conduta e respeito mútuo descritas neste regulamento aplicam-se igualmente às interações no grupo.</p>
             </div>
-            <div class="section" id="secao4"> <h2>4. Sistema de Reservas</h2> <div class="subsection" id="secao4.1"> <h3>4.1. Obrigatoriedade de Uso e Autorização de Acesso</h3> <p>A utilização das quadras de tênis é <strong>exclusivamente</strong> mediante reserva prévia realizada através do <a href="https://clube-olimpico.github.io/Reservas/" target="_blank" class="system-link">Sistema de Reservas Online</a> do clube.</p>
-                    <p>Para utilização do Sistema de Reservas Online, é necessário possuir um cadastro ativo. Estão autorizados a ter acesso:</p>
+            <div class="section" id="secao4"> <h2>4. Sistema de Reservas</h2> <div class="subsection" id="secao4.1"> <h3>4.1. Obrigatoriedade de Uso e Autorização de Acesso</h3> 
+                    <p>A utilização das quadras de tênis é <strong>exclusivamente</strong> mediante reserva prévia realizada através do <a href="https://clube-olimpico.github.io/Reservas/" target="_blank" class="system-link">Sistema de Reservas Online</a> do clube.</p>
                     <ul>
                         <li><strong>Sócios titulares</strong>, com direito pleno de reserva e participação.</li>
-                        <li><strong>Dependentes</strong> com <strong>idade entre 14 e 21 anos</strong>, desde que o sócio titular <strong>confirme formalmente</strong> que o dependente pratica tênis e utilizará efetivamente as quadras. Esta confirmação visa <strong>evitar cadastros e reservas falsas.</strong></li>
+                        <li><strong>Dependentes</strong> com <strong>idade entre 14 e 21 anos</strong>, desde que o sócio titular <strong>confirme formalmente</strong> que o dependente pratica tênis e utilizará efetivamente as quadras. Esta confirmação visa evitar cadastros e reservas falsas.</li>
                     </ul>
-                    <p>O uso indevido ou de <strong>má-fé</strong> do sistema, como criar reservas fictícias ou utilizar nomes de terceiros que não participarão do jogo, poderá resultar em <strong>advertência ou suspensão temporária do direito de reserva</strong>, conforme previsto na <a href="#secao9" class="system-link">Seção 9 (<strong>Sanções</strong>)</a> deste regulamento.</p> </div>
+
+                    <p>O Clube Olímpico, em busca da <strong>máxima justiça e equidade</strong> na distribuição de seus horários, implementou o <strong>Sistema de Confirmação</strong> para reservas futuras. Este mecanismo foi criado para coibir a prática de <strong>"reservas fake"</strong>, onde sócios incluem nomes de terceiros sem o consentimento ou a real intenção de participação desses jogadores, unicamente para <strong>garantir um horário de forma injusta</strong> em detrimento de outros usuários. Este novo sistema visa ser o mais justo e transparente possível com todos os sócios.</p>
+
+                    <p>Dessa forma, o uso indevido ou de má-fé do sistema, como criar reservas fictícias ou utilizar nomes de terceiros que não as confirmem ou que não participarão do jogo, poderá resultar em <strong>advertência ou suspensão temporária do direito de reserva</strong>, conforme previsto na Seção 9 (<strong>Sanções</strong>) deste regulamento.</p>
+                    
+                </div>
                 
                 <div class="subsection" id="secao4.2"> <h3>4.2. Limites e Restrições</h3> <ul>
                         <li><strong>Antecedência:</strong> As reservas podem ser realizadas com até <strong id="dias-antecedencia-regulamento" class="loading-placeholder">?</strong><span id="dias-unidade-regulamento"> dia(s)</span><strong>*</strong> de antecedência.<br><small style="font-style: italic; display: block; margin-top: -5px;">*Este valor pode ser alterado pela diretoria.</small></li>
