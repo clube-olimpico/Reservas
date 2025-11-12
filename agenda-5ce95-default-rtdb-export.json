@@ -1061,7 +1061,7 @@
       }
     },
     "config": {
-      "Abrir": true,
+      "Abrir": false,
       "Administradores": {
         "admin-8": {
           "apelido": "TABORDA",
@@ -1367,6 +1367,14 @@
           "duracao": 1,
           "hora": 21,
           "jogadores": "aula"
+        },
+        "2_6": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 6,
+          "jogadores": "Taborda",
+          "organizador": "Taborda"
         },
         "3_10": {
           "borda": "1h",
@@ -1759,14 +1767,14 @@
           "resultado": {
             "perdedor": "",
             "set1": {
-              "placar": "6x7",
-              "tiebreak": "7-9"
+              "placar": "x",
+              "tiebreak": ""
             },
             "set2": {
-              "placar": "7x6",
-              "tiebreak": "12-10"
+              "placar": "x",
+              "tiebreak": ""
             },
-            "set3": "6x5",
+            "set3": "",
             "tipo": "Placar Normal",
             "vencedor": ""
           },
@@ -1780,14 +1788,14 @@
           "resultado": {
             "perdedor": "",
             "set1": {
-              "placar": "6x7",
-              "tiebreak": "7-9"
+              "placar": "x",
+              "tiebreak": ""
             },
             "set2": {
-              "placar": "7x6",
-              "tiebreak": "12-10"
+              "placar": "x",
+              "tiebreak": ""
             },
-            "set3": "6x5",
+            "set3": "",
             "tipo": "Placar Normal",
             "vencedor": ""
           },
@@ -1905,6 +1913,22 @@
           "jogadores": "Manutencao",
           "organizador": "Manutencao"
         },
+        "2_15": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 15,
+          "jogadores": "Taborda",
+          "organizador": "Taborda"
+        },
+        "2_17": {
+          "borda": "1h",
+          "dia": 2,
+          "duracao": 1,
+          "hora": 17,
+          "jogadores": "Thomas August",
+          "organizador": "Thomas August"
+        },
         "2_18": {
           "borda": "2h",
           "confirmacoes": {
@@ -1949,6 +1973,39 @@
           "hora": 13,
           "jogadores": "Manutencao",
           "organizador": "Manutencao"
+        },
+        "3_17": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Flavio Ferraz": true,
+            "Frank Fast": true,
+            "Marco Ribeiro": true,
+            "Nivaldo": true
+          },
+          "dia": 3,
+          "duracao": 2,
+          "expiraEm": 1762879873448,
+          "hora": 17,
+          "jogadores": "Flavio Ferraz, Frank Fast",
+          "jogadores_completo": "Flavio Ferraz, Frank Fast, Marco Ribeiro, Nivaldo",
+          "organizador": "Flavio Ferraz",
+          "status": "confirmada"
+        },
+        "3_18": {
+          "confirmacoes": {
+            "Flavio Ferraz": true,
+            "Frank Fast": true,
+            "Marco Ribeiro": true,
+            "Nivaldo": true
+          },
+          "dia": 3,
+          "duracao": 2,
+          "expiraEm": 1762879873448,
+          "hora": 18,
+          "jogadores": "Marco Ribeiro, Nivaldo",
+          "jogadores_completo": "Flavio Ferraz, Frank Fast, Marco Ribeiro, Nivaldo",
+          "organizador": "Flavio Ferraz",
+          "status": "confirmada"
         },
         "3_20": {
           "borda": "1h",
@@ -2002,7 +2059,43 @@
           "jogadores_completo": "Ivan Balboa, Caina Balboa",
           "organizador": "Ivan Balboa",
           "status": "confirmada"
+        },
+        "4_21": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Gilson Oliveira": true,
+            "Marcos Colombo": true
+          },
+          "dia": 4,
+          "duracao": 2,
+          "expiraEm": 1762868224668,
+          "hora": 21,
+          "jogadores": "Gilson Oliveira",
+          "jogadores_completo": "Gilson Oliveira, Marcos Colombo",
+          "organizador": "Gilson Oliveira",
+          "status": "confirmada"
+        },
+        "4_22": {
+          "confirmacoes": {
+            "Gilson Oliveira": true,
+            "Marcos Colombo": true
+          },
+          "dia": 4,
+          "duracao": 2,
+          "expiraEm": 1762868224668,
+          "hora": 22,
+          "jogadores": "Marcos Colombo",
+          "jogadores_completo": "Gilson Oliveira, Marcos Colombo",
+          "organizador": "Gilson Oliveira",
+          "status": "confirmada"
         }
+      }
+    },
+    "usuariosOnline": {
+      "xllafuafw": {
+        "sessionId": "xllafuafw",
+        "timestamp": 1762900834920,
+        "usuario": "RAFAEL NADAL"
       }
     },
     "version": "v1.7.9"
