@@ -3978,12 +3978,12 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v1.8.0'; // Versão atual do sistema    
+const VersaoSistema = 'v1.8.1'; // Versão atual do sistema    
 const DataVersaoSistema = '04/11/2025';   
 
-let vDesabilitarF12 = false; // deixar true para fazer o deploy    
-let vAbrirSistema = false; // deixar true para fazer o deploy
-let vPermitirExclusaoAposJogo = true; // Mude para true para permitir que usuários comuns excluam jogos passados durante os testes.
+let vDesabilitarF12 = true; // deixar true para fazer o deploy    
+let vAbrirSistema = true; // deixar true para fazer o deploy
+let vPermitirExclusaoAposJogo = false; // Mude para true para permitir que usuários comuns excluam jogos passados durante os testes.
 
 //********************************************************
 
@@ -9937,16 +9937,15 @@ function calcularVencedorPiramide() {
 // VERSÃO CORRIGIDA E ROBUSTA com LOGS para 'salvarResultadoPiramide'
 // VERSÃO CORRIGIDA E ROBUSTA com LOGS para 'salvarResultadoPiramide'
 async function salvarResultadoPiramide() {
-    console.log("--- FUNÇÃO salvarResultadoPiramide INICIADA --- [Clique em Salvar]");
+    
     
     // ⚠️ Proteção CRÍTICA: Se a variável global não foi definida, para a execução.
     if (!reservaResultadoEmEdicao) {
-        console.error("ERRO CRÍTICO: reservaResultadoEmEdicao é nulo. Congelamento evitado.");
         mostrarNotificacao("Erro interno. Tente fechar e reabrir a janela de edição.", 'error');
         document.getElementById('modalResultadoPiramide').style.display = 'none'; 
         return; 
     }
-    console.log("CHECKPOINT 1: Variável Global OK.");
+
 
 
     const { reserva, key, quadra, jogador1, jogador2 } = reservaResultadoEmEdicao;
@@ -9956,7 +9955,6 @@ async function salvarResultadoPiramide() {
 
     // --- CAMINHO A: SALVAR PARCIAIS (OU MODO JOGO NORMAL INCONCLUSIVO) ---
     if (btnSalvar.textContent === 'Parciais') {
-        console.log("CHECKPOINT 2: Caminho A (Parciais).");
         try {
             // 1. Monta o objeto de resultado com o placar atual
             const resultadoParcialData = {
@@ -9973,7 +9971,7 @@ async function salvarResultadoPiramide() {
                 },
                 set3: (document.getElementById('set3-j1').value && document.getElementById('set3-j2').value) ? `${document.getElementById('set3-j1').value}x${document.getElementById('set3-j2').value}` : ""
             };
-            console.log("CHECKPOINT 3: Dados Parciais gerados.");
+            
 
             // 2. Prepara a atualização para o Firebase
             const updates = {};
@@ -9988,7 +9986,7 @@ async function salvarResultadoPiramide() {
                 updates[`sistemas/reservas/${quadra}/${key2}/status`] = 'em_andamento';
                 updates[`sistemas/reservas/${quadra}/${key2}/resultado`] = resultadoParcialData;
             }
-            console.log("CHECKPOINT 4: Atualizações (Updates) prontas.");
+            
 
 
             // 3. Executa a atualização
@@ -9996,35 +9994,32 @@ async function salvarResultadoPiramide() {
             atualizarIndicadorAba(quadra, true);
             mostrarNotificacao("Placar parcial salvo com sucesso!", 'success');
             reservaSalvaComSucesso = true;
-            console.log("CHECKPOINT 5: Transação Parcial concluída.");
+            
 
 
         } catch (error) {
-            console.error("ERRO GRAVE AO SALVAR PARCIAL:", error);
             mostrarNotificacao("Ocorreu um erro ao salvar o placar parcial.", 'error');
         } finally {
              // CRÍTICA: Força o fechamento se a transação for bem-sucedida
             if (reservaSalvaComSucesso) {
-                 console.log("CHECKPOINT 6: Fechando Modal (Sucesso Parcial).");
-                 fecharModalResultado();
+                fecharModalResultado();
             } else {
-                 console.log("CHECKPOINT 6: Fechamento do Modal ignorado (Falha Parcial).");
+                 
             }
         }
 
     // --- CAMINHO B: SALVAR RESULTADO FINAL (MODO PLACAR, W.O. OU DESISTÊNCIA) ---
     } else {
-        console.log("CHECKPOINT 2: Caminho B (Resultado Final). Modo:", modoResultado);
+        
         const jogadorLogadoCompleto = localStorage.getItem('jogadorLogado');
         let resultadoData = {};
 
         if (modoResultado === 'placar') {
-            console.log("CHECKPOINT 3: Dentro do modo Placar Final.");
+            
             calcularVencedorPiramide();
             const vencedorApelido = document.getElementById('resultado-vencedor').textContent;
 
             if (vencedorApelido === '') { 
-                console.log("Validação Falhou: Placar não define vencedor.");
                 return mostrarNotificacao("O placar inserido não define um vencedor. Por favor, corrija os valores.", 'warning');
             }
 
@@ -10033,7 +10028,6 @@ async function salvarResultadoPiramide() {
             
             // LÓGICA DE VALIDAÇÃO DE PERMISSÃO
             if (!isUsuarioAdmin() && !isUsuarioArbitro() && (jogadorLogadoCompleto.toUpperCase() !== vencedorNomeCompleto.toUpperCase())) {
-                console.log("Validação Falhou: Usuário logado não é o vencedor/Admin/Árbitro.");
                 return mostrarNotificacao("Atenção: Apenas o jogador declarado como vencedor, o árbitro ou um administrador podem salvar o resultado.", 'warning');
             }
 
@@ -10047,12 +10041,11 @@ async function salvarResultadoPiramide() {
             };
 
         } else if (modoResultado === 'wo') {
-            console.log("CHECKPOINT 3: Dentro do modo W.O.");
+            
             const vencedorApelido = document.getElementById('select-vencedor-wo').value;
             const motivo = document.getElementById('select-motivo-wo').value;
 
             if (!vencedorApelido || !motivo) {
-                console.log("Validação Falhou: W.O. incompleto.");
                 return mostrarNotificacao("Por favor, selecione o vencedor e o motivo do W.O.", 'warning');
             }
 
@@ -10060,7 +10053,6 @@ async function salvarResultadoPiramide() {
             const vencedorNomeCompleto = vencedorInfo ? vencedorInfo.nomeCompleto : vencedorApelido;
             // LÓGICA DE VALIDAÇÃO DE PERMISSÃO
             if (!isUsuarioAdmin() && !isUsuarioArbitro() && (jogadorLogadoCompleto.toUpperCase() !== vencedorNomeCompleto.toUpperCase())) {
-                console.log("Validação Falhou: Usuário logado não é o vencedor/Admin/Árbitro.");
                 return mostrarNotificacao("Atenção: Apenas o jogador declarado como vencedor, o árbitro ou um administrador podem salvar o resultado.", 'warning');
             }
             
@@ -10073,14 +10065,14 @@ async function salvarResultadoPiramide() {
             };
 
         } else if (modoResultado === 'desistencia') {
-            console.log("CHECKPOINT 3: Dentro do modo Desistência.");
+            
             const desistente = document.getElementById('select-desistente').value;
             const motivo = document.getElementById('select-motivo-desistencia').value;
             const s1j1 = document.getElementById('set1-j1').value;
             const s1j2 = document.getElementById('set1-j2').value;
 
             if (!desistente) {
-                console.log("Validação Falhou: Desistente não selecionado.");
+                
                 return mostrarNotificacao("Por favor, selecione quem desistiu da partida.", 'warning');
             }
 
@@ -10090,16 +10082,14 @@ async function salvarResultadoPiramide() {
             const vencedorNomeCompleto = vencedorInfo ? vencedorInfo.nomeCompleto : vencedorApelido;
             // LÓGICA DE VALIDAÇÃO DE PERMISSÃO
             if (!isUsuarioAdmin() && !isUsuarioArbitro() && (jogadorLogadoCompleto.toUpperCase() !== vencedorNomeCompleto.toUpperCase())) {
-                console.log("Validação Falhou: Usuário logado não é o vencedor/Admin/Árbitro.");
+                
                 return mostrarNotificacao("Atenção: Apenas o jogador declarado como vencedor, o árbitro ou um administrador podem salvar o resultado.", 'warning');
             }
 
             if (s1j1 === '' || s1j2 === '') {
-                console.log("Validação Falhou: Placar parcial obrigatório ausente.");
                 return mostrarNotificacao("Para Desistência, é obrigatório preencher o placar parcial (pelo menos do 1º Set).", 'warning');
             }
             if (!motivo) {
-                console.log("Validação Falhou: Motivo da desistência ausente.");
                 return mostrarNotificacao("Por favor, selecione o motivo da desistência.", 'warning');
             }
             
@@ -10116,10 +10106,10 @@ async function salvarResultadoPiramide() {
             };
         }
 
-        console.log("CHECKPOINT 4: Chamando executarSalvamentoResultado.");
+        
         executarSalvamentoResultado(resultadoData);
     }
-    console.log("--- FUNÇÃO salvarResultadoPiramide FIM ---");
+    
 }
 
 
@@ -10210,12 +10200,12 @@ async function executarSalvamentoResultado(resultadoData) {
 // Função que fecha o modal, agora com logs de diagnóstico
 // SUBSTITUA SUA FUNÇÃO fecharModalResultado PELA VERSÃO ABAIXO
 function fecharModalResultado() {
-    console.log("--- FUNÇÃO fecharModalResultado INICIADA --- [Clique em Cancelar]");
+    
     
     const modal = document.getElementById('modalResultadoPiramide');
     if (modal) {
         modal.style.display = 'none'; // FORÇA FECHAMENTO
-        console.log("CHECKPOINT CANCEL 1: Modal ocultado via CSS.");
+        
     }
 
     try {
@@ -10224,12 +10214,12 @@ function fecharModalResultado() {
         if (typeof isArbitroEditing !== 'undefined') {
             isArbitroEditing = false;
         }
-        console.log("CHECKPOINT CANCEL 2: Variaveis globais resetadas (try...catch).");
+        
     } catch(e) {
-        console.error("AVISO: Falha ao resetar variáveis no fecharModalResultado. Ignorando.", e);
+        
     }
     
-    console.log("--- FUNÇÃO fecharModalResultado FIM ---");
+    
 }
 
 
@@ -10948,10 +10938,30 @@ async function atualizarEExibirProximaReserva() {
             const duracao = reserva.duracao === 3 ? 2 : (reserva.duracao || 1);
             if (reserva.dia === hojeIndex && (reserva.hora + duracao) <= horaAtual) continue;
 
-            // Usa o apelido calculado para checar a participação
-            const jogadores = (reserva.jogadores_completo || reserva.jogadores || "").split(',').map(j => j.trim());
-            const isParticipante = jogadores.some(j => j.toUpperCase() === jogadorLogadoApelido.toUpperCase());
+            // =========================================================================
+            //  BLOCO DE CORREÇÃO: RECONSTROI A LISTA COMPLETA DE APELIDOS PARA CHECAGEM
+            // =========================================================================
+            // 1. Inicia com os jogadores da primeira hora
+            let jogadoresNaReserva = (reserva.jogadores_completo || reserva.jogadores || "").split(',').map(j => j.trim());
+            
+            // 2. Adiciona jogadores da segunda hora (para reservas de 2h/Pirâmide)
+            if (reserva.duracao > 1) {
+                const keySegundaHora = `${reserva.dia}_${reserva.hora + 1}`;
+                const reservaSegundaParte = todasAsReservas[quadra]?.[keySegundaHora];
+                
+                if (reservaSegundaParte && reservaSegundaParte.jogadores) {
+                    const jogadoresParte2 = reservaSegundaParte.jogadores.split(',').map(j => j.trim());
+                    jogadoresNaReserva.push(...jogadoresParte2);
+                }
+            }
+            
+            // 3. Limpa vazios e remove apelidos duplicados (garantindo Nadal e Federer)
+            jogadoresNaReserva = [...new Set(jogadoresNaReserva.filter(j => j))];
+            
+            // 4. Checa a participação usando a lista completa e robusta
+            const isParticipante = jogadoresNaReserva.some(j => j.toUpperCase() === jogadorLogadoApelido.toUpperCase());
             const statusJogador = reserva.confirmacoes ? reserva.confirmacoes[jogadorLogadoApelido] : undefined;
+            // =========================================================================
 
             if (isParticipante && statusJogador !== 'recusado') {
                 const reservaInfo = { ...reserva, quadra, key };
@@ -10970,7 +10980,7 @@ async function atualizarEExibirProximaReserva() {
 
     if (proximaReserva) {
         
-        // --- INÍCIO DA CORREÇÃO PARA RESERVAS DE 2 HORAS (Duracao > 1) ---
+        // --- RECONSTROI A LISTA COMPLETA DE JOGADORES PARA RENDERIZAÇÃO ---
         let jogadoresNaReserva = (proximaReserva.jogadores_completo || proximaReserva.jogadores || "").split(',').map(j => j.trim());
 
         // Se a reserva é de 2 ou 3 horas, buscamos a próxima entrada (a segunda hora)
@@ -10989,7 +10999,7 @@ async function atualizarEExibirProximaReserva() {
         
         // Remove quaisquer vazios e apelidos duplicados (usando Set)
         jogadoresNaReserva = [...new Set(jogadoresNaReserva.filter(j => j))];
-        // --- FIM DA CORREÇÃO PARA RESERVAS DE 2 HORAS ---
+        // --- FIM DA RECONSTRUÇÃO PARA RENDERIZAÇÃO ---
 
 
         // Função interna de renderização
@@ -11040,7 +11050,7 @@ async function atualizarEExibirProximaReserva() {
                     <p><strong>Com:</strong> ${parceirosHtml}</p>
                 </div>
                 <div class="agenda-botoes"> 
-                    <button onclick="abrirModalReserva('${proximaReserva.quadra}', '${proximaReserva.key}', true)" class="btn-detalhes-agenda">Detalhes</button>
+                    <button onclick="exibirDetalhesReserva(proximaReserva, '${proximaReserva.key}', '${proximaReserva.quadra}')" class="btn-detalhes-agenda">Detalhes</button>
                 </div>
             `;
             
@@ -11073,8 +11083,7 @@ async function atualizarEExibirProximaReserva() {
         if (agendaTrigger) agendaTrigger.style.display = 'flex'; 
         return null;
     }
-}
-// =================================================================
+}// =================================================================
 
 
 
