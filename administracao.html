@@ -41,8 +41,8 @@
     .grid-container {
         display: grid;
         gap: 1.5rem; /* gap-6 */
-        /* DESKTOP: 2 COLUNAS */
-        grid-template-columns: repeat(2, 1fr);
+        /* ALTERADO: DESKTOP: 6 COLUNAS para alinhar 3 em cima e 2 embaixo */
+        grid-template-columns: repeat(6, 1fr);
         max-width: 64rem; /* max-w-5xl */
         margin-left: auto;
         margin-right: auto;
@@ -88,35 +88,43 @@
 
     /* DEFINIÇÃO DO TAMANHO DOS ÍCONES (DESKTOP) */
     .icon-svg {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 2rem; /* Reduzido de 2.5rem para caber no novo layout */
+        height: 2rem; /* Reduzido de 2.5rem para caber no novo layout */
     }
     .icon-material {
-        font-size: 40px;
+        font-size: 32px; /* Reduzido de 40px para caber no novo layout */
     }
 
 
-    /* ESTILO DOS BOTÕES MAIORES (Sempre 2 colunas - DESKTOP) */
+    /* ESTILO DOS BOTÕES MAIORES (Agora 3 botões em uma linha) */
     .large-button {
+        /* ALTERADO: Ocupa 2 de 6 colunas, permitindo 3 botões lado a lado */
         grid-column: span 2 / span 2;
-        flex-direction: row;
+        /* ALTERADO: Layout vertical (ícone em cima, texto em baixo) */
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        gap: 1rem;
-        padding: 1.5rem 1.5rem;
+        gap: 0.5rem; /* Ajustado */
+        padding: 1.5rem 1rem; /* Ajustado */
+        text-align: center; /* Novo */
     }
     .large-button > div {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 1rem;
+        /* Oculta o div wrapper interno da versão antiga (hidden-mobile) */
+        display: none;
+    }
+    .large-button .title-lg {
+        /* Ajustado para acomodar os títulos mais longos em 2 colunas */
+        font-size: 1.35rem; 
+        white-space: normal; /* Permite quebrar linha para títulos longos */
     }
     .large-button .subtitle {
          color: #ffffff;
     }
 
-    /* ESTILO DOS BOTÕES MENORES (Sempre 1 coluna - DESKTOP) */
+    /* ESTILO DOS BOTÕES MENORES (Agora precisam ocupar 3 de 6 colunas para manter o layout de 2 colunas) */
     .small-button {
-        grid-column: span 1 / span 1;
+        /* ALTERADO: Ocupa 3 de 6 colunas, simulando o layout de 2 colunas originais e garantindo o alinhamento das bordas. */
+        grid-column: span 3 / span 3;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -150,36 +158,49 @@
             white-space: normal;
         }
         .hidden-desktop {
-            display: grid !important; /* NOVO GRUPO MOBILE (display: grid) VISÍVEL */
+            display: flex !important; /* NOVO GRUPO MOBILE VISÍVEL (flex) */
+            gap: 0; /* CHAVE: Remove o gap do container pai */
         }
         .hidden-mobile {
             display: none !important; /* BOTÕES GRANDES ORIGINAIS OCULTOS */
         }
 
         .grid-container {
-            gap: 0.5rem;
-            /* MOBILE: 1 COLUNA (Faz com que todos os itens filhos se empilhem por padrão) */
+            gap: 0.5rem; 
             grid-template-columns: 1fr;
             width: 100%;
         }
 
         /* NOVO: Container Mobile para os 3 Primeiros Itens */
         .top-mobile-row {
-            display: grid;
-            /* Sistema (3 partes) | Config (1 parte) | Cadastro (1 parte) */
-            grid-template-columns: 3fr 1fr 1fr;
-            gap: 0.5rem;
-            /* Ocupa a largura total da única coluna do grid-container */
+            width: 100%; 
+            display: flex; /* Garante que os filhos estejam em linha */
+            gap: 0; /* CHAVE: Remove o gap daqui também, o espaçamento será manual */
+        }
+        
+        /* DEFINIÇÃO DA LARGURA BASE DOS BOTÕES DE ÍCONE */
+        :root {
+          /* Largura do ícone (28px) + padding vertical (0.5rem * 2 = 16px) = 44px */
+          --icon-button-size: 44px;
+          --button-gap: 0.5rem; /* Variável para o espaçamento (8px) */
         }
 
         /* Botão GRANDE no Mobile (o Sistema) */
         .large-button-mobile {
-            /* Ocupa a primeira coluna do top-mobile-row (3fr) */
-            grid-column: 1 / 2;
+            /* CHAVE DE CORREÇÃO FINAL: Subtraímos 2 pixels extras no cálculo do 'Sistema' 
+               para resolver o erro de arredondamento que causou o overflow na imagem adm-cell-2.jpg. */
+            width: calc(100% - (2 * var(--icon-button-size)) - (2 * var(--button-gap)) - 15px); 
+            flex-shrink: 0;
+            flex-grow: 0;
+            
+            /* Adiciona a margem à direita para o espaçamento */
+            margin-right: var(--button-gap); 
+
             flex-direction: row;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.5rem; /* Ajustado para menor padding geral */
+            padding: 0.5rem; 
+            min-width: 0; 
         }
         .large-button-mobile .title-lg {
              font-size: 1.35rem;
@@ -197,12 +218,23 @@
 
         /* Botões ICON-ONLY no Mobile (Config/Cadastro) */
         .icon-only-button {
-            /* Ocupam as colunas 2 e 3 do grid interno */
+            /* CHAVE: Largura fixa */
+            width: var(--icon-button-size); 
+            flex-shrink: 0;
+            flex-grow: 0;
+            
             aspect-ratio: 1 / 1; /* Garante que sejam quadrados */
             align-items: center;
             justify-content: center;
             padding: 0.5rem;
         }
+        
+        /* CHAVE DE CORREÇÃO: Adicionar a margem apenas ao PRIMEIRO botão de ícone (Configurações) */
+        .top-mobile-row a:nth-child(2) {
+            margin-right: var(--button-gap);
+        }
+
+        /* O TERCEIRO botão de ícone (Cadastro) não recebe margem, forçando o alinhamento na borda direita */
         .icon-only-button .icon-material {
             font-size: 28px;
         }
@@ -306,7 +338,6 @@
 
     <a href="https://clube-olimpico.github.io/Reservas/app-reservas-novo.html"
        class="button-link large-button bg-blue-600 text-white shadow-lg hover:scale-[1.01] transition-all hidden-mobile">
-      <div class="w-full">
         <svg class="button-icon icon-svg text-white shrink-0"
              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
           <path d="M18,15A4,4 0 0,1 22,19A4,4 0 0,1 18,23A4,4 0 0,1 14,19A4,4 0 0,1 18,15
@@ -318,37 +349,26 @@
                    M18.07,3.93C16.5,2.37 13.5,2.84 11.35,5C9.21,7.14 8.73,10.15 10.29,11.71
                    C11.86,13.27 14.86,12.79 17,10.65C19.16,8.5 19.63,5.5 18.07,3.93Z" />
         </svg>
-        <div class="w-full text-center">
-          <h2 class="title-lg font-bold whitespace-nowrap">Sistema de Reservas</h2>
-          <p class="subtitle">Gerenciamento das quadras</p>
-        </div>
-      </div>
+        <h2 class="title-lg font-bold">Sistema de Reservas</h2>
+        <p class="subtitle">Gerenciamento das quadras</p>
     </a>
 
     <a href="https://clube-olimpico.github.io/Reservas/configuracoes.html"
        class="button-link large-button bg-sky-600 text-white shadow-lg hover:scale-[1.01] transition-all hidden-mobile">
-      <div class="w-full">
         <span class="material-symbols-outlined button-icon icon-material shrink-0">
           settings
         </span>
-        <div class="w-full text-center">
-          <h2 class="title-lg font-bold whitespace-nowrap">Configurações do Sistema</h2>
-          <p class="subtitle">Preferências gerais</p>
-        </div>
-      </div>
+        <h2 class="title-lg font-bold">Configurações do Sistema</h2>
+        <p class="subtitle">Preferências gerais</p>
     </a>
 
     <a href="https://clube-olimpico.github.io/Reservas/cadastro.html"
        class="button-link large-button bg-emerald-600 text-white shadow-lg hover:scale-[1.01] transition-all hidden-mobile">
-      <div class="w-full">
         <span class="material-symbols-outlined button-icon icon-material shrink-0">
           person_add
         </span>
-        <div class="w-full text-center">
-          <h2 class="title-lg font-bold whitespace-nowrap">Cadastro de Jogadores</h2>
-          <p class="subtitle">Adicionar e editar jogadores</p>
-        </div>
-      </div>
+        <h2 class="title-lg font-bold">Cadastro de Jogadores</h2>
+        <p class="subtitle">Adicionar e editar jogadores</p>
     </a>
 
     <a href="https://clube-olimpico.github.io/Reservas/manual.html"
