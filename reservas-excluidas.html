@@ -14,7 +14,7 @@
         }
 
         h1 {
-            text-align: center;
+            text-align: center; 
             font-size: 22px;
         }
 
@@ -513,11 +513,31 @@ function exibirLogs(lista) {
             duracaoDisplay = duracaoDisplay === 3 ? "2 Horas - Pirâmide" : duracaoDisplay === 2 ? "2 Horas" : "1 Hora";
         }
 
+        // ==========================================================
+        // ===== INÍCIO DA MODIFICAÇÃO (SEPARAÇÃO JOGADORES/CONVIDADOS) =====
+        // ==========================================================
         let listaDeApelidos = [];
         if (Array.isArray(log.jogadores)) {
             listaDeApelidos = log.jogadores.map(j => (typeof j === 'object' ? j.apelido : j));
         }
-        let jogadoresHtml = listaDeApelidos.join(', ');
+
+        // 1. Filtra os sócios
+        const socios = listaDeApelidos.filter(j => !j.startsWith("Convidado"));
+        // 2. Filtra os convidados E remove o prefixo
+        const convidados = listaDeApelidos
+            .filter(j => j.startsWith("Convidado - "))
+            .map(j => j.replace("Convidado - ", "")); // Remove o prefixo
+
+        // 3. Prepara o HTML dos sócios
+        let jogadoresHtml = socios.join(', ');
+        // 4. Prepara o HTML dos convidados (só se existir)
+        let convidadosHtml = ''; 
+        if (convidados.length > 0) {
+            convidadosHtml = `<p>Convidados: ${convidados.join(', ')}</p>`;
+        }
+        // ==========================================================
+        // ===== FIM DA MODIFICAÇÃO =====
+        // ==========================================================
         
         let resultadoHtml = '';
         const resultadoId = `resultado-${log.id}`;
@@ -576,6 +596,7 @@ function exibirLogs(lista) {
             <p>${log.quadra} | ${log.horario}</p>
             <p>Duração: ${duracaoDisplay || 'N/A'}</p>
             <p>Jogadores: ${jogadoresHtml}</p>
+            ${convidadosHtml} 
             ${resultadoHtml}
             <p>Excluído por: <strong>${log.usuario || 'N/A'}</strong></p>
             ${detalhesConfirmacao}
@@ -586,7 +607,6 @@ function exibirLogs(lista) {
     logsContainer.appendChild(fragment);
     document.getElementById('total-registros').textContent = `Total de registros: ${lista.length}`;
 }
-
 
 
 // Substitua sua função solicitarExclusaoLog por esta
