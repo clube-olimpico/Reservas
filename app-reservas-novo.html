@@ -3072,6 +3072,47 @@ body.dark-mode .modern-select {
 /* ================================================================= */
 
 
+
+/* ================================================================= */
+/* Estilo para os inputs do modal de convidados */
+.convidado-nome-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Garante que o padding não estoure a largura */
+}
+
+body.dark-mode .convidado-nome-input {
+    background-color: #333;
+    color: #fff;
+    border-color: #555;
+}
+/* --- INÍCIO DA CORREÇÃO (Etapa 7) --- */
+/* Aplica o estilo base (sem bullets) para a lista de convidados */
+#modal-convidados ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+/* Aplica a linha separadora em cada item da lista de convidados */
+#modal-convidados li {
+    padding: 5px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+#modal-convidados li:last-child {
+    border-bottom: none;
+}
+
+/* Garante que a linha separadora funcione no Modo Escuro */
+body.dark-mode #modal-convidados li {
+    border-bottom-color: #444;
+}
+/* --- FIM DA CORREÇÃO --- */
+/* ================================================================= */
+
 </style>
 
 
@@ -3174,7 +3215,7 @@ body.dark-mode .modern-select {
         <div class="jogadores-container" id="jogadoresContainer">
 			<div class="form-row">
 				<label for="jogador1">Jogador:</label>
-				<select id="jogador1" name="jogador" required style="width: 100px;">
+				<select id="jogador1" name="jogador" required style="width: 100px;" onchange="handleConvidadoSelect(this)">
 					<option value="">Selecione um jogador</option>
 				</select>
 				<span class="add-jogador" onclick="adicionarJogador()">+</span>
@@ -3345,6 +3386,11 @@ body.dark-mode .modern-select {
         <div id="modal-jogadores">
         </div>
 
+        <div id="container-convidados" style="display: none; margin-top: 10px;">
+            <p style="margin-bottom: 2px; margin-top: 0;"><strong>Convidados</strong></p>
+            <div id="modal-convidados">
+                </div>
+        </div>
         <div id="modal-resultado-container" style="display: none; margin-top: 15px;">
             <hr>
             <p style="margin-bottom: 0px;margin-top: -10px;"><strong id="modal-resultado-titulo">Resultado do Jogo:</strong></p>
@@ -3360,40 +3406,7 @@ body.dark-mode .modern-select {
         </div>
         
     </div>
-</div><div id="modalDetalhesReserva" class="modal-overlay">
-    <div class="modal-content-reserva">
-        <span class="close-button" onclick="fecharModalDetalhes()">&times;</span>
-        <h3>Detalhes da Reserva</h3>
-        <p><strong>Quadra:</strong> <span id="modal-quadra"></span></p>
-        <p><strong>Dia:</strong> <span id="modal-dia"></span></p>
-        <p><strong>Data:</strong> <span id="modal-data"></span></p>
-        <p><strong>Horário:</strong> <span id="modal-horario"></span></p>
-        <p><strong>Duração:</strong> <span id="modal-duracao"></span></p>
-        <p><strong>Status:</strong> <span id="modal-status"></span></p>
-        <p id="p-expira-em" style="display: none;"><strong>Expira em:</strong> <span id="modal-expira-em" style="font-weight: bold; color: #dc3545;"></span></p>
-        <p><strong>Organizador(a):</strong> <span id="modal-organizador"></span></p>
-        <hr>
-        <p style="margin-bottom: 2px;margin-top: -10px;"><strong>Jogadores</strong></p>
-        <div id="modal-jogadores">
-        </div>
-
-        <div id="modal-resultado-container" style="display: none; margin-top: 15px;">
-            <hr>
-            <p style="margin-bottom: 0px;margin-top: -10px;"><strong id="modal-resultado-titulo">Resultado do Jogo:</strong></p>
-            <div id="modal-resultado-placar">
-            </div>
-        </div>
-
-        <div id="container-btn-placar-ao-vivo" style="display: none; text-align: center; margin-top: 15px;">
-            <hr>
-            <button id="btn-placar-ao-vivo" style="background-color: #333; color: white; width: auto !important; padding: 10px 20px; font-weight: bold; border-radius: 5px;">
-                👁️ Ver Placar Ao Vivo
-            </button>
-        </div>
-        
-    </div>
 </div>
-
 
 	
 <div id="placarAoVivoOverlay" class="placar-ao-vivo-overlay">
@@ -3709,6 +3722,24 @@ body.dark-mode .modern-select {
 </div>
 
 
+<div id="modalInputNomeOverlay" class="modal-overlay">
+    <div class="modal-content" style="max-width: 400px;">
+        <h3 id="modalInputNomeTitulo" style="margin-top: 0; text-align: center;">Identificar Convidado</h3>
+        <p id="modalInputNomeMensagem" style="text-align: center; font-size: 0.9em; color: #666; margin-bottom: 20px;">
+            Por favor, digite o nome completo do convidado:
+        </p>
+        
+        <input type="text" id="inputNomeConvidado" class="convidado-nome-input">
+        
+        <div style="display: flex; justify-content: center; gap: 10px; margin-top: 25px;">
+            <button id="btnConfirmarInputNome" style="background-color: #28a745; width: auto !important; padding: 10px 20px;">Confirmar</button>
+            <button id="btnCancelarInputNome" style="background-color: #6c757d; width: auto !important; padding: 10px 20px;">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+
+
 <div id="infoModalOverlay" class="modal-overlay">
     <div id="infoModalContent">
         <h3>Sobre o Sistema</h3>
@@ -3969,6 +4000,65 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
     });
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    
+    // ... (código do toggleSenha, código do FAB, etc.) ...
+
+    // --- CÓDIGO DO PAINEL "SOBRE O SISTEMA" ---
+    const gatilhoPainel = document.getElementById('VersaoSistema');
+    // ... (mais código) ...
+    if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
+        // ... (toda a lógica de clique do painel) ...
+        modalOverlay.addEventListener('click', (event) => {
+            if (event.target === modalOverlay) {
+                fecharModal();
+            }
+        });
+    }
+    // --- FIM DO BLOCO "SOBRE O SISTEMA" ---
+
+
+    // ==========================================================
+    // COLE O NOVO BLOCO AQUI
+    // ==========================================================
+    // Conecta os botões do novo modal de input de nome
+    const btnConfirmarInput = document.getElementById('btnConfirmarInputNome');
+    if (btnConfirmarInput) {
+        btnConfirmarInput.onclick = confirmarNomeConvidado;
+    }
+
+    const btnCancelarInput = document.getElementById('btnCancelarInputNome');
+    if (btnCancelarInput) {
+        btnCancelarInput.onclick = cancelarNomeConvidado;
+    }
+
+    // Permite fechar clicando fora
+    const modalInputOverlay = document.getElementById('modalInputNomeOverlay');
+    if (modalInputOverlay) {
+        modalInputOverlay.addEventListener('click', (event) => {
+            if (event.target === modalInputOverlay) {
+                cancelarNomeConvidado();
+            }
+        });
+    }
+
+    // Permite confirmar com "Enter"
+    const inputNomeModal = document.getElementById('inputNomeConvidado');
+    if (inputNomeModal) {
+        inputNomeModal.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Impede o envio de formulário
+                confirmarNomeConvidado();
+            }
+        });
+    }
+    // ==========================================================
+    // FIM DO NOVO BLOCO
+    // ==========================================================
+
+
+}); // <--- ESTA É A LINHA FINAL DE TODO O BLOCO
+
 
 </script>
 	
@@ -3978,16 +4068,16 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v1.8.1'; // Versão atual do sistema    
-const DataVersaoSistema = '12/11/2025';   
+const VersaoSistema = 'v1.8.2'; // Versão atual do sistema    
+const DataVersaoSistema = '16/11/2025';   
 
-let vDesabilitarF12 = false; // deixar true para fazer o deploy    
-let vAbrirSistema = false; // deixar true para fazer o deploy
-let vPermitirExclusaoAposJogo = true; // Mude para true para permitir que usuários comuns excluam jogos passados durante os testes.
+let vDesabilitarF12 = true; // deixar true para fazer o deploy    
+let vAbrirSistema = true; // deixar true para fazer o deploy
+let vPermitirExclusaoAposJogo = false; // Mude para true para permitir que usuários comuns excluam jogos passados durante os testes.
 
 //********************************************************
 
-let piramideInicioTorneio = null;
+let piramideInicioTorneio = null; 
 let piramideFimTorneio = null;
 let piramideAtivaGlobal = false;
 
@@ -4044,6 +4134,11 @@ let agendaCallback = null;
 let espectadorRef = null;
 let contadorEspectadoresRef = null;
 let contadorEspectadoresCallback = null;
+
+// Variável global para mapear IDs de <select> para nomes de convidados formatados
+let nomesConvidadosMap = {};
+// Esta variável vai guardar qual <select> (jogador1, jogador2...) está sendo editado
+let elementoSelectConvidadoAtual = null;
 
 
 //***********************************************************************************************************************************************************************
@@ -4810,30 +4905,44 @@ function carregarReservas(quadra) {
                                 if (!jogadoresArray || jogadoresArray.length === 0) return "";
                                 let nomesHtml = [];
                                 jogadoresArray.forEach(apelido => {
-                                    let nomeParaExibir = apelido.trim();
                                     
-                                    if (isPiramideGame) {
-                                        const jogadorInfo = jogadoresData[nomeParaExibir];
-                                        if (jogadorInfo && jogadorInfo.piramide && jogadorInfo.piramide !== "0") {
-                                            const piramidePos = parseInt(jogadorInfo.piramide, 10);
-                                            let displayRank = piramidePos;
-                                            if (piramidePos >= 61) { displayRank = piramidePos - 60; }
-                                            nomeParaExibir = `${displayRank} - ${apelido}`;
+                                    // ==========================================================
+                                    // ===== MODIFICAÇÃO 1 (SISTEMA DE CONFIRMAÇÃO) =====
+                                    // ==========================================================
+                                    let nomeParaExibir;
+                                    if (apelido.trim().startsWith("Convidado - ")) {
+                                        nomeParaExibir = "<strong><em>Convidado</em></strong>";
+                                    } else {
+                                        nomeParaExibir = apelido.trim();
+                                        if (isPiramideGame) {
+                                            const jogadorInfo = jogadoresData[nomeParaExibir];
+                                            if (jogadorInfo && jogadorInfo.piramide && jogadorInfo.piramide !== "0") {
+                                                const piramidePos = parseInt(jogadorInfo.piramide, 10);
+                                                let displayRank = piramidePos;
+                                                if (piramidePos >= 61) { displayRank = piramidePos - 60; }
+                                                nomeParaExibir = `${displayRank} - ${apelido}`;
+                                            }
                                         }
                                     }
+                                    // ==========================================================
+                                    // ===== FIM DA MODIFICAÇÃO 1 =====
+                                    // ==========================================================
                                     
                                     let styles = '';
                                     const status = reserva.confirmacoes ? reserva.confirmacoes[apelido.trim()] : true;
+                                    
+                                    // Lógica de estilos (intacta)
                                     if (apelido.trim().toLowerCase() === 'convidado') {
                                         styles = `color: ${isDarkMode ? 'white' : 'black'};`;
                                     } else if (status === true) {
                                         styles = `color: ${isDarkMode ? 'white' : 'black'};`;
                                     } else if (status === false) {
-                                        //styles = `color: red;`;
 										styles = `color: ${isDarkMode ? '#FFB74D' : '#EF6C00'};`;
                                     } else if (status === 'recusado') {
                                         styles = `color: red; text-decoration: line-through;`;
                                     }
+                                    
+                                    // A variável 'nomeParaExibir' já está formatada (seja com rank ou com negrito/itálico)
                                     nomesHtml.push(`<span style="${styles}">${nomeParaExibir}</span>`);
                                 });
                                 return nomesHtml.join(isPiramideGame ? '<br>' : ', ');
@@ -4846,7 +4955,8 @@ function carregarReservas(quadra) {
                             if (reserva.status === 'confirmada') {
                                 jogadoresParaExibir = todosOsJogadores.filter(apelido => {
                                     const status = reserva.confirmacoes[apelido.trim()];
-                                    const isConvidado = apelido.trim().toLowerCase() === 'convidado';
+                                    // Lógica original (intacta)
+                                    const isConvidado = apelido.trim().toLowerCase() === 'convidado' || apelido.trim().startsWith("Convidado - ");
                                     return status === true || isConvidado;
                                 });
                             } else { // 'pendente'
@@ -4870,7 +4980,7 @@ function carregarReservas(quadra) {
                             
                             cell.innerHTML = getStyledNames(jogadoresParte1, isPiramide);
 							
-                            // --- ADIÇÃO DO INDICADOR "AO VIVO" ---
+                            // --- ADIÇÃO DO INDICADOR "AO VIVO" --- (Lógica intacta)
 							if (reserva.status === 'em_andamento' && reserva.borda) {
 								cell.style.position = 'relative'; // Necessário para posicionar o indicador
 								cell.innerHTML = '<span class="live-indicator"></span>' + cell.innerHTML;
@@ -4924,9 +5034,16 @@ function carregarReservas(quadra) {
 							}
                             else if (reserva.duracao === 3 || (reservas[`${dia}_${hora - 1}`] && reservas[`${dia}_${hora - 1}`].duracao === 3)) {
                                 corFundo = corPiramide;
-                                cell.style.color = ''; // <-- CORREÇÃO ADICIONADA AQUI
+                                cell.style.color = '';
                                 const jogadoresArray = jogadoresVisiveis.split(', ');
+                                
+                                // ==========================================================
+                                // ===== MODIFICAÇÃO 2 (PIRÂMIDE - CÉLULA 1) =====
+                                // ==========================================================
                                 const jogadoresFormatados = jogadoresArray.map(apelido => {
+                                    if (apelido.trim().startsWith("Convidado - ")) {
+                                        return "<strong><em>Convidado</em></strong>";
+                                    }
                                     const jogadorInfo = jogadoresData[apelido.trim()];
                                     if (jogadorInfo && jogadorInfo.piramide && jogadorInfo.piramide !== "0") {
                                         const piramidePos = parseInt(jogadorInfo.piramide, 10);
@@ -4936,8 +5053,11 @@ function carregarReservas(quadra) {
                                     return apelido;
                                 });
                                 cell.innerHTML = jogadoresFormatados.join('<br>');
+                                // ==========================================================
+                                // ===== FIM DA MODIFICAÇÃO 2 =====
+                                // ==========================================================
 								
-								// --- ADIÇÃO DO INDICADOR "AO VIVO" ---
+								// --- ADIÇÃO DO INDICADOR "AO VIVO" --- (Lógica intacta)
 								if (reserva.status === 'em_andamento' && reserva.borda) {
 									cell.style.position = 'relative'; // Necessário para posicionar o indicador
 									cell.innerHTML = '<span class="live-indicator"></span>' + cell.innerHTML;
@@ -4947,16 +5067,27 @@ function carregarReservas(quadra) {
                             }
                             else {
                                 corFundo = reserva.duracao === 1 ? corReserva1h : corReserva2h;
-                                cell.innerHTML = jogadoresVisiveis;
+                                
+                                // ==========================================================
+                                // ===== MODIFICAÇÃO 3 (NORMAL 1H/2H - CÉLULA 1) =====
+                                // ==========================================================
+                                const jogadoresFormatados = jogadoresVisiveis.split(', ').map(j => {
+                                    if (j.startsWith("Convidado - ")) return "<strong><em>Convidado</em></strong>";
+                                    return j;
+                                }).join(', ');
+                                cell.innerHTML = jogadoresFormatados;
+                                // ==========================================================
+                                // ===== FIM DA MODIFICAÇÃO 3 =====
+                                // ==========================================================
 								
-								// --- ADIÇÃO DO INDICADOR "AO VIVO" ---
+								// --- ADIÇÃO DO INDICADOR "AO VIVO" --- (Lógica intacta)
 								if (reserva.status === 'em_andamento' && reserva.borda) {
 									cell.style.position = 'relative'; // Necessário para posicionar o indicador
 									cell.innerHTML = '<span class="live-indicator"></span>' + cell.innerHTML;
 								}
 								// --- ADIÇÃO DO INDICADOR "AO VIVO" ---
 								
-                                cell.style.color = ''; // <-- CORREÇÃO ADICIONADA AQUI
+                                cell.style.color = '';
                             }
 
                             cell.style.backgroundColor = corFundo;
@@ -4977,7 +5108,14 @@ function carregarReservas(quadra) {
                                         
                                         if (reserva.duracao === 3) {
                                             const jogadoresArray2 = jogadoresVisiveisParte2.split(', ');
+                                            
+                                            // ==========================================================
+                                            // ===== MODIFICAÇÃO 4 (PIRÂMIDE - CÉLULA 2) =====
+                                            // ==========================================================
                                             const jogadoresFormatados2 = jogadoresArray2.map(apelido => {
+                                                if (apelido.trim().startsWith("Convidado - ")) {
+                                                    return "<strong><em>Convidado</em></strong>";
+                                                }
                                                 const jogadorInfo = jogadoresData[apelido.trim()];
                                                 if (jogadorInfo && jogadorInfo.piramide && jogadorInfo.piramide !== "0") {
                                                     const piramidePos = parseInt(jogadorInfo.piramide, 10);
@@ -4987,8 +5125,21 @@ function carregarReservas(quadra) {
                                                 return apelido;
                                             });
                                             cell2.innerHTML = jogadoresFormatados2.join('<br>');
+                                            // ==========================================================
+                                            // ===== FIM DA MODIFICAÇÃO 4 =====
+                                            // ==========================================================
                                         } else {
-                                            cell2.innerHTML = jogadoresVisiveisParte2;
+                                            // ==========================================================
+                                            // ===== MODIFICAÇÃO 5 (NORMAL 2H - CÉLULA 2) =====
+                                            // ==========================================================
+                                            const jogadoresFormatados2 = jogadoresVisiveisParte2.split(', ').map(j => {
+                                                if (j.startsWith("Convidado - ")) return "<strong><em>Convidado</em></strong>";
+                                                return j;
+                                            }).join(', ');
+                                            cell2.innerHTML = jogadoresFormatados2;
+                                            // ==========================================================
+                                            // ===== FIM DA MODIFICAÇÃO 5 =====
+                                            // ==========================================================
                                         }
                                         cell2.style.backgroundColor = corFundo;
 										cell2.style.color = '';
@@ -5006,7 +5157,6 @@ function carregarReservas(quadra) {
         configurarEventosDaTabela();
     });
 }
-
 
 
 
@@ -5450,6 +5600,9 @@ window.adicionarJogador = function() {
         const novoSelect = document.createElement('select');
         novoSelect.id = `jogador${jogadorCount}`;
         novoSelect.name = `jogador${jogadorCount}`;
+		
+		novoSelect.setAttribute('onchange', 'handleConvidadoSelect(this)');
+		
         
         // 1. Copia as opções do primeiro campo, que tem a lista completa.
         const primeiroSelect = document.getElementById('jogador1');
@@ -5503,16 +5656,25 @@ const hoje = new Date();
 const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay(); // Ajusta Domingo para 7
 const isReservaParaHoje = (diaSelecionado === diaDaSemanaHoje);
 
-    const jogadores = [];
-    for (let i = 1; i <= jogadorCount; i++) {
-        let jogadorSelect = document.getElementById(`jogador${i}`);
-        if (jogadorSelect) {
-            let apelido = jogadorSelect.value;
-            if (apelido) {
-                jogadores.push(apelido);
-            }
-        }
-    }
+    // Limpa o mapa de convidados após o uso para a próxima reserva
+	const jogadores = [];
+	for (let i = 1; i <= jogadorCount; i++) {
+		let jogadorSelect = document.getElementById(`jogador${i}`);
+		if (jogadorSelect) {
+			let apelido = jogadorSelect.value; // ex: "Convidado" ou "Taborda"
+
+			// Verifica se o valor é "Convidado" E se temos um nome no mapa para ele
+			if (apelido === "Convidado" && nomesConvidadosMap[jogadorSelect.id]) {
+				// Se sim, usa o nome formatado do mapa
+				jogadores.push(nomesConvidadosMap[jogadorSelect.id]);
+			} else if (apelido) {
+				// Se não, usa o valor normal (ex: "Taborda" ou um "Convidado - Nome" de uma seleção anterior)
+				jogadores.push(apelido);
+			}
+		}
+	}
+	// Limpa o mapa para a próxima reserva
+	nomesConvidadosMap = {};
 
     //if (jogadores.length === 0) { alert('Selecione pelo menos 1 jogador.'); return; }
 	if (jogadores.length === 0) { mostrarNotificacao('Selecione pelo menos 1 jogador.', 'error'); return; }
@@ -5556,14 +5718,16 @@ const isReservaParaHoje = (diaSelecionado === diaDaSemanaHoje);
     const duracao = parseInt(document.getElementById('duracao').value);
 	
 	
-	const isApenasConvidado = jogadores.length === 1 && jogadores[0] === "Convidado";
+	//const isApenasConvidado = jogadores.length === 1 && jogadores[0] === "Convidado";
+	const isApenasConvidado = jogadores.length > 0 && jogadores.every(j => j.startsWith("Convidado"));
     if (isApenasConvidado) {
         mostrarNotificacao("Reservas não podem conter apenas Convidados. É necessário um sócio acompanhando.", 'error');
         limparCampos();
         return;
     }
 
-    const isConvidado = jogadores.includes("Convidado");
+    //const isConvidado = jogadores.includes("Convidado");
+	const isConvidado = jogadores.some(j => j.startsWith("Convidado"));
 	if (isConvidado) {
 		// Agora, em vez de buscar no banco, usamos a variável global.
 		const convidadoConfig = convidadoConfigGlobais;
@@ -8174,6 +8338,12 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
             const textColor = isDarkMode ? '#e0e0e0' : '#343a40';
             const maintenanceHtml = `<div style="padding: 15px; border: 1px solid ${borderColor}; border-radius: 8px; background-color: ${backgroundColor}; text-align: center; margin-top: 10px;"><strong style="font-size: 1.1em; color: ${textColor}; line-height: 1.4;">Este horário está reservado para a manutenção periódica da quadra.</strong></div>`;
             jogadoresDiv.innerHTML = maintenanceHtml;
+            
+            // ==========================================================
+            // ===== ADIÇÃO: Garante que o container de convidados fique oculto para manutenção =====
+            document.getElementById('container-convidados').style.display = 'none';
+            // ==========================================================
+
         } else {
             // --- INÍCIO DA CORREÇÃO ---
             let listaDeApelidos = [];
@@ -8257,47 +8427,79 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
                 statusElement.style.color = isDarkMode ? '#66BB6A' : 'green';
             }
             const temResultado = reserva.resultado || reserva.resultadoDuplas;
-            if (temResultado) {
-                    const tituloResultado = document.getElementById('modal-resultado-titulo');
-                    if (reserva.status === 'em_andamento') {
-                        tituloResultado.textContent = 'Placar em Andamento:';
-                    } else {
-                        tituloResultado.textContent = 'Resultado do Jogo:';
-                    }
-                    // --- SUBSTITUA A LINHA ABAIXO ---
-                    // jogadoresDiv.innerHTML = `<p style="margin: 0; font-size: 0.95em;"><em>${listaDeApelidos.map(j => capitalizarNome(j)).join(', ')}</em></p>`;
-                    // --- PELA LÓGICA CORRETA ABAIXO ---
-                    const nomesCompletosParaExibir = listaDeApelidos.map(apelido => {
-                        const jogadorInfo = jogadoresData[apelido.trim()];
-                        return jogadorInfo ? capitalizarNome(jogadorInfo.nomeCompleto) : capitalizarNome(apelido);
-                    });
-                    jogadoresDiv.innerHTML = `<p style="margin: 0; font-size: 0.95em;"><em>${nomesCompletosParaExibir.join(', ')}</em></p>`;
-                    // --- FIM DA SUBSTITUIÇÃO ---
-                    resultadoContainer.style.display = 'block';
-                    if (reserva.resultado && listaDeApelidos.length >= 2) { // Adiciona verificação de segurança
-                        resultadoPlacarDiv.innerHTML = gerarPlacarHtml(reserva.resultado, listaDeApelidos[0], listaDeApelidos[1]);
-                    } else if (reserva.resultadoDuplas) {
-                        resultadoPlacarDiv.innerHTML = gerarPlacarDuplasHtml(reserva.resultadoDuplas);
-                    }
+
+            // ==========================================================
+            // ===== INÍCIO DA MODIFICAÇÃO (SEPARAÇÃO SÓCIOS/CONVIDADOS) =====
+            // ==========================================================
+
+            // Filtra a lista de apelidos
+            const socios = listaDeApelidos.filter(j => !j.startsWith("Convidado"));
+            const convidados = listaDeApelidos
+                .filter(j => j.startsWith("Convidado - "))
+                .map(j => j.replace("Convidado - ", "")); // Remove o prefixo
+
+            // Pega os containers do HTML
+            const containerConvidados = document.getElementById('container-convidados');
+            const divConvidados = document.getElementById('modal-convidados');
+
+            // Preenche e exibe o container de Convidados (se houver)
+            if (convidados.length > 0) {
+                let convidadosHtml = '<ul>';
+                convidados.forEach(nome => {
+                    convidadosHtml += `<li>${nome}</li>`; // Mostra o nome limpo
+                });
+                convidadosHtml += '</ul>';
+                divConvidados.innerHTML = convidadosHtml;
+                containerConvidados.style.display = 'block';
             } else {
+                divConvidados.innerHTML = '';
+                containerConvidados.style.display = 'none';
+            }
+
+            // Preenche o container de Jogadores (SÓCIOS)
+            if (temResultado) {
+                // Se tem resultado, mostra os nomes dos sócios em linha (como antes)
+                const nomesCompletosSocios = socios.map(apelido => {
+                    const jogadorInfo = jogadoresData[apelido.trim()];
+                    return jogadorInfo ? capitalizarNome(jogadorInfo.nomeCompleto) : capitalizarNome(apelido);
+                });
+                jogadoresDiv.innerHTML = `<p style="margin: 0; font-size: 0.95em;"><em>${nomesCompletosSocios.join(', ')}</em></p>`;
+                
+                // Lógica de resultado (intacta)
+                resultadoContainer.style.display = 'block';
+                const tituloResultado = document.getElementById('modal-resultado-titulo');
+                if (reserva.status === 'em_andamento') {
+                    tituloResultado.textContent = 'Placar em Andamento:';
+                } else {
+                    tituloResultado.textContent = 'Resultado do Jogo:';
+                }
+                if (reserva.resultado && listaDeApelidos.length >= 2) { 
+                    resultadoPlacarDiv.innerHTML = gerarPlacarHtml(reserva.resultado, listaDeApelidos[0], listaDeApelidos[1]);
+                } else if (reserva.resultadoDuplas) {
+                    resultadoPlacarDiv.innerHTML = gerarPlacarDuplasHtml(reserva.resultadoDuplas);
+                }
+            } else {
+                // Se não tem resultado, mostra a lista de sócios com status
                 let jogadoresHtml = '<ul>';
-                listaDeApelidos.forEach(apelido => {
+                socios.forEach(apelido => { // <<-- USA A LISTA 'socios'
                     let statusTexto = '';
+                    // Lógica de status (intacta)
                     if (reserva.confirmacoes && apelido.toLowerCase() !== 'convidado') {
                         const status = reserva.confirmacoes[apelido];
                         if (status === true) statusTexto = '<span class="status-confirmado">(✓ Confirmado)</span>';
                         else if (status === false) statusTexto = '<span class="status-pendente">(❓ Pendente)</span>';
                         else if (status === 'recusado') statusTexto = '<span class="status-recusado">(✗ Recusado)</span>';
                     }
-                    // --- INÍCIO DA MODIFICAÇÃO: MOSTRAR NOME COMPLETO ---
                     const jogadorInfo = jogadoresData[apelido.trim()];
-                    const nomeParaExibir = jogadorInfo ? capitalizarNome(jogadorInfo.nomeCompleto) : capitalizarNome(apelido); // Usa nome completo se disponível
+                    const nomeParaExibir = jogadorInfo ? capitalizarNome(jogadorInfo.nomeCompleto) : capitalizarNome(apelido);
                     jogadoresHtml += `<li>${nomeParaExibir} ${statusTexto}</li>`;
-                    // --- FIM DA MODIFICAÇÃO ---
                 });
                 jogadoresHtml += '</ul>';
-                document.getElementById('modal-jogadores').innerHTML = jogadoresHtml;
+                jogadoresDiv.innerHTML = jogadoresHtml;
             }
+            // ==========================================================
+            // ===== FIM DA MODIFICAÇÃO =====
+            // ==========================================================
         }
 		
 		// --- BLOCO FALTANTE - ADICIONADO AQUI ---
@@ -8321,7 +8523,6 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
         modal.style.display = 'flex';
     }
 }
-
 
 
 
@@ -8566,7 +8767,8 @@ function mostrarOpcoesReserva(reserva, key, quadra) {
     const podeExcluir = temPermissaoBaseParaExcluir && (isJogoFuturo || isUsuarioAdmin() || vPermitirExclusaoAposJogo);
     btnExcluir.style.display = podeExcluir ? 'block' : 'none';
     
-    const listaDeSocios = listaDeJogadores.filter(j => j.toLowerCase() !== 'convidado');
+    // Filtra TODOS os formatos de convidado ("Convidado" e "Convidado - Nome")
+    const listaDeSocios = listaDeJogadores.filter(j => !j.startsWith("Convidado"));
     
     if (btnResultadoDuplas) {
         if (reserva.resultadoDuplas) {
@@ -8579,8 +8781,14 @@ function mostrarOpcoesReserva(reserva, key, quadra) {
             };
         } 
         else {
-            //const podeInformarResultadoDuplas = (listaDeSocios.length === 4 && !isPendente && (isParticipante || isUsuarioAdmin()));
-			const podeInformarResultadoDuplas = rankingDuplasAtivo && listaDeSocios.length === 4 && !isPendente && (isParticipante || isUsuarioAdmin());
+            
+            // ==========================================================
+            // ===== A CORREÇÃO ESTÁ AQUI (adição de reserva.duracao === 2) =====
+            // ==========================================================
+			const podeInformarResultadoDuplas = rankingDuplasAtivo && reserva.duracao === 2 && listaDeSocios.length === 4 && !isPendente && (isParticipante || isUsuarioAdmin());
+            // ==========================================================
+            // ===== FIM DA CORREÇÃO =====
+            // ==========================================================
             
             if (podeInformarResultadoDuplas) {
                 btnResultadoDuplas.textContent = 'Informar Resultado';
@@ -8626,8 +8834,6 @@ function mostrarOpcoesReserva(reserva, key, quadra) {
 
     modal.style.display = 'flex';
 }
-
-
 
 
 
@@ -12772,6 +12978,84 @@ function restoreUnsavedScores() {
     // Limpar o cache temporário após a restauração para evitar contaminação
     tempUnsavedScores = {}; 
 }
+
+
+/**
+ * Chamada sempre que um dropdown de jogador é alterado.
+ * Se "Convidado" for selecionado, chama o modal de input.
+ * Se outro valor for selecionado, limpa o mapa.
+ */
+function handleConvidadoSelect(selectElement) {
+    // 1. Verifica se a opção selecionada é "Convidado"
+    if (selectElement.value === "Convidado") {
+        // Chama o nosso novo modal elegante
+        mostrarModalInputNome(selectElement);
+
+    } else {
+        // Se o usuário selecionou um sócio ou um convidado já nomeado,
+        // limpa qualquer nome antigo que estava salvo para este campo.
+        delete nomesConvidadosMap[selectElement.id];
+    }
+}
+
+
+/**
+ * Abre o modal de input de nome e guarda qual dropdown o chamou.
+ */
+function mostrarModalInputNome(selectElement) {
+    // Guarda a referência de qual <select> estamos editando
+    elementoSelectConvidadoAtual = selectElement;
+
+    // Limpa o campo de texto do modal e foca nele
+    const inputNome = document.getElementById('inputNomeConvidado');
+    inputNome.value = '';
+    
+    // Mostra o modal
+    document.getElementById('modalInputNomeOverlay').style.display = 'flex';
+    
+    // Foca no campo de texto para o usuário já sair digitando
+    inputNome.focus();
+}
+
+/**
+ * Chamada pelo botão "Confirmar" do novo modal.
+ * Valida o nome, salva no mapa e fecha o modal.
+ */
+function confirmarNomeConvidado() {
+    if (!elementoSelectConvidadoAtual) return;
+
+    const inputNome = document.getElementById('inputNomeConvidado');
+    const nomeConvidado = inputNome.value.trim();
+
+    if (nomeConvidado !== "") {
+        // Se o usuário digitou um nome, formata e salva na "memória"
+        const nomeFormatado = `Convidado - ${capitalizarNome(nomeConvidado)}`;
+        nomesConvidadosMap[elementoSelectConvidadoAtual.id] = nomeFormatado;
+        
+        // Mantém o dropdown visualmente em "Convidado"
+        elementoSelectConvidadoAtual.value = "Convidado";
+        
+        document.getElementById('modalInputNomeOverlay').style.display = 'none';
+    } else {
+        // Se não digitou nada, avisa
+        mostrarNotificacao("O nome do convidado não pode ficar em branco.", 'error');
+    }
+}
+
+/**
+ * Chamada pelo botão "Cancelar" do novo modal.
+ * Reseta o dropdown e fecha o modal.
+ */
+function cancelarNomeConvidado() {
+    if (elementoSelectConvidadoAtual) {
+        // Reseta o dropdown para "Selecione um jogador"
+        elementoSelectConvidadoAtual.value = ""; 
+        // Limpa o mapa
+        delete nomesConvidadosMap[elementoSelectConvidadoAtual.id];
+    }
+    document.getElementById('modalInputNomeOverlay').style.display = 'none';
+}
+
 
 </script>
 
