@@ -17,13 +17,8 @@
 <style>
 /* Estilos globais */
 body {
-    font-family: 'Roboto', sans-serif; /* <-- ADICIONE ESTA LINHA */  
-    margin: 0;
-    padding: 0; 
-}
-
-/* Container da tela de login */  
-/* Dentro da sua tag <style> */
+    font-family: 'Roboto', sans-serif; 
+	
 #loginScreen {
     box-sizing: border-box;
     position: absolute;
@@ -303,6 +298,24 @@ label {
 
 /* Responsividade: ajuste para dispositivos móveis */
 @media (max-width: 600px) {
+
+/* --- AJUSTES MODAL EDIÇÃO (CELULAR) --- */
+    .edit-jogador-row select {
+        /* Permite que o select encolha e corte o texto */
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        flex-shrink: 1; /* Garante que ele possa encolher */
+        white-space: nowrap; /* 
+    }
+
+    .edit-status-span {
+        width: 75px; /* Reduz de 85px para 75px */
+        font-size: 13px; /* Diminui um pouco a fonte do status */
+        padding-left: 5px; /* Adiciona um respiro */
+        white-space: nowrap; /* Impede que o status quebre linha */
+    }
+    /* --- FIM DOS AJUSTES --- */
 
 footer {
     color: transparent !important;   /* Mantém o texto "Desenvolvido por..." invisível */
@@ -982,6 +995,19 @@ body.dark-mode .resumo-partida {
     margin-bottom: 15px; /* Controla o espaço ABAIXO da linha (acima de "Jogadores") */
 }
 
+
+/* --- NOVOS ESTILOS PARA BOTÕES DO MODAL EDITAR --- */
+.edit-modal-actions {
+    display: flex;
+    flex-direction: column; /* Padrão (Vertical) */
+    gap: 10px; /* Espaço entre os botões */
+    margin-top: 15px; /* Espaço acima do primeiro botão */
+}
+.edit-modal-actions button {
+    margin: 0 !important; /* Remove margens inline/padrão */
+}
+/* --- FIM DOS NOVOS ESTILOS --- */
+
 /* Ajusta o espaço ACIMA do texto "Resultado informado por..." no modal de detalhes (com !important) */
 #modal-resultado-placar p:last-of-type {
     margin-top: -1px !important; /* Adicionado !important para sobrescrever o estilo inline */
@@ -1014,13 +1040,32 @@ body.dark-mode #modal-resultado-container hr {
     margin: 0;
 }
 
-#modal-jogadores li {
+
+/* --- ESTILOS GLOBAIS (PC E CELULAR) PARA O MODAL DETALHES --- */
+#modal-jogadores li,
+#modal-convidados li {
+    display: flex;             /* Torna o <li> um container flex */
+    justify-content: space-between; /* Coloca nome na esquerda, status na direita */
+    align-items: center;       /* Alinha verticalmente */
+    width: 100%;               /* Ocupa todo o espaço */
+
+    /* Regras que pegamos do <li> antigo */
     padding: 5px 0;
     border-bottom: 1px solid #f0f0f0;
 }
-#modal-jogadores li:last-child {
+
+#modal-jogadores li:last-child,
+#modal-convidados li:last-child {
     border-bottom: none;
 }
+
+.status-confirmado,
+.status-pendente,
+.status-recusado {
+    flex-shrink: 0;          /* Impede que o STATUS encolha */
+    white-space: nowrap;     /* Impede que o STATUS quebre linha */
+}
+/* --- FIM DOS ESTILOS GLOBAIS --- */
 
 /* Estilos para o status de confirmação */
 .status-confirmado {
@@ -1060,7 +1105,7 @@ body.dark-mode #modal-jogadores li {
     border-bottom-color: #444;
 }
 
-/* COLE ESTE CÓDIGO DENTRO DA SUA TAG <style> */
+/* COLE ESTE CÓDIGO DENTRO DA SUA TAG */
 
 /* Estilos para os botões dentro do novo modal de ações */
 .modal-content button {
@@ -1104,6 +1149,7 @@ body.dark-mode .modal-content button {
     font-size: 24px;
     font-weight: bold;
     padding: 0px;
+	margin-left: 5px;
 }
 
 /* Estilo base para o texto de status (computador) */
@@ -1113,6 +1159,7 @@ body.dark-mode .modal-content button {
     font-size: 14px;
     font-weight: bold;
     flex-shrink: 0; /* Impede que o texto encolha */
+	
 }
 
 /* Desabilita a seleção de texto nas células da planilha de reservas */ 
@@ -2148,6 +2195,14 @@ body.dark-mode .motivo-resultado { color: #ccc; }
         font-size: 1.0em; /* Exemplo: Deixa o ranking maior na horizontal */
         margin-right: 1px; /* Ajuste a margem se precisar */
     }
+	/* --- AJUSTE MODAL EDITAR (CELULAR HORIZONTAL) --- */
+	.edit-modal-actions {
+		flex-direction: row; /* Lado a lado */
+	}
+	.edit-modal-actions button {
+		flex: 1; /* Faz os botões dividirem o espaço */
+	}
+	/* --- FIM DO AJUSTE --- */
 
 }
 
@@ -2588,6 +2643,18 @@ body.dark-mode .header-sub {
     .header-legenda-container .header {
         flex-grow: 0; /* Impede o título de ocupar espaço extra */
     }
+	/* --- AJUSTE MODAL DETALHES (CELULAR VERTICAL) --- */
+        
+        .modal-player-name {
+            white-space: nowrap;     /* Impede a quebra de linha do NOME */
+            overflow: hidden;          /* Esconde o texto que transbordar */
+            text-overflow: ellipsis;   /* Adiciona "..." no NOME */
+            flex-grow: 1;            /* Permite que o nome cresça */
+            min-width: 0;              /* Permite que o nome encolha */
+            padding-right: 10px;       /* Espaço entre o nome e o status */
+        }
+
+        /* --- FIM DO AJUSTE --- */
 }
 
 /* ======================================= */
@@ -3110,6 +3177,21 @@ body.dark-mode .convidado-nome-input {
 body.dark-mode #modal-convidados li {
     border-bottom-color: #444;
 }
+
+/* Estilo para a convidado nomeado (ex: "Joao Maria") */
+.convidado-nomeado-option {
+    font-weight: bold;
+    font-style: italic;
+    color: #000000; /* Preto */
+}
+
+/* Garante o estilo no Modo Escuro */
+body.dark-mode .convidado-nomeado-option {
+    color: #FFFFFF !important; /* Branco (com !important para garantir) */
+    background-color: #333; /* Fundo escuro para a opção */
+}
+
+
 /* --- FIM DA CORREÇÃO --- */
 /* ================================================================= */
 
@@ -3382,12 +3464,12 @@ body.dark-mode #modal-convidados li {
         <p id="p-expira-em" style="display: none;"><strong>Expira em:</strong> <span id="modal-expira-em" style="font-weight: bold; color: #dc3545;"></span></p>
         <p><strong>Organizador(a):</strong> <span id="modal-organizador"></span></p>
         <hr>
-        <p style="margin-bottom: 2px;margin-top: -10px;"><strong>Jogadores</strong></p>
+        <p style="margin-bottom: 2px;margin-top: -10px;"><strong>Jogadores:</strong></p>
         <div id="modal-jogadores">
         </div>
 
         <div id="container-convidados" style="display: none; margin-top: 10px;">
-            <p style="margin-bottom: 2px; margin-top: 0;"><strong>Convidados</strong></p>
+            <p style="margin-bottom: 2px; margin-top: 0;"><strong>Convidados:</strong></p>
             <div id="modal-convidados">
                 </div>
         </div>
@@ -3497,11 +3579,10 @@ body.dark-mode #modal-convidados li {
         <div id="edit-jogadores-container">
             </div>
 
-        <button id="btnAdicionarJogadorEdicao" style="background-color: #17a2b8; margin-top: 15px;">Adicionar Jogador</button>
-        
-        <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-        
-        <button id="btnSalvarEdicao" style="background-color: #28a745;">Salvar Alterações</button>
+        <div class="edit-modal-actions">
+			<button id="btnAdicionarJogadorEdicao" style="background-color: #17a2b8;">Adicionar Jogador</button>
+			<button id="btnSalvarEdicao" style="background-color: #28a745;">Salvar Alterações</button>
+		</div>
     </div>
 </div>
 
@@ -4068,7 +4149,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v1.8.2'; // Versão atual do sistema    
+const VersaoSistema = 'v1.8.3'; // Versão atual do sistema    
 const DataVersaoSistema = '16/11/2025';   
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
@@ -4079,7 +4160,7 @@ let vPermitirExclusaoAposJogo = false; // Mude para true para permitir que usuá
 
 let piramideInicioTorneio = null; 
 let piramideFimTorneio = null;
-let piramideAtivaGlobal = false;
+let piramideAtivaGlobal = false; 
 
 let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário 
 let vDomingoAnterior = null;
@@ -4901,18 +4982,27 @@ function carregarReservas(quadra) {
                             
                             cell.style.backgroundColor = corFundo;
                             
+                            // ==================================================================
+                            // ===== INÍCIO DA SUBSTITUIÇÃO (getStyledNames) CORRIGIDA =====
+                            // ==================================================================
                             const getStyledNames = (jogadoresArray, isPiramideGame) => {
                                 if (!jogadoresArray || jogadoresArray.length === 0) return "";
                                 let nomesHtml = [];
                                 jogadoresArray.forEach(apelido => {
                                     
                                     // ==========================================================
-                                    // ===== MODIFICAÇÃO 1 (SISTEMA DE CONFIRMAÇÃO) =====
+                                    // ===== CORREÇÃO (Exibe "Convidado" para todos os convidados) =====
                                     // ==========================================================
                                     let nomeParaExibir;
-                                    if (apelido.trim().startsWith("Convidado - ")) {
-                                        nomeParaExibir = "<strong><em>Convidado</em></strong>";
+                                    const isConvidadoNomeado = apelido.trim().startsWith("Convidado - ");
+                                    const isConvidadoGenerico = apelido.trim().toLowerCase() === 'convidado';
+
+                                    // SE FOR CONVIDADO NOMEADO OU CONVIDADO GENÉRICO...
+                                    if (isConvidadoNomeado || isConvidadoGenerico) {
+                                        // ...MOSTRA A PALAVRA "Convidado" EM NEGRITO E ITÁLICO.
+                                        nomeParaExibir = "<strong><em>Convidado</em></strong>"; 
                                     } else {
+                                        // Lógica normal para sócios (com ranking da pirâmide)
                                         nomeParaExibir = apelido.trim();
                                         if (isPiramideGame) {
                                             const jogadorInfo = jogadoresData[nomeParaExibir];
@@ -4925,28 +5015,38 @@ function carregarReservas(quadra) {
                                         }
                                     }
                                     // ==========================================================
-                                    // ===== FIM DA MODIFICAÇÃO 1 =====
+                                    // ===== FIM DA CORREÇÃO =====
                                     // ==========================================================
                                     
                                     let styles = '';
                                     const status = reserva.confirmacoes ? reserva.confirmacoes[apelido.trim()] : true;
                                     
-                                    // Lógica de estilos (intacta)
-                                    if (apelido.trim().toLowerCase() === 'convidado') {
+                                    // ==========================================================
+                                    // ===== LÓGICA DE COR (Já está correta, não mexe) =====
+                                    // ==========================================================
+                                    if (isConvidadoNomeado || isConvidadoGenerico) {
+                                        // Se for qualquer tipo de convidado, aplica a cor padrão
                                         styles = `color: ${isDarkMode ? 'white' : 'black'};`;
-                                    } else if (status === true) {
+                                    }
+                                    // Sócios entram na lógica de status
+                                    else if (status === true) {
                                         styles = `color: ${isDarkMode ? 'white' : 'black'};`;
                                     } else if (status === false) {
 										styles = `color: ${isDarkMode ? '#FFB74D' : '#EF6C00'};`;
                                     } else if (status === 'recusado') {
                                         styles = `color: red; text-decoration: line-through;`;
                                     }
+                                    // ==========================================================
+                                    // ===== FIM DA LÓGICA DE COR =====
+                                    // ==========================================================
                                     
-                                    // A variável 'nomeParaExibir' já está formatada (seja com rank ou com negrito/itálico)
                                     nomesHtml.push(`<span style="${styles}">${nomeParaExibir}</span>`);
                                 });
                                 return nomesHtml.join(isPiramideGame ? '<br>' : ', ');
                             };
+                            // ==================================================================
+                            // ===== FIM DA SUBSTITUIÇÃO (getStyledNames) =====
+                            // ==================================================================
 
                             const isPiramide = reserva.duracao === 3;
                             const todosOsJogadores = (reserva.jogadores_completo || reserva.jogadores).split(', ').map(j => j.trim());
@@ -5921,7 +6021,8 @@ const isReservaParaHoje = (diaSelecionado === diaDaSemanaHoje);
                 console.log("Executando agendamento pendente de confirmação...");
                 const confirmacoes = {};
                 jogadores.forEach(apelido => {
-                    if (apelido.toLowerCase() !== 'convidado') {
+                    // CORREÇÃO: Verifica se o apelido NÃO começa com "Convidado"
+                    if (!apelido.trim().startsWith("Convidado")) {
                         confirmacoes[apelido] = (apelido === organizadorApelido);
                     }
                 });
@@ -8446,8 +8547,8 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
             if (convidados.length > 0) {
                 let convidadosHtml = '<ul>';
                 convidados.forEach(nome => {
-                    convidadosHtml += `<li>${nome}</li>`; // Mostra o nome limpo
-                });
+					convidadosHtml += `<li><span class="modal-player-name">${nome}</span></li>`; // Nome envolvido em span
+				});
                 convidadosHtml += '</ul>';
                 divConvidados.innerHTML = convidadosHtml;
                 containerConvidados.style.display = 'block';
@@ -8491,8 +8592,9 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
                         else if (status === 'recusado') statusTexto = '<span class="status-recusado">(✗ Recusado)</span>';
                     }
                     const jogadorInfo = jogadoresData[apelido.trim()];
-                    const nomeParaExibir = jogadorInfo ? capitalizarNome(jogadorInfo.nomeCompleto) : capitalizarNome(apelido);
-                    jogadoresHtml += `<li>${nomeParaExibir} ${statusTexto}</li>`;
+					const nomeParaExibir = jogadorInfo ? capitalizarNome(jogadorInfo.nomeCompleto) : capitalizarNome(apelido);
+					// Envolve o nome e o status em spans separados
+					jogadoresHtml += `<li><span class="modal-player-name">${nomeParaExibir}</span> ${statusTexto}</li>`;
                 });
                 jogadoresHtml += '</ul>';
                 jogadoresDiv.innerHTML = jogadoresHtml;
@@ -8853,33 +8955,68 @@ function iniciarModoEdicao(reserva, key, quadra) {
         
         const novoSelect = document.createElement('select');
         novoSelect.innerHTML = document.getElementById('jogadorSelect').innerHTML;
-        novoSelect.value = apelido;
 
         // ==========================================================
-        // INÍCIO DA ALTERAÇÃO JAVASCRIPT
+        // ===== INÍCIO DA CORREÇÃO (Parte 1) =====
         // ==========================================================
-        // Removemos os estilos inline e adicionamos uma classe para controle via CSS
+        
+        // 1. ADICIONA O GATILHO 'onchange' a TODOS os dropdowns
+        // Isso é crucial para permitir a troca para um "Novo Convidado"
+        novoSelect.setAttribute('onchange', 'handleConvidadoSelect(this)');
+
         const statusSpan = document.createElement('span');
         statusSpan.className = 'edit-status-span'; 
-        // ==========================================================
-        // FIM DA ALTERAÇÃO JAVASCRIPT
-        // ==========================================================
-
+        
         const status = reserva.confirmacoes ? reserva.confirmacoes[apelido] : null;
 
-        if (apelido.toLowerCase() === 'convidado') {
-            statusSpan.textContent = '';
-        } else if (status === true) {
-            novoSelect.disabled = true;
-            statusSpan.textContent = '(Confirmado)';
-            statusSpan.style.color = 'green';
-        } else if (status === false) {
-            statusSpan.textContent = '(Pendente)';
-            statusSpan.style.color = 'orange';
-        } else if (status === 'recusado') {
-            statusSpan.textContent = '(Recusado)';
-            statusSpan.style.color = 'red';
+        const isConvidadoNomeado = apelido.trim().startsWith("Convidado - ");
+        const isConvidadoGenerico = apelido.trim().toLowerCase() === 'convidado';
+
+        // 2. VERIFICA SE É UM CONVIDADO NOMEADO (ex: "Convidado - Joao Maria")
+        if (isConvidadoNomeado) {
+            // Extrai o nome limpo (ex: "Joao Maria")
+            const nomeLimpo = apelido.substring(apelido.indexOf('-') + 2).trim();
+            
+            // Cria a nova <option> especial
+            const guestOption = document.createElement('option');
+            guestOption.value = apelido; // O valor interno é o nome completo (ex: "Convidado - Joao Maria")
+            guestOption.textContent = nomeLimpo; // O texto visível é o nome limpo (ex: "Joao Maria")
+            guestOption.classList.add('convidado-nomeado-option'); // Aplica o estilo (Negrito, Itálico)
+            
+            // Adiciona a opção no topo do dropdown e a seleciona
+            novoSelect.appendChild(guestOption);
+            novoSelect.value = apelido;
+
+            // Define o status visual
+            statusSpan.textContent = '(Convidado)';
+            statusSpan.style.color = document.body.classList.contains('dark-mode') ? '#ccc' : '#555';
+            statusSpan.style.fontStyle = 'italic';
+        
+        } else if (isConvidadoGenerico) {
+            // Se for o convidado genérico, apenas seleciona
+            novoSelect.value = "Convidado";
+            statusSpan.textContent = '(Convidado)';
+            statusSpan.style.color = document.body.classList.contains('dark-mode') ? '#ccc' : '#555';
+            statusSpan.style.fontStyle = 'italic';
+        
+        } else { 
+            // É um Sócio
+            novoSelect.value = apelido;
+            if (status === true) {
+                novoSelect.disabled = true;
+                statusSpan.textContent = '(Confirmado)';
+                statusSpan.style.color = 'green';
+            } else if (status === false) {
+                statusSpan.textContent = '(Pendente)';
+                statusSpan.style.color = 'orange';
+            } else if (status === 'recusado') {
+                statusSpan.textContent = '(Recusado)';
+                statusSpan.style.color = 'red';
+            }
         }
+        // ==========================================================
+        // ===== FIM DA CORREÇÃO (Parte 1) =====
+        // ==========================================================
         
         newRow.appendChild(novoSelect);
         newRow.appendChild(statusSpan);
@@ -8920,17 +9057,48 @@ async function salvarEdicao() {
     // Pega os dados dos jogadores de dentro do modal
     const container = document.getElementById('edit-jogadores-container');
     const novosJogadoresSelects = container.querySelectorAll('select');
-    const novosApelidos = Array.from(novosJogadoresSelects).map(select => select.value).filter(val => val);
+
+    // ==========================================================
+    // ===== INÍCIO DA CORREÇÃO (Parte 2) =====
+    // ==========================================================
+    
+    // --- LÓGICA SIMPLIFICADA E CORRIGIDA ---
+    
+    // ==========================================================
+    // ===== CORREÇÃO DO BUG (Linha 9011) =====
+    // ==========================================================
+    // Atribui IDs temporários aos selects para que o mapa de convidados funcione
+    novosJogadoresSelects.forEach((select, index) => { // <-- Variável 'selects' corrigida para 'novosJogadoresSelects'
+         select.id = `edit_jogador_${index}`; 
+    });
+    // ==========================================================
+    // ===== FIM DA CORREÇÃO DO BUG =====
+    // ==========================================================
+
+    const novosApelidos = Array.from(novosJogadoresSelects).map(select => {
+        const valorSelecionado = select.value; // ex: "Convidado - Joao Maria" OU "TABORDA" OU "Convidado"
+
+        // Agora podemos ler o mapa com segurança
+        if (valorSelecionado === "Convidado" && nomesConvidadosMap[select.id]) {
+            return nomesConvidadosMap[select.id]; // Retorna "Convidado - Novo Nome"
+        }
+        
+        // Se for "Convidado - Joao Maria" (a opção que criamos) ou um sócio,
+        // o valor já está correto.
+        return valorSelecionado; 
+    }).filter(val => val); // Filtra valores vazios
+    // ==========================================================
+    // ===== FIM DA CORREÇÃO (Parte 2) =====
+    // ==========================================================
+
 
     if (novosApelidos.length === 0) {
-        //alert("Uma reserva não pode ficar sem jogadores.");
 		mostrarNotificacao("Uma reserva não pode ficar sem jogadores.", 'error');
         return;
     }
 
-    const sociosNaLista = novosApelidos.filter(j => j.toLowerCase() !== 'convidado');
+    const sociosNaLista = novosApelidos.filter(j => !j.trim().startsWith("Convidado")); // Filtra "Convidado" E "Convidado - Nome"
     if (new Set(sociosNaLista).size !== sociosNaLista.length) {
-        //alert("Não é permitido adicionar o mesmo sócio mais de uma vez na reserva.");
 		mostrarNotificacao("Não é permitido adicionar o mesmo sócio mais de uma vez na reserva.", 'error');
         return;
     }
@@ -8940,10 +9108,7 @@ async function salvarEdicao() {
     // VALIDAÇÃO 1: REGRAS DE DUPLAS (VERSÃO CORRIGIDA)
     const resultadoDuplasOk = await validarRegraDeDuplas(novosApelidos, quadra, dadosOriginais.dia, dadosOriginais.hora, dadosOriginais.duracao);
     
-    // VERIFICA SE O RETORNO NÃO FOI ESTRITAMENTE 'true'
     if (resultadoDuplasOk !== true) {
-        // Se não for 'true', é porque é a string de erro.
-        // Então, exibimos essa string como uma notificação e paramos.
         mostrarNotificacao(resultadoDuplasOk, 'warning');
         return; 
     }
@@ -8966,7 +9131,7 @@ async function salvarEdicao() {
             novoConfirmacoes[apelido] = true;
         } else if (statusOriginal === 'recusado') {
             novoConfirmacoes[apelido] = 'recusado';
-        } else if (apelido.toLowerCase() !== 'convidado') {
+        } else if (!apelido.trim().startsWith("Convidado")) { // Modificado para incluir "Convidado - Nome"
             novoConfirmacoes[apelido] = false;
         }
     });
@@ -8974,7 +9139,8 @@ async function salvarEdicao() {
     // VALIDAÇÃO 3: NÚMERO MÍNIMO DE JOGADORES ATIVOS
     const jogadoresAtivos = novosApelidos.filter(apelido => novoConfirmacoes[apelido] !== 'recusado');
     const numJogadoresAtivos = jogadoresAtivos.length;
-    const apenasConvidadosAtivos = numJogadoresAtivos > 0 && jogadoresAtivos.every(j => j.toLowerCase() === 'convidado');
+    const apenasConvidadosAtivos = numJogadoresAtivos > 0 && jogadoresAtivos.every(j => j.trim().startsWith("Convidado")); // Modificado
+
     let motivoCancelamento = '';
 
     if (dadosOriginais.duracao === 2 && numJogadoresAtivos < 2) {
@@ -8986,7 +9152,6 @@ async function salvarEdicao() {
     }
 
     if (motivoCancelamento) {
-        //alert(`A reserva será cancelada automaticamente porque, após a edição, ${motivoCancelamento}`);
 		mostrarNotificacao(`A reserva será cancelada automaticamente porque, após a edição, ${motivoCancelamento}`, 'error');
                
         try {
@@ -9010,9 +9175,7 @@ async function salvarEdicao() {
                 usuario: jogadorLogado,
                 duracao: duracaoTexto,
                 motivo: `Cancelado automaticamente após edição: ${motivoCancelamento}`,
-                // --- CORREÇÃO DO STATUS NO LOG ---
-                statusNoMomentoDaExclusao: 'cancelada', // Alterado de dadosOriginais.status para 'cancelada'
-                // --- FIM DA CORREÇÃO ---
+                statusNoMomentoDaExclusao: 'cancelada', 
                 organizadorDaReserva: dadosOriginais.organizador,
                 confirmacoes: traduzirConfirmacoesParaLog(dadosOriginais.confirmacoes)
             };
@@ -9020,7 +9183,6 @@ async function salvarEdicao() {
             await registrarExclusao(logData);
         } catch(logError) {
             console.error("ERRO CRÍTICO: Falha ao registrar o log da exclusão automática.", logError);
-            //alert("Atenção: A reserva será cancelada, mas houve uma falha ao registrar o log. Avise o administrador.");
 			const mensagem = "<b>Atenção:</b> A reserva será cancelada, mas houve uma falha ao registrar o log.<br>Avise o administrador.";
             mostrarNotificacao(mensagem, 'error');
         }
@@ -9035,7 +9197,6 @@ async function salvarEdicao() {
             }
         } catch (error) {
             console.error("Erro no cancelamento automático pós-edição:", error);
-            //alert("Ocorreu um erro ao cancelar a reserva automaticamente.");
 			mostrarNotificacao("Ocorreu um erro ao cancelar a reserva automaticamente.", 'error');
         } finally {
             fecharModalEdicao(); 
@@ -9075,24 +9236,21 @@ async function salvarEdicao() {
     try {
         await database.ref().update(updates);
         
-        // --- INÍCIO DA LÓGICA DE MENSAGEM INTELIGENTE ---
         const statusOriginal = dadosOriginais.status;
         if (statusOriginal === 'pendente' && novoStatus === 'confirmada') {
-            //alert("Alterações salvas! Como não há mais jogadores pendentes, a reserva foi automaticamente confirmada para os participantes restantes.");
 			const mensagem = "<b>Alterações salvas!</b><br>Como não há mais jogadores pendentes, a reserva foi confirmada.";
             mostrarNotificacao(mensagem, 'success');
         } else {
-            //alert("Reserva atualizada com sucesso!");
 			mostrarNotificacao("Reserva atualizada com sucesso!", 'success');
         }
-        // --- FIM DA LÓGICA DE MENSAGEM INTELIGENTE ---
 
     } catch (error) {
-        //alert("Erro ao atualizar a reserva. Tente novamente.");
 		mostrarNotificacao("Erro ao atualizar a reserva. Tente novamente.", 'error');
         console.error("Erro ao salvar edição:", error);
     } finally {
         fecharModalEdicao();
+        // Limpa o mapa de convidados após o uso para a próxima reserva
+        nomesConvidadosMap = {};
     }
 }
 
@@ -9175,6 +9333,7 @@ adicionarJogadorNaEdicao
     const novoSelect = document.createElement('select');
     // Popula o novo campo com a lista completa de jogadores
     novoSelect.innerHTML = document.getElementById('jogadorSelect').innerHTML;
+	novoSelect.setAttribute('onchange', 'handleConvidadoSelect(this)');
 
     // Remove os jogadores já selecionados do novo campo
     jogadoresJaSelecionados.forEach(apelido => {
@@ -11210,6 +11369,7 @@ async function atualizarEExibirProximaReserva() {
 
         // Função interna de renderização
         const renderizarAgenda = (reservaDados) => {
+		    const jogadoresNaReserva = (reservaDados.jogadores_completo || reservaDados.jogadores || "").split(',').map(j => j.trim());
             const nomesDiasMap = {
                 1: "Segunda-Feira", 2: "Terça-Feira", 3: "Quarta-Feira", 4: "Quinta-Feira", 5: "Sexta-Feira", 6: "Sábado", 7: "Domingo"
             };
@@ -11222,26 +11382,49 @@ async function atualizarEExibirProximaReserva() {
             const horaFim = reservaDados.hora + duracao;
             const horario = `${String(reservaDados.hora).padStart(2, '0')}:00 - ${String(horaFim).padStart(2, '0')}:00`;
 
-            // Lógica de Parceiros: O FILTRO AGORA FUNCIONA COM A LISTA COMPLETA RECONSTRUÍDA
-            const parceiros = jogadoresNaReserva
+            // ==========================================================
+            // ===== INÍCIO DA NOVA LÓGICA DE PARCEIROS E CONVIDADOS =====
+            // ==========================================================
+            
+            // 1. Filtra todos que não são o usuário logado
+            const todosParceiros = jogadoresNaReserva
                 .filter(apelido => apelido.toUpperCase() !== jogadorLogadoApelido.toUpperCase());
 
-            let parceirosHtml = 'Sem parceiros';
-            if (parceiros.length > 0) {
+            // 2. Separa em Sócios e Convidados
+            const sociosParceiros = todosParceiros.filter(p => !p.trim().startsWith("Convidado"));
+            const convidadosParceiros = todosParceiros
+                .filter(p => p.trim().startsWith("Convidado - "))
+                .map(p => p.substring(p.indexOf('-') + 2).trim()); // Extrai o nome limpo
+
+            // 3. Gera HTML para os Sócios
+            let sociosHtml = 'Nenhum'; // Padrão se não houver sócios
+            if (sociosParceiros.length > 0) {
                 if (reservaDados.confirmacoes) {
-                    parceirosHtml = parceiros.map(apelido => {
+                    sociosHtml = sociosParceiros.map(apelido => {
                         const status = reservaDados.confirmacoes[apelido];
                         let style = '';
-                        if (apelido.toLowerCase() === 'convidado') { style = ''; } 
-                        else if (status === true) { style = 'color: #28a745;'; } 
+                        if (status === true) { style = 'color: #28a745;'; } 
                         else if (status === false) { style = 'color: #ffc107;'; } 
                         else if (status === 'recusado') { style = 'color: #dc3545; text-decoration: line-through;'; }
+                        // Se não tiver status (ex: reserva antiga), usa a cor padrão (preto/branco)
                         return `<span style="${style}">${capitalizarNome(apelido)}</span>`;
                     }).join(', ');
                 } else {
-                    parceirosHtml = parceiros.map(capitalizarNome).join(', ');
+                    // Fallback para reservas sem confirmação
+                    sociosHtml = sociosParceiros.map(capitalizarNome).join(', ');
                 }
             }
+
+            // 4. Gera a linha HTML completa para os Convidados
+            let convidadosHtml = ''; // Fica vazio se não houver convidados
+            if (convidadosParceiros.length > 0) {
+                const label = convidadosParceiros.length > 1 ? 'Convidados' : 'Convidado';
+                const nomes = convidadosParceiros.map(capitalizarNome).join(', ');
+                convidadosHtml = `<p><strong>${label}:</strong> ${nomes}</p>`; // Cria a linha <p> inteira
+            }
+            // ==========================================================
+            // ===== FIM DA NOVA LÓGICA =====
+            // ==========================================================
 
             const destaqueHoje = diaReserva === hojeIndex ? 'class="agenda-hoje-destaque"' : '';
             const textoDia = diaReserva === hojeIndex ? 'Hoje' : nomesDiasMap[diaReserva];
@@ -11253,7 +11436,8 @@ async function atualizarEExibirProximaReserva() {
                     <p><strong>Dia:</strong> <span ${destaqueHoje}>${textoDia}</span></p>
                     <p><strong>Data:</strong> ${dataReservaTexto}</p>
                     <p><strong>Horário:</strong> ${horario}</p>
-                    <p><strong>Com:</strong> ${parceirosHtml}</p>
+                    <p><strong>Com:</strong> ${sociosHtml}</p>
+                    ${convidadosHtml} 
                 </div>
                 <div class="agenda-botoes"> 
                     <button onclick="exibirDetalhesReserva(proximaReserva, '${proximaReserva.key}', '${proximaReserva.quadra}')" class="btn-detalhes-agenda">Detalhes</button>
@@ -11289,8 +11473,7 @@ async function atualizarEExibirProximaReserva() {
         if (agendaTrigger) agendaTrigger.style.display = 'flex'; 
         return null;
     }
-}// =================================================================
-
+}
 
 
 /**
@@ -13021,26 +13204,58 @@ function mostrarModalInputNome(selectElement) {
  * Chamada pelo botão "Confirmar" do novo modal.
  * Valida o nome, salva no mapa e fecha o modal.
  */
+// CÓDIGO NOVO E CORRIGIDO
 function confirmarNomeConvidado() {
     if (!elementoSelectConvidadoAtual) return;
 
     const inputNome = document.getElementById('inputNomeConvidado');
     const nomeConvidado = inputNome.value.trim();
+    const modalEdicao = document.getElementById('modalEdicaoReserva'); // Pega o modal de edição
 
     if (nomeConvidado !== "") {
-        // Se o usuário digitou um nome, formata e salva na "memória"
-        const nomeFormatado = `Convidado - ${capitalizarNome(nomeConvidado)}`;
-        nomesConvidadosMap[elementoSelectConvidadoAtual.id] = nomeFormatado;
+        const nomeCapitalizado = capitalizarNome(nomeConvidado); // ex: "Jose Maria"
+        const nomeFormatado = `Convidado - ${nomeCapitalizado}`; // ex: "Convidado - Jose Maria"
         
-        // Mantém o dropdown visualmente em "Convidado"
-        elementoSelectConvidadoAtual.value = "Convidado";
+        // Salva no mapa (para o 'salvarEdicao' ou 'atualizarTabela' ler)
+        nomesConvidadosMap[elementoSelectConvidadoAtual.id] = nomeFormatado;
+
+        // --- INÍCIO DA NOVA LÓGICA ---
+        // Verifica se o dropdown que estamos editando está DENTRO do modal de edição
+        const isInEditModal = modalEdicao && modalEdicao.contains(elementoSelectConvidadoAtual);
+
+        if (isInEditModal) {
+            // Estamos no modal "Editar Jogadores"
+            
+            // 1. Remove qualquer <option> de convidado nomeado antiga (ex: "Joao Maria")
+            const oldGuestOption = elementoSelectConvidadoAtual.querySelector('.convidado-nomeado-option');
+            if (oldGuestOption) {
+                oldGuestOption.remove();
+            }
+
+            // 2. Cria a nova <option> para o novo convidado
+            const newGuestOption = document.createElement('option');
+            newGuestOption.value = nomeFormatado;        // Valor interno: "Convidado - Jose Maria"
+            newGuestOption.textContent = nomeCapitalizado; // Texto visível: "Jose Maria"
+            newGuestOption.classList.add('convidado-nomeado-option'); // Adiciona a classe de estilo
+            
+            // 3. Adiciona e seleciona a nova opção
+            elementoSelectConvidadoAtual.appendChild(newGuestOption);
+            elementoSelectConvidadoAtual.value = nomeFormatado;
+            
+        } else {
+            // Estamos no formulário de agendamento principal
+            // Apenas mantém o valor "Convidado"
+            elementoSelectConvidadoAtual.value = "Convidado";
+        }
+        // --- FIM DA NOVA LÓGICA ---
         
         document.getElementById('modalInputNomeOverlay').style.display = 'none';
     } else {
-        // Se não digitou nada, avisa
         mostrarNotificacao("O nome do convidado não pode ficar em branco.", 'error');
     }
 }
+
+
 
 /**
  * Chamada pelo botão "Cancelar" do novo modal.
