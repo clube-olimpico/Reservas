@@ -84,6 +84,7 @@
         "Luciane Vieira": true,
         "Luciano Cavalheiro": true,
         "Luis Warkentin": true,
+        "Luiz Carlos": true,
         "Luiza Martins": true,
         "Maico": true,
         "Makoto": true,
@@ -723,6 +724,13 @@
           "piramide": "9",
           "socio": "titular"
         },
+        "LUIZ CARLOS DE NOBREGA XAVIER": {
+          "apelido": "Luiz Carlos",
+          "classe": "A",
+          "niver": "01/01/2001",
+          "piramide": "",
+          "socio": "titular"
+        },
         "LUIZA M S MARTINS": {
           "apelido": "Luiza Martins",
           "classe": "C",
@@ -1073,8 +1081,8 @@
         }
       },
       "Arbitro": {
-        "apelido": "LEO CARRARA",
-        "nomeCompleto": "LEONARDO CARRARA"
+        "apelido": "JOAO BENTO",
+        "nomeCompleto": "JOAO BENTO PEREIRA"
       },
       "Convidados": {
         "DiasDeSemana": true,
@@ -1197,7 +1205,7 @@
       },
       "ReservasPorConfirmacao": true,
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "horasParaExpirar": 2,
+      "horasParaExpirar": 3,
       "vDomingo": "aberto",
       "vDomingoAte": "17:00"
     },
@@ -1631,8 +1639,39 @@
           "hora": 9,
           "jogadores": "aula"
         }
+      },
+      "Quadra 2 - Aberta": {
+        "2_6": {
+          "borda": "2h",
+          "confirmacoes": {
+            "An Alice": "recusado",
+            "Ana Julia": true
+          },
+          "dia": 2,
+          "duracao": 2,
+          "expiraEm": 1763438913792,
+          "hora": 6,
+          "jogadores": "Ana Julia, Convidado - Jose Maria",
+          "jogadores_completo": "Ana Julia, Convidado - Jose Maria, An Alice",
+          "organizador": "Ana Julia",
+          "status": "confirmada"
+        },
+        "2_7": {
+          "confirmacoes": {
+            "An Alice": "recusado",
+            "Ana Julia": true
+          },
+          "dia": 2,
+          "duracao": 2,
+          "expiraEm": 1763438913792,
+          "hora": 7,
+          "jogadores": "An Alice",
+          "jogadores_completo": "Ana Julia, Convidado - Jose Maria, An Alice",
+          "organizador": "Ana Julia",
+          "status": "confirmada"
+        }
       }
     },
-    "version": "v1.8.2"
+    "version": "v1.8.4"
   }
 }
