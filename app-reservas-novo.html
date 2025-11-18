@@ -3180,9 +3180,13 @@ body.dark-mode #modal-convidados li {
 
 /* Estilo para a convidado nomeado (ex: "Joao Maria") */
 .convidado-nomeado-option {
-    font-weight: bold;
     font-style: italic;
     color: #000000; /* Preto */
+}
+
+/* Estilo para o <select> QUANDO um convidado nomeado está selecionado */
+.edit-jogador-row select.select-convidado-nomeado {
+    font-style: italic;
 }
 
 /* Garante o estilo no Modo Escuro */
@@ -4149,7 +4153,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v1.8.3'; // Versão atual do sistema    
+const VersaoSistema = 'v1.8.4'; // Versão atual do sistema    
 const DataVersaoSistema = '17/11/2025';   
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
@@ -8547,7 +8551,8 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
             if (convidados.length > 0) {
                 let convidadosHtml = '<ul>';
                 convidados.forEach(nome => {
-					convidadosHtml += `<li><span class="modal-player-name">${nome}</span></li>`; // Nome envolvido em span
+					//convidadosHtml += `<li><span class="modal-player-name">${nome}</span></li>`; // Nome envolvido em span
+					convidadosHtml += `<li><span class="modal-player-name"><i>${nome}</i></span></li>`;
 				});
                 convidadosHtml += '</ul>';
                 divConvidados.innerHTML = convidadosHtml;
@@ -9033,8 +9038,10 @@ function iniciarModoEdicao(reserva, key, quadra) {
             placeholder.innerHTML = '&times;';
             placeholder.style.visibility = 'hidden';
             newRow.appendChild(placeholder);
+			
         }
-        
+		
+        atualizarEstiloSelectConvidado(novoSelect);
         container.appendChild(newRow);
     });
 
@@ -9351,6 +9358,7 @@ adicionarJogadorNaEdicao
     newRow.appendChild(novoSelect);
     newRow.appendChild(removeButton);
     container.appendChild(newRow);
+	atualizarEstiloSelectConvidado(novoSelect);
 }
 
 
@@ -11416,12 +11424,12 @@ async function atualizarEExibirProximaReserva() {
             }
 
             // 4. Gera a linha HTML completa para os Convidados
-            let convidadosHtml = ''; // Fica vazio se não houver convidados
-            if (convidadosParceiros.length > 0) {
-                const label = convidadosParceiros.length > 1 ? 'Convidados' : 'Convidado';
-                const nomes = convidadosParceiros.map(capitalizarNome).join(', ');
-                convidadosHtml = `<p><strong>${label}:</strong> ${nomes}</p>`; // Cria a linha <p> inteira
-            }
+			let convidadosHtml = ''; // Fica vazio se não houver convidados
+			if (convidadosParceiros.length > 0) {
+				const label = convidadosParceiros.length > 1 ? 'Convidados' : 'Convidado';
+				const nomes = convidadosParceiros.map(capitalizarNome).join(', ');
+				convidadosHtml = `<p><strong>${label}:</strong> <i>${nomes}</i></p>`; // <-- ALTERAÇÃO AQUI
+			}
             // ==========================================================
             // ===== FIM DA NOVA LÓGICA =====
             // ==========================================================
@@ -13163,6 +13171,24 @@ function restoreUnsavedScores() {
 }
 
 
+
+/**
+ * Aplica/remove o estilo de itálico do <select> se um convidado nomeado estiver selecionado.
+ */
+function atualizarEstiloSelectConvidado(selectElement) {
+    if (!selectElement) return;
+    
+    const valorSelecionado = selectElement.value;
+    
+    // Verifica se o valor é "Convidado - Nome" OU se é o "Convidado" genérico
+    if (valorSelecionado.startsWith("Convidado - ") || valorSelecionado === "Convidado") {
+        selectElement.classList.add('select-convidado-nomeado');
+    } else {
+        selectElement.classList.remove('select-convidado-nomeado');
+    }
+}
+
+
 /**
  * Chamada sempre que um dropdown de jogador é alterado.
  * Se "Convidado" for selecionado, chama o modal de input.
@@ -13179,6 +13205,7 @@ function handleConvidadoSelect(selectElement) {
         // limpa qualquer nome antigo que estava salvo para este campo.
         delete nomesConvidadosMap[selectElement.id];
     }
+	atualizarEstiloSelectConvidado(selectElement);
 }
 
 
@@ -13241,11 +13268,13 @@ function confirmarNomeConvidado() {
             // 3. Adiciona e seleciona a nova opção
             elementoSelectConvidadoAtual.appendChild(newGuestOption);
             elementoSelectConvidadoAtual.value = nomeFormatado;
+			atualizarEstiloSelectConvidado(elementoSelectConvidadoAtual);
             
         } else {
             // Estamos no formulário de agendamento principal
             // Apenas mantém o valor "Convidado"
             elementoSelectConvidadoAtual.value = "Convidado";
+			atualizarEstiloSelectConvidado(elementoSelectConvidadoAtual);
         }
         // --- FIM DA NOVA LÓGICA ---
         
