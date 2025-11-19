@@ -2106,10 +2106,10 @@ body.dark-mode .motivo-resultado { color: #ccc; }
 }
 
 .placar-set {
-    font-size: 3em;
+    font-size: 2.2em; /* REDUZIDO de 3em */
     font-weight: 300;
     color: #888;
-    width: 50px;
+    width: 40px;      /* REDUZIDO de 50px para ficar proporcional */
     text-align: center;
     transition: all 0.3s ease;
 }
@@ -2203,6 +2203,44 @@ body.dark-mode .motivo-resultado { color: #ccc; }
 		flex: 1; /* Faz os botões dividirem o espaço */
 	}
 	/* --- FIM DO AJUSTE --- */
+	
+	/* --- CORREÇÃO RADICAL PARA CELULAR NA HORIZONTAL --- */
+    
+    /* 1. Oculta todos os parágrafos de detalhes da reserva (Quadra, Dia, Horário, Organizador, etc.) */
+    .modal-content-reserva > p:not(.resultado-info) {
+        display: none !important; 
+    }
+    
+    /* 2. Oculta as listas de Jogadores e Convidados */
+    #modal-jogadores,
+    #container-convidados {
+        display: none !important;
+    }
+
+    /* 3. Oculta a primeira linha divisória (<hr>) */
+    .modal-content-reserva > hr:first-of-type {
+        display: none !important;
+    }
+
+    /* 4. Força o Resultado do Jogo para o topo e remove margens desnecessárias */
+    #modal-resultado-container {
+        margin-top: 5px !important; /* Espaço mínimo abaixo do título principal */
+        padding-top: 0px !important;
+    }
+    
+    /* 5. Garante que o título do resultado fique pequeno e no topo */
+    #modal-resultado-container p {
+        margin-top: 0px !important;
+        margin-bottom: 5px !important;
+        font-size: 1.0em; 
+    }
+    
+    /* 6. Restaura o tamanho da fonte igual ao da vertical */
+    #modal-resultado-placar .placar-container {
+        font-size: 1.2em !important; /* Alterado para 1.2em para manter o tamanho original */
+    }
+    
+    /* --- FIM DA CORREÇÃO RADICAL --- */
 
 }
 
@@ -2280,7 +2318,7 @@ body.dark-mode .motivo-resultado { color: #ccc; }
     .placar-header-novo h2 { font-size: 1.5em; }
     .placar-header-novo p { font-size: 1em; }
     .placar-jogador-nome { font-size: 1.3em; }
-    .placar-set { font-size: 2em; width: 35px; }
+    .placar-set { font-size: 1.4em; width: 30px; }
     .placar-sets-container { gap: 15px; }
 }
 
@@ -2308,8 +2346,8 @@ body.dark-mode .motivo-resultado { color: #ccc; }
         font-size: 1.6em;
     }
     .placar-set {
-        font-size: 2.4em;
-        width: 45px;
+        font-size: 1.6em;
+        width: 30px;
     }
     .placar-footer {
         margin-top: 20px;
@@ -2655,6 +2693,25 @@ body.dark-mode .header-sub {
         }
 
         /* --- FIM DO AJUSTE --- */
+		
+	/* --- AJUSTE RESULTADO DUPLAS (CELULAR VERTICAL) --- */
+    .dupla-name-item {
+        white-space: nowrap;       /* Impede que o nome quebre em duas linhas */
+        overflow: hidden;          /* Esconde o que passar da largura */
+        text-overflow: ellipsis;   /* Adiciona os três pontinhos (...) */
+        max-width: 110px;          /* Define uma largura máxima segura */
+        margin: 0 auto;            /* Centraliza o nome */
+        line-height: 1.3;          /* Espaçamento entre os dois nomes */
+    }
+    
+    /* Ajuste extra para dar mais espaço aos nomes */
+    #modal-resultado-placar .matchup-row .team-names {
+        flex-basis: 38% !important; /* Aumenta um pouco o espaço dos nomes */
+    }
+    #modal-resultado-placar .matchup-row .score-input-container {
+        flex-basis: 24% !important; /* Ajusta o espaço do placar */
+    }
+    /* --- FIM DO AJUSTE --- */
 }
 
 /* ======================================= */
@@ -4128,7 +4185,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Permite confirmar com "Enter"
-    const inputNomeModal = document.getElementById('inputNomeConvidado');
+    const inputNomeModal = document.getElementById('inputNomeConvidado'); 
     if (inputNomeModal) {
         inputNomeModal.addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
@@ -4153,8 +4210,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v1.8.4'; // Versão atual do sistema    
-const DataVersaoSistema = '17/11/2025';   
+const VersaoSistema = 'v1.8.5'; // Versão atual do sistema    
+const DataVersaoSistema = '19/11/2025';   
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -4224,6 +4281,9 @@ let contadorEspectadoresCallback = null;
 let nomesConvidadosMap = {};
 // Esta variável vai guardar qual <select> (jogador1, jogador2...) está sendo editado
 let elementoSelectConvidadoAtual = null;
+
+// Variável global para controlar a atualização do placar ao girar a tela
+let funcaoAtualizarPlacarDetalhes = null;
 
 
 //***********************************************************************************************************************************************************************
@@ -8351,10 +8411,18 @@ function fecharModalDetalhes() {
         listenerDetalhesReserva.ref.off('value', listenerDetalhesReserva.callback);
         listenerDetalhesReserva = null;
     }
-    // --- CAMADA DE SEGURANÇA ADICIONADA AQUI ---
+    
+    // --- NOVO: Remove o ouvinte de redimensionamento da tela ---
+    if (funcaoAtualizarPlacarDetalhes) {
+        window.removeEventListener('resize', funcaoAtualizarPlacarDetalhes);
+        funcaoAtualizarPlacarDetalhes = null;
+    }
+    // -----------------------------------------------------------
+
     // Garante que a tela de placar ao vivo também seja fechada.
     fecharPlacarAoVivo();
 }
+
 
 
 
@@ -8370,19 +8438,19 @@ function fecharModalDetalhes() {
  * @param {string} quadra - A quadra onde a reserva está.
  */
 
-async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos a função async
+// SUBSTITUA A FUNÇÃO exibirDetalhesReserva COMPLETA POR ESTA:
+async function exibirDetalhesReserva(reservaInicial, key, quadra) { 
     // Garante que qualquer listener ou timer anterior seja desligado antes de criar um novo.
     fecharModalDetalhes(); 
 	
     if (reservaInicial && reservaInicial.hora && key !== `${reservaInicial.dia}_${reservaInicial.hora}`) {
-        key = `${reservaInicial.dia}_${reservaInicial.hora}`; // A chave agora aponta para a hora correta.
+        key = `${reservaInicial.dia}_${reservaInicial.hora}`; 
     }
 
     const modal = document.getElementById('modalDetalhesReserva');
     const reservaRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
 
-    // Esta função interna será chamada toda vez que os dados da reserva mudarem no Firebase
-    const callbackDoListener = async snapshot => { // Tornamos o callback async
+    const callbackDoListener = async snapshot => { 
         const reserva = snapshot.val();
 
         if (!reserva) {
@@ -8398,12 +8466,10 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
             return;
         }
 		
-		// ==========================================================
         const nomesDiasMap = {
             1: "Segunda-Feira", 2: "Terça-Feira", 3: "Quarta-Feira",
             4: "Quinta-Feira", 5: "Sexta-Feira", 6: "Sábado", 7: "Domingo"
         };
-        // ==========================================================
         
         const pExpiraEm = document.getElementById('p-expira-em');
         if (timerContadorExpiracao) clearInterval(timerContadorExpiracao);
@@ -8416,7 +8482,7 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
         }
 
         if ((reserva.jogadores || "").toLowerCase().trim() === 'manutencao') {
-            // (código da manutenção - permanece igual)
+            // (Lógica da Manutenção - Intacta)
             const modalTitle = document.querySelector('#modalDetalhesReserva h3');
             const organizadorRow = document.getElementById('modal-organizador').parentElement;
             const jogadoresDiv = document.getElementById('modal-jogadores');
@@ -8429,7 +8495,6 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
             resultadoContainer.style.display = 'none'; 
             document.getElementById('modal-quadra').textContent = quadra;
 			
-            //document.getElementById('modal-dia').textContent = document.querySelector(`#dia option[value="${reserva.dia}"]`).textContent;
 			document.getElementById('modal-dia').textContent = nomesDiasMap[reserva.dia] || "Data Inválida";
 			
             document.getElementById('modal-data').textContent = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
@@ -8443,14 +8508,10 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
             const textColor = isDarkMode ? '#e0e0e0' : '#343a40';
             const maintenanceHtml = `<div style="padding: 15px; border: 1px solid ${borderColor}; border-radius: 8px; background-color: ${backgroundColor}; text-align: center; margin-top: 10px;"><strong style="font-size: 1.1em; color: ${textColor}; line-height: 1.4;">Este horário está reservado para a manutenção periódica da quadra.</strong></div>`;
             jogadoresDiv.innerHTML = maintenanceHtml;
-            
-            // ==========================================================
-            // ===== ADIÇÃO: Garante que o container de convidados fique oculto para manutenção =====
             document.getElementById('container-convidados').style.display = 'none';
-            // ==========================================================
 
         } else {
-            // --- INÍCIO DA CORREÇÃO ---
+            // (Lógica Normal)
             let listaDeApelidos = [];
             if (reserva.jogadores_completo) {
                 listaDeApelidos = reserva.jogadores_completo.split(',').map(j => j.trim());
@@ -8460,7 +8521,6 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
 
                 if (reserva.duracao > 1) {
                     const keySegundaParte = `${reserva.dia}_${reserva.hora + 1}`;
-                    // A CORREÇÃO ESTÁ AQUI: Busca a segunda parte diretamente do banco, em vez de usar a memória local.
                     const reserva2Ref = database.ref(`sistemas/reservas/${quadra}/${keySegundaParte}`);
                     const snapshot2 = await reserva2Ref.once('value'); 
                     const reservaSegundaParte = snapshot2.val();
@@ -8472,39 +8532,23 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
                 }
             }
 			
-			// --- INÍCIO DA CORREÇÃO DEFINITIVA (REABERTURA AUTOMÁTICA) ---
-			// Se a reserva tem resultado, é de 2h, mas a lista de jogadores está incompleta,
-			// significa que estamos no estado de bug.
 			if (reserva.resultado && reserva.duracao > 1 && listaDeApelidos.length < 2) {
 				console.warn("Inconsistência de dados detectada. Reabrindo o modal para forçar a sincronização...");
-				fecharModalDetalhes(); // Fecha tudo de forma limpa
-
-				// Re-chama a função após um pequeno intervalo para garantir que a UI foi limpa
+				fecharModalDetalhes(); 
 				setTimeout(() => {
 					exibirDetalhesReserva(reservaInicial, key, quadra); 
-				}, 50); // Um atraso muito curto, quase imperceptível
-
-				return; // Interrompe a execução atual para evitar renderizar a tela quebrada
+				}, 50); 
+				return; 
 			}
-			// --- FIM DA CORREÇÃO DEFINITIVA ---
-				// --- FIM DA CORREÇÃO ---
 
-            // (O resto do código para preencher o modal permanece o mesmo)
             document.querySelector('#modalDetalhesReserva h3').textContent = 'Detalhes da Reserva';
             document.getElementById('modal-organizador').parentElement.style.display = 'block';
             const jogadoresLabelOriginal = document.getElementById('modal-jogadores').previousElementSibling;
             if(jogadoresLabelOriginal) jogadoresLabelOriginal.style.display = 'block';
             document.getElementById('modal-quadra').textContent = quadra;
 			
-			// Usamos o mapeamento em vez de consultar o dropdown #dia
             document.getElementById('modal-dia').textContent = nomesDiasMap[reserva.dia] || "Data Inválida";
-            // ==========================================================
-            // ===== FIM DA CORREÇÃO =====
-            // ==========================================================
 			
-			
-            //document.getElementById('modal-dia').textContent = document.querySelector(`#dia option[value="${reserva.dia}"]`).textContent;
-					
             document.getElementById('modal-data').textContent = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
             let duracaoTexto = reserva.duracao === 1 ? "1 Hora" : "2 Horas";
             if (reserva.duracao === 3) duracaoTexto = "2 Horas - Pirâmide";
@@ -8533,25 +8577,18 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
             }
             const temResultado = reserva.resultado || reserva.resultadoDuplas;
 
-            // ==========================================================
-            // ===== INÍCIO DA MODIFICAÇÃO (SEPARAÇÃO SÓCIOS/CONVIDADOS) =====
-            // ==========================================================
-
             // Filtra a lista de apelidos
             const socios = listaDeApelidos.filter(j => !j.startsWith("Convidado"));
             const convidados = listaDeApelidos
                 .filter(j => j.startsWith("Convidado - "))
-                .map(j => j.replace("Convidado - ", "")); // Remove o prefixo
+                .map(j => j.replace("Convidado - ", "")); 
 
-            // Pega os containers do HTML
             const containerConvidados = document.getElementById('container-convidados');
             const divConvidados = document.getElementById('modal-convidados');
 
-            // Preenche e exibe o container de Convidados (se houver)
             if (convidados.length > 0) {
                 let convidadosHtml = '<ul>';
                 convidados.forEach(nome => {
-					//convidadosHtml += `<li><span class="modal-player-name">${nome}</span></li>`; // Nome envolvido em span
 					convidadosHtml += `<li><span class="modal-player-name"><i>${nome}</i></span></li>`;
 				});
                 convidadosHtml += '</ul>';
@@ -8564,14 +8601,18 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
 
             // Preenche o container de Jogadores (SÓCIOS)
             if (temResultado) {
-                // Se tem resultado, mostra os nomes dos sócios em linha (como antes)
-                const nomesCompletosSocios = socios.map(apelido => {
-                    const jogadorInfo = jogadoresData[apelido.trim()];
-                    return jogadorInfo ? capitalizarNome(jogadorInfo.nomeCompleto) : capitalizarNome(apelido);
-                });
-                jogadoresDiv.innerHTML = `<p style="margin: 0; font-size: 0.95em;"><em>${nomesCompletosSocios.join(', ')}</em></p>`;
                 
-                // Lógica de resultado (intacta)
+                const isHorizontal = window.innerWidth > window.innerHeight;
+                const nomesSociosFormatados = socios.map(apelido => {
+                    const jogadorInfo = jogadoresData[apelido.trim()];
+                    // Escolhe entre Nome Completo (larga) ou Apelido (estreita)
+                    // IMPORTANTE: Se o celular estiver deitado, isHorizontal é true, e pegamos o nome completo!
+                    const nomeParaUso = isHorizontal ? (jogadorInfo?.nomeCompleto || apelido) : apelido;
+                    return capitalizarNome(nomeParaUso);
+                });
+                
+                jogadoresDiv.innerHTML = `<p style="margin: 0; font-size: 0.95em;"><em>${nomesSociosFormatados.join(', ')}</em></p>`;
+                
                 resultadoContainer.style.display = 'block';
                 const tituloResultado = document.getElementById('modal-resultado-titulo');
                 if (reserva.status === 'em_andamento') {
@@ -8579,17 +8620,45 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
                 } else {
                     tituloResultado.textContent = 'Resultado do Jogo:';
                 }
+                
                 if (reserva.resultado && listaDeApelidos.length >= 2) { 
-                    resultadoPlacarDiv.innerHTML = gerarPlacarHtml(reserva.resultado, listaDeApelidos[0], listaDeApelidos[1]);
+                    // === AQUI ESTÁ O SEGREDO PARA ATUALIZAR AO GIRAR ===
+                    
+                    // 1. Define a função que será chamada quando a tela girar
+                    funcaoAtualizarPlacarDetalhes = () => {
+                        resultadoPlacarDiv.innerHTML = gerarPlacarHtml(reserva.resultado, listaDeApelidos[0], listaDeApelidos[1]);
+                        
+                        // Também atualiza a lista de jogadores (Nome Completo vs Apelido)
+                        const isHoriz = window.innerWidth > window.innerHeight;
+                        const novosNomes = socios.map(apelido => {
+                            const jInfo = jogadoresData[apelido.trim()];
+                            const nUso = isHoriz ? (jInfo?.nomeCompleto || apelido) : apelido;
+                            return capitalizarNome(nUso);
+                        });
+                        jogadoresDiv.innerHTML = `<p style="margin: 0; font-size: 0.95em;"><em>${novosNomes.join(', ')}</em></p>`;
+                    };
+
+                    // 2. Chama ela imediatamente para desenhar agora
+                    funcaoAtualizarPlacarDetalhes();
+
+                    // 3. Adiciona o ouvinte no navegador
+                    window.addEventListener('resize', funcaoAtualizarPlacarDetalhes);
+                    
+                    // ===================================================
+
                 } else if (reserva.resultadoDuplas) {
                     resultadoPlacarDiv.innerHTML = gerarPlacarDuplasHtml(reserva.resultadoDuplas);
                 }
             } else {
-                // Se não tem resultado, mostra a lista de sócios com status
+                // Sem resultado: removemos o listener se ele existia de uma abertura anterior
+                if (funcaoAtualizarPlacarDetalhes) {
+                    window.removeEventListener('resize', funcaoAtualizarPlacarDetalhes);
+                    funcaoAtualizarPlacarDetalhes = null;
+                }
+
                 let jogadoresHtml = '<ul>';
-                socios.forEach(apelido => { // <<-- USA A LISTA 'socios'
+                socios.forEach(apelido => { 
                     let statusTexto = '';
-                    // Lógica de status (intacta)
                     if (reserva.confirmacoes && apelido.toLowerCase() !== 'convidado') {
                         const status = reserva.confirmacoes[apelido];
                         if (status === true) statusTexto = '<span class="status-confirmado">(✓ Confirmado)</span>';
@@ -8598,29 +8667,20 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
                     }
                     const jogadorInfo = jogadoresData[apelido.trim()];
 					const nomeParaExibir = jogadorInfo ? capitalizarNome(jogadorInfo.nomeCompleto) : capitalizarNome(apelido);
-					// Envolve o nome e o status em spans separados
 					jogadoresHtml += `<li><span class="modal-player-name">${nomeParaExibir}</span> ${statusTexto}</li>`;
                 });
                 jogadoresHtml += '</ul>';
                 jogadoresDiv.innerHTML = jogadoresHtml;
             }
-            // ==========================================================
-            // ===== FIM DA MODIFICAÇÃO =====
-            // ==========================================================
         }
 		
-		// --- BLOCO FALTANTE - ADICIONADO AQUI ---
         const btnContainer = document.getElementById('container-btn-placar-ao-vivo');
-        // A condição para mostrar o botão: ser um jogo da Pirâmide E estar 'em_andamento'
         if (reserva.duracao === 3 && reserva.status === 'em_andamento') {
             btnContainer.style.display = 'block';
-            // Anexa o evento de clique, passando os parâmetros corretos
             document.getElementById('btn-placar-ao-vivo').onclick = () => abrirPlacarAoVivo(key, quadra);
         } else {
             btnContainer.style.display = 'none';
         }
-        // --- FIM DO BLOCO FALTANTE ---
-				
     };
 
     const listenerCallback = reservaRef.on('value', callbackDoListener);
@@ -8630,6 +8690,8 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) { // Tornamos 
         modal.style.display = 'flex';
     }
 }
+
+
 
 
 
@@ -10792,51 +10854,93 @@ async function recusarResultado(reservaKey, quadra) {
 
 // VERSÃO FINAL E COMPLETA DA FUNÇÃO - SUBSTITUA A SUA ATUAL POR ESTA
 
+// SUBSTITUA A FUNÇÃO gerarPlacarHtml COMPLETA POR ESTA:
 function gerarPlacarHtml(resultado, jogador1Apelido, jogador2Apelido) {
     if (!resultado) return "";
+    
+    // --- 1. BUSCA DE DADOS ---
+    const getInfo = (apelido) => {
+        if (!apelido) return null;
+        const key = Object.keys(jogadoresData).find(k => k.toUpperCase() === apelido.toUpperCase());
+        return key ? jogadoresData[key] : null;
+    };
 
-    const jogador1Info = jogadoresData[jogador1Apelido] || { nomeCompleto: jogador1Apelido, piramide: '0' };
-    const jogador2Info = jogadoresData[jogador2Apelido] || { nomeCompleto: jogador2Apelido, piramide: '0' };
+    const j1Info = getInfo(jogador1Apelido);
+    const j2Info = getInfo(jogador2Apelido);
+    
+    // --- 2. HELPER DE FORMATAÇÃO INTELIGENTE (NOVO) ---
+    const formatarNomeExibicao = (nomeCompletoRaw, apelidoRaw, isHorizontal) => {
+        // Formatações básicas para garantir consistência
+        const nomeCompleto = capitalizarNome(nomeCompletoRaw || apelidoRaw);
+        const apelido = capitalizarNome(apelidoRaw);
+
+        // SE FOR VERTICAL (CELULAR EM PÉ): Retorna apenas o Apelido
+        if (!isHorizontal) {
+            return apelido;
+        }
+
+        // SE FOR HORIZONTAL (PC OU CELULAR DEITADO): Aplica a lógica do negrito
+        
+        // Verifica se o apelido está contido no nome completo (ignorando maiúsculas/minúsculas)
+        const index = nomeCompleto.toLowerCase().indexOf(apelido.toLowerCase());
+
+        if (index !== -1) {
+            // CASO 1: O apelido FAZ PARTE do nome (Ex: Rafael Nadal -> Rafael **Nadal**)
+            // Usamos RegEx para substituir preservando a capitalização original do nome completo
+            const regex = new RegExp(`(${apelido})`, 'gi');
+            return nomeCompleto.replace(regex, '<b>$1</b>');
+        } else {
+            // CASO 2: O apelido É DIFERENTE (Ex: Adenilson Moura -> Adenilson Moura (**Amora**))
+            return `${nomeCompleto} (<b>${apelido}</b>)`;
+        }
+    };
+
+    // --- 3. LÓGICA DE DETECÇÃO DE TELA ---
+    // Usa a mesma lógica do Placar Ao Vivo (Largura > Altura)
+    const isHorizontal = window.innerWidth > window.innerHeight;
+
+    // Define os nomes brutos para processamento
+    const nomeJ1Raw = j1Info?.nomeCompleto || jogador1Apelido;
+    const nomeJ2Raw = j2Info?.nomeCompleto || jogador2Apelido;
+
+    // Gera os nomes finais com a lógica inteligente
+    const j1NomeDisplay = formatarNomeExibicao(nomeJ1Raw, jogador1Apelido, isHorizontal);
+    const j2NomeDisplay = formatarNomeExibicao(nomeJ2Raw, jogador2Apelido, isHorizontal);
+
+
+    // --- 4. LÓGICA DE VENCEDOR (NEGRITO NA CLASSE CSS) ---
     const vencedorDoResultado = resultado.vencedor;
-
-    // ==========================================================
-    // INÍCIO DA CORREÇÃO DEFINITIVA (LÓGICA ROBUSTA DO VENCEDOR)
-    // ==========================================================
     let p1_is_match_winner = false;
     let p2_is_match_winner = false;
 
-    // Tentativa 1: Compara o apelido (padrão correto para novos resultados)
     if (jogador1Apelido.toUpperCase() === vencedorDoResultado.toUpperCase()) {
         p1_is_match_winner = true;
     } else if (jogador2Apelido.toUpperCase() === vencedorDoResultado.toUpperCase()) {
         p2_is_match_winner = true;
-    }
-
-    // Tentativa 2 (Fallback): Se a primeira falhou, compara o nome completo (para corrigir dados antigos)
-    if (!p1_is_match_winner && !p2_is_match_winner) {
-        if (jogador1Info && jogador1Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase()) {
+    } else {
+        // Fallback
+        if (j1Info && j1Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase()) {
             p1_is_match_winner = true;
-        } else if (jogador2Info && jogador2Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase()) {
+        } else if (j2Info && j2Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase()) {
             p2_is_match_winner = true;
         }
     }
-    // ==========================================================
-    // FIM DA CORREÇÃO DEFINITIVA
-    // ==========================================================
-
+    
+    // --- 5. LÓGICA DE RANKING ---
     let posicaoHtmlP1 = '';
-    if (jogador1Info && jogador1Info.piramide && jogador1Info.piramide !== "0") {
-        const piramidePos = parseInt(jogador1Info.piramide, 10);
+    if (j1Info && j1Info.piramide && j1Info.piramide !== "0") {
+        const piramidePos = parseInt(j1Info.piramide, 10);
         const displayRank = piramidePos >= 61 ? piramidePos - 60 : piramidePos;
         posicaoHtmlP1 = `<span class="placar-posicao">${displayRank}</span>`;
     }
 
     let posicaoHtmlP2 = '';
-    if (jogador2Info && jogador2Info.piramide && jogador2Info.piramide !== "0") {
-        const piramidePos = parseInt(jogador2Info.piramide, 10);
+    if (j2Info && j2Info.piramide && j2Info.piramide !== "0") {
+        const piramidePos = parseInt(j2Info.piramide, 10);
         const displayRank = piramidePos >= 61 ? piramidePos - 60 : piramidePos;
         posicaoHtmlP2 = `<span class="placar-posicao">${displayRank}</span>`;
     }
+
 
     const scoresP1 = [];
     const scoresP2 = [];
@@ -10852,22 +10956,9 @@ function gerarPlacarHtml(resultado, jogador1Apelido, jogador2Apelido) {
 				let classP2 = '';
 				let tb1_html = '', tb2_html = '';
 
-				// --- INÍCIO DA CORREÇÃO DEFINITIVA ---
-
-				// Se for o terceiro set (Super Tie-Break)
 				if (setKey === 'set3') {
-					// --- INÍCIO DA CORREÇÃO FINAL ---
-					// Lógica correta para o Super Tie-Break (primeiro a 10, com 2 de vantagem)
-					// Só define um vencedor se as regras forem cumpridas.
-					if (s1 >= 10 && (s1 - s2) >= 2) {
-						classP1 = 'winner';
-					} else if (s2 >= 10 && (s2 - s1) >= 2) {
-						classP2 = 'winner';
-					}
-					// Se nenhuma condição for atendida (jogo em andamento), ninguém fica em negrito.
-					// --- FIM DA CORREÇÃO FINAL ---
-
-				// Se for o 1º ou 2º set
+					if (s1 >= 10 && (s1 - s2) >= 2) classP1 = 'winner';
+					else if (s2 >= 10 && (s2 - s1) >= 2) classP2 = 'winner';
 				} else {
 					let tb1 = NaN, tb2 = NaN;
 					if (typeof setData === 'object' && setData.tiebreak && setData.tiebreak.includes('-')) {
@@ -10875,13 +10966,10 @@ function gerarPlacarHtml(resultado, jogador1Apelido, jogador2Apelido) {
 						tb1_html = `<sup>${tb1}</sup>`;
 						tb2_html = `<sup>${tb2}</sup>`;
 					}
-
-					// Usamos a função inteligente para evitar o bug do 0x0
 					const vencedorDoSet = determinarVencedorSet(s1, s2, tb1, tb2);
 					if (vencedorDoSet === 'j1') classP1 = 'winner';
 					if (vencedorDoSet === 'j2') classP2 = 'winner';
 				}
-				// --- FIM DA CORREÇÃO DEFINITIVA ---
 
 				scoresP1.push(`<span class="set-score ${classP1}">${s1}${tb1_html}</span>`);
 				scoresP2.push(`<span class="set-score ${classP2}">${s2}${tb2_html}</span>`);
@@ -10891,59 +10979,62 @@ function gerarPlacarHtml(resultado, jogador1Apelido, jogador2Apelido) {
 
     const motivoHtml = resultado.motivo ? `<p class="motivo-resultado">Motivo: ${resultado.motivo}</p>` : '';
 
-    // Lógica para W.O. (PRESERVADA)
+    // Lógica para W.O.
     if (resultado.tipo === 'W.O.') {
         return `
             <div class="placar-container">
                 <div class="placar-row">
                     ${posicaoHtmlP1}
-                    <span class="placar-nome ${p1_is_match_winner ? 'match-winner' : ''}">${jogador1Apelido}</span>
+                    <span class="placar-nome ${p1_is_match_winner ? 'match-winner' : ''}">${j1NomeDisplay}</span>
                     <span class="placar-sets">${p1_is_match_winner ? '<span class="set-score winner">W.O.</span>' : ''}</span>
                 </div>
                 <div class="placar-row">
                     ${posicaoHtmlP2}
-                    <span class="placar-nome ${p2_is_match_winner ? 'match-winner' : ''}">${jogador2Apelido}</span>
+                    <span class="placar-nome ${p2_is_match_winner ? 'match-winner' : ''}">${j2NomeDisplay}</span>
                     <span class="placar-sets">${p2_is_match_winner ? '<span class="set-score winner">W.O.</span>' : ''}</span>
                 </div>
             </div>${motivoHtml}`;
     }
 
-    // Lógica para Desistência (PRESERVADA)
+    // Lógica para Desistência
     if (resultado.tipo === 'Desistência') {
-        const p1_is_loser = jogador1Apelido === resultado.perdedor;
-        const p2_is_loser = jogador2Apelido === resultado.perdedor;
+        const p1_is_loser = jogador1Apelido.toUpperCase() === resultado.perdedor.toUpperCase(); 
+        const p2_is_loser = jogador2Apelido.toUpperCase() === resultado.perdedor.toUpperCase(); 
+        
         return `
             <div class="placar-container">
                 <div class="placar-row">
                     ${posicaoHtmlP1}
-                    <span class="placar-nome ${p1_is_match_winner ? 'match-winner' : ''}">${jogador1Apelido}</span>
+                    <span class="placar-nome ${p1_is_match_winner ? 'match-winner' : ''}">${j1NomeDisplay}</span>
                     ${p1_is_loser ? '<span class="ret-indicator">RET</span>' : ''}
                     <span class="placar-sets">${scoresP1.join('')}</span>
                 </div>
                 <div class="placar-row">
                     ${posicaoHtmlP2}
-                    <span class="placar-nome ${p2_is_match_winner ? 'match-winner' : ''}">${jogador2Apelido}</span>
+                    <span class="placar-nome ${p2_is_match_winner ? 'match-winner' : ''}">${j2NomeDisplay}</span>
                     ${p2_is_loser ? '<span class="ret-indicator">RET</span>' : ''}
                     <span class="placar-sets">${scoresP2.join('')}</span>
                 </div>
             </div>${motivoHtml}`;
     }
 
-    // Retorno padrão para Jogo Normal (PRESERVADO)
+    // Retorno padrão para Jogo Normal
     return `
       <div class="placar-container">
         <div class="placar-row">
           ${posicaoHtmlP1}
-          <span class="placar-nome ${p1_is_match_winner ? 'match-winner' : ''}">${jogador1Apelido}</span>
+          <span class="placar-nome ${p1_is_match_winner ? 'match-winner' : ''}">${j1NomeDisplay}</span>
           <span class="placar-sets">${scoresP1.join('')}</span>
         </div>
         <div class="placar-row">
           ${posicaoHtmlP2}
-          <span class="placar-nome ${p2_is_match_winner ? 'match-winner' : ''}">${jogador2Apelido}</span>
+          <span class="placar-nome ${p2_is_match_winner ? 'match-winner' : ''}">${j2NomeDisplay}</span>
           <span class="placar-sets">${scoresP2.join('')}</span>
         </div>
       </div>`;
 }
+
+
 
 
 
@@ -11248,6 +11339,9 @@ async function verificarNotificacoes() {
 // =================================================================
 // FUNÇÃO: ATUALIZAR E EXIBIR PRÓXIMA RESERVA (COMPLETA E ADAPTADA AO BANCO)
 // =================================================================
+// =================================================================
+// FUNÇÃO CORRIGIDA: ATUALIZAR E EXIBIR PRÓXIMA RESERVA
+// =================================================================
 async function atualizarEExibirProximaReserva() {
     const agendaConteudo = document.getElementById('agenda-conteudo');
     const agendaTrigger = document.getElementById('agenda-trigger'); 
@@ -11312,12 +11406,10 @@ async function atualizarEExibirProximaReserva() {
             if (reserva.dia === hojeIndex && (reserva.hora + duracao) <= horaAtual) continue;
 
             // =========================================================================
-            //  BLOCO DE CORREÇÃO: RECONSTROI A LISTA COMPLETA DE APELIDOS PARA CHECAGEM
+            //  BLOCO DE BUSCA: RECONSTROI A LISTA PARA ENCONTRAR A RESERVA
             // =========================================================================
-            // 1. Inicia com os jogadores da primeira hora
             let jogadoresNaReserva = (reserva.jogadores_completo || reserva.jogadores || "").split(',').map(j => j.trim());
             
-            // 2. Adiciona jogadores da segunda hora (para reservas de 2h/Pirâmide)
             if (reserva.duracao > 1) {
                 const keySegundaHora = `${reserva.dia}_${reserva.hora + 1}`;
                 const reservaSegundaParte = todasAsReservas[quadra]?.[keySegundaHora];
@@ -11328,10 +11420,8 @@ async function atualizarEExibirProximaReserva() {
                 }
             }
             
-            // 3. Limpa vazios e remove apelidos duplicados (garantindo Nadal e Federer)
             jogadoresNaReserva = [...new Set(jogadoresNaReserva.filter(j => j))];
             
-            // 4. Checa a participação usando a lista completa e robusta
             const isParticipante = jogadoresNaReserva.some(j => j.toUpperCase() === jogadorLogadoApelido.toUpperCase());
             const statusJogador = reserva.confirmacoes ? reserva.confirmacoes[jogadorLogadoApelido] : undefined;
             // =========================================================================
@@ -11353,31 +11443,37 @@ async function atualizarEExibirProximaReserva() {
 
     if (proximaReserva) {
         
-        // --- RECONSTROI A LISTA COMPLETA DE JOGADORES PARA RENDERIZAÇÃO ---
-        let jogadoresNaReserva = (proximaReserva.jogadores_completo || proximaReserva.jogadores || "").split(',').map(j => j.trim());
+        // =================================================================
+        // FUNÇÃO INTERNA DE RENDERIZAÇÃO (Agora assíncrona para buscar a parte 2)
+        // =================================================================
+        const renderizarAgenda = async (reservaDados) => {
+            // 1. Pega os jogadores da primeira hora (que veio no snapshot)
+            let listaJogadores = (reservaDados.jogadores_completo || reservaDados.jogadores || "").split(',').map(j => j.trim());
 
-        // Se a reserva é de 2 ou 3 horas, buscamos a próxima entrada (a segunda hora)
-        if (proximaReserva.duracao > 1) {
-            const keySegundaHora = `${proximaReserva.dia}_${proximaReserva.hora + 1}`;
+            // 2. CORREÇÃO PARA PIRÂMIDE: Se a duração > 1, buscamos a segunda hora NO BANCO
+            // Isso garante que pegamos o nome do adversário ("Ana Francisca") que está na hora seguinte.
+            const duracaoReal = reservaDados.duracao === 3 ? 2 : (reservaDados.duracao || 1);
             
-            // Busca a segunda hora diretamente do snapshot completo do Firebase
-            const reservaSegundaParte = todasAsReservas[proximaReserva.quadra]?.[keySegundaHora];
-            
-            if (reservaSegundaParte && reservaSegundaParte.jogadores) {
-                // Adiciona os jogadores da segunda hora (ex: "Leo Carrara")
-                const jogadoresParte2 = reservaSegundaParte.jogadores.split(',').map(j => j.trim());
-                jogadoresNaReserva.push(...jogadoresParte2);
+            if (duracaoReal > 1) {
+                const keySegundaHora = `${reservaDados.dia}_${reservaDados.hora + 1}`;
+                try {
+                    // Busca os dados da segunda hora especificamente para a agenda
+                    const snapshot2 = await database.ref(`sistemas/reservas/${proximaReserva.quadra}/${keySegundaHora}`).once('value');
+                    const reservaParte2 = snapshot2.val();
+                    
+                    if (reservaParte2 && reservaParte2.jogadores) {
+                         const jogadoresParte2 = reservaParte2.jogadores.split(',').map(j => j.trim());
+                         listaJogadores.push(...jogadoresParte2); // Adiciona à lista
+                    }
+                } catch (err) {
+                    console.error("Erro ao buscar segunda parte da reserva na agenda:", err);
+                }
             }
-        }
-        
-        // Remove quaisquer vazios e apelidos duplicados (usando Set)
-        jogadoresNaReserva = [...new Set(jogadoresNaReserva.filter(j => j))];
-        // --- FIM DA RECONSTRUÇÃO PARA RENDERIZAÇÃO ---
 
+            // 3. Filtra vazios e duplicados e define a lista final para exibição
+            const jogadoresNaReserva = [...new Set(listaJogadores.filter(j => j))];
 
-        // Função interna de renderização
-        const renderizarAgenda = (reservaDados) => {
-		    const jogadoresNaReserva = (reservaDados.jogadores_completo || reservaDados.jogadores || "").split(',').map(j => j.trim());
+            // 4. Configuração de exibição (Datas, Nomes, etc.)
             const nomesDiasMap = {
                 1: "Segunda-Feira", 2: "Terça-Feira", 3: "Quarta-Feira", 4: "Quinta-Feira", 5: "Sexta-Feira", 6: "Sábado", 7: "Domingo"
             };
@@ -11386,26 +11482,21 @@ async function atualizarEExibirProximaReserva() {
             const dataTabelaCell = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${diaReserva})`);
             const dataReservaTexto = dataTabelaCell ? dataTabelaCell.textContent : "Data não encontrada";
 
-            const duracao = reservaDados.duracao === 3 ? 2 : (reservaDados.duracao || 1);
-            const horaFim = reservaDados.hora + duracao;
+            const horaFim = reservaDados.hora + duracaoReal;
             const horario = `${String(reservaDados.hora).padStart(2, '0')}:00 - ${String(horaFim).padStart(2, '0')}:00`;
 
-            // ==========================================================
-            // ===== INÍCIO DA NOVA LÓGICA DE PARCEIROS E CONVIDADOS =====
-            // ==========================================================
-            
-            // 1. Filtra todos que não são o usuário logado
+            // 5. Filtra Parceiros (Remove quem está logado)
             const todosParceiros = jogadoresNaReserva
                 .filter(apelido => apelido.toUpperCase() !== jogadorLogadoApelido.toUpperCase());
 
-            // 2. Separa em Sócios e Convidados
+            // Separa Sócios e Convidados
             const sociosParceiros = todosParceiros.filter(p => !p.trim().startsWith("Convidado"));
             const convidadosParceiros = todosParceiros
                 .filter(p => p.trim().startsWith("Convidado - "))
-                .map(p => p.substring(p.indexOf('-') + 2).trim()); // Extrai o nome limpo
+                .map(p => p.substring(p.indexOf('-') + 2).trim());
 
-            // 3. Gera HTML para os Sócios
-            let sociosHtml = 'Nenhum'; // Padrão se não houver sócios
+            // Gera HTML para Sócios
+            let sociosHtml = 'Nenhum';
             if (sociosParceiros.length > 0) {
                 if (reservaDados.confirmacoes) {
                     sociosHtml = sociosParceiros.map(apelido => {
@@ -11414,30 +11505,25 @@ async function atualizarEExibirProximaReserva() {
                         if (status === true) { style = 'color: #28a745;'; } 
                         else if (status === false) { style = 'color: #ffc107;'; } 
                         else if (status === 'recusado') { style = 'color: #dc3545; text-decoration: line-through;'; }
-                        // Se não tiver status (ex: reserva antiga), usa a cor padrão (preto/branco)
                         return `<span style="${style}">${capitalizarNome(apelido)}</span>`;
                     }).join(', ');
                 } else {
-                    // Fallback para reservas sem confirmação
                     sociosHtml = sociosParceiros.map(capitalizarNome).join(', ');
                 }
             }
 
-            // 4. Gera a linha HTML completa para os Convidados
-			let convidadosHtml = ''; // Fica vazio se não houver convidados
-			if (convidadosParceiros.length > 0) {
-				const label = convidadosParceiros.length > 1 ? 'Convidados' : 'Convidado';
-				const nomes = convidadosParceiros.map(capitalizarNome).join(', ');
-				convidadosHtml = `<p><strong>${label}:</strong> <i>${nomes}</i></p>`; // <-- ALTERAÇÃO AQUI
-			}
-            // ==========================================================
-            // ===== FIM DA NOVA LÓGICA =====
-            // ==========================================================
+            // Gera HTML para Convidados
+            let convidadosHtml = ''; 
+            if (convidadosParceiros.length > 0) {
+                const label = convidadosParceiros.length > 1 ? 'Convidados' : 'Convidado';
+                const nomes = convidadosParceiros.map(capitalizarNome).join(', ');
+                convidadosHtml = `<p><strong>${label}:</strong> <i>${nomes}</i></p>`; 
+            }
 
             const destaqueHoje = diaReserva === hojeIndex ? 'class="agenda-hoje-destaque"' : '';
             const textoDia = diaReserva === hojeIndex ? 'Hoje' : nomesDiasMap[diaReserva];
 
-            // Renderiza o HTML COMPLETO
+            // Renderiza o HTML Final
             agendaConteudo.innerHTML = `
                 <div class="agenda-info">
                     <p><strong>Quadra:</strong> ${proximaReserva.quadra}</p>
@@ -11457,10 +11543,10 @@ async function atualizarEExibirProximaReserva() {
             }
         };
 
-        // 1. Renderiza a Agenda com os dados iniciais
-        renderizarAgenda(proximaReserva);
+        // 1. Executa a renderização inicial (com await para garantir que a hora 2 seja carregada)
+        await renderizarAgenda(proximaReserva);
 
-        // 2. Conecta o listener para a reserva específica (tempo real)
+        // 2. Liga o monitoramento em tempo real da reserva
         agendaListenerRef = database.ref(`sistemas/reservas/${proximaReserva.quadra}/${proximaReserva.key}`);
         agendaCallback = agendaListenerRef.on('value', (snapshot) => {
             const dadosAtualizados = snapshot.val();
@@ -11472,7 +11558,7 @@ async function atualizarEExibirProximaReserva() {
             }
         });
 
-        // Garante que o botão 📅 apareça
+        // Mostra o botão da agenda
         if (agendaTrigger) agendaTrigger.style.display = 'flex';
         return proximaReserva;
 
@@ -11482,7 +11568,6 @@ async function atualizarEExibirProximaReserva() {
         return null;
     }
 }
-
 
 /**
  * Abre o modal de resultado de duplas.
@@ -11862,33 +11947,41 @@ async function salvarResultadoDuplas(reserva, key, quadra) {
  * @param {object} resultadoDuplas - O objeto de resultado salvo na reserva.
  * @returns {string} - O HTML formatado para ser exibido no modal.
  */
+/**
+ * Gera o HTML para exibir o resultado de uma partida de duplas (3 jogos).
+ * ATUALIZADO: Estrutura melhorada para cortar nomes longos no celular.
+ */
 function gerarPlacarDuplasHtml(resultadoDuplas) {
     if (!resultadoDuplas || !resultadoDuplas.confrontos) return "";
 
-    // Container principal que usa as classes de estilo já existentes
     let html = '<div class="placar-container">';
 
     resultadoDuplas.confrontos.forEach(jogo => {
         const [placarA, placarB] = jogo.placar.split('x').map(Number);
         const timeAVenceu = placarA > placarB;
 
-        // Formata os nomes das duplas com quebra de linha
-        const dupla1Nomes = jogo.dupla1.replace(' / ', '<br>');
-        const dupla2Nomes = jogo.dupla2.replace(' / ', '<br>');
+        // --- NOVA LÓGICA DE FORMATAÇÃO DE NOMES ---
+        // Envolve cada nome em uma div com classe específica para permitir o corte (...)
+        const formatarNomes = (duplaStr) => {
+            return duplaStr.split(' / ').map(nome => 
+                `<div class="dupla-name-item">${nome}</div>`
+            ).join('');
+        };
+
+        const dupla1Html = formatarNomes(jogo.dupla1);
+        const dupla2Html = formatarNomes(jogo.dupla2);
+        // -------------------------------------------
 
         let placarHtml;
         
-        // NOVO: Lógica para o placar de tie-break, igual à da pirâmide
         if (jogo.tiebreak) {
             const [tbA, tbB] = jogo.tiebreak.split('-');
-            // Gera o placar com os números do tie-break em superscript (<sup>)
             placarHtml = `
                 <span class="set-score ${timeAVenceu ? 'winner' : ''}">${placarA}<sup>${tbA}</sup></span>
                 <span>&times;</span>
                 <span class="set-score ${!timeAVenceu ? 'winner' : ''}">${placarB}<sup>${tbB}</sup></span>
             `;
         } else {
-            // Gera o placar normal, sem tie-break
             placarHtml = `
                 <span class="set-score ${timeAVenceu ? 'winner' : ''}">${placarA}</span>
                 <span>&times;</span>
@@ -11896,27 +11989,36 @@ function gerarPlacarDuplasHtml(resultadoDuplas) {
             `;
         }
 
-        // ALTERADO: A estrutura do HTML foi modificada para atender ao novo layout
         html += `
-            <div class="matchup-row" style="padding: 1px 0; font-size: 0.95em; align-items: center;">
-                <span class="team-names" style="font-weight: ${timeAVenceu ? 'bold' : 'normal'}; text-align: center; flex-basis: 40%;">${dupla1Nomes}</span>
+            <div class="matchup-row" style="padding: 4px 0; font-size: 0.95em; align-items: center;">
+                <div class="team-names" style="font-weight: ${timeAVenceu ? 'bold' : 'normal'}; text-align: center; flex-basis: 40%; overflow: hidden;">
+                    ${dupla1Html}
+                </div>
+                
                 <div class="score-input-container" style="flex-basis: 20%; display: flex; justify-content: center; gap: 5px; font-weight: bold; font-size: 1.1em;">
                     ${placarHtml}
                 </div>
-                <span class="team-names" style="font-weight: ${!timeAVenceu ? 'bold' : 'normal'}; text-align: center; flex-basis: 40%;">${dupla2Nomes}</span>
+                
+                <div class="team-names" style="font-weight: ${!timeAVenceu ? 'bold' : 'normal'}; text-align: center; flex-basis: 40%; overflow: hidden;">
+                    ${dupla2Html}
+                </div>
             </div>
         `;
     });
 
     html += '</div>';
     
-    // Adiciona o rodapé com informações de quem e quando o resultado foi inserido
-    const dataInformado = new Date(resultadoDuplas.dataInformado).toLocaleString('pt-BR');
-    html += `<p style="text-align: center; font-size: 0.8em; color: #888; margin-top: 15px;">Resultado informado por ${resultadoDuplas.informadoPor} em ${dataInformado}.</p>`;
+    // Formata a data/hora sem os segundos (dd/mm/aaaa hh:mm)
+    const dataInformado = new Date(resultadoDuplas.dataInformado).toLocaleString('pt-BR', {
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+    });
+
+    // Texto encurtado: "Informado por..."
+    html += `<p style="text-align: center; font-size: 0.8em; color: #888; margin-top: 15px;">Informado por ${resultadoDuplas.informadoPor} em ${dataInformado}.</p>`;
 
     return html;
 }
-
 
 
 /**
@@ -12598,6 +12700,7 @@ function fecharPlacarAoVivo() {
  * @param {string} key - A chave da reserva no Firebase.
  * @param {string} quadra - A quadra onde a reserva está.
  */
+// SUBSTITUA A FUNÇÃO abrirPlacarAoVivo COMPLETA POR ESTA:
 async function abrirPlacarAoVivo(key, quadra) {
     const overlay = document.getElementById('placarAoVivoOverlay');
     const placarRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
@@ -12630,17 +12733,16 @@ async function abrirPlacarAoVivo(key, quadra) {
         }
 
         if (jogadoresApelidos.length < 2) { fecharPlacarAoVivo(); return; }
-        const [j1, j2] = jogadoresApelidos;
+        const [j1Apelido, j2Apelido] = jogadoresApelidos; // Renomeado para evitar confusão
+
+        const j1Info = jogadoresData[j1Apelido]; // Objeto de informações do jogador 1
+        const j2Info = jogadoresData[j2Apelido]; // Objeto de informações do jogador 2
+        
+        // --- PREPARAÇÃO DOS NOMES DE EXIBIÇÃO ---
+        const j1NomeCompleto = j1Info ? capitalizarNome(j1Info.nomeCompleto) : capitalizarNome(j1Apelido);
+        const j2NomeCompleto = j2Info ? capitalizarNome(j2Info.nomeCompleto) : capitalizarNome(j2Apelido);
 
         document.getElementById('placar-quadra').textContent = quadra;
-
-        const j1Info = jogadoresData[j1];
-        const j2Info = jogadoresData[j2];
-
-        const j1NomeCompleto = j1Info ? capitalizarNome(j1Info.nomeCompleto) : capitalizarNome(j1);
-        const j1Apelido = j1;
-        const j2NomeCompleto = j2Info ? capitalizarNome(j2Info.nomeCompleto) : capitalizarNome(j2);
-        const j2Apelido = j2;
 
         document.getElementById('placar-j1-posicao').textContent = getDisplayRank(j1Info?.piramide) || 'N/A';
         document.getElementById('placar-j2-posicao').textContent = getDisplayRank(j2Info?.piramide) || 'N/A';
@@ -12648,10 +12750,12 @@ async function abrirPlacarAoVivo(key, quadra) {
         const j1NomeEl = document.getElementById('placar-j1-nome');
         const j2NomeEl = document.getElementById('placar-j2-nome');
 
+        // Armazena Nome Completo e Apelido nos data-* attributes
         j1NomeEl.setAttribute('data-nome-completo', j1NomeCompleto);
         j1NomeEl.setAttribute('data-apelido', j1Apelido);
         j2NomeEl.setAttribute('data-nome-completo', j2NomeCompleto);
         j2NomeEl.setAttribute('data-apelido', j2Apelido);
+        // A função atualizarNomesPlacarAoVivo() que será chamada no final fará a escolha de qual nome exibir.
 
         const resultado = reserva.resultado;
 
@@ -12665,7 +12769,7 @@ async function abrirPlacarAoVivo(key, quadra) {
         // VERIFICA SE O RESULTADO É W.O.
         if (resultado.tipo === 'W.O.') {
             const vencedorWO = resultado.vencedor;
-            const j1VenceuWO = (j1.toUpperCase() === vencedorWO.toUpperCase()) || (j1Info && j1Info.nomeCompleto.toUpperCase() === vencedorWO.toUpperCase());
+            const j1VenceuWO = (j1Apelido.toUpperCase() === vencedorWO.toUpperCase()) || (j1Info && j1Info.nomeCompleto.toUpperCase() === vencedorWO.toUpperCase());
 
             // Limpa classes de W.O. antes de adicionar a nova
             j1SetsContainer.classList.remove('contains-wo');
@@ -12764,7 +12868,7 @@ async function abrirPlacarAoVivo(key, quadra) {
             const vencedorDoResultado = reserva.resultado.vencedor;
             const tipoVitoria = reserva.resultado.tipo === 'Placar Normal' ? '' : ` por ${reserva.resultado.tipo}`;
 
-            const vencedorApelidoReal = (j1.toUpperCase() === vencedorDoResultado.toUpperCase() || (j1Info && j1Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase())) ? j1 : j2;
+            const vencedorApelidoReal = (j1Apelido.toUpperCase() === vencedorDoResultado.toUpperCase() || (j1Info && j1Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase())) ? j1Apelido : j2Apelido;
             const vencedorInfoCompleto = jogadoresData[vencedorApelidoReal];
             const nomeParaExibir = vencedorInfoCompleto ? vencedorInfoCompleto.nomeCompleto : vencedorApelidoReal;
             vencedorDeclaracao.innerHTML = `🏆 Vitória de ${capitalizarNome(nomeParaExibir)}${tipoVitoria}`;
@@ -12776,9 +12880,9 @@ async function abrirPlacarAoVivo(key, quadra) {
 
             if (reserva.resultado.tipo === 'Desistência') {
                 const perdedorApelido = reserva.resultado.perdedor;
-                if (j1.toUpperCase() === perdedorApelido.toUpperCase()) {
+                if (j1Apelido.toUpperCase() === perdedorApelido.toUpperCase()) {
                     j1RetElement.innerHTML = '<span class="ret-indicator-placar">RET</span>';
-                } else if (j2.toUpperCase() === perdedorApelido.toUpperCase()) {
+                } else if (j2Apelido.toUpperCase() === perdedorApelido.toUpperCase()) {
                     j2RetElement.innerHTML = '<span class="ret-indicator-placar">RET</span>';
                 }
             }
@@ -12794,9 +12898,9 @@ async function abrirPlacarAoVivo(key, quadra) {
 
             let j1_is_match_winner = false;
             let j2_is_match_winner = false;
-            if (j1.toUpperCase() === vencedorDoResultado.toUpperCase()) {
+            if (j1Apelido.toUpperCase() === vencedorDoResultado.toUpperCase()) {
                 j1_is_match_winner = true;
-            } else if (j2.toUpperCase() === vencedorDoResultado.toUpperCase()) {
+            } else if (j2Apelido.toUpperCase() === vencedorDoResultado.toUpperCase()) {
                 j2_is_match_winner = true;
             }
             if (!j1_is_match_winner && !j2_is_match_winner) {
@@ -12875,10 +12979,12 @@ async function abrirPlacarAoVivo(key, quadra) {
 }
 
 
+
 /**
  * Atualiza os nomes no placar ao vivo com base na orientação da tela.
  * Lê os nomes dos atributos data-* e define o textContent.
  */
+// SUBSTITUA A FUNÇÃO atualizarNomesPlacarAoVivo COMPLETA POR ESTA:
 function atualizarNomesPlacarAoVivo() {
     const j1NomeEl = document.getElementById('placar-j1-nome');
     const j2NomeEl = document.getElementById('placar-j2-nome');
@@ -12888,18 +12994,46 @@ function atualizarNomesPlacarAoVivo() {
         return;
     }
 
-    // Verifica se a largura é maior que a altura
+    // Lógica de detecção de tela (Horizontal vs Vertical)
     const isHorizontal = window.innerWidth > window.innerHeight;
 
-    if (isHorizontal) {
-        // Horizontal (Desktop or Phone Landscape) - Show Full Name
-        j1NomeEl.textContent = j1NomeEl.getAttribute('data-nome-completo');
-        j2NomeEl.textContent = j2NomeEl.getAttribute('data-nome-completo');
-    } else {
-        // Vertical (Phone Portrait) - Show Nickname
-        j1NomeEl.textContent = j1NomeEl.getAttribute('data-apelido');
-        j2NomeEl.textContent = j2NomeEl.getAttribute('data-apelido');
-    }
+    // --- HELPER DE FORMATAÇÃO INTELIGENTE (Igual ao do Modal de Detalhes) ---
+    const formatarNomeExibicao = (nomeCompletoRaw, apelidoRaw) => {
+        // Garante a formatação base (Primeira letra maiúscula)
+        const nomeCompleto = capitalizarNome(nomeCompletoRaw || apelidoRaw);
+        const apelido = capitalizarNome(apelidoRaw);
+
+        // SE FOR VERTICAL (CELULAR EM PÉ): Retorna apenas o Apelido
+        if (!isHorizontal) {
+            return apelido;
+        }
+
+        // SE FOR HORIZONTAL: Aplica a inteligência do negrito
+        
+        // Verifica se o apelido está contido no nome completo
+        const index = nomeCompleto.toLowerCase().indexOf(apelido.toLowerCase());
+
+        if (index !== -1) {
+            // CASO 1: Apelido FAZ PARTE do nome (Ex: Rafael **Nadal**)
+            const regex = new RegExp(`(${apelido})`, 'gi');
+            return nomeCompleto.replace(regex, '<b>$1</b>');
+        } else {
+            // CASO 2: Apelido é DIFERENTE (Ex: Adenilson Moura (**Amora**))
+            return `${nomeCompleto} (<b>${apelido}</b>)`;
+        }
+    };
+    // -----------------------------------------------------------------------
+
+    // Recupera os dados brutos salvos nos atributos data-* (definidos em abrirPlacarAoVivo)
+    const j1NomeCompleto = j1NomeEl.getAttribute('data-nome-completo');
+    const j1Apelido = j1NomeEl.getAttribute('data-apelido');
+    
+    const j2NomeCompleto = j2NomeEl.getAttribute('data-nome-completo');
+    const j2Apelido = j2NomeEl.getAttribute('data-apelido');
+
+    // Aplica a formatação inteligente usando innerHTML (para processar o <b>)
+    j1NomeEl.innerHTML = formatarNomeExibicao(j1NomeCompleto, j1Apelido);
+    j2NomeEl.innerHTML = formatarNomeExibicao(j2NomeCompleto, j2Apelido);
 }
 
 
@@ -13273,7 +13407,7 @@ function confirmarNomeConvidado() {
         } else {
             // Estamos no formulário de agendamento principal
             // Apenas mantém o valor "Convidado"
-            elementoSelectConvidadoAtual.value = "Convidado";
+            elementoSelectConvidadoAtual.value = "Convidado"; 
 			atualizarEstiloSelectConvidado(elementoSelectConvidadoAtual);
         }
         // --- FIM DA NOVA LÓGICA ---
