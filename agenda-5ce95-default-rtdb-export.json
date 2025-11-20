@@ -847,7 +847,7 @@
           "piramide": "",
           "socio": "titular"
         },
-        "RAFAEL NADAL": {
+        "RAFAL NADAL DE SOUZA": {
           "apelido": "Nadal",
           "classe": "A",
           "niver": "01/01/2001",
@@ -1401,6 +1401,22 @@
           "hora": 21,
           "jogadores": "aula"
         },
+        "3_22": {
+          "borda": "1h",
+          "dia": 3,
+          "duracao": 1,
+          "hora": 22,
+          "jogadores": "Ana Francisca",
+          "organizador": "Ana Francisca"
+        },
+        "3_6": {
+          "borda": "1h",
+          "dia": 3,
+          "duracao": 1,
+          "hora": 6,
+          "jogadores": "Ana Francisca",
+          "organizador": "Ana Francisca"
+        },
         "3_7": {
           "borda": "1h",
           "dia": 3,
@@ -1669,53 +1685,24 @@
           "jogadores_completo": "Ana Julia, Convidado - Jose Maria, An Alice",
           "organizador": "Ana Julia",
           "status": "confirmada"
+        },
+        "4_6": {
+          "borda": "1h",
+          "confirmacoes": {
+            "Ana Julia": false,
+            "Ana Maria Marinho": true
+          },
+          "dia": 4,
+          "duracao": 1,
+          "expiraEm": 1763614944178,
+          "hora": 6,
+          "jogadores": "Ana Maria Marinho, Convidado - Teste 1, Convidado - Teste 2, Ana Julia",
+          "jogadores_completo": "Ana Maria Marinho, Convidado - Teste 1, Convidado - Teste 2, Ana Julia",
+          "organizador": "Ana Maria Marinho",
+          "status": "pendente"
         }
       },
       "Quadra 3 - Coberta": {
-        "3_10": {
-          "borda": "2h",
-          "dia": 3,
-          "duracao": 3,
-          "hora": 10,
-          "jogadores": "Nadal",
-          "organizador": "Nadal",
-          "resultado": {
-            "perdedor": "",
-            "set1": {
-              "placar": "6x0",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "5x0",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": ""
-          },
-          "status": "em_andamento"
-        },
-        "3_11": {
-          "dia": 3,
-          "hora": 11,
-          "jogadores": "Federer",
-          "organizador": "Nadal",
-          "resultado": {
-            "perdedor": "",
-            "set1": {
-              "placar": "6x0",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "5x0",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": ""
-          },
-          "status": "em_andamento"
-        },
         "3_6": {
           "borda": "2h",
           "confirmacoes": {
@@ -1799,6 +1786,13 @@
         }
       }
     },
-    "version": "v1.8.4"
+    "usuariosOnline": {
+      "xllafuafw": {
+        "sessionId": "xllafuafw",
+        "timestamp": 1763604100891,
+        "usuario": "ANA MARIA MARINHO GOMES"
+      }
+    },
+    "version": "v1.8.5"
   }
 }
