@@ -1275,6 +1275,39 @@
           "jogadores": "aula",
           "organizador": "Joao Dario"
         },
+        "1_6": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Adriano Feitosa": false,
+            "Alexandre Camargo": false,
+            "Ana Maria Marinho": true,
+            "Taborda": true
+          },
+          "dia": 1,
+          "duracao": 2,
+          "expiraEm": 1763941953599,
+          "hora": 6,
+          "jogadores": "Taborda, Adriano Feitosa",
+          "jogadores_completo": "Taborda, Adriano Feitosa, Alexandre Camargo, Ana Maria Marinho",
+          "organizador": "Taborda",
+          "status": "pendente"
+        },
+        "1_7": {
+          "confirmacoes": {
+            "Adriano Feitosa": false,
+            "Alexandre Camargo": false,
+            "Ana Maria Marinho": true,
+            "Taborda": true
+          },
+          "dia": 1,
+          "duracao": 2,
+          "expiraEm": 1763941953599,
+          "hora": 7,
+          "jogadores": "Alexandre Camargo, Ana Maria Marinho",
+          "jogadores_completo": "Taborda, Adriano Feitosa, Alexandre Camargo, Ana Maria Marinho",
+          "organizador": "Taborda",
+          "status": "pendente"
+        },
         "2_14": {
           "borda": "1h",
           "dia": 2,
@@ -1638,50 +1671,6 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
-        },
-        "7_8": {
-          "borda": "2h",
-          "dia": 7,
-          "duracao": 3,
-          "hora": 8,
-          "jogadores": "Nadal",
-          "organizador": "Nadal",
-          "resultado": {
-            "perdedor": "",
-            "set1": {
-              "placar": "1x0",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "x",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": ""
-          },
-          "status": "em_andamento"
-        },
-        "7_9": {
-          "dia": 7,
-          "hora": 9,
-          "jogadores": "Federer",
-          "organizador": "Nadal",
-          "resultado": {
-            "perdedor": "",
-            "set1": {
-              "placar": "1x0",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "x",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": ""
-          },
-          "status": "em_andamento"
         }
       },
       "Quadra 3 - Coberta": {
@@ -1693,7 +1682,12 @@
           "jogadores": "Amora",
           "organizador": "Amora",
           "resultado": {
-            "perdedor": "",
+            "dataInformado": "2025-11-23T20:50:26.691Z",
+            "desistente": "Joao Maria",
+            "informadoPor": "Amora",
+            "motivo": "Motivos pessoais",
+            "motivoDesistencia": "Motivos pessoais",
+            "perdedor": "Joao Maria",
             "set1": {
               "placar": "7x6",
               "tiebreak": "9-7"
@@ -1703,10 +1697,10 @@
               "tiebreak": "5-7"
             },
             "set3": "4x3",
-            "tipo": "Placar Normal",
-            "vencedor": ""
+            "tipo": "Desistência",
+            "vencedor": "Amora"
           },
-          "status": "em_andamento"
+          "status": "resultado_pendente"
         },
         "7_11": {
           "dia": 7,
@@ -1714,7 +1708,12 @@
           "jogadores": "Joao Maria",
           "organizador": "Amora",
           "resultado": {
-            "perdedor": "",
+            "dataInformado": "2025-11-23T20:50:26.691Z",
+            "desistente": "Joao Maria",
+            "informadoPor": "Amora",
+            "motivo": "Motivos pessoais",
+            "motivoDesistencia": "Motivos pessoais",
+            "perdedor": "Joao Maria",
             "set1": {
               "placar": "7x6",
               "tiebreak": "9-7"
@@ -1724,10 +1723,10 @@
               "tiebreak": "5-7"
             },
             "set3": "4x3",
-            "tipo": "Placar Normal",
-            "vencedor": ""
+            "tipo": "Desistência",
+            "vencedor": "Amora"
           },
-          "status": "em_andamento"
+          "status": "resultado_pendente"
         }
       }
     },
