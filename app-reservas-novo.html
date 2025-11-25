@@ -3472,8 +3472,8 @@ body.dark-mode .convidado-nomeado-option {
                 <label for="select-motivo-desistencia">Motivo da desistência:</label>
                 <select id="select-motivo-desistencia" class="modern-select">
                     <option value="">Selecione...</option>
-                    <option value="Lesão">Lesão durante o jogo</option>
-                    <option value="Doença">Mal estar / Doença</option>
+                    <option value="Lesão durante o jogo">Lesão durante o jogo</option>
+                    <option value="Mal estar / Doença">Mal estar / Doença</option>
                     <option value="Fadiga extrema">Fadiga extrema</option>
                     <option value="Motivos pessoais">Motivos pessoais</option>
                 </select>
@@ -4004,8 +4004,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			// ==========================================================
             // ===== LÓGICA PARA FECHAR PAINÉIS ABERTOS (NOVO) =====
             // ==========================================================
-            // (Estas variáveis são definidas mais abaixo no mesmo DOMContentLoaded,
-            // por isso podemos usá-las aqui sem problemas de escopo)
             if (legendaConteudo && legendaConteudo.style.display === 'block') {
                 legendaConteudo.style.display = 'none';
                 legendaTrigger.classList.remove('expandido');
@@ -4026,7 +4024,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 // 1. Remove a classe 'active' (CSS vai cuidar da cor e rotação)
                 fabToggleBtn.classList.remove('active');
                 
-                // --- NOVA LINHA ADICIONADA ---
                 // 2. Rola a tela para o topo para a visão da planilha 
                 window.scrollTo({
                     top: 0,
@@ -4036,10 +4033,15 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 // --- SE ESTÁ ESCONDIDO, VAMOS MOSTRAR ---
 
-                // 1. Limpa o formulário e remove jogadores extras
+                // 1. Limpa o formulário (Isso reseta a Duração para "1 hora")
                 limparCampos(); 
 
-                // --- NOVA LÓGICA ADICIONADA ---
+                // --- CORREÇÃO DO BUG: RECARREGA A LISTA COMPLETA ---
+                // Como limparCampos() mudou a duração para "1", chamamos carregarJogadores()
+                // para garantir que a lista de opções inclua TODOS os sócios novamente.
+                carregarJogadores(); 
+                // ---------------------------------------------------
+
                 // 1.1. Preenche o Jogador 1 com o nome do usuário logado
                 try {
                     const jogadorLogadoNome = localStorage.getItem('jogadorLogado');
@@ -4210,8 +4212,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v1.8.5'; // Versão atual do sistema    
-const DataVersaoSistema = '19/11/2025';   
+const VersaoSistema = 'v1.8.6'; // Versão atual do sistema    
+const DataVersaoSistema = '25/11/2025';   
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -6121,7 +6123,7 @@ const isReservaParaHoje = (diaSelecionado === diaDaSemanaHoje);
         reservaSalvaComSucesso = true;
    	
 	} catch (error) {
-		mostrarNotificacao(error.message, 'error');
+		mostrarNotificacao(error.message, 'error'); 
 	} finally {
 		agendamentoEmAndamento = false;
 	}
@@ -6131,7 +6133,11 @@ const isReservaParaHoje = (diaSelecionado === diaDaSemanaHoje);
         // --- INÍCIO DA NOVA LÓGICA DE NOTIFICAÇÃO UNIFICADA ---
 
         const isPiramide = document.getElementById('duracao').value === '3-piramide';
-        const temConvidado = jogadores.includes("Convidado");
+        
+		//const temConvidado = jogadores.includes("Convidado");
+		// 1. Detecção Robusta de Convidados (Genérico "Convidado" ou Nomeado "Convidado - Fulano")
+        const temConvidado = jogadores.some(j => j.trim().startsWith("Convidado"));
+		
         const organizadorApelido = Object.keys(jogadoresData).find(apelido => jogadoresData[apelido].nomeCompleto === jogadorLogado);
         const outrosJogadores = jogadores.filter(j => j !== organizadorApelido);
         const restoSaoConvidados = outrosJogadores.length > 0 && outrosJogadores.every(j => j.toLowerCase() === 'convidado');
@@ -7363,6 +7369,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (duracaoSelect) {
         duracaoSelect.addEventListener('change', function() {
+            
+            // --- INÍCIO DA VALIDAÇÃO DE PERMISSÃO PIRÂMIDE ---
+            if (this.value === '3-piramide') {
+                const jogadorLogadoNome = localStorage.getItem('jogadorLogado');
+                let participa = false;
+                
+                if (jogadorLogadoNome && jogadoresData) {
+                    // Busca o apelido/chave do jogador logado
+                    const apelidoLogado = Object.keys(jogadoresData).find(
+                        apelido => jogadoresData[apelido].nomeCompleto === jogadorLogadoNome
+                    );
+                    
+                    if (apelidoLogado) {
+                        const info = jogadoresData[apelidoLogado];
+                        // Verifica se tem ranking válido (existe e não é "0")
+                        if (info && info.piramide && info.piramide !== "0") {
+                            participa = true;
+                        }
+                    }
+                }
+
+                if (!participa) {
+                    mostrarNotificacao("Atenção: Você não está inscrito no torneio da Pirâmide.", 'error');
+                }
+            }
+            // --- FIM DA VALIDAÇÃO ---
+
             carregarJogadores(); // Recarrega os jogadores ao mudar a duração
         });
     } else {
@@ -10617,6 +10650,7 @@ async function executarSalvamentoResultado(resultadoData) {
 
     try {
         await database.ref().update(updates);
+		atualizarIndicadorAba(quadra, false);
         mostrarNotificacao(mensagemSucesso, 'success');
         fecharModalResultado();
 
@@ -10977,7 +11011,9 @@ function gerarPlacarHtml(resultado, jogador1Apelido, jogador2Apelido) {
 		}
 	});
 
-    const motivoHtml = resultado.motivo ? `<p class="motivo-resultado">Motivo: ${resultado.motivo}</p>` : '';
+    // Verifica se existe motivo em qualquer uma das propriedades (padrão, W.O. ou Desistência)
+	const motivoTexto = resultado.motivo || resultado.motivoWo || resultado.motivoDesistencia;
+	const motivoHtml = motivoTexto ? `<p class="motivo-resultado">Motivo: ${motivoTexto}</p>` : '';
 
     // Lógica para W.O.
     if (resultado.tipo === 'W.O.') {
@@ -12887,10 +12923,13 @@ async function abrirPlacarAoVivo(key, quadra) {
                 }
             }
 
-            if (reserva.resultado.motivo) {
-                motivoDesistenciaElement.textContent = `Motivo: ${reserva.resultado.motivo}`;
-                motivoDesistenciaElement.style.display = 'block';
-            } else {
+            // Busca o motivo onde quer que ele esteja salvo
+			const motivoReal = reserva.resultado.motivo || reserva.resultado.motivoWo || reserva.resultado.motivoDesistencia;
+
+			if (motivoReal) {
+				motivoDesistenciaElement.textContent = `Motivo: ${motivoReal}`;
+				motivoDesistenciaElement.style.display = 'block';
+			} else {
                 motivoDesistenciaElement.style.display = 'none';
                 motivoDesistenciaElement.textContent = '';
             }
