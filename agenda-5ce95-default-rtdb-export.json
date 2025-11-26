@@ -426,7 +426,7 @@
           "apelido": "Amora",
           "classe": "A",
           "niver": "01/01/2001",
-          "piramide": "95",
+          "piramide": "91",
           "socio": "titular"
         },
         "EDUARDO BERGMAN": {
@@ -647,7 +647,13 @@
           "apelido": "Joao Maria",
           "classe": "",
           "niver": "01/01/2001",
-          "piramide": "91",
+          "notificacoes": {
+            "-OeuGw8kkH2N3VSK9Wyd": {
+              "mensagem": "<h4 style=\"text-align:center; margin: 0 0 5px 0;\">Resultado Confirmado</h4><hr style=\"border: none; border-top: 1px solid rgba(255, 255, 255, 0.2); margin: 8px 0;\"><b>Data:</b> 23/11/2025<br><b>Decisão:</b> Confirmado Automaticamente<hr style=\"border: none; border-top: 1px solid rgba(255, 255, 255, 0.2); margin: 8px 0;\">\n            <div class=\"placar-container\" style=\"font-size: 1em; line-height: 1.5;\">\n                <div class=\"placar-row\">\n                    <span class=\"placar-posicao\">35</span>\n                    <span class=\"placar-nome match-winner\">Amora</span>\n                    \n                    <span class=\"placar-sets\"><span class=\"set-score winner\">7<sup>9</sup></span><span class=\"set-score \">6<sup>5</sup></span><span class=\"set-score \">4</span></span>\n                </div>\n                <div class=\"placar-row\">\n                    <span class=\"placar-posicao\">31</span>\n                    <span class=\"placar-nome \">Joao Maria</span>\n                    <span class=\"ret-indicator\">RET</span>\n                    <span class=\"placar-sets\"><span class=\"set-score \">6<sup>7</sup></span><span class=\"set-score winner\">7<sup>7</sup></span><span class=\"set-score \">3</span></span>\n                </div>\n            </div><p class=\"motivo-resultado\">Motivo: Motivos pessoais</p><br>O ranking da pirâmide foi atualizado.",
+              "tipo": "success"
+            }
+          },
+          "piramide": "95",
           "socio": "titular"
         },
         "JOAO PAULO DA SILVA VIEIRA": {
@@ -1640,63 +1646,53 @@
           "jogadores": "aula"
         }
       },
-      "Quadra 3 - Coberta": {
-        "7_10": {
+      "Quadra 2 - Aberta": {
+        "3_6": {
           "borda": "2h",
-          "dia": 7,
+          "dia": 3,
           "duracao": 3,
-          "hora": 10,
-          "jogadores": "Amora",
-          "organizador": "Amora",
+          "hora": 6,
+          "jogadores": "Ana Maria Marinho",
+          "organizador": "Ana Maria Marinho",
           "resultado": {
-            "dataInformado": "2025-11-23T20:50:26.691Z",
-            "desistente": "Joao Maria",
-            "informadoPor": "Amora",
-            "motivo": "Motivos pessoais",
-            "motivoDesistencia": "Motivos pessoais",
-            "perdedor": "Joao Maria",
+            "perdedor": "",
             "set1": {
-              "placar": "7x6",
-              "tiebreak": "9-7"
+              "placar": "6x0",
+              "tiebreak": ""
             },
             "set2": {
-              "placar": "6x7",
-              "tiebreak": "5-7"
+              "placar": "1x0",
+              "tiebreak": ""
             },
-            "set3": "4x3",
-            "tipo": "Desistência",
-            "vencedor": "Amora"
+            "set3": "",
+            "tipo": "Placar Normal",
+            "vencedor": ""
           },
-          "status": "resultado_pendente"
+          "status": "em_andamento"
         },
-        "7_11": {
-          "dia": 7,
-          "hora": 11,
-          "jogadores": "Joao Maria",
-          "organizador": "Amora",
+        "3_7": {
+          "dia": 3,
+          "hora": 7,
+          "jogadores": "Ana Julia",
+          "organizador": "Ana Maria Marinho",
           "resultado": {
-            "dataInformado": "2025-11-23T20:50:26.691Z",
-            "desistente": "Joao Maria",
-            "informadoPor": "Amora",
-            "motivo": "Motivos pessoais",
-            "motivoDesistencia": "Motivos pessoais",
-            "perdedor": "Joao Maria",
+            "perdedor": "",
             "set1": {
-              "placar": "7x6",
-              "tiebreak": "9-7"
+              "placar": "6x0",
+              "tiebreak": ""
             },
             "set2": {
-              "placar": "6x7",
-              "tiebreak": "5-7"
+              "placar": "1x0",
+              "tiebreak": ""
             },
-            "set3": "4x3",
-            "tipo": "Desistência",
-            "vencedor": "Amora"
+            "set3": "",
+            "tipo": "Placar Normal",
+            "vencedor": ""
           },
-          "status": "resultado_pendente"
+          "status": "em_andamento"
         }
       }
     },
-    "version": "v1.8.5"
+    "version": "v1.8.6"
   }
 }
