@@ -239,7 +239,7 @@
           "classe": "",
           "jogosDeDuplasJogados": 3,
           "niver": "01/01/2001",
-          "piramide": "83",
+          "piramide": "81",
           "socio": "titular",
           "vitoriasEmDuplas": 3
         },
@@ -257,7 +257,7 @@
           "classe": "C",
           "jogosDeDuplasJogados": 3,
           "niver": "01/01/2001",
-          "piramide": "81",
+          "piramide": "83",
           "socio": "titular",
           "vitoriasEmDuplas": 1
         },
@@ -1099,17 +1099,6 @@
       },
       "DiasParaLimpar": 3,
       "Duplas": {
-        "DatasEspeciais": {
-          "Quadra-2": {
-            "2025-09-26": {
-              "descricao": "Teste de duplas",
-              "regras": {
-                "fim": "08:00",
-                "inicio": "06:00"
-              }
-            }
-          }
-        },
         "Quadra-1": {
           "1-DiasDeSemana": false,
           "1-DiasDeSemana-Fim": "",
@@ -1280,6 +1269,62 @@
           "hora": 21,
           "jogadores": "aula",
           "organizador": "Joao Dario"
+        },
+        "1_6": {
+          "borda": "2h",
+          "dia": 1,
+          "duracao": 3,
+          "hora": 6,
+          "jogadores": "Ana Julia",
+          "organizador": "Ana Julia",
+          "resultado": {
+            "perdedor": "",
+            "pontos": {
+              "isTieBreak": false,
+              "j1": "0",
+              "j2": "0"
+            },
+            "sacador": "j1",
+            "set1": {
+              "placar": "3x6",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "7x5",
+              "tiebreak": ""
+            },
+            "set3": "0x10",
+            "tipo": "Placar Normal",
+            "vencedor": ""
+          },
+          "status": "em_andamento"
+        },
+        "1_7": {
+          "dia": 1,
+          "hora": 7,
+          "jogadores": "Ana Maria Marinho",
+          "organizador": "Ana Julia",
+          "resultado": {
+            "perdedor": "",
+            "pontos": {
+              "isTieBreak": false,
+              "j1": "0",
+              "j2": "0"
+            },
+            "sacador": "j1",
+            "set1": {
+              "placar": "3x6",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "7x5",
+              "tiebreak": ""
+            },
+            "set3": "0x10",
+            "tipo": "Placar Normal",
+            "vencedor": ""
+          },
+          "status": "em_andamento"
         },
         "2_14": {
           "borda": "1h",
@@ -1582,50 +1627,6 @@
           "hora": 11,
           "jogadores": "aula"
         },
-        "6_7": {
-          "borda": "2h",
-          "dia": 6,
-          "duracao": 3,
-          "hora": 7,
-          "jogadores": "Ana Maria Marinho",
-          "organizador": "Ana Maria Marinho",
-          "resultado": {
-            "perdedor": "",
-            "set1": {
-              "placar": "1x0",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "0x0",
-              "tiebreak": ""
-            },
-            "set3": "0x0",
-            "tipo": "Placar Normal",
-            "vencedor": ""
-          },
-          "status": "em_andamento"
-        },
-        "6_8": {
-          "dia": 6,
-          "hora": 8,
-          "jogadores": "Ana Julia",
-          "organizador": "Ana Maria Marinho",
-          "resultado": {
-            "perdedor": "",
-            "set1": {
-              "placar": "1x0",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "0x0",
-              "tiebreak": ""
-            },
-            "set3": "0x0",
-            "tipo": "Placar Normal",
-            "vencedor": ""
-          },
-          "status": "em_andamento"
-        },
         "6_9": {
           "borda": "1h",
           "dia": 6,
@@ -1635,6 +1636,6 @@
         }
       }
     },
-    "version": "v1.8.6"
+    "version": "v1.8.7"
   }
 }
