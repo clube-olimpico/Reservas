@@ -2255,13 +2255,73 @@ body.dark-mode .motivo-resultado { color: #ccc; }
     }
 }
 
-/* Regra para celular na vertical (portrait) */
+/* Regra para celular na vertical (portrait) - CORREÇÃO DE ALINHAMENTO V2 */
 @media (max-width: 600px) {
-    .placar-header-novo h2 { font-size: 1.5em; }
-    .placar-header-novo p { font-size: 1em; }
-    .placar-jogador-nome { font-size: 1.3em; }
-    .placar-set { font-size: 1.4em; width: 30px; }
-    .placar-sets-container { gap: 15px; }
+    
+    /* 1. Cabeçalho Compacto */
+    .placar-header-novo h2 { font-size: 1.4em; }
+    .placar-header-novo p { font-size: 0.9em; }
+
+    /* 2. Container da Linha: Reduz espaçamentos para caber tudo */
+    .placar-ao-vivo-content { padding: 10px 5px !important; }
+    .placar-jogador-linha { 
+        padding: 10px 2px !important; 
+        gap: 2px !important;
+        height: 55px !important; /* Altura fixa para manter alinhamento */
+    }
+
+    /* 3. Bolinha (Reduzida) */
+    .placar-server-ball {
+        width: 10px !important;
+        height: 10px !important;
+        margin-right: 5px !important;
+        flex-shrink: 0;
+    }
+
+    /* 4. Nome do Jogador (O Grande Vilão resolvido) */
+    .placar-jogador-nome { 
+        font-size: 1.3em !important; 
+        white-space: nowrap !important;     /* OBRIGATÓRIO: Impede quebra de linha */
+        overflow: hidden !important;        /* Esconde o excesso */
+        text-overflow: ellipsis !important; /* Adiciona "..." no final */
+        flex-grow: 1 !important;            /* Ocupa o espaço que sobrar */
+        min-width: 0 !important;            /* Permite encolher abaixo do conteúdo */
+        margin-right: 5px !important;
+        line-height: 1.5 !important;
+    }
+
+    /* 5. Sets (Jogou mais para a direita) */
+    .placar-sets-container { 
+        gap: 4px !important;       /* Reduz o buraco entre os sets */
+        flex-shrink: 0 !important; /* Impede que os sets sejam esmagados */
+    }
+    .placar-set { 
+        font-size: 1.4em !important; 
+        width: 20px !important; /* Largura fixa menor */
+    }
+
+    /* 6. PONTOS (Ajuste crucial que faltava) */
+    .placar-points {
+        font-size: 1.4em !important; 
+        width: 35px !important;      /* Reduz de 70px para 35px (cabe na tela) */
+        margin-left: 5px !important;
+        margin-right: 0 !important;
+        text-align: center !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* 7. Ajustes menores */
+    .placar-jogador-posicao {
+        font-size: 0.9em !important;
+        width: 20px !important;
+        margin-right: 0px !important;
+    }
+    .ret-indicator-placar-container {
+        margin-right: 5px !important;
+    }
+    .wo-indicator {
+        font-size: 1.3em !important;
+    }
 }
 
 
@@ -2782,27 +2842,41 @@ body.dark-mode .tab-button.live-game::after {
     color: #16a085;
 }
 
-/* 9. Botões de Ação Modernos */
+/* 9. Botões de Ação Modernos (ATUALIZADO) */
+
 .modern-actions {
     display: flex;
     gap: 15px;
+    width: 100%; /* Garante que o container ocupe a largura total */
 }
+
+/* Estilo Base do Botão: Tamanho TRAVADO em 50px */
 .btn-modern {
-    flex: 1;
-    padding: 14px !important;
+    flex: 1;                      /* Cada botão ocupa 50% do espaço */
+    height: 50px !important;      /* Altura fixa (não muda com o texto) */
+    padding: 0 !important;        /* Remove padding interno que poderia alterar a altura */
     font-size: 1rem !important;
     font-weight: 700 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 12px !important;
+    border: none !important;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    transition: all 0.2s !important;
-    border: none !important;
+    transition: background-color 0.3s ease, transform 0.1s ease !important;
 }
+
+/* Efeito de clique */
 .btn-modern:active {
     transform: scale(0.97);
 }
+
+/* Cores Padrão (Mantendo o que você já tinha) */
 .btn-save {
-    /* background-color: #2ecc71 !important; já definido pelo JS, mas o estilo base ajuda */
+    /* A cor será definida dinamicamente pelo JS, mas o padrão é verde */
+    background-color: #28a745; 
+    color: white;
     box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
 }
 .btn-cancel {
@@ -2812,6 +2886,39 @@ body.dark-mode .tab-button.live-game::after {
 .btn-cancel:hover {
     background-color: #bdc3c7 !important;
     color: #2c3e50 !important;
+}
+
+/* --- NOVOS ESTADOS VISUAIS (Para o Modo Arbitragem) --- */
+
+/* Estado: Salvando... (Azul, cursor de espera) */
+.btn-status-saving {
+    background-color: #3498db !important; /* Azul */
+    color: white !important;
+    opacity: 0.9;
+    pointer-events: none; /* Bloqueia cliques */
+    cursor: wait !important;
+}
+
+/* Estado: Salvo ✓ (Cinza, indicando repouso) */
+.btn-status-saved {
+    background-color: #95a5a6 !important; /* Cinza Concreto */
+    color: white !important;
+    pointer-events: none; /* Bloqueia cliques */
+}
+
+/* Estado: MATCH POINT (Laranja Pulsante) */
+.btn-status-matchpoint {
+    background-color: #f39c12 !important; /* Laranja */
+    color: white !important;
+    animation: pulse-orange 1.5s infinite; /* Ativa a animação */
+    pointer-events: none; /* Apenas visual */
+}
+
+/* Animação de Pulsar */
+@keyframes pulse-orange {
+    0% { box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(243, 156, 18, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(243, 156, 18, 0); }
 }
 
 /* 10. Estilos para os selects modernos (W.O./Desistência) */
@@ -3084,8 +3191,8 @@ body.dark-mode .convidado-nomeado-option {
     width: 34px !important;
     height: 34px !important;
     text-align: center;
-    font-size: 1.1rem !important;
-    font-weight: 700;
+    font-size: 1.0rem !important; /* Reduzido de 1.1rem para 1.0rem */
+    font-weight: 600 !important;  /* Reduzido de 700 (Bold) para 600 (Semi-bold) */
     border: 1px solid #ddd !important;
     border-radius: 6px !important;
     background-color: #fff;
@@ -3593,7 +3700,8 @@ body.dark-mode .sb-tb-display {
 .simple-input {
     width: 36px !important;
     height: 36px !important;
-    font-size: 1.2rem !important;
+    font-size: 1.0rem !important; /* Reduzido de 1.2rem para 1.0rem */
+    font-weight: 600 !important;  /* Adicionado peso 600 para ficar igual ao de cima */
     text-align: center;
     border-radius: 8px !important;
     border: 1px solid #ccc !important;
@@ -3639,6 +3747,100 @@ body.dark-mode .simple-tb-input {
 }
 
 
+/* ================================================================= */
+/* === CSS ATUALIZADO: VISUALIZAÇÃO COM NEGRITO CORRETO === */
+/* ================================================================= */
+
+/* 1. Estilo BASE para campos desabilitados (Texto Normal) */
+#placar-fields-container input:disabled,
+#simple-score-container input:disabled {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    opacity: 1 !important;
+    font-weight: 400 !important; /* Normal */
+    border-color: #ddd !important;
+    cursor: default !important;
+}
+
+/* 2. REGRA FORTE para o Vencedor (Negrito) */
+/* Usamos o ID do container para garantir que essa regra vença a anterior */
+#placar-fields-container input.input-winner:disabled,
+#simple-score-container input.input-winner:disabled {
+    font-weight: 900 !important; /* Negrito Forte */
+    color: #000000 !important;
+    border-color: #999 !important; /* Borda um pouco mais escura para destaque */
+}
+
+/* 3. Ajuste para os números pequenos do Tie-Break (Badges) */
+.sb-tb-display, 
+#simple-score-container .simple-tb-input:disabled {
+    background-color: #f9f9f9 !important;
+    color: #555 !important;
+    font-weight: 400 !important; /* Normal */
+    font-size: 0.9em !important;
+    border: 1px solid #eee !important;
+}
+
+/* 4. Negrito para os números pequenos do Tie-Break */
+.sb-tb-display.input-winner,
+#simple-score-container .simple-tb-input.input-winner:disabled {
+    font-weight: 900 !important; /* Negrito Forte */
+    color: #000000 !important;
+    background-color: #fff !important;
+    border-color: #999 !important;
+    z-index: 100 !important; /* Garante que fique bem visível */
+}
+
+/* Modo Escuro */
+body.dark-mode #simple-score-container input.input-winner:disabled {
+    background-color: #444 !important;
+    color: #fff !important;
+    font-weight: 900 !important;
+    border-color: #777 !important;
+}
+/* ================================================================= */
+
+/* ================================================================= */
+/* === FIM CSS ATUALIZADO: MODO LEITURA + BOTÃO FECHAR + NEGRITO === */
+/* ================================================================= */
+
+
+/* ================================================================= */
+/* === ESTILOS DO BOTÃO "X" (Igual ao Detalhes da Reserva) === */
+/* ================================================================= */
+#btn-fechar-visualizacao {
+    display: none; /* Oculto por padrão */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 101;
+    
+    /* Estilo idêntico ao .close-button */
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa; /* Cinza claro */
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+/* Efeito Hover (igual ao Detalhes) */
+#btn-fechar-visualizacao:hover {
+    color: #333; /* Cinza escuro */
+    transform: translateY(-50%) scale(1.1); /* Mantém centralizado verticalmente e aumenta */
+}
+
+/* Ajuste para modo escuro */
+body.dark-mode #btn-fechar-visualizacao {
+    color: #888;
+}
+body.dark-mode #btn-fechar-visualizacao:hover {
+    color: #f1f1f1; /* Branco no hover do modo escuro */
+}
+/* ================================================================= */
+/* === FIM DE ESTILOS DO BOTÃO "X" (Igual ao Detalhes da Reserva) === */
+/* ================================================================= */
 
 /* Botão de Tela Cheia no Cabeçalho */
 #btn-fullscreen-toggle {
@@ -4002,6 +4204,308 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
 
 
 
+/* --- ESTILOS DA ETAPA 4: INTERFACE DINÂMICA --- */
+
+/* Texto de Status (Salvando... Salvo) */
+.save-status {
+    flex-grow: 1; /* Ocupa o espaço central */
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #95a5a6;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0; /* Invisível por padrão */
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px; /* Mesma altura dos botões */
+}
+
+.save-status.visible {
+    opacity: 1;
+}
+
+/* Animação para o botão de Finalizar (Pulsar) */
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+}
+
+.btn-finish {
+    background-color: #2ecc71 !important;
+    color: white !important;
+    font-size: 1.2rem !important;
+    animation: pulse-green 2s infinite;
+    display: none; /* Começa oculto */
+}
+
+#btnTossJ1, #btnTossJ2 {
+    height: auto !important;      /* Ignora o 50px fixo e deixa crescer */
+    padding: 15px !important;     /* Restaura o "gordinho" do botão */
+    flex: none !important;        /* Remove comportamento de esticar do rodapé */
+    margin-bottom: 10px !important;
+    width: 100% !important;       /* Garante largura total */
+    font-size: 1.1rem !important; 
+}
+
+/* --- FIM DE ESTILOS DA ETAPA 4: INTERFACE DINÂMICA --- */
+
+
+/* ================================================== */
+/* === ESTILOS DO PLACAR AO VIVO (PONTOS E SAQUE) === */
+/* ================================================== */
+
+/* Coluna de PONTOS (15, 30, 40) */
+.placar-points {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #ffffff; /* Amarelo Tênis para destaque */
+    width: 70px;    /* Largura fixa para alinhar */
+    text-align: center;
+    margin-right: 20px; /* Separa dos Sets */
+    margin-left: 10px;
+    text-shadow: 0 0 10px rgba(204, 255, 0, 0.3); /* Brilho sutil */
+}
+
+/* Bolinha de Saque (Overlay) */
+.placar-server-ball {
+    width: 20px;  /* Aumentei levemente para caber o detalhe */
+    height: 20px;
+    background-color: #ccff00; /* Amarelo Neon Tênis */
+    border-radius: 50%;
+    margin-right: 15px;
+    
+    /* Sombra interna para dar efeito 3D (esfera) + Brilho externo */
+    box-shadow: inset -2px -2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(204, 255, 0, 0.6);
+    
+    position: relative; /* Necessário para desenhar as linhas dentro */
+    overflow: hidden;   /* Corta o que sair do círculo */
+    display: none;      /* Começa invisível */
+    vertical-align: middle;
+}
+
+/* Desenha a curva superior da costura */
+.placar-server-ball::before {
+    content: "";
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.7); /* Costura branca */
+    top: -45%;
+    left: 15%;
+    background: transparent;
+}
+/* fim de Bolinha de Saque (Overlay) */
+
+
+/* Desenha a curva inferior da costura */
+.placar-server-ball::after {
+    content: "";
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.7); /* Costura branca */
+    bottom: -45%;
+    left: 15%;
+    background: transparent;
+}
+
+/* Classe para mostrar a bolinha com animação de "pop" */
+.placar-server-ball.visible {
+    display: inline-block;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Ajustes para Celular (Vertical) */
+@media (max-width: 600px) {
+    .placar-points {
+        font-size: 1.5em; /* Um pouco menor no celular */
+        width: 50px;
+        margin-right: 10px;
+    }
+    .placar-server-ball {
+        width: 10px;
+        height: 10px;
+        margin-right: 8px;
+    }
+}
+
+
+/* Aviso de Match Point no Placar ao Vivo */
+.placar-match-point-alert {
+    background-color: #ff0000; /* Fundo Vermelho */
+    color: white;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 5px 15px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    letter-spacing: 2px;
+    margin-left: 15px; /* Espaço do indicador AO VIVO */
+    animation: pulse-alert 1s infinite;
+    display: none; /* Oculto por padrão */
+    vertical-align: middle;
+}
+
+@keyframes pulse-alert {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* ================================================== */
+/* === FIM DE ESTILOS DO PLACAR AO VIVO (PONTOS E SAQUE) === */
+/* ================================================== */
+
+
+/* ================================================================= */
+/* --- SUPER MASTER SEGURO: APENAS TELA DE RESULTADO (VISUALIZAÇÃO) EM LANDSCAPE --- */
+/* ================================================================= */
+@media (orientation: landscape) and (max-height: 600px) {
+    
+    /* 1. CONTAINER DA JANELA (Força tela cheia SOMENTE na visualização) */
+    #modalResultadoPiramide.visualizando-resultado .modern-modal {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        
+        width: 100vw !important;
+        height: 100% !important;
+        max-width: none !important;
+        max-height: none !important;
+        
+        margin: 0 !important;
+        border-radius: 0 !important;
+        /* Padding lateral 30px para afastar das bordas arredondadas da tela */
+        padding: 5px 30px 5px 30px !important; 
+        
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        
+        background-color: white !important;
+        box-sizing: border-box !important;
+        z-index: 99999 !important;
+        
+        display: flex !important;
+        flex-direction: column !important;
+        
+        /* Distribui: Cabeçalho no topo, Tabela no meio, Vencedor no fundo */
+        justify-content: space-between !important; 
+    }
+
+    /* Ajuste Modo Escuro */
+    body.dark-mode #modalResultadoPiramide.visualizando-resultado .modern-modal {
+        background-color: #2c3e50 !important;
+    }
+
+    /* 2. CABEÇALHO (Compacto no topo) */
+    #modalResultadoPiramide.visualizando-resultado .modern-modal-header {
+        margin-bottom: 0 !important;
+        margin-top: 0 !important;
+        min-height: 30px !important;
+        flex-shrink: 0;
+        padding: 0 !important;
+    }
+    
+    #modalResultadoPiramide.visualizando-resultado .modern-modal-header h3 {
+        font-size: 1.2rem !important;
+        margin: 0 !important;
+        line-height: 1.2 !important;
+    }
+
+    /* 3. TABELA (Centralizada verticalmente no espaço que sobra) */
+    #modalResultadoPiramide.visualizando-resultado .scoreboard-container,
+    #modalResultadoPiramide.visualizando-resultado #simple-score-container {
+        margin: auto 0 !important; /* Margem automática vertical */
+        gap: 5px !important;
+        flex-shrink: 0;
+        width: 100% !important;
+    }
+
+    #modalResultadoPiramide.visualizando-resultado .sb-row,
+    #modalResultadoPiramide.visualizando-resultado .simple-row {
+        padding: 5px 10px !important;
+        min-height: 45px !important;
+        margin-bottom: 5px !important;
+    }
+
+    /* 4. INPUTS DE GAME (Tamanho Médio) */
+    #modalResultadoPiramide.visualizando-resultado input.sb-input,
+    #modalResultadoPiramide.visualizando-resultado input.simple-input {
+        width: 40px !important;
+        height: 35px !important;
+        font-size: 1.2rem !important;
+        padding: 0 !important;
+        margin: 0 4px !important;
+    }
+
+    /* 5. INPUTS DE TIE-BREAK (Pequenos) */
+    #modalResultadoPiramide.visualizando-resultado input.simple-tb-input,
+    #modalResultadoPiramide.visualizando-resultado .sb-tb-display {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 0.8rem !important;
+        top: -10px !important;
+        right: -10px !important;
+        line-height: 22px !important;
+        z-index: 50 !important;
+        background-color: white !important;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+    }
+
+    /* 6. VENCEDOR (FONTE AUMENTADA + Posição no Rodapé) */
+    #modalResultadoPiramide.visualizando-resultado .winner-display {
+        padding: 5px 10px !important;
+        margin-top: 0 !important;
+        margin-bottom: 5px !important; /* Margem segura do fundo */
+        min-height: auto !important;
+        flex-shrink: 0;
+        border-radius: 12px !important;
+    }
+    
+    #modalResultadoPiramide.visualizando-resultado .winner-label {
+        font-size: 0.9rem !important; /* AUMENTADO (antes 0.7) */
+        margin-bottom: 2px !important;
+    }
+    
+    #modalResultadoPiramide.visualizando-resultado .winner-name {
+        font-size: 1.5rem !important; /* AUMENTADO (antes 1.2) */
+        line-height: 1.2 !important;
+    }
+
+    /* 7. BOTÃO X (Fixado no canto) */
+    #modalResultadoPiramide.visualizando-resultado #btn-fechar-visualizacao {
+        top: 50% !important;
+        right: 0px !important; 
+        transform: translateY(-50%) !important;
+        font-size: 32px !important;
+    }
+
+    /* 8. GARANTIA: Esconde botões de ação */
+    #modalResultadoPiramide.visualizando-resultado .modern-actions {
+        display: none !important;
+    }
+    
+    /* 9. JOGADORES (FONTE AUMENTADA) */
+    #modalResultadoPiramide.visualizando-resultado .simple-name,
+    #modalResultadoPiramide.visualizando-resultado .sb-name {
+        font-size: 1.4rem !important; /* Fonte bem maior */
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        font-weight: 500 !important;
+    }
+}
+/* ================================================================= */
+/* --- FIM DE SUPER MASTER SEGURO: APENAS TELA DE RESULTADO (VISUALIZAÇÃO) EM LANDSCAPE --- */
+/* ================================================================= */
 
 </style>
 
@@ -4147,6 +4651,8 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
 			</button>
 
             <button id="btn-mais-opcoes" type="button" title="Mais Opções">⋮</button>
+			
+			<button id="btn-fechar-visualizacao" type="button" title="Fechar">&times;</button>
 			
             <div id="menu-opcoes-resultado" class="menu-dropdown">
                 <div class="menu-toggle-item" id="item-modo-arbitragem">
@@ -4370,14 +4876,27 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
         </div>
         
         <div class="modern-actions">
-            <button id="btnSalvarResultado" class="btn-modern btn-save" type="button" onclick="salvarResultadoPiramide()">Salvar</button>
-            <button id="btnCancelarResultado" class="btn-modern btn-cancel">Cancelar</button>
-        </div>
+			<button id="btnSalvarResultado" class="btn-modern btn-save" type="button" onclick="salvarResultadoPiramide()">Salvar</button>
+			<button id="btnCancelarResultado" class="btn-modern btn-cancel">Cancelar</button>
+		</div>
         
         <div style="display:none;">
             <input id="tb1-j1"><input id="tb1-j2"><input id="tb2-j1"><input id="tb2-j2">
         </div>
 
+    </div>
+</div>
+
+
+<div id="modalToss" class="modal-overlay" style="z-index: 100000;">
+    <div class="modal-content" style="max-width: 350px; text-align: center; border-radius: 20px; padding: 30px;">
+        <h3 id="tossTitle" style="margin-top: 0; color: #2c3e50; font-size: 1.5rem;">🪙 Toss Inicial</h3>
+        <p id="tossMessage" style="color: #7f8c8d; margin-bottom: 25px; font-size: 1rem;">Quem começa sacando?</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <button id="btnTossJ1" class="btn-modern" style="background-color: #3498db; color: white; padding: 15px; font-size: 1.1rem;">Jogador 1</button>
+            <button id="btnTossJ2" class="btn-modern" style="background-color: #3498db; color: white; padding: 15px; font-size: 1.1rem;">Jogador 2</button>
+        </div>
     </div>
 </div>
 
@@ -4450,35 +4969,54 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
 
         <div class="placar-body">
             <div class="placar-jogador-linha">
-				<span class="placar-jogador-posicao" id="placar-j1-posicao">(0)</span>
-				<span class="placar-jogador-nome" id="placar-j1-nome">Jogador 1</span>
-				<span id="placar-j1-ret" class="ret-indicator-placar-container"></span>
-				<div class="placar-sets-container" id="placar-j1-sets"> <span class="placar-set" id="placar-j1-set1">0</span>
-					<span class="placar-set" id="placar-j1-set2">0</span>
-					<span class="placar-set" id="placar-j1-set3"></span>
-				</div>
-			</div>
+                <span class="placar-jogador-posicao" id="placar-j1-posicao">(0)</span>
+                
+                <span id="placar-j1-server" class="placar-server-ball"></span>
+                <span class="placar-jogador-nome" id="placar-j1-nome">Jogador 1</span>
+                <span id="placar-j1-ret" class="ret-indicator-placar-container"></span>
+                
+                <div class="placar-sets-container" id="placar-j1-sets"> 
+                    <span class="placar-set" id="placar-j1-set1">0</span>
+                    <span class="placar-set" id="placar-j1-set2">0</span>
+                    <span class="placar-set" id="placar-j1-set3"></span>
+                </div>
 
-			<div class="placar-jogador-linha">
-				<span class="placar-jogador-posicao" id="placar-j2-posicao">(0)</span>
-				<span class="placar-jogador-nome" id="placar-j2-nome">Jogador 2</span>
-				<span id="placar-j2-ret" class="ret-indicator-placar-container"></span>
-				<div class="placar-sets-container" id="placar-j2-sets"> <span class="placar-set" id="placar-j2-set1">0</span>
-					<span class="placar-set" id="placar-j2-set2">0</span>
-					<span class="placar-set" id="placar-j2-set3"></span>
-				</div>
-			</div>
+                <span id="placar-j1-points" class="placar-points">0</span>
+            </div>
+
+            <div class="placar-jogador-linha">
+                <span class="placar-jogador-posicao" id="placar-j2-posicao">(0)</span>
+                
+                <span id="placar-j2-server" class="placar-server-ball"></span>
+                <span class="placar-jogador-nome" id="placar-j2-nome">Jogador 2</span>
+                <span id="placar-j2-ret" class="ret-indicator-placar-container"></span>
+                
+                <div class="placar-sets-container" id="placar-j2-sets"> 
+                    <span class="placar-set" id="placar-j2-set1">0</span>
+                    <span class="placar-set" id="placar-j2-set2">0</span>
+                    <span class="placar-set" id="placar-j2-set3"></span>
+                </div>
+
+                <span id="placar-j2-points" class="placar-points">0</span>
+            </div>
         </div>
 
         <div class="placar-footer">
-		<p id="placar-vencedor-declaracao" class="placar-vencedor-declaracao"></p>
-		
-		<div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
-			<span class="live-indicator-placar pulsing-live">AO VIVO</span>
-			<span id="placar-espectadores" class="espectadores-counter" style="display: none;">
-				👥 <span id="numero-espectadores">0</span>
-			</span>
-		</div>
+            <p id="placar-vencedor-declaracao" class="placar-vencedor-declaracao"></p>
+            
+            <div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap;">
+                <div>
+                    <span class="live-indicator-placar pulsing-live">AO VIVO</span>
+                    <span id="placar-mp-alert" class="placar-match-point-alert">MATCH POINT</span>
+                </div>
+
+                <span id="placar-espectadores" class="espectadores-counter" style="display: none;">
+                    👥 <span id="numero-espectadores">0</span>
+                </span>
+            </div>
+
+            <p id="placar-motivo-desistencia" class="motivo-resultado-placar"></p>
+        </div>
 
     <p id="placar-motivo-desistencia" class="motivo-resultado-placar"></p>
 </div>
@@ -5100,8 +5638,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v1.8.7'; // Versão atual do sistema    
-const DataVersaoSistema = '07/12/2025';   
+const VersaoSistema = 'v1.8.8'; // Versão atual do sistema    
+const DataVersaoSistema = '11/12/2025';   
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -5174,6 +5712,9 @@ let elementoSelectConvidadoAtual = null;
 
 // Variável global para controlar a atualização do placar ao girar a tela
 let funcaoAtualizarPlacarDetalhes = null;
+
+// --- VARIÁVEIS GLOBAIS DE AUTOMAÇÃO ---
+let debounceTimer = null; // O cronômetro do salvamento
 
 
 // =================================================================
@@ -10543,12 +11084,43 @@ function mostrarOpcoesPiramide(reserva, key, quadra, isParticipante, isDelegado)
     const btnEditarJogadores = document.getElementById('btnModalEditar');
     const btnDelegar = document.getElementById('btnModalDelegar');
 
-    // Lógica do botão "Delegar Placar"
+    // =========================================================================
+    // === NOVA LÓGICA DE DELEGAÇÃO (COM LEITURA EM TEMPO REAL) ===
+    // =========================================================================
     btnDelegar.style.display = 'none';
-    if ((!reserva.status || reserva.status === 'confirmada' || reserva.status === 'em_andamento') && isPeriodoDaReservaAtivo(reserva) && (isParticipante || isUsuarioAdmin() || isUsuarioArbitro())) {
+    
+    if ((!reserva.status || reserva.status === 'confirmada' || reserva.status === 'em_andamento') && 
+        isPeriodoDaReservaAtivo(reserva) && 
+        (isParticipante || isUsuarioAdmin() || isUsuarioArbitro())) {
+        
         btnDelegar.style.display = 'block';
-        btnDelegar.onclick = () => abrirModalDelegacao(reserva, key, quadra);
+        
+        btnDelegar.onclick = () => {
+            fecharModalAcoes(); // Fecha o menu imediatamente
+
+            // --- O PULO DO GATO ESTÁ AQUI ---
+            // Em vez de confiar na variável 'reserva' (que pode ser velha),
+            // buscamos a versão mais recente direto da memória global.
+            const reservaAtual = reservasPorQuadra[quadra] && reservasPorQuadra[quadra][key] 
+                                 ? reservasPorQuadra[quadra][key] 
+                                 : reserva;
+
+            // Agora verificamos o delegado na versão ATUALIZADA
+            if (reservaAtual.delegado) {
+                const nomeDelegado = capitalizarNome(reservaAtual.delegado);
+                const mensagem = `O jogador <b>${nomeDelegado}</b> já foi delegado para anotar o placar deste jogo.<br><br>Deseja substituí-lo?`;
+                
+                const acaoConfirmarTroca = () => {
+                    abrirModalDelegacao(reservaAtual, key, quadra);
+                };
+
+                mostrarConfirmacao(mensagem, acaoConfirmarTroca, null, 'warning');
+            } else {
+                abrirModalDelegacao(reservaAtual, key, quadra);
+            }
+        };
     }
+    // =========================================================================
 
     const btnResultadoDuplas = document.getElementById('btnModalResultadoDuplas');
     if (btnResultadoDuplas) {
@@ -10570,7 +11142,6 @@ function mostrarOpcoesPiramide(reserva, key, quadra, isParticipante, isDelegado)
             fecharModalAcoes();
         };
     } else if (reserva.status === 'resultado_pendente') {
-        // ++ BLOCO CORRIGIDO ++
         btnResultado.textContent = 'Editar Resultado';
         btnResultado.style.backgroundColor = '#ffc107';
         btnResultado.style.color = 'black';
@@ -10578,7 +11149,6 @@ function mostrarOpcoesPiramide(reserva, key, quadra, isParticipante, isDelegado)
             await abrirModalResultado(reserva, key, quadra, false); 
             fecharModalAcoes();
         };
-        // ++ FIM DO BLOCO CORRIGIDO ++
     } else if (reserva.resultado) {
         btnResultado.textContent = 'Ver Resultado';
         btnResultado.style.backgroundColor = '#17a2b8'; 
@@ -10595,12 +11165,20 @@ function mostrarOpcoesPiramide(reserva, key, quadra, isParticipante, isDelegado)
         };
     }
 
-
     btnVer.after(btnResultado);
     btnEditarJogadores.style.display = 'none';
 
     const agora = new Date();
-    const dataString = document.getElementById('tabelaQuadra').rows[1].cells[reserva.dia - 1].textContent;
+    // Proteção para garantir que a tabela existe antes de ler
+    const tabela = document.getElementById('tabelaQuadra');
+    let dataString = "";
+    if (tabela && tabela.rows.length > 1 && tabela.rows[1].cells[reserva.dia - 1]) {
+        dataString = tabela.rows[1].cells[reserva.dia - 1].textContent;
+    } else {
+        // Fallback de segurança
+        dataString = new Date().toLocaleDateString('pt-BR');
+    }
+
     const [dia, mes, ano] = dataString.split('/');
     const horaFim = reserva.hora + 2;
     const dataHoraFimReserva = new Date(ano, mes - 1, dia, horaFim, 0, 0);
@@ -10620,9 +11198,7 @@ function mostrarOpcoesPiramide(reserva, key, quadra, isParticipante, isDelegado)
         const acaoAoConfirmar = () => {
             excluirReserva(reserva.hora - 6, reserva.dia);
         };
-        // Chama o novo modal de confirmação
-        //mostrarConfirmacao(mensagem, acaoAoConfirmar);
-		mostrarConfirmacao(mensagem, acaoAoConfirmar, null, 'danger'); // 'danger' para vermelho
+        mostrarConfirmacao(mensagem, acaoAoConfirmar, null, 'danger'); 
     };
     btnCancelar.onclick = fecharModalAcoes;
     modal.onclick = (event) => {
@@ -10631,6 +11207,7 @@ function mostrarOpcoesPiramide(reserva, key, quadra, isParticipante, isDelegado)
 
     modal.style.display = 'flex';
 }
+
 
 
 
@@ -10950,111 +11527,76 @@ window.addEventListener('click', function(e) {
 
 
 /**
- * Coleta, valida, prepara os dados do resultado para serem salvos e usa as notificações modernas.
- * Lida com os 3 modos: Jogo Normal, W.O. e Desistência.
+ * Coleta, valida e salva o resultado.
+ * LÓGICA HÍBRIDA:
+ * - Modo Súmula: Exige que Vencedor salve + Status Pendente.
+ * - Modo Arbitragem: Permite Operador salvar + Status Finalizada (Imediato).
  */
-/**
- * VERSÃO DE DIAGNÓSTICO COM CONSOLE.LOG
- * Cole esta função inteira no lugar da sua salvarResultadoPiramide em app-reservas.html
- */
-
 async function salvarResultadoPiramide() {
-    // 1. Proteção Básica
+    // 0. Cancela o robô de auto-save para não atropelar a decisão manual
+    if (debounceTimer) clearTimeout(debounceTimer);
+
     if (!reservaResultadoEmEdicao) {
-        mostrarNotificacao("Erro interno. Tente fechar e reabrir a janela de edição.", 'error');
-        document.getElementById('modalResultadoPiramide').style.display = 'none'; 
+        mostrarNotificacao("Erro interno. Tente fechar e reabrir a janela.", 'error');
         return; 
     }
 
-    // =================================================================
-    // >>> SINCRONIZAÇÃO OBRIGATÓRIA (CORREÇÃO CRÍTICA) <<<
-    // Garante que o que você digitou na Súmula seja lido corretamente
-    // =================================================================
+    // Identifica o Modo (Súmula ou Arbitragem)
     const containerSumula = document.getElementById('simple-score-container');
-    // Se estamos vendo a Súmula, COPIAMOS os dados dela para o sistema ler
-    if (containerSumula && containerSumula.style.display !== 'none') {
+    const isModoSumula = containerSumula && containerSumula.style.display !== 'none';
+    const isModoArbitragem = !isModoSumula; 
+
+    // Se estiver na Súmula, garante que os dados visuais vão para a memória
+    if (isModoSumula) {
         sincronizarParaArbitragem();
-        // Recalcula rapidinho para garantir que as variáveis internas estejam certas
         calcularVencedorPiramide();
     }
-    // =================================================================
 
     const { reserva, key, quadra } = reservaResultadoEmEdicao;
     const btnSalvar = document.getElementById('btnSalvarResultado');
     const modoBotao = btnSalvar.textContent;
 
-    // Contexto Seguro
-    const modalScope = document.getElementById('placar-fields-container');
-    
-    const getVal = (id) => { 
-        const el = document.getElementById(id); 
-        return el ? el.value : ""; 
-    };
-
+    // Helpers
+    const getVal = (id) => { const el = document.getElementById(id); return el ? el.value : ""; };
     const getNum = (id) => parseInt(getVal(id).toString().split('(')[0]) || 0;
 
-    // Leitura do Sacador
     let sacadorAtual = null;
-    const markerJ1 = document.getElementById('server-marker-j1');
-    const markerJ2 = document.getElementById('server-marker-j2');
-    if (markerJ1 && markerJ1.innerHTML.trim() !== '') sacadorAtual = 'j1';
-    else if (markerJ2 && markerJ2.innerHTML.trim() !== '') sacadorAtual = 'j2';
+    if (document.getElementById('server-marker-j1').innerHTML.trim() !== '') sacadorAtual = 'j1';
+    else if (document.getElementById('server-marker-j2').innerHTML.trim() !== '') sacadorAtual = 'j2';
 
-    // ========================================================================
-    // CAMINHO A: SALVAR PARCIAIS (AZUL)
-    // ========================================================================
+    // === CAMINHO A: SALVAR PARCIAIS (Botão Azul) ===
     if (modoBotao === 'Parciais') {
+        // (Lógica de parciais mantida idêntica à original)
         try {
             const s1_1 = getNum('set1-j1'); const s1_2 = getNum('set1-j2');
             const isTb1 = (s1_1 === 6 && s1_2 === 6) || (s1_1 === 7 && s1_2 === 6) || (s1_1 === 6 && s1_2 === 7);
-            
             const s2_1 = getNum('set2-j1'); const s2_2 = getNum('set2-j2');
             const isTb2 = (s2_1 === 6 && s2_2 === 6) || (s2_1 === 7 && s2_2 === 6) || (s2_1 === 6 && s2_2 === 7);
-
-            const valS3_1 = getVal('set3-j1');
-            const valS3_2 = getVal('set3-j2');
+            const valS3_1 = getVal('set3-j1'); const valS3_2 = getVal('set3-j2');
 
             const resultadoParcialData = {
-                tipo: 'Placar Normal',
-                vencedor: '', 
-                perdedor: '',
-                sacador: sacadorAtual,
-                set1: {
-                    placar: `${getVal('set1-j1')}x${getVal('set1-j2')}`,
-                    tiebreak: (isTb1 && getVal('tb1-j1') !== "" && getVal('tb1-j2') !== "") ? `${getVal('tb1-j1')}-${getVal('tb1-j2')}` : ""
-                },
-                set2: {
-                    placar: `${getVal('set2-j1')}x${getVal('set2-j2')}`,
-                    tiebreak: (isTb2 && getVal('tb2-j1') !== "" && getVal('tb2-j2') !== "") ? `${getVal('tb2-j1')}-${getVal('tb2-j2')}` : ""
-                },
+                tipo: 'Placar Normal', vencedor: '', perdedor: '', sacador: sacadorAtual,
+                isMatchPoint: verificarMatchPoint(),
+                pontos: { j1: document.getElementById('pontos-j1').textContent, j2: document.getElementById('pontos-j2').textContent, isTieBreak: estadoPontos.tiebreakMode },
+                set1: { placar: `${getVal('set1-j1')}x${getVal('set1-j2')}`, tiebreak: (isTb1) ? `${getVal('tb1-j1')}-${getVal('tb1-j2')}` : "" },
+                set2: { placar: `${getVal('set2-j1')}x${getVal('set2-j2')}`, tiebreak: (isTb2) ? `${getVal('tb2-j1')}-${getVal('tb2-j2')}` : "" },
                 set3: (valS3_1 !== "" && valS3_2 !== "") ? `${valS3_1}x${valS3_2}` : ""
             };
-
             const updates = {};
             const path1 = `sistemas/reservas/${quadra}/${key}`;
             updates[`${path1}/status`] = 'em_andamento';
             updates[`${path1}/resultado`] = resultadoParcialData;
-
             if (reserva.duracao > 1) {
                 const key2 = `${reserva.dia}_${reserva.hora + 1}`;
                 updates[`sistemas/reservas/${quadra}/${key2}/status`] = 'em_andamento';
                 updates[`sistemas/reservas/${quadra}/${key2}/resultado`] = resultadoParcialData;
             }
-
             await database.ref().update(updates);
             atualizarIndicadorAba(quadra, true);
-            
-            const msg = (resultadoParcialData.set1.placar === '0x0') ? "Jogo iniciado! Placar zerado salvo." : "Placar parcial salvo com sucesso!";
-            mostrarNotificacao(msg, 'success');
+            mostrarNotificacao("Placar parcial salvo com sucesso!", 'success');
+        } catch (error) { console.error(error); mostrarNotificacao("Erro ao salvar parcial.", 'error'); }
 
-        } catch (error) {
-            console.error(error);
-            mostrarNotificacao("Erro ao salvar parcial.", 'error');
-        }
-
-    // ========================================================================
-    // CAMINHO B: SALVAR RESULTADO FINAL (VERDE)
-    // ========================================================================
+    // === CAMINHO B: SALVAR RESULTADO FINAL (Botão Verde) ===
     } else {
         const jogadorLogadoCompleto = localStorage.getItem('jogadorLogado');
         let resultadoData = {};
@@ -11066,110 +11608,92 @@ async function salvarResultadoPiramide() {
                 
                 if (!vencedorApelido || vencedorApelido === '-' || vencedorApelido === '') return mostrarNotificacao("O placar não define um vencedor.", 'warning');
 
-                const vencedorObj = Object.values(jogadoresData).find(j => j.nomeCompleto === vencedorApelido) || {};
-                const vencedorNomeCompleto = vencedorObj.nomeCompleto || vencedorApelido;
-                
-                if (!isUsuarioAdmin() && !isUsuarioArbitro() && (jogadorLogadoCompleto.toUpperCase() !== vencedorNomeCompleto.toUpperCase())) {
-                     return mostrarNotificacao("Atenção: Apenas o vencedor pode salvar o resultado final.", 'warning');
-                }
+                // Identifica Vencedor para validação (apenas no modo Súmula)
+				let vencedorObj = jogadoresData[vencedorApelido];
+				if (!vencedorObj) vencedorObj = Object.values(jogadoresData).find(j => j.nomeCompleto === vencedorApelido) || {};
+				const vencedorNomeCompleto = vencedorObj.nomeCompleto || vencedorApelido;
 
+                // >> VALIDAÇÃO DE PERMISSÃO <<
+                if (isModoSumula) {
+                    if (!isUsuarioAdmin() && !isUsuarioArbitro() && (jogadorLogadoCompleto.toUpperCase() !== vencedorNomeCompleto.toUpperCase())) {
+                         return mostrarNotificacao("Modo Súmula: Apenas o vencedor pode salvar o resultado.", 'warning');
+                    }
+                }
+                // No modo Arbitragem, qualquer operador pode salvar.
+
+                // Validação de Placar (Tênis)
                 const s1_1 = getNum('set1-j1'); const s1_2 = getNum('set1-j2');
                 const s2_1 = getNum('set2-j1'); const s2_2 = getNum('set2-j2');
-                
-                // Validação de Regras Básicas
                 const validarPlacarTenis = (s1, s2, nomeSet) => {
                     if (s1 === 7 && s2 === 7) { mostrarNotificacao(`${nomeSet}: 7x7 inválido.`, 'warning'); return false; }
                     if (s1 === 7 && s2 < 5) { mostrarNotificacao(`${nomeSet}: ${s1}x${s2} inválido.`, 'warning'); return false; }
                     if (s2 === 7 && s1 < 5) { mostrarNotificacao(`${nomeSet}: ${s1}x${s2} inválido.`, 'warning'); return false; }
                     return true;
                 };
-
                 if (!validarPlacarTenis(s1_1, s1_2, "1º Set")) return;
                 if ((s2_1 > 0 || s2_2 > 0) && !validarPlacarTenis(s2_1, s2_2, "2º Set")) return;
 
+                // Monta o objeto
                 const isTb1 = (s1_1 === 6 && s1_2 === 6) || (s1_1 === 7 && s1_2 === 6) || (s1_1 === 6 && s1_2 === 7);
                 const isTb2 = (s2_1 === 6 && s2_2 === 6) || (s2_1 === 7 && s2_2 === 6) || (s2_1 === 6 && s2_2 === 7);
-
-                const valS3_1 = getVal('set3-j1'); 
-                const valS3_2 = getVal('set3-j2');
+                const valS3_1 = getVal('set3-j1'); const valS3_2 = getVal('set3-j2');
                 
                 const perdedorApelido = (vencedorApelido === reservaResultadoEmEdicao.jogador1 || vencedorNomeCompleto === jogadoresData[reservaResultadoEmEdicao.jogador1]?.nomeCompleto) 
-                                        ? reservaResultadoEmEdicao.jogador2 
-                                        : reservaResultadoEmEdicao.jogador1;
+                                        ? reservaResultadoEmEdicao.jogador2 : reservaResultadoEmEdicao.jogador1;
 
                 resultadoData = {
                     tipo: 'Placar Normal',
-                    vencedor: vencedorApelido,
-                    sacador: sacadorAtual, 
-                    perdedor: perdedorApelido,
-                    set1: { 
-                        placar: `${getVal('set1-j1')}x${getVal('set1-j2')}`, 
-                        tiebreak: (isTb1 && getVal('tb1-j1') !== "" && getVal('tb1-j2') !== "") ? `${getVal('tb1-j1')}-${getVal('tb1-j2')}` : "" 
-                    },
-                    set2: { 
-                        placar: `${getVal('set2-j1')}x${getVal('set2-j2')}`, 
-                        tiebreak: (isTb2 && getVal('tb2-j1') !== "" && getVal('tb2-j2') !== "") ? `${getVal('tb2-j1')}-${getVal('tb2-j2')}` : "" 
-                    },
+                    vencedor: vencedorApelido, sacador: sacadorAtual, perdedor: perdedorApelido,
+                    set1: { placar: `${getVal('set1-j1')}x${getVal('set1-j2')}`, tiebreak: (isTb1) ? `${getVal('tb1-j1')}-${getVal('tb1-j2')}` : "" },
+                    set2: { placar: `${getVal('set2-j1')}x${getVal('set2-j2')}`, tiebreak: (isTb2) ? `${getVal('tb2-j1')}-${getVal('tb2-j2')}` : "" },
                     set3: (valS3_1 !== "" && valS3_2 !== "") ? `${valS3_1}x${valS3_2}` : ""
                 };
 
             } else if (modoResultado === 'wo') {
                 const vencedorApelido = document.getElementById('select-vencedor-wo').value;
                 const motivo = document.getElementById('select-motivo-wo').value;
-
                 if (!vencedorApelido || !motivo) return mostrarNotificacao("Preencha vencedor e motivo.", 'warning');
-
+                
+                // WO sempre requer validação de vencedor/admin, pois não é arbitrado ponto a ponto
                 const vencedorInfo = jogadoresData[vencedorApelido];
                 const vencedorNomeCompleto = vencedorInfo ? vencedorInfo.nomeCompleto : vencedorApelido;
-
                 if (!isUsuarioAdmin() && !isUsuarioArbitro() && (jogadorLogadoCompleto.toUpperCase() !== vencedorNomeCompleto.toUpperCase())) {
                     return mostrarNotificacao("Atenção: Apenas o vencedor pode salvar.", 'warning');
                 }
-
                 resultadoData = {
-                    tipo: 'W.O.',
-                    vencedorWo: vencedorApelido,
-                    motivoWo: motivo,
-                    vencedor: vencedorApelido,
+                    tipo: 'W.O.', vencedorWo: vencedorApelido, motivoWo: motivo, vencedor: vencedorApelido,
                     perdedor: (vencedorApelido === reservaResultadoEmEdicao.jogador1) ? reservaResultadoEmEdicao.jogador2 : reservaResultadoEmEdicao.jogador1,
                 };
 
             } else if (modoResultado === 'desistencia') {
-                const vencedorApelido = document.getElementById('select-desistente').value; // AGORA É O VENCEDOR
+                const vencedorApelido = document.getElementById('select-desistente').value;
                 const motivo = document.getElementById('select-motivo-desistencia').value;
-                const s1j1 = getVal('set1-j1'); 
-                const s1j2 = getVal('set1-j2');
-
+                const s1j1 = getVal('set1-j1'); const s1j2 = getVal('set1-j2');
                 if (!vencedorApelido) return mostrarNotificacao("Selecione quem venceu.", 'warning');
                 if (s1j1 === '' || s1j2 === '') return mostrarNotificacao("Preencha o placar parcial.", 'warning');
                 if (!motivo) return mostrarNotificacao("Selecione o motivo.", 'warning');
 
                 const desistente = (vencedorApelido === reservaResultadoEmEdicao.jogador1) ? reservaResultadoEmEdicao.jogador2 : reservaResultadoEmEdicao.jogador1;
+                // Desistência também requer validação
                 const vencedorInfo = jogadoresData[vencedorApelido];
                 const vencedorNomeCompleto = vencedorInfo ? vencedorInfo.nomeCompleto : vencedorApelido;
-
                 if (!isUsuarioAdmin() && !isUsuarioArbitro() && (jogadorLogadoCompleto.toUpperCase() !== vencedorNomeCompleto.toUpperCase())) {
                     return mostrarNotificacao("Atenção: Apenas o vencedor pode salvar.", 'warning');
                 }
-                
-                // Helper para tie-breaks na desistência
                 const getTB = (id1, id2) => (getVal(id1) && getVal(id2)) ? `${getVal(id1)}-${getVal(id2)}` : "";
-
                 resultadoData = {
-                    tipo: 'Desistência',
-                    desistente: desistente,
-                    motivoDesistencia: motivo,
-                    vencedor: vencedorApelido,
-                    perdedor: desistente,
-                    motivo: motivo,
-                    sacador: sacadorAtual, 
+                    tipo: 'Desistência', desistente: desistente, motivoDesistencia: motivo, vencedor: vencedorApelido,
+                    perdedor: desistente, motivo: motivo, sacador: sacadorAtual,
                     set1: { placar: `${s1j1}x${s1j2}`, tiebreak: getTB('tb1-j1', 'tb1-j2') },
                     set2: { placar: `${getVal('set2-j1')}x${getVal('set2-j2')}`, tiebreak: getTB('tb2-j1', 'tb2-j2') },
                     set3: (getVal('set3-j1') && getVal('set3-j2')) ? `${getVal('set3-j1')}x${getVal('set3-j2')}` : ""
                 };
             }
 
-            await executarSalvamentoResultado(resultadoData);
+            // --- PULO DO GATO: Passamos a flag 'isModoArbitragem' ---
+            // Se for arbitragem, a próxima função saberá que deve finalizar direto.
+            await executarSalvamentoResultado(resultadoData, isModoArbitragem);
+            
             fecharModalResultado();
             
         } catch(err) {
@@ -11181,43 +11705,62 @@ async function salvarResultadoPiramide() {
 
 
 
-
 /**
- * Executa o salvamento do resultado no Firebase, atualiza status, ranking e envia notificações.
+ * Executa o salvamento no Firebase.
+ * ATUALIZADA: Aceita flag para finalizar direto (Arbitragem).
  */
-/**
- * Executa o salvamento do resultado no Firebase, atualiza status, ranking e envia notificações.
- */
-async function executarSalvamentoResultado(resultadoData) {
+async function executarSalvamentoResultado(resultadoData, forcarFinalizacao = false) {
     if (!reservaResultadoEmEdicao) return;
 
     const jogadorLogadoCompleto = localStorage.getItem('jogadorLogado');
     const jogadorLogadoApelido = Object.keys(jogadoresData).find(apelido => jogadoresData[apelido].nomeCompleto.toUpperCase() === jogadorLogadoCompleto.toUpperCase());
-    resultadoData.informadoPor = isUsuarioAdmin() ? "Administrador" : (isUsuarioArbitro() ? "Árbitro" : (jogadorLogadoApelido || jogadorLogadoCompleto));
+    
+    // --- ASSINATURA DA AUTORIA ---
+    let informante = jogadorLogadoApelido || jogadorLogadoCompleto;
+    
+    if (forcarFinalizacao) {
+        // Se foi via arbitragem, deixamos claro que foi um ato oficial
+        informante = `Árbitro: ${informante}`;
+    } else if (isUsuarioAdmin()) {
+        informante = "Administrador";
+    } else if (isUsuarioArbitro()) {
+        informante = "Árbitro Oficial";
+    }
+    
+    resultadoData.informadoPor = informante;
     resultadoData.dataInformado = new Date().toISOString();
 
     const { reserva, key, quadra } = reservaResultadoEmEdicao;
     const updates = {};
     const path1 = `sistemas/reservas/${quadra}/${key}`;
 
-    // --- INÍCIO DA LÓGICA CONDICIONAL ---
+    // --- DECISÃO DE STATUS ---
     let novoStatus;
     let executarFinalizacaoDireta = false;
     let mensagemSucesso = '';
 
+    // A. Resolução de Disputa (Já existia)
     if ((isUsuarioAdmin() || isUsuarioArbitro()) && reserva.status === 'resultado_recusado') {
         novoStatus = 'finalizada';
         executarFinalizacaoDireta = true;
-        mensagemSucesso = "Disputa resolvida! O resultado foi finalizado com sucesso e os jogadores serão notificados.";
-    } else {
+        mensagemSucesso = "Disputa resolvida! Resultado finalizado.";
+    } 
+    // B. MODO ARBITRAGEM (NOVO) -> Finaliza direto!
+    else if (forcarFinalizacao) {
+        novoStatus = 'finalizada';
+        executarFinalizacaoDireta = true;
+        mensagemSucesso = "Jogo finalizado pelo Árbitro com sucesso!";
+    }
+    // C. MODO SÚMULA (Padrão) -> Fica Pendente
+    else {
         novoStatus = 'resultado_pendente';
         executarFinalizacaoDireta = false;
         mensagemSucesso = "Resultado salvo! Aguardando confirmação do oponente.";
     }
-    // --- FIM DA LÓGICA CONDICIONAL ---
+    // -------------------------
 
     updates[`${path1}/status`] = novoStatus;
-    updates[`${path1}/resultado`] = resultadoData; // Salva o objeto completo (incluindo as chaves WO/Desistência)
+    updates[`${path1}/resultado`] = resultadoData;
 
     if (reserva.duracao > 1) {
         const key2 = `${reserva.dia}_${reserva.hora + 1}`;
@@ -11233,31 +11776,30 @@ async function executarSalvamentoResultado(resultadoData) {
         }
     }
 
-    // O bloco de finalização (ranking e notificação) só roda se a condição for atendida
+    // Se for finalizar direto, já roda ranking e notificação AGORA
     if (executarFinalizacaoDireta) {
-        const tempReservaParaOperacoes = { ...reserva, resultado: resultadoData };
-        const rankUpdates = processarTrocaDeRanking(tempReservaParaOperacoes);
+        const tempReserva = { ...reserva, resultado: resultadoData };
+        const rankUpdates = processarTrocaDeRanking(tempReserva);
         
-        const notificacaoUpdates = enviarNotificacaoResultadoFinalizado(
-            tempReservaParaOperacoes,
-            isUsuarioAdmin() ? "corrigido pelo Administrador" : "corrigido pelo Árbitro" 
-        );
+        let textoDecisao = "confirmado";
+        if (isUsuarioAdmin()) textoDecisao = "aprovado pelo Administrador";
+        else if (forcarFinalizacao) textoDecisao = "finalizado pelo Árbitro de Cadeira";
+
+        const notificacaoUpdates = enviarNotificacaoResultadoFinalizado(tempReserva, textoDecisao);
         
         Object.assign(updates, rankUpdates, notificacaoUpdates);
     }
 
     try {
         await database.ref().update(updates);
-		atualizarIndicadorAba(quadra, false);
+		atualizarIndicadorAba(quadra, false); // Apaga luz vermelha "Ao Vivo"
         mostrarNotificacao(mensagemSucesso, 'success');
         fecharModalResultado();
-
     } catch (error) {
         console.error("Erro ao salvar resultado:", error);
-        mostrarNotificacao("Ocorreu um erro ao salvar o resultado. Tente novamente.", 'error');
+        mostrarNotificacao("Ocorreu um erro ao salvar. Tente novamente.", 'error');
     }
 }
-
 
 
 /**
@@ -11491,104 +12033,65 @@ async function recusarResultado(reservaKey, quadra) {
 function gerarPlacarHtml(resultado, jogador1Apelido, jogador2Apelido) {
     if (!resultado) return "";
     
-    // --- 1. BUSCA DE DADOS ---
+    // --- 1. Busca Dados ---
     const getInfo = (apelido) => {
         if (!apelido) return null;
         const key = Object.keys(jogadoresData).find(k => k.toUpperCase() === apelido.toUpperCase());
         return key ? jogadoresData[key] : null;
     };
-
     const j1Info = getInfo(jogador1Apelido);
     const j2Info = getInfo(jogador2Apelido);
     
-    // --- 2. HELPER DE FORMATAÇÃO INTELIGENTE (NOVO) ---
+    // --- 2. Helper de Formatação ---
     const formatarNomeExibicao = (nomeCompletoRaw, apelidoRaw, isHorizontal) => {
-        // Formatações básicas para garantir consistência
         const nomeCompleto = capitalizarNome(nomeCompletoRaw || apelidoRaw);
         const apelido = capitalizarNome(apelidoRaw);
-
-        // SE FOR VERTICAL (CELULAR EM PÉ): Retorna apenas o Apelido
-        if (!isHorizontal) {
-            return apelido;
-        }
-
-        // SE FOR HORIZONTAL (PC OU CELULAR DEITADO): Aplica a lógica do negrito
-        
-        // Verifica se o apelido está contido no nome completo (ignorando maiúsculas/minúsculas)
+        if (!isHorizontal) return apelido;
         const index = nomeCompleto.toLowerCase().indexOf(apelido.toLowerCase());
-
         if (index !== -1) {
-            // CASO 1: O apelido FAZ PARTE do nome (Ex: Rafael Nadal -> Rafael **Nadal**)
-            // Usamos RegEx para substituir preservando a capitalização original do nome completo
             const regex = new RegExp(`(${apelido})`, 'gi');
             return nomeCompleto.replace(regex, '<b>$1</b>');
         } else {
-            // CASO 2: O apelido É DIFERENTE (Ex: Adenilson Moura -> Adenilson Moura (**Amora**))
             return `${nomeCompleto} (<b>${apelido}</b>)`;
         }
     };
 
-    // --- 3. LÓGICA DE DETECÇÃO DE TELA ---
-    // Usa a mesma lógica do Placar Ao Vivo (Largura > Altura)
     const isHorizontal = window.innerWidth > window.innerHeight;
+    const j1NomeDisplay = formatarNomeExibicao(j1Info?.nomeCompleto || jogador1Apelido, jogador1Apelido, isHorizontal);
+    const j2NomeDisplay = formatarNomeExibicao(j2Info?.nomeCompleto || jogador2Apelido, jogador2Apelido, isHorizontal);
 
-    // Define os nomes brutos para processamento
-    const nomeJ1Raw = j1Info?.nomeCompleto || jogador1Apelido;
-    const nomeJ2Raw = j2Info?.nomeCompleto || jogador2Apelido;
-
-    // Gera os nomes finais com a lógica inteligente
-    const j1NomeDisplay = formatarNomeExibicao(nomeJ1Raw, jogador1Apelido, isHorizontal);
-    const j2NomeDisplay = formatarNomeExibicao(nomeJ2Raw, jogador2Apelido, isHorizontal);
-
-
-    // --- 4. LÓGICA DE VENCEDOR (NEGRITO NA CLASSE CSS) ---
+    // --- 3. Vencedor ---
     const vencedorDoResultado = resultado.vencedor;
     let p1_is_match_winner = false;
     let p2_is_match_winner = false;
-
-    if (jogador1Apelido.toUpperCase() === vencedorDoResultado.toUpperCase()) {
-        p1_is_match_winner = true;
-    } else if (jogador2Apelido.toUpperCase() === vencedorDoResultado.toUpperCase()) {
-        p2_is_match_winner = true;
-    } else {
-        // Fallback
-        if (j1Info && j1Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase()) {
-            p1_is_match_winner = true;
-        } else if (j2Info && j2Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase()) {
-            p2_is_match_winner = true;
-        }
+    if (jogador1Apelido.toUpperCase() === vencedorDoResultado.toUpperCase()) p1_is_match_winner = true;
+    else if (jogador2Apelido.toUpperCase() === vencedorDoResultado.toUpperCase()) p2_is_match_winner = true;
+    else {
+        if (j1Info && j1Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase()) p1_is_match_winner = true;
+        else if (j2Info && j2Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase()) p2_is_match_winner = true;
     }
     
-    // --- 5. LÓGICA DE RANKING ---
-    let posicaoHtmlP1 = '';
+    // --- 4. Ranking ---
+    let posicaoHtmlP1 = '', posicaoHtmlP2 = '';
     if (j1Info && j1Info.piramide && j1Info.piramide !== "0") {
-        const piramidePos = parseInt(j1Info.piramide, 10);
-        const displayRank = piramidePos >= 61 ? piramidePos - 60 : piramidePos;
-        posicaoHtmlP1 = `<span class="placar-posicao">${displayRank}</span>`;
+        const pp = parseInt(j1Info.piramide, 10);
+        posicaoHtmlP1 = `<span class="placar-posicao">${pp >= 61 ? pp - 60 : pp}</span>`;
     }
-
-    let posicaoHtmlP2 = '';
     if (j2Info && j2Info.piramide && j2Info.piramide !== "0") {
-        const piramidePos = parseInt(j2Info.piramide, 10);
-        const displayRank = piramidePos >= 61 ? piramidePos - 60 : piramidePos;
-        posicaoHtmlP2 = `<span class="placar-posicao">${displayRank}</span>`;
+        const pp = parseInt(j2Info.piramide, 10);
+        posicaoHtmlP2 = `<span class="placar-posicao">${pp >= 61 ? pp - 60 : pp}</span>`;
     }
 
-
+    // --- 5. Scores ---
     const scoresP1 = [];
     const scoresP2 = [];
-
     ['set1', 'set2', 'set3'].forEach(setKey => {
 		const setData = resultado[setKey];
 		if (setData && (setData.placar || typeof setData === 'string')) {
 			const setPlacar = typeof setData === 'string' ? setData : setData.placar;
 			if (setPlacar.includes('x')) {
 				const [s1, s2] = setPlacar.split('x').map(Number);
-
-				let classP1 = '';
-				let classP2 = '';
-				let tb1_html = '', tb2_html = '';
-
+				let classP1 = '', classP2 = '', tb1_html = '', tb2_html = '';
 				if (setKey === 'set3') {
 					if (s1 >= 10 && (s1 - s2) >= 2) classP1 = 'winner';
 					else if (s2 >= 10 && (s2 - s1) >= 2) classP2 = 'winner';
@@ -11596,77 +12099,39 @@ function gerarPlacarHtml(resultado, jogador1Apelido, jogador2Apelido) {
 					let tb1 = NaN, tb2 = NaN;
 					if (typeof setData === 'object' && setData.tiebreak && setData.tiebreak.includes('-')) {
 						[tb1, tb2] = setData.tiebreak.split('-').map(Number);
-						tb1_html = `<sup>${tb1}</sup>`;
-						tb2_html = `<sup>${tb2}</sup>`;
+						tb1_html = `<sup>${tb1}</sup>`; tb2_html = `<sup>${tb2}</sup>`;
 					}
 					const vencedorDoSet = determinarVencedorSet(s1, s2, tb1, tb2);
 					if (vencedorDoSet === 'j1') classP1 = 'winner';
 					if (vencedorDoSet === 'j2') classP2 = 'winner';
 				}
-
 				scoresP1.push(`<span class="set-score ${classP1}">${s1}${tb1_html}</span>`);
 				scoresP2.push(`<span class="set-score ${classP2}">${s2}${tb2_html}</span>`);
 			}
 		}
 	});
 
-    // Verifica se existe motivo em qualquer uma das propriedades (padrão, W.O. ou Desistência)
 	const motivoTexto = resultado.motivo || resultado.motivoWo || resultado.motivoDesistencia;
 	const motivoHtml = motivoTexto ? `<p class="motivo-resultado">Motivo: ${motivoTexto}</p>` : '';
 
-    // Lógica para W.O.
-    if (resultado.tipo === 'W.O.') {
-        return `
-            <div class="placar-container">
-                <div class="placar-row">
-                    ${posicaoHtmlP1}
-                    <span class="placar-nome ${p1_is_match_winner ? 'match-winner' : ''}">${j1NomeDisplay}</span>
-                    <span class="placar-sets">${p1_is_match_winner ? '<span class="set-score winner">W.O.</span>' : ''}</span>
-                </div>
-                <div class="placar-row">
-                    ${posicaoHtmlP2}
-                    <span class="placar-nome ${p2_is_match_winner ? 'match-winner' : ''}">${j2NomeDisplay}</span>
-                    <span class="placar-sets">${p2_is_match_winner ? '<span class="set-score winner">W.O.</span>' : ''}</span>
-                </div>
-            </div>${motivoHtml}`;
+    // --- 6. Rodapé "Informado por" (NOVO) ---
+    let footerHtml = '';
+    if (resultado.informadoPor && resultado.dataInformado) {
+        const dataInfo = new Date(resultado.dataInformado).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        footerHtml = `<p style="text-align: center; font-size: 0.8em; color: #888; margin-top: 15px;">Informado por ${resultado.informadoPor} em ${dataInfo}.</p>`;
     }
+    // ----------------------------------------
 
-    // Lógica para Desistência
+    if (resultado.tipo === 'W.O.') {
+        return `<div class="placar-container"><div class="placar-row">${posicaoHtmlP1}<span class="placar-nome ${p1_is_match_winner?'match-winner':''}">${j1NomeDisplay}</span><span class="placar-sets">${p1_is_match_winner?'<span class="set-score winner">W.O.</span>':''}</span></div><div class="placar-row">${posicaoHtmlP2}<span class="placar-nome ${p2_is_match_winner?'match-winner':''}">${j2NomeDisplay}</span><span class="placar-sets">${p2_is_match_winner?'<span class="set-score winner">W.O.</span>':''}</span></div></div>${motivoHtml}${footerHtml}`;
+    }
     if (resultado.tipo === 'Desistência') {
         const p1_is_loser = jogador1Apelido.toUpperCase() === resultado.perdedor.toUpperCase(); 
         const p2_is_loser = jogador2Apelido.toUpperCase() === resultado.perdedor.toUpperCase(); 
-        
-        return `
-            <div class="placar-container">
-                <div class="placar-row">
-                    ${posicaoHtmlP1}
-                    <span class="placar-nome ${p1_is_match_winner ? 'match-winner' : ''}">${j1NomeDisplay}</span>
-                    ${p1_is_loser ? '<span class="ret-indicator">RET</span>' : ''}
-                    <span class="placar-sets">${scoresP1.join('')}</span>
-                </div>
-                <div class="placar-row">
-                    ${posicaoHtmlP2}
-                    <span class="placar-nome ${p2_is_match_winner ? 'match-winner' : ''}">${j2NomeDisplay}</span>
-                    ${p2_is_loser ? '<span class="ret-indicator">RET</span>' : ''}
-                    <span class="placar-sets">${scoresP2.join('')}</span>
-                </div>
-            </div>${motivoHtml}`;
+        return `<div class="placar-container"><div class="placar-row">${posicaoHtmlP1}<span class="placar-nome ${p1_is_match_winner?'match-winner':''}">${j1NomeDisplay}</span>${p1_is_loser?'<span class="ret-indicator">RET</span>':''}<span class="placar-sets">${scoresP1.join('')}</span></div><div class="placar-row">${posicaoHtmlP2}<span class="placar-nome ${p2_is_match_winner?'match-winner':''}">${j2NomeDisplay}</span>${p2_is_loser?'<span class="ret-indicator">RET</span>':''}<span class="placar-sets">${scoresP2.join('')}</span></div></div>${motivoHtml}${footerHtml}`;
     }
 
-    // Retorno padrão para Jogo Normal
-    return `
-      <div class="placar-container">
-        <div class="placar-row">
-          ${posicaoHtmlP1}
-          <span class="placar-nome ${p1_is_match_winner ? 'match-winner' : ''}">${j1NomeDisplay}</span>
-          <span class="placar-sets">${scoresP1.join('')}</span>
-        </div>
-        <div class="placar-row">
-          ${posicaoHtmlP2}
-          <span class="placar-nome ${p2_is_match_winner ? 'match-winner' : ''}">${j2NomeDisplay}</span>
-          <span class="placar-sets">${scoresP2.join('')}</span>
-        </div>
-      </div>`;
+    return `<div class="placar-container"><div class="placar-row">${posicaoHtmlP1}<span class="placar-nome ${p1_is_match_winner?'match-winner':''}">${j1NomeDisplay}</span><span class="placar-sets">${scoresP1.join('')}</span></div><div class="placar-row">${posicaoHtmlP2}<span class="placar-nome ${p2_is_match_winner?'match-winner':''}">${j2NomeDisplay}</span><span class="placar-sets">${scoresP2.join('')}</span></div></div>${footerHtml}`;
 }
 
 
@@ -12844,9 +13309,9 @@ function mostrarNotificacao(mensagem, tipo = 'success') {
     notificacao.classList.add('show');
 
     // --- LÓGICA DO TEMPO INTELIGENTE ---
-    const tempoMinimo = 2000; // 4 segundos no mínimo
-    const tempoMaximo = 12000; // 10 segundos no máximo
-    const palavrasPorMinuto = 160; // Velocidade de leitura média
+    const tempoMinimo = 5000; // 4 segundos no mínimo
+    const tempoMaximo = 30000; // 10 segundos no máximo
+    const palavrasPorMinuto = 100; // Velocidade de leitura média 
 
     // Remove tags HTML para contar apenas as palavras visíveis
     const textoPuro = mensagem.replace(/<[^>]*>?/gm, '');
@@ -13060,23 +13525,38 @@ function fecharModalDelegacao() {
 document.getElementById('btnCancelarDelegacao').onclick = fecharModalDelegacao;
 
 
+
+
 /**
- * Busca os usuários online no Firebase e os exibe no modal de delegação.
- * @param {object} reserva - A reserva para a qual a delegação está sendo feita.
- */
-/**
-/**
- * ATUALIZADO: Busca os usuários online, excluindo jogadores da partida, admins e o árbitro.
- * @param {object} reserva - A reserva para a qual a delegação está sendo feita.
- */
-/**
- * VERSÃO FINAL ATUALIZADA: Reconstrói a lista de jogadores da partida de forma robusta.
- * @param {object} reserva - A reserva para a qual a delegação está sendo feita.
- * @param {string} quadra - A quadra da reserva.
+ * VERSÃO FINAL (RESPONSIVA REAL): 
+ * - Escreve as duas versões do nome no HTML.
+ * - Usa CSS dinâmico para alternar entre elas automaticamente.
+ * - Garante negrito no apelido em ambas as versões.
  */
 function carregarJogadoresOnlineParaDelegacao(reserva, quadra) {
     const container = document.getElementById('lista-jogadores-online');
     container.innerHTML = '<p style="text-align: center; color: #888;">Carregando...</p>';
+
+    // --- INJEÇÃO DE CSS DINÂMICO (Para alternar os nomes) ---
+    // Isso garante que a troca funcione ao girar a tela sem precisar recarregar
+    const styleId = 'estilo-delegacao-nomes';
+    if (!document.getElementById(styleId)) {
+        const style = document.createElement('style');
+        style.id = styleId;
+        style.innerHTML = `
+            /* Por padrão (Celular em Pé), mostra o curto e esconde o longo */
+            .nome-versao-mobile { display: block; }
+            .nome-versao-desktop { display: none; }
+
+            /* Se a tela for larga (Horizontal/PC > 500px), inverte */
+            @media (min-width: 500px) {
+                .nome-versao-mobile { display: none; }
+                .nome-versao-desktop { display: block; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    // --------------------------------------------------------
 
     const onlineUsersRef = database.ref('sistemas/usuariosOnline');
 
@@ -13092,50 +13572,38 @@ function carregarJogadoresOnlineParaDelegacao(reserva, quadra) {
             return;
         }
 
-        // --- INÍCIO DA LÓGICA DE EXCLUSÃO CORRIGIDA ---
+        // --- LÓGICA DE EXCLUSÃO (Mantida) ---
         let listaDeExclusao = [];
-
-        // --- CORREÇÃO PRINCIPAL AQUI ---
-        // Bloco para reconstruir a lista de jogadores da partida de forma robusta
         let jogadoresDaPartida = [];
+        
         if (reserva.jogadores_completo) {
             jogadoresDaPartida = reserva.jogadores_completo.split(',').map(j => j.trim());
         } else {
-            // Se 'jogadores_completo' não existe, busca nas duas horas da reserva
             jogadoresDaPartida.push(...(reserva.jogadores || '').split(',').map(j => j.trim()));
             const keySegundaHora = `${reserva.dia}_${reserva.hora + 1}`;
-            // Usa a variável global 'reservasPorQuadra' para encontrar a segunda parte
             const reservaSegundaParte = reservasPorQuadra[quadra]?.[keySegundaHora];
             if (reservaSegundaParte && reservaSegundaParte.jogadores) {
                 jogadoresDaPartida.push(...(reservaSegundaParte.jogadores || '').split(',').map(j => j.trim()));
             }
         }
-        // Garante que a lista não tenha duplicatas ou valores vazios e converte para maiúsculas
+        
         const jogadoresDaPartidaUpper = [...new Set(jogadoresDaPartida.filter(j => j))].map(j => j.toUpperCase());
         listaDeExclusao.push(...jogadoresDaPartidaUpper);
-        // --- FIM DA CORREÇÃO PRINCIPAL ---
 
-        // Adiciona jogador logado, árbitro e admins (lógica que já estava correta)
         const jogadorLogadoApelido = Object.keys(jogadoresData).find(
             apelido => jogadoresData[apelido].nomeCompleto.toUpperCase() === (localStorage.getItem('jogadorLogado') || '').toUpperCase()
         );
-        if (jogadorLogadoApelido) {
-            listaDeExclusao.push(jogadorLogadoApelido.toUpperCase());
-        }
-        if (arbitro && arbitro.apelido) {
-            listaDeExclusao.push(arbitro.apelido.toUpperCase());
-        }
+        if (jogadorLogadoApelido) listaDeExclusao.push(jogadorLogadoApelido.toUpperCase());
+        if (arbitro && arbitro.apelido) listaDeExclusao.push(arbitro.apelido.toUpperCase());
+        
         administradores.forEach(adminNomeCompleto => {
             const adminApelido = Object.keys(jogadoresData).find(
                 apelido => jogadoresData[apelido].nomeCompleto.toUpperCase() === adminNomeCompleto.toUpperCase()
             );
-            if (adminApelido) {
-                listaDeExclusao.push(adminApelido.toUpperCase());
-            }
+            if (adminApelido) listaDeExclusao.push(adminApelido.toUpperCase());
         });
-
         listaDeExclusao = [...new Set(listaDeExclusao)];
-        // --- FIM DA LÓGICA DE EXCLUSÃO ---
+        // -----------------------------------------------------------------
 
         let htmlJogadores = '';
         let count = 0;
@@ -13147,10 +13615,64 @@ function carregarJogadoresOnlineParaDelegacao(reserva, quadra) {
             );
 
             if (apelidoOnline && !listaDeExclusao.includes(apelidoOnline.toUpperCase())) {
+                
+                // PREPARA AS DUAS VERSÕES DO NOME
+                const nomeCompleto = capitalizarNome(usuario.usuario);
+                const apelido = capitalizarNome(apelidoOnline);
+                
+                // 1. Versão Curta (Só Apelido em Negrito)
+                const htmlMobile = `<b>${apelido}</b>`;
+
+                // 2. Versão Longa (Nome Completo com Apelido em Negrito)
+                let htmlDesktop = "";
+                if (nomeCompleto.toLowerCase().includes(apelido.toLowerCase())) {
+                    const regex = new RegExp(`(${apelido})`, 'gi');
+                    htmlDesktop = nomeCompleto.replace(regex, '<b>$1</b>');
+                } else {
+                    htmlDesktop = `${nomeCompleto} (<b>${apelido}</b>)`;
+                }
+
                 htmlJogadores += `
-                    <div style="padding: 8px 5px; border-bottom: 1px solid #eee;">
-                        <input type="radio" name="delegado" value="${apelidoOnline}" id="delegado_${apelidoOnline}">
-                        <label for="delegado_${apelidoOnline}" style="cursor: pointer;">${usuario.usuario}</label>
+                    <div style="
+                        display: flex !important; 
+                        align-items: center !important; 
+                        justify-content: flex-start !important; 
+                        width: 100% !important;
+                        padding: 10px 15px !important;
+                        border-bottom: 1px solid #eee !important; 
+                        background-color: #fff !important;
+                        cursor: pointer !important;
+                        box-sizing: border-box !important;
+                        text-align: left !important;
+                        "
+                        onclick="document.getElementById('delegado_${apelidoOnline}').checked = true; this.style.backgroundColor='#f0f8ff'; setTimeout(()=>this.style.backgroundColor='#fff', 200);">
+                        
+                        <input type="radio" name="delegado" value="${apelidoOnline}" id="delegado_${apelidoOnline}" 
+                               style="
+                                   width: 15px !important; 
+                                   height: 15px !important;
+                                   min-width: 15px !important;
+                                   margin: 0 15px 0 0 !important; 
+                                   padding: 0 !important;
+                                   cursor: pointer; 
+                                   flex-shrink: 0;">
+                        
+                        <label for="delegado_${apelidoOnline}" 
+                               style="
+                                cursor: pointer; 
+                                font-size: 1.0rem !important; 
+                                color: #333 !important; 
+                                margin: 0 !important; 
+                                width: auto !important; 
+                                text-align: left !important; 
+                                font-weight: 400 !important; 
+                                line-height: 1.2 !important;
+                                flex-grow: 1;">
+                            
+                            <span class="nome-versao-mobile">${htmlMobile}</span>
+                            <span class="nome-versao-desktop">${htmlDesktop}</span>
+
+                        </label>
                     </div>
                 `;
                 count++;
@@ -13158,8 +13680,9 @@ function carregarJogadoresOnlineParaDelegacao(reserva, quadra) {
         }
 
         if (count === 0) {
-            container.innerHTML = '<p style="text-align: center; color: #888;">Nenhum outro jogador online disponível para delegação.</p>';
+            container.innerHTML = '<p style="text-align: center; color: #888;">Nenhum jogador disponível para delegação.</p>';
         } else {
+            container.style.padding = '0';
             container.innerHTML = htmlJogadores;
         }
     }, (error) => {
@@ -13167,6 +13690,7 @@ function carregarJogadoresOnlineParaDelegacao(reserva, quadra) {
         container.innerHTML = '<p style="text-align: center; color: red;">Erro ao carregar lista.</p>';
     });
 }
+
 
 
 async function confirmarDelegacao() {
@@ -13209,27 +13733,69 @@ document.getElementById('btnConfirmarDelegacao').onclick = confirmarDelegacao;
 
 
 /**
- * CORREÇÃO: Nova função para centralizar a lógica de atualização do botão Salvar.
- * Atualiza o texto e a cor do botão com base na existência de um vencedor
- * OU se estiver no Modo Súmula (pedido do usuário).
+ * Gerencia o texto e a cor do botão de ação com base no estado do jogo.
  */
 function atualizarBotaoSalvarResultado(isResultadoConclusivo = false) {
     const btnSalvar = document.getElementById('btnSalvarResultado');
+    const btnCancelar = document.getElementById('btnCancelarResultado');
     const containerSumula = document.getElementById('simple-score-container');
     
-    // Verifica se o Modo Súmula está visível
+    // 1. Verifica em qual modo estamos
     const isModoSumula = containerSumula && containerSumula.style.display !== 'none';
+    const isModoArbitragem = !isModoSumula && document.getElementById('placar-fields-container').style.display !== 'none';
 
-    // Se tiver vencedor OU estiver na Súmula -> Botão Verde "Salvar"
-    if (isResultadoConclusivo || isModoSumula) {
-        btnSalvar.textContent = 'Salvar';
-        btnSalvar.style.backgroundColor = '#28a745'; // Verde
+    // 2. Reset Básico (Limpa estilos antigos)
+    btnSalvar.className = 'btn-modern btn-save'; 
+    btnSalvar.disabled = false;
+    btnSalvar.style.display = 'flex';
+    btnSalvar.onclick = salvarResultadoPiramide; // Garante a ação padrão
+    btnCancelar.textContent = 'Cancelar';
+
+    // --- MODO CLÁSSICO (Súmula, WO, Desistência) ---
+    if (!isModoArbitragem) {
+        if (modoResultado === 'wo' || modoResultado === 'desistencia') {
+            btnSalvar.textContent = 'Salvar';
+        } else {
+            // Na súmula manual, o botão sempre permite salvar
+            btnSalvar.textContent = isResultadoConclusivo ? 'Salvar' : 'Parciais';
+            btnSalvar.style.backgroundColor = isResultadoConclusivo ? '#28a745' : '#007bff';
+        }
+        return;
+    }
+
+    // --- MODO ARBITRAGEM (Dinâmico e Automático) ---
+    
+    if (isResultadoConclusivo) {
+        // >>> JOGO ACABOU: Botão Verde para finalizar <<<
+        btnSalvar.textContent = 'Salvar'; 
+        btnSalvar.style.backgroundColor = '#28a745';
+        
     } else {
-        // Caso contrário (Arbitragem em andamento) -> Botão Azul "Parciais"
-        btnSalvar.textContent = 'Parciais';
-        btnSalvar.style.backgroundColor = '#007bff'; // Azul
+        // >>> JOGO ROLANDO: Auto-save ativado <<<
+        
+        // Verifica se é Match Point (para dar emoção!)
+        if (verificarMatchPoint()) {
+            btnSalvar.textContent = 'MATCH POINT';
+            btnSalvar.className = 'btn-modern btn-status-matchpoint';
+            // No Match Point, o botão fica apenas visual (bloqueia clique)
+            btnSalvar.onclick = null; 
+        } else {
+            // Estado padrão de jogo (Espera)
+            // Só muda para "Salvo" se não estiver no meio de um processo de "Salvando..."
+            if (btnSalvar.textContent !== 'Salvando...') {
+                btnSalvar.textContent = 'Salvo ✓';
+                btnSalvar.className = 'btn-modern btn-status-saved';
+            }
+        }
+        
+        // Na arbitragem, o cancelar vira "Sair" (fechar janela)
+        btnCancelar.textContent = 'Sair';
     }
 }
+
+
+
+
 
 /**
  * Calcula o tempo restante e atualiza o display do contador.
@@ -13356,10 +13922,8 @@ function fecharPlacarAoVivo() {
 
 /**
  * Abre a tela de Placar Ao Vivo e inicia o monitoramento da partida.
- * @param {string} key - A chave da reserva no Firebase.
- * @param {string} quadra - A quadra onde a reserva está.
+ * VERSÃO FINAL - LIMPA E CORRIGIDA
  */
-// SUBSTITUA A FUNÇÃO abrirPlacarAoVivo COMPLETA POR ESTA:
 async function abrirPlacarAoVivo(key, quadra) {
     const overlay = document.getElementById('placarAoVivoOverlay');
     const placarRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
@@ -13376,6 +13940,7 @@ async function abrirPlacarAoVivo(key, quadra) {
             return;
         }
 
+        // --- PREPARAÇÃO DOS JOGADORES ---
         let jogadoresApelidos = [];
         if (reserva.jogadores_completo) {
             jogadoresApelidos = reserva.jogadores_completo.split(',').map(j => j.trim());
@@ -13392,126 +13957,218 @@ async function abrirPlacarAoVivo(key, quadra) {
         }
 
         if (jogadoresApelidos.length < 2) { fecharPlacarAoVivo(); return; }
-        const [j1Apelido, j2Apelido] = jogadoresApelidos; // Renomeado para evitar confusão
-
-        const j1Info = jogadoresData[j1Apelido]; // Objeto de informações do jogador 1
-        const j2Info = jogadoresData[j2Apelido]; // Objeto de informações do jogador 2
-        
-        // --- PREPARAÇÃO DOS NOMES DE EXIBIÇÃO ---
+        const [j1Apelido, j2Apelido] = jogadoresApelidos;
+        const j1Info = jogadoresData[j1Apelido];
+        const j2Info = jogadoresData[j2Apelido];
         const j1NomeCompleto = j1Info ? capitalizarNome(j1Info.nomeCompleto) : capitalizarNome(j1Apelido);
         const j2NomeCompleto = j2Info ? capitalizarNome(j2Info.nomeCompleto) : capitalizarNome(j2Apelido);
 
         document.getElementById('placar-quadra').textContent = quadra;
-
         document.getElementById('placar-j1-posicao').textContent = getDisplayRank(j1Info?.piramide) || 'N/A';
         document.getElementById('placar-j2-posicao').textContent = getDisplayRank(j2Info?.piramide) || 'N/A';
 
         const j1NomeEl = document.getElementById('placar-j1-nome');
         const j2NomeEl = document.getElementById('placar-j2-nome');
-
-        // Armazena Nome Completo e Apelido nos data-* attributes
         j1NomeEl.setAttribute('data-nome-completo', j1NomeCompleto);
         j1NomeEl.setAttribute('data-apelido', j1Apelido);
         j2NomeEl.setAttribute('data-nome-completo', j2NomeCompleto);
         j2NomeEl.setAttribute('data-apelido', j2Apelido);
-        // A função atualizarNomesPlacarAoVivo() que será chamada no final fará a escolha de qual nome exibir.
 
         const resultado = reserva.resultado;
+        const jogoFinalizado = (reserva.status === 'finalizada' || reserva.status === 'resultado_pendente');
 
-        // ==========================================================
-        // ===== INÍCIO DA MODIFICAÇÃO PARA TRATAR W.O. =========
-        // ==========================================================
+        // =========================================================
+        // === 1. LÓGICA DE VISIBILIDADE DE PONTOS (DIREITA) ===
+        // =========================================================
+        const pontosJ1El = document.getElementById('placar-j1-points');
+        const pontosJ2El = document.getElementById('placar-j2-points');
+        
+        let p1Display = '';
+        let p2Display = '';
+        let set3EstaNaDireita = false;
 
-        const j1SetsContainer = document.getElementById('placar-j1-sets'); // Usa o ID adicionado
-        const j2SetsContainer = document.getElementById('placar-j2-sets'); // Usa o ID adicionado
-
-        // VERIFICA SE O RESULTADO É W.O.
-        if (resultado.tipo === 'W.O.') {
-            const vencedorWO = resultado.vencedor;
-            const j1VenceuWO = (j1Apelido.toUpperCase() === vencedorWO.toUpperCase()) || (j1Info && j1Info.nomeCompleto.toUpperCase() === vencedorWO.toUpperCase());
-
-            // Limpa classes de W.O. antes de adicionar a nova
-            j1SetsContainer.classList.remove('contains-wo');
-            j2SetsContainer.classList.remove('contains-wo');
-
-            if (j1VenceuWO) {
-                j1SetsContainer.innerHTML = '<span class="placar-set set-vencedor wo-indicator">W.O.</span>'; // <-- Classe específica adicionada
-                j1SetsContainer.classList.add('contains-wo'); // <-- Classe adicionada ao PAI
-                j2SetsContainer.innerHTML = '';
-            } else {
-                j1SetsContainer.innerHTML = '';
-                j2SetsContainer.innerHTML = '<span class="placar-set set-vencedor wo-indicator">W.O.</span>'; // <-- Classe específica adicionada
-                j2SetsContainer.classList.add('contains-wo'); // <-- Classe adicionada ao PAI
+        if (jogoFinalizado) {
+            p1Display = ''; p2Display = '';
+        } else {
+            // A. Verifica Super Tie-break (3º Set)
+            let s3Placar = "";
+            if (resultado.set3) {
+                 if (typeof resultado.set3 === 'string') s3Placar = resultado.set3;
+                 else if (resultado.set3.placar) s3Placar = resultado.set3.placar;
+            }
+            if (s3Placar.includes('x')) {
+                 const [s3_1, s3_2] = s3Placar.split('x');
+                 if (parseInt(s3_1) > 0 || parseInt(s3_2) > 0) {
+                     p1Display = s3_1; p2Display = s3_2;
+                     set3EstaNaDireita = true;
+                 }
             }
 
-        } else { // SE NÃO FOR W.O., PROCESSA OS SETS NORMALMENTE
-            // **Importante:** Limpa/Recria os spans dos sets caso a atualização anterior fosse W.O.
+            // B. Verifica Tie-Break Normal (1º ou 2º Set)
+            if (!set3EstaNaDireita) {
+                
+                const getPlacarStr = (obj) => {
+                    if (typeof obj === 'string') return obj;
+                    if (obj && obj.placar) return obj.placar;
+                    return "";
+                };
+
+                const s1Str = getPlacarStr(resultado.set1);
+                const s2Str = getPlacarStr(resultado.set2);
+
+                // Verifica se é exatamente '6x6'
+                const isS1Empate = s1Str.trim() === '6x6';
+                const isS2Empate = s2Str.trim() === '6x6';
+
+                if (isS1Empate || isS2Empate) {
+                    
+                    // 1. Padrão: Força 0x0 IMEDIATAMENTE
+                    p1Display = '0';
+                    p2Display = '0';
+                    
+                    // 2. Tenta ler valores reais do banco
+                    let tbSaved = "";
+                    if (isS2Empate) {
+                        tbSaved = (typeof resultado.set2 === 'object') ? (resultado.set2.tiebreak || "") : "";
+                    } else {
+                        tbSaved = (typeof resultado.set1 === 'object') ? (resultado.set1.tiebreak || "") : "";
+                    }
+
+                    // Se existir um placar real (ex: "1-0"), usa ele. 
+                    // PROTEÇÃO: Só sobrescreve se o valor não for vazio.
+                    if (tbSaved && tbSaved.includes('-')) {
+                        const [t1, t2] = tbSaved.split('-');
+                        
+                        if (t1.trim() !== "") {
+                            p1Display = t1;
+                        }
+                        if (t2.trim() !== "") {
+                            p2Display = t2;
+                        }
+                    } 
+                } 
+                else if (resultado.pontos) {
+                    // Modo Pontos Normais (15, 30, 40)
+                    p1Display = resultado.pontos.j1 || '0';
+                    p2Display = resultado.pontos.j2 || '0';
+                }
+            }
+        }
+
+        pontosJ1El.textContent = p1Display;
+        pontosJ2El.textContent = p2Display;
+
+        // --- ATUALIZAÇÃO DO SACADOR ---
+        const ballJ1 = document.getElementById('placar-j1-server');
+        const ballJ2 = document.getElementById('placar-j2-server');
+        ballJ1.classList.remove('visible');
+        ballJ2.classList.remove('visible');
+        if (!jogoFinalizado) {
+            if (resultado.sacador === 'j1') ballJ1.classList.add('visible');
+            else if (resultado.sacador === 'j2') ballJ2.classList.add('visible');
+        }
+
+        // =========================================================
+        // === 2. LÓGICA DOS SETS (MEIO) ===
+        // =========================================================
+        const j1SetsContainer = document.getElementById('placar-j1-sets');
+        const j2SetsContainer = document.getElementById('placar-j2-sets');
+
+        if (resultado.tipo === 'W.O.') {
+             const vencedorWO = resultado.vencedor;
+            const j1VenceuWO = (j1Apelido.toUpperCase() === vencedorWO.toUpperCase()) || (j1Info && j1Info.nomeCompleto.toUpperCase() === vencedorWO.toUpperCase());
+            j1SetsContainer.classList.remove('contains-wo'); j2SetsContainer.classList.remove('contains-wo');
+            if (j1VenceuWO) {
+                j1SetsContainer.innerHTML = '<span class="placar-set set-vencedor wo-indicator">W.O.</span>';
+                j1SetsContainer.classList.add('contains-wo'); j2SetsContainer.innerHTML = '';
+            } else {
+                j1SetsContainer.innerHTML = '';
+                j2SetsContainer.innerHTML = '<span class="placar-set set-vencedor wo-indicator">W.O.</span>';
+                j2SetsContainer.classList.add('contains-wo');
+            }
+        } else {
             j1SetsContainer.innerHTML = `
-                <span class="placar-set" id="placar-j1-set1">0</span>
-                <span class="placar-set" id="placar-j1-set2">0</span>
+                <span class="placar-set" id="placar-j1-set1"></span>
+                <span class="placar-set" id="placar-j1-set2"></span>
                 <span class="placar-set" id="placar-j1-set3"></span>`;
             j2SetsContainer.innerHTML = `
-                <span class="placar-set" id="placar-j2-set1">0</span>
-                <span class="placar-set" id="placar-j2-set2">0</span>
+                <span class="placar-set" id="placar-j2-set1"></span>
+                <span class="placar-set" id="placar-j2-set2"></span>
                 <span class="placar-set" id="placar-j2-set3"></span>`;
 
-            // Lógica original para processar os sets (com pequenas adaptações)
-            const sets = ['set1', 'set2', 'set3'];
-            sets.forEach((setKey, index) => {
-                const setData = resultado[setKey];
-                const setNum = index + 1;
-                // Busca os elementos DEPOIS de recriar o innerHTML
-                const j1SetElement = document.getElementById(`placar-j1-set${setNum}`);
-                const j2SetElement = document.getElementById(`placar-j2-set${setNum}`);
+            let set1Finalizado = false;
 
-                // (O restante da lógica interna do forEach para placar, tiebreak e classe 'set-vencedor' permanece igual)
-                if (setData && (setData.placar || typeof setData === 'string')) {
-                    const setPlacar = typeof setData === 'string' ? setData : setData.placar;
-                    const scores = setPlacar.includes('x') ? setPlacar.split('x').map(Number) : [NaN, NaN];
-                    const [s1, s2] = scores;
-
-                    let tb_html_j1 = '', tb_html_j2 = '';
-                    let tb1 = NaN, tb2 = NaN;
-                    if (typeof setData === 'object' && setData.tiebreak && setData.tiebreak.includes('-')) {
-                        [tb1, tb2] = setData.tiebreak.split('-').map(Number);
-                        tb_html_j1 = `<sup>${tb1}</sup>`;
-                        tb_html_j2 = `<sup>${tb2}</sup>`;
+            // SET 1
+            const s1El_J1 = document.getElementById('placar-j1-set1');
+            const s1El_J2 = document.getElementById('placar-j2-set1');
+            s1El_J1.textContent = '0'; s1El_J2.textContent = '0';
+            
+            if (resultado.set1 && (resultado.set1.placar || typeof resultado.set1 === 'string')) {
+                const placarStr = typeof resultado.set1 === 'string' ? resultado.set1 : resultado.set1.placar;
+                const [s1, s2] = placarStr.split('x').map(Number);
+                if (!isNaN(s1) && !isNaN(s2)) {
+                    let tbHtml1 = '', tbHtml2 = '';
+                    if ((s1===7 || s2===7) && resultado.set1.tiebreak && resultado.set1.tiebreak.includes('-')) {
+                        const [tb1, tb2] = resultado.set1.tiebreak.split('-');
+                        tbHtml1 = `<sup>${tb1}</sup>`; tbHtml2 = `<sup>${tb2}</sup>`;
                     }
+                    s1El_J1.innerHTML = `${s1}${tbHtml1}`;
+                    s1El_J2.innerHTML = `${s2}${tbHtml2}`;
+                    if ((s1===6 && s2<=4) || (s2===6 && s1<=4) || (s1===7) || (s2===7)) {
+                        set1Finalizado = true;
+                        if (s1 > s2) s1El_J1.classList.add('set-vencedor');
+                        else s1El_J2.classList.add('set-vencedor');
+                    }
+                }
+            }
 
-                    j1SetElement.innerHTML = `${!isNaN(s1) ? s1 : '0'}${tb_html_j1}`;
-                    j2SetElement.innerHTML = `${!isNaN(s2) ? s2 : '0'}${tb_html_j2}`;
-
-                    let j1VenceuSet = false;
-                    let j2VenceuSet = false;
-
+            // SET 2
+            const s2El_J1 = document.getElementById('placar-j1-set2');
+            const s2El_J2 = document.getElementById('placar-j2-set2');
+            s2El_J1.textContent = ''; s2El_J2.textContent = '';
+            if (set1Finalizado) {
+                s2El_J1.textContent = '0'; s2El_J2.textContent = '0';
+                if (resultado.set2 && (resultado.set2.placar || typeof resultado.set2 === 'string')) {
+                    const placarStr = typeof resultado.set2 === 'string' ? resultado.set2 : resultado.set2.placar;
+                    const [s1, s2] = placarStr.split('x').map(Number);
                     if (!isNaN(s1) && !isNaN(s2)) {
-                        if (setKey === 'set3') {
-                            if (s1 >= 10 && (s1 - s2) >= 2) j1VenceuSet = true;
-                            else if (s2 >= 10 && (s2 - s1) >= 2) j2VenceuSet = true;
-                        } else {
-                            const vencedorDoSet = determinarVencedorSet(s1, s2, tb1, tb2);
-                            if (vencedorDoSet === 'j1') j1VenceuSet = true;
-                            if (vencedorDoSet === 'j2') j2VenceuSet = true;
+                        let tbHtml1 = '', tbHtml2 = '';
+                        if ((s1===7 || s2===7) && resultado.set2.tiebreak && resultado.set2.tiebreak.includes('-')) {
+                            const [tb1, tb2] = resultado.set2.tiebreak.split('-');
+                            tbHtml1 = `<sup>${tb1}</sup>`; tbHtml2 = `<sup>${tb2}</sup>`;
+                        }
+                        s2El_J1.innerHTML = `${s1}${tbHtml1}`;
+                        s2El_J2.innerHTML = `${s2}${tbHtml2}`;
+                        if ((s1===6 && s2<=4) || (s2===6 && s1<=4) || (s1===7) || (s2===7)) {
+                             if (s1 > s2) s2El_J1.classList.add('set-vencedor');
+                             else s2El_J2.classList.add('set-vencedor');
                         }
                     }
-                    j1SetElement.classList.toggle('set-vencedor', j1VenceuSet);
-                    j2SetElement.classList.toggle('set-vencedor', j2VenceuSet);
-
-                } else {
-                    j1SetElement.innerHTML = setKey === 'set3' ? '' : '0';
-                    j2SetElement.innerHTML = setKey === 'set3' ? '' : '0';
-                    j1SetElement.classList.remove('set-vencedor');
-                    j2SetElement.classList.remove('set-vencedor');
                 }
-            });
-        } // Fim do else (não é W.O.)
+            }
 
-        // ==========================================================
-        // ===== FIM DA MODIFICAÇÃO PARA TRATAR W.O. ============
-        // ==========================================================
+            // SET 3
+            const s3El_J1 = document.getElementById('placar-j1-set3');
+            const s3El_J2 = document.getElementById('placar-j2-set3');
+            s3El_J1.textContent = ''; s3El_J2.textContent = '';
+            if (jogoFinalizado || !set3EstaNaDireita) {
+                 if (resultado.set3) {
+                     let placarStr = typeof resultado.set3 === 'string' ? resultado.set3 : resultado.set3.placar;
+                     if (placarStr && placarStr.includes('x')) {
+                         const [s1, s2] = placarStr.split('x').map(Number);
+                         if (!isNaN(s1) && !isNaN(s2) && (s1 > 0 || s2 > 0)) {
+                             s3El_J1.innerHTML = s1;
+                             s3El_J2.innerHTML = s2;
+                             if ((s1>=10 && s1-s2>=2) || (s2>=10 && s2-s1>=2)) {
+                                 if (s1 > s2) s3El_J1.classList.add('set-vencedor');
+                                 else s3El_J2.classList.add('set-vencedor');
+                             }
+                         }
+                     }
+                 }
+            }
+        }
 
-        // (A Lógica que vem depois para tratar o status final do jogo, indicador AO VIVO,
-        // declaração do vencedor, RET, motivo, e classes match-winner permanece EXATAMENTE A MESMA)
         const liveIndicatorElement = document.querySelector('.live-indicator-placar');
         const vencedorDeclaracao = document.getElementById('placar-vencedor-declaracao');
         const j1NameElement = document.getElementById('placar-j1-nome');
@@ -13519,36 +14176,30 @@ async function abrirPlacarAoVivo(key, quadra) {
         const j1RetElement = document.getElementById('placar-j1-ret');
         const j2RetElement = document.getElementById('placar-j2-ret');
         const motivoDesistenciaElement = document.getElementById('placar-motivo-desistencia');
+        const mpAlert = document.getElementById('placar-mp-alert');
 
-        if (reserva.status === 'finalizada' || reserva.status === 'resultado_pendente') {
+        if (jogoFinalizado) {
             liveIndicatorElement.innerHTML = '✓ JOGO FINALIZADO';
             liveIndicatorElement.style.color = '#4CAF50';
+            mpAlert.style.display = 'none';
 
             const vencedorDoResultado = reserva.resultado.vencedor;
             const tipoVitoria = reserva.resultado.tipo === 'Placar Normal' ? '' : ` por ${reserva.resultado.tipo}`;
-
             const vencedorApelidoReal = (j1Apelido.toUpperCase() === vencedorDoResultado.toUpperCase() || (j1Info && j1Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase())) ? j1Apelido : j2Apelido;
             const vencedorInfoCompleto = jogadoresData[vencedorApelidoReal];
             const nomeParaExibir = vencedorInfoCompleto ? vencedorInfoCompleto.nomeCompleto : vencedorApelidoReal;
+            
             vencedorDeclaracao.innerHTML = `🏆 Vitória de ${capitalizarNome(nomeParaExibir)}${tipoVitoria}`;
             vencedorDeclaracao.style.display = 'block';
 
-            // --- Lógica ATUALIZADA para RET/MOTIVO ---
-            j1RetElement.innerHTML = '';
-            j2RetElement.innerHTML = '';
-
+            j1RetElement.innerHTML = ''; j2RetElement.innerHTML = '';
             if (reserva.resultado.tipo === 'Desistência') {
                 const perdedorApelido = reserva.resultado.perdedor;
-                if (j1Apelido.toUpperCase() === perdedorApelido.toUpperCase()) {
-                    j1RetElement.innerHTML = '<span class="ret-indicator-placar">RET</span>';
-                } else if (j2Apelido.toUpperCase() === perdedorApelido.toUpperCase()) {
-                    j2RetElement.innerHTML = '<span class="ret-indicator-placar">RET</span>';
-                }
+                if (j1Apelido.toUpperCase() === perdedorApelido.toUpperCase()) j1RetElement.innerHTML = '<span class="ret-indicator-placar">RET</span>';
+                else if (j2Apelido.toUpperCase() === perdedorApelido.toUpperCase()) j2RetElement.innerHTML = '<span class="ret-indicator-placar">RET</span>';
             }
 
-            // Busca o motivo onde quer que ele esteja salvo
 			const motivoReal = reserva.resultado.motivo || reserva.resultado.motivoWo || reserva.resultado.motivoDesistencia;
-
 			if (motivoReal) {
 				motivoDesistenciaElement.textContent = `Motivo: ${motivoReal}`;
 				motivoDesistenciaElement.style.display = 'block';
@@ -13556,89 +14207,64 @@ async function abrirPlacarAoVivo(key, quadra) {
                 motivoDesistenciaElement.style.display = 'none';
                 motivoDesistenciaElement.textContent = '';
             }
-            // --- FIM DA LÓGICA ATUALIZADA ---
 
-            let j1_is_match_winner = false;
-            let j2_is_match_winner = false;
-            if (j1Apelido.toUpperCase() === vencedorDoResultado.toUpperCase()) {
-                j1_is_match_winner = true;
-            } else if (j2Apelido.toUpperCase() === vencedorDoResultado.toUpperCase()) {
-                j2_is_match_winner = true;
-            }
+            let j1_is_match_winner = false; let j2_is_match_winner = false;
+            if (j1Apelido.toUpperCase() === vencedorDoResultado.toUpperCase()) j1_is_match_winner = true;
+            else if (j2Apelido.toUpperCase() === vencedorDoResultado.toUpperCase()) j2_is_match_winner = true;
             if (!j1_is_match_winner && !j2_is_match_winner) {
-                if (j1Info && j1Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase()) {
-                    j1_is_match_winner = true;
-                } else if (j2Info && j2Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase()) {
-                    j2_is_match_winner = true;
-                }
+                 if (j1Info && j1Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase()) j1_is_match_winner = true;
+                 else if (j2Info && j2Info.nomeCompleto.toUpperCase() === vencedorDoResultado.toUpperCase()) j2_is_match_winner = true;
             }
             j1NameElement.classList.toggle('match-winner', j1_is_match_winner);
             j2NameElement.classList.toggle('match-winner', j2_is_match_winner);
 
-        } else { // Jogo em andamento ('em_andamento')
+        } else { 
             liveIndicatorElement.innerHTML = '<span class="live-indicator"></span> AO VIVO';
             liveIndicatorElement.style.color = '#ff4d4d';
             vencedorDeclaracao.style.display = 'none';
-
-            j1RetElement.innerHTML = '';
-            j2RetElement.innerHTML = '';
+            if (reserva.resultado.isMatchPoint) mpAlert.style.display = 'inline-block';
+            else mpAlert.style.display = 'none';
+            j1RetElement.innerHTML = ''; j2RetElement.innerHTML = '';
             motivoDesistenciaElement.style.display = 'none';
-            motivoDesistenciaElement.textContent = '';
-
-            j1NameElement.classList.remove('match-winner');
-            j2NameElement.classList.remove('match-winner');
+            j1NameElement.classList.remove('match-winner'); j2NameElement.classList.remove('match-winner');
         }
-        atualizarNomesPlacarAoVivo(); // Mantém a chamada no final
+        atualizarNomesPlacarAoVivo();
     };
 
     const listenerCallback = placarRef.on('value', callbackDoPlacar);
     listenerPlacarAoVivo = { ref: placarRef, callback: listenerCallback };
 	
-	// =================================================================
-    // --- NOVA LÓGICA: ARQUIBANCADA VIRTUAL ---
-    // =================================================================
     const sessionId = localStorage.getItem("sessionId");
     if (sessionId) {
-        // 1. "Entra" na sala: Cria um registro temporário neste jogo
         espectadorRef = database.ref(`sistemas/espectadores/${quadra}/${key}/${sessionId}`); 
-        espectadorRef.set({
-            entrada: firebase.database.ServerValue.TIMESTAMP,
-            usuario: localStorage.getItem('jogadorLogado') || 'Anônimo'
-        });
-        // Garante que se a internet cair, o registro é removido
+        espectadorRef.set({ entrada: firebase.database.ServerValue.TIMESTAMP, usuario: localStorage.getItem('jogadorLogado') || 'Anônimo' });
         espectadorRef.onDisconnect().remove();
-
-        // 2. Começa a contar quantas pessoas estão na sala
         contadorEspectadoresRef = database.ref(`sistemas/espectadores/${quadra}/${key}`);
         contadorEspectadoresCallback = contadorEspectadoresRef.on('value', (snapshot) => {
             const espectadores = snapshot.val() || {};
             const numEspectadores = Object.keys(espectadores).length;
-            
             const contadorEl = document.getElementById('placar-espectadores');
             const numeroEl = document.getElementById('numero-espectadores');
-            
             if (contadorEl && numeroEl) {
-                // Só mostra se tiver mais de 1 pessoa (você não conta como plateia para si mesmo)
                 if (numEspectadores > 1) {
-                     // Pequeno efeito visual quando o número muda
                     contadorEl.classList.add('mudou');
                     setTimeout(() => contadorEl.classList.remove('mudou'), 300);
-                    
-                    numeroEl.textContent = numEspectadores - 1; // Mostra quantos OUTROS estão vendo
+                    numeroEl.textContent = numEspectadores - 1; 
                     contadorEl.style.display = 'inline-flex';
-                    // Dica de texto ao passar o mouse
                     contadorEl.title = `${numEspectadores - 1} outra(s) pessoa(s) assistindo agora`;
-                } else {
-                    contadorEl.style.display = 'none';
-                }
+                } else { contadorEl.style.display = 'none'; }
             }
         });
     }
-    // =================================================================
 
     overlay.style.display = 'flex';
     entrarEmTelaCheia(overlay);
 }
+
+
+
+
+
 
 
 
@@ -14113,17 +14739,14 @@ function cancelarNomeConvidado() {
 
 /**
  * Função acionada pelos botões + e -
+ * ATUALIZADA: Com Rotação Automática no Tie-Break
  */
 function ajustarPonto(jogador, delta) {
     const oponente = jogador === 'j1' ? 'j2' : 'j1';
-    
-    // 1. Define qual set estamos jogando
     const setAtivo = setEmEdicao || determinarSetAtivo();
-    
-    // 2. Verifica se é Tie-break
     const isTieBreak = (setEmEdicao !== null) || verificarSeEhTieBreak(setAtivo);
+    
     estadoPontos.tiebreakMode = isTieBreak;
-
     const isNoAd = document.getElementById('chk-modo-no-ad') ? document.getElementById('chk-modo-no-ad').checked : false;
 
     let pJog = estadoPontos[jogador];
@@ -14131,6 +14754,8 @@ function ajustarPonto(jogador, delta) {
 
     // --- CENÁRIO A: TIE-BREAK ---
     if (isTieBreak) {
+        const pontosAntes = pJog + pOp; // Guardamos o total antes
+        
         pJog += delta;
         if (pJog < 0) pJog = 0;
 
@@ -14143,33 +14768,40 @@ function ajustarPonto(jogador, delta) {
                 else { inputTbJ1.value = pOp; inputTbJ2.value = pJog; }
             }
         }
+        
+        // --- AUTOMAÇÃO DE SAQUE (TIE-BREAK) ---
+        // Regra: No Tie-break, o saque muda sempre que a SOMA DOS PONTOS for ÍMPAR (1, 3, 5...)
+        // Executamos apenas se estamos ADICIONANDO ponto (delta > 0) para evitar confusão no "desfazer"
+        if (delta > 0) {
+            const somaPontos = pJog + pOp;
+            // Se a soma é ímpar, troca o sacador
+            if (somaPontos % 2 !== 0) {
+                inverterSacador();
+            }
+        }
+        // --------------------------------------
 
         // Verifica vitória do Tie-break
         const alvo = (setAtivo === 3) ? 10 : 7;
         if (delta > 0 && pJog >= alvo && (pJog - pOp) >= 2) {
-            
             const gameAtual = parseInt(document.getElementById(`set${setAtivo}-${jogador}`).value) || 0;
             const gameOponente = parseInt(document.getElementById(`set${setAtivo}-${oponente}`).value) || 0;
-
             const podeIncrementar = setAtivo !== 3 && gameAtual < 7 && gameOponente < 7;
 
             if (podeIncrementar) {
                 incrementarGame(setAtivo, jogador);
             }
             
+            // Verifica consistência para limpar pontos
             let vencedorCoerente = true;
             if (setEmEdicao && setAtivo !== 3 && ((gameAtual === 7 && gameOponente === 6) || (gameAtual === 6 && gameOponente === 7))) {
                 if (gameAtual !== 7) vencedorCoerente = false;
             }
 
             if (vencedorCoerente) {
-                // >>> CORREÇÃO: SÓ ZERA PONTOS SE NÃO FOR O 3º SET <<<
                 if (setAtivo !== 3) {
-                    pJog = 0; 
-                    pOp = 0;
+                    pJog = 0; pOp = 0;
                 }
-                // >>> FIM DA CORREÇÃO <<<
-                
                 setEmEdicao = null; 
             }
         }
@@ -14198,7 +14830,6 @@ function ajustarPonto(jogador, delta) {
         }
     }
 
-    // Atualiza estado visual
     estadoPontos[jogador] = pJog;
     estadoPontos[oponente] = pOp;
     
@@ -14209,7 +14840,11 @@ function ajustarPonto(jogador, delta) {
     
     atualizarDisplayPontos();
     calcularVencedorPiramide(); 
+	
+	atualizarBotaoSalvarResultado(false);
+	triggerAutoSave();
 }
+
 
 
 
@@ -14242,7 +14877,7 @@ function atualizarDisplayPontos() {
 
 
 function incrementarGame(setNum, jogador) {
-    // Super Tie-break (Set 3) não incrementa game, ele JÁ É o game.
+    // Super Tie-break (Set 3) não incrementa game
     if (setNum === 3) return; 
 
     const inputId = `set${setNum}-${jogador}`;
@@ -14252,10 +14887,18 @@ function incrementarGame(setNum, jogador) {
         let valorAtual = parseInt(input.value) || 0;
         input.value = valorAtual + 1;
         
-        // AQUI VAMOS CHAMAR A FUNÇÃO DE VERIFICAÇÃO
+        // --- AUTOMAÇÃO DE SAQUE (GAME) ---
+        // Sempre que um game termina, o saque troca de lado
+        inverterSacador();
+        // ---------------------------------
+        
         calcularVencedorPiramide(); 
+		
+		triggerAutoSave();
     }
 }
+
+
 
 function determinarSetAtivo() {
     // --- SET 1 ---
@@ -14335,42 +14978,18 @@ function isSetFinalizado(val1, val2) {
 }
 
 
-// 2. Função nova (Vazia) para parar o erro "cannot read style of null"
 /**
- * Analisa os placares, aplica negrito no vencedor, libera sets futuros 
- * e define se o botão deve ser "Salvar" (Verde) ou "Parciais" (Azul).
+ * Analisa os placares, aplica negrito no vencedor (nomes e inputs),
+ * libera sets futuros e define o estado do botão de ação.
  */
 function calcularVencedorPiramide() {
-    // 0. DETECÇÃO DE MODO
+    // 0. DETECÇÃO DE MODO E HELPERS
     const containerSumula = document.getElementById('simple-score-container');
     const isModoSumula = containerSumula && containerSumula.style.display !== 'none';
 
     const p = isModoSumula ? 'simple-' : ''; 
     const tipoInput = isModoSumula ? 's' : 'set';
     
-    // Mapeamento dos Inputs
-    const inputs = {
-        s1j1: document.getElementById(`${p}${tipoInput}1-j1`), 
-        s1j2: document.getElementById(`${p}${tipoInput}1-j2`),
-        s2j1: document.getElementById(`${p}${tipoInput}2-j1`), 
-        s2j2: document.getElementById(`${p}${tipoInput}2-j2`),
-        s3j1: document.getElementById(`${p}${tipoInput}3-j1`), 
-        s3j2: document.getElementById(`${p}${tipoInput}3-j2`),
-        tb1j1: document.getElementById(`${p}tb1-j1`), 
-        tb1j2: document.getElementById(`${p}tb1-j2`),
-        tb2j1: document.getElementById(`${p}tb2-j1`), 
-        tb2j2: document.getElementById(`${p}tb2-j2`)
-    };
-
-    // Validação (0-7 para games)
-    const validarCampo = (el, max) => {
-        if (!el) return;
-        el.value = el.value.replace(/[^0-9]/g, '');
-        if (el.value !== '' && parseInt(el.value) > max) el.value = el.value.slice(0, -1); 
-    };
-    [inputs.s1j1, inputs.s1j2, inputs.s2j1, inputs.s2j2].forEach(el => validarCampo(el, 7));
-    
-    // Leitura Segura
     const getVal = (id) => {
         const el = document.getElementById(id);
         if (!el) return 0;
@@ -14378,14 +14997,11 @@ function calcularVencedorPiramide() {
         return valLimpo === '' ? 0 : parseInt(valLimpo, 10);
     };
     
-    const activeEl = document.activeElement;
-
-    // LEITURA DOS VALORES (AGORA INCLUINDO S3 NO TOPO)
+    // 1. LEITURA DOS VALORES
     const s1j1 = getVal(`${p}${tipoInput}1-j1`); 
     const s1j2 = getVal(`${p}${tipoInput}1-j2`);
     const s2j1 = getVal(`${p}${tipoInput}2-j1`); 
     const s2j2 = getVal(`${p}${tipoInput}2-j2`);
-    // CORREÇÃO: Declarados aqui para existirem no escopo global da função
     const s3j1 = getVal(`${p}${tipoInput}3-j1`); 
     const s3j2 = getVal(`${p}${tipoInput}3-j2`);
     
@@ -14394,36 +15010,38 @@ function calcularVencedorPiramide() {
     const tb2j1 = getVal(`${p}tb2-j1`); 
     const tb2j2 = getVal(`${p}tb2-j2`);
 
-    // 2. Verificação de Cenário de Tie-break
+    // 2. ATUALIZAÇÃO VISUAL DOS BADGES DE TIE-BREAK
     const isTb1 = (s1j1 === 6 && s1j2 === 6) || (s1j1 === 7 && s1j2 === 6) || (s1j2 === 7 && s1j1 === 6);
     const isTb2 = (s2j1 === 6 && s2j2 === 6) || (s2j1 === 7 && s2j2 === 6) || (s2j2 === 7 && s2j1 === 6);
 
-    // Limpeza Automática (Se deixou de ser TB, limpa os valores)
-    if (!isTb1 && !isModoSumula) {
-        document.getElementById('tb1-j1').value = ''; document.getElementById('tb1-j2').value = '';
-        document.getElementById('view-tb1-j1').textContent = ''; document.getElementById('view-tb1-j2').textContent = '';
-        if (setEmEdicao === 1) { setEmEdicao = null; estadoPontos = { j1: 0, j2: 0, tiebreakMode: false }; atualizarDisplayPontos(); }
-    }
-    if (!isTb2 && !isModoSumula) {
-        document.getElementById('tb2-j1').value = ''; document.getElementById('tb2-j2').value = '';
-        document.getElementById('view-tb2-j1').textContent = ''; document.getElementById('view-tb2-j2').textContent = '';
-        if (setEmEdicao === 2) { setEmEdicao = null; estadoPontos = { j1: 0, j2: 0, tiebreakMode: false }; atualizarDisplayPontos(); }
-    }
-
-    // ATUALIZA OS BADGES VISUAIS (PAINEL DE CONTROLE)
     if (isTb1) {
         const v1 = isModoSumula ? tb1j1 : document.getElementById('tb1-j1').value;
         const v2 = isModoSumula ? tb1j2 : document.getElementById('tb1-j2').value;
-        document.getElementById('view-tb1-j1').textContent = v1;
-        document.getElementById('view-tb1-j2').textContent = v2;
+        if(document.getElementById('view-tb1-j1')) document.getElementById('view-tb1-j1').textContent = v1;
+        if(document.getElementById('view-tb1-j2')) document.getElementById('view-tb1-j2').textContent = v2;
     }
     if (isTb2) {
         const v1 = isModoSumula ? tb2j1 : document.getElementById('tb2-j1').value;
         const v2 = isModoSumula ? tb2j2 : document.getElementById('tb2-j2').value;
-        document.getElementById('view-tb2-j1').textContent = v1;
-        document.getElementById('view-tb2-j2').textContent = v2;
+        if(document.getElementById('view-tb2-j1')) document.getElementById('view-tb2-j1').textContent = v1;
+        if(document.getElementById('view-tb2-j2')) document.getElementById('view-tb2-j2').textContent = v2;
     }
 
+    // 3. LÓGICA DE VENCEDOR
+    let setsJ1 = 0;
+    let setsJ2 = 0;
+    let vencedorFinal = null;
+    let jogoConcluido = false;
+    let isTieBreakAtivo = false;
+
+    const vencedorSet1 = determinarVencedorSet(s1j1, s1j2, tb1j1, tb1j2);
+    let vencedorSet2 = null;
+    let vencedorSet3 = null;
+
+    if ((s1j1 === 6 && s1j2 === 6) || (s2j1 === 6 && s2j2 === 6)) isTieBreakAtivo = true;
+    if (setEmEdicao && ((setEmEdicao===1 && isTb1) || (setEmEdicao===2 && isTb2))) isTieBreakAtivo = true;
+
+    // Elementos DOM
     const wrapperSet2J1 = document.getElementById('wrapper-set2-j1');
     const wrapperSet2J2 = document.getElementById('wrapper-set2-j2');
     const elSet2J1 = document.getElementById('set2-j1'); 
@@ -14431,57 +15049,16 @@ function calcularVencedorPiramide() {
     const elSet3J1 = document.getElementById('set3-j1');
     const elSet3J2 = document.getElementById('set3-j2');
 
-    let setsJ1 = 0;
-    let setsJ2 = 0;
-    let vencedorFinal = null;
-    let jogoConcluido = false;
-    let isTieBreakAtivo = false;
-
-    // --- LÓGICA DE VENCEDOR ---
-    // Reset Inteligente
-    if ((activeEl === inputs.s1j1 || activeEl === inputs.s1j2) && s1j1 === 6 && s1j2 === 6) {
-        inputs.tb1j1.value = '0'; inputs.tb1j2.value = '0';
-    }
-    
-    // Autocorreção Set 1
-    if (s1j1 === 6 && s1j2 === 6) {
-        const j1VenceuTB = (tb1j1 >= 7 && (tb1j1 - tb1j2) >= 2);
-        const j2VenceuTB = (tb1j2 >= 7 && (tb1j2 - tb1j1) >= 2);
-        if (j1VenceuTB) { inputs.s1j1.value = 7; return calcularVencedorPiramide(); } 
-        else if (j2VenceuTB) { inputs.s1j2.value = 7; return calcularVencedorPiramide(); }
-    }
-
-    const vencedorSet1 = determinarVencedorSet(s1j1, s1j2, tb1j1, tb1j2);
-    
-    if ((s1j1 === 6 && s1j2 === 6) || (s2j1 === 6 && s2j2 === 6)) isTieBreakAtivo = true;
-    if (setEmEdicao && ((setEmEdicao===1 && isTb1) || (setEmEdicao===2 && isTb2))) isTieBreakAtivo = true;
-
     if (vencedorSet1) {
         if (vencedorSet1 === 'j1') setsJ1++; else setsJ2++;
         
-        // Mostra Set 2
-        wrapperSet2J1.classList.remove('sb-hidden'); 
-        wrapperSet2J2.classList.remove('sb-hidden');
-        document.getElementById('header-set2').classList.remove('sb-hidden');
-        
-        elSet2J1.disabled = false; elSet2J2.disabled = false;
-        if (elSet2J1.value === '') elSet2J1.value = 0;
-        if (elSet2J2.value === '') elSet2J2.value = 0;
+        if(wrapperSet2J1) wrapperSet2J1.classList.remove('sb-hidden'); 
+        if(wrapperSet2J2) wrapperSet2J2.classList.remove('sb-hidden');
+        if(document.getElementById('header-set2')) document.getElementById('header-set2').classList.remove('sb-hidden');
+        if(elSet2J1) elSet2J1.disabled = false; 
+        if(elSet2J2) elSet2J2.disabled = false;
 
-        // Reset Inteligente Set 2
-        if ((activeEl === inputs.s2j1 || activeEl === inputs.s2j2) && s2j1 === 6 && s2j2 === 6) {
-            inputs.tb2j1.value = '0'; inputs.tb2j2.value = '0';
-        }
-
-        // Autocorreção Set 2
-        if (s2j1 === 6 && s2j2 === 6) {
-            const j1VenceuTB = (tb2j1 >= 7 && (tb2j1 - tb2j2) >= 2);
-            const j2VenceuTB = (tb2j2 >= 7 && (tb2j2 - tb2j1) >= 2);
-            if (j1VenceuTB) { inputs.s2j1.value = 7; return calcularVencedorPiramide(); } 
-            else if (j2VenceuTB) { inputs.s2j2.value = 7; return calcularVencedorPiramide(); }
-        }
-
-        const vencedorSet2 = determinarVencedorSet(s2j1, s2j2, tb2j1, tb2j2);
+        vencedorSet2 = determinarVencedorSet(s2j1, s2j2, tb2j1, tb2j2);
 
         if (vencedorSet2) {
             if (vencedorSet2 === 'j1') setsJ1++; else setsJ2++;
@@ -14489,69 +15066,94 @@ function calcularVencedorPiramide() {
             if (setsJ1 === 2) { vencedorFinal = 'j1'; jogoConcluido = true; }
             else if (setsJ2 === 2) { vencedorFinal = 'j2'; jogoConcluido = true; }
             else {
-                // Vai para o 3º Set
-                elSet3J1.disabled = false; elSet3J2.disabled = false;
-                elSet3J1.classList.remove('sb-hidden'); elSet3J2.classList.remove('sb-hidden');
-                document.getElementById('header-set3').classList.remove('sb-hidden');
-                if (elSet3J1.value === '') elSet3J1.value = 0;
-                if (elSet3J2.value === '') elSet3J2.value = 0;
+                if(elSet3J1) { elSet3J1.disabled = false; elSet3J1.classList.remove('sb-hidden'); }
+                if(elSet3J2) { elSet3J2.disabled = false; elSet3J2.classList.remove('sb-hidden'); }
+                if(document.getElementById('header-set3')) document.getElementById('header-set3').classList.remove('sb-hidden');
                 
                 isTieBreakAtivo = true; 
 
                 if ((s3j1 >= 10 && (s3j1 - s3j2) >= 2) || (s3j2 >= 10 && (s3j2 - s3j1) >= 2)) {
                     jogoConcluido = true;
                     vencedorFinal = (s3j1 > s3j2) ? 'j1' : 'j2';
+                    vencedorSet3 = vencedorFinal;
                     isTieBreakAtivo = false;
                 }
             }
         } else {
-            // Se Set 2 não acabou, esconde Set 3
-            elSet3J1.classList.add('sb-hidden'); elSet3J2.classList.add('sb-hidden');
-            document.getElementById('header-set3').classList.add('sb-hidden');
-            inputs.s3j1.value = '0'; inputs.s3j2.value = '0'; 
+            if(elSet3J1) elSet3J1.classList.add('sb-hidden');
+            if(elSet3J2) elSet3J2.classList.add('sb-hidden');
+            if(document.getElementById('header-set3')) document.getElementById('header-set3').classList.add('sb-hidden');
         }
     } else {
-        // Se Set 1 não acabou, esconde tudo pra frente
-        wrapperSet2J1.classList.add('sb-hidden'); wrapperSet2J2.classList.add('sb-hidden');
-        document.getElementById('header-set2').classList.add('sb-hidden');
-        elSet3J1.classList.add('sb-hidden'); elSet3J2.classList.add('sb-hidden');
-        document.getElementById('header-set3').classList.add('sb-hidden');
-        
-        inputs.s2j1.value = '0'; inputs.s2j2.value = '0';
-        inputs.tb2j1.value = '0'; inputs.tb2j2.value = '0';
-        inputs.s3j1.value = '0'; inputs.s3j2.value = '0';
+        if(wrapperSet2J1) wrapperSet2J1.classList.add('sb-hidden');
+        if(wrapperSet2J2) wrapperSet2J2.classList.add('sb-hidden');
+        if(document.getElementById('header-set2')) document.getElementById('header-set2').classList.add('sb-hidden');
+        if(elSet3J1) elSet3J1.classList.add('sb-hidden');
+        if(elSet3J2) elSet3J2.classList.add('sb-hidden');
+        if(document.getElementById('header-set3')) document.getElementById('header-set3').classList.add('sb-hidden');
     }
 
-    // Visual: Label TIE-BREAK / GAME
-    const labelGame = document.getElementById('label-game-points');
-    if (labelGame) {
-        if (isTieBreakAtivo) {
-            labelGame.textContent = "TIE-BREAK";
-            labelGame.style.color = "#e67e22"; 
-            labelGame.style.fontSize = "0.6rem"; 
-        } else {
-            labelGame.textContent = "GAME";
-            labelGame.style.color = ""; 
-            labelGame.style.fontSize = "";
-        }
-    }
-
-    // Visual: Negrito no Vencedor
-    const elNomeJ1 = document.getElementById('apelido-j1'); 
-    const elNomeJ2 = document.getElementById('apelido-j2');
-    const j1Apelido = elNomeJ1.getAttribute('data-apelido');
-    const j2Apelido = elNomeJ2.getAttribute('data-apelido');
+    // ============================================================
+    // === APLICAÇÃO DE ESTILOS (NEGRITO) CORRIGIDA ===
+    // ============================================================
     
-    elNomeJ1.style.fontWeight = '400'; elNomeJ1.style.color = '';
-    elNomeJ2.style.fontWeight = '400'; elNomeJ2.style.color = '';
+    // Função auxiliar para aplicar classe nos inputs E NOS BADGES
+    const aplicarEstiloVencedor = (setNum, vencedor) => {
+        // IDs: [Input Grande, Input Pequeno (Súmula), Badge Visual (Súmula/Arb)]
+        const idsJ1 = [
+            `set${setNum}-j1`, `simple-s${setNum}-j1`, 
+            `tb${setNum}-j1`, `simple-tb${setNum}-j1`, 
+            `view-tb${setNum}-j1` // <--- ADICIONADO O BADGE
+        ];
+        const idsJ2 = [
+            `set${setNum}-j2`, `simple-s${setNum}-j2`, 
+            `tb${setNum}-j2`, `simple-tb${setNum}-j2`,
+            `view-tb${setNum}-j2` // <--- ADICIONADO O BADGE
+        ];
 
+        idsJ1.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('input-winner', vencedor === 'j1');
+        });
+        idsJ2.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('input-winner', vencedor === 'j2');
+        });
+    };
+
+    // Aplica nos sets
+    aplicarEstiloVencedor(1, vencedorSet1);
+    aplicarEstiloVencedor(2, vencedorSet2);
+    aplicarEstiloVencedor(3, vencedorSet3);
+
+    // Aplica Negrito nos NOMES
+    const nomes = {
+        j1: [document.getElementById('apelido-j1'), document.getElementById('simple-name-j1')],
+        j2: [document.getElementById('apelido-j2'), document.getElementById('simple-name-j2')]
+    };
+
+    // Reseta nomes
+    nomes.j1.forEach(el => { if(el) { el.style.fontWeight = '400'; el.style.color = ''; } });
+    nomes.j2.forEach(el => { if(el) { el.style.fontWeight = '400'; el.style.color = ''; } });
+
+    // Aplica no Vencedor da Partida
     let nomeVencedorFinal = '';
     if (vencedorFinal === 'j1') {
-        elNomeJ1.style.fontWeight = '900'; 
-        nomeVencedorFinal = j1Apelido;
+        nomes.j1.forEach(el => { if(el) el.style.fontWeight = '900'; });
+        const el = document.getElementById('apelido-j1');
+        if(el) nomeVencedorFinal = el.getAttribute('data-apelido');
     } else if (vencedorFinal === 'j2') {
-        elNomeJ2.style.fontWeight = '900'; 
-        nomeVencedorFinal = j2Apelido;
+        nomes.j2.forEach(el => { if(el) el.style.fontWeight = '900'; });
+        const el = document.getElementById('apelido-j2');
+        if(el) nomeVencedorFinal = el.getAttribute('data-apelido');
+    }
+
+    // Atualiza Labels e Botões
+    const labelGame = document.getElementById('label-game-points');
+    if (labelGame) {
+        labelGame.textContent = isTieBreakAtivo ? "TIE-BREAK" : "GAME";
+        labelGame.style.color = isTieBreakAtivo ? "#e67e22" : ""; 
+        labelGame.style.fontSize = isTieBreakAtivo ? "0.6rem" : ""; 
     }
 
     const elResultadoVencedor = document.getElementById('resultado-vencedor');
@@ -14562,6 +15164,9 @@ function calcularVencedorPiramide() {
 
     return nomeVencedorFinal;
 }
+
+
+
 
 
 
@@ -14697,20 +15302,23 @@ function atualizarNomesPainelControle() {
 
 
 
-// 3. Função FINAL para abrir o modal de resultado (LIMPA e DEFINITIVA)
+
 // Variável global para controlar o evento de toque na tela cheia
 let listenerTelaCheia = null;
 
-// 3. Função FINAL para abrir o modal de resultado (LIMPA e DEFINITIVA)
-// 3. Função FINAL para abrir o modal de resultado (LIMPA e DEFINITIVA)
-// 3. Função FINAL para abrir o modal de resultado (CORRIGIDA PARA PC E MOBILE)
-// 3. Função FINAL para abrir o modal de resultado (LIMPA e SEGURA)
+// 3. Função FINAL para abrir o modal de resultado (CORREÇÃO SÚMULA NOVO JOGO)
 async function abrirModalResultado(reserva, key, quadra, modoVisualizacao) {
     // 1. REFERÊNCIAS INICIAIS
     const modal = document.getElementById('modalResultadoPiramide');
-    
-    // Apenas abre o modal normalmente (sem forçar tela cheia automática)
-    if (modal) modal.style.display = 'flex';
+    if (modal) {
+        modal.style.display = 'flex';
+        // Marca o modal se for visualização para o CSS de tela cheia funcionar
+        if (modoVisualizacao) {
+            modal.classList.add('visualizando-resultado');
+        } else {
+            modal.classList.remove('visualizando-resultado');
+        }
+    }
 
     // 2. RESETA ESTADOS GLOBAIS
     modoResultado = 'placar';
@@ -14718,18 +15326,23 @@ async function abrirModalResultado(reserva, key, quadra, modoVisualizacao) {
     estadoPontos = { j1: 0, j2: 0, tiebreakMode: false };
     atualizarDisplayPontos();
 
-    // 3. LÓGICA DE JOGADORES
+    // --- LIMPEZA INICIAL ---
+    const markerJ1 = document.getElementById('server-marker-j1');
+    const markerJ2 = document.getElementById('server-marker-j2');
+    if (markerJ1) markerJ1.innerHTML = '';
+    if (markerJ2) markerJ2.innerHTML = '';
+
+    // 3. LÓGICA DE JOGADORES (Identificação)
     let listaDeJogadores = [];
     if (reserva.jogadores_completo) {
         listaDeJogadores = reserva.jogadores_completo.split(',').map(j => j.trim());
     } else {
         const j1 = (reserva.jogadores || "").split(',')[0].trim();
-        let j2 = "Oponente"; 
+        let j2 = "Oponente";
         if (reserva.duracao > 1) {
             const horaSeguinte = parseInt(reserva.hora) + 1;
             const keySegundaHora = `${reserva.dia}_${horaSeguinte}`;
             let reservaParte2 = null;
-            
             if (typeof reservasPorQuadra !== 'undefined' && reservasPorQuadra[quadra] && reservasPorQuadra[quadra][keySegundaHora]) {
                 reservaParte2 = reservasPorQuadra[quadra][keySegundaHora];
             }
@@ -14745,12 +15358,19 @@ async function abrirModalResultado(reserva, key, quadra, modoVisualizacao) {
         }
         listaDeJogadores = [j1, j2];
     }
-    
+
     const jogador1Apelido = listaDeJogadores[0];
     const jogador2Apelido = listaDeJogadores[1];
-    reservaResultadoEmEdicao = { reserva, key, quadra, jogador1: jogador1Apelido, jogador2: jogador2Apelido };
 
-    // 4. PREPARA NOMES E SELECTS (MANTIDO)
+    // Configura objeto global de edição
+    reservaResultadoEmEdicao = {
+        reserva, key, quadra,
+        jogador1: jogador1Apelido,
+        jogador2: jogador2Apelido,
+        readOnly: modoVisualizacao
+    };
+
+    // 4. PREPARA NOMES E SELECTS
     const j1Info = jogadoresData[jogador1Apelido];
     const j2Info = jogadoresData[jogador2Apelido];
     const j1NomeCompleto = j1Info ? capitalizarNome(j1Info.nomeCompleto) : capitalizarNome(jogador1Apelido);
@@ -14774,13 +15394,8 @@ async function abrirModalResultado(reserva, key, quadra, modoVisualizacao) {
 
     const selectVencedorWo = document.getElementById('select-vencedor-wo');
     const selectDesistente = document.getElementById('select-desistente');
-    
-    const criarOption = (val, apelido, nomeComp) => 
-        `<option value="${val}" data-apelido="${apelido}" data-nome-completo="${nomeComp}">${apelido}</option>`;
-    
-    const optionsHtml = `<option value="">Selecione...</option>` + 
-                        criarOption(jogador1Apelido, j1ApelidoCap, j1NomeCompleto) + 
-                        criarOption(jogador2Apelido, j2ApelidoCap, j2NomeCompleto);
+    const criarOption = (val, apelido, nomeComp) => `<option value="${val}" data-apelido="${apelido}" data-nome-completo="${nomeComp}">${apelido}</option>`;
+    const optionsHtml = `<option value="">Selecione...</option>` + criarOption(jogador1Apelido, j1ApelidoCap, j1NomeCompleto) + criarOption(jogador2Apelido, j2ApelidoCap, j2NomeCompleto);
 
     if (selectVencedorWo) selectVencedorWo.innerHTML = optionsHtml;
     if (selectDesistente) selectDesistente.innerHTML = optionsHtml;
@@ -14788,31 +15403,31 @@ async function abrirModalResultado(reserva, key, quadra, modoVisualizacao) {
     atualizarNomesPainelControle();
     window.addEventListener('resize', atualizarNomesPainelControle);
 
-    // 5. CONFIGURAÇÃO VISUAL
+    // 5. CONFIGURAÇÃO VISUAL (Limpeza)
     const containerPlacar = document.getElementById('placar-fields-container');
     const containerSumula = document.getElementById('simple-score-container');
-    
+
     if (containerPlacar) containerPlacar.querySelectorAll('input').forEach(inp => inp.value = '');
     if (containerSumula) containerSumula.querySelectorAll('input').forEach(inp => {
         inp.value = '';
-        if(inp.classList.contains('simple-tb-input')) inp.style.display = 'none'; 
+        if (inp.classList.contains('simple-tb-input')) inp.style.display = 'none';
     });
-    
+
     document.getElementById('select-motivo-wo').value = '';
     document.getElementById('select-motivo-desistencia').value = '';
     document.getElementById('resultado-vencedor').textContent = '';
-    
+
     const elSelectWO = document.getElementById('select-vencedor-wo');
     const elSelectDes = document.getElementById('select-desistente');
-    if(elSelectWO) { elSelectWO.value = ''; elSelectWO.removeAttribute('style'); }
-    if(elSelectDes) { elSelectDes.value = ''; elSelectDes.removeAttribute('style'); }
+    if (elSelectWO) { elSelectWO.value = ''; elSelectWO.removeAttribute('style'); }
+    if (elSelectDes) { elSelectDes.value = ''; elSelectDes.removeAttribute('style'); }
 
     const winnerDisplay = document.querySelector('.winner-display');
     if (winnerDisplay) winnerDisplay.style.display = 'block';
     const actionsDiv = document.querySelector('.modern-actions');
-    if (actionsDiv) actionsDiv.style.marginTop = ''; 
-    
-    document.querySelector('label[for="select-desistente"]').textContent = 'Quem desistiu?'; 
+    if (actionsDiv) actionsDiv.style.marginTop = '';
+
+    document.querySelector('label[for="select-desistente"]').textContent = 'Quem desistiu?';
 
     document.getElementById('wo-controls').style.display = 'none';
     document.getElementById('desistencia-controls').style.display = 'none';
@@ -14824,75 +15439,154 @@ async function abrirModalResultado(reserva, key, quadra, modoVisualizacao) {
     if (containerPlacar) containerPlacar.style.display = 'none';
     if (containerSumula) containerSumula.style.display = 'block';
 
-    // 6. CARREGA DADOS EXISTENTES
+    // 6. CARREGA DADOS OU INICIA NOVO JOGO
     if (reserva.resultado) {
         const r = reserva.resultado;
-        
-        if (r.tipo === 'W.O.' || r.vencedorWo) {
-             modoResultado = 'wo';
-             containerSumula.style.display = 'none';
-             document.getElementById('wo-controls').style.display = 'block';
-             document.querySelector('#modalResultadoPiramide h3').textContent = 'W.O.';
-             if (winnerDisplay) winnerDisplay.style.display = 'none';
-             if (actionsDiv) actionsDiv.style.marginTop = '-15px';
+        const jogoEstaFinalizado = r.status === 'finalizada' || (r.vencedor && r.vencedor !== '');
 
-             const valVencedor = r.vencedorWo || r.vencedor || '';
-             elSelectWO.value = valVencedor;
-             if (valVencedor) {
-                 elSelectWO.style.color = '#27ae60'; elSelectWO.style.fontWeight = '800'; elSelectWO.style.borderColor = '#27ae60'; elSelectWO.style.backgroundColor = '#eafaf1';
-             }
-             document.getElementById('select-motivo-wo').value = r.motivoWo || r.motivo || '';
-             document.getElementById('resultado-vencedor').textContent = '';
-             atualizarBotaoSalvarResultado(true);
-             bloquearEdicao(modoVisualizacao);
+        const tituloModal = document.querySelector('#modalResultadoPiramide h3');
+        if (tituloModal) {
+            if (r.tipo === 'Placar Normal' && jogoEstaFinalizado) {
+                tituloModal.textContent = 'Resultado Final';
+            } else {
+                tituloModal.textContent = 'Súmula';
+            }
+        }
+
+        if (r.tipo === 'W.O.' || r.vencedorWo) {
+            modoResultado = 'wo';
+            containerSumula.style.display = 'none';
+            document.getElementById('wo-controls').style.display = 'block';
+            if (tituloModal) tituloModal.textContent = 'W.O.';
+            if (winnerDisplay) winnerDisplay.style.display = 'none';
+            if (actionsDiv) actionsDiv.style.marginTop = '-15px';
+
+            const valVencedor = r.vencedorWo || r.vencedor || '';
+            elSelectWO.value = valVencedor;
+            if (valVencedor) {
+                elSelectWO.style.color = '#27ae60'; elSelectWO.style.fontWeight = '800'; elSelectWO.style.borderColor = '#27ae60'; elSelectWO.style.backgroundColor = '#eafaf1';
+            }
+            document.getElementById('select-motivo-wo').value = r.motivoWo || r.motivo || '';
+            document.getElementById('resultado-vencedor').textContent = '';
+            atualizarBotaoSalvarResultado(true);
+            bloquearEdicao(modoVisualizacao);
         }
         else if (r.tipo === 'Desistência' || r.desistente) {
-             modoResultado = 'desistencia';
-             containerSumula.style.display = 'none';
-             document.getElementById('desistencia-controls').style.display = 'block';
-             document.querySelector('#modalResultadoPiramide h3').textContent = 'Desistência';
-             if (winnerDisplay) winnerDisplay.style.display = 'none';
-             if (actionsDiv) actionsDiv.style.marginTop = '-15px';
-             document.querySelector('label[for="select-desistente"]').textContent = 'Quem venceu?';
+            modoResultado = 'desistencia';
+            containerSumula.style.display = 'none';
+            document.getElementById('desistencia-controls').style.display = 'block';
+            if (tituloModal) tituloModal.textContent = 'Desistência';
+            if (winnerDisplay) winnerDisplay.style.display = 'none';
+            if (actionsDiv) actionsDiv.style.marginTop = '-15px';
 
-             const valVencedor = r.vencedor || '';
-             elSelectDes.value = valVencedor;
-             if (valVencedor) {
-                 elSelectDes.style.color = '#27ae60'; elSelectDes.style.fontWeight = '800'; elSelectDes.style.borderColor = '#27ae60'; elSelectDes.style.backgroundColor = '#eafaf1';
-             }
-             document.getElementById('select-motivo-desistencia').value = r.motivoDesistencia || r.motivo || '';
-             document.getElementById('resultado-vencedor').textContent = '';
-             carregarPlacarNosInputs(r);
-             atualizarBotaoSalvarResultado(true);
-             bloquearEdicao(modoVisualizacao);
+            const valVencedor = r.vencedor || '';
+            elSelectDes.value = valVencedor;
+            if (valVencedor) {
+                elSelectDes.style.color = '#27ae60'; elSelectDes.style.fontWeight = '800'; elSelectDes.style.borderColor = '#27ae60'; elSelectDes.style.backgroundColor = '#eafaf1';
+            }
+            document.getElementById('select-motivo-desistencia').value = r.motivoDesistencia || r.motivo || '';
+            document.getElementById('resultado-vencedor').textContent = '';
+            carregarPlacarNosInputs(r);
+            atualizarBotaoSalvarResultado(true);
+            bloquearEdicao(modoVisualizacao);
         }
         else {
-             carregarPlacarNosInputs(r);
-             if (r.sacador) toggleSacador(r.sacador);
-             document.querySelector('#modalResultadoPiramide h3').textContent = 'Súmula';
-             setTimeout(() => {
-                sincronizarParaSumula(); 
+            carregarPlacarNosInputs(r);
+
+            if (r.sacador && !jogoEstaFinalizado) {
+                toggleSacador(r.sacador, true);
+            }
+
+            if (r.set3 && (typeof r.set3 === 'string' ? r.set3 : r.set3.placar)) {
+                document.getElementById('simple-header-set3').style.display = 'block';
+                document.getElementById('simple-group-set3-j1').style.display = 'flex';
+                document.getElementById('simple-group-set3-j2').style.display = 'flex';
+            }
+
+            setTimeout(() => {
+                sincronizarParaSumula();
                 calcularVencedorPiramide();
                 bloquearEdicao(modoVisualizacao);
             }, 50);
         }
     } else {
+        // === NOVO JOGO ===
         bloquearEdicao(false);
-        ['simple-s1-j1', 'simple-s1-j2', 'simple-s2-j1', 'simple-s2-j2', 'simple-s3-j1', 'simple-s3-j2'].forEach(id => {
-             const el = document.getElementById(id);
-             if (el) el.value = '0';
+        
+        // CORREÇÃO: Preenche apenas Set 1 e 2 com "0". Deixa Set 3 vazio.
+        ['simple-s1-j1', 'simple-s1-j2', 'simple-s2-j1', 'simple-s2-j2'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = '0';
         });
-        verificarTieBreakManual(1); verificarTieBreakManual(2); verificarNecessidadeSet3();
+        
+        // Garante que o 3º set comece limpo
+        document.getElementById('simple-s3-j1').value = '';
+        document.getElementById('simple-s3-j2').value = '';
+
+        verificarTieBreakManual(1); 
+        verificarTieBreakManual(2); 
+        
+        // Esconde o 3º set explicitamente
+        verificarNecessidadeSet3();
+
         document.querySelector('#modalResultadoPiramide h3').textContent = 'Súmula';
         atualizarBotaoSalvarResultado(false);
     }
 
-    const btnCancelar = document.getElementById('btnCancelarResultado');
-    if (btnCancelar) btnCancelar.onclick = fecharModalResultado;
-    
-    const btnSalvar = document.getElementById('btnSalvarResultado');
-    if (btnSalvar) {
-        btnSalvar.style.display = modoVisualizacao ? 'none' : 'block';
+    // Lógica dos Botões Salvar/Cancelar/Fechar
+    const actionsContainer = document.querySelector('.modern-actions');
+    if (modoVisualizacao) {
+        if (actionsContainer) actionsContainer.style.setProperty('display', 'none', 'important');
+    } else {
+        if (actionsContainer) {
+            actionsContainer.style.setProperty('display', 'flex', 'important');
+            actionsContainer.style.marginTop = '';
+        }
+        const btnSalvar = document.getElementById('btnSalvarResultado');
+        if (btnSalvar) btnSalvar.style.display = 'block';
+        
+        const btnCancelar = document.getElementById('btnCancelarResultado');
+        if (btnCancelar) {
+            btnCancelar.textContent = 'Cancelar';
+            btnCancelar.onclick = fecharModalResultado;
+        }
+    }
+
+    // Configuração do Botão X vs Menu
+    const btnMenu = document.getElementById('btn-mais-opcoes');
+    const btnX = document.getElementById('btn-fechar-visualizacao');
+    const header = document.querySelector('.modern-modal-header');
+
+    if (modoVisualizacao) {
+        if (btnMenu) btnMenu.style.setProperty('display', 'none', 'important');
+        if (header) header.style.position = 'relative';
+
+        if (btnX) {
+            btnX.removeAttribute('style');
+            btnX.style.setProperty('display', 'flex', 'important');
+            btnX.style.setProperty('align-items', 'center', 'important');
+            btnX.style.setProperty('justify-content', 'center', 'important');
+            btnX.style.setProperty('position', 'absolute', 'important');
+            btnX.style.setProperty('top', '50%', 'important');
+            btnX.style.setProperty('transform', 'translateY(-50%)', 'important');
+            btnX.style.setProperty('left', 'auto', 'important'); 
+            btnX.style.setProperty('right', '-10px', 'important');
+            btnX.style.setProperty('width', '40px', 'important');
+            btnX.style.setProperty('height', '40px', 'important');
+            btnX.style.setProperty('z-index', '10000', 'important');
+            btnX.style.setProperty('margin', '0', 'important');
+            btnX.style.setProperty('background', 'transparent', 'important');
+            btnX.style.setProperty('border', 'none', 'important');
+            btnX.style.setProperty('cursor', 'pointer', 'important');
+            btnX.style.setProperty('padding', '0', 'important');
+            btnX.onclick = fecharModalResultado;
+        }
+    } else {
+        if (btnMenu) {
+            btnMenu.style.display = 'flex';
+            btnMenu.style.right = '-10px';
+        }
+        if (btnX) btnX.style.display = 'none';
     }
 }
 
@@ -14964,8 +15658,9 @@ function bloquearEdicao(bloquear) {
 /**
  * Alterna o indicador de sacador (bolinha).
  * @param {string} jogador - 'j1' ou 'j2'
+ * @param {boolean} ignorarSave - Se true, apenas desenha a bolinha sem salvar.
  */
-function toggleSacador(jogador) {
+function toggleSacador(jogador, ignorarSave = false) {
     const markerJ1 = document.getElementById('server-marker-j1');
     const markerJ2 = document.getElementById('server-marker-j2');
     const ballHtml = '<div class="server-ball"></div>';
@@ -14979,12 +15674,16 @@ function toggleSacador(jogador) {
     markerJ2.innerHTML = '';
 
     // Lógica de Toggle:
-    // Se cliquei no J1 e ele NÃO tinha a bola -> Dá a bola pra ele.
-    // Se cliquei no J1 e ele JÁ tinha a bola -> Tira a bola (fica sem ninguém).
     if (jogador === 'j1' && !j1TemBola) {
         markerJ1.innerHTML = ballHtml;
     } else if (jogador === 'j2' && !j2TemBola) {
         markerJ2.innerHTML = ballHtml;
+    }
+    
+    // A CORREÇÃO ESTÁ AQUI:
+    // Só chama o Auto-Save se NÃO for uma carga inicial (ignorarSave = false)
+    if (!ignorarSave) {
+        triggerAutoSave();
     }
 }
 
@@ -15044,13 +15743,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /**
- * Troca entre Súmula (False) e Arbitragem (True) e Sincroniza dados
+ * Troca entre Súmula (False) e Arbitragem (True)
+ * ATUALIZADA: Com Inteligência Contextual para o Saque
  */
 function alternarModo(ativarArbitragem) {
     const containerArbitragem = document.getElementById('placar-fields-container');
     const containerSumula = document.getElementById('simple-score-container');
     const menu = document.getElementById('menu-opcoes-resultado');
-    const tituloModal = document.querySelector('#modalResultadoPiramide h3'); // Referência ao título
+    const tituloModal = document.querySelector('#modalResultadoPiramide h3');
     
     if (ativarArbitragem) {
         // >>> INDO PARA ARBITRAGEM <<<
@@ -15059,10 +15759,39 @@ function alternarModo(ativarArbitragem) {
         containerSumula.style.display = 'none';
         containerArbitragem.style.display = 'flex';
         
-        // AJUSTE: Muda o título
         if (tituloModal) tituloModal.textContent = 'Painel de Controle';
         
         calcularVencedorPiramide();
+
+        // --- LÓGICA INTELIGENTE DO SAQUE ---
+        // 1. Verifica se alguém já tem a bolinha
+        const temBolaJ1 = document.getElementById('server-marker-j1').innerHTML.trim() !== '';
+        const temBolaJ2 = document.getElementById('server-marker-j2').innerHTML.trim() !== '';
+
+        // Só pergunta se NINGUÉM tiver a bola
+        if (!temBolaJ1 && !temBolaJ2) {
+            setTimeout(() => {
+                // 2. Verifica se o jogo já começou (tem algum ponto/game marcado)
+                // Como já chamamos sincronizarParaArbitragem, podemos usar a função hasPlacarParcial() com segurança
+                const jogoEmAndamento = hasPlacarParcial(); 
+                
+                const tituloToss = document.getElementById('tossTitle');
+                const msgToss = document.getElementById('tossMessage');
+
+                if (jogoEmAndamento) {
+                    // CASO 2: Jogo já começou (Vindo da Súmula)
+                    if(tituloToss) tituloToss.textContent = "🎾 Definir Sacador";
+                    if(msgToss) msgToss.textContent = "Quem está sacando neste momento?";
+                } else {
+                    // CASO 1: Jogo 0x0 (Início)
+                    if(tituloToss) tituloToss.textContent = "🪙 Toss Inicial";
+                    if(msgToss) msgToss.textContent = "Quem começa sacando?";
+                }
+
+                abrirModalToss();
+            }, 300);
+        }
+        // -----------------------------
         
     } else {
         // >>> INDO PARA SÚMULA <<<
@@ -15071,7 +15800,6 @@ function alternarModo(ativarArbitragem) {
         containerArbitragem.style.display = 'none';
         containerSumula.style.display = 'block';
         
-        // AJUSTE: Restaura o título
         if (tituloModal) tituloModal.textContent = 'Súmula';
     }
     
@@ -15081,18 +15809,60 @@ function alternarModo(ativarArbitragem) {
 
 
 
-// Copia: Súmula -> Arbitragem
+
+// Copia: Súmula -> Arbitragem e CARREGA O ESTADO DOS PONTOS (Correção Tie-Break)
 function sincronizarParaArbitragem() {
-    // Sets
+    // 1. Copia visual dos Sets
     ['1', '2', '3'].forEach(n => {
         document.getElementById(`set${n}-j1`).value = document.getElementById(`simple-s${n}-j1`).value;
         document.getElementById(`set${n}-j2`).value = document.getElementById(`simple-s${n}-j2`).value;
     });
-    // Tie-breaks (Inputs Ocultos da Arbitragem)
+
+    // 2. Copia visual dos Tie-breaks (Inputs Ocultos)
     ['1', '2'].forEach(n => {
         document.getElementById(`tb${n}-j1`).value = document.getElementById(`simple-tb${n}-j1`).value;
         document.getElementById(`tb${n}-j2`).value = document.getElementById(`simple-tb${n}-j2`).value;
     });
+
+    // =================================================================
+    // === CORREÇÃO: CARREGAR PONTOS PARA OS BOTÕES (+/-) ===
+    // =================================================================
+    
+    // Reseta o estado para garantir limpeza
+    estadoPontos = { j1: 0, j2: 0, tiebreakMode: false };
+
+    // Lê os games atuais para saber onde estamos
+    const s1_1 = parseInt(document.getElementById('set1-j1').value) || 0;
+    const s1_2 = parseInt(document.getElementById('set1-j2').value) || 0;
+    const s2_1 = parseInt(document.getElementById('set2-j1').value) || 0;
+    const s2_2 = parseInt(document.getElementById('set2-j2').value) || 0;
+    const s3_1 = document.getElementById('set3-j1').value;
+    const s3_2 = document.getElementById('set3-j2').value;
+
+    // Lógica de Prioridade:
+    
+    // CASO 1: Tie-Break do 1º Set (6-6 ou 7-6 em edição)
+    if ((s1_1 === 6 && s1_2 === 6) || (s1_1 === 7 && s1_2 === 6) || (s1_1 === 6 && s1_2 === 7)) {
+        estadoPontos.j1 = parseInt(document.getElementById('tb1-j1').value) || 0;
+        estadoPontos.j2 = parseInt(document.getElementById('tb1-j2').value) || 0;
+        estadoPontos.tiebreakMode = true;
+    }
+    // CASO 2: Tie-Break do 2º Set (6-6 ou 7-6 em edição)
+    else if ((s2_1 === 6 && s2_2 === 6) || (s2_1 === 7 && s2_2 === 6) || (s2_1 === 6 && s2_2 === 7)) {
+        estadoPontos.j1 = parseInt(document.getElementById('tb2-j1').value) || 0;
+        estadoPontos.j2 = parseInt(document.getElementById('tb2-j2').value) || 0;
+        estadoPontos.tiebreakMode = true;
+    }
+    // CASO 3: Super Tie-Break (3º Set)
+    // Se o Set 3 tem valores e os sets anteriores indicam empate (ou edição direta)
+    else if (s3_1 !== '' || s3_2 !== '') {
+        estadoPontos.j1 = parseInt(s3_1) || 0;
+        estadoPontos.j2 = parseInt(s3_2) || 0;
+        estadoPontos.tiebreakMode = true;
+    }
+    
+    // Atualiza visualmente os números grandes ao lado dos botões + e -
+    atualizarDisplayPontos();
 }
 
 // Copia: Arbitragem -> Súmula
@@ -15122,51 +15892,61 @@ function sincronizarParaSumula() {
 /**
  * Verifica se o jogo está empatado em 1 a 1 nos sets para exibir o 3º Set.
  */
-/**
- * Verifica se o jogo está empatado em 1 a 1 nos sets para exibir o 3º Set.
- */
 function verificarNecessidadeSet3() {
-    // Função auxiliar para pegar valor numérico seguro
-    const getVal = (id) => parseInt(document.getElementById(id).value) || 0;
+    // Helper seguro para leitura
+    const getVal = (id) => {
+        const el = document.getElementById(id);
+        if (!el || el.value.trim() === '') return NaN; 
+        return parseInt(el.value);
+    };
 
-    // Pega valores Set 1
+    // Leitura dos valores
     const s1j1 = getVal('simple-s1-j1');
     const s1j2 = getVal('simple-s1-j2');
-    const tb1j1 = getVal('simple-tb1-j1');
-    const tb1j2 = getVal('simple-tb1-j2');
+    const tb1j1 = getVal('simple-tb1-j1') || 0;
+    const tb1j2 = getVal('simple-tb1-j2') || 0;
 
-    // Pega valores Set 2
     const s2j1 = getVal('simple-s2-j1');
     const s2j2 = getVal('simple-s2-j2');
-    const tb2j1 = getVal('simple-tb2-j1');
-    const tb2j2 = getVal('simple-tb2-j2');
+    const tb2j1 = getVal('simple-tb2-j1') || 0;
+    const tb2j2 = getVal('simple-tb2-j2') || 0;
 
-    // Determina vencedores
+    // Determina vencedores (retorna null se placar incompleto/0x0)
     const vencedor1 = determinarVencedorSet(s1j1, s1j2, tb1j1, tb1j2);
     const vencedor2 = determinarVencedorSet(s2j1, s2j2, tb2j1, tb2j2);
 
-    // Se cada um ganhou um set, mostra o 3º
+    // Regra: Mostra SÓ se ambos os sets tiverem vencedores E forem diferentes
     const precisaSet3 = (vencedor1 && vencedor2 && vencedor1 !== vencedor2);
 
-    // Aplica visibilidade
-    const displayMode = precisaSet3 ? 'flex' : 'none'; 
-    
-    document.getElementById('simple-header-set3').style.display = precisaSet3 ? 'block' : 'none';
-    
+    // Elementos do DOM
+    const headerSet3 = document.getElementById('simple-header-set3');
     const groupJ1 = document.getElementById('simple-group-set3-j1');
     const groupJ2 = document.getElementById('simple-group-set3-j2');
-    
-    groupJ1.style.display = displayMode;
-    groupJ2.style.display = displayMode;
 
-    // >>> CORREÇÃO: SE APARECEU, GARANTE QUE TENHA "0" (NÃO VAZIO) <<<
     if (precisaSet3) {
+        // MOSTRA
+        if (headerSet3) headerSet3.style.display = 'block';
+        if (groupJ1) groupJ1.style.display = 'flex';
+        if (groupJ2) groupJ2.style.display = 'flex';
+
+        // Se mostrou e está vazio, aí sim coloca "0" para facilitar
         const inpJ1 = document.getElementById('simple-s3-j1');
         const inpJ2 = document.getElementById('simple-s3-j2');
-        if (inpJ1.value === '') inpJ1.value = '0';
-        if (inpJ2.value === '') inpJ2.value = '0';
+        if (inpJ1 && inpJ1.value === '') inpJ1.value = '0';
+        if (inpJ2 && inpJ2.value === '') inpJ2.value = '0';
+
+    } else {
+        // ESCONDE (COM FORÇA)
+        if (headerSet3) headerSet3.style.setProperty('display', 'none', 'important');
+        if (groupJ1) groupJ1.style.setProperty('display', 'none', 'important');
+        if (groupJ2) groupJ2.style.setProperty('display', 'none', 'important');
+
+        // Limpa os valores para não salvar "0x0" no banco se o set não existiu
+        const inpJ1 = document.getElementById('simple-s3-j1');
+        const inpJ2 = document.getElementById('simple-s3-j2');
+        if (inpJ1) inpJ1.value = '';
+        if (inpJ2) inpJ2.value = '';
     }
-    // ----------------------------------------------------------------
 }
 
 
@@ -15316,6 +16096,383 @@ window.addEventListener('resize', function() {
         if (btn) btn.innerHTML = iconMaximize;
     }
 });
+
+
+// --- FUNÇÕES DA ETAPA 1: TOSS (SAQUE INICIAL) ---
+
+/**
+ * Abre o modal perguntando quem saca, populando os botões com os nomes atuais.
+ */
+function abrirModalToss() {
+    // Pega os nomes que estão na tela (já formatados/capitalizados)
+    const nomeJ1 = document.getElementById('apelido-j1').textContent;
+    const nomeJ2 = document.getElementById('apelido-j2').textContent;
+
+    const btnJ1 = document.getElementById('btnTossJ1');
+    const btnJ2 = document.getElementById('btnTossJ2');
+
+    // Configura os botões
+    btnJ1.textContent = nomeJ1;
+    btnJ1.onclick = () => confirmarToss('j1');
+
+    btnJ2.textContent = nomeJ2;
+    btnJ2.onclick = () => confirmarToss('j2');
+
+    // Mostra o modal
+    document.getElementById('modalToss').style.display = 'flex';
+}
+
+/**
+ * Define o sacador inicial e libera o jogo.
+ */
+function confirmarToss(jogador) {
+    if (navigator.vibrate) navigator.vibrate(50);
+    
+    // Define a bolinha visualmente
+    // (A função toggleSacador já existe e limpa o outro lado automaticamente)
+    toggleSacador(jogador);
+    
+    // Fecha o modal
+    document.getElementById('modalToss').style.display = 'none';
+    
+    mostrarNotificacao("Sacador definido! O jogo está valendo.", 'success');
+}
+
+
+/**
+ * Inverte o sacador automaticamente (J1 <-> J2).
+ */
+function inverterSacador() {
+    // Verifica quem tem a bola agora
+    const j1TemBola = document.getElementById('server-marker-j1').innerHTML.trim() !== '';
+    
+    // Inverte
+    if (j1TemBola) {
+        toggleSacador('j2');
+    } else {
+        toggleSacador('j1');
+    }
+}
+
+
+/**
+ * Salva o estado atual do jogo no Firebase silenciosamente.
+ * CORRIGIDA: Agora atualiza Ranking, Notificações e "Informado Por" no modo Arbitragem.
+ */
+async function executarSalvamentoSilencioso() {
+    if (!reservaResultadoEmEdicao) return;
+
+    const { key, quadra, reserva, jogador1, jogador2 } = reservaResultadoEmEdicao;
+    
+    // --- 1. Identifica o Sacador ---
+    let sacadorAtual = null;
+    const markerJ1 = document.getElementById('server-marker-j1');
+    const markerJ2 = document.getElementById('server-marker-j2');
+    if (markerJ1 && markerJ1.innerHTML.trim() !== '') sacadorAtual = 'j1';
+    else if (markerJ2 && markerJ2.innerHTML.trim() !== '') sacadorAtual = 'j2';
+
+    // --- 2. Identifica Quem está Informando (Assinatura) ---
+    const jogadorLogadoCompleto = localStorage.getItem('jogadorLogado');
+    const jogadorLogadoApelido = Object.keys(jogadoresData).find(
+        apelido => jogadoresData[apelido].nomeCompleto.toUpperCase() === jogadorLogadoCompleto.toUpperCase()
+    ) || jogadorLogadoCompleto;
+
+    let informante = jogadorLogadoApelido;
+    if (isUsuarioAdmin()) informante = `Administrador (${jogadorLogadoApelido})`;
+    else if (isUsuarioArbitro()) informante = `Árbitro (${jogadorLogadoApelido})`;
+
+    const dataAgora = new Date().toISOString();
+
+    // --- 3. Prepara os Dados Numéricos ---
+    const getVal = (id) => document.getElementById(id) ? document.getElementById(id).value : "";
+    const getNum = (id) => parseInt(getVal(id).toString().split('(')[0]) || 0;
+
+    const s1_1 = getNum('set1-j1'); const s1_2 = getNum('set1-j2');
+    const isTb1 = (s1_1 === 6 && s1_2 === 6) || (s1_1 === 7 && s1_2 === 6) || (s1_1 === 6 && s1_2 === 7);
+    
+    const s2_1 = getNum('set2-j1'); const s2_2 = getNum('set2-j2');
+    const isTb2 = (s2_1 === 6 && s2_2 === 6) || (s2_1 === 7 && s2_2 === 6) || (s2_1 === 6 && s2_2 === 7);
+
+    // --- 4. DETECÇÃO AUTOMÁTICA DE VENCEDOR ---
+    const elVencedor = document.getElementById('resultado-vencedor');
+    const nomeVencedor = elVencedor ? elVencedor.textContent.trim() : '';
+    
+    let novoStatus = 'em_andamento';
+    let vencedorFinal = '';
+    let perdedorFinal = '';
+
+    if (nomeVencedor && nomeVencedor !== '') {
+        novoStatus = 'finalizada'; // O jogo acabou!
+        vencedorFinal = nomeVencedor;
+        
+        // Lógica para descobrir o perdedor
+        const j1NomeTela = document.getElementById('apelido-j1').textContent;
+        // Verifica se o nome na tela (que pode ser Nome Completo) contém o Apelido do Jogador 1
+        if (nomeVencedor === j1NomeTela || nomeVencedor === jogador1) {
+             perdedorFinal = jogador2;
+             // Ajuste de segurança: garante que o vencedor gravado seja o apelido padrão do banco
+             vencedorFinal = jogador1; 
+        } else {
+             vencedorFinal = jogador2;
+             perdedorFinal = jogador1;
+        }
+    }
+
+    // --- 5. Monta o Objeto de Resultado ---
+    const resultadoData = {
+        tipo: 'Placar Normal',
+        vencedor: vencedorFinal,
+        perdedor: perdedorFinal,
+        sacador: sacadorAtual,
+        isMatchPoint: verificarMatchPoint(),
+        // INSERE A ASSINATURA AQUI:
+        informadoPor: informante,
+        dataInformado: dataAgora,
+        
+        pontos: {
+            j1: document.getElementById('pontos-j1').textContent,
+            j2: document.getElementById('pontos-j2').textContent,
+            isTieBreak: estadoPontos.tiebreakMode 
+        },
+        set1: {
+            placar: `${getVal('set1-j1')}x${getVal('set1-j2')}`,
+            tiebreak: (isTb1) ? `${getVal('tb1-j1')}-${getVal('tb1-j2')}` : ""
+        },
+        set2: {
+            placar: `${getVal('set2-j1')}x${getVal('set2-j2')}`,
+            tiebreak: (isTb2) ? `${getVal('tb2-j1')}-${getVal('tb2-j2')}` : ""
+        },
+        set3: (getVal('set3-j1') !== "" && getVal('set3-j2') !== "") ? `${getVal('set3-j1')}x${getVal('set3-j2')}` : ""
+    };
+
+    // --- 6. Prepara Updates do Firebase ---
+    const updates = {};
+    const path1 = `sistemas/reservas/${quadra}/${key}`;
+    
+    updates[`${path1}/status`] = novoStatus; 
+    updates[`${path1}/resultado`] = resultadoData;
+
+    if (reserva.duracao > 1) {
+        const key2 = `${reserva.dia}_${reserva.hora + 1}`;
+        updates[`sistemas/reservas/${quadra}/${key2}/status`] = novoStatus;
+        updates[`sistemas/reservas/${quadra}/${key2}/resultado`] = resultadoData;
+    }
+
+    // --- 7. A MÁGICA QUE FALTAVA: RANKING E NOTIFICAÇÃO ---
+    // Se o status mudou para finalizada, executa as ações de encerramento
+    if (novoStatus === 'finalizada') {
+        console.log("🏁 Jogo finalizado via Arbitragem. Processando ranking e notificações...");
+        
+        // Cria objeto temporário com o resultado novo para as funções auxiliares usarem
+        const tempReserva = { ...reserva, resultado: resultadoData };
+        
+        // A. Calcula troca de ranking
+        const rankUpdates = processarTrocaDeRanking(tempReserva);
+        
+        // B. Gera notificações
+        const textoDecisao = "finalizado pelo Árbitro de Cadeira";
+        const notificacaoUpdates = enviarNotificacaoResultadoFinalizado(tempReserva, textoDecisao);
+        
+        // C. Junta tudo no update principal
+        Object.assign(updates, rankUpdates, notificacaoUpdates);
+    }
+
+    try {
+        await database.ref().update(updates);
+        
+        if (novoStatus === 'em_andamento') {
+             atualizarStatusSalvamento("Salvo ✅");
+        } else {
+             atualizarStatusSalvamento("Finalizado 🏆");
+             atualizarIndicadorAba(quadra, false); // Apaga a luz "Ao Vivo"
+        }
+        
+    } catch (error) {
+        atualizarStatusSalvamento("Erro ❌");
+        console.error("Erro no salvamento automático:", error);
+    }
+}
+
+
+
+
+/**
+ * Função Gatilho (Debounce): Chama o salvamento após X segundos.
+ * Controla o feedback visual do botão.
+ */
+function triggerAutoSave() {
+    // --- TRAVA DE SEGURANÇA ---
+    // Se estiver apenas visualizando (readOnly), cancela o salvamento imediatamente.
+    if (reservaResultadoEmEdicao && reservaResultadoEmEdicao.readOnly) {
+        return;
+    }
+
+    // Verifica se já existe um vencedor definido na tela (Jogo Acabou)
+    const elVencedor = document.getElementById('resultado-vencedor');
+    const jogoAcabou = elVencedor && elVencedor.textContent.trim() !== '';
+
+    if (!verificarMatchPoint() && !jogoAcabou) {
+        atualizarStatusSalvamento("Salvando...");
+    }
+
+    // Limpa o timer anterior
+    if (debounceTimer) clearTimeout(debounceTimer);
+
+    // Define novo timer curto (500ms) para salvar
+    debounceTimer = setTimeout(() => {
+        executarSalvamentoSilencioso();
+    }, 500); 
+}
+
+
+
+// Atualiza o texto e a cor do botão durante o Auto-Save
+function atualizarStatusSalvamento(texto) {
+    const btnSalvar = document.getElementById('btnSalvarResultado');
+    const containerSumula = document.getElementById('simple-score-container');
+    const isModoSumula = containerSumula && containerSumula.style.display !== 'none';
+
+    // Só aplica o efeito visual se estiver na Arbitragem
+    if (btnSalvar && !isModoSumula) {
+        
+        // 1. BLINDAGEM DE MATCH POINT (AMARELO)
+        // Se for Match Point, o botão deve permanecer Amarelo, a menos que estejamos finalizando
+        // (A verificação de vencedor abaixo cuida da finalização)
+        if (verificarMatchPoint()) {
+            if (btnSalvar.textContent !== 'MATCH POINT') {
+                btnSalvar.textContent = 'MATCH POINT';
+                btnSalvar.className = 'btn-modern btn-status-matchpoint';
+                btnSalvar.onclick = null;
+            }
+            // Se o sistema estiver tentando escrever "Salvo", ignoramos para manter o alerta.
+            // Mas se estiver tentando escrever "Salvando...", permitimos para feedback.
+            if (texto !== "Salvando...") return; 
+        }
+
+        // 2. LÓGICA DE VENCEDOR DEFINIDO
+        const elVencedor = document.getElementById('resultado-vencedor');
+        const temVencedor = elVencedor && elVencedor.textContent.trim() !== '';
+
+        if (temVencedor) {
+            // Se o jogo acabou e o sistema mandou "Salvo ✅", aplicamos o estilo final.
+            if (texto.includes("Salvo")) {
+                btnSalvar.textContent = "Salvo ✅";
+                btnSalvar.className = 'btn-modern btn-status-saved';
+                return;
+            }
+            // Se está "Salvando...", mostra o azul
+            if (texto === "Salvando...") {
+                btnSalvar.textContent = texto;
+                btnSalvar.className = 'btn-modern btn-status-saving';
+                return;
+            }
+            // Se não for nenhum status de salvamento, mantém o botão Verde ou Cinza
+            return;
+        }
+
+        // 3. COMPORTAMENTO PADRÃO (Jogo rolando normal)
+        btnSalvar.textContent = texto;
+        btnSalvar.classList.remove('btn-status-saving', 'btn-status-saved', 'btn-status-matchpoint', 'btn-save');
+
+        if (texto === "Salvando...") {
+            btnSalvar.classList.add('btn-status-saving');
+        } else if (texto.includes("Salvo")) {
+            btnSalvar.classList.add('btn-status-saved');
+        } else if (texto.includes("Erro")) {
+            btnSalvar.style.backgroundColor = '#e74c3c';
+        }
+    }
+}
+
+
+
+/**
+ * Função Auxiliar para detectar Match Point.
+/**
+ * Função Auxiliar para detectar Match Point.
+ * CORRIGIDA: Não exibe Match Point se o jogo JÁ ACABOU (Vencedor definido).
+ */
+function verificarMatchPoint() {
+    // 1. SAFETY CHECK (O PULO DO GATO): 
+    // Se já tem um nome no campo de vencedor, o jogo acabou. 
+    // Retorna false para liberar o botão Verde (Salvar).
+    const elVencedor = document.getElementById('resultado-vencedor');
+    if (elVencedor && elVencedor.textContent.trim() !== '') {
+        return false; 
+    }
+
+    // 2. Identifica Pontos do Game Atual
+    const elP1 = document.getElementById('pontos-j1');
+    const elP2 = document.getElementById('pontos-j2');
+    if (!elP1 || !elP2) return false;
+
+    const txtP1 = elP1.textContent; 
+    const txtP2 = elP2.textContent;
+    
+    // 3. Identifica Sets já vencidos
+    const s1_1 = parseInt(document.getElementById('set1-j1').value) || 0;
+    const s1_2 = parseInt(document.getElementById('set1-j2').value) || 0;
+    
+    let setsJ1 = 0;
+    let setsJ2 = 0;
+    
+    const checarSet = (g1, g2) => {
+        if ((g1 === 6 && g2 <= 4) || (g1 === 7 && g2 <= 5) || (g1 === 7 && g2 === 6)) return 'j1';
+        if ((g2 === 6 && g1 <= 4) || (g2 === 7 && g1 <= 5) || (g2 === 7 && g1 === 6)) return 'j2';
+        return null;
+    };
+
+    const v1 = checarSet(s1_1, s1_2);
+    if (v1 === 'j1') setsJ1++;
+    else if (v1 === 'j2') setsJ2++;
+
+    const setAtivo = setEmEdicao || determinarSetAtivo();
+
+    // === CENÁRIO A: SUPER TIE-BREAK (SET 3) ===
+    if (setAtivo === 3) {
+        const s3_1 = parseInt(document.getElementById('set3-j1').value) || 0;
+        const s3_2 = parseInt(document.getElementById('set3-j2').value) || 0;
+        
+        // Regra: Alguém tem 9+ pontos E (diferença de 1 ou mais, mas ainda não ganhou)
+        // Nota: A vitória (>=10 e dif>=2) já foi filtrada pelo SAFETY CHECK no início.
+        if (s3_1 >= 9 && s3_1 > s3_2) return true;
+        if (s3_2 >= 9 && s3_2 > s3_1) return true;
+        return false;
+    }
+
+    // === CENÁRIO B: SETS NORMAIS (1 ou 2) ===
+    const g1 = parseInt(document.getElementById(`set${setAtivo}-j1`).value) || 0;
+    const g2 = parseInt(document.getElementById(`set${setAtivo}-j2`).value) || 0;
+
+    let potencialVencedorGame = null;
+    if ((txtP1 === '40' && txtP2 !== '40' && txtP2 !== 'Ad') || txtP1 === 'Ad') potencialVencedorGame = 'j1';
+    else if ((txtP2 === '40' && txtP1 !== '40' && txtP1 !== 'Ad') || txtP2 === 'Ad') potencialVencedorGame = 'j2';
+
+    if (!potencialVencedorGame) return false; 
+
+    let ganhariaSet = false;
+    const gFavorito = (potencialVencedorGame === 'j1') ? g1 : g2;
+    const gOponente = (potencialVencedorGame === 'j1') ? g2 : g1;
+
+    // Regras de Fechamento de Set
+    if (gFavorito === 5 && gOponente <= 4) ganhariaSet = true;
+    if (gFavorito === 6 && gOponente === 5) ganhariaSet = true;
+    
+    if (estadoPontos.tiebreakMode) {
+        const tbFav = (potencialVencedorGame === 'j1') ? estadoPontos.j1 : estadoPontos.j2;
+        const tbOp  = (potencialVencedorGame === 'j1') ? estadoPontos.j2 : estadoPontos.j1;
+        if (tbFav >= 6 && tbFav > tbOp) ganhariaSet = true;
+        else ganhariaSet = false; 
+    }
+
+    if (ganhariaSet) {
+        if (potencialVencedorGame === 'j1' && setsJ1 === 1) return true;
+        if (potencialVencedorGame === 'j2' && setsJ2 === 1) return true;
+    }
+
+    return false;
+}
+
 
 </script>
 
