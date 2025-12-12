@@ -2880,12 +2880,12 @@ body.dark-mode .tab-button.live-game::after {
     box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
 }
 .btn-cancel {
-    background-color: #ecf0f1 !important;
-    color: #7f8c8d !important;
+    background-color: #6c757d !important; /* Cinza Escuro (#6c757d) */
+    color: white !important;               /* Texto Branco */
 }
 .btn-cancel:hover {
-    background-color: #bdc3c7 !important;
-    color: #2c3e50 !important;
+    background-color: #5a6268 !important; /* Um pouco mais escuro no hover */
+    color: white !important;
 }
 
 /* --- NOVOS ESTADOS VISUAIS (Para o Modo Arbitragem) --- */
@@ -3016,12 +3016,11 @@ body.dark-mode .winner-name {
     color: #fff;
 }
 body.dark-mode .btn-cancel {
-    background-color: #34495e !important;
-    color: #bdc3c7 !important;
+    background-color: #4e5d6c !important; /* Cinza levemente azulado para o tema escuro */
+    color: white !important;
 }
 body.dark-mode .btn-cancel:hover {
-    background-color: #455a64 !important;
-    color: #fff !important;
+    background-color: #3e4b57 !important;
 }
 body.dark-mode .modern-form-group label {
     color: #bdc3c7;
@@ -3438,45 +3437,58 @@ body.dark-mode .sb-input.super-tb:not(:disabled) { background-color: #4e342e; bo
     }
 
 
-    /* --- 3. DETALHES DA RESERVA (VISUALIZAR RESULTADO/WO) --- */
+    /* --- 3. DETALHES DA RESERVA (MODO HÍBRIDO) --- */
     
-    /* Oculta informações gerais para focar no resultado */
-    .modal-content-reserva > p:not(.resultado-info) {
-        display: none !important; 
-    }
-    
-    /* Oculta as listas de Jogadores e Convidados */
-    #modal-jogadores,
-    #container-convidados {
+    /* A. MODO PLACAR (Pirâmide ou Jogos com Resultado) */
+    /* Mantém o comportamento original: esconde tudo para focar no placar */
+    .modal-content-reserva.modo-placar > p:not(.resultado-info),
+    .modal-content-reserva.modo-placar #modal-jogadores,
+    .modal-content-reserva.modo-placar #container-convidados,
+    .modal-content-reserva.modo-placar hr {
         display: none !important;
     }
-
-    /* Oculta a primeira linha divisória */
-    .modal-content-reserva > hr:first-of-type,
-    .modal-content-reserva hr {
-        display: none !important;
-    }
-
-    /* Força o container do Resultado a aparecer no topo */
-    #modal-resultado-container {
+    /* Ajustes do container de resultado */
+    .modal-content-reserva.modo-placar #modal-resultado-container {
         display: block !important;
         margin-top: 5px !important;
         padding-top: 0px !important;
     }
-    
-    /* Título "Resultado do Jogo" pequeno */
-    #modal-resultado-container p {
+    .modal-content-reserva.modo-placar #modal-resultado-container p {
         display: block !important;
-        margin-top: 0px !important;
-        margin-bottom: 5px !important;
+        margin: 0 0 5px 0 !important;
         font-size: 1.0em !important;
     }
-    
-    /* Garante tamanho legível no resultado */
-    #modal-resultado-placar .placar-container {
+    .modal-content-reserva.modo-placar #modal-resultado-placar .placar-container {
         font-size: 1.2em !important;
     }
 
+    /* B. MODO NORMAL (Jogos de 1h/2h sem resultado) */
+    /* Esconde apenas os campos técnicos marcados pelo JS */
+    .modal-content-reserva.modo-normal .p-tecnico {
+        display: none !important;
+    }
+    .modal-content-reserva.modo-normal hr {
+        display: none !important;
+    }
+    /* Ajusta layout para aproveitar espaço */
+    .modal-content-reserva.modo-normal h3 {
+        font-size: 1.2em !important;
+        margin: 0 0 5px 0 !important;
+    }
+    .modal-content-reserva.modo-normal #modal-status {
+        display: inline !important; /* 
+        font-size: 1.1em !important;
+        font-weight: bold !important;
+        margin-bottom: 5px !important;
+    }
+	/* Dá o espaço necessário acima de "Jogadores:" */
+    .modal-content-reserva.modo-normal hr + p {
+        margin-top: 10px !important; 
+    }
+    .modal-content-reserva.modo-normal #modal-jogadores {
+        display: block !important;
+        margin-top: 0 !important;
+    }
 
     /* --- 4. ELEMENTOS MENORES (FONTES) --- */
     .ret-indicator-placar {
@@ -4506,6 +4518,8 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
 /* ================================================================= */
 /* --- FIM DE SUPER MASTER SEGURO: APENAS TELA DE RESULTADO (VISUALIZAÇÃO) EM LANDSCAPE --- */
 /* ================================================================= */
+
+
 
 </style>
 
@@ -5638,14 +5652,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v1.8.8'; // Versão atual do sistema    
-const DataVersaoSistema = '11/12/2025';   
+const VersaoSistema = 'v1.8.9'; // Versão atual do sistema    
+const DataVersaoSistema = '12/12/2025';   
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
 let vPermitirExclusaoAposJogo = false; // Mude para true para permitir que usuários comuns excluam jogos passados durante os testes.
 
-//********************************************************
+//******************************************************** 
 
 let piramideInicioTorneio = null; 
 let piramideFimTorneio = null;
@@ -9914,9 +9928,8 @@ function fecharModalDetalhes() {
  * @param {string} quadra - A quadra onde a reserva está.
  */
 
-// SUBSTITUA A FUNÇÃO exibirDetalhesReserva COMPLETA POR ESTA:
+// SUBSTITUA A FUNÇÃO exibirDetalhesReserva INTEIRA POR ESTA:
 async function exibirDetalhesReserva(reservaInicial, key, quadra) { 
-    // Garante que qualquer listener ou timer anterior seja desligado antes de criar um novo.
     fecharModalDetalhes(); 
 	
     if (reservaInicial && reservaInicial.hora && key !== `${reservaInicial.dia}_${reservaInicial.hora}`) {
@@ -9924,6 +9937,7 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
     }
 
     const modal = document.getElementById('modalDetalhesReserva');
+    const modalContent = document.querySelector('.modal-content-reserva'); 
     const reservaRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
 
     const callbackDoListener = async snapshot => { 
@@ -9934,6 +9948,35 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
             mostrarNotificacao("Esta reserva foi cancelada ou removida.", 'warning');
             return;
         }
+
+        // === 1. LIMPEZA E MARCAÇÃO TÉCNICA (PLANO P-TECNICO) ===
+        // Remove classes antigas para evitar conflito
+        modalContent.classList.remove('modo-placar', 'modo-normal');
+        modalContent.querySelectorAll('.p-tecnico').forEach(el => el.classList.remove('p-tecnico'));
+
+        // Marca os campos técnicos para o CSS esconder no Modo Normal
+        const idsTecnicos = ['modal-quadra', 'modal-dia', 'modal-data', 'modal-horario', 'modal-duracao', 'modal-organizador', 'p-expira-em'];
+        idsTecnicos.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                // Pega o parágrafo pai (<p>) para esconder a linha toda
+                const p = el.tagName === 'P' ? el : el.parentElement;
+                if (p) p.classList.add('p-tecnico');
+            }
+        });
+
+        // === 2. DEFINIÇÃO DO MODO ===
+        const temResultado = reserva.resultado || reserva.resultadoDuplas;
+        const isPiramide = (reserva.duracao === 3);
+
+        if (temResultado || isPiramide) {
+            // Se tem resultado OU é Pirâmide -> MODO PLACAR (CSS esconde tudo e foca no resultado)
+            modalContent.classList.add('modo-placar');
+        } else {
+            // Se é jogo normal sem resultado -> MODO NORMAL (CSS usa p-tecnico para limpar a tela)
+            modalContent.classList.add('modo-normal');
+        }
+        // ==========================================
 
         if (reserva.status === 'pendente' && reserva.expiraEm && Date.now() > reserva.expiraEm) {
             fecharModalDetalhes(); 
@@ -9958,7 +10001,7 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
         }
 
         if ((reserva.jogadores || "").toLowerCase().trim() === 'manutencao') {
-            // (Lógica da Manutenção - Intacta)
+            // Lógica Manutenção (Mantida)
             const modalTitle = document.querySelector('#modalDetalhesReserva h3');
             const organizadorRow = document.getElementById('modal-organizador').parentElement;
             const jogadoresDiv = document.getElementById('modal-jogadores');
@@ -9970,9 +10013,7 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
             if (jogadoresLabel) jogadoresLabel.style.display = 'none'; 
             resultadoContainer.style.display = 'none'; 
             document.getElementById('modal-quadra').textContent = quadra;
-			
 			document.getElementById('modal-dia').textContent = nomesDiasMap[reserva.dia] || "Data Inválida";
-			
             document.getElementById('modal-data').textContent = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
             document.getElementById('modal-duracao').textContent = '1 Hora';
             document.getElementById('modal-horario').textContent = `${String(reserva.hora).padStart(2, '0')}:00 - ${String(reserva.hora + 1).padStart(2, '0')}:00`;
@@ -9987,7 +10028,7 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
             document.getElementById('container-convidados').style.display = 'none';
 
         } else {
-            // (Lógica Normal)
+            // Lógica Normal (Jogos)
             let listaDeApelidos = [];
             if (reserva.jogadores_completo) {
                 listaDeApelidos = reserva.jogadores_completo.split(',').map(j => j.trim());
@@ -10009,11 +10050,8 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
             }
 			
 			if (reserva.resultado && reserva.duracao > 1 && listaDeApelidos.length < 2) {
-				console.warn("Inconsistência de dados detectada. Reabrindo o modal para forçar a sincronização...");
 				fecharModalDetalhes(); 
-				setTimeout(() => {
-					exibirDetalhesReserva(reservaInicial, key, quadra); 
-				}, 50); 
+				setTimeout(() => { exibirDetalhesReserva(reservaInicial, key, quadra); }, 50); 
 				return; 
 			}
 
@@ -10022,9 +10060,7 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
             const jogadoresLabelOriginal = document.getElementById('modal-jogadores').previousElementSibling;
             if(jogadoresLabelOriginal) jogadoresLabelOriginal.style.display = 'block';
             document.getElementById('modal-quadra').textContent = quadra;
-			
             document.getElementById('modal-dia').textContent = nomesDiasMap[reserva.dia] || "Data Inválida";
-			
             document.getElementById('modal-data').textContent = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
             let duracaoTexto = reserva.duracao === 1 ? "1 Hora" : "2 Horas";
             if (reserva.duracao === 3) duracaoTexto = "2 Horas - Pirâmide";
@@ -10042,31 +10078,21 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
             resultadoPlacarDiv.innerHTML = '';
             const statusPrincipal = reserva.status || 'confirmada';
             statusElement.textContent = capitalizarNome(statusPrincipal.replace(/_/g, ' '));
-            if (statusPrincipal.includes('pendente')) {
-                statusElement.style.color = isDarkMode ? '#FFA726' : 'orange';
-            } else if (statusPrincipal.includes('recusado') || statusPrincipal.toLowerCase().includes('cancelada')) {
-                statusElement.style.color = isDarkMode ? '#EF5350' : 'red';
-            } else if (statusPrincipal === 'finalizada') {
-                statusElement.style.color = isDarkMode ? '#2196F3' : '#007bff';
-            } else {
-                statusElement.style.color = isDarkMode ? '#66BB6A' : 'green';
-            }
-            const temResultado = reserva.resultado || reserva.resultadoDuplas;
-
-            // Filtra a lista de apelidos
+            
+            if (statusPrincipal.includes('pendente')) statusElement.style.color = isDarkMode ? '#FFA726' : 'orange';
+            else if (statusPrincipal.includes('recusado') || statusPrincipal.toLowerCase().includes('cancelada')) statusElement.style.color = isDarkMode ? '#EF5350' : 'red';
+            else if (statusPrincipal === 'finalizada') statusElement.style.color = isDarkMode ? '#2196F3' : '#007bff';
+            else statusElement.style.color = isDarkMode ? '#66BB6A' : 'green';
+            
             const socios = listaDeApelidos.filter(j => !j.startsWith("Convidado"));
-            const convidados = listaDeApelidos
-                .filter(j => j.startsWith("Convidado - "))
-                .map(j => j.replace("Convidado - ", "")); 
+            const convidados = listaDeApelidos.filter(j => j.startsWith("Convidado - ")).map(j => j.replace("Convidado - ", "")); 
 
             const containerConvidados = document.getElementById('container-convidados');
             const divConvidados = document.getElementById('modal-convidados');
 
             if (convidados.length > 0) {
                 let convidadosHtml = '<ul>';
-                convidados.forEach(nome => {
-					convidadosHtml += `<li><span class="modal-player-name"><i>${nome}</i></span></li>`;
-				});
+                convidados.forEach(nome => { convidadosHtml += `<li><span class="modal-player-name"><i>${nome}</i></span></li>`; });
                 convidadosHtml += '</ul>';
                 divConvidados.innerHTML = convidadosHtml;
                 containerConvidados.style.display = 'block';
@@ -10075,14 +10101,13 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
                 containerConvidados.style.display = 'none';
             }
 
-            // Preenche o container de Jogadores (SÓCIOS)
+            // === LÓGICA DE EXIBIÇÃO DE CONTEÚDO ===
+            
+            // 1. SE TEM RESULTADO (Pirâmide ou Dupla com placar salvo)
             if (temResultado) {
-                
                 const isHorizontal = window.innerWidth > window.innerHeight;
                 const nomesSociosFormatados = socios.map(apelido => {
                     const jogadorInfo = jogadoresData[apelido.trim()];
-                    // Escolhe entre Nome Completo (larga) ou Apelido (estreita)
-                    // IMPORTANTE: Se o celular estiver deitado, isHorizontal é true, e pegamos o nome completo!
                     const nomeParaUso = isHorizontal ? (jogadorInfo?.nomeCompleto || apelido) : apelido;
                     return capitalizarNome(nomeParaUso);
                 });
@@ -10091,20 +10116,11 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
                 
                 resultadoContainer.style.display = 'block';
                 const tituloResultado = document.getElementById('modal-resultado-titulo');
-                if (reserva.status === 'em_andamento') {
-                    tituloResultado.textContent = 'Placar em Andamento:';
-                } else {
-                    tituloResultado.textContent = 'Resultado do Jogo:';
-                }
+                tituloResultado.textContent = (reserva.status === 'em_andamento') ? 'Placar em Andamento:' : 'Resultado do Jogo:';
                 
                 if (reserva.resultado && listaDeApelidos.length >= 2) { 
-                    // === AQUI ESTÁ O SEGREDO PARA ATUALIZAR AO GIRAR ===
-                    
-                    // 1. Define a função que será chamada quando a tela girar
                     funcaoAtualizarPlacarDetalhes = () => {
                         resultadoPlacarDiv.innerHTML = gerarPlacarHtml(reserva.resultado, listaDeApelidos[0], listaDeApelidos[1]);
-                        
-                        // Também atualiza a lista de jogadores (Nome Completo vs Apelido)
                         const isHoriz = window.innerWidth > window.innerHeight;
                         const novosNomes = socios.map(apelido => {
                             const jInfo = jogadoresData[apelido.trim()];
@@ -10113,20 +10129,50 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
                         });
                         jogadoresDiv.innerHTML = `<p style="margin: 0; font-size: 0.95em;"><em>${novosNomes.join(', ')}</em></p>`;
                     };
-
-                    // 2. Chama ela imediatamente para desenhar agora
                     funcaoAtualizarPlacarDetalhes();
-
-                    // 3. Adiciona o ouvinte no navegador
                     window.addEventListener('resize', funcaoAtualizarPlacarDetalhes);
-                    
-                    // ===================================================
 
                 } else if (reserva.resultadoDuplas) {
                     resultadoPlacarDiv.innerHTML = gerarPlacarDuplasHtml(reserva.resultadoDuplas);
                 }
-            } else {
-                // Sem resultado: removemos o listener se ele existia de uma abertura anterior
+            } 
+            // 2. SE É PIRÂMIDE SEM RESULTADO (Gera o 0x0)
+            else if (isPiramide) {
+                if (funcaoAtualizarPlacarDetalhes) {
+                    window.removeEventListener('resize', funcaoAtualizarPlacarDetalhes);
+                    funcaoAtualizarPlacarDetalhes = null;
+                }
+
+                // Lista de jogadores padrão
+                let jogadoresHtml = '<ul>';
+                socios.forEach(apelido => { 
+                    let statusTexto = '';
+                    if (reserva.confirmacoes && apelido.toLowerCase() !== 'convidado') {
+                        const status = reserva.confirmacoes[apelido];
+                        if (status === true) statusTexto = '<span class="status-confirmado">(✓ Confirmado)</span>';
+                        else if (status === false) statusTexto = '<span class="status-pendente">(❓ Pendente)</span>';
+                        else if (status === 'recusado') statusTexto = '<span class="status-recusado">(✗ Recusado)</span>';
+                    }
+                    const jogadorInfo = jogadoresData[apelido.trim()];
+                    const nomeParaExibir = jogadorInfo ? capitalizarNome(jogadorInfo.nomeCompleto) : capitalizarNome(apelido);
+                    jogadoresHtml += `<li><span class="modal-player-name">${nomeParaExibir}</span> ${statusTexto}</li>`;
+                });
+                jogadoresHtml += '</ul>';
+                jogadoresDiv.innerHTML = jogadoresHtml;
+
+                // --- GERA O PLACAR ZERADO 0x0 PARA OCUPAR A TELA ---
+                if (listaDeApelidos.length >= 2) {
+                    resultadoContainer.style.display = 'block';
+                    document.getElementById('modal-resultado-titulo').textContent = 'Placar (Aguardando):';
+                    const dummyResult = {
+                        tipo: 'Placar Normal', vencedor: '', perdedor: '',
+                        set1: { placar: '0x0' }, set2: { placar: '0x0' }, set3: '0x0'
+                    };
+                    resultadoPlacarDiv.innerHTML = gerarPlacarHtml(dummyResult, listaDeApelidos[0], listaDeApelidos[1]);
+                }
+            }
+            // 3. SE É JOGO NORMAL (Sem placar)
+            else {
                 if (funcaoAtualizarPlacarDetalhes) {
                     window.removeEventListener('resize', funcaoAtualizarPlacarDetalhes);
                     funcaoAtualizarPlacarDetalhes = null;
@@ -10166,7 +10212,6 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
         modal.style.display = 'flex';
     }
 }
-
 
 
 
@@ -12507,11 +12552,11 @@ async function atualizarEExibirProximaReserva() {
             // Calcula a diferença de dias (ex: Seg(1) - Dom(7) = -6)
             let diff = reserva.dia - hojeIndex;
             
-            // Se a diferença for negativa (ex: -6), assume que é na próxima semana (+7 dias)
-            // Isso resolve o problema de Domingo(7) agendando para Segunda(1)
-            if (diff < 0) {
-                diff += 7;
-            }
+            // --- ALTERAÇÃO AQUI ---
+            // Removemos o "if (diff < 0) diff += 7;"
+            // Isso impede que um jogo de ontem (diff = -1) seja jogado para a próxima semana.
+            // Agora, se diff for negativo, a data calculada será no passado, e o filtro abaixo vai ignorá-la corretamente.
+            // ----------------------
 
             // Cria uma data para o FINAL da reserva para comparar com AGORA
             const dataFimReserva = new Date(hoje);
@@ -12650,13 +12695,10 @@ async function atualizarEExibirProximaReserva() {
                     <p><strong>Com:</strong> ${sociosHtml}</p>
                     ${convidadosHtml} 
                 </div>
-                <div class="agenda-botoes"> 
-                    <button onclick="exibirDetalhesReserva(proximaReserva, '${proximaReserva.key}', '${proximaReserva.quadra}')" class="btn-detalhes-agenda">Detalhes</button>
-                </div>
             `;
             
             if (agendaTrigger.classList.contains('expandido')) {
-                 agendaConteudo.style.display = 'block';
+                 agendaConteudo.style.display = 'block'; 
             }
         };
 
@@ -13744,55 +13786,69 @@ function atualizarBotaoSalvarResultado(isResultadoConclusivo = false) {
     const isModoSumula = containerSumula && containerSumula.style.display !== 'none';
     const isModoArbitragem = !isModoSumula && document.getElementById('placar-fields-container').style.display !== 'none';
 
-    // 2. Reset Básico (Limpa estilos antigos)
+    // 2. Reset Básico
     btnSalvar.className = 'btn-modern btn-save'; 
-    btnSalvar.disabled = false;
     btnSalvar.style.display = 'flex';
-    btnSalvar.onclick = salvarResultadoPiramide; // Garante a ação padrão
+    btnSalvar.onclick = salvarResultadoPiramide;
     btnCancelar.textContent = 'Cancelar';
 
     // --- MODO CLÁSSICO (Súmula, WO, Desistência) ---
     if (!isModoArbitragem) {
+        
+        // WO ou Desistência: Sempre Verde e Habilitado (pois o usuário seleciona o vencedor no menu)
         if (modoResultado === 'wo' || modoResultado === 'desistencia') {
             btnSalvar.textContent = 'Salvar';
-        } else {
-            // Na súmula manual, o botão sempre permite salvar
-            btnSalvar.textContent = isResultadoConclusivo ? 'Salvar' : 'Parciais';
-            btnSalvar.style.backgroundColor = isResultadoConclusivo ? '#28a745' : '#007bff';
+            btnSalvar.disabled = false;
+            btnSalvar.style.backgroundColor = '#28a745'; // Verde
+            btnSalvar.style.color = 'white';
+            btnSalvar.style.cursor = 'pointer';
+            btnSalvar.style.opacity = '1';
+        } 
+        // SÚMULA: Regra estrita de vencedor
+        else {
+            btnSalvar.textContent = 'Salvar'; // Sempre "Salvar", nunca mais "Parciais"
+
+            if (isResultadoConclusivo) {
+                // TEM VENCEDOR: Botão Verde
+                btnSalvar.disabled = false;
+                btnSalvar.style.backgroundColor = '#28a745'; // Verde
+                btnSalvar.style.color = 'white';
+                btnSalvar.style.cursor = 'pointer';
+                btnSalvar.style.opacity = '1';
+            } else {
+                // NÃO TEM VENCEDOR: Botão Cinza
+                btnSalvar.disabled = true;
+                btnSalvar.style.backgroundColor = '#cccccc'; // Cinza
+                btnSalvar.style.color = '#666666'; // Texto Cinza Escuro
+                btnSalvar.style.cursor = 'not-allowed';
+                btnSalvar.style.opacity = '0.7';
+            }
         }
         return;
     }
 
-    // --- MODO ARBITRAGEM (Dinâmico e Automático) ---
-    
+    // --- MODO ARBITRAGEM (Dinâmico e Automático) - SEM ALTERAÇÕES ---
     if (isResultadoConclusivo) {
-        // >>> JOGO ACABOU: Botão Verde para finalizar <<<
         btnSalvar.textContent = 'Salvar'; 
         btnSalvar.style.backgroundColor = '#28a745';
-        
+        btnSalvar.disabled = false;
+        btnSalvar.style.cursor = 'pointer';
+        btnSalvar.style.opacity = '1';
     } else {
-        // >>> JOGO ROLANDO: Auto-save ativado <<<
-        
-        // Verifica se é Match Point (para dar emoção!)
         if (verificarMatchPoint()) {
             btnSalvar.textContent = 'MATCH POINT';
             btnSalvar.className = 'btn-modern btn-status-matchpoint';
-            // No Match Point, o botão fica apenas visual (bloqueia clique)
             btnSalvar.onclick = null; 
         } else {
-            // Estado padrão de jogo (Espera)
-            // Só muda para "Salvo" se não estiver no meio de um processo de "Salvando..."
             if (btnSalvar.textContent !== 'Salvando...') {
                 btnSalvar.textContent = 'Salvo ✓';
                 btnSalvar.className = 'btn-modern btn-status-saved';
             }
         }
-        
-        // Na arbitragem, o cancelar vira "Sair" (fechar janela)
+        btnSalvar.disabled = false; // Na arbitragem o botão (mesmo que visual) fica ativo para interações
         btnCancelar.textContent = 'Sair';
     }
 }
-
 
 
 
@@ -15041,7 +15097,6 @@ function calcularVencedorPiramide() {
     if ((s1j1 === 6 && s1j2 === 6) || (s2j1 === 6 && s2j2 === 6)) isTieBreakAtivo = true;
     if (setEmEdicao && ((setEmEdicao===1 && isTb1) || (setEmEdicao===2 && isTb2))) isTieBreakAtivo = true;
 
-    // Elementos DOM
     const wrapperSet2J1 = document.getElementById('wrapper-set2-j1');
     const wrapperSet2J2 = document.getElementById('wrapper-set2-j2');
     const elSet2J1 = document.getElementById('set2-j1'); 
@@ -15093,50 +15148,27 @@ function calcularVencedorPiramide() {
         if(document.getElementById('header-set3')) document.getElementById('header-set3').classList.add('sb-hidden');
     }
 
-    // ============================================================
-    // === APLICAÇÃO DE ESTILOS (NEGRITO) CORRIGIDA ===
-    // ============================================================
-    
-    // Função auxiliar para aplicar classe nos inputs E NOS BADGES
+    // APLICAÇÃO DE ESTILOS (NEGRITO)
     const aplicarEstiloVencedor = (setNum, vencedor) => {
-        // IDs: [Input Grande, Input Pequeno (Súmula), Badge Visual (Súmula/Arb)]
-        const idsJ1 = [
-            `set${setNum}-j1`, `simple-s${setNum}-j1`, 
-            `tb${setNum}-j1`, `simple-tb${setNum}-j1`, 
-            `view-tb${setNum}-j1` // <--- ADICIONADO O BADGE
-        ];
-        const idsJ2 = [
-            `set${setNum}-j2`, `simple-s${setNum}-j2`, 
-            `tb${setNum}-j2`, `simple-tb${setNum}-j2`,
-            `view-tb${setNum}-j2` // <--- ADICIONADO O BADGE
-        ];
+        const idsJ1 = [`set${setNum}-j1`, `simple-s${setNum}-j1`, `tb${setNum}-j1`, `simple-tb${setNum}-j1`, `view-tb${setNum}-j1`];
+        const idsJ2 = [`set${setNum}-j2`, `simple-s${setNum}-j2`, `tb${setNum}-j2`, `simple-tb${setNum}-j2`, `view-tb${setNum}-j2`];
 
-        idsJ1.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.classList.toggle('input-winner', vencedor === 'j1');
-        });
-        idsJ2.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.classList.toggle('input-winner', vencedor === 'j2');
-        });
+        idsJ1.forEach(id => { const el = document.getElementById(id); if (el) el.classList.toggle('input-winner', vencedor === 'j1'); });
+        idsJ2.forEach(id => { const el = document.getElementById(id); if (el) el.classList.toggle('input-winner', vencedor === 'j2'); });
     };
 
-    // Aplica nos sets
     aplicarEstiloVencedor(1, vencedorSet1);
     aplicarEstiloVencedor(2, vencedorSet2);
     aplicarEstiloVencedor(3, vencedorSet3);
 
-    // Aplica Negrito nos NOMES
     const nomes = {
         j1: [document.getElementById('apelido-j1'), document.getElementById('simple-name-j1')],
         j2: [document.getElementById('apelido-j2'), document.getElementById('simple-name-j2')]
     };
 
-    // Reseta nomes
     nomes.j1.forEach(el => { if(el) { el.style.fontWeight = '400'; el.style.color = ''; } });
     nomes.j2.forEach(el => { if(el) { el.style.fontWeight = '400'; el.style.color = ''; } });
 
-    // Aplica no Vencedor da Partida
     let nomeVencedorFinal = '';
     if (vencedorFinal === 'j1') {
         nomes.j1.forEach(el => { if(el) el.style.fontWeight = '900'; });
@@ -15148,7 +15180,6 @@ function calcularVencedorPiramide() {
         if(el) nomeVencedorFinal = el.getAttribute('data-apelido');
     }
 
-    // Atualiza Labels e Botões
     const labelGame = document.getElementById('label-game-points');
     if (labelGame) {
         labelGame.textContent = isTieBreakAtivo ? "TIE-BREAK" : "GAME";
@@ -15159,12 +15190,12 @@ function calcularVencedorPiramide() {
     const elResultadoVencedor = document.getElementById('resultado-vencedor');
     if(elResultadoVencedor) elResultadoVencedor.textContent = nomeVencedorFinal || '';
     
-    const placarZerado = (s1j1 + s1j2 + s2j1 + s2j2 + s3j1 + s3j2 === 0);
-    atualizarBotaoSalvarResultado(jogoConcluido || placarZerado);
+    // --- CORREÇÃO: Removemos o "|| placarZerado" ---
+    // Agora o botão só habilita se o jogo estiver REALMENTE concluído
+    atualizarBotaoSalvarResultado(jogoConcluido);
 
     return nomeVencedorFinal;
 }
-
 
 
 
