@@ -3295,216 +3295,120 @@ body.dark-mode .sb-input.super-tb:not(:disabled) { background-color: #4e342e; bo
 
 
 /* ================================================================= */
-/* --- SUPER MASTER: MODO CELULAR NA HORIZONTAL (TELA CHEIA) --- */
+/* === SUPER MASTER: MODO CELULAR NA HORIZONTAL (TELA CHEIA) === */
 /* ================================================================= */
-@media (orientation: landscape) and (max-height: 500px) {
+@media (orientation: landscape) and (max-height: 600px) {
     
-    /* --- 1. SÚMULA (INSERIR RESULTADO) - MODO IMERSIVO --- */
-    
-    /* Força o modal a ocupar 100% da tela */
+    /* --- 1. JANELA DO MODAL (ESTRUTURA) --- */
     #modalResultadoPiramide .modern-modal {
         position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important; /* Usa bottom:0 em vez de height:100vh para evitar corte */
-        
-        width: 100vw !important;
-        max-width: none !important;
-        max-height: none !important;
-        margin: 0 !important;
-        border-radius: 0 !important;
-        padding: 5px 15px 10px 15px !important; 
-        overflow-y: auto !important;
-        z-index: 99999 !important;
-        box-sizing: border-box !important;
-        background-color: white !important; /* Garante fundo branco sólido */
+        top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+        width: 100vw !important; max-width: none !important; max-height: none !important;
+        margin: 0 !important; border-radius: 0 !important; padding: 5px 15px 10px 15px !important; 
+        overflow-y: auto !important; z-index: 99999 !important; box-sizing: border-box !important;
+        background-color: white !important; display: block !important;
     }
-    /* Garante fundo escuro no modo escuro */
-    body.dark-mode #modalResultadoPiramide .modern-modal {
-        background-color: #2c3e50 !important;
-    }
+    body.dark-mode #modalResultadoPiramide .modern-modal { background-color: #2c3e50 !important; }
 
-    /* Cabeçalho mais fino */
+    /* Cabeçalho */
     #modalResultadoPiramide .modern-modal-header {
-        margin-bottom: 5px !important;
-        margin-top: 2px !important;
-        min-height: 25px !important;
+        margin-bottom: 5px !important; margin-top: 2px !important; min-height: 25px !important;
+        position: relative !important;
     }
-    #modalResultadoPiramide .modern-modal-header h3 {
-        font-size: 1.1rem !important;
-    }
+    #modalResultadoPiramide .modern-modal-header h3 { font-size: 1.1rem !important; }
 
-    /* Tabela de placar compacta */
-    #modalResultadoPiramide .scoreboard-container {
+    /* --- 2. CORREÇÃO DA DUPLICAÇÃO AQUI --- */
+    /* Removemos o 'display: block' forçado para respeitar o JS */
+    #modalResultadoPiramide .scoreboard-container,
+    #modalResultadoPiramide #simple-score-container {
         margin-bottom: 5px !important;
         gap: 4px !important; 
-    }
-
-    /* Linhas dos jogadores mais finas */
-    #modalResultadoPiramide .sb-row {
-        padding: 2px 5px !important;
-        min-height: 35px !important;
-    }
-
-    /* Inputs e botões menores */
-    #modalResultadoPiramide .sb-input {
-        height: 28px !important;
-        font-size: 1rem !important;
-    }
-    #modalResultadoPiramide .btn-point {
-        width: 26px !important;
-        height: 26px !important;
-    }
-
-    /* Botões de Ação (Salvar/Cancelar) */
-    #modalResultadoPiramide .modern-actions {
-        margin-top: 5px !important;
-        margin-bottom: 20px !important;
-        gap: 10px !important;
-    }
-    #modalResultadoPiramide .btn-modern {
-        padding: 0 !important;        
-        height: 35px !important;      
-        font-size: 0.9rem !important; 
-        line-height: 35px !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 5px !important;
-    }
-	
-    /* Compactação dos campos de W.O. e Desistência */
-    #wo-controls .modern-form-group, 
-    #desistencia-controls .modern-form-group {
-        margin-bottom: 5px !important;
-    }
-    #wo-controls label, 
-    #desistencia-controls label {
-        margin-bottom: 0px !important;
-        font-size: 0.85rem !important;
+        width: 100% !important; /* Garante largura total */
     }
     
-    /* Ajuste do display de vencedor para não ocupar muito espaço */
-    #modalResultadoPiramide .winner-display {
-        padding: 2px 10px !important;
-        margin-top: 2px !important;
-        margin-bottom: 5px !important;
-        min-height: 38px !important; 
-    }
-    
-    /* Botões de edição lado a lado */
-    .edit-modal-actions {
-		flex-direction: row;
-	}
-	.edit-modal-actions button {
-		flex: 1;
-	}
-
-
-    /* --- 2. PLACAR AO VIVO (TELA CHEIA) --- */
-    .placar-ao-vivo-content {
-        height: 100%;
-        padding: 5px 20px;
-        justify-content: center;
-    }
-    .placar-header-novo {
-        margin-bottom: 10px;
-    }
-    .placar-header-novo h2 {
-        font-size: 1.3em;
-    }
-    .placar-header-novo p {
-        font-size: 0.9em;
-    }
-    .placar-jogador-linha {
-        padding: 8px 15px;
-    }
-    .placar-jogador-nome {
-        font-size: 1.6em;
-    }
-    .placar-jogador-posicao {
-        font-size: 1.0em;
-        margin-right: 1px;
-    }
-    .placar-set {
-        font-size: 1.6em;
-        width: 30px;
-    }
-    .placar-footer {
-        margin-top: 15px;
-        padding-top: 5px;
-    }
-
-
-    /* --- 3. DETALHES DA RESERVA (MODO HÍBRIDO) --- */
-    
-    /* A. MODO PLACAR (Pirâmide ou Jogos com Resultado) */
-    /* Mantém o comportamento original: esconde tudo para focar no placar */
-    .modal-content-reserva.modo-placar > p:not(.resultado-info),
-    .modal-content-reserva.modo-placar #modal-jogadores,
-    .modal-content-reserva.modo-placar #container-convidados,
-    .modal-content-reserva.modo-placar hr {
+    /* GARANTIA: Se o JS mandou esconder (style="display: none"), o CSS obedece */
+    #modalResultadoPiramide .scoreboard-container[style*="none"],
+    #modalResultadoPiramide #simple-score-container[style*="none"] {
         display: none !important;
     }
-    /* Ajustes do container de resultado */
+
+    /* Linhas e Inputs */
+    #modalResultadoPiramide .sb-row, #modalResultadoPiramide .simple-row {
+        padding: 2px 5px !important; min-height: 35px !important; margin-bottom: 5px !important;
+    }
+    #modalResultadoPiramide .sb-input, #modalResultadoPiramide .simple-input {
+        height: 28px !important; width: 35px !important; font-size: 1rem !important;
+    }
+    #modalResultadoPiramide .btn-point { width: 26px !important; height: 26px !important; }
+
+    /* Botões e Painéis Menores */
+    #modalResultadoPiramide .modern-actions {
+        margin-top: 5px !important; margin-bottom: 20px !important; gap: 10px !important;
+    }
+    #modalResultadoPiramide .btn-modern {
+        padding: 0 !important; height: 35px !important; font-size: 0.9rem !important;
+        line-height: 35px !important; display: flex; align-items: center; justify-content: center;
+        margin-bottom: 5px !important;
+    }
+    #wo-controls .modern-form-group, #desistencia-controls .modern-form-group { margin-bottom: 5px !important; }
+    #wo-controls label, #desistencia-controls label { margin-bottom: 0px !important; font-size: 0.85rem !important; }
+    #modalResultadoPiramide .winner-display {
+        padding: 2px 10px !important; margin-top: 2px !important; margin-bottom: 5px !important; min-height: 38px !important; 
+    }
+    #btn-fullscreen-toggle { left: 0 !important; top: 50% !important; transform: translateY(-50%) !important; }
+
+    /* --- 3. PLACAR AO VIVO --- */
+    .placar-ao-vivo-content { height: 100%; padding: 5px 20px; justify-content: center; }
+    .placar-header-novo { margin-bottom: 10px; }
+    .placar-header-novo h2 { font-size: 1.3em; }
+    .placar-header-novo p { font-size: 0.9em; }
+    .placar-jogador-linha { padding: 8px 15px; }
+    .placar-jogador-nome { font-size: 1.6em; }
+    .placar-jogador-posicao { font-size: 1.0em; margin-right: 1px; }
+    .placar-set { font-size: 1.6em; width: 30px; }
+    .placar-footer { margin-top: 15px; padding-top: 5px; }
+
+    /* --- 4. DETALHES DA RESERVA (JOGO NORMAL) --- */
+    .modal-content-reserva.modo-placar > p:not(.resultado-info),
+    .modal-content-reserva.modo-placar #modal-organizador-container,
+    .modal-content-reserva.modo-placar #modal-jogadores,
+    .modal-content-reserva.modo-placar #container-convidados,
+    .modal-content-reserva.modo-placar hr { display: none !important; }
+    
     .modal-content-reserva.modo-placar #modal-resultado-container {
-        display: block !important;
-        margin-top: 5px !important;
-        padding-top: 0px !important;
+        display: block !important; margin-top: 5px !important; padding-top: 0px !important;
     }
     .modal-content-reserva.modo-placar #modal-resultado-container p {
-        display: block !important;
-        margin: 0 0 5px 0 !important;
-        font-size: 1.0em !important;
+        display: block !important; margin: 0 0 5px 0 !important; font-size: 1.0em !important;
     }
     .modal-content-reserva.modo-placar #modal-resultado-placar .placar-container {
         font-size: 1.2em !important;
     }
 
-    /* B. MODO NORMAL (Jogos de 1h/2h sem resultado) */
-    /* Esconde apenas os campos técnicos marcados pelo JS */
-    .modal-content-reserva.modo-normal .p-tecnico {
-        display: none !important;
-    }
+    /* Regras do Modo Normal */
+    .modal-content-reserva.modo-normal .p-tecnico { display: none !important; }
     .modal-content-reserva.modo-normal hr {
-        display: none !important;
+        display: block !important; visibility: hidden !important; border: none !important;
+        margin: 15px 0 !important; height: 1px !important;          
     }
-    /* Ajusta layout para aproveitar espaço */
-    .modal-content-reserva.modo-normal h3 {
-        font-size: 1.2em !important;
-        margin: 0 0 5px 0 !important;
-    }
+    .modal-content-reserva.modo-normal h3 { font-size: 1.2em !important; margin: 0 0 5px 0 !important; }
     .modal-content-reserva.modo-normal #modal-status {
-        display: inline !important; /* 
-        font-size: 1.1em !important;
-        font-weight: bold !important;
-        margin-bottom: 5px !important;
+        display: inline !important; font-size: 1.1em !important; font-weight: bold !important; margin-bottom: 5px !important;
     }
-	/* Dá o espaço necessário acima de "Jogadores:" */
-    .modal-content-reserva.modo-normal hr + p {
-        margin-top: 10px !important; 
-    }
-    .modal-content-reserva.modo-normal #modal-jogadores {
-        display: block !important;
-        margin-top: 0 !important;
-    }
+    .modal-content-reserva.modo-normal #modal-jogadores { display: block !important; margin-top: 0 !important; }
 
-    /* --- 4. ELEMENTOS MENORES (FONTES) --- */
-    .ret-indicator-placar {
-        font-size: 0.7em !important;
-    }
-    .motivo-resultado-placar {
-        font-size: 0.8em !important;
-        margin-top: 5px !important;
-    }
-    .wo-indicator {
-        font-size: 1.5em !important;
-    }
+    /* Elementos menores */
+    .ret-indicator-placar { font-size: 0.7em !important; }
+    .motivo-resultado-placar { font-size: 0.8em !important; margin-top: 5px !important; }
+    .wo-indicator { font-size: 1.5em !important; }
 }
 /* ================================================================= */
-/* --- FIM DO SUPER MASTER --- */
+/* === FIM DE SUPER MASTER: MODO CELULAR NA HORIZONTAL (TELA CHEIA) === */
 /* ================================================================= */
+
+
+
+
 
 /* --- ITEM DE TOGGLE DENTRO DO MENU --- */
 .menu-toggle-item {
@@ -4519,6 +4423,18 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
 /* --- FIM DE SUPER MASTER SEGURO: APENAS TELA DE RESULTADO (VISUALIZAÇÃO) EM LANDSCAPE --- */
 /* ================================================================= */
 
+
+/* Quebra de linha inteligente para o rodapé do placar */
+.break-mobile {
+    display: none; /* Invisível no Computador e Celular Deitado */
+}
+@media (max-width: 600px) and (orientation: portrait) {
+    .break-mobile {
+        display: block; /* Vira uma quebra de linha no Celular em Pé */
+        margin-top: 2px;
+    }
+}
+/* fim de Quebra de linha inteligente para o rodapé do placar */
 
 
 </style>
@@ -5653,7 +5569,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Ajuste manual da atualização de versão do Sistema ******
 
 const VersaoSistema = 'v1.8.9'; // Versão atual do sistema    
-const DataVersaoSistema = '12/12/2025';   
+const DataVersaoSistema = '13/12/2025';   
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -5661,7 +5577,7 @@ let vPermitirExclusaoAposJogo = false; // Mude para true para permitir que usuá
 
 //******************************************************** 
 
-let piramideInicioTorneio = null; 
+let piramideInicioTorneio = null;  
 let piramideFimTorneio = null;
 let piramideAtivaGlobal = false; 
 
@@ -9932,6 +9848,7 @@ function fecharModalDetalhes() {
 async function exibirDetalhesReserva(reservaInicial, key, quadra) { 
     fecharModalDetalhes(); 
 	
+    // Garante a chave correta
     if (reservaInicial && reservaInicial.hora && key !== `${reservaInicial.dia}_${reservaInicial.hora}`) {
         key = `${reservaInicial.dia}_${reservaInicial.hora}`; 
     }
@@ -9949,34 +9866,39 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
             return;
         }
 
-        // === 1. LIMPEZA E MARCAÇÃO TÉCNICA (PLANO P-TECNICO) ===
-        // Remove classes antigas para evitar conflito
+        // ============================================================
+        // === O SEGREDO: PREPARA O TERRENO PARA O CSS FUNCIONAR ===
+        // ============================================================
+        
+        // 1. Limpa classes antigas para não confundir o visual
         modalContent.classList.remove('modo-placar', 'modo-normal');
         modalContent.querySelectorAll('.p-tecnico').forEach(el => el.classList.remove('p-tecnico'));
 
-        // Marca os campos técnicos para o CSS esconder no Modo Normal
+        // 2. Coloca a etiqueta 'p-tecnico' nos campos que devem sumir no celular deitado
         const idsTecnicos = ['modal-quadra', 'modal-dia', 'modal-data', 'modal-horario', 'modal-duracao', 'modal-organizador', 'p-expira-em'];
         idsTecnicos.forEach(id => {
             const el = document.getElementById(id);
             if (el) {
-                // Pega o parágrafo pai (<p>) para esconder a linha toda
+                // Pega o parágrafo inteiro (<p>) para esconder a linha toda
                 const p = el.tagName === 'P' ? el : el.parentElement;
                 if (p) p.classList.add('p-tecnico');
             }
         });
 
-        // === 2. DEFINIÇÃO DO MODO ===
+        // 3. Decide qual modo visual usar
         const temResultado = reserva.resultado || reserva.resultadoDuplas;
         const isPiramide = (reserva.duracao === 3);
 
         if (temResultado || isPiramide) {
-            // Se tem resultado OU é Pirâmide -> MODO PLACAR (CSS esconde tudo e foca no resultado)
+            // Se for Súmula/Pirâmide -> Adiciona 'modo-placar'
+            // O CSS (aquele de 600px) vai ver isso e ativar a tela cheia
             modalContent.classList.add('modo-placar');
         } else {
-            // Se é jogo normal sem resultado -> MODO NORMAL (CSS usa p-tecnico para limpar a tela)
+            // Se for Jogo Normal -> Adiciona 'modo-normal'
+            // O CSS vai ver isso e usar o espaçamento correto
             modalContent.classList.add('modo-normal');
         }
-        // ==========================================
+        // ============================================================
 
         if (reserva.status === 'pendente' && reserva.expiraEm && Date.now() > reserva.expiraEm) {
             fecharModalDetalhes(); 
@@ -10001,7 +9923,7 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
         }
 
         if ((reserva.jogadores || "").toLowerCase().trim() === 'manutencao') {
-            // Lógica Manutenção (Mantida)
+            // Lógica Manutenção (Mantida igual)
             const modalTitle = document.querySelector('#modalDetalhesReserva h3');
             const organizadorRow = document.getElementById('modal-organizador').parentElement;
             const jogadoresDiv = document.getElementById('modal-jogadores');
@@ -10101,13 +10023,14 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
                 containerConvidados.style.display = 'none';
             }
 
-            // === LÓGICA DE EXIBIÇÃO DE CONTEÚDO ===
+            // === LÓGICA DE EXIBIÇÃO ===
             
             // 1. SE TEM RESULTADO (Pirâmide ou Dupla com placar salvo)
             if (temResultado) {
                 const isHorizontal = window.innerWidth > window.innerHeight;
                 const nomesSociosFormatados = socios.map(apelido => {
                     const jogadorInfo = jogadoresData[apelido.trim()];
+                    // Se estiver deitado, usa nome completo. Se em pé, usa apelido.
                     const nomeParaUso = isHorizontal ? (jogadorInfo?.nomeCompleto || apelido) : apelido;
                     return capitalizarNome(nomeParaUso);
                 });
@@ -10143,7 +10066,6 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
                     funcaoAtualizarPlacarDetalhes = null;
                 }
 
-                // Lista de jogadores padrão
                 let jogadoresHtml = '<ul>';
                 socios.forEach(apelido => { 
                     let statusTexto = '';
@@ -10160,7 +10082,7 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
                 jogadoresHtml += '</ul>';
                 jogadoresDiv.innerHTML = jogadoresHtml;
 
-                // --- GERA O PLACAR ZERADO 0x0 PARA OCUPAR A TELA ---
+                // --- GERA O PLACAR ZERADO 0x0 PARA OCUPAR A TELA SE FOR SÚMULA ---
                 if (listaDeApelidos.length >= 2) {
                     resultadoContainer.style.display = 'block';
                     document.getElementById('modal-resultado-titulo').textContent = 'Placar (Aguardando):';
@@ -10212,7 +10134,6 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
         modal.style.display = 'flex';
     }
 }
-
 
 
 
@@ -11754,22 +11675,37 @@ async function salvarResultadoPiramide() {
  * Executa o salvamento no Firebase.
  * ATUALIZADA: Aceita flag para finalizar direto (Arbitragem).
  */
+/**
+ * Executa o salvamento no Firebase.
+ * ATUALIZADA: Lógica inteligente para o texto "Informado por".
+ */
 async function executarSalvamentoResultado(resultadoData, forcarFinalizacao = false) {
     if (!reservaResultadoEmEdicao) return;
 
     const jogadorLogadoCompleto = localStorage.getItem('jogadorLogado');
-    const jogadorLogadoApelido = Object.keys(jogadoresData).find(apelido => jogadoresData[apelido].nomeCompleto.toUpperCase() === jogadorLogadoCompleto.toUpperCase());
+    const jogadorLogadoApelido = Object.keys(jogadoresData).find(
+        apelido => jogadoresData[apelido].nomeCompleto.toUpperCase() === jogadorLogadoCompleto.toUpperCase()
+    ) || jogadorLogadoCompleto;
     
-    // --- ASSINATURA DA AUTORIA ---
-    let informante = jogadorLogadoApelido || jogadorLogadoCompleto;
-    
-    if (forcarFinalizacao) {
-        // Se foi via arbitragem, deixamos claro que foi um ato oficial
-        informante = `Árbitro: ${informante}`;
-    } else if (isUsuarioAdmin()) {
-        informante = "Administrador";
-    } else if (isUsuarioArbitro()) {
-        informante = "Árbitro Oficial";
+    // --- ASSINATURA DA AUTORIA INTELIGENTE (AJUSTE SOLICITADO) ---
+    const j1 = reservaResultadoEmEdicao.jogador1;
+    const j2 = reservaResultadoEmEdicao.jogador2;
+
+    // Verifica se quem está logado é um dos jogadores da partida
+    const ehJogadorDaPartida = (jogadorLogadoApelido.toUpperCase() === j1.toUpperCase() || 
+                                jogadorLogadoApelido.toUpperCase() === j2.toUpperCase());
+
+    let informante = jogadorLogadoApelido;
+
+    if (isUsuarioAdmin()) {
+        // Se for Admin: "Informado por Admin: Nome"
+        informante = `Admin: ${jogadorLogadoApelido}`;
+    } else if (ehJogadorDaPartida) {
+        // Se for Jogador: "Informado por: Nome" (Adicionei o ':' para ficar igual ao seu pedido)
+        informante = `: ${jogadorLogadoApelido}`;
+    } else {
+        // Se não é Admin nem Jogador, é Delegado/Árbitro: "Informado por Árbitro: Nome"
+        informante = `Árbitro: ${jogadorLogadoApelido}`;
     }
     
     resultadoData.informadoPor = informante;
@@ -11784,13 +11720,13 @@ async function executarSalvamentoResultado(resultadoData, forcarFinalizacao = fa
     let executarFinalizacaoDireta = false;
     let mensagemSucesso = '';
 
-    // A. Resolução de Disputa (Já existia)
+    // A. Resolução de Disputa
     if ((isUsuarioAdmin() || isUsuarioArbitro()) && reserva.status === 'resultado_recusado') {
         novoStatus = 'finalizada';
         executarFinalizacaoDireta = true;
         mensagemSucesso = "Disputa resolvida! Resultado finalizado.";
     } 
-    // B. MODO ARBITRAGEM (NOVO) -> Finaliza direto!
+    // B. MODO ARBITRAGEM -> Finaliza direto!
     else if (forcarFinalizacao) {
         novoStatus = 'finalizada';
         executarFinalizacaoDireta = true;
@@ -11802,7 +11738,6 @@ async function executarSalvamentoResultado(resultadoData, forcarFinalizacao = fa
         executarFinalizacaoDireta = false;
         mensagemSucesso = "Resultado salvo! Aguardando confirmação do oponente.";
     }
-    // -------------------------
 
     updates[`${path1}/status`] = novoStatus;
     updates[`${path1}/resultado`] = resultadoData;
@@ -11821,7 +11756,6 @@ async function executarSalvamentoResultado(resultadoData, forcarFinalizacao = fa
         }
     }
 
-    // Se for finalizar direto, já roda ranking e notificação AGORA
     if (executarFinalizacaoDireta) {
         const tempReserva = { ...reserva, resultado: resultadoData };
         const rankUpdates = processarTrocaDeRanking(tempReserva);
@@ -11837,7 +11771,7 @@ async function executarSalvamentoResultado(resultadoData, forcarFinalizacao = fa
 
     try {
         await database.ref().update(updates);
-		atualizarIndicadorAba(quadra, false); // Apaga luz vermelha "Ao Vivo"
+		atualizarIndicadorAba(quadra, false); 
         mostrarNotificacao(mensagemSucesso, 'success');
         fecharModalResultado();
     } catch (error) {
@@ -11845,6 +11779,7 @@ async function executarSalvamentoResultado(resultadoData, forcarFinalizacao = fa
         mostrarNotificacao("Ocorreu um erro ao salvar. Tente novamente.", 'error');
     }
 }
+
 
 
 /**
@@ -12159,11 +12094,15 @@ function gerarPlacarHtml(resultado, jogador1Apelido, jogador2Apelido) {
 	const motivoTexto = resultado.motivo || resultado.motivoWo || resultado.motivoDesistencia;
 	const motivoHtml = motivoTexto ? `<p class="motivo-resultado">Motivo: ${motivoTexto}</p>` : '';
 
-    // --- 6. Rodapé "Informado por" (NOVO) ---
+    // --- 6. Rodapé "Informado por" (ATUALIZADO COM QUEBRA INTELIGENTE) ---
     let footerHtml = '';
     if (resultado.informadoPor && resultado.dataInformado) {
         const dataInfo = new Date(resultado.dataInformado).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-        footerHtml = `<p style="text-align: center; font-size: 0.8em; color: #888; margin-top: 15px;">Informado por ${resultado.informadoPor} em ${dataInfo}.</p>`;
+        
+        // AQUI ESTÁ O TRUQUE: Insere a quebra após os dois pontos
+        const informadoPorFormatado = resultado.informadoPor.replace(':', ':<span class="break-mobile"></span>');
+        
+        footerHtml = `<p style="text-align: center; font-size: 0.8em; color: #888; margin-top: 15px;">Informado por ${informadoPorFormatado} em ${dataInfo}.</p>`;
     }
     // ----------------------------------------
 
@@ -16188,7 +16127,7 @@ function inverterSacador() {
 
 /**
  * Salva o estado atual do jogo no Firebase silenciosamente.
- * CORRIGIDA: Agora atualiza Ranking, Notificações e "Informado Por" no modo Arbitragem.
+ * ATUALIZADA: Mesma lógica de assinatura inteligente.
  */
 async function executarSalvamentoSilencioso() {
     if (!reservaResultadoEmEdicao) return;
@@ -16202,15 +16141,25 @@ async function executarSalvamentoSilencioso() {
     if (markerJ1 && markerJ1.innerHTML.trim() !== '') sacadorAtual = 'j1';
     else if (markerJ2 && markerJ2.innerHTML.trim() !== '') sacadorAtual = 'j2';
 
-    // --- 2. Identifica Quem está Informando (Assinatura) ---
+    // --- 2. Identifica Quem está Informando (Assinatura Inteligente) ---
     const jogadorLogadoCompleto = localStorage.getItem('jogadorLogado');
     const jogadorLogadoApelido = Object.keys(jogadoresData).find(
         apelido => jogadoresData[apelido].nomeCompleto.toUpperCase() === jogadorLogadoCompleto.toUpperCase()
     ) || jogadorLogadoCompleto;
 
+    // Lógica atualizada de assinatura
+    const ehJogadorDaPartida = (jogadorLogadoApelido.toUpperCase() === jogador1.toUpperCase() || 
+                                jogadorLogadoApelido.toUpperCase() === jogador2.toUpperCase());
+
     let informante = jogadorLogadoApelido;
-    if (isUsuarioAdmin()) informante = `Administrador (${jogadorLogadoApelido})`;
-    else if (isUsuarioArbitro()) informante = `Árbitro (${jogadorLogadoApelido})`;
+
+    if (isUsuarioAdmin()) {
+        informante = `Admin: ${jogadorLogadoApelido}`;
+    } else if (ehJogadorDaPartida) {
+        informante = `: ${jogadorLogadoApelido}`; // Jogador
+    } else {
+        informante = `Árbitro: ${jogadorLogadoApelido}`; // Delegado
+    }
 
     const dataAgora = new Date().toISOString();
 
@@ -16233,15 +16182,12 @@ async function executarSalvamentoSilencioso() {
     let perdedorFinal = '';
 
     if (nomeVencedor && nomeVencedor !== '') {
-        novoStatus = 'finalizada'; // O jogo acabou!
+        novoStatus = 'finalizada'; 
         vencedorFinal = nomeVencedor;
         
-        // Lógica para descobrir o perdedor
         const j1NomeTela = document.getElementById('apelido-j1').textContent;
-        // Verifica se o nome na tela (que pode ser Nome Completo) contém o Apelido do Jogador 1
         if (nomeVencedor === j1NomeTela || nomeVencedor === jogador1) {
              perdedorFinal = jogador2;
-             // Ajuste de segurança: garante que o vencedor gravado seja o apelido padrão do banco
              vencedorFinal = jogador1; 
         } else {
              vencedorFinal = jogador2;
@@ -16256,8 +16202,7 @@ async function executarSalvamentoSilencioso() {
         perdedor: perdedorFinal,
         sacador: sacadorAtual,
         isMatchPoint: verificarMatchPoint(),
-        // INSERE A ASSINATURA AQUI:
-        informadoPor: informante,
+        informadoPor: informante, // <-- Usa a nova variável formatada
         dataInformado: dataAgora,
         
         pontos: {
@@ -16289,22 +16234,12 @@ async function executarSalvamentoSilencioso() {
         updates[`sistemas/reservas/${quadra}/${key2}/resultado`] = resultadoData;
     }
 
-    // --- 7. A MÁGICA QUE FALTAVA: RANKING E NOTIFICAÇÃO ---
-    // Se o status mudou para finalizada, executa as ações de encerramento
     if (novoStatus === 'finalizada') {
         console.log("🏁 Jogo finalizado via Arbitragem. Processando ranking e notificações...");
-        
-        // Cria objeto temporário com o resultado novo para as funções auxiliares usarem
         const tempReserva = { ...reserva, resultado: resultadoData };
-        
-        // A. Calcula troca de ranking
         const rankUpdates = processarTrocaDeRanking(tempReserva);
-        
-        // B. Gera notificações
         const textoDecisao = "finalizado pelo Árbitro de Cadeira";
         const notificacaoUpdates = enviarNotificacaoResultadoFinalizado(tempReserva, textoDecisao);
-        
-        // C. Junta tudo no update principal
         Object.assign(updates, rankUpdates, notificacaoUpdates);
     }
 
@@ -16315,7 +16250,7 @@ async function executarSalvamentoSilencioso() {
              atualizarStatusSalvamento("Salvo ✅");
         } else {
              atualizarStatusSalvamento("Finalizado 🏆");
-             atualizarIndicadorAba(quadra, false); // Apaga a luz "Ao Vivo"
+             atualizarIndicadorAba(quadra, false);
         }
         
     } catch (error) {
@@ -16323,6 +16258,7 @@ async function executarSalvamentoSilencioso() {
         console.error("Erro no salvamento automático:", error);
     }
 }
+
 
 
 
