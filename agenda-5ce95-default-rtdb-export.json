@@ -851,7 +851,7 @@
           "apelido": "Nadal",
           "classe": "A",
           "niver": "01/01/2001",
-          "piramide": "92",
+          "piramide": "91",
           "socio": "titular"
         },
         "RAIANNE KAMIYA": {
@@ -914,7 +914,7 @@
           "apelido": "Federer",
           "classe": "A",
           "niver": "01/01/2001",
-          "piramide": "91",
+          "piramide": "92",
           "socio": "titular"
         },
         "RONALDO BITENCOURT": {
@@ -1264,68 +1264,6 @@
           "jogadores": "aula",
           "organizador": "Joao Dario"
         },
-        "1_6": {
-          "borda": "2h",
-          "dia": 1,
-          "duracao": 3,
-          "hora": 6,
-          "jogadores": "Nadal",
-          "organizador": "Nadal",
-          "resultado": {
-            "dataInformado": "2025-12-15T22:30:09.187Z",
-            "informadoPor": ": Nadal",
-            "isMatchPoint": false,
-            "perdedor": "",
-            "pontos": {
-              "isTieBreak": false,
-              "j1": "15",
-              "j2": "0"
-            },
-            "sacador": "j1",
-            "set1": {
-              "placar": "1x0",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "0x0",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": ""
-          },
-          "status": "em_andamento"
-        },
-        "1_7": {
-          "dia": 1,
-          "hora": 7,
-          "jogadores": "Federer",
-          "organizador": "Nadal",
-          "resultado": {
-            "dataInformado": "2025-12-15T22:30:09.187Z",
-            "informadoPor": ": Nadal",
-            "isMatchPoint": false,
-            "perdedor": "",
-            "pontos": {
-              "isTieBreak": false,
-              "j1": "15",
-              "j2": "0"
-            },
-            "sacador": "j1",
-            "set1": {
-              "placar": "1x0",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "0x0",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": ""
-          },
-          "status": "em_andamento"
-        },
         "2_14": {
           "borda": "1h",
           "dia": 2,
@@ -1381,6 +1319,68 @@
           "duracao": 1,
           "hora": 21,
           "jogadores": "aula"
+        },
+        "2_6": {
+          "borda": "2h",
+          "dia": 2,
+          "duracao": 3,
+          "hora": 6,
+          "jogadores": "Nadal",
+          "organizador": "Nadal",
+          "resultado": {
+            "dataInformado": "2025-12-16T22:37:26.819Z",
+            "informadoPor": ": Nadal",
+            "isMatchPoint": false,
+            "perdedor": "Federer",
+            "pontos": {
+              "isTieBreak": true,
+              "j1": "0",
+              "j2": "0"
+            },
+            "sacador": "j2",
+            "set1": {
+              "placar": "6x0",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "7x6",
+              "tiebreak": "7-0"
+            },
+            "set3": "",
+            "tipo": "Placar Normal",
+            "vencedor": "Nadal"
+          },
+          "status": "finalizada"
+        },
+        "2_7": {
+          "dia": 2,
+          "hora": 7,
+          "jogadores": "Federer",
+          "organizador": "Nadal",
+          "resultado": {
+            "dataInformado": "2025-12-16T22:37:26.819Z",
+            "informadoPor": ": Nadal",
+            "isMatchPoint": false,
+            "perdedor": "Federer",
+            "pontos": {
+              "isTieBreak": true,
+              "j1": "0",
+              "j2": "0"
+            },
+            "sacador": "j2",
+            "set1": {
+              "placar": "6x0",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "7x6",
+              "tiebreak": "7-0"
+            },
+            "set3": "",
+            "tipo": "Placar Normal",
+            "vencedor": "Nadal"
+          },
+          "status": "finalizada"
         },
         "3_10": {
           "borda": "1h",
@@ -1633,43 +1633,7 @@
           "duracao": 1,
           "hora": 9,
           "jogadores": "aula"
-        },
-        "7_8": {
-          "borda": "2h",
-          "confirmacoes": {
-            "Ana Francisca": true,
-            "Ana Julia": true
-          },
-          "dia": 7,
-          "duracao": 2,
-          "expiraEm": 1765689354180,
-          "hora": 8,
-          "jogadores": "Ana Julia",
-          "jogadores_completo": "Ana Julia, Ana Francisca",
-          "organizador": "Ana Julia",
-          "status": "confirmada"
-        },
-        "7_9": {
-          "confirmacoes": {
-            "Ana Francisca": true,
-            "Ana Julia": true
-          },
-          "dia": 7,
-          "duracao": 2,
-          "expiraEm": 1765689354180,
-          "hora": 9,
-          "jogadores": "Ana Francisca",
-          "jogadores_completo": "Ana Julia, Ana Francisca",
-          "organizador": "Ana Julia",
-          "status": "confirmada"
         }
-      }
-    },
-    "usuariosOnline": {
-      "xllafuafw": {
-        "sessionId": "xllafuafw",
-        "timestamp": 1765837781078,
-        "usuario": "RAFAL NADAL DE SOUZA"
       }
     },
     "version": "v1.8.9"
