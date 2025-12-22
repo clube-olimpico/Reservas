@@ -4437,6 +4437,251 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
 /* fim de Quebra de linha inteligente para o rodapé do placar */
 
 
+/* ================================================================= */
+/* === AJUSTE MODO TELA CHEIA (PC: PLACAR + DESISTÊNCIA GIGANTE) === */
+/* ================================================================= */
+
+/* ----------------------------------------------------------- */
+/* 1. CONFIGURAÇÕES PARA COMPUTADOR (PC) */
+/* ----------------------------------------------------------- */
+
+@media (min-width: 1024px) {
+    #btn-fullscreen-toggle {
+        display: none !important;
+    }
+
+    #modalResultadoPiramide:has(#chk-modo-arbitragem:checked) #btn-fullscreen-toggle,
+    #modalResultadoPiramide.modo-cheio #btn-fullscreen-toggle {
+        display: flex !important;
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        
+        background-color: transparent; 
+        box-shadow: none;              
+        border: none;                  
+        padding: 5px;
+        z-index: 2000;
+        cursor: pointer;
+        margin-top: -3px;
+        color: #333; 
+        width: 40px;
+        height: 40px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #modalResultadoPiramide:has(#chk-modo-arbitragem:checked) #btn-fullscreen-toggle:hover,
+    #modalResultadoPiramide.modo-cheio #btn-fullscreen-toggle:hover {
+        background-color: #f5f5f5; 
+        transform: translateY(-50%) scale(1.1);
+    }
+}
+
+/* ----------------------------------------------------------- */
+/* 2. LAYOUT QUANDO MAXIMIZADO (Somente com a classe .modo-cheio) */
+/* ----------------------------------------------------------- */
+@media (min-width: 1024px) {
+    
+    /* Janela ocupa a tela toda */
+    #modalResultadoPiramide.modo-cheio .modern-modal {
+        width: 98vw !important;
+        height: 95vh !important;
+        max-width: none !important;
+        max-height: none !important;
+        top: 2.5vh !important;
+        left: 1vw !important;
+        position: fixed !important;
+        margin: 0 !important;
+        
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+    /* Cabeçalho */
+    #modalResultadoPiramide.modo-cheio .modern-modal-header h3 {
+        font-size: 2.5rem !important;
+        margin-bottom: 20px !important;
+        margin-top: 30px !important; 
+    }
+
+    /* Placar Gigante */
+    #modalResultadoPiramide.modo-cheio #placar-fields-container {
+        transform: scale(1.5); 
+        width: 60% !important; 
+        margin: 0 auto !important;
+        transform-origin: center center;
+    }
+
+    /* Nomes dos Jogadores */
+    #modalResultadoPiramide.modo-cheio .sb-name {
+        font-size: clamp(1.2rem, 2vw, 2.5rem) !important; 
+        font-weight: 400 !important;
+        line-height: 1.3 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+    
+    #modalResultadoPiramide.modo-cheio .sb-name b {
+        font-weight: 900 !important; 
+        color: #000; 
+    }
+
+    /* Espaçamento Sets */
+    #modalResultadoPiramide.modo-cheio .sb-col-set {
+        font-size: 1.5rem !important;
+        text-align: center !important;
+        width: clamp(70px, 6vw, 100px) !important; 
+        margin: 0 10px !important;
+    }
+
+    #modalResultadoPiramide.modo-cheio .set-input-wrapper,
+    #modalResultadoPiramide.modo-cheio input.super-tb { 
+        margin: 0 10px !important; 
+    }
+
+    /* Vencedor */
+    #modalResultadoPiramide.modo-cheio .winner-display {
+        padding: 20px !important;
+        margin-top: 30px !important;
+        border-width: 3px !important;
+    }
+    #modalResultadoPiramide.modo-cheio .winner-label {
+        font-size: clamp(0.9rem, 1.2vw, 1.5rem) !important;
+        margin-bottom: 10px !important;
+    }
+    #modalResultadoPiramide.modo-cheio .winner-name {
+        font-size: clamp(1.8rem, 3.5vw, 4rem) !important;
+        line-height: 1.2 !important;
+    }
+
+    /* Botões */
+    #modalResultadoPiramide.modo-cheio .modern-actions {
+        transform: scale(1.2);
+        width: 80% !important;
+        margin: 40px auto 20px auto !important;
+    }
+
+    /* ----------------------------------------------------------------- */
+    /* 4. AJUSTE PARA DESISTÊNCIA E W.O. (Centralizado + Texto Esquerda) */
+    /* ----------------------------------------------------------------- */
+    
+    /* Container (Aplica a ambos) */
+    #modalResultadoPiramide.modo-cheio #desistencia-controls,
+    #modalResultadoPiramide.modo-cheio #wo-controls {
+        width: 80% !important;
+        margin: auto !important; /* Centraliza verticalmente */
+        padding-top: 120px !important; /* Afasta do topo */
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-grow: 1; 
+    }
+
+    /* Títulos das perguntas */
+    #modalResultadoPiramide.modo-cheio #desistencia-controls label,
+    #modalResultadoPiramide.modo-cheio #wo-controls label {
+        font-size: clamp(1.5rem, 3vw, 3rem) !important; 
+        margin-bottom: 15px !important;
+        font-weight: bold !important;
+        
+        text-align: left !important; /* Texto alinhado à esquerda */
+        display: block !important;
+        width: 100% !important;
+    }
+
+    /* Caixas de seleção (Inputs) */
+    #modalResultadoPiramide.modo-cheio #desistencia-controls .modern-select,
+    #modalResultadoPiramide.modo-cheio #wo-controls .modern-select {
+        height: clamp(70px, 12vh, 120px) !important; 
+        font-size: clamp(1.5rem, 2.5vw, 3rem) !important; 
+        padding: 0 20px !important;
+        border-width: 3px !important;
+        border-radius: 15px !important;
+    }
+    
+    /* Espaço entre os campos */
+    #modalResultadoPiramide.modo-cheio #desistencia-controls .modern-form-group,
+    #modalResultadoPiramide.modo-cheio #wo-controls .modern-form-group {
+        margin-bottom: 60px !important;
+        width: 100%;
+        text-align: left !important;
+    }
+}
+
+/* ----------------------------------------------------------- */
+/* 5. CORREÇÃO PARA CELULAR DEITADO (ESPAÇAMENTO) */
+/* ----------------------------------------------------------- */
+@media (orientation: landscape) and (max-height: 600px) {
+    #modalResultadoPiramide .set-input-wrapper,
+    #modalResultadoPiramide input.super-tb {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+    }
+    #modalResultadoPiramide .sb-header .sb-col-set {
+        margin-left: 10px !important;
+        margin-right: 0px !important;
+        width: 45px !important; 
+    }
+    #placar-fields-container {
+        width: 98% !important;
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+    }
+}
+
+/* ================================================================= */
+/* === FIM DE AJUSTE PC e CELULAR: MODO TELA CHEIA (BOTÃO + ZOOM) === */
+/* ================================================================= */ 
+
+
+/* ================================================================= */
+/* === ESTILO PARA INPUTS READONLY (MODO ARBITRAGEM BLINDADO) === */
+/* ================================================================= */
+
+/* Transforma o input em um "Display" puro (sem clique, sem foco) */
+.sb-input[readonly] {
+    background-color: #fff !important; 
+    color: #333 !important;            
+    
+    /* BLOQUEIO TOTAL DE INTERAÇÃO */
+    pointer-events: none !important;   /* O segredo: impede qualquer clique ou toque */
+    user-select: none !important;      /* Impede selecionar o texto */
+    
+    /* Visual Limpo */
+    cursor: default !important;        
+    outline: none !important;          /* Remove borda azul de foco */
+    box-shadow: none !important;       /* Remove sombras de foco */
+}
+
+/* Ajuste para Modo Escuro */
+body.dark-mode .sb-input[readonly] {
+    background-color: #2c3e50 !important;
+    color: #fff !important;
+}
+
+/* Mantém o destaque do Super Tie-break (3º set) mesmo bloqueado */
+.sb-input.super-tb[readonly]:not(:disabled) {
+    background-color: #fffbf2 !important;
+    color: #d35400 !important;
+}
+body.dark-mode .sb-input.super-tb[readonly]:not(:disabled) {
+    background-color: #4e342e !important;
+    color: #f39c12 !important;
+}
+/* ================================================================= */
+/* === FIM DE ESTILO PARA INPUTS READONLY (MODO ARBITRAGEM BLINDADO) === */
+/* ================================================================= */
+
+
+
 </style>
 
 
@@ -4621,7 +4866,7 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
                 <div class="sb-server-marker" id="server-marker-j1"></div>  
                 
                 <div class="set-input-wrapper">
-                    <input type="tel" class="sb-input" id="set1-j1" placeholder="" 
+                    <input type="tel" class="sb-input" id="set1-j1" placeholder="" readonly
                            oninput="calcularVencedorPiramide()" 
                            onclick="carregarTieBreakParaEdicao(1)"
                            onfocus="focarInputArbitragem(this)" 
@@ -4630,7 +4875,7 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
                 </div>
 
                 <div class="set-input-wrapper sb-hidden" id="wrapper-set2-j1">
-                    <input type="tel" class="sb-input" id="set2-j1" placeholder="" disabled 
+                    <input type="tel" class="sb-input" id="set2-j1" placeholder="" disabled readonly
                            oninput="calcularVencedorPiramide()" 
                            onclick="carregarTieBreakParaEdicao(2)"
                            onfocus="focarInputArbitragem(this)" 
@@ -4638,7 +4883,7 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
                     <span id="view-tb2-j1" class="sb-tb-display"></span>
                 </div>
 
-                <input type="tel" class="sb-input super-tb sb-hidden" id="set3-j1" placeholder="" disabled 
+                <input type="tel" class="sb-input super-tb sb-hidden" id="set3-j1" placeholder="" disabled readonly
                        oninput="calcularVencedorPiramide()"
                        onfocus="focarInputArbitragem(this)" 
                        onblur="desfocarInputArbitragem(this)">
@@ -4655,7 +4900,7 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
                 <div class="sb-server-marker" id="server-marker-j2"></div>
                 
                 <div class="set-input-wrapper">
-                    <input type="tel" class="sb-input" id="set1-j2" placeholder="" 
+                    <input type="tel" class="sb-input" id="set1-j2" placeholder="" readonly
                            oninput="calcularVencedorPiramide()" 
                            onclick="carregarTieBreakParaEdicao(1)"
                            onfocus="focarInputArbitragem(this)" 
@@ -4664,7 +4909,7 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
                 </div>
 
                 <div class="set-input-wrapper sb-hidden" id="wrapper-set2-j2">
-                    <input type="tel" class="sb-input" id="set2-j2" placeholder="" disabled 
+                    <input type="tel" class="sb-input" id="set2-j2" placeholder="" disabled readonly
                            oninput="calcularVencedorPiramide()" 
                            onclick="carregarTieBreakParaEdicao(2)"
                            onfocus="focarInputArbitragem(this)" 
@@ -4672,7 +4917,7 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
                     <span id="view-tb2-j2" class="sb-tb-display"></span>
                 </div>
 
-                <input type="tel" class="sb-input super-tb sb-hidden" id="set3-j2" placeholder="" disabled 
+                <input type="tel" class="sb-input super-tb sb-hidden" id="set3-j2" placeholder="" disabled readonly
                        oninput="calcularVencedorPiramide()"
                        onfocus="focarInputArbitragem(this)" 
                        onblur="desfocarInputArbitragem(this)">
@@ -5568,8 +5813,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v1.8.9'; // Versão atual do sistema    
-const DataVersaoSistema = '13/12/2025';   
+const VersaoSistema = 'v1.9.0'; // Versão atual do sistema     
+const DataVersaoSistema = '22/12/2025';   
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -11286,7 +11531,7 @@ if (btnVoltarJogo) {
 // BLOCO DE LÓGICA PARA O MENU DE 3 OPÇÕES E CONTROLE DOS CAMPOS
 // ==============================================================================
 
-// Event listener para o botão de mais opções (⋮) - LÓGICA FINAL COM RESTRIÇÃO DE JOGO ACABADO
+// Event listener para o botão de mais opções (⋮) - CORRIGIDO
 document.getElementById('btn-mais-opcoes').addEventListener('click', function(e) {
     e.preventDefault();
     
@@ -11313,9 +11558,13 @@ document.getElementById('btn-mais-opcoes').addEventListener('click', function(e)
         if (itemNoAd) itemNoAd.style.display = 'none';
         
     } else {
-        // REGRA 1: Jogo Normal
-        if (itemArbitragem) itemArbitragem.style.display = 'flex';
-        if (itemNoAd) itemNoAd.style.display = 'flex';
+        // REGRA 1: Jogo Normal (Placar)
+        
+        // --- CORREÇÃO AQUI: NÃO FORÇA MAIS O DISPLAY FLEX ---
+        // A visibilidade de itemArbitragem e itemNoAd agora é controlada
+        // dinamicamente pela função 'calcularVencedorPiramide'
+        // baseada se o jogo está concluído ou não.
+        // ----------------------------------------------------
 
         // Verifica status do jogo
         const jogoComecou = typeof hasPlacarParcial === 'function' && hasPlacarParcial();
@@ -11330,7 +11579,6 @@ document.getElementById('btn-mais-opcoes').addEventListener('click', function(e)
             if (!jogoFinalizado && itemDesistencia) {
                 itemDesistencia.style.display = 'block';
             }
-            // Se o jogo já acabou (ex: 6x0, 6x0), não mostra nem WO nem Desistência.
         } else {
             // Jogo não começou (0x0): Mostra W.O.
             if (itemWo) itemWo.style.display = 'block';
@@ -12831,7 +13079,7 @@ function fecharModalResultadoDuplas() {
 function determinarVencedorSet(score1, score2, tb1, tb2) {
     if (isNaN(score1) || isNaN(score2)) return null;
 
-    // Regra de vitória padrão (ex: 6-4, 6-3, etc.)
+    // Regra de vitória padrão (ex: 6-4, 6-3, 6-0 etc.)
     if ((score1 === 6 && score2 <= 4) || (score2 === 6 && score1 <= 4)) {
         return score1 > score2 ? 'j1' : 'j2';
     }
@@ -12840,8 +13088,10 @@ function determinarVencedorSet(score1, score2, tb1, tb2) {
         return score1 > score2 ? 'j1' : 'j2';
     }
 
-    // Lógica de TIE-BREAK (Placar de games 7-6 ou 6-7)
-    if ((score1 === 7 && score2 === 6) || (score1 === 6 && score2 === 7)) {
+    // Lógica de TIE-BREAK (Placar de games 6-6, 7-6 ou 6-7)
+    // CORREÇÃO: Agora aceita 6x6 como estado válido para analisar o Tie-break
+    if ((score1 === 6 && score2 === 6) || (score1 === 7 && score2 === 6) || (score1 === 6 && score2 === 7)) {
+        
         if (isNaN(tb1) || isNaN(tb2)) return null;
 
         const vencedorTB = Math.max(tb1, tb2);
@@ -12852,25 +13102,32 @@ function determinarVencedorSet(score1, score2, tb1, tb2) {
         if (vencedorTB === 7 && perdedorTB <= 5) {
             tiebreakValido = true;
         }
-        // CASO 2: Vitória na "Prorrogação" (vencedor faz mais de 7)
-        else if (vencedorTB > 7 && (vencedorTB - perdedorTB === 2)) {
+        // CASO 2: Vitória na "Prorrogação" (vencedor faz mais de 7 com diferença de 2)
+        else if (vencedorTB > 7 && (vencedorTB - perdedorTB >= 2)) {
             tiebreakValido = true;
         }
 
-        // Se o placar do tie-break for válido, verifica a consistência
+        // Se o placar do tie-break for válido, verifica quem venceu
         if (tiebreakValido) {
-            const setWinnerIsJ1 = score1 > score2;
             const tiebreakWinnerIsJ1 = tb1 > tb2;
-            // O vencedor do game e do tie-break devem ser a mesma pessoa
+
+            // CENÁRIO A: Placar 6x6 -> Quem ganhou o TB, ganhou o Set
+            if (score1 === 6 && score2 === 6) {
+                return tiebreakWinnerIsJ1 ? 'j1' : 'j2';
+            }
+
+            // CENÁRIO B: Placar 7x6 ou 6x7 -> Verifica consistência (Quem tem 7 games tem que ter ganhado o TB)
+            const setWinnerIsJ1 = score1 > score2;
             if (setWinnerIsJ1 === tiebreakWinnerIsJ1) {
-                return score1 === 7 ? 'j1' : 'j2';
+                return score1 > score2 ? 'j1' : 'j2';
             }
         }
     }
 
-    // Se nenhuma regra for atendida, o placar do set é inválido
+    // Se nenhuma regra for atendida, o placar do set é inválido ou incompleto
     return null;
 }
+
 
 
 /**
@@ -14973,9 +15230,10 @@ function isSetFinalizado(val1, val2) {
 }
 
 
+
+
 /**
- * Analisa os placares, aplica negrito no vencedor (nomes e inputs),
- * libera sets futuros e define o estado do botão de ação.
+ * Analisa os placares, aplica negrito, auto-corrige 6x6 e controla a visibilidade do Botão de Opções.
  */
 function calcularVencedorPiramide() {
     // 0. DETECÇÃO DE MODO E HELPERS
@@ -14993,10 +15251,10 @@ function calcularVencedorPiramide() {
     };
     
     // 1. LEITURA DOS VALORES
-    const s1j1 = getVal(`${p}${tipoInput}1-j1`); 
-    const s1j2 = getVal(`${p}${tipoInput}1-j2`);
-    const s2j1 = getVal(`${p}${tipoInput}2-j1`); 
-    const s2j2 = getVal(`${p}${tipoInput}2-j2`);
+    let s1j1 = getVal(`${p}${tipoInput}1-j1`); 
+    let s1j2 = getVal(`${p}${tipoInput}1-j2`);
+    let s2j1 = getVal(`${p}${tipoInput}2-j1`); 
+    let s2j2 = getVal(`${p}${tipoInput}2-j2`);
     const s3j1 = getVal(`${p}${tipoInput}3-j1`); 
     const s3j2 = getVal(`${p}${tipoInput}3-j2`);
     
@@ -15005,7 +15263,48 @@ function calcularVencedorPiramide() {
     const tb2j1 = getVal(`${p}tb2-j1`); 
     const tb2j2 = getVal(`${p}tb2-j2`);
 
-    // 2. ATUALIZAÇÃO VISUAL DOS BADGES DE TIE-BREAK
+    // =========================================================================
+    // === AUTO-CORREÇÃO INTELIGENTE (Monitora quem ganhou o TB) ===
+    // =========================================================================
+    const aplicarCorrecaoSet = (s1, s2, t1, t2, idInput1, idInput2) => {
+        const isTieBreakScenario = (s1 === 6 && s2 === 6) || (s1 === 7 && s2 === 6) || (s1 === 6 && s2 === 7);
+
+        if (isTieBreakScenario) {
+            const max = Math.max(t1, t2);
+            const min = Math.min(t1, t2);
+            const diff = max - min;
+            const tbFinished = (max === 7 && diff >= 2) || (max > 7 && diff >= 2);
+
+            if (tbFinished) {
+                if (t1 > t2) {
+                    document.getElementById(idInput1).value = 7;
+                    document.getElementById(idInput2).value = 6;
+                    return { novoS1: 7, novoS2: 6 };
+                } else {
+                    document.getElementById(idInput1).value = 6;
+                    document.getElementById(idInput2).value = 7;
+                    return { novoS1: 6, novoS2: 7 };
+                }
+            } else {
+                if (s1 !== 6 || s2 !== 6) {
+                    document.getElementById(idInput1).value = 6;
+                    document.getElementById(idInput2).value = 6;
+                    return { novoS1: 6, novoS2: 6 };
+                }
+            }
+        }
+        return null; 
+    };
+
+    const corr1 = aplicarCorrecaoSet(s1j1, s1j2, tb1j1, tb1j2, `${p}${tipoInput}1-j1`, `${p}${tipoInput}1-j2`);
+    if (corr1) { s1j1 = corr1.novoS1; s1j2 = corr1.novoS2; }
+
+    const corr2 = aplicarCorrecaoSet(s2j1, s2j2, tb2j1, tb2j2, `${p}${tipoInput}2-j1`, `${p}${tipoInput}2-j2`);
+    if (corr2) { s2j1 = corr2.novoS1; s2j2 = corr2.novoS2; }
+    // =========================================================================
+
+
+    // 2. ATUALIZAÇÃO VISUAL DOS BADGES
     const isTb1 = (s1j1 === 6 && s1j2 === 6) || (s1j1 === 7 && s1j2 === 6) || (s1j2 === 7 && s1j1 === 6);
     const isTb2 = (s2j1 === 6 && s2j2 === 6) || (s2j1 === 7 && s2j2 === 6) || (s2j2 === 7 && s2j1 === 6);
 
@@ -15014,12 +15313,19 @@ function calcularVencedorPiramide() {
         const v2 = isModoSumula ? tb1j2 : document.getElementById('tb1-j2').value;
         if(document.getElementById('view-tb1-j1')) document.getElementById('view-tb1-j1').textContent = v1;
         if(document.getElementById('view-tb1-j2')) document.getElementById('view-tb1-j2').textContent = v2;
+    } else {
+        if(document.getElementById('view-tb1-j1')) document.getElementById('view-tb1-j1').textContent = '';
+        if(document.getElementById('view-tb1-j2')) document.getElementById('view-tb1-j2').textContent = '';
     }
+
     if (isTb2) {
         const v1 = isModoSumula ? tb2j1 : document.getElementById('tb2-j1').value;
         const v2 = isModoSumula ? tb2j2 : document.getElementById('tb2-j2').value;
         if(document.getElementById('view-tb2-j1')) document.getElementById('view-tb2-j1').textContent = v1;
         if(document.getElementById('view-tb2-j2')) document.getElementById('view-tb2-j2').textContent = v2;
+    } else {
+        if(document.getElementById('view-tb2-j1')) document.getElementById('view-tb2-j1').textContent = '';
+        if(document.getElementById('view-tb2-j2')) document.getElementById('view-tb2-j2').textContent = '';
     }
 
     // 3. LÓGICA DE VENCEDOR
@@ -15063,9 +15369,7 @@ function calcularVencedorPiramide() {
                 if(elSet3J1) { elSet3J1.disabled = false; elSet3J1.classList.remove('sb-hidden'); }
                 if(elSet3J2) { elSet3J2.disabled = false; elSet3J2.classList.remove('sb-hidden'); }
                 if(document.getElementById('header-set3')) document.getElementById('header-set3').classList.remove('sb-hidden');
-                
                 isTieBreakAtivo = true; 
-
                 if ((s3j1 >= 10 && (s3j1 - s3j2) >= 2) || (s3j2 >= 10 && (s3j2 - s3j1) >= 2)) {
                     jogoConcluido = true;
                     vencedorFinal = (s3j1 > s3j2) ? 'j1' : 'j2';
@@ -15087,7 +15391,6 @@ function calcularVencedorPiramide() {
         if(document.getElementById('header-set3')) document.getElementById('header-set3').classList.add('sb-hidden');
     }
 
-    // APLICAÇÃO DE ESTILOS (NEGRITO)
     const aplicarEstiloVencedor = (setNum, vencedor) => {
         const idsJ1 = [`set${setNum}-j1`, `simple-s${setNum}-j1`, `tb${setNum}-j1`, `simple-tb${setNum}-j1`, `view-tb${setNum}-j1`];
         const idsJ2 = [`set${setNum}-j2`, `simple-s${setNum}-j2`, `tb${setNum}-j2`, `simple-tb${setNum}-j2`, `view-tb${setNum}-j2`];
@@ -15129,13 +15432,29 @@ function calcularVencedorPiramide() {
     const elResultadoVencedor = document.getElementById('resultado-vencedor');
     if(elResultadoVencedor) elResultadoVencedor.textContent = nomeVencedorFinal || '';
     
-    // --- CORREÇÃO: Removemos o "|| placarZerado" ---
-    // Agora o botão só habilita se o jogo estiver REALMENTE concluído
     atualizarBotaoSalvarResultado(jogoConcluido);
+
+    // =========================================================================
+    // === 4. CONTROLE DO BOTÃO DE OPÇÕES (⋮) ===
+    // Se o jogo acabou (tem vencedor), esconde o botão de opções.
+    // Se o usuário editar (apagar o vencedor), o botão reaparece.
+    // =========================================================================
+    const btnMaisOpcoes = document.getElementById('btn-mais-opcoes');
+    if (btnMaisOpcoes) {
+        if (nomeVencedorFinal) {
+            btnMaisOpcoes.style.display = 'none';
+            // Garante que o menu feche se estiver aberto
+            const menu = document.getElementById('menu-opcoes-resultado');
+            if (menu) menu.classList.remove('visivel');
+        } else {
+            // Remove o display inline (none) para que o CSS (flex/block) assuma
+            btnMaisOpcoes.style.display = '';
+        }
+    }
+    // =========================================================================
 
     return nomeVencedorFinal;
 }
-
 
 
 
@@ -15661,24 +15980,16 @@ function toggleSacador(jogador, ignorarSave = false) {
 
 /**
  * Monitora a digitação na Súmula. Se detectar 6-6, 7-6 ou 6-7, mostra os campinhos de TB.
- */
-/**
- * Monitora a digitação na Súmula. Se detectar 6-6, 7-6 ou 6-7, mostra os campinhos de TB.
- */
-/**
- * Monitora a digitação na Súmula. Se detectar 6-6, 7-6 ou 6-7, mostra os campinhos de TB.
+ * CORREÇÃO: Se o usuário editar manualmente para 6x6, zera qualquer tie-break "vencedor" antigo.
  */
 function verificarTieBreakManual(setNum) {
-    // Proteção: Se for o 3º Set, não faz nada (pois não existe tie-break dentro de tie-break)
     if (setNum === 3) return;
 
     const tbInput1 = document.getElementById(`simple-tb${setNum}-j1`);
     const tbInput2 = document.getElementById(`simple-tb${setNum}-j2`);
 
-    // Proteção Extra: Se por algum motivo os campos não existirem no HTML, para aqui.
     if (!tbInput1 || !tbInput2) return;
 
-    // Pega valores J1 e J2 do set específico
     const v1 = parseInt(document.getElementById(`simple-s${setNum}-j1`).value) || 0;
     const v2 = parseInt(document.getElementById(`simple-s${setNum}-j2`).value) || 0;
 
@@ -15688,10 +15999,30 @@ function verificarTieBreakManual(setNum) {
     if (isTB) {
         tbInput1.style.display = 'block';
         tbInput2.style.display = 'block';
+
+        // === CORREÇÃO AQUI ===
+        // Se o usuário digitou 6x6, mas os campos de tie-break ainda mostram um vencedor (ex: 7-1),
+        // significa que ele está editando um set que já tinha acabado. Devemos zerar o tie-break.
+        if (v1 === 6 && v2 === 6) {
+            const t1 = parseInt(tbInput1.value) || 0;
+            const t2 = parseInt(tbInput2.value) || 0;
+            const max = Math.max(t1, t2);
+            const min = Math.min(t1, t2);
+
+            // Se o tie-break antigo define um vencedor (7-5, 7-0, etc), zera tudo.
+            if ((max === 7 && min <= 5) || (max > 7 && (max - min) >= 2)) {
+                tbInput1.value = '0';
+                tbInput2.value = '0';
+                // Também limpa os campos ocultos da arbitragem para garantir sincronia
+                const arbTB1 = document.getElementById(`tb${setNum}-j1`);
+                const arbTB2 = document.getElementById(`tb${setNum}-j2`);
+                if(arbTB1) arbTB1.value = '0';
+                if(arbTB2) arbTB2.value = '0';
+            }
+        }
     } else {
         tbInput1.style.display = 'none';
         tbInput2.style.display = 'none';
-        // Reset para '0' ao esconder
         tbInput1.value = '0'; 
         tbInput2.value = '0';
     }
@@ -15700,11 +16031,38 @@ function verificarTieBreakManual(setNum) {
 
 
 
-// Listener do Checkbox "Modo Arbitragem"
+// Listener do Checkbox "Modo Arbitragem" (COM CORREÇÃO DE SAÍDA DE TELA CHEIA)
 document.addEventListener('DOMContentLoaded', function() {
     const chkArbitragem = document.getElementById('chk-modo-arbitragem');
+    
     if (chkArbitragem) {
         chkArbitragem.addEventListener('change', function() {
+            
+            // --- CORREÇÃO: SE DESLIGAR A ARBITRAGEM, SAI DA TELA CHEIA AUTOMATICAMENTE ---
+            if (!this.checked) {
+                const modal = document.getElementById('modalResultadoPiramide');
+                
+                // Verifica se a tela cheia está ativa (seja pela classe CSS ou API do navegador)
+                if (modal.classList.contains('modo-cheio') || document.fullscreenElement) {
+                    
+                    // 1. Remove a classe visual que estica a janela
+                    modal.classList.remove('modo-cheio');
+                    
+                    // 2. Sai do modo tela cheia do navegador (se estiver ativo)
+                    if (document.fullscreenElement) {
+                        sairDaTelaCheia(); // Chama a função que já existe no seu código
+                    }
+                    
+                    // 3. Reseta o ícone do botão para "Maximizar" visualmente
+                    const btn = document.getElementById('btn-fullscreen-toggle');
+                    if(btn) {
+                        btn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="15" y1="3" x2="21" y2="3"></line><line x1="21" y1="3" x2="21" y2="9"></line><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="9" y2="21"></line><line x1="3" y1="21" x2="3" y2="15"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>`;
+                    }
+                }
+            }
+            // -----------------------------------------------------------------------------
+
+            // Continua com a troca normal de telas (Arbitragem <-> Súmula)
             alternarModo(this.checked);
         });
     }
@@ -15780,7 +16138,7 @@ function alternarModo(ativarArbitragem) {
 
 
 
-// Copia: Súmula -> Arbitragem e CARREGA O ESTADO DOS PONTOS (Correção Tie-Break)
+// Copia: Súmula -> Arbitragem e CARREGA O ESTADO DOS PONTOS (Correção Tie-Break Finalizado)
 function sincronizarParaArbitragem() {
     // 1. Copia visual dos Sets
     ['1', '2', '3'].forEach(n => {
@@ -15795,13 +16153,13 @@ function sincronizarParaArbitragem() {
     });
 
     // =================================================================
-    // === CORREÇÃO: CARREGAR PONTOS PARA OS BOTÕES (+/-) ===
+    // === LÓGICA DE PRIORIDADE: QUAL SET ESTÁ ATIVO? ===
     // =================================================================
     
-    // Reseta o estado para garantir limpeza
+    // Reseta o estado
     estadoPontos = { j1: 0, j2: 0, tiebreakMode: false };
 
-    // Lê os games atuais para saber onde estamos
+    // Lê os games atuais
     const s1_1 = parseInt(document.getElementById('set1-j1').value) || 0;
     const s1_2 = parseInt(document.getElementById('set1-j2').value) || 0;
     const s2_1 = parseInt(document.getElementById('set2-j1').value) || 0;
@@ -15809,31 +16167,57 @@ function sincronizarParaArbitragem() {
     const s3_1 = document.getElementById('set3-j1').value;
     const s3_2 = document.getElementById('set3-j2').value;
 
-    // Lógica de Prioridade:
-    
-    // CASO 1: Tie-Break do 1º Set (6-6 ou 7-6 em edição)
-    if ((s1_1 === 6 && s1_2 === 6) || (s1_1 === 7 && s1_2 === 6) || (s1_1 === 6 && s1_2 === 7)) {
-        estadoPontos.j1 = parseInt(document.getElementById('tb1-j1').value) || 0;
-        estadoPontos.j2 = parseInt(document.getElementById('tb1-j2').value) || 0;
+    // Lê os pontos de tie-break
+    const tb1_1 = parseInt(document.getElementById('tb1-j1').value) || 0;
+    const tb1_2 = parseInt(document.getElementById('tb1-j2').value) || 0;
+    const tb2_1 = parseInt(document.getElementById('tb2-j1').value) || 0;
+    const tb2_2 = parseInt(document.getElementById('tb2-j2').value) || 0;
+
+    // --- HELPER: Verifica se o tie-break já tem um vencedor ---
+    const tbTemVencedor = (t1, t2) => {
+        const max = Math.max(t1, t2);
+        const min = Math.min(t1, t2);
+        // Venceu se: (7 a <=5) OU (Maior que 7 com diferença >= 2)
+        return (max === 7 && min <= 5) || (max > 7 && (max - min) >= 2);
+    };
+
+    // --- CENÁRIOS DE TIE-BREAK ---
+
+    // SET 1: É tie-break (6-6 ou 7-6/6-7)?
+    const isTb1Scenario = (s1_1 === 6 && s1_2 === 6) || (s1_1 === 7 && s1_2 === 6) || (s1_1 === 6 && s1_2 === 7);
+    // O TB do Set 1 está finalizado?
+    const isTb1Finalizado = isTb1Scenario && tbTemVencedor(tb1_1, tb1_2);
+
+    // SET 2: É tie-break?
+    const isTb2Scenario = (s2_1 === 6 && s2_2 === 6) || (s2_1 === 7 && s2_2 === 6) || (s2_1 === 6 && s2_2 === 7);
+
+    // --- DECISÃO DO QUE CARREGAR ---
+
+    // 1. Se Set 1 é TB e NÃO acabou (está 6x6 ou 6x5 no TB), carrega Set 1.
+    if (isTb1Scenario && !isTb1Finalizado) {
+        estadoPontos.j1 = tb1_1;
+        estadoPontos.j2 = tb1_2;
         estadoPontos.tiebreakMode = true;
     }
-    // CASO 2: Tie-Break do 2º Set (6-6 ou 7-6 em edição)
-    else if ((s2_1 === 6 && s2_2 === 6) || (s2_1 === 7 && s2_2 === 6) || (s2_1 === 6 && s2_2 === 7)) {
-        estadoPontos.j1 = parseInt(document.getElementById('tb2-j1').value) || 0;
-        estadoPontos.j2 = parseInt(document.getElementById('tb2-j2').value) || 0;
-        estadoPontos.tiebreakMode = true;
+    // 2. Se Set 2 é TB (e Set 1 já passou), carrega Set 2.
+    else if (isTb2Scenario) {
+        estadoPontos.j1 = tb2_1;
+        estadoPontos.j2 = tb2_2;
+        estadoPontos.tiebreakMode = true; 
     }
-    // CASO 3: Super Tie-Break (3º Set)
-    // Se o Set 3 tem valores e os sets anteriores indicam empate (ou edição direta)
+    // 3. Se Set 3 existe, carrega Set 3.
     else if (s3_1 !== '' || s3_2 !== '') {
         estadoPontos.j1 = parseInt(s3_1) || 0;
         estadoPontos.j2 = parseInt(s3_2) || 0;
         estadoPontos.tiebreakMode = true;
     }
+    // 4. Se não é nenhum TB, mantém 0x0 (Game Normal) ou carrega pontos do game se salvos (não implementado aqui para game normal, assume 0)
     
-    // Atualiza visualmente os números grandes ao lado dos botões + e -
+    // Atualiza visualmente os botões
     atualizarDisplayPontos();
 }
+
+
 
 // Copia: Arbitragem -> Súmula
 function sincronizarParaSumula() {
