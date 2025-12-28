@@ -1147,6 +1147,35 @@
         "ativa": true
       },
       "Horarios": {
+        "Aulas": {
+          "Quadra1": {
+            "Ativo": true,
+            "Grade": {
+              "1_6": true,
+              "1_7": true
+            },
+            "Professor": "Rildo Santos"
+          },
+          "Quadra2": {
+            "Ativo": false,
+            "Grade": {
+              "3_6": true
+            },
+            "Professor": "Ronaldo Taborda"
+          },
+          "Quadra3": {
+            "Ativo": false,
+            "Grade": {
+              "1_10": true,
+              "1_6": true,
+              "1_7": true,
+              "1_8": true,
+              "1_9": true,
+              "5_6": true
+            },
+            "Professor": "Edemar Silva"
+          }
+        },
         "Especiais": {
           "especial_1766629894450": {
             "ativo": false,
@@ -1352,13 +1381,6 @@
       "horasParaExpirar": 3,
       "vDomingo": "aberto",
       "vDomingoAte": "17:00"
-    },
-    "usuariosOnline": {
-      "xllafuafw": {
-        "sessionId": "xllafuafw",
-        "timestamp": 1766778665364,
-        "usuario": "RONALDO TABORDA"
-      }
     },
     "version": "v1.9.0"
   }
