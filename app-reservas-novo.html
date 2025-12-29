@@ -5793,7 +5793,7 @@ document.addEventListener('DOMContentLoaded', function () {
         inputNomeModal.addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
                 event.preventDefault(); // Impede o envio de formulário
-                confirmarNomeConvidado();
+                confirmarNomeConvidado(); 
             }
         });
     }
@@ -5813,8 +5813,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v1.9.0'; // Versão atual do sistema     
-const DataVersaoSistema = '22/12/2025';   
+const VersaoSistema = 'v2.0.0'; // Versão atual do sistema     
+const DataVersaoSistema = '29/12/2025';   
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -5827,8 +5827,9 @@ let piramideFimTorneio = null;
 let piramideAtivaGlobal = false; 
 
 let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário 
-let vDomingoAnterior = null;
-let vDomingoAteAnterior = null;
+//let vDomingoAnterior = null;
+//let vDomingoAteAnterior = null;
+let stringConfiguracaoAnterior = ""; // Nova memória universal
 
 // Variáveis globais que são configuradas em configuracoes.html
 window.DiasParaLimpar = undefined; // Ajuste conforme necessário (1,2,3,4,5,6). Ex: se DiasParaLimpar = 4, só é permitido fazer reserva em até 2 dias de antecedência.
@@ -5848,7 +5849,10 @@ let bloqueiosQuadra = {};
 let horasParaExpirarConfig = 2; // Define um padrão de 2 horas
 let vReservasPorConfirmacao = false; // Padrão: desligado
 let edicaoOrganizadorAtiva = false;
-let quebraHorarioDomingoConfig = { ativa: true, quadras: {} };
+
+//let quebraHorarioDomingoConfig = { ativa: true, quadras: {} };
+let otimizacaoGlobal = { ativa: false, quadras: {} };
+
 let exclusaoEmAndamento = false;
 let agendamentoEmAndamento = false;
 let administradores = [];
@@ -5904,6 +5908,14 @@ let estadoPontos = {
 };
 
 const mapaPontos = { 0: '0', 1: '15', 2: '30', 3: '40', 4: 'Ad' };
+
+
+// ---  Carrega os Horários Padrão e Especiais ---
+let horariosGlobal = { Padrao: {}, Especiais: {} };
+
+
+// --- Carrega a Configuração de Aulas ---
+let configAulasGlobal = {};
 
 
 //***********************************************************************************************************************************************************************
@@ -6089,13 +6101,23 @@ function InicializarSistema() {
 
                 const config = data.config;
 				
+				// --- NOVO: Carrega os Horários Padrão e Especiais ---
+				horariosGlobal = config.Horarios || { Padrao: {}, Especiais: {} };
+				// ----------------------------------------------------
+				
+				// Aqui está o "segredo": Se config.Horarios.Aulas não existir, usamos {} (vazio)
+                configAulasGlobal = config.Horarios?.Aulas || {};
+				// ----------------------------------------------------
+				
 				vReservasPorConfirmacao = config.ReservasPorConfirmacao || false; // Lê o interruptor do banco
 				
 				//vReservasPorConfirmacao = true;  //uso para testar as reservas por confirmação
 				
 				horasParaExpirarConfig = config.horasParaExpirar || 2; // Lê o valor do banco ou usa 2 como padrão
 				edicaoOrganizadorAtiva = config.OrganizadorEdicao || false;
-				quebraHorarioDomingoConfig = config.QuebraDeHorarioDomingo || { ativa: true, quadras: {} }; 
+				
+				//quebraHorarioDomingoConfig = config.QuebraDeHorarioDomingo || { ativa: true, quadras: {} }; 
+				otimizacaoGlobal = config.OtimizacaoHorarios || { ativa: false, quadras: {} };
 				
 				if (config && config.Administradores && Object.keys(config.Administradores).length > 0) {
                     // Extrai os objetos {nomeCompleto, apelido} e cria uma lista SÓ com os nomes completos
@@ -6166,19 +6188,23 @@ function InicializarSistema() {
                     window.DiasParaLimpar = config.DiasParaLimpar || 4;
                     //window.vDomingo = config.vDomingo || "fechado";
                     //window.vDomingoAte = config.vDomingoAte || "23:00"; // Valor padrão caso não esteja definido
-					window.vDomingo = config.vDomingo || "fechado";
-					window.vDomingoAte = config.vDomingoAte || "23:00";
+					//window.vDomingo = config.vDomingo || "fechado";
+					//window.vDomingoAte = config.vDomingoAte || "23:00";
 
-					// --- INÍCIO DA LÓGICA DE DETECÇÃO DE MUDANÇA ---
-					// A condição (vDomingoAnterior !== null) impede a execução na primeira carga da página.
-					if (vDomingoAnterior !== null && (window.vDomingo !== vDomingoAnterior || window.vDomingoAte !== vDomingoAteAnterior)) {
-						console.log("Detectada mudança na configuração de Domingo. Forçando atualização dos horários.");
-						atualizarOpcoesHorario(); // Força a atualização do dropdown
-					}
+					// --- NOVA LÓGICA DE DETECÇÃO UNIVERSAL ---
+                    // Converte toda a configuração recebida em texto para comparar
+                    const stringConfiguracaoAtual = JSON.stringify(config);
 
-					// Atualiza os valores anteriores para a próxima verificação
-					vDomingoAnterior = window.vDomingo;
-					vDomingoAteAnterior = window.vDomingoAte;
+                    // Verifica se houve mudança desde a última vez
+                    // A primeira verificação (string vazia) não conta, pois o sistema está carregando
+                    if (stringConfiguracaoAnterior !== "" && stringConfiguracaoAtual !== stringConfiguracaoAnterior) {
+                        console.log("♻️ Configuração alterada! Atualizando dropdown de horários...");
+                        atualizarOpcoesHorario(); 
+                    }
+
+                    // Atualiza a memória para a próxima verificação
+                    stringConfiguracaoAnterior = stringConfiguracaoAtual;
+                    // ------------------------------------------
 					
 					duplasConfigGlobais = config.Duplas || {}; // Carrega a config de Duplas na variável global
 					
@@ -6196,6 +6222,7 @@ function InicializarSistema() {
 
                     // 2. AGORA CHAMAMOS A FUNÇÃO (LOCAL CORRETO)
                     atualizarDatas();
+					
 					
 					if (vatualizarOpcoesHorario) {
 					  atualizarOpcoesHorario();
@@ -6420,82 +6447,60 @@ function verificarVersao() {
     }
 }
 
-let jogadorCount = 1;
-
-function atualizarEstadoDomingo() {
-    const tabela = document.getElementById('tabelaCorpo');
-    const diaDomingo = 7; // coluna do domingo
-    const horarioLimite = window.vDomingoAte ? parseInt(window.vDomingoAte.split(':')[0]) : 23;
-
-    for (let i = 0; i < tabela.rows.length; i++) {
-        const horario = i + 6;
-        const celulaDomingo = tabela.rows[i].cells[diaDomingo];
-
-        // Bloqueia sempre das 6h às 8h
-        if (horario >= 6 && horario < 8) {
-            celulaDomingo.style.backgroundColor = '#f2f2f2';
-            celulaDomingo.style.pointerEvents = 'none';
-            celulaDomingo.style.cursor = 'not-allowed';
-            continue;
-        }
-
-        if (vDomingo === 'fechado') {
-            if (horario >= 12) {
-                celulaDomingo.style.backgroundColor = '#f2f2f2';
-                celulaDomingo.style.pointerEvents = 'none';
-                celulaDomingo.style.cursor = 'not-allowed';
-            } else if (celulaDomingo.innerHTML.trim() === "") {
-                celulaDomingo.style.backgroundColor = '';
-                celulaDomingo.style.pointerEvents = '';
-                celulaDomingo.style.cursor = '';
-            }
-        } else if (vDomingo === 'aberto') {
-            if (horario >= horarioLimite) {
-                celulaDomingo.style.backgroundColor = '#f2f2f2';
-                celulaDomingo.style.pointerEvents = 'none';
-                celulaDomingo.style.cursor = 'not-allowed';
-            } else if (horario >= 8 && celulaDomingo.innerHTML.trim() === "") {
-                celulaDomingo.style.backgroundColor = '';
-                celulaDomingo.style.pointerEvents = '';
-                celulaDomingo.style.cursor = '';
-            }
-        }
-    }
-	
-}
 
 
 
-
-
+// SUBSTITUA SUA FUNÇÃO limparTabela POR ESTA VERSÃO CORRIGIDA
 function limparTabela() {
     const tabela = document.getElementById('tabelaCorpo');
+    
+    // Varre todas as linhas da tabela
     for (let i = 0; i < tabela.rows.length; i++) {
+        
+        // Varre todas as colunas (de 1 a 7, ignorando as colunas de horário nas pontas)
         for (let j = 1; j < tabela.rows[i].cells.length - 1; j++) {
-            const horario = i + 6;
-
-            if ((j === 6 && horario === 6) || (j === 7 && horario >= 6 && horario <= 7) || (j === 6 && horario >= 21 && horario <= 23)) {
-                continue;
-            }
-
+            
+            // --- A CORREÇÃO ESTÁ AQUI ---
+            // Removemos o "if" que pulava Sábados e Domingos.
+            // Agora limpamos TODOS os campos incondicionalmente.
+            
             const cell = tabela.rows[i].cells[j];
+
+            // Reseta RowSpan (se houve fusão de células)
             if (cell.rowSpan > 1) {
                 const nextCell = tabela.rows[i + 1]?.cells[j];
                 if (nextCell) {
                     nextCell.style.display = '';
+                    // Garante que a célula escondida também seja limpa visualmente
+                    nextCell.style.backgroundColor = ""; 
                 }
                 cell.rowSpan = 1;
             }
 
+            // Reseta Estilos Visuais (Remove o cinza e libera o clique)
             cell.style.borderTop = "1px solid #ddd";
             cell.style.borderBottom = "1px solid #ddd";
             cell.style.borderLeft = "1px solid #ddd";
             cell.style.borderRight = "1px solid #ddd";
-            cell.style.backgroundColor = "";
-            cell.innerHTML = "";
+            
+            cell.style.backgroundColor = ""; // <--- ISSO REMOVE O CINZA DO HTML
+            cell.style.pointerEvents = "";   // <--- ISSO LIBERA O CLIQUE
+            cell.style.cursor = "";          // <--- ISSO TIRA O ÍCONE DE PROIBIDO
+            
+            cell.innerHTML = ""; // Limpa o texto
+
+            // Limpa atributos de dados (datasets) antigos
+            cell.removeAttribute('data-duracao');
+            cell.removeAttribute('data-blocked');
+            cell.removeAttribute('data-motivo');
+            cell.removeAttribute('data-horario-inicio');
+            cell.removeAttribute('data-horario-fim');
+            cell.removeAttribute('data-data');
         }
     }
 }
+
+
 
 // Função para selecionar a quadra e carregar suas reservas
 // EM "app-reservas - ativo.html" (Linha 4153)
@@ -6603,11 +6608,73 @@ function selecionarQuadra(quadra) {
     });
 
     // Atualiza o estado do domingo após selecionar a quadra
-    atualizarEstadoDomingo();
+    //atualizarEstadoDomingo();
 
     // Atualiza e exibe reservas para a quadra selecionada
     carregarReservas(nomeOriginal);
 }
+
+
+
+// =================================================================
+// === NOVA FUNÇÃO: APLICAR GRADE DE AULAS (COM RESPEITO ÀS PRIORIDADES) ===
+// =================================================================
+function aplicarGradeDeAulas(quadraNome) {
+    // 1. Mapeia o nome da tela para a chave do banco
+    let quadraKey = "";
+    if (quadraNome.includes("Quadra 1")) quadraKey = "Quadra1";
+    else if (quadraNome.includes("Quadra 2")) quadraKey = "Quadra2";
+    else if (quadraNome.includes("Quadra 3")) quadraKey = "Quadra3";
+
+    const dadosAula = configAulasGlobal[quadraKey];
+
+    // Se não tiver configuração ou não estiver ativa, não faz nada
+    if (!dadosAula || !dadosAula.Ativo || !dadosAula.Grade) return;
+
+    const tabela = document.getElementById('tabelaCorpo');
+
+    // 2. Varre a grade configurada
+    for (const key in dadosAula.Grade) {
+        if (dadosAula.Grade[key] === true) {
+            const [dia, hora] = key.split('_').map(Number);
+            const rowIndex = hora - 6;
+            
+            if (tabela.rows[rowIndex] && tabela.rows[rowIndex].cells[dia]) {
+                const cell = tabela.rows[rowIndex].cells[dia];
+
+                // --- VERIFICAÇÃO DE PRIORIDADE (AJUSTE SOLICITADO) ---
+                // Verifica se a célula já foi fechada pelas regras de Horário (Padrão ou Especial)
+                // A função 'aplicarLimitesDeHorarioVisual' pinta de #f2f2f2 (ou rgb(242, 242, 242))
+                // Se estiver cinza, é porque está fechado. Nesse caso, a Aula NÃO deve aparecer.
+                const estaFechado = cell.style.backgroundColor === 'rgb(242, 242, 242)' || 
+                                    cell.style.backgroundColor === '#f2f2f2';
+
+                if (estaFechado) {
+                    continue; // Pula esta aula, pois o clube está fechado (Prioridade 1 ou 2 venceu)
+                }
+                // -----------------------------------------------------
+
+                // 3. Se estiver aberto, aplica o visual de Aula
+                if (cell.innerHTML.trim() === "") {
+                    cell.innerHTML = "aula"; 
+                    
+                    cell.style.backgroundColor = 'lightcoral'; // Vermelho suave
+                    cell.style.color = ''; 
+                    cell.style.fontWeight = ''; 
+                    
+                    // Bloqueia cliques
+                    cell.style.pointerEvents = 'none';
+                    cell.style.cursor = 'not-allowed';
+                    
+                    // Adiciona metadados
+                    cell.dataset.blocked = "true";
+                    cell.dataset.motivo = "Horário reservado para Aulas";
+                }
+            }
+        }
+    }
+}
+
 
 
 
@@ -6625,8 +6692,12 @@ function carregarReservas(quadra) {
         const reservas = snapshot.val();
 
         limparTabela();
-        atualizarEstadoDomingo();
+        aplicarLimitesDeHorarioVisual();
         aplicarBloqueiosVisuais(quadra);
+		
+		// --- NOVO: APLICA A GRADE DE AULAS AQUI ---
+        aplicarGradeDeAulas(quadra); 
+        // ------------------------------------------
 
         if (reservas) {
             try {
@@ -6944,9 +7015,9 @@ function carregarReservas(quadra) {
 
 
 
-
+/*
 function bloquearDomingo() {
-    const tabela = document.getElementById('tabelaCorpo');
+    const tabela = document.getElementById('tabelaCorpo'); 
     const diaDomingo = 7;
 
     for (let i = 0; i < tabela.rows.length; i++) {
@@ -6960,7 +7031,7 @@ function bloquearDomingo() {
     }
     console.log('🚫 Domingo bloqueado');
 }
-
+*/
 
 
 
@@ -7300,69 +7371,169 @@ function gerarMensagemErro(diasParaLimpar) {
     return `Não é permitido fazer reservas com mais de ${diasAntecedencia} dias de antecedência.`; 
 }
 
+
+
+// --- NOVA FUNÇÃO INTELIGENTE DE HORÁRIOS ---
+// SUBSTITUA A FUNÇÃO ATUAL POR ESTA VERSÃO COMPLETA (FINAL)
+function obterRegrasDeHorario(data) {
+    // Formata a data para YYYY-MM-DD (usando hora local para evitar erro de fuso)
+    const ano = data.getFullYear();
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const dia = String(data.getDate()).padStart(2, '0');
+    const dataHojeStr = `${ano}-${mes}-${dia}`; 
+
+    // 1. PRIORIDADE: Verifica Horários ESPECIAIS (Feriados, Recessos)
+    const especiais = horariosGlobal.Especiais || {};
+    
+    for (const key in especiais) {
+        const periodo = especiais[key];
+        
+        // Verifica se o período está ativo e se a data cai dentro dele
+        if (periodo.ativo !== false && dataHojeStr >= periodo.inicio && dataHojeStr <= periodo.fim) {
+            
+            // Verifica se existe configuração específica para ESTE dia dentro do período
+            const regraDia = periodo.dias ? periodo.dias[dataHojeStr] : null;
+            
+            if (regraDia) {
+                // ACHOU! Retorna a regra do feriado e ignora o padrão da semana
+                return {
+                    status: regraDia.status, // 'aberto' ou 'fechado'
+                    inicio: parseInt(regraDia.abertura?.split(':')[0]) || 6,
+                    fim: parseInt(regraDia.fechamento?.split(':')[0]) || 23
+                };
+            }
+        }
+    }
+
+    // 2. FALLBACK: Se não é feriado, usa o Horário PADRÃO da semana
+    let diaSemana = data.getDay(); 
+    if (diaSemana === 0) diaSemana = 7; // Ajusta Domingo (0 -> 7)
+
+    const regraPadrao = horariosGlobal.Padrao ? horariosGlobal.Padrao[diaSemana] : null;
+    
+    if (regraPadrao) {
+        return {
+            status: regraPadrao.status,
+            inicio: parseInt(regraPadrao.abertura?.split(':')[0]) || 6,
+            fim: parseInt(regraPadrao.fechamento?.split(':')[0]) || 23
+        };
+    }
+
+    // 3. SEGURANÇA: Se não tiver configuração nenhuma, usa o padrão antigo
+    if (diaSemana === 7) return { status: 'fechado', inicio: 8, fim: 12 };
+    return { status: 'aberto', inicio: 6, fim: 23 };
+}
+
+
+
+
+// =================================================================
+// FUNÇÃO ATUALIZADA: GERA A LISTA DE HORÁRIOS (COM FILTRO DE AULAS)
+// =================================================================
 window.atualizarOpcoesHorario = function() {
     const duracao = document.getElementById('duracao').value;
-    const dia = document.getElementById('dia').value;
-    const quadra = document.getElementById('quadra').value; // Pega a quadra selecionada
+    const diaSelect = document.getElementById('dia').value; 
+    const quadra = document.getElementById('quadra').value;
     const horaSelect = document.getElementById('hora');
     horaSelect.innerHTML = '';
 
-    if (!duracao || !dia) return;
+    if (!duracao || !diaSelect) return;
 
-    // --- Lógica para buscar bloqueios do dia ---
-    const quadraKey = `Quadra-${quadra.split(' ')[1]}`;
+    // 1. Calcula a Data Real baseada na seleção
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0);
     const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
-    let diff = dia - diaDaSemanaHoje;
+    
+    let diff = parseInt(diaSelect) - diaDaSemanaHoje;
     if (diff < 0) diff += 7;
-    const dataDaReserva = new Date(hoje);
-    dataDaReserva.setDate(hoje.getDate() + diff);
-    const dataFormatada = `${dataDaReserva.getFullYear()}-${String(dataDaReserva.getMonth() + 1).padStart(2, '0')}-${String(dataDaReserva.getDate()).padStart(2, '0')}`;
-    const bloqueioDoDia = bloqueiosQuadra[quadraKey]?.[dataFormatada];
-    // --- Fim da lógica ---
+    
+    const dataSelecionada = new Date(hoje);
+    dataSelecionada.setDate(hoje.getDate() + diff);
 
-    const horarios = [];
-    // Define os horários disponíveis com base no dia da semana
-    if (dia == 7) { // Domingo
-        const limite = vDomingo === 'fechado' ? 12 : parseInt(vDomingoAte.split(':')[0]);
-        for (let i = 8; i < limite; i++) horarios.push(i);
-    } else if (dia == 6) { // Sábado
-        for (let i = 7; i < 21; i++) horarios.push(i);
-    } else { // Dias de Semana
-        for (let i = 6; i <= 22; i++) horarios.push(i);
+    // 2. Obtém regras de Abertura/Fechamento (Padrão e Especial)
+    // Se for feriado ou dia fechado, essa função já nos avisa
+    const regras = obterRegrasDeHorario(dataSelecionada);
+
+    if (regras.status === 'fechado') {
+        const option = document.createElement('option');
+        option.text = "Clube Fechado neste dia";
+        horaSelect.add(option);
+        return;
     }
 
-    // Filtra os horários com base nos bloqueios e na duração
-    horarios.forEach(h => {
+    // 3. Prepara verificação de Bloqueios Manuais (Exceções da Quadra)
+    const quadraKeyFull = `Quadra-${quadra.split(' ')[1]}`;
+    const dataFormatada = dataSelecionada.toISOString().split('T')[0];
+    const bloqueioDoDia = bloqueiosQuadra[quadraKeyFull]?.[dataFormatada];
+
+    // 4. Prepara verificação de AULAS (NOVO BLOCO)
+    let quadraKeySimple = "";
+    if (quadra.includes("Quadra 1")) quadraKeySimple = "Quadra1";
+    else if (quadra.includes("Quadra 2")) quadraKeySimple = "Quadra2";
+    else if (quadra.includes("Quadra 3")) quadraKeySimple = "Quadra3";
+
+    const configAula = configAulasGlobal[quadraKeySimple];
+    // O dia da semana para a grade de aulas (1=Seg...7=Dom)
+    const diaDaSemanaGrade = dataSelecionada.getDay() === 0 ? 7 : dataSelecionada.getDay();
+
+    // Define quantos horários precisamos verificar (1h, 2h ou Pirâmide/2h)
+    const duracaoNum = parseInt(duracao === '3-piramide' ? 2 : duracao);
+
+    // 5. Gera os horários permitidos
+    // Loop do horário de abertura até (fechamento - duração)
+    for (let h = regras.inicio; h <= (regras.fim - duracaoNum); h++) {
+        
         let isBloqueado = false;
+
+        // A. Verifica Bloqueio Manual (Exceção)
         if (bloqueioDoDia && bloqueioDoDia.regras) {
-            const inicioBloqueio = parseInt(bloqueioDoDia.regras.inicio.split(':')[0]);
-            const fimBloqueio = parseInt(bloqueioDoDia.regras.fim.split(':')[0]);
+            const inicioBloq = parseInt(bloqueioDoDia.regras.inicio.split(':')[0]);
+            const fimBloq = parseInt(bloqueioDoDia.regras.fim.split(':')[0]);
             
-            // Verifica se o horário de início ou qualquer parte da duração cai dentro do bloqueio
-            for(let i = 0; i < parseInt(duracao === '3-piramide' ? 2 : duracao); i++) {
-                if ((h + i) >= inicioBloqueio && (h + i) < fimBloqueio) {
+            // Se qualquer hora do jogo cair no bloqueio, invalida
+            for(let i = 0; i < duracaoNum; i++) {
+                if ((h + i) >= inicioBloq && (h + i) < fimBloq) {
                     isBloqueado = true;
                     break;
                 }
             }
         }
 
-        // Se não estiver bloqueado, adiciona a opção
-        if (!isBloqueado) {
-            const duracaoNum = parseInt(duracao === '3-piramide' ? 2 : duracao);
-            // Garante que o horário final não ultrapasse o limite do dia
-            const limiteDia = (dia == 7) ? (vDomingo === 'fechado' ? 12 : parseInt(vDomingoAte.split(':')[0])) : (dia == 6 ? 21 : 23);
-            if (h + duracaoNum <= limiteDia) {
-                 const option = document.createElement('option');
-                 option.value = h;
-                 option.textContent = `${String(h).padStart(2, '0')}:00 - ${String(h + duracaoNum).padStart(2, '0')}:00`;
-                 horaSelect.appendChild(option);
+        // B. Verifica Grade de Aulas (O AJUSTE ESTÁ AQUI)
+        // Só verifica se não estiver bloqueado manualmente e se a grade estiver ativa
+        if (!isBloqueado && configAula && configAula.Ativo && configAula.Grade) {
+            for(let i = 0; i < duracaoNum; i++) {
+                const horaCheck = h + i;
+                const keyAula = `${diaDaSemanaGrade}_${horaCheck}`;
+                
+                // Se houver uma aula marcada neste horário, bloqueia a opção
+                if (configAula.Grade[keyAula] === true) {
+                    isBloqueado = true;
+                    break;
+                }
             }
         }
-    });
+
+        // Se passou por todas as verificações, adiciona à lista
+        if (!isBloqueado) {
+             const option = document.createElement('option');
+             option.value = h;
+             option.textContent = `${String(h).padStart(2, '0')}:00 - ${String(h + duracaoNum).padStart(2, '0')}:00`;
+             horaSelect.appendChild(option);
+        }
+    }
+    
+    // Se tudo estiver bloqueado
+    if (horaSelect.options.length === 0) {
+         const option = document.createElement('option');
+         option.text = "Sem horários disponíveis";
+         horaSelect.add(option);
+    }
 };
+
+
+
+
 
 
 // Substitua sua função inteira por esta
@@ -7604,12 +7775,20 @@ const isReservaParaHoje = (diaSelecionado === diaDaSemanaHoje);
 		return;
 	}
     
+	/*
     const resultadoQuebraHorario = validarQuebraHorarioDomingo(dia, horaSelecionada, duracao, quadra);
 	if (resultadoQuebraHorario !== true) {
 		mostrarNotificacao(resultadoQuebraHorario, 'warning');
 		limparCampos();
 		return;
 	}
+	*/
+	const resultadoOtimizacao = validarOtimizacaoHorario(dia, horaSelecionada, duracao, quadra);
+    if (resultadoOtimizacao !== true) {
+        mostrarNotificacao(resultadoOtimizacao, 'warning');
+        //limparCampos();
+        return;
+    }
     
     let reservaSalvaComSucesso = false;
     agendamentoEmAndamento = true;
@@ -11112,74 +11291,105 @@ function adicionarJogadorNaEdicao() {
 
 
 /**
- * Valida a regra "Quebra Horário Domingo", que otimiza as reservas por quadra
- * no bloco das 8:00 às 12:00 aos domingos.
- * @param {number} dia - O dia da semana selecionado (1-7).
- * @param {number} hora - A hora de início selecionada.
- * @param {number} duracao - A duração da reserva selecionada.
- * @param {string} quadra - A quadra selecionada (ex: "Quadra 1 - Coberta").
- * @returns {boolean} - Retorna 'true' se a reserva for válida, 'false' se for bloqueada.
+ * Valida a regra "Otimização de Horários" (Inteligente/Dinâmica).
+ * Ativa-se automaticamente em QUALQUER dia onde a janela de funcionamento for <= 4 horas.
  */
-function validarQuebraHorarioDomingo(dia, hora, duracao, quadra) {
-    // Regra do "Mesmo Dia": Se a reserva for para hoje, ignora todas as regras.
+function validarOtimizacaoHorario(dia, hora, duracao, quadra) {
+    // 1. Regra do "Mesmo Dia": Se for para hoje, libera (flexibilidade de última hora).
     const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
     const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
-    if (dia === diaDaSemanaHoje) {
+    
+    // Calcula a data real da reserva
+    let diff = dia - diaDaSemanaHoje;
+    if (diff < 0) diff += 7;
+    const dataDaReserva = new Date(hoje);
+    dataDaReserva.setDate(hoje.getDate() + diff);
+
+    if (dataDaReserva.getTime() === hoje.getTime()) {
         return true;
     }
 
-    // --- Início das Pré-condições ---
-    if (dia !== 7) {
-        return true;
-    }
-    if (quebraHorarioDomingoConfig.ativa === true) {
+    // 2. Verifica se a Otimização Global está ATIVA
+    if (!otimizacaoGlobal.ativa) {
         return true;
     }
     
-    const quadraKey = `Quadra-${quadra.split(' ')[1]}`;
-    if (!quebraHorarioDomingoConfig.quadras || !quebraHorarioDomingoConfig.quadras[quadraKey]) {
-        return true;
-    }
-    
-    const isBlocoPadraoDomingo = (window.vDomingo === 'fechado') || (window.vDomingo === 'aberto' && window.vDomingoAte === '12:00');
-    if (!isBlocoPadraoDomingo) {
-        return true;
+    // 3. Verifica se a QUADRA ESPECÍFICA está marcada
+    const quadraKey = `Quadra-${quadra.split(' ')[1]}`; 
+    if (!otimizacaoGlobal.quadras || !otimizacaoGlobal.quadras[quadraKey]) {
+        return true; 
     }
 
-    // --- Fim das Pré-condições ---
-
-    // Cenário: Tentativa de agendar às 9:00 (qualquer duração)
-    if (hora === 9) {
-		 const mensagem = `<b>Regra de Otimização de Domingo</b><br><br>Na ${quadra}, para evitar a quebra de horários, reservas de 1 hora não são permitidas às 9:00.`;
-		 return mensagem;
-	}
-	
-
-    // Cenário: Tentativa de agendar 1 hora às 8:00
-    if (hora === 8 && duracao === 1) {
-		const mensagem = `<b>Regra de Otimização de Domingo</b><br><br>Na ${quadra}, para evitar a quebra de horários, reservas de 1 hora não são permitidas às 8:00.`;
-		return mensagem;
-	}
-
-    // Cenário: Tentativa de agendar 1 hora às 10:00
-    if (hora === 10 && duracao === 1) {
-		const mensagem = `<b>Regra de Otimização de Domingo</b><br><br>Na ${quadra}, para evitar a quebra de horários, reservas de 1 hora não são permitidas às 10:00.`;
-		return mensagem;
-	}
-
-    // Cenário: Tentativa de agendar 1 hora às 11:00
-    if (hora === 11 && duracao === 1) {
-		const mensagem = `<b>Regra de Otimização de Domingo</b><br><br>Na ${quadra}, para evitar a quebra de horários, reservas de 1 hora não são permitidas às 11:00.`;
-		return mensagem;
-	}
+    // 4. O CÉREBRO: Obtém os horários reais deste dia (Padrão ou Especial)
+    const regrasDoDia = obterRegrasDeHorario(dataDaReserva);
     
-    // Cenário: Tentativa de 2 horas às 9:00 (redundante, mas seguro)
-    if (hora === 9 && duracao === 2) {
-		const mensagem = `<b>Regra de Otimização de Domingo</b><br><br>Na ${quadra}, para evitar horários vagos de 1 hora, esta reserva de 2 horas não pode começar às 9:00.<br><br><i>Por favor, escolha começar às 8:00 ou às 10:00.</i>`;
-		return mensagem;
-	}
+    // Se estiver fechado, nem precisa validar (já não aparece na lista)
+    if (regrasDoDia.status === 'fechado') return true;
 
-    // Se passou por todas as verificações, a reserva é válida.
+    // 5. CÁLCULO DA JANELA
+    const horasAbertas = regrasDoDia.fim - regrasDoDia.inicio;
+
+    // Se a janela for maior que 4 horas, o dia é longo o suficiente, não aplica regras.
+    if (horasAbertas > 4) {
+        return true;
+    }
+
+    // --- REGRAS DINÂMICAS (Baseadas na Hora de Abertura 'H') ---
+    const H = regrasDoDia.inicio; // Ex: se abre as 08:00, H = 8. Se abre as 18:00, H = 18.
+
+    // REGRA 1: O "Buraco na Entrada" (H+1)
+    // Ex: Se abre às 08:00, proíbe agendar às 09:00 (deixaria as 08:00 vaga).
+    if (hora === H + 1) {
+         const hAberturaStr = String(H).padStart(2, '0') + ":00";
+         const hAlvoStr = String(H + 2).padStart(2, '0') + ":00";
+         const hProibidaStr = String(hora).padStart(2, '0') + ":00";
+         
+         const mensagem = `
+            <b>Otimização de Horários (Janela Curta)</b><br><br>
+            Neste dia, a quadra funciona apenas por ${horasAbertas} horas.<br>
+            Para evitar horários ociosos, não permitimos inícios às ${hProibidaStr}.<br><br>
+            <i><b>Sugestão:</b> Tente agendar para começar às ${hAberturaStr} ou às ${hAlvoStr}.</i>
+         `;
+         return mensagem;
+    }
+
+    // REGRA 2: 1 Hora na Abertura (H+0)
+    // Ex: Se abre às 08:00, proíbe 1h às 08:00.
+    if (hora === H && duracao === 1) {
+        const hAberturaStr = String(H).padStart(2, '0') + ":00";
+        const mensagem = `
+            <b>Otimização de Horários (Janela Curta)</b><br><br>
+            Em dias de horário reduzido, reservar apenas 1 hora na abertura (${hAberturaStr}) prejudica a grade.<br><br>
+            <i><b>Sugestão:</b> Priorize jogos de 2 horas neste horário.</i>
+        `;
+        return mensagem;
+    }
+
+    // REGRA 3: 1 Hora no Meio (H+2)
+    // Ex: Se abre às 08:00, proíbe 1h às 10:00.
+    if (hora === H + 2 && duracao === 1) {
+        const hMeioStr = String(H + 2).padStart(2, '0') + ":00";
+        const mensagem = `
+            <b>Otimização de Horários (Janela Curta)</b><br><br>
+            Reservar apenas 1 hora às ${hMeioStr} cria uma quebra na grade curta.<br><br>
+            <i><b>Sugestão:</b> Priorize jogos de 2 horas neste horário.</i>
+        `;
+        return mensagem;
+    }
+
+    // REGRA 4: 1 Hora no Fim (H+3)
+    // Ex: Se abre às 08:00, proíbe 1h às 11:00.
+    if (hora === H + 3 && duracao === 1) {
+        const hFimStr = String(H + 3).padStart(2, '0') + ":00";
+        const mensagem = `
+            <b>Otimização de Horários (Janela Curta)</b><br><br>
+            Para maximizar o uso da quadra no horário curto, reservas de 1 hora não são permitidas às ${hFimStr}.<br><br>
+            <i><b>Sugestão:</b> Verifique se há disponibilidade para 2 horas começando mais cedo.</i>
+        `;
+        return mensagem;
+    }
+    
     return true;
 }
 
@@ -16822,6 +17032,72 @@ function verificarMatchPoint() {
     }
 
     return false;
+}
+
+
+// --- FUNÇÃO VISUAL: Bloqueia horários fechados na tabela ---
+function aplicarLimitesDeHorarioVisual() {
+    const tabela = document.getElementById('tabelaCorpo');
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+    
+    // Ajuste para o índice do sistema (0=Dom -> 7)
+    const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
+
+    // Itera sobre as colunas (dias) da tabela (de 1 a 7)
+    for (let diaCol = 1; diaCol <= 7; diaCol++) {
+        
+        // --- 1. Descobre a Data Real desta coluna ---
+        // A lógica é: Tabela começa sempre "hoje" ou na ordem fixa? 
+        // Assumindo a lógica dinâmica do seu cabeçalho:
+        const headerCell = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${diaCol})`);
+        
+        // Se não achou data no cabeçalho, pula
+        if (!headerCell) continue;
+        
+        // Lê a data escrita lá (ex: "22/12/25")
+        const textoData = headerCell.textContent.trim();
+        const partes = textoData.split('/'); // ["22", "12", "25"]
+        if (partes.length < 3) continue;
+
+        // Cria o objeto Date (Mês no JS começa em 0)
+        // Assume ano 20xx
+        const anoCompleto = partes[2].length === 2 ? "20" + partes[2] : partes[2];
+        const dataColuna = new Date(anoCompleto, parseInt(partes[1]) - 1, parseInt(partes[0]));
+
+        // --- 2. Pergunta ao "Cérebro" (Passo 2) as regras deste dia ---
+        const regras = obterRegrasDeHorario(dataColuna);
+
+        // --- 3. Aplica na Coluna ---
+        // Itera sobre as linhas (horários 06h a 22h)
+        for (let i = 0; i < tabela.rows.length; i++) {
+            const horaRow = i + 6; // Linha 0 = 06:00
+            const cell = tabela.rows[i].cells[diaCol];
+
+            if (!cell) continue;
+
+            let bloquear = false;
+
+            if (regras.status === 'fechado') {
+                bloquear = true; // Dia todo fechado
+            } else {
+                // Bloqueia se for ANTES de abrir ou DEPOIS de fechar
+                // Ex: Se abre as 8, bloqueia 6 e 7.
+                if (horaRow < regras.inicio || horaRow >= regras.fim) {
+                    bloquear = true;
+                }
+            }
+
+            if (bloquear) {
+                // APLICA O ESTILO CINZA (BLOQUEADO)
+                cell.style.backgroundColor = '#f2f2f2'; 
+                cell.style.pointerEvents = 'none'; // Não deixa clicar
+                cell.style.cursor = 'not-allowed'; // Ícone de proibido
+                cell.innerHTML = ""; // Limpa visualmente se não tiver reserva
+            } 
+            // Se estiver aberto, não fazemos nada (o carregarReservas pinta de branco ou verde depois)
+        }
+    }
 }
 
 
