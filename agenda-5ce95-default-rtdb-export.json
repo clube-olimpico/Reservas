@@ -1149,12 +1149,70 @@
       "Horarios": {
         "Aulas": {
           "Quadra1": {
-            "Ativo": true,
+            "Ativo": false,
             "Grade": {
-              "1_6": true,
-              "1_7": true
+              "1_14": true,
+              "1_15": true,
+              "1_16": true,
+              "1_17": true,
+              "1_18": true,
+              "1_19": true,
+              "1_20": true,
+              "1_21": true,
+              "2_14": true,
+              "2_15": true,
+              "2_16": true,
+              "2_17": true,
+              "2_18": true,
+              "2_19": true,
+              "2_20": true,
+              "2_21": true,
+              "3_10": true,
+              "3_11": true,
+              "3_14": true,
+              "3_15": true,
+              "3_16": true,
+              "3_17": true,
+              "3_18": true,
+              "3_19": true,
+              "3_20": true,
+              "3_21": true,
+              "3_7": true,
+              "3_8": true,
+              "3_9": true,
+              "4_10": true,
+              "4_11": true,
+              "4_14": true,
+              "4_15": true,
+              "4_16": true,
+              "4_17": true,
+              "4_18": true,
+              "4_19": true,
+              "4_20": true,
+              "4_21": true,
+              "4_7": true,
+              "4_8": true,
+              "4_9": true,
+              "5_10": true,
+              "5_11": true,
+              "5_14": true,
+              "5_15": true,
+              "5_16": true,
+              "5_17": true,
+              "5_18": true,
+              "5_19": true,
+              "5_20": true,
+              "5_21": true,
+              "5_7": true,
+              "5_8": true,
+              "5_9": true,
+              "6_10": true,
+              "6_11": true,
+              "6_7": true,
+              "6_8": true,
+              "6_9": true
             },
-            "Professor": "Rildo Santos"
+            "Professor": "Rildo Santos Souza"
           },
           "Quadra2": {
             "Ativo": false,
@@ -1177,8 +1235,8 @@
           }
         },
         "Especiais": {
-          "especial_1766629894450": {
-            "ativo": false,
+          "especial_1766961209879": {
+            "ativo": true,
             "dias": {
               "2025-12-22": {
                 "abertura": "08:00",
@@ -1288,7 +1346,7 @@
             },
             "fim": "2026-01-11",
             "inicio": "2025-12-22",
-            "titulo": "Recesso de fim de ano"
+            "titulo": "Recesso de Natal e Ano Novo"
           }
         },
         "Padrao": [
@@ -1331,6 +1389,14 @@
         ]
       },
       "OrganizadorEdicao": true,
+      "OtimizacaoHorarios": {
+        "ativa": false,
+        "quadras": {
+          "Quadra-1": true,
+          "Quadra-2": true,
+          "Quadra-3": true
+        }
+      },
       "Piramide": {
         "Quadra-1": {
           "1-DiasDeSemana": true,
@@ -1365,22 +1431,12 @@
       },
       "Quadras": {
         "Quadra1": "liberada",
-        "Quadra2": "bloqueada",
+        "Quadra2": "liberada",
         "Quadra3": "liberada"
-      },
-      "QuebraDeHorarioDomingo": {
-        "ativa": false,
-        "quadras": {
-          "Quadra-1": true,
-          "Quadra-2": false,
-          "Quadra-3": true
-        }
       },
       "ReservasPorConfirmacao": true,
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "horasParaExpirar": 3,
-      "vDomingo": "aberto",
-      "vDomingoAte": "17:00"
+      "horasParaExpirar": 3
     },
     "version": "v1.9.0"
   }
