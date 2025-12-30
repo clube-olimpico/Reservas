@@ -1275,12 +1275,12 @@
               },
               "2025-12-29": {
                 "abertura": "08:00",
-                "fechamento": "17:00",
+                "fechamento": "18:00",
                 "status": "aberto"
               },
               "2025-12-30": {
                 "abertura": "08:00",
-                "fechamento": "17:00",
+                "fechamento": "13:00",
                 "status": "aberto"
               },
               "2025-12-31": {
@@ -1390,11 +1390,11 @@
       },
       "OrganizadorEdicao": true,
       "OtimizacaoHorarios": {
-        "ativa": false,
+        "ativa": true,
         "quadras": {
           "Quadra-1": true,
-          "Quadra-2": true,
-          "Quadra-3": true
+          "Quadra-2": false,
+          "Quadra-3": false
         }
       },
       "Piramide": {
@@ -1438,6 +1438,18 @@
       "githubToken": "***SEGREDO_REMOVIDO***",
       "horasParaExpirar": 3
     },
-    "version": "v1.9.0"
+    "reservas": {
+      "Quadra 1 - Coberta": {
+        "1_8": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "Ana Maria Marinho",
+          "organizador": "Ana Maria Marinho"
+        }
+      }
+    },
+    "version": "v2.0.0"
   }
 }
