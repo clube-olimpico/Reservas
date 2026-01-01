@@ -137,6 +137,12 @@
         "ADRIANO GOMES FEITOSA": {
           "apelido": "Adriano Feitosa",
           "classe": "B",
+          "funcoes": {
+            "admin": false,
+            "arbitro": false,
+            "operador": false,
+            "professor": true
+          },
           "niver": "26/06/1975",
           "piramide": "",
           "socio": "titular"
@@ -681,6 +687,12 @@
         "LEONARDO CARRARA": {
           "apelido": "Leo Carrara",
           "classe": "A",
+          "funcoes": {
+            "admin": false,
+            "arbitro": true,
+            "operador": true,
+            "professor": false
+          },
           "jogosDeDuplasJogados": 3,
           "niver": "13/04/1975",
           "piramide": "14",
@@ -927,6 +939,12 @@
         "RONALDO TABORDA": {
           "apelido": "Taborda",
           "classe": "A",
+          "funcoes": {
+            "admin": true,
+            "arbitro": false,
+            "operador": false,
+            "professor": false
+          },
           "jogosDeDuplasJogados": 3,
           "niver": "01/01/2001",
           "piramide": "1",
@@ -1020,6 +1038,12 @@
         "VANIA TABORDA": {
           "apelido": "Vania",
           "classe": "C",
+          "funcoes": {
+            "admin": false,
+            "arbitro": true,
+            "operador": true,
+            "professor": false
+          },
           "niver": "04/10/1979",
           "piramide": "65",
           "socio": "dependente"
@@ -1286,7 +1310,7 @@
               "2025-12-31": {
                 "abertura": "08:00",
                 "fechamento": "17:00",
-                "status": "fechado"
+                "status": "aberto"
               },
               "2026-01-01": {
                 "abertura": "08:00",
@@ -1431,8 +1455,8 @@
       },
       "Quadras": {
         "Quadra1": "liberada",
-        "Quadra2": "liberada",
-        "Quadra3": "liberada"
+        "Quadra2": "interditada",
+        "Quadra3": "interditada"
       },
       "ReservasPorConfirmacao": true,
       "githubToken": "***SEGREDO_REMOVIDO***",
