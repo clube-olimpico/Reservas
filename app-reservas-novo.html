@@ -15,9 +15,11 @@
 
 
 <style>
-/* Estilos globais */
+/* Estilos globais */ 
 body {
-    font-family: 'Roboto', sans-serif; 
+    font-family: 'Roboto', sans-serif;
+    margin: 0;  /* Remove margem externa */
+    padding: 0; /* Remove preenchimento interno */ 
 }	
 #loginScreen {
     box-sizing: border-box;
@@ -184,52 +186,177 @@ body {
 
 
 /* Contêiner principal do formulário */
+/* --- FORMULÁRIO MODERNO (MODAL CENTRALIZADO) --- */
 .form-container {
-    max-width: 500px;
-    background-color: #ffffff; /* Fundo branco explícito */
+    position: fixed;
+    /* O SEGREDO: top e left em 50% colocam o ponto de ancoragem no MEIO da tela */
+    top: 50% !important; 
+    left: 50% !important;
+    
+    /* O transform centraliza o elemento nele mesmo */
+    transform: translate(-50%, -50%) scale(0.9); 
+    
+    width: 90%;
+    max-width: 400px; /* Largura ideal para celular */
+    background-color: #ffffff;
     border-radius: 15px;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-
-    /* --- NOVAS LINHAS (ETAPA 1 - TENTATIVA 3: max-height) --- */
-    margin: 0 auto 20px; /* Centraliza horizontalmente, remove margem superior, mantém inferior */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    
+    z-index: 2000; /* Garante que fique ACIMA de tudo */
+    padding: 10px 20px 20px 20px; /* Topo: 10px, Dir: 20px, Baixo: 20px, Esq: 20px */
     box-sizing: border-box;
-    overflow: hidden;    /* Esconde o conteúdo quando height é 0 */
-    max-height: 0;       /* Começa colapsado */
-    opacity: 0;          /* Começa invisível */
-    visibility: hidden;  /* Garante que não é acessível */
-    padding-top: 0;      /* Remove padding superior no estado colapsado */
-    padding-bottom: 0;   /* Remove padding inferior no estado colapsado */
-
-    /* A transição agora inclui max-height, padding e opacity */
-	transition: max-height 0.4s ease-out, padding 0.4s ease-out, opacity 0.3s ease-out 0.1s, visibility 0.4s, margin-top 0.4s ease-out; /* Adicionado margin-top */
-    /* --- FIM DAS NOVAS LINHAS --- */
+    
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28), visibility 0.3s;
 }
 
-
-/* Esta classe será adicionada/removida pelo JavaScript na próxima etapa */
 .form-container.visible {
-    max-height: 600px;
     opacity: 1;
     visibility: visible;
-    padding-top: 20px;    /* Mantém padding superior */
-    padding-bottom: 20px; /* Mantém padding inferior */
-
-    /* --- ADICIONE ESTAS LINHAS --- */
-    padding-left: 20px;   /* Adiciona padding interno esquerdo */
-    padding-right: 20px;  /* Adiciona padding interno direito */
-    /* --- FIM DAS LINHAS ADICIONADAS --- */
-
-    /* Mantém as margens explícitas que definimos antes */
-    margin-top: 70px;
-    margin-right: auto;
-    margin-bottom: 20px;
-    margin-left: auto;
+    transform: translate(-50%, -50%) scale(1); 
+    margin: 0 !important; /* Removemos margens antigas que causavam o erro */
 }
 
-/* Remove a margem extra do header/legenda quando o formulário está visível */
-.form-container.visible ~ .header-legenda-container {
-    margin-top: 10px; /* Volta para a margem original */
+/* Backgroup Escuro */
+.form-backdrop {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    z-index: 1999; /* Fica logo atrás do formulário */
+    display: none;
 }
+.form-backdrop.visible {
+    display: block;
+}
+
+/* Cabeçalho do Modal de Agendamento */
+.form-header {
+    position: relative; /* Importante: cria o limite para o botão X */
+    display: flex;
+    justify-content: center; /* Centraliza o título */
+    align-items: center;
+    width: 100%; /* Garante que o cabeçalho ocupe toda a largura */
+    
+    margin-top: -5px; 
+    margin-bottom: 20px; 
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.form-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    width: 100%; /* Garante alinhamento */
+}
+
+/* Botão X de fechar do formulário */
+.close-form-btn {
+    position: absolute !important;
+    right: 0 !important;
+    top: 50% !important;
+    transform: translateY(-60%) !important;
+    
+    /* --- Estilos Visuais --- */
+    width: auto !important;
+    height: auto !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 5px !important;
+    
+    font-size: 32px !important;
+    font-weight: bold !important;
+    
+    /* --- MUDANÇA DE COR AQUI --- */
+    color: #dc3545 !important; /* Vermelho padrão do sistema */
+    /* -------------------------- */
+
+    cursor: pointer !important;
+    line-height: 1 !important;
+    z-index: 2002 !important;
+}
+
+.close-form-btn:hover {
+    /* Fica um vermelho mais escuro ao passar o mouse */
+    color: #a71d2a !important; 
+    
+    background-color: transparent !important;
+    transform: translateY(-60%) scale(1.1) !important;
+}
+
+
+/* Ajustes do Cabeçalho no Modo Escuro */
+body.dark-mode .form-header h3 {
+    color: #f1f1f1;
+}
+body.dark-mode .form-header {
+    border-bottom-color: #444;
+}
+body.dark-mode .close-form-btn:hover {
+    color: #fff !important;
+}
+
+
+/* --- ALINHAMENTO DOS CAMPOS (FLEXBOX) --- */
+.form-container .form-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+/* Labels com largura fixa para alinhar tudo */
+.form-container label {
+    flex: 0 0 80px; 
+    margin-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-size: 1rem;
+}
+
+/* Inputs ocupam o resto da linha */
+.form-container input,
+.form-container select {
+    flex: 1; 
+    width: auto !important;
+    min-width: 0;
+    height: 38px;
+    box-sizing: border-box;
+}
+
+/* Ajuste específico para a linha do Jogador (+ botão) */
+.form-container .jogadores-container .form-row {
+    display: flex; align-items: center;
+}
+.form-container .add-jogador {
+    flex: 0 0 30px;
+    width: 30px !important;
+    text-align: center;
+    font-size: 24px;
+    line-height: 38px;
+    margin-left: 5px;
+    cursor: pointer;
+    color: blue;
+}
+
+/* Modo Escuro */
+body.dark-mode .form-container { background-color: #2a2a2a; border: 1px solid #444; }
+body.dark-mode .close-form-btn { color: #888; }
+body.dark-mode input:disabled, body.dark-mode select:disabled {
+    background-color: #3a3a3a !important; color: #aaa !important; border-color: #555;
+}
+/* --- FIM DE FORMULÁRIO MODERNO (MODAL CENTRALIZADO) --- */
+
+
+
 
 /* Configuração das linhas do formulário */
 .form-row {
@@ -257,9 +384,10 @@ label {
 
 /* Ajusta o tamanho do select de jogadores */
     #jogador1 {
-        width: 260px !important; /* LARGURA FIXA (290px Menos 30px do botão) */
-        /* max-width: 313px; REMOVIDO */
-    }
+		width: 270px !important; /* Força a largura para 270px */
+		margin-right: 0 !important; /* Garante que não empurre o botão */
+		font-size: 15px !important;
+	}
 	/* As regras para #jogador2, #jogador3 e #jogador4 foram removidas.
 	   Eles agora obedecerão a regra geral de 290px. */
 		
@@ -369,10 +497,7 @@ body.dark-mode .motivo-resultado {
         font-size: 0.9em;
     }
 
-.tab-container {
-    height: 55px;
-    align-items: center;
-}
+
 
 .tab-button {
     padding-top: 3px !important;
@@ -386,7 +511,16 @@ body.dark-mode .motivo-resultado {
 	margin-bottom: 0px;
 	padding-top: 5px;    /* NOVO: Diminui o espaço de cima */
     padding-bottom: 5px; /* NOVO: Diminui o espaço de baixo */
+	
+	padding-left: 0px !important;   /* Reduzimos de 20px para 5px (puxa para a esquerda) */
+    padding-right: 20px !important; /* Mantemos 20px na direita (que você disse estar perfeito) */
 }
+
+/* --- RESPIRO DOS LABELS (SEM MEXER NOS INPUTS) --- */
+    .form-container label {
+        padding-left: 20px !important;     /* Empurra o texto para a direita */
+        box-sizing: border-box !important; /* O SEGREDO: Mantém a largura total fixa */
+    }
 
 table {
     margin-top: 15px !important; /* Reduzimos a margem de 20px para 10px no celular */
@@ -455,36 +589,48 @@ table {
 	
 	
 	/* 1. Regra para campos NORMAIS (Quadra, Dia, Jogador 2, 3, 4) */
-    /* Largura = 100% da tela - 90px(label) - 5px(margin) = 95px */
+    /* --- CORREÇÃO FLEXBOX (ESTICA O CAMPO E ALINHA O BOTÃO) --- */
+
+    /* 1. Faz todos os campos (Quadra, Dia, e Jogadores) ocuparem o espaço livre */
     .form-row input, 
-    .form-row select:not(#jogador1) {
-        width: calc(100% - 95px) !important; 
-        flex-grow: 0 !important;   /* DESLIGA o flex-grow */
-        flex-shrink: 0 !important; /* DESLIGA o flex-shrink */
-        max-width: none !important;
+    .form-row select {
+        width: auto !important;      /* Remove a largura calculada (calc) */
+        flex-grow: 1 !important;     /* Manda esticar até onde der */
+        flex-shrink: 1 !important;   /* Permite ajustar se faltar espaço */
+        min-width: 0 !important;     /* Evita estourar a tela */
     }
 
-    /* 2. Regra ESPECÍFICA para o #jogador1 (campo problemático) */
-    /* Largura = 100% da tela - 95px(label) - 30px(botão) - 5px(margin) = 130px */
+    /* 2. Ajuste fino para o Jogador 1 (que divide espaço com o botão +) */
     #jogador1 {
-        width: calc(100% - 130px) !important;
-        flex-grow: 0 !important;     /* DESLIGA o flex-grow */
-        flex-shrink: 0 !important;  /* DESLIGA o flex-shrink */
-        max-width: none !important; 
+        /* Ele vai crescer automaticamente graças à regra acima */
+        margin-right: 0 !important; 
     }
     
-    /* 3. Regra ESPECÍFICA para o botão '+' (com largura fixa) */
+    /* 3. Botão (+) fixo na direita e alinhado */
     .add-jogador {
-        width: 30px !important;     /* LARGURA FIXA (igual ao PC) */
-        flex-grow: 0 !important;    /* Não cresce */
-        flex-shrink: 0 !important;  /* NÃO ENCOLHE */
-        text-align: center;
-        margin-left: 5px;
+        width: 40px !important;      /* 40px Um pouco mais largo para alinhar com a borda de cima */
+        height: 38px !important;     /* Mesma altura do campo para centralizar */
+        line-height: 38px !important;
+        
+        flex-grow: 0 !important;     /* Não deixa esticar */
+        flex-shrink: 0 !important;   /* Não deixa esmagar */
+        text-align: center !important;
+        margin-left: 5px !important; /* Pequeno respiro entre o nome e o botão */
+        margin-right: 0 !important;  /* Garante que encoste na direita */
     }
     
-    /* 4. Regra do Botão Agendar (que já está funcionando) */
+    /* 4. Regra do Botão Agendar (Centralização Manual) */
     #botaoAgendar {
-        width: 100% !important;
+        /* Largura = 100% do espaço disponível MENOS os 20px que vamos empurrar */
+        width: calc(100% - 20px) !important; 
+        
+        /* Empurra 20px para a direita. 
+           Como já existe 20px de espaço vazio na direita (do container), 
+           agora teremos 20px na esquerda também. = CENTRALIZADO! */
+        margin-left: 20px !important; 
+        
+        margin-top: 5px !important;
+        margin-bottom: 0px !important;
     }
 	
 	
@@ -532,14 +678,21 @@ input, select, button {
     visibility: hidden;
 }
 
+
+/* Botão de adicionar jogador */
 /* Botão de adicionar jogador */
 .add-jogador {
     font-size: 2rem;
     cursor: pointer;
     color: blue;
     margin-top: 1px;
-    width: 30px; /* LARGURA FIXA DO BOTÃO */
-    text-align: right; /* Alinha o "+" à direita */
+    
+    /* Ajustes de alinhamento */
+    width: 20px !important;        /* Força a largura estreita */
+    text-align: center !important; /* Centraliza o símbolo */
+    margin: 0 !important;          /* Remove margens externas */
+    padding: 0 !important;         /* Remove preenchimento interno */
+    display: inline-block !important;
 }
 
 /* Estilização dos botões */
@@ -559,18 +712,21 @@ button:hover {
 }
 
 /* Contêiner para as abas de navegação */
+/* Abas fixas no topo (Regra Mestra Consolidada) */
 .tab-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-    position: fixed; /* Fixa as abas no topo */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: white; /* Destaque visual */
-    z-index: 1000;
-    padding: 3px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra */
+    height: 55px; /* Definimos a altura fixa aqui para todos */
+    z-index: 1100; /* Garante que fique sobre a tabela */
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centraliza os botões verticalmente */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* Configuração para tabelas */
@@ -2359,15 +2515,20 @@ body.dark-mode .motivo-resultado { color: #ccc; }
 
 /* === ESTILOS PARA LEGENDA RECOLHÍVEL === */
 .header-legenda-container {
-    padding: 0 10px; /* Espaçamento lateral, ajuste se necessário */
-    margin-bottom: 10px; /* Espaço abaixo antes da tabela */
-	margin-top: 10px;
-	/* --- LINHAS ADICIONADAS --- */
-    margin-top: 70px; /* Empurra para baixo das abas fixas (ajuste o valor se necessário) */
-    transition: margin-top 0.4s ease-out; /* Anima a mudança de margem */
-    /* --- FIM DAS LINHAS ADICIONADAS --- */
+    padding: 0 10px;
+    margin-bottom: 10px;
+    
+    /* --- O SEGREDO DO ENCAIXE --- */
+    position: sticky; /* Cola no topo ao rolar */
+    top: 55px; /* Cola EXATAMENTE abaixo das abas (que têm 55px) */
+    z-index: 1090; /* Fica acima da tabela, mas abaixo das abas */
+    background-color: white; /* Fundo branco para cobrir a tabela que passa por trás */
+    
+    /* Espaço inicial para o conteúdo não nascer escondido atrás das abas */
+    margin-top: 60px; 
+    border-bottom: 1px solid #eee;
+    transition: margin-top 0.4s ease-out;
 }
-
 .header-legenda-linha {
     display: flex;
     justify-content: space-between; /* Título à esquerda, Legenda à direita */
@@ -4682,6 +4843,8 @@ body.dark-mode .sb-input.super-tb[readonly]:not(:disabled) {
 
 
 
+
+
 </style>
 
 
@@ -4743,8 +4906,12 @@ body.dark-mode .sb-input.super-tb[readonly]:not(:disabled) {
 </div>
 
 
-
+<div id="formBackdrop" class="form-backdrop"></div>
 <div class="form-container">
+    <div class="form-header">
+        <h3>Novo Agendamento</h3>
+        <button type="button" class="close-form-btn" aria-label="Fechar">&times;</button>
+    </div>
     <form id="dataForm">
 	
 	    <div class="form-row">
@@ -5587,100 +5754,89 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // ==============================================
-    // --- INÍCIO DO CÓDIGO DA ETAPA 2 (PAINEL FAB) ---
+    // --- INÍCIO DO CÓDIGO DA ETAPA 2 (PAINEL FAB + FECHAR) ---
     // ==============================================
     
     const fabToggleBtn = document.getElementById('fab-toggle-form');
     const formContainer = document.querySelector('.form-container');
+    const formBackdrop = document.getElementById('formBackdrop'); 
+    const closeFormBtn = document.querySelector('.close-form-btn'); // <--- NOVO: Pegamos o botão X
 
-    // Verifica se os dois elementos essenciais existem
+    // Verifica se os elementos essenciais existem
     if (fabToggleBtn && formContainer) {
         
+        // Função Centralizada para fechar o formulário
+        const fecharFormulario = () => {
+            formContainer.classList.remove('visible');
+            if (formBackdrop) formBackdrop.classList.remove('visible');
+            fabToggleBtn.classList.remove('active');
+            
+            // Rola a tela para o topo
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // 1. Clique no Botão Flutuante (+)
         fabToggleBtn.addEventListener('click', () => {
-            // Vibra o dispositivo (ótimo para feedback tátil no celular)
-            if (navigator.vibrate) { 
-                navigator.vibrate(50);
-            }
-			
-			// ==========================================================
-            // ===== LÓGICA PARA FECHAR PAINÉIS ABERTOS (NOVO) =====
-            // ==========================================================
-            if (legendaConteudo && legendaConteudo.style.display === 'block') {
+            if (navigator.vibrate) navigator.vibrate(50);
+            
+            // Fecha painéis da Agenda/Legenda se estiverem abertos
+            if (typeof legendaConteudo !== 'undefined' && legendaConteudo && legendaConteudo.style.display === 'block') {
                 legendaConteudo.style.display = 'none';
                 legendaTrigger.classList.remove('expandido');
             }
-            if (agendaConteudo && agendaConteudo.style.display === 'block') {
+            if (typeof agendaConteudo !== 'undefined' && agendaConteudo && agendaConteudo.style.display === 'block') {
                 agendaConteudo.style.display = 'none';
                 agendaTrigger.classList.remove('expandido');
             }
-            // ==========================================================
 
-            // 1. Verifica o estado ATUAL (se o painel está visível)
             const isVisible = formContainer.classList.contains('visible');
 
             if (isVisible) {
-                // --- SE ESTÁ VISÍVEL, VAMOS ESCONDER ---
-                formContainer.classList.remove('visible');
-                
-                // 1. Remove a classe 'active' (CSS vai cuidar da cor e rotação)
-                fabToggleBtn.classList.remove('active');
-                
-                // 2. Rola a tela para o topo para a visão da planilha 
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-                
+                fecharFormulario();
             } else {
-                // --- SE ESTÁ ESCONDIDO, VAMOS MOSTRAR ---
-
-                // 1. Limpa o formulário (Isso reseta a Duração para "1 hora")
+                // Abre o formulário
                 limparCampos(); 
-
-                // --- CORREÇÃO DO BUG: RECARREGA A LISTA COMPLETA ---
-                // Como limparCampos() mudou a duração para "1", chamamos carregarJogadores()
-                // para garantir que a lista de opções inclua TODOS os sócios novamente.
                 carregarJogadores(); 
-                // ---------------------------------------------------
 
-                // 1.1. Preenche o Jogador 1 com o nome do usuário logado
+                // Preenche Jogador 1 (Logado)
                 try {
                     const jogadorLogadoNome = localStorage.getItem('jogadorLogado');
-                    if (jogadorLogadoNome && jogadoresData) {
-                        // Encontra o 'apelido' (usado no dropdown) a partir do 'nomeCompleto' (salvo no localStorage)
+                    if (jogadorLogadoNome && typeof jogadoresData !== 'undefined') {
                         const apelidoDoLogado = Object.keys(jogadoresData).find(
                             apelido => jogadoresData[apelido].nomeCompleto.toUpperCase() === jogadorLogadoNome.toUpperCase()
                         );
-                        
                         if (apelidoDoLogado) {
                             document.getElementById('jogador1').value = apelidoDoLogado;
                         }
                     }
-                } catch (e) {
-                    console.error("Erro ao tentar preencher o jogador logado:", e);
-                }
-                // --- FIM DA NOVA LÓGICA ---
+                } catch (e) {}
 
-                formContainer.classList.add('visible')
-
-                // 2. Adiciona a classe 'active' (CSS vai cuidar da cor e rotação)
+                formContainer.classList.add('visible');
+                if (formBackdrop) formBackdrop.classList.add('visible');
                 fabToggleBtn.classList.add('active');
                 
-                // 3. Rola a tela para o topo para exibir o formulário
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         });
+
+        // 2. Clique no Fundo Escuro para fechar
+        if (formBackdrop) {
+            formBackdrop.addEventListener('click', () => {
+                fecharFormulario();
+            });
+        }
+
+        // 3. Clique no Botão "X" para fechar (NOVO)
+        if (closeFormBtn) {
+            closeFormBtn.addEventListener('click', () => {
+                fecharFormulario();
+            });
+        }
     }
     // ============================================
-    // --- FIM DO CÓDIGO DA ETAPA 2 (PAINEL FAB) ---
+    // --- FIM DO CÓDIGO DA ETAPA 2 ---
     // ============================================
     
-
-    // ... (seu código existente do painel "Sobre o Sistema", etc., continua aqui) ...
-
 });
 
 
@@ -5813,8 +5969,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v2.0.0'; // Versão atual do sistema     
-const DataVersaoSistema = '29/12/2025';   
+const VersaoSistema = 'v2.0.1'; // Versão atual do sistema     
+const DataVersaoSistema = '01/01/2026';   
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -6221,7 +6377,17 @@ function InicializarSistema() {
                     if (quadras.Quadra3 === "interditada") quadrasInativas.add("Quadra 3 - Coberta");
 
                     // 2. AGORA CHAMAMOS A FUNÇÃO (LOCAL CORRETO)
-                    atualizarDatas();
+                    //atualizarDatas();
+					
+					// --- TRAVA DE SEGURANÇA ---
+                    // Verifica se o formulário está ABERTO. Se estiver, NÃO atualiza as datas
+                    // para não resetar o que o usuário selecionou.
+                    const formularioAberto = document.querySelector('.form-container.visible');
+                    
+                    if (!formularioAberto) {
+                        atualizarDatas();
+                    }
+                    // --------------------------
 					
 					
 					if (vatualizarOpcoesHorario) {
@@ -7430,11 +7596,19 @@ function obterRegrasDeHorario(data) {
 // =================================================================
 // FUNÇÃO ATUALIZADA: GERA A LISTA DE HORÁRIOS (COM FILTRO DE AULAS)
 // =================================================================
+// =================================================================
+// FUNÇÃO ATUALIZADA: MEMÓRIA DO HORÁRIO SELECIONADO
+// =================================================================
 window.atualizarOpcoesHorario = function() {
     const duracao = document.getElementById('duracao').value;
     const diaSelect = document.getElementById('dia').value; 
     const quadra = document.getElementById('quadra').value;
     const horaSelect = document.getElementById('hora');
+    
+    // --- 1. MEMORIZA O HORÁRIO ATUAL ANTES DE LIMPAR ---
+    const horaAnteriormenteSelecionada = horaSelect.value;
+    // ---------------------------------------------------
+
     horaSelect.innerHTML = '';
 
     if (!duracao || !diaSelect) return;
@@ -7451,7 +7625,6 @@ window.atualizarOpcoesHorario = function() {
     dataSelecionada.setDate(hoje.getDate() + diff);
 
     // 2. Obtém regras de Abertura/Fechamento (Padrão e Especial)
-    // Se for feriado ou dia fechado, essa função já nos avisa
     const regras = obterRegrasDeHorario(dataSelecionada);
 
     if (regras.status === 'fechado') {
@@ -7466,21 +7639,19 @@ window.atualizarOpcoesHorario = function() {
     const dataFormatada = dataSelecionada.toISOString().split('T')[0];
     const bloqueioDoDia = bloqueiosQuadra[quadraKeyFull]?.[dataFormatada];
 
-    // 4. Prepara verificação de AULAS (NOVO BLOCO)
+    // 4. Prepara verificação de AULAS
     let quadraKeySimple = "";
     if (quadra.includes("Quadra 1")) quadraKeySimple = "Quadra1";
     else if (quadra.includes("Quadra 2")) quadraKeySimple = "Quadra2";
     else if (quadra.includes("Quadra 3")) quadraKeySimple = "Quadra3";
 
     const configAula = configAulasGlobal[quadraKeySimple];
-    // O dia da semana para a grade de aulas (1=Seg...7=Dom)
     const diaDaSemanaGrade = dataSelecionada.getDay() === 0 ? 7 : dataSelecionada.getDay();
 
     // Define quantos horários precisamos verificar (1h, 2h ou Pirâmide/2h)
     const duracaoNum = parseInt(duracao === '3-piramide' ? 2 : duracao);
 
     // 5. Gera os horários permitidos
-    // Loop do horário de abertura até (fechamento - duração)
     for (let h = regras.inicio; h <= (regras.fim - duracaoNum); h++) {
         
         let isBloqueado = false;
@@ -7490,7 +7661,6 @@ window.atualizarOpcoesHorario = function() {
             const inicioBloq = parseInt(bloqueioDoDia.regras.inicio.split(':')[0]);
             const fimBloq = parseInt(bloqueioDoDia.regras.fim.split(':')[0]);
             
-            // Se qualquer hora do jogo cair no bloqueio, invalida
             for(let i = 0; i < duracaoNum; i++) {
                 if ((h + i) >= inicioBloq && (h + i) < fimBloq) {
                     isBloqueado = true;
@@ -7499,14 +7669,11 @@ window.atualizarOpcoesHorario = function() {
             }
         }
 
-        // B. Verifica Grade de Aulas (O AJUSTE ESTÁ AQUI)
-        // Só verifica se não estiver bloqueado manualmente e se a grade estiver ativa
+        // B. Verifica Grade de Aulas
         if (!isBloqueado && configAula && configAula.Ativo && configAula.Grade) {
             for(let i = 0; i < duracaoNum; i++) {
                 const horaCheck = h + i;
                 const keyAula = `${diaDaSemanaGrade}_${horaCheck}`;
-                
-                // Se houver uma aula marcada neste horário, bloqueia a opção
                 if (configAula.Grade[keyAula] === true) {
                     isBloqueado = true;
                     break;
@@ -7529,6 +7696,19 @@ window.atualizarOpcoesHorario = function() {
          option.text = "Sem horários disponíveis";
          horaSelect.add(option);
     }
+
+    // --- 6. TENTA RESTAURAR A SELEÇÃO ANTERIOR ---
+    if (horaAnteriormenteSelecionada) {
+        // Verifica se o horário antigo ainda existe na nova lista (é válido para a nova duração?)
+        // Ex: Se era 14h (1h) e mudou para 2h, e 14h-16h está livre, ele mantém o 14.
+        const opcaoParaRestaurar = horaSelect.querySelector(`option[value='${horaAnteriormenteSelecionada}']`);
+        if (opcaoParaRestaurar) {
+            horaSelect.value = horaAnteriormenteSelecionada;
+        }
+        // Se não existir (ex: era 22h e mudou para 2h, mas fecha às 23h), 
+        // ele vai cair naturalmente no primeiro horário disponível (ex: 08:00).
+    }
+    // ---------------------------------------------
 };
 
 
@@ -7971,11 +8151,14 @@ const isReservaParaHoje = (diaSelecionado === diaDaSemanaHoje);
     limparCampos();
     selecionarQuadra(quadra);
 	
-	// Fecha o painel do formulário após o agendamento
+	// Fecha o painel do formulário e o fundo escuro após o agendamento
     const fabToggleBtn = document.getElementById('fab-toggle-form');
     const formContainer = document.querySelector('.form-container');
+    const formBackdrop = document.getElementById('formBackdrop'); // <--- NOVO
+
     if (formContainer && fabToggleBtn && formContainer.classList.contains('visible')) {
         formContainer.classList.remove('visible');
+        if (formBackdrop) formBackdrop.classList.remove('visible'); // <--- NOVO
         fabToggleBtn.classList.remove('active');
     }
 }
@@ -7990,6 +8173,35 @@ function capitalizarNome(nome) {
     return nome.split(' ')
                .map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase()) // <-- ADICIONADO .toLowerCase() AQUI
                .join(' ');
+}
+
+// --- NOVA FUNÇÃO GLOBAL DE FORMATAÇÃO INTELIGENTE ---
+// Substitui as versões locais dentro de gerarPlacarHtml e atualizarNomesPlacarAoVivo
+function formatarNomeInteligente(nomeCompletoRaw, apelidoRaw, isHorizontal) {
+    const nomeCompleto = capitalizarNome(nomeCompletoRaw || apelidoRaw);
+    const apelido = capitalizarNome(apelidoRaw);
+    
+    // Se não for horizontal (celular em pé), retorna só o apelido
+    if (!isHorizontal) return apelido;
+
+    // Lógica Inteligente (Palavra por Palavra)
+    const apelidoWords = apelido.split(' ');
+    const todasPalavrasPresentes = apelidoWords.every(word => 
+        nomeCompleto.toLowerCase().includes(word.toLowerCase())
+    );
+
+    if (todasPalavrasPresentes) {
+        // Caso A: As palavras do apelido estão no nome
+        let nomeFinal = nomeCompleto;
+        apelidoWords.forEach(word => {
+            const regex = new RegExp(`\\b${word}\\b`, 'gi');
+            nomeFinal = nomeFinal.replace(regex, '<b>$&</b>');
+        });
+        return nomeFinal;
+    } else {
+        // Caso B: O apelido é diferente
+        return `${nomeCompleto} (<b>${apelido}</b>)`;
+    }
 }
 
 
@@ -8206,25 +8418,41 @@ function excluirReservaFirebase(horaSelecionada, diaIndex, quadra) {
 }
 
 function limparCampos() {
-    // Não reseta o campo "Jogador 1" e mantém o seu valor
+    // 1. Reseta os campos extras de jogadores (mantém apenas o Jogador 1)
     const jogadoresContainer = document.getElementById('jogadoresContainer');
     while (jogadoresContainer.children.length > 1) {
-        jogadoresContainer.removeChild(jogadoresContainer.lastChild); // Remove apenas os campos de jogador adicionais
+        jogadoresContainer.removeChild(jogadoresContainer.lastChild); 
     }
-    jogadorCount = 1; // Reseta o contador de jogadores para 1
-    document.getElementById('dataForm').reset(); // Reseta o formulário
-    document.getElementById('jogador1').value = ''; // Mantém o campo "Jogador 1"
-    document.getElementById('duracao').value = '1'; // Reseta a duração para 1 hora
-    atualizarOpcoesHorario(); // Atualiza as opções de horário
+    jogadorCount = 1; 
+
+    // 2. Reseta os valores do formulário
+    document.getElementById('dataForm').reset(); 
+    document.getElementById('jogador1').value = ''; 
+    document.getElementById('duracao').value = '1'; 
+
+    // --- A CORREÇÃO DO SEU BUG ESTÁ NESTE BLOCO NOVO ---
+    // Garante que os campos sejam destravados e voltem à cor original
+    const camposParaDestravar = ['quadra', 'dia', 'hora'];
+    
+    camposParaDestravar.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.disabled = false;           // Remove o bloqueio
+            el.style.backgroundColor = ""; // Remove o fundo cinza (volta ao padrão)
+            el.style.color = "";           // Remove cores forçadas
+        }
+    });
+    // ---------------------------------------------------
+
+    atualizarOpcoesHorario(); 
 	
-	// Procura e remove a opção 'Aula' de todos os seletores de jogador
+    // Remove a opção 'Aula' de todos os seletores de jogador (limpeza extra)
     document.querySelectorAll('select[id^="jogador"]').forEach(select => {
         const aulaOption = select.querySelector("option[value='aula']");
         if (aulaOption) {
             aulaOption.remove();
         }
     });
-	
 }
 
 // Monitora as alterações no Firebase
@@ -10593,7 +10821,25 @@ function configurarEventosDaTabela() {
 			return; 
 		}
 
+        // Se a célula estiver vazia, abre o Novo Agendamento
+        // Se a célula estiver vazia...
         if (cell.innerHTML.trim() === '') {
+            const diaIndex = cell.cellIndex; // 1=Segunda ... 7=Domingo
+
+            // --- LÓGICA SIMPLIFICADA E SILENCIOSA ---
+            // Verifica se este dia existe na lista de opções permitidas do formulário.
+            // Se não existir (ex: data passada ou muito futura), o seletor retorna null.
+            const diaPermitido = document.querySelector(`#dia option[value='${diaIndex}']`);
+
+            if (!diaPermitido) {
+                return; // Dia inválido? Apenas ignora. Sem avisos.
+            }
+
+            // Se passou, abre a janela
+            const rowIndex = cell.parentElement.rowIndex - 2;
+            const hora = rowIndex + 6;
+            
+            abrirAgendamentoPelaCelula(diaIndex, hora);
             return;
         }
         
@@ -12480,24 +12726,13 @@ function gerarPlacarHtml(resultado, jogador1Apelido, jogador2Apelido) {
     const j1Info = getInfo(jogador1Apelido);
     const j2Info = getInfo(jogador2Apelido);
     
-    // --- 2. Helper de Formatação ---
-    const formatarNomeExibicao = (nomeCompletoRaw, apelidoRaw, isHorizontal) => {
-        const nomeCompleto = capitalizarNome(nomeCompletoRaw || apelidoRaw);
-        const apelido = capitalizarNome(apelidoRaw);
-        if (!isHorizontal) return apelido;
-        const index = nomeCompleto.toLowerCase().indexOf(apelido.toLowerCase());
-        if (index !== -1) {
-            const regex = new RegExp(`(${apelido})`, 'gi');
-            return nomeCompleto.replace(regex, '<b>$1</b>');
-        } else {
-            return `${nomeCompleto} (<b>${apelido}</b>)`;
-        }
-    };
+    
 
     const isHorizontal = window.innerWidth > window.innerHeight;
-    const j1NomeDisplay = formatarNomeExibicao(j1Info?.nomeCompleto || jogador1Apelido, jogador1Apelido, isHorizontal);
-    const j2NomeDisplay = formatarNomeExibicao(j2Info?.nomeCompleto || jogador2Apelido, jogador2Apelido, isHorizontal);
-
+	
+    const j1NomeDisplay = formatarNomeInteligente(j1Info?.nomeCompleto || jogador1Apelido, jogador1Apelido, isHorizontal);
+    const j2NomeDisplay = formatarNomeInteligente(j2Info?.nomeCompleto || jogador2Apelido, jogador2Apelido, isHorizontal);
+	
     // --- 3. Vencedor ---
     const vencedorDoResultado = resultado.vencedor;
     let p1_is_match_winner = false;
@@ -14744,47 +14979,22 @@ function atualizarNomesPlacarAoVivo() {
         return;
     }
 
-    // Lógica de detecção de tela (Horizontal vs Vertical)
+    // 1. Lógica de detecção de tela (Horizontal vs Vertical)
     const isHorizontal = window.innerWidth > window.innerHeight;
 
-    // --- HELPER DE FORMATAÇÃO INTELIGENTE (Igual ao do Modal de Detalhes) ---
-    const formatarNomeExibicao = (nomeCompletoRaw, apelidoRaw) => {
-        // Garante a formatação base (Primeira letra maiúscula)
-        const nomeCompleto = capitalizarNome(nomeCompletoRaw || apelidoRaw);
-        const apelido = capitalizarNome(apelidoRaw);
-
-        // SE FOR VERTICAL (CELULAR EM PÉ): Retorna apenas o Apelido
-        if (!isHorizontal) {
-            return apelido;
-        }
-
-        // SE FOR HORIZONTAL: Aplica a inteligência do negrito
-        
-        // Verifica se o apelido está contido no nome completo
-        const index = nomeCompleto.toLowerCase().indexOf(apelido.toLowerCase());
-
-        if (index !== -1) {
-            // CASO 1: Apelido FAZ PARTE do nome (Ex: Rafael **Nadal**)
-            const regex = new RegExp(`(${apelido})`, 'gi');
-            return nomeCompleto.replace(regex, '<b>$1</b>');
-        } else {
-            // CASO 2: Apelido é DIFERENTE (Ex: Adenilson Moura (**Amora**))
-            return `${nomeCompleto} (<b>${apelido}</b>)`;
-        }
-    };
-    // -----------------------------------------------------------------------
-
-    // Recupera os dados brutos salvos nos atributos data-* (definidos em abrirPlacarAoVivo)
+    // Recupera os dados brutos salvos nos atributos data-*
     const j1NomeCompleto = j1NomeEl.getAttribute('data-nome-completo');
     const j1Apelido = j1NomeEl.getAttribute('data-apelido');
     
     const j2NomeCompleto = j2NomeEl.getAttribute('data-nome-completo');
     const j2Apelido = j2NomeEl.getAttribute('data-apelido');
 
-    // Aplica a formatação inteligente usando innerHTML (para processar o <b>)
-    j1NomeEl.innerHTML = formatarNomeExibicao(j1NomeCompleto, j1Apelido);
-    j2NomeEl.innerHTML = formatarNomeExibicao(j2NomeCompleto, j2Apelido);
+    // 2. Aplica a formatação inteligente usando a função GLOBAL
+    // Note que passamos 'isHorizontal' como terceiro parâmetro
+    j1NomeEl.innerHTML = formatarNomeInteligente(j1NomeCompleto, j1Apelido, isHorizontal);
+    j2NomeEl.innerHTML = formatarNomeInteligente(j2NomeCompleto, j2Apelido, isHorizontal);
 }
+
 
 
 /**
@@ -17101,6 +17311,86 @@ function aplicarLimitesDeHorarioVisual() {
 }
 
 
+// --- FUNÇÃO PARA ABRIR PELA TABELA (MODO CONTEXTUAL + REGRA DA DURAÇÃO) ---
+function abrirAgendamentoPelaCelula(dia, hora) {
+    if (navigator.vibrate) navigator.vibrate(50);
+
+    // 1. Limpa sujeiras anteriores (Isso destrava tudo primeiro)
+    limparCampos(); 
+    carregarJogadores();
+
+    // 2. Preenche com os dados do clique
+    const campoQuadra = document.getElementById('quadra');
+    const campoDia = document.getElementById('dia');
+    const campoHora = document.getElementById('hora');
+    const campoDuracao = document.getElementById('duracao'); // Pegamos o campo Duração
+
+    campoQuadra.value = quadraSelecionada;
+    campoDia.value = dia;
+    
+    // Atualiza a lista de horários para este dia
+    atualizarOpcoesHorario(); 
+    campoHora.value = hora;
+
+    // 3. Preenche o Jogador Logado
+    try {
+        const jogadorLogadoNome = localStorage.getItem('jogadorLogado');
+        if (jogadorLogadoNome && typeof jogadoresData !== 'undefined') {
+            const apelidoDoLogado = Object.keys(jogadoresData).find(
+                apelido => jogadoresData[apelido].nomeCompleto.toUpperCase() === jogadorLogadoNome.toUpperCase()
+            );
+            if (apelidoDoLogado) {
+                document.getElementById('jogador1').value = apelidoDoLogado;
+            }
+        }
+    } catch (e) {
+        console.error("Erro ao preencher jogador logado:", e);
+    }
+
+    // --- A REGRA DA DURAÇÃO (O CÉREBRO) ---
+    // Verifica se a PRÓXIMA HORA está ocupada
+    const reservasDaQuadra = reservasPorQuadra[quadraSelecionada] || {};
+    const keyProximaHora = `${dia}_${hora + 1}`;
+    
+    // Verifica se existe reserva na próxima hora (que tenha borda, ou seja, é uma reserva válida)
+    const proximaHoraOcupada = !!reservasDaQuadra[keyProximaHora]; 
+
+    const op2h = campoDuracao.querySelector('option[value="2"]');
+    const opPiramide = campoDuracao.querySelector('option[value="3-piramide"]');
+
+    if (proximaHoraOcupada) {
+        // CONFLITO DETECTADO: Força 1 Hora e esconde as opções longas
+        campoDuracao.value = "1";
+        
+        if (op2h) op2h.style.display = 'none';
+        if (opPiramide) opPiramide.style.display = 'none';
+        
+    } else {
+        // SEM CONFLITO: Restaura as opções
+        if (op2h) op2h.style.display = 'block';
+        
+        // A Pirâmide só aparece se estiver ativa nas configurações globais
+        if (opPiramide) {
+            opPiramide.style.display = piramideAtivaGlobal ? 'block' : 'none'; 
+        }
+    }
+    // ---------------------------------------
+
+    // 4. TRAVA os campos de contexto (Visual de "Leitura Apenas")
+    campoQuadra.disabled = true;
+    campoDia.disabled = true;
+    campoHora.disabled = true;
+    
+    // Visual de travado (cinza claro)
+    campoQuadra.style.backgroundColor = "#e9ecef";
+    campoDia.style.backgroundColor = "#e9ecef";
+    campoHora.style.backgroundColor = "#e9ecef";
+
+    // 5. Abre a janela
+    document.querySelector('.form-container').classList.add('visible');
+    document.getElementById('formBackdrop').classList.add('visible');
+    document.getElementById('fab-toggle-form').classList.add('active');
+}
 </script>
 
 <div id="versao-desatualizada-overlay">
