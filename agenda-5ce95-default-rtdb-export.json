@@ -144,7 +144,7 @@
             "professor": true
           },
           "niver": "26/06/1975",
-          "piramide": "",
+          "piramide": "38",
           "socio": "titular"
         },
         "ALESSANDRO ROMERO XAVIER": {
@@ -431,8 +431,14 @@
         "EDNILSON RIBEIRO": {
           "apelido": "Amora",
           "classe": "A",
-          "niver": "01/01/2001",
-          "piramide": "91",
+          "funcoes": {
+            "admin": false,
+            "arbitro": false,
+            "operador": false,
+            "professor": false
+          },
+          "niver": "01/01/2021",
+          "piramide": "39",
           "socio": "titular"
         },
         "EDUARDO BERGMAN": {
@@ -883,9 +889,15 @@
         "RILDO SANTOS": {
           "apelido": "Rildo",
           "classe": "",
+          "funcoes": {
+            "admin": false,
+            "arbitro": false,
+            "operador": false,
+            "professor": true
+          },
           "niver": "08/07/1969",
           "piramide": "",
-          "socio": "titular"
+          "socio": "visitante"
         },
         "ROBERT MENENDEZ": {
           "apelido": "Robert Menendez",
@@ -946,7 +958,7 @@
             "professor": false
           },
           "jogosDeDuplasJogados": 3,
-          "niver": "01/01/2001",
+          "niver": "26/05/1973",
           "piramide": "1",
           "socio": "titular",
           "vitoriasEmDuplas": 2
@@ -1450,8 +1462,8 @@
           "Quadra-3-ativa": true
         },
         "ativa": true,
-        "fim": "31-12-2025",
-        "inicio": "01-01-2025"
+        "fim": "01-12-2026",
+        "inicio": "01-01-2026"
       },
       "Quadras": {
         "Quadra1": "liberada",
@@ -1464,16 +1476,84 @@
     },
     "reservas": {
       "Quadra 1 - Coberta": {
-        "5_16": {
-          "borda": "1h",
+        "4_8": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 3,
+          "hora": 8,
+          "jogadores": "Amora",
+          "organizador": "Amora"
+        },
+        "4_9": {
+          "dia": 4,
+          "hora": 9,
+          "jogadores": "Adriano Feitosa",
+          "organizador": "Amora"
+        },
+        "5_8": {
+          "borda": "2h",
           "dia": 5,
-          "duracao": 1,
-          "hora": 16,
+          "duracao": 3,
+          "hora": 8,
           "jogadores": "Ana Maria Marinho",
-          "organizador": "Ana Maria Marinho"
+          "organizador": "Ana Maria Marinho",
+          "resultado": {
+            "dataInformado": "2026-01-01T19:08:00.105Z",
+            "informadoPor": ": Ana Maria Marinho",
+            "isMatchPoint": false,
+            "perdedor": "",
+            "pontos": {
+              "isTieBreak": false,
+              "j1": "0",
+              "j2": "0"
+            },
+            "sacador": "j1",
+            "set1": {
+              "placar": "1x3",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "0x0",
+              "tiebreak": ""
+            },
+            "set3": "",
+            "tipo": "Placar Normal",
+            "vencedor": ""
+          },
+          "status": "em_andamento"
+        },
+        "5_9": {
+          "dia": 5,
+          "hora": 9,
+          "jogadores": "Ana Julia",
+          "organizador": "Ana Maria Marinho",
+          "resultado": {
+            "dataInformado": "2026-01-01T19:08:00.105Z",
+            "informadoPor": ": Ana Maria Marinho",
+            "isMatchPoint": false,
+            "perdedor": "",
+            "pontos": {
+              "isTieBreak": false,
+              "j1": "0",
+              "j2": "0"
+            },
+            "sacador": "j1",
+            "set1": {
+              "placar": "1x3",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "0x0",
+              "tiebreak": ""
+            },
+            "set3": "",
+            "tipo": "Placar Normal",
+            "vencedor": ""
+          },
+          "status": "em_andamento"
         }
       }
     },
-    "version": "v2.0.0"
+    "version": "v2.0.1"
   }
 }
