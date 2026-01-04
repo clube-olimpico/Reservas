@@ -133,6 +133,20 @@
         .badge-arb { background-color: #fd7e14; }
         .badge-op { background-color: #6c757d; }
 
+        /* --- ESTILO ESPECIAL DA COLUNA DE FUNÇÕES (MOBILE FIX) --- */
+        .col-vinculo-mobile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            flex-wrap: wrap; /* No desktop permite quebra se necessário */
+        }
+        .badges-container {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+        }
+
         .loading-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--bg-color); color: var(--text-color);
@@ -237,10 +251,18 @@
             
             /* Ajuste Aniversários Mobile */
             .birthday-container { width: 100%; padding-left: 15px; padding-right: 15px; box-sizing: border-box; }
-            
-            /* CORREÇÃO AQUI: Garante que os inputs fiquem lado a lado no celular */
             .filters { display: flex; flex-direction: row; gap: 8px; flex-wrap: nowrap; }
             .filters input, .filters select { flex: 1; min-width: 0; padding-left: 6px; padding-right: 6px; font-size: 14px; }
+
+            /* Ajuste da Coluna de Funções no Mobile */
+            .col-vinculo-mobile {
+                flex-direction: column; /* FORÇA UM EMBAIXO DO OUTRO */
+                gap: 2px;
+            }
+            .badges-container {
+                justify-content: center;
+                flex-wrap: wrap; /* Garante que badges quebrem linha se forem muitos */
+            }
         }
     </style>
 </head>
@@ -372,7 +394,6 @@
     </div>
 
     <script>
-        // --- ATENÇÃO: COLE SUA CHAVE API REAL AQUI EMBAIXO ---
         const firebaseConfig = {
             apiKey: "SUA_API_KEY", // <--- COLE SUA CHAVE AQUI
             authDomain: "agenda-5ce95.firebaseapp.com",
@@ -564,7 +585,15 @@
             
             criteriosConsulta.socio = document.getElementById("socio").value;
             criteriosConsulta.classe = document.getElementById("classe").value;
-            criteriosConsulta.niver = document.getElementById("niver").value;
+            
+            // CORREÇÃO: Tratamento de Data (Converter YYYY-MM-DD para DD/MM/AAAA)
+            let niverInput = document.getElementById("niver").value;
+            if(niverInput.includes('-')) {
+                const p = niverInput.split('-');
+                niverInput = `${p[2]}/${p[1]}/${p[0]}`;
+            }
+            criteriosConsulta.niver = niverInput;
+
             let piramide = document.getElementById("piramide").value.trim();
             const filtrarPiramide = document.getElementById("filtrarPiramide").checked;
             
@@ -581,6 +610,7 @@
             if (textoBusca === "" && 
                 piramide === "" && !filtrarPiramide && !piramideAtivada && 
                 criteriosConsulta.socio !== "todos" && criteriosConsulta.classe !== "todos" &&
+                criteriosConsulta.niver === "" &&
                 !filtroAdmin && !filtroProf && !filtroArb && !filtroOp) {
                 return showToast("Digite pelo menos um critério para consulta.", "error");
             }
@@ -598,7 +628,7 @@
                     const jogador = childSnapshot.val();
                     if (jogadorNome.toUpperCase() === "CONVIDADO") return;
 
-                    const jogadorApelido = jogador.apelido ? jogador.apelido.toUpperCase() : ""; // Agora tudo maiúsculo para comparar
+                    const jogadorApelido = jogador.apelido ? jogador.apelido.toUpperCase() : ""; 
                     const jogadorSocio = jogador.socio || "";
                     const jogadorClasse = jogador.classe || "";
                     const jogadorNiver = jogador.niver || "";
@@ -642,20 +672,25 @@
                             if(jogador.funcoes.arbitro) badgesHtml += '<span class="badge badge-arb">Árbitro</span>';
                             if(jogador.funcoes.operador) badgesHtml += '<span class="badge badge-op">Oper</span>';
                         }
-                        let vinculoFormatado = (jogadorSocio === "visitante") ? "Staff" : (jogadorSocio.charAt(0).toUpperCase() + jogadorSocio.slice(1));
+                        let vinculoFormatado = (jogador.socio === "visitante") ? "Staff" : (jogador.socio.charAt(0).toUpperCase() + jogador.socio.slice(1));
+
+                        const nomeCapitalizado = capitalizarNome(jogadorNome);
+                        const apelidoCapitalizado = capitalizarNome(jogador.apelido);
+                        const nomeMobile = formatarNomeInteligente(jogadorNome, jogador.apelido);
 
                         const row = document.createElement("tr");
-                        const nomeCap = capitalizarNome(jogadorNome);
-                        const apelidoCap = capitalizarNome(jogador.apelido);
-                        const nomeMob = formatarNomeInteligente(jogadorNome, jogador.apelido);
-
                         row.innerHTML = `
                             <td style="text-align: left;">
-                                <span class="view-desktop">${nomeCap}</span>
-                                <span class="view-mobile">${nomeMob}</span>
+                                <span class="view-desktop">${nomeCapitalizado}</span>
+                                <span class="view-mobile">${nomeMobile}</span>
                             </td>
-                            <td style="text-align: left;">${apelidoCap}</td>
-                            <td>${vinculoFormatado} ${badgesHtml}</td>
+                            <td style="text-align: left;">${apelidoCapitalizado}</td>
+                            <td>
+                                <div class="col-vinculo-mobile">
+                                    <span>${vinculoFormatado}</span>
+                                    <div class="badges-container">${badgesHtml}</div>
+                                </div>
+                            </td>
                         `;
                         
                         let clickTimeout, isDoubleClick = false;
@@ -838,7 +873,12 @@
                             <span class="view-mobile">${nomeMobile}</span>
                         </td>
                         <td style="text-align: left;">${apelidoCapitalizado}</td>
-                        <td>${vinculoFormatado} ${badgesHtml}</td>
+                        <td>
+                            <div class="col-vinculo-mobile">
+                                <span>${vinculoFormatado}</span>
+                                <div class="badges-container">${badgesHtml}</div>
+                            </div>
+                        </td>
                     `;
                     
                     let clickTimeout, isDoubleClick = false;
@@ -906,8 +946,8 @@
                 if (!playerData) { birthdayList.innerHTML = '<p class="status-message">Nenhum jogador encontrado.</p>'; return; }
                 for (const fullName in playerData) {
                     const player = playerData[fullName];
-                    // Mantém o filtro para não mostrar quem tem data 01/01/2001
-                    if (player.niver && player.niver.length === 10 && player.niver !== "01/01/2001") {
+                    // REMOVIDO: Filtro de 01/01/2001
+                    if (player.niver && player.niver.length === 10) {
                         const [day, month] = player.niver.split('/');
                         const monthInt = parseInt(month);
                         allPlayersBirthday.push({ fullName: capitalizarNome(fullName), nickname: capitalizarNome(player.apelido), day: parseInt(day), month: monthInt });
