@@ -113,6 +113,7 @@
         "Rodrigo Weich": true,
         "Ronaldo Bitencourt": true,
         "Rony Duck": true,
+        "Santos": true,
         "Sidnei Novack": true,
         "Silvane": true,
         "Silvanio Pereira": true,
@@ -1005,6 +1006,19 @@
           "piramide": "69",
           "socio": "dependente"
         },
+        "TESTE DA SILVA SANTOS": {
+          "apelido": "Santos",
+          "classe": "",
+          "funcoes": {
+            "admin": false,
+            "arbitro": false,
+            "operador": true,
+            "professor": false
+          },
+          "niver": "01/01/2001",
+          "piramide": "",
+          "socio": "visitante"
+        },
         "THAIS FREITAS": {
           "apelido": "Thais Freitas",
           "classe": "C",
@@ -1052,7 +1066,7 @@
           "classe": "C",
           "funcoes": {
             "admin": false,
-            "arbitro": true,
+            "arbitro": false,
             "operador": true,
             "professor": false
           },
@@ -1341,7 +1355,7 @@
               },
               "2026-01-04": {
                 "abertura": "08:00",
-                "fechamento": "17:00",
+                "fechamento": "12:00",
                 "status": "aberto"
               },
               "2026-01-05": {
@@ -1476,87 +1490,19 @@
     },
     "reservas": {
       "Quadra 1 - Coberta": {
-        "4_8": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 3,
-          "hora": 8,
-          "jogadores": "Amora",
-          "organizador": "Amora"
-        },
-        "4_9": {
-          "dia": 4,
-          "hora": 9,
-          "jogadores": "Adriano Feitosa",
-          "organizador": "Amora"
-        },
-        "5_8": {
-          "borda": "2h",
-          "dia": 5,
-          "duracao": 3,
-          "hora": 8,
-          "jogadores": "Ana Maria Marinho",
-          "organizador": "Ana Maria Marinho",
-          "resultado": {
-            "dataInformado": "2026-01-01T19:08:00.105Z",
-            "informadoPor": ": Ana Maria Marinho",
-            "isMatchPoint": false,
-            "perdedor": "",
-            "pontos": {
-              "isTieBreak": false,
-              "j1": "0",
-              "j2": "0"
-            },
-            "sacador": "j1",
-            "set1": {
-              "placar": "1x3",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "0x0",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": ""
-          },
-          "status": "em_andamento"
-        },
-        "5_9": {
-          "dia": 5,
-          "hora": 9,
-          "jogadores": "Ana Julia",
-          "organizador": "Ana Maria Marinho",
-          "resultado": {
-            "dataInformado": "2026-01-01T19:08:00.105Z",
-            "informadoPor": ": Ana Maria Marinho",
-            "isMatchPoint": false,
-            "perdedor": "",
-            "pontos": {
-              "isTieBreak": false,
-              "j1": "0",
-              "j2": "0"
-            },
-            "sacador": "j1",
-            "set1": {
-              "placar": "1x3",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "0x0",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": ""
-          },
-          "status": "em_andamento"
-        },
         "6_13": {
           "borda": "1h",
           "dia": 6,
           "duracao": 1,
           "hora": 13,
+          "jogadores": "Ana Maria Marinho",
+          "organizador": "Ana Maria Marinho"
+        },
+        "7_11": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 11,
           "jogadores": "Ana Maria Marinho",
           "organizador": "Ana Maria Marinho"
         }
