@@ -1137,7 +1137,7 @@
       "Convidados": {
         "DiasDeSemana": true,
         "FimDeSemana": true,
-        "Quadra1": false,
+        "Quadra1": true,
         "Quadra2": true,
         "Quadra3": false
       },
@@ -1360,7 +1360,7 @@
               },
               "2026-01-05": {
                 "abertura": "08:00",
-                "fechamento": "17:00",
+                "fechamento": "15:00",
                 "status": "aberto"
               },
               "2026-01-06": {
@@ -1490,21 +1490,27 @@
     },
     "reservas": {
       "Quadra 1 - Coberta": {
-        "6_13": {
+        "2_10": {
           "borda": "1h",
-          "dia": 6,
+          "dia": 2,
           "duracao": 1,
-          "hora": 13,
-          "jogadores": "Ana Maria Marinho",
-          "organizador": "Ana Maria Marinho"
+          "hora": 10,
+          "jogadores": "Joao Bento",
+          "organizador": "Joao Bento"
         },
-        "7_11": {
-          "borda": "1h",
-          "dia": 7,
-          "duracao": 1,
+        "2_11": {
+          "borda": "2h",
+          "dia": 2,
+          "duracao": 3,
           "hora": 11,
-          "jogadores": "Ana Maria Marinho",
-          "organizador": "Ana Maria Marinho"
+          "jogadores": "Ana Julia",
+          "organizador": "Ana Julia"
+        },
+        "2_12": {
+          "dia": 2,
+          "hora": 12,
+          "jogadores": "An Alice",
+          "organizador": "Ana Julia"
         }
       }
     },
