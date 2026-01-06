@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;  
             margin: 0;
             padding: 10px;
-            background-color: #f4f4f4; 
+            background-color: #f4f4f4;  
         }
 
         h1 {
@@ -20,7 +20,7 @@
 
         .filters {
             display: grid;  
-            grid-template-columns: 120px 1fr;   
+            grid-template-columns: 120px 1fr;    
             gap: 10px;
             margin-bottom: 15px;
             align-items: center;
@@ -498,6 +498,7 @@ function exibirLogs(lista) {
         const logEntryDiv = document.createElement('div');
         logEntryDiv.className = 'log-entry';
 
+        // --- Formatação da Data e Duração ---
         let dataParts = log.exclusao.split(' ');
         let dataFormatada = dataParts[0].split('/').reverse().join('-') + 'T' + dataParts[1] + ':00';   
         let date = new Date(dataFormatada);
@@ -508,47 +509,73 @@ function exibirLogs(lista) {
             hour: '2-digit',
             minute: '2-digit'
         }).replace(',', '');
+        
         let duracaoDisplay = log.duracao;
         if (typeof duracaoDisplay === 'number') {
             duracaoDisplay = duracaoDisplay === 3 ? "2 Horas - Pirâmide" : duracaoDisplay === 2 ? "2 Horas" : "1 Hora";
         }
 
         // ==========================================================
-        // ===== INÍCIO DA MODIFICAÇÃO (SEPARAÇÃO JOGADORES/CONVIDADOS) =====
+        // ===== FORMATAÇÃO DOS JOGADORES COM CORES DE STATUS =====
         // ==========================================================
         let listaDeApelidos = [];
         if (Array.isArray(log.jogadores)) {
+            // Suporta tanto o formato antigo ["Nome"] quanto o novo [{apelido:"Nome", posicao:"10"}]
             listaDeApelidos = log.jogadores.map(j => (typeof j === 'object' ? j.apelido : j));
         }
 
-        // 1. Filtra os sócios
+        // 1. Filtra Sócios vs. Convidados
         const socios = listaDeApelidos.filter(j => !j.startsWith("Convidado"));
-        // 2. Filtra os convidados E remove o prefixo
         const convidados = listaDeApelidos
             .filter(j => j.startsWith("Convidado - "))
-            .map(j => j.replace("Convidado - ", "")); // Remove o prefixo
+            .map(j => j.replace("Convidado - ", "")); // Remove o prefixo para exibição limpa
 
-        // 3. Prepara o HTML dos sócios
-        let jogadoresHtml = socios.join(', ');
-        // 4. Prepara o HTML dos convidados (só se existir)
+        // 2. Aplica Cores aos Sócios
+        const sociosFormatados = socios.map(apelido => {
+            let estilo = 'color: black;'; // Cor padrão (preto)
+            
+            // Verifica o status no objeto 'confirmacoes' do log
+            if (log.confirmacoes) {
+                // Busca a chave ignorando maiúsculas/minúsculas para evitar erros
+                const chaveStatus = Object.keys(log.confirmacoes).find(k => k.toLowerCase() === apelido.toLowerCase());
+                const status = chaveStatus ? log.confirmacoes[chaveStatus] : null;
+
+                if (status === 'confirmado' || status === true) {
+                    estilo = 'color: green; font-weight: bold;';
+                } else if (status === 'pendente' || status === false || status === 'pendente') {
+                    estilo = 'color: #ff9800; font-weight: bold;'; // Laranja
+                } else if (status === 'recusado') {
+                    estilo = 'color: red; text-decoration: line-through; font-weight: bold;';
+                }
+            }
+            
+            // Regra Visual: Organizador é sempre Verde (exceto se recusou explicitamente)
+            if (log.organizadorDaReserva && apelido.toLowerCase() === log.organizadorDaReserva.toLowerCase()) {
+                 if (!estilo.includes('red')) {
+                     estilo = 'color: green; font-weight: bold;';
+                 }
+            }
+
+            return `<span style="${estilo}">${apelido}</span>`;
+        });
+
+        // 3. Monta as strings finais
+        let jogadoresHtml = sociosFormatados.join(', ');
         let convidadosHtml = ''; 
         if (convidados.length > 0) {
             convidadosHtml = `<p>Convidados: ${convidados.join(', ')}</p>`;
         }
         // ==========================================================
-        // ===== FIM DA MODIFICAÇÃO =====
-        // ==========================================================
+
         
+        // --- Exibição de Resultado (Placar) ---
         let resultadoHtml = '';
         const resultadoId = `resultado-${log.id}`;
-
-        // --- CÓDIGO OTIMIZADO AQUI ---
         let detalhesPlacar = '';
+
         if (log.resultado && Array.isArray(log.jogadores) && log.jogadores.length > 0) {
-            // Chama a nova função para Pirâmide
             detalhesPlacar = gerarPlacarPiramideHtml(log.resultado, log.jogadores);
         } else if (log.resultadoDuplas) {
-            // Chama a função para Duplas
             detalhesPlacar = gerarPlacarDuplasHtml(log.resultadoDuplas);
         }
 
@@ -562,23 +589,24 @@ function exibirLogs(lista) {
                     ${detalhesPlacar}
                 </div>`;
         }
-        // --- FIM DA OTIMIZAÇÃO --- 
 
+        // --- Detalhes de Status Geral da Reserva ---
         let detalhesConfirmacao = '';
         if (log.statusNoMomentoDaExclusao) {
             const statusLowerCase = log.statusNoMomentoDaExclusao.toLowerCase();
-            let statusStyle = 'color: green;'; // Cor padrão
+            let statusStyle = 'color: green;'; 
 
             if (statusLowerCase.includes('pendente')) {
                 statusStyle = 'color: orange;';
             } else if (statusLowerCase.includes('expirada') || statusLowerCase.includes('recusado')) {
                 statusStyle = 'color: red;';
             } else if (statusLowerCase.includes('cancelada')) {
-                statusStyle = 'color: #db7093;'; // Cor para "Cancelada"
+                statusStyle = 'color: #db7093;'; 
             } else if (statusLowerCase.includes('finalizada')) {
                 statusStyle = 'color: #007bff;';
             }
             detalhesConfirmacao += `<p style="font-size: 0.9em; margin-top: 8px;"><strong>Status:</strong> <span style="${statusStyle} font-weight: bold;">${log.statusNoMomentoDaExclusao.toUpperCase()}</span></p>`;
+            
             if (log.organizadorDaReserva) {
                 detalhesConfirmacao += `<p style="font-size: 0.9em;"><strong>Organizador:</strong> ${log.organizadorDaReserva}</p>`;
             }
@@ -589,6 +617,7 @@ function exibirLogs(lista) {
             motivoHtml = `<p style="font-size: 0.9em;"><strong>Motivo:</strong> <span style="font-style: italic; color: #555;">${log.motivo}</span></p>`;
         }
 
+        // --- Montagem Final do Card ---
         logEntryDiv.innerHTML = `
             <button onclick="solicitarExclusaoLog(${log.id})" style="float: right; cursor: pointer; background: #f2f2f2; color: #dc3545; border: 1px solid #dc3545; border-radius: 50%; width: 24px; height: 24px; font-size: 14px; font-weight: bold; line-height: 22px; text-align: center; padding: 0;">X</button>
             <p><strong>Exclusão: ${formattedDate}</strong></p>
@@ -607,6 +636,8 @@ function exibirLogs(lista) {
     logsContainer.appendChild(fragment);
     document.getElementById('total-registros').textContent = `Total de registros: ${lista.length}`;
 }
+
+
 
 
 // Substitua sua função solicitarExclusaoLog por esta
