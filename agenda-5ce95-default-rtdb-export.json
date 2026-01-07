@@ -1447,6 +1447,32 @@
           "Quadra-3": false
         }
       },
+      "Perfis": {
+        "Admin": {
+          "descricao": "Super Usuário Padrão",
+          "permissoes": {
+            "super_admin": true
+          }
+        },
+        "Professor": {
+          "descricao": "Criado via Configurações",
+          "permissoes": {
+            "acesso_config": false,
+            "controle_quadras": true,
+            "gerir_reservas": false,
+            "gestao_jogadores": false,
+            "gestor_aulas": true,
+            "gestor_torneios": false,
+            "super_admin": false
+          }
+        },
+        "Árbitro": {
+          "descricao": "Criado via Configurações",
+          "permissoes": {
+            "acesso_config": false
+          }
+        }
+      },
       "Piramide": {
         "Quadra-1": {
           "1-DiasDeSemana": true,
