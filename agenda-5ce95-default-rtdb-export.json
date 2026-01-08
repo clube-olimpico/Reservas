@@ -1355,7 +1355,7 @@
               },
               "2026-01-04": {
                 "abertura": "08:00",
-                "fechamento": "12:00",
+                "fechamento": "17:00",
                 "status": "aberto"
               },
               "2026-01-05": {
@@ -1390,7 +1390,7 @@
               },
               "2026-01-11": {
                 "abertura": "08:00",
-                "fechamento": "17:00",
+                "fechamento": "12:00",
                 "status": "aberto"
               }
             },
@@ -1454,6 +1454,12 @@
             "super_admin": true
           }
         },
+        "Operador": {
+          "descricao": "Criado via Configurações",
+          "permissoes": {
+            "acesso_config": false
+          }
+        },
         "Professor": {
           "descricao": "Criado via Configurações",
           "permissoes": {
@@ -1466,10 +1472,28 @@
             "super_admin": false
           }
         },
+        "professor substitulo": {
+          "descricao": "Criado via Configurações",
+          "permissoes": {
+            "acesso_config": true,
+            "controle_quadras": true,
+            "gerir_reservas": true,
+            "gestao_jogadores": true,
+            "gestor_aulas": true,
+            "gestor_torneios": true,
+            "super_admin": true
+          }
+        },
         "Árbitro": {
           "descricao": "Criado via Configurações",
           "permissoes": {
-            "acesso_config": false
+            "acesso_config": true,
+            "controle_quadras": true,
+            "gerir_reservas": true,
+            "gestao_jogadores": true,
+            "gestor_aulas": true,
+            "gestor_torneios": true,
+            "super_admin": true
           }
         }
       },
@@ -1512,7 +1536,7 @@
       },
       "ReservasPorConfirmacao": true,
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "horasParaExpirar": 3
+      "horasParaExpirar": 1
     },
     "reservas": {
       "Quadra 1 - Coberta": {
