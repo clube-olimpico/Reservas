@@ -1390,7 +1390,7 @@
               },
               "2026-01-11": {
                 "abertura": "08:00",
-                "fechamento": "12:00",
+                "fechamento": "15:00",
                 "status": "aberto"
               }
             },
@@ -1457,43 +1457,37 @@
         "Operador": {
           "descricao": "Criado via Configurações",
           "permissoes": {
-            "acesso_config": false
+            "acesso_config": false,
+            "controle_quadras": true,
+            "gerir_reservas": false,
+            "gestao_jogadores": false,
+            "gestor_aulas": false,
+            "gestor_torneios": true,
+            "super_admin": false
           }
         },
         "Professor": {
           "descricao": "Criado via Configurações",
           "permissoes": {
-            "acesso_config": false,
-            "controle_quadras": true,
-            "gerir_reservas": false,
-            "gestao_jogadores": false,
-            "gestor_aulas": true,
-            "gestor_torneios": false,
-            "super_admin": false
-          }
-        },
-        "professor substitulo": {
-          "descricao": "Criado via Configurações",
-          "permissoes": {
             "acesso_config": true,
             "controle_quadras": true,
             "gerir_reservas": true,
-            "gestao_jogadores": true,
+            "gestao_jogadores": false,
             "gestor_aulas": true,
             "gestor_torneios": true,
-            "super_admin": true
+            "super_admin": false
           }
         },
         "Árbitro": {
           "descricao": "Criado via Configurações",
           "permissoes": {
-            "acesso_config": true,
+            "acesso_config": false,
             "controle_quadras": true,
             "gerir_reservas": true,
             "gestao_jogadores": true,
             "gestor_aulas": true,
             "gestor_torneios": true,
-            "super_admin": true
+            "super_admin": false
           }
         }
       },
