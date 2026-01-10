@@ -142,7 +142,7 @@
             "admin": false,
             "arbitro": false,
             "operador": false,
-            "professor": true
+            "professor": false
           },
           "niver": "26/06/1975",
           "piramide": "38",
@@ -150,7 +150,7 @@
         },
         "ALESSANDRO ROMERO XAVIER": {
           "apelido": "Alessandro Xavier",
-          "classe": "B",
+          "classe": "C",
           "niver": "04/04/1975",
           "piramide": "",
           "socio": "titular"
@@ -694,14 +694,11 @@
         "LEONARDO CARRARA": {
           "apelido": "Leo Carrara",
           "classe": "A",
-          "funcoes": {
-            "admin": false,
-            "arbitro": true,
-            "operador": true,
-            "professor": false
-          },
           "jogosDeDuplasJogados": 3,
           "niver": "13/04/1975",
+          "perfis": {
+            "Diretoria": true
+          },
           "piramide": "14",
           "socio": "titular",
           "vitoriasEmDuplas": 2
@@ -889,13 +886,7 @@
         },
         "RILDO SANTOS": {
           "apelido": "Rildo",
-          "classe": "",
-          "funcoes": {
-            "admin": false,
-            "arbitro": false,
-            "operador": false,
-            "professor": true
-          },
+          "classe": "A",
           "niver": "08/07/1969",
           "piramide": "",
           "socio": "visitante"
@@ -953,13 +944,16 @@
           "apelido": "Taborda",
           "classe": "A",
           "funcoes": {
-            "admin": true,
+            "admin": false,
             "arbitro": false,
             "operador": false,
             "professor": false
           },
           "jogosDeDuplasJogados": 3,
           "niver": "26/05/1973",
+          "perfis": {
+            "Admin": true
+          },
           "piramide": "1",
           "socio": "titular",
           "vitoriasEmDuplas": 2
@@ -1009,12 +1003,6 @@
         "TESTE DA SILVA SANTOS": {
           "apelido": "Santos",
           "classe": "",
-          "funcoes": {
-            "admin": false,
-            "arbitro": false,
-            "operador": true,
-            "professor": false
-          },
           "niver": "01/01/2001",
           "piramide": "",
           "socio": "visitante"
@@ -1064,12 +1052,6 @@
         "VANIA TABORDA": {
           "apelido": "Vania",
           "classe": "C",
-          "funcoes": {
-            "admin": false,
-            "arbitro": false,
-            "operador": true,
-            "professor": false
-          },
           "niver": "04/10/1979",
           "piramide": "65",
           "socio": "dependente"
@@ -1454,39 +1436,17 @@
             "super_admin": true
           }
         },
-        "Operador": {
-          "descricao": "Criado via Configurações",
-          "permissoes": {
-            "acesso_config": false,
-            "controle_quadras": true,
-            "gerir_reservas": false,
-            "gestao_jogadores": false,
-            "gestor_aulas": false,
-            "gestor_torneios": true,
-            "super_admin": false
-          }
-        },
-        "Professor": {
+        "Diretoria": {
+          "abreviacao": "Dir",
+          "cor": "#c96222",
           "descricao": "Criado via Configurações",
           "permissoes": {
             "acesso_config": true,
-            "controle_quadras": true,
-            "gerir_reservas": true,
-            "gestao_jogadores": false,
-            "gestor_aulas": true,
-            "gestor_torneios": true,
-            "super_admin": false
-          }
-        },
-        "Árbitro": {
-          "descricao": "Criado via Configurações",
-          "permissoes": {
-            "acesso_config": false,
-            "controle_quadras": true,
+            "controle_quadras": false,
             "gerir_reservas": true,
             "gestao_jogadores": true,
-            "gestor_aulas": true,
-            "gestor_torneios": true,
+            "gestor_aulas": false,
+            "gestor_torneios": false,
             "super_admin": false
           }
         }
@@ -1531,32 +1491,6 @@
       "ReservasPorConfirmacao": true,
       "githubToken": "***SEGREDO_REMOVIDO***",
       "horasParaExpirar": 1
-    },
-    "reservas": {
-      "Quadra 1 - Coberta": {
-        "2_10": {
-          "borda": "1h",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 10,
-          "jogadores": "Joao Bento",
-          "organizador": "Joao Bento"
-        },
-        "2_11": {
-          "borda": "2h",
-          "dia": 2,
-          "duracao": 3,
-          "hora": 11,
-          "jogadores": "Ana Julia",
-          "organizador": "Ana Julia"
-        },
-        "2_12": {
-          "dia": 2,
-          "hora": 12,
-          "jogadores": "An Alice",
-          "organizador": "Ana Julia"
-        }
-      }
     },
     "version": "v2.0.1"
   }
