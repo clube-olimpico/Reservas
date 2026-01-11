@@ -145,6 +145,10 @@
             "professor": false
           },
           "niver": "26/06/1975",
+          "perfis": {
+            "Financeiro": true,
+            "Professor": true
+          },
           "piramide": "38",
           "socio": "titular"
         },
@@ -697,7 +701,8 @@
           "jogosDeDuplasJogados": 3,
           "niver": "13/04/1975",
           "perfis": {
-            "Diretoria": true
+            "Admin": true,
+            "Professor": true
           },
           "piramide": "14",
           "socio": "titular",
@@ -1053,6 +1058,12 @@
           "apelido": "Vania",
           "classe": "C",
           "niver": "04/10/1979",
+          "perfis": {
+            "Admin": true,
+            "Financeiro": true,
+            "Operador": true,
+            "Professor": true
+          },
           "piramide": "65",
           "socio": "dependente"
         },
@@ -1181,7 +1192,7 @@
       "Horarios": {
         "Aulas": {
           "Quadra1": {
-            "Ativo": false,
+            "Ativo": true,
             "Grade": {
               "1_14": true,
               "1_15": true,
@@ -1436,15 +1447,37 @@
             "super_admin": true
           }
         },
-        "Diretoria": {
-          "abreviacao": "Dir",
-          "cor": "#c96222",
+        "Financeiro": {
+          "abreviacao": "Finanças",
+          "cor": "#fd7e14",
           "descricao": "Criado via Configurações",
           "permissoes": {
-            "acesso_config": true,
+            "acesso_config": false,
             "controle_quadras": false,
-            "gerir_reservas": true,
+            "gerir_reservas": false,
             "gestao_jogadores": true,
+            "gestor_aulas": true,
+            "gestor_torneios": false,
+            "super_admin": false
+          }
+        },
+        "Operador": {
+          "abreviacao": "Oper",
+          "cor": "#007bff",
+          "descricao": "Criado via Configurações",
+          "permissoes": {
+            "acesso_config": false
+          }
+        },
+        "Professor": {
+          "abreviacao": "Prof",
+          "cor": "#406687",
+          "descricao": "Criado via Configurações",
+          "permissoes": {
+            "acesso_config": false,
+            "controle_quadras": false,
+            "gerir_reservas": false,
+            "gestao_jogadores": false,
             "gestor_aulas": false,
             "gestor_torneios": false,
             "super_admin": false
@@ -1485,12 +1518,45 @@
       },
       "Quadras": {
         "Quadra1": "liberada",
-        "Quadra2": "interditada",
+        "Quadra2": "liberada",
         "Quadra3": "liberada"
       },
       "ReservasPorConfirmacao": true,
       "githubToken": "***SEGREDO_REMOVIDO***",
       "horasParaExpirar": 1
+    },
+    "reservas": {
+      "Quadra 1 - Coberta": {
+        "1_6": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Alessandro Xavier": false,
+            "Ana Maria Marinho": true
+          },
+          "dia": 1,
+          "duracao": 2,
+          "expiraEm": 1768062802930,
+          "hora": 6,
+          "jogadores": "Ana Maria Marinho, Alessandro Xavier",
+          "jogadores_completo": "Ana Maria Marinho, Alessandro Xavier, Convidado - Roberto, Convidado - Rafael",
+          "organizador": "Ana Maria Marinho",
+          "status": "pendente"
+        },
+        "1_7": {
+          "confirmacoes": {
+            "Alessandro Xavier": false,
+            "Ana Maria Marinho": true
+          },
+          "dia": 1,
+          "duracao": 2,
+          "expiraEm": 1768062802930,
+          "hora": 7,
+          "jogadores": "Convidado - Roberto, Convidado - Rafael",
+          "jogadores_completo": "Ana Maria Marinho, Alessandro Xavier, Convidado - Roberto, Convidado - Rafael",
+          "organizador": "Ana Maria Marinho",
+          "status": "pendente"
+        }
+      }
     },
     "version": "v2.0.1"
   }
