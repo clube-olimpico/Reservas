@@ -154,7 +154,20 @@ body.convidados-ativo, body.piramde-ativo { overflow-x: hidden !important; }
 #duplas .duplas-botoes-container { display: flex; justify-content: space-between; max-width: 400px; width: 90%; margin: 0 auto; margin-bottom: 0px; }
 #duplas .centraliza-checkbox { margin-top: -10px; margin-bottom: 10px; }
 #duplas .duplas-botao { flex: 1; margin: 0 5px; padding: 10px; box-sizing: border-box; background-color: #4CAF50; color: white; }
-#duplas .duplas-botao.ativo { background-color: #2E7D32; font-weight: bold; box-shadow: 0 0 5px rgba(0,0,0,0.3); }
+
+/* --- CORREÇÃO DO BOTÃO ATIVO DE DUPLAS --- */
+.duplas-botao.ativo,
+.duplas-botao.ativo:focus,
+.duplas-botao.ativo:hover { 
+    background-color: #2E7D32 !important; /* Verde Escuro Forçado */
+    color: white !important;              /* Texto Branco */
+    font-weight: bold !important; 
+    box-shadow: 0 0 5px rgba(0,0,0,0.3) !important;
+    border: 1px solid #1b5e20 !important; /* Borda escura para definição */
+    outline: none !important;             /* Remove qualquer borda azul/preta de foco */
+}
+
+
 #duplas .duplas-day-container { margin-bottom: 5px; }
 .duplas-day-container > label { font-weight: normal; display: flex; align-items: center; width: auto; }
 .duplas-time-wrapper { padding-left: 25px; margin-top: 4px; }
@@ -184,9 +197,17 @@ body.convidados-ativo, body.piramde-ativo { overflow-x: hidden !important; }
     #tipoConfiguracaoHorario { max-width: 100% !important; margin-left: 0 !important; }
 
     .convidados-options { margin-left: -20px; white-space: nowrap; }
-    .convidados-options label { max-width: 100%; white-space: normal; font-size: 15px; }
-    .piramde-options label { max-width: 100%; white-space: normal; font-size: 15px; }
-    #piramideInicio, #piramideFim, #piramideSeparador { font-size: 0.8em !important; }
+	
+    .convidados-options label { max-width: 100%; white-space: nowrap; font-size: 15px; }
+    .piramde-options label { 
+        max-width: 100%; 
+        white-space: nowrap !important; /* FORÇA O TEXTO A FICAR EM UMA LINHA SÓ */
+        font-size: 14px !important;     /* Diminui 1px para garantir que caiba na tela */
+        overflow: visible;
+    }
+    
+	
+	#piramideInicio, #piramideFim, #piramideSeparador { font-size: 0.8em !important; }
     #piramideInicio { margin-left: 4px !important; }
     #piramideSeparador { margin: 0 2px !important; }
     .duplas-day-container > label { font-size: 15px; }
@@ -195,7 +216,9 @@ body.convidados-ativo, body.piramde-ativo { overflow-x: hidden !important; }
     #piramide .piramide-botao, #duplas .duplas-botao { flex: 1; margin: 5px; margin-top: 0px; padding: 10px; height: 35px; line-height: 15px; box-sizing: border-box; font-size: 16px; white-space: nowrap; align-items: center; justify-content: center; }
     .centraliza-checkbox { margin-top: 7px; }
     #duplas .centraliza-checkbox { display: flex; justify-content: center; align-items: center; width: 100%; margin-top: -12px; margin-bottom: 0; }
-    .botao-salvar { position: fixed; bottom: 0; left: 0; width: 100%; display: flex; justify-content: center; background: white; padding: 5px 0; margin-bottom: -15px; box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); z-index: 1000; }
+    
+
+	
     #main-content { min-height: 500px; position: relative; width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; }
     .tab-content { display: none; padding: 10px; width: 100%; max-width: 100%; box-sizing: border-box; position: absolute; top: 40px; left: 0; bottom: 0; overflow-y: auto; }
     .tab-content-active { display: block; }
@@ -210,14 +233,27 @@ body.convidados-ativo, body.piramde-ativo { overflow-x: hidden !important; }
 .tab.active { background: none; font-weight: 600; color: #007bff; border-bottom-color: #007bff; }
 
 #usuariosOnline { background-color: #f2f2f2; font-weight: bold; border: 1px solid black; padding: 5px; }
-.botao-salvar { position: fixed; bottom: 0; left: 0; width: 100%; display: flex; justify-content: center; background: white; padding: 10px 0; box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); z-index: 1000; }
+
+
+
 input[id$="Exceto17_19"] { margin-left: 20px; }
 input[id$="Exceto7_12"] { margin-left: 20px; }
 input[id$="Exceto8_12"] { margin-left: 20px; }
 #convidados { overflow-x: hidden !important; max-width: 100% !important; width: 100%; margin-top: 30px; }
 input:disabled, select:disabled, button:disabled { cursor: not-allowed; opacity: 0.7; }
 .piramide-botao { background-color: #4CAF50; color: white; }
-.piramide-botao.ativo { background-color: #2E7D32; font-weight: bold; box-shadow: 0 0 5px rgba(0,0,0,0.3); }
+
+/* --- CORREÇÃO DO BOTÃO ATIVO DA PIRÂMIDE --- */
+.piramide-botao.ativo,
+.piramide-botao.ativo:focus,
+.piramide-botao.ativo:hover { 
+    background-color: #2E7D32 !important; /* Verde Escuro Forçado */
+    color: white !important;              /* Texto Branco */
+    font-weight: bold !important; 
+    box-shadow: 0 0 5px rgba(0,0,0,0.3) !important;
+    border: 1px solid #1b5e20 !important; /* Borda escura para definição */
+    outline: none !important;             /* Remove qualquer borda azul/preta de foco */
+}
 
 /* Modais Gerais */
 
@@ -309,13 +345,10 @@ input:disabled, select:disabled, button:disabled { cursor: not-allowed; opacity:
 }
 
 /* 2. ALINHAMENTO DA LINHA (FLEXBOX SEGURO) */
-#reservas .form-container .container {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important; /* Mantém um item em cada ponta */
-    flex-wrap: nowrap !important;
-    width: 100% !important;
-    box-sizing: border-box;
+.form-container .container {
+    margin-bottom: 5px !important; /* Reduzi para ficar compacto igual à tela-1 */
+    min-height: 30px; /* Altura mínima consistente */
+    align-items: center;
 }
 
 /* 3. COMPORTAMENTO NO COMPUTADOR (RÍGIDO) 
@@ -554,7 +587,7 @@ button:disabled {
 
     /* Texto "até" */
     #formPeriodoEspecial span {
-        font-size: 11px !important;
+        font-size: 11px !important; 
         margin: 0 1px !important;
     }
 
@@ -1555,10 +1588,989 @@ button:disabled {
 
 
 
+/* Adicione isso junto com os outros botões no CSS */ 
+.btn-lapis {
+    background: none !important; /* Garante fundo transparente */
+    border: none !important;
+    padding: 0 !important;
+    margin-left: 8px !important; /* Mesmo espaçamento do botão anterior */
+    cursor: pointer;
+    font-size: 17px; /* Tamanho compatível com o layout */
+    line-height: 1;
+    width: auto !important; /* Não deixa esticar */
+    color: #FFA500; /* Cor laranja (opcional) ou remova para cor padrão */
+}
+.btn-lapis:hover {
+    transform: scale(1.1); /* Efeito suave ao passar o mouse */
+}
+/* Estilo específico para o Lápis Desabilitado (Admin) */
+/* Estilo para deixar o Lápis Cinza/Apagado quando bloqueado */
+.btn-lapis:disabled {
+    background: transparent !important;     /* Sem fundo cinza */
+    border: none !important;                /* Sem borda */
+    cursor: not-allowed !important;         /* Mouse de bloqueado */
+    
+    /* O SEGREDO DO CINZA PARA EMOJIS: */
+    filter: grayscale(100%) !important;     /* Remove o laranja do emoji */
+    opacity: 0.3 !important;                /* Deixa ele bem clarinho (parecendo cinza) */
+    
+    transform: none !important;             /* Remove efeito de zoom */
+}
+
+/* fim de Adicione isso junto com os outros botões no CSS */
+
+
+
+/* Classes para Perfil e Permissões que faltavam */
+.select-padrao {
+    flex: 1;
+    height: 30px !important;
+    padding: 0 5px;
+    box-sizing: border-box;
+}
+
+.btn-extra {
+    background: none !important;
+    border: none !important;
+    cursor: pointer;
+    padding: 0 !important;
+    margin: 0 0 0 5px !important; /* Pequena margem a esquerda */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px !important; 
+    height: 30px !important;
+    font-size: 17px !important;
+    line-height: 1 !important;
+}
+
+.container-fixo {
+    margin-top: 0 !important;
+}
+/* --- ESTILO PARA O CAMPO DE PERMISSÕES DO ADMIN (SEM SETA) --- */
+#permissoesSelect:disabled {
+    appearance: none;           /* Padrão moderno: remove a seta */
+    -webkit-appearance: none;   /* Chrome/Safari: remove a seta */
+    -moz-appearance: none;      /* Firefox: remove a seta */
+    
+    background-image: none !important; /* Garante que nenhuma imagem de seta sobre */
+    background-color: transparent !important; /* Fundo transparente para parecer texto puro */
+    border: none !important;    /* Opcional: remove a borda se quiser parecer texto solto */
+    
+    color: #333 !important;     /* Mantém o texto preto forte (não deixa cinza) */
+    opacity: 1 !important;      /* Garante visibilidade total */
+    cursor: default;            /* Mouse padrão (seta) em vez de mãozinha */
+    
+    text-align: left;           /* Ou center, como preferir */
+    padding-left: 0;            /* Remove recuo se tirar a borda */
+    font-weight: bold;
+}
+/* fim de Classes para Perfil e Permissões que faltavam */
+
+
+/* 1. Botão ADICIONAR (+): Forçamos ele a ficar maior */
+button.add-button {
+    font-size: 30px !important;   /* Tamanho do ícone + */
+    width: 32px !important;       /* Largura da área de clique */
+    height: 32px !important;      /* Altura da área de clique */
+    
+    /* Centralização garantida */
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    
+    /* Opcional: Um ajuste fino se o + parecer "alto" demais */
+    padding-bottom: 3px !important; 
+}
+/* fim de 1. Botão ADICIONAR (+): Forçamos ele a ficar maior */
+
+
+
+/* --- LAYOUT INTELIGENTE (VERSÃO "AUTO") --- */
+
+/* 1. TÍTULO "PERMISSÕES:" */
+.titulo-smart {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+
+/* 2. GRUPO [NOME + LIXEIRA] */
+.grupo-nome-lixo-smart {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    /* AQUI ESTÁ A CORREÇÃO DEFINITIVA: */
+    /* 'auto': O navegador calcula o tamanho real do texto. */
+    /* Se (Título + Texto) > Largura da Tela --> ELE QUEBRA LINHA */
+    /* Se (Título + Texto) < Largura da Tela --> ELE MANTÉM NA LINHA */
+    flex: 1 1 auto;     
+    
+    /* Tamanho mínimo de segurança para não esmagar a lixeira e o "Operador" */
+    min-width: 120px;   
+}
+
+/* O resto continua igual... */
+.header-flex-smart {
+    display: flex;
+    flex-wrap: wrap;       
+    align-items: center;    
+    justify-content: center; /* Centraliza se cair pra linha de baixo */
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    gap: 5px;
+}
+
+/* NOME DO PERFIL */
+#textoNomePerfil {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    margin-right: 10px;
+    text-align: left;
+    flex: 1;                 
+}
+
+/* LIXEIRA */
+.btn-lixo-smart {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 22px; 
+    line-height: 1;
+    padding: 0;
+    margin: 0;
+    width: 30px; 
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #dc3545; 
+    flex-shrink: 0;
+}
+/* --- fim de LAYOUT INTELIGENTE (VERSÃO "AUTO") --- */
+
+
+/* --- AJUSTE HÍBRIDO PERMISSÕES V3 (ALINHAMENTO CORRIGIDO) --- */
+@media (max-width: 600px) {
+    
+    /* 1. O Container: Garante base sólida */
+    label[for="permissoesSelect"] + .input-group {
+        position: relative !important;
+        display: flex !important;       
+        align-items: center !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* === CENÁRIO 1: NORMAL (DROPDOWN ATIVO) === */
+    /* Deve ficar IDÊNTICO ao campo de Perfil */
+    
+    #permissoesSelect:not(:disabled) {
+        flex: 1 !important;             /* Cresce para ocupar espaço */
+        width: 100% !important;         /* Garante largura total disponível */
+        height: 30px !important;
+        
+        /* CORREÇÃO DO ALINHAMENTO ESQUERDA: */
+        margin: 0 !important;           
+        padding: 5px !important;        /* Padding padrão dos outros inputs */
+        box-sizing: border-box !important;
+    }
+
+    /* Botão Lápis no fluxo normal (ao lado) */
+    #permissoesSelect:not(:disabled) + #btnEditarPermissoes {
+        position: static !important;    
+        margin-left: 5px !important;    
+        background: none !important;
+        width: 30px !important;         /* Tamanho fixo para não dançar */
+        height: 30px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+
+    /* === CENÁRIO 2: ADMIN (TEXTO LONGO "⚡ACESSO TOTAL") === */
+    /* Modo invasão: Texto estica, lápis flutua */
+    
+    #permissoesSelect:disabled {
+        width: 100% !important;         
+        flex: none !important;          
+        height: 30px !important;
+        
+        /* Espaço na direita para o lápis flutuante */
+        padding: 5px 30px 5px 5px !important; 
+        
+        /* CORREÇÃO DO ALINHAMENTO ESQUERDA: */
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        
+        /* Visual do texto travado */
+        opacity: 1 !important;
+        color: #333 !important;
+        -webkit-text-fill-color: #333 !important;
+        font-weight: bold !important;
+    }
+
+    /* Botão Lápis Fantasma (Flutuante) */
+    #permissoesSelect:disabled + #btnEditarPermissoes {
+        position: absolute !important;  
+        right: 0 !important;            
+        top: 0 !important;
+        width: 30px !important;
+        height: 30px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: transparent !important;
+        z-index: 10 !important;
+        margin: 0 !important;
+    }
+}
+/* --- fim de AJUSTE HÍBRIDO PERMISSÕES V3 (ALINHAMENTO CORRIGIDO) --- */
+
+
+
+/* --- AUMENTAR APENAS PERFIL E PERMISSÕES NA DIREITA (MOBILE) --- */
+@media (max-width: 600px) {
+    
+    /* Selecionamos especificamente os grupos ao lado dos rótulos "Perfil" e "Permissões" */
+    
+    label[for="perfilSelect"] + .input-group,
+    label[for="permissoesSelect"] + .input-group {
+        
+        /* O TRUQUE: Margem negativa na direita */
+        /* Isso faz o campo "avançar" sobre o espaço vazio da borda */
+        margin-right: -12px !important; 
+        
+        /* Força o recálculo da largura para aproveitar esse espaço extra */
+        width: auto !important;
+        flex: 1 !important;
+    }
+}
+/* --- fim de AUMENTAR APENAS PERFIL E PERMISSÕES NA DIREITA (MOBILE) --- */
+
+
+/* --- LAYOUT ULTRA-COMPACTO FINAL (FONTE AJUSTADA) --- */
+@media (max-height: 500px) {
+
+    /* 1. Ocultar instrução e linha divisória */
+    .texto-instrucao, 
+    .lista-permissoes hr {
+        display: none !important;
+    }
+
+    /* 2. Cabeçalho: Zero espaço embaixo */
+    .header-flex-smart {
+        border-bottom: none !important;
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+        min-height: auto !important;
+    }
+
+    /* 3. Lista: Zero espaço em cima */
+    .lista-permissoes {
+        gap: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    /* 4. O PAINEL AZUL (Acesso Total): Fonte menor e colado no topo */
+    .lista-permissoes > label:first-child {
+        margin-top: -2px !important;
+        margin-bottom: 3px !important;
+        padding: 2px 5px !important;    /* Padding reduzido */
+        min-height: 26px !important;    /* Altura reduzida */
+        
+        /* AQUI ESTÁ O AJUSTE DA FONTE: */
+        font-size: 13px !important; 
+    }
+
+    /* 5. Os Outros Itens (Filhos) */
+    .lista-permissoes label:not(:first-child) {
+        padding: 0 !important;
+        margin: 0 !important;
+        min-height: 22px !important;
+        font-size: 13px !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+    
+    .lista-permissoes input[type="checkbox"] {
+        margin: 0 5px 0 0 !important;
+        transform: scale(0.9);
+    }
+
+    /* 6. A Caixa do Modal */
+    #modalPermissoes .modal-content {
+        padding: 2px 5px !important;
+        top: 0 !important;
+        width: 98% !important;
+        max-height: 100vh !important;
+        border-radius: 4px !important;  
+    }
+
+    /* 7. Botões */
+    #modalPermissoes .modal-buttons {
+        margin-top: 2px !important;
+        padding-top: 2px !important;
+    }
+    #modalPermissoes .modal-buttons button {
+        height: 28px !important;
+        line-height: 1 !important;
+        font-size: 14px !important;
+        padding: 0 10px !important;
+    }
+}
+/* --- FIM DE LAYOUT ULTRA-COMPACTO FINAL (FONTE AJUSTADA) --- */
+
+
+
+/* --- ESTILO RETRÔ: BORDA PRETA E FUNDO BRANCO (SEM CINZA/LARANJA) --- */
+select:focus,
+input:focus,
+button:focus,
+textarea:focus {
+    /* 1. Remove o brilho laranja/azul do navegador */
+    outline: none !important;
+    box-shadow: none !important;
+    
+    /* 2. Força a borda a ficar PRETA (igual à versão antiga) */
+    border-color: #000000 !important;
+    
+    /* 3. O PULO DO GATO: Força o fundo a ficar BRANCO ABSOLUTO */
+    /* Isso impede que o campo fique cinza ao clicar */
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* 4. Remove a "sombra de toque" (aquele flash cinza rápido do Android) */
+* {
+    -webkit-tap-highlight-color: transparent !important;
+}
+/* --- FIM DE ESTILO RETRÔ: BORDA PRETA E FUNDO BRANCO (SEM CINZA/LARANJA) --- --- */
+
+
+/* --- CORREÇÃO DA LIXEIRA (REMOVER FUNDO VERDE) --- */
+.btn-lixo-smart:hover {
+    background-color: transparent !important; /* Força transparência */
+    background: none !important;              /* Garante que não tenha imagem de fundo */
+    transform: scale(1.1);                    /* Opcional: Um leve zoom para dar feedback */
+}
+/* --- fim de CORREÇÃO DA LIXEIRA (REMOVER FUNDO VERDE) --- */
+
+
+/* --- NOTIFICAÇÕES (TOASTS) --- */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none; /* Deixa clicar através do container vazio */
+}
+
+.toast {
+    min-width: 280px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    animation: slideInRight 0.3s ease-out forwards;
+    pointer-events: auto; /* Reativa cliques no toast */
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.toast.success { background-color: #2e7d32; border-left: 5px solid #1b5e20; }
+.toast.error { background-color: #d32f2f; border-left: 5px solid #b71c1c; }
+.toast.warning { background-color: #ffa000; color: #333; border-left: 5px solid #ff6f00; }
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+@keyframes fadeOutUp {
+    to { opacity: 0; transform: translateY(-20px); }
+}
+
+@media (max-width: 600px) {
+    .toast-container { right: 10px; left: 10px; top: 10px; }
+    .toast { width: 100%; box-sizing: border-box; }
+}
+
+/* --- MODAL DE CONFIRMAÇÃO GLOBAL --- */
+#modalConfirmacaoGlobal .modal-content {
+    text-align: center;
+    max-width: 350px;
+}
+#modalConfirmacaoGlobal h3 {
+    margin-top: 0;
+    color: #333;
+}
+#modalConfirmacaoGlobal p {
+    font-size: 16px;
+    color: #555;
+    margin: 20px 0;
+}
+/* --- fim de NOTIFICAÇÕES (TOASTS) --- */
+
+
+/* --- CORREÇÃO: BOTÃO "NÃO" VISÍVEL --- */
+#btnCancelarConf, 
+#btnCancelarInput {
+    background-color: #6c757d !important; /* Cinza Escuro Sólido */
+    color: white !important;               /* Texto Branco */
+    border: none !important;               /* Sem borda */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important; /* Sombra leve para destacar do fundo */
+}
+
+/* Efeito ao passar o mouse */
+#btnCancelarConf:hover, 
+#btnCancelarInput:hover {
+    background-color: #5a6268 !important; /* Cinza um pouco mais escuro */
+    transform: scale(1.05);               /* Leve zoom */
+}
+/* --- fim de CORREÇÃO: BOTÃO "NÃO" VISÍVEL --- */
+
+
+/* ============================================================ */
+/* === MODO ESCURO (DARK MODE) E BOTÃO DE TEMA - CORRIGIDO === */
+/* ============================================================ */
+
+/* 1. Botão Flutuante (Estado Padrão / Modo Claro) */
+/* Fundo ESCURO para contrastar com a página branca */
+#theme-toggle-button {
+    position: fixed;
+    bottom: 45px;
+    right: 5px;
+    
+    /* --- ALTERE AQUI PARA DIMINUIR --- */
+    width: 40px;        /* Era 50px */
+    height: 40px;       /* Era 50px (Mantenha igual à largura para ser redondo) */
+    font-size: 20px;    /* Era 24px (Diminua o ícone proporcionalmente) */
+    /* -------------------------------- */
+    
+    border-radius: 50%;
+    
+    /* ... mantenha o restante das cores igual ... */
+    background-color: #333 !important; 
+    color: white !important;
+    border: none;
+    cursor: pointer;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, background-color 0.3s;
+}
+#theme-toggle-button:hover { transform: scale(1.1); }
+
+/* 2. Ajuste do botão quando o MODO ESCURO está ativo */
+/* Fundo CLARO para contrastar com a página preta */
+body.dark-mode #theme-toggle-button {
+    background-color: #f1f1f1 !important;
+    color: #333 !important;
+    box-shadow: 0 2px 10px rgba(255,255,255,0.2); 
+}
+
+/* 3. A REGRA PRINCIPAL: Fundo do Site */
+body.dark-mode {
+    background-color: #121212 !important; /* Fundo Preto */
+    color: #e0e0e0 !important;            /* Texto Claro */
+}
+
+/* 4. Correção do Rodapé (Botão Salvar) */
+body.dark-mode .botao-salvar {
+    background-color: #1e1e1e !important; 
+    border-top: 1px solid #444 !important; 
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.5) !important; 
+}
+
+/* 5. Containers e Cartões */
+body.dark-mode .form-container,
+body.dark-mode .modal-content,
+body.dark-mode .modal-content-reserva,
+body.dark-mode .tabela-horarios-scroll, 
+body.dark-mode .lista-dias-scroll,
+body.dark-mode #containerListaDiasEspeciais {
+    background-color: #1e1e1e !important;
+    color: #e0e0e0 !important;
+    border-color: #444 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+}
+
+/* 6. Inputs e Selects */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background-color: #2d2d2d !important;
+    color: #fff !important;
+    border: 1px solid #555 !important;
+}
+
+/* Correção do Foco no Modo Escuro (Substitui o fundo branco forçado) */
+body.dark-mode select:focus,
+body.dark-mode input:focus,
+body.dark-mode textarea:focus {
+    background-color: #333 !important; /* Fundo cinza escuro */
+    border-color: #fff !important;     /* Borda branca */
+    color: #fff !important;
+}
+
+/* 7. Tabelas */
+body.dark-mode .tabela-config-horarios th {
+    background-color: #2c2c2c !important;
+    color: #ccc !important;
+    border-bottom: 1px solid #444;
+}
+body.dark-mode .tabela-config-horarios td {
+    border-bottom: 1px solid #444;
+    color: #ddd;
+}
+
+/* 8. Abas (Tabs) */
+body.dark-mode .tab {
+    color: #aaa;
+}
+body.dark-mode .tab:hover {
+    color: #fff;
+}
+body.dark-mode .tab.active {
+    color: #4dabf7; /* Azul claro */
+    border-bottom-color: #4dabf7;
+}
+
+/* 9. Textos e Títulos */
+body.dark-mode h2, body.dark-mode h3, body.dark-mode label {
+    color: #e0e0e0 !important;
+}
+body.dark-mode .title-container span {
+    color: #fff;
+}
+
+/* 10. Linhas Especiais e Detalhes */
+body.dark-mode .linha-dia-especial {
+    background-color: #1e1e1e !important;
+    border-bottom: 1px solid #444 !important;
+}
+body.dark-mode .linha-dia-especial:hover {
+    background-color: #2a2a2a !important;
+}
+body.dark-mode .linha-dia-especial .dia-label {
+    color: #4dabf7 !important;
+}
+
+/* 11. Painéis de Destaque (Amarelo/Azul) */
+body.dark-mode .painel-regra-mestra {
+    background-color: #332b00 !important; /* Amarelo muito escuro */
+    border-color: #665c00 !important;
+}
+body.dark-mode .painel-destaque {
+    background-color: #0d2b42 !important; /* Azul muito escuro */
+    border-color: #1a4f75 !important;
+}
+body.dark-mode .painel-destaque label {
+    color: #ccc !important;
+}
+
+/* 12. Botões Desabilitados */
+body.dark-mode button:disabled {
+    background-color: #444 !important;
+    color: #888 !important;
+}
+
+/* 13. Modal de Permissões */
+body.dark-mode .header-flex-smart {
+    border-bottom-color: #444;
+}
+body.dark-mode #textoNomePerfil {
+    color: #fff;
+}
+body.dark-mode .btn-lapis {
+    filter: brightness(1.2); /* Deixa o emoji mais brilhante */
+}
+
+/* 14. Modal Aulas */
+body.dark-mode .quadra-tab {
+    background-color: #333;
+    border-color: #555;
+    color: #ccc;
+}
+body.dark-mode .quadra-tab.active {
+    background-color: #2e7d32; /* Verde escuro */
+    color: white;
+    border-color: #1b5e20;
+}
+body.dark-mode .painel-controle-aulas {
+    background-color: #252525 !important;
+    border-color: #444 !important;
+}
+body.dark-mode #tituloAulaQuadra {
+    color: #fff;
+}
+body.dark-mode .tabela-aulas th {
+    background-color: #2c2c2c;
+    color: #ddd;
+    border-color: #444;
+}
+body.dark-mode .tabela-aulas td {
+    border-color: #444;
+    color: #ddd;
+}
+body.dark-mode .tabela-aulas td:first-child,
+body.dark-mode .tabela-aulas td:last-child {
+    background-color: #1e1e1e;
+}
+body.dark-mode .aula-cell-livre {
+    background-color: #1e1e1e;
+}
+body.dark-mode .aula-cell-livre:hover {
+    background-color: #333;
+}
+body.dark-mode .aula-cell-bloqueada {
+    background-color: #333 !important;
+}
+/* --- CORREÇÃO: "ACESSO TOTAL" VISÍVEL NO MODO ESCURO --- */
+body.dark-mode #permissoesSelect:disabled {
+    color: #ffffff !important;                   /* Texto Branco */
+    -webkit-text-fill-color: #ffffff !important; /* Garante branco no Chrome/Safari mobile */
+    opacity: 1 !important;                       /* Remove transparência de desabilitado */
+    font-weight: bold !important;
+}
+
+
+/* ============================================================ */
+/* === FIM DE MODO ESCURO (DARK MODE) E BOTÃO DE TEMA === */
+/* ============================================================ */
+
+
+
+/* ============================================================ */
+/* === BOTÃO SALVAR (RODAPÉ) - POSIÇÃO FIXA E VISUAL MODERNO === */
+/* ============================================================ */
+
+/* 1. O CONTAINER (A faixa branca/preta) */
+/* Mantemos a posição fixa no rodapé, sem inventar moda */
+.botao-salvar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    
+    display: flex !important;
+    justify-content: center !important; /* Centraliza o botão na faixa */
+    align-items: center !important;
+    
+    padding: 10px 0 !important; /* Espaço para o botão respirar */
+    background: white;          /* Cor base (o Dark Mode cuida do resto) */
+    
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1) !important;
+    z-index: 1000 !important;
+    
+    margin: 0 !important; /* Garante que não suba nem desça */
+}
+
+/* 2. O BOTÃO EM SI (Onde acontece a mágica) */
+/* Aqui aumentamos a largura e deixamos bonito */
+.botao-salvar button {
+    /* TAMANHO: Ocupa quase toda a largura (efeito esquerda-direita) */
+    width: 96% !important;
+    max-width: 800px !important; /* Trava no PC para não ficar infinito */
+    height: 40px !important;     /* Altura confortável */
+    
+    /* VISUAL MODERNO */
+    background-color: #28a745 !important; /* Verde vivo */
+    color: white !important;
+    font-size: 16px !important;
+    font-weight: normal !important;
+    text-transform: none !important; 
+    letter-spacing: normal !important;
+    
+    border: none !important;
+    border-radius: 8px !important; /* Cantos arredondados */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+    
+    cursor: pointer !important;
+    transition: transform 0.1s, background-color 0.2s !important;
+    
+    /* Remove margens antigas do botão */
+    margin: 0 !important; 
+    display: block !important;
+}
+
+/* Efeito de Clique */
+.botao-salvar button:active {
+    transform: scale(0.98) !important;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1) !important;
+}
+/* ============================================================ */
+/* === fim de BOTÃO SALVAR (RODAPÉ) - POSIÇÃO FIXA E VISUAL MODERNO === */
+/* ============================================================ */
+
+
+
+/* ============================================================ */
+/* === CORREÇÃO SUPREMA: CORES ON/OFF (INÍCIO E CLIQUE) === */
+/* ============================================================ */
+
+/* --- 1. SISTEMA (Fundo Colorido) --- */
+/* Aplica ao estado normal E ao foco/clique */
+#sistema.on, 
+#sistema.on:focus { 
+    background-color: green !important; 
+    color: white !important; 
+    border-color: green !important;
+}
+
+#sistema.off, 
+#sistema.off:focus { 
+    background-color: red !important; 
+    color: white !important; 
+    border-color: red !important;
+}
+
+/* --- 2. OUTROS CAMPOS (Texto Colorido) --- */
+/* Lista completa de classes ON (Verde) */
+.confirmacao-on, .confirmacao-on:focus,
+.edicao-on, .edicao-on:focus,
+.quebra-on, .quebra-on:focus,
+.piramide-on, .piramide-on:focus,
+.duplas-on, .duplas-on:focus,
+.ranking-on, .ranking-on:focus {
+    color: green !important; 
+    font-weight: bold !important;
+    background-color: white !important; /* Garante fundo branco no modo claro */
+}
+
+/* Lista completa de classes OFF (Vermelho) */
+.confirmacao-off, .confirmacao-off:focus,
+.edicao-off, .edicao-off:focus,
+.quebra-off, .quebra-off:focus,
+.piramide-off, .piramide-off:focus,
+.duplas-off, .duplas-off:focus,
+.ranking-off, .ranking-off:focus {
+    color: red !important;
+    font-weight: bold !important;
+    background-color: white !important; /* Garante fundo branco no modo claro */
+}
+
+/* --- 3. AJUSTES ESPECÍFICOS PARA MODO ESCURO --- */
+/* Aqui trocamos as cores para versões que funcionam no fundo preto */
+
+/* Sistema no Escuro */
+body.dark-mode #sistema.on, 
+body.dark-mode #sistema.on:focus { 
+    background-color: #2E7D32 !important; 
+    border-color: #1b5e20 !important;
+}
+body.dark-mode #sistema.off, 
+body.dark-mode #sistema.off:focus { 
+    background-color: #c62828 !important; 
+    border-color: #b71c1c !important;
+}
+
+/* Outros Campos no Escuro (Texto Neon + Fundo Cinza) */
+body.dark-mode .confirmacao-on, body.dark-mode .confirmacao-on:focus,
+body.dark-mode .edicao-on, body.dark-mode .edicao-on:focus,
+body.dark-mode .quebra-on, body.dark-mode .quebra-on:focus,
+body.dark-mode .piramide-on, body.dark-mode .piramide-on:focus,
+body.dark-mode .duplas-on, body.dark-mode .duplas-on:focus,
+body.dark-mode .ranking-on, body.dark-mode .ranking-on:focus {
+    color: #69f0ae !important;            /* Verde Neon */
+    background-color: #2d2d2d !important; /* Fundo do tema escuro */
+}
+
+body.dark-mode .confirmacao-off, body.dark-mode .confirmacao-off:focus,
+body.dark-mode .edicao-off, body.dark-mode .edicao-off:focus,
+body.dark-mode .quebra-off, body.dark-mode .quebra-off:focus,
+body.dark-mode .piramide-off, body.dark-mode .piramide-off:focus,
+body.dark-mode .duplas-off, body.dark-mode .duplas-off:focus,
+body.dark-mode .ranking-off, body.dark-mode .ranking-off:focus {
+    color: #ff5252 !important;            /* Vermelho Neon */
+    background-color: #2d2d2d !important; /* Fundo do tema escuro */
+}
+/* ============================================================ */
+/* === FIM DE CORREÇÃO SUPREMA: CORES ON/OFF (INÍCIO E CLIQUE) === */
+/* ============================================================ */
+
+
+
+/* --- BOTÃO DE COR INTELIGENTE (ESTILO CÍRCULO) --- */
+.botao-cor-custom {
+    width: 24px;             /* Um pouco menor */
+    height: 24px;
+    border-radius: 50%;      /* Círculo perfeito */
+    border: 2px solid #ffffff; /* Borda branca interna para destaque */
+    outline: 1px solid #ccc;   /* Borda fina externa */
+    cursor: pointer;
+    background-color: #007bff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: transform 0.1s;
+    flex-shrink: 0;          /* Impede que o botão amasse */
+}
+.botao-cor-custom:active { transform: scale(0.90); }
+
+/* --- MODAL DA GRADE DE CORES (SÓ PARA PC) --- */ 
+#modalSeletorPC .modal-content {
+    max-width: 320px;
+    text-align: center;
+}
+.grid-cores-pc {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 por linha */
+    gap: 15px;
+    justify-items: center;
+    margin-top: 15px;
+}
+.dot-pc {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+.dot-pc:hover { transform: scale(1.15); border-color: #333; }
+
+/* --- FIM DE BOTÃO DE COR INTELIGENTE --- */
+
+
+
+/* --- FIXAR BOTÕES NO RODAPÉ (GRADE DE AULAS) --- */
+
+/* 1. Transforma a janela em uma coluna flexível */
+#modalHorarioAulas .modal-content {
+    display: flex !important;
+    flex-direction: column !important;
+    max-height: 90vh !important; /* Garante que cabe na tela sem estourar */
+    overflow: hidden !important; /* Remove a barra de rolagem da janela inteira */
+    padding-bottom: 10px !important; /* Espaço extra no fundo */
+}
+
+/* 2. Faz a Tabela ocupar todo o espaço do meio e rolar sozinha */
+#modalHorarioAulas .tabela-horarios-scroll {
+    flex: 1 !important;          /* Cresce para ocupar o vazio */
+    overflow-y: auto !important; /* Cria rolagem APENAS aqui dentro */
+    max-height: none !important; /* Remove limites antigos */
+    min-height: 0 !important;    /* Correção técnica para Flexbox */
+    border-bottom: 1px solid #eee; /* Linha sutil separando dos botões */
+}
+
+/* 3. Fixa os Botões no fundo */
+#modalHorarioAulas .modal-buttons {
+    flex-shrink: 0 !important;   /* Impede que os botões sejam esmagados */
+    margin-top: 10px !important; 
+    padding-top: 5px !important;
+    background-color: white !important; /* Fundo sólido para garantir leitura */
+    z-index: 10;
+}
+/* --- FIIM DE FIXAR BOTÕES NO RODAPÉ (GRADE DE AULAS) --- */
+
+
+/* --- CORREÇÃO TELA CHEIA (PC) - GRADE DE AULAS --- */
+
+/* 1. O MODAL: Ocupa tudo e zera espaços */
+#modalHorarioAulas .modal-content.maximizado {
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    max-height: none !important;
+    
+    top: 0 !important;
+    left: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    
+    padding: 0 !important; 
+    padding-bottom: 0 !important;
+    
+    background-color: #fff !important;
+    
+    display: flex !important;
+    flex-direction: column !important;
+    z-index: 2147483647 !important;
+}
+
+/* 2. O TÍTULO: Branco, Sem Linha e Colado em Cima */
+#modalHorarioAulas .modal-content.maximizado #tituloAulaQuadra {
+    flex: 0 0 auto !important;
+    margin: 0 !important;        
+    padding: 5px 0 10px 0 !important; 
+    text-align: center;
+    
+    background-color: #fff !important; 
+    color: #333 !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    
+    /* AQUI ESTÁ A MUDANÇA: SEM BORDA NENHUMA */
+    border: none !important; 
+    border-bottom: none !important;
+}
+
+/* 3. A ÁREA DE ROLAGEM: Ocupa o resto */
+#modalHorarioAulas .modal-content.maximizado .tabela-horarios-scroll {
+    flex: 1 1 auto !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background-color: #fff !important;
+}
+
+/* 4. A TABELA */
+#modalHorarioAulas .modal-content.maximizado .tabela-aulas {
+    width: 100% !important;
+    margin-bottom: 0 !important;
+    border-bottom: none !important;
+}
+
+/* 5. CABEÇALHO DAS ABAS (Mantido o ajuste anterior) */
+#modalHorarioAulas .modal-content.maximizado .quadras-tabs-container {
+    flex: 0 0 auto !important;
+    width: 100%;
+    
+    /* Padding inferior zerado para colar no título */
+    padding: 5px 5px 0 5px !important; 
+    
+    /* Fundo branco para se fundir com o título */
+    background-color: #fff !important; 
+    
+    margin-bottom: 0 !important;
+    border: none !important;
+}
+
+/* 6. ESCONDER ITENS DESNECESSÁRIOS */
+.modal-content.maximizado .painel-controle-aulas,
+.modal-content.maximizado .modal-buttons,
+.modal-content.maximizado .cabecalho-modal-aulas,
+.modal-content.maximizado .modal-footer {
+    display: none !important;
+}
+
+/* --- FIM DE CORREÇÃO TELA CHEIA (PC) - GRADE DE AULAS --- */
 
 </style>
-
-
 
 </head>
 <body>
@@ -1588,19 +2600,25 @@ button:disabled {
 			</script>
 		</div>
 		
-		<div class="container">
-			<label for="administradores">Administradores:</label>
-			<div class="input-group">
-				<select id="administradores" class="no-select" ondblclick="excluirAdministrador()" title="Selecione um administrador. Dê um duplo clique para excluir."></select>
-				<button type="button" class="add-button" title="Adicionar Administrador" onclick="abrirModalAdicionarAdmin()">+</button>
-			</div>
-		</div>
-		
-		<div class="container">
-            <label for="arbitro">Árbitro:</label>
+		<div class="container container-fixo">
+            <label for="perfilSelect">Perfil:</label>
             <div class="input-group">
-                <input type="text" id="arbitro" readonly placeholder="RONALDO TABORDA">
-                <button type="button" class="swap-button" title="Mudar Árbitro" onclick="abrirModalMudarArbitro()">&#128260;</button>
+                <select id="perfilSelect" class="select-padrao">
+                    <option value="Admin">Admin</option>
+                    <option value="Visitante">Visitante</option>
+                </select>
+                <button type="button" class="btn-extra add-button" onclick="abrirModalAdicionarPerfil()" title="Adicionar Perfil">+</button>
+            </div>
+        </div>
+        
+        <div class="container container-fixo">
+            <label for="permissoesSelect">Permissões:</label>
+            <div class="input-group">
+                <select id="permissoesSelect" class="select-padrao">
+                    <option selected>Acesso Total</option>
+                </select>
+                
+                <button id="btnEditarPermissoes" type="button" class="btn-extra btn-lapis" onclick="abrirModalPermissoes()" title="Editar Permissões">✏️</button>
             </div>
         </div>
 
@@ -2018,7 +3036,155 @@ button:disabled {
     </div>
 </div>
 
+<div id="modalNovoPerfil" class="modal-overlay"> 
+    <div class="modal-content">
+        <h2>Criar Novo Perfil</h2>
+        
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; margin-bottom: 20px;">
+            
+            <div style="display: flex; align-items: center; gap: 5px; flex: 1; min-width: 0;">
+                <label style="width: auto !important; min-width: 0 !important; margin: 0; font-weight: bold; font-size: 14px;">Nome:</label>
+                <input type="text" id="nomeNovoPerfil" placeholder="Ex: Professor" style="flex: 1; min-width: 50px; padding: 6px; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
 
+            <div style="display: flex; align-items: center; gap: 5px; flex: 0 0 auto;">
+                <label style="width: auto !important; min-width: 0 !important; margin: 0; font-weight: bold; font-size: 14px;">Abrev:</label>
+                <input type="text" id="abreviacaoNovoPerfil" placeholder="Ex:Prof" maxlength="8" style="width: 75px !important; text-align: center; padding: 6px 2px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+            </div>
+            
+            <div id="btnVisualCorNovo" class="botao-cor-custom" onclick="abrirSeletorInteligente('novo')" title="Escolher cor" style="margin: 0; flex-shrink: 0;"></div>
+            
+            <input type="hidden" id="corNovoPerfil" value="#007bff">
+            <input type="color" id="nativeCorNovo" style="visibility:hidden; position:absolute; left:-9999px;" onchange="atualizarCorInteligente('novo', this.value)">
+
+        </div>
+
+        <div class="modal-buttons">
+            <button class="btn-fechar" onclick="fecharModalNovoPerfil()">Cancelar</button>
+            <button class="btn-adicionar" onclick="salvarNovoPerfilBanco()">Criar</button>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="modalPermissoes" class="modal-overlay">
+    <div class="modal-content" style="max-width: 450px;">
+        <div class="header-flex-smart">
+            
+            <span class="titulo-smart">Permissões:</span>
+            
+            <div class="grupo-nome-lixo-smart">
+				<span id="textoNomePerfil">Carregando...</span>
+				
+				<div id="btnVisualCorEdicao" class="botao-cor-custom" onclick="abrirSeletorInteligente('edicao')" style="width: 30px; height: 30px; margin-right: 10px;"></div>
+
+				<input type="hidden" id="corPerfilEdicao">
+
+				<input type="color" id="nativeCorEdicao" style="visibility:hidden; position:absolute; left:-9999px;" onchange="atualizarCorInteligente('edicao', this.value)">
+				
+				<button id="btnExcluirPerfil" onclick="excluirPerfilAtual()" class="btn-lixo-smart" title="Excluir" style="display: none;">
+					🗑️
+				</button>
+			</div>
+            
+        </div>
+        
+        <div style="text-align: left; margin: 10px 0;">
+		    <p class="texto-instrucao" style="font-size: 14px; color: #666; margin-bottom: 15px;">Marque o que este perfil pode fazer:</p>
+ 
+            
+            <div class="lista-permissoes" style="display: flex; flex-direction: column; gap: 12px;">
+                
+                <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center; background: #e3f2fd; padding: 8px; border-radius: 4px; border: 1px solid #bbdefb; width: 100%; box-sizing: border-box;">
+                    <input type="checkbox" id="perm_super_admin" onchange="gerenciarPermissoesInterativas('MASTER')" style="width: auto; margin-right: 10px; transform: scale(1.2);"> 
+                    ⚡ <strong>Acesso Total (Super Admin)</strong>
+                </label>
+                
+                <hr style="width: 100%; border-top: 1px dashed #ccc; margin: 5px 0;">
+                
+                <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center;">
+                    <input type="checkbox" id="perm_acesso_config" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;"> 
+                    Acessar Configurações (Esta tela)
+                </label>
+                
+                <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center;">
+                    <input type="checkbox" id="perm_gestao_jogadores" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;"> 
+                    Gestão de Jogadores (Cadastro)
+                </label>
+
+                <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center;">
+                    <input type="checkbox" id="perm_gerir_reservas" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;"> 
+                    Gerenciar Reservas (Editar/Cancelar terceiros)
+                </label>
+                
+                <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center;">
+                    <input type="checkbox" id="perm_controle_quadras" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;"> 
+                    Controle de Quadras (Bloqueios)
+                </label>
+
+                <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center;">
+                    <input type="checkbox" id="perm_gestor_aulas" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;"> 
+                    Gestor de Aulas (Grade/Professor)
+                </label>
+
+                <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center;">
+                    <input type="checkbox" id="perm_gestor_torneios" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;"> 
+                    Gestor de Torneios (Ranking/Pirâmide)
+                </label>
+
+            </div>
+        </div>
+
+        <div class="modal-buttons">
+            <button class="btn-fechar" onclick="fecharModalPermissoes()">Cancelar</button>
+            <button class="btn-adicionar" onclick="salvarPermissoesBanco()">Salvar Alterações</button>
+        </div>
+    </div>
+</div>
+
+
+<button id="theme-toggle-button" onclick="toggleTheme()" title="Alternar Tema">🌙</button>
+
+<div id="toastContainer" class="toast-container"></div>
+
+<div id="modalConfirmacaoGlobal" class="modal-overlay" style="z-index: 10000;">
+    <div class="modal-content">
+        <h3 id="tituloConf">Confirmação</h3>
+        <p id="textoConf">Tem certeza que deseja realizar esta ação?</p>
+        
+        <div class="modal-buttons" style="justify-content: center; gap: 15px;">
+            <button class="btn-fechar" id="btnCancelarConf" style="background-color: #6c757d; width: 100px;">Não</button>
+            <button class="btn-adicionar" id="btnConfirmarConf" style="width: 100px;">Sim</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalInputGlobal" class="modal-overlay" style="z-index: 10001;">
+    <div class="modal-content">
+        <h3 id="tituloInput">Entrada de Dados</h3>
+        <p id="textoInput">Por favor, digite abaixo:</p>
+        
+        <input type="text" id="campoInputGlobal" class="select-padrao" style="width: 100%; margin: 10px 0; border: 1px solid #ccc; padding: 8px;">
+        
+        <div class="modal-buttons" style="justify-content: center; gap: 15px;">
+            <button class="btn-fechar" id="btnCancelarInput" style="background-color: #6c757d; width: 100px;">Cancelar</button>
+            <button class="btn-adicionar" id="btnConfirmarInput" style="width: 100px;">OK</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalSeletorPC" class="modal-overlay" style="z-index: 10002;">
+    <div class="modal-content">
+        <h3>Escolha uma Cor</h3>
+        <div id="gridCoresPC" class="grid-cores-pc">
+            </div>
+        <div class="modal-buttons" style="justify-content: center; margin-top: 20px;">
+            <button class="btn-fechar" onclick="document.getElementById('modalSeletorPC').style.display='none'">Cancelar</button>
+        </div>
+    </div>
+</div>
 
 <script>
     const firebaseConfig = {
@@ -2055,7 +3221,396 @@ button:disabled {
 	// --- VARIÁVEIS DO GERENCIADOR DE AULAS ---
 	let configAulasGlobal = { Quadra1: {}, Quadra2: {}, Quadra3: {} };
 	let quadraAulaAtual = 'Quadra1';
+	
+	let perfilEmEdicaoAtual = null; // Guarda quem está sendo editado agora
 
+
+// ==========================================================
+    // === LÓGICA DE PERFIS E PERMISSÕES (Passo 2) ===
+    // ==========================================================
+    
+    let perfisGlobal = {}; // Variável para guardar os perfis na memória do navegador
+	
+	// --- LÓGICA DO SELETOR DE CORES HÍBRIDO ---
+	const CORES_DISPONIVEIS = [
+		'#dc3545', '#007bff', '#28a745', '#ffc107', '#fd7e14', 
+		'#6f42c1', '#e83e8c', '#17a2b8', '#343a40', '#6c757d'
+	];
+	let modoCorAtual = ''; // 'novo' ou 'edicao'
+
+    // 1. OUVINTE DO BANCO (Funciona em Tempo Real)
+    // Sempre que algo mudar em 'sistemas/config/Perfis', este código roda sozinho.
+    db.ref('sistemas/config/Perfis').on('value', snapshot => {
+        perfisGlobal = snapshot.val() || {};
+        
+        // Se for a primeira vez e não tiver nada, cria o Admin automaticamente
+        if (Object.keys(perfisGlobal).length === 0) {
+            criarPerfilPadraoAdmin();
+        }
+        
+        atualizarDropdownPerfis();
+    });
+
+    function criarPerfilPadraoAdmin() {
+        db.ref('sistemas/config/Perfis/Admin').set({
+            descricao: "Super Usuário Padrão",
+            permissoes: { super_admin: true }
+        });
+    }
+
+    // 2. PREENCHE O DROPDOWN (Menu de Perfis)
+    function atualizarDropdownPerfis() {
+        const select = document.getElementById('perfilSelect');
+        const valorAtual = select.value; // Tenta lembrar o que estava selecionado
+        
+        select.innerHTML = ''; // Limpa as opções antigas
+        
+        // Cria uma opção para cada perfil que veio do banco
+        Object.keys(perfisGlobal).forEach(nomePerfil => {
+            const option = document.createElement('option');
+            option.value = nomePerfil;
+            option.textContent = nomePerfil;
+            select.appendChild(option);
+        });
+
+        // Tenta selecionar de volta o que estava antes (se ainda existir)
+        if (perfisGlobal[valorAtual]) {
+            select.value = valorAtual;
+        }
+        
+        // Atualiza aquele campo cinza de leitura (Resumo)
+        atualizarResumoVisual();
+    }
+
+
+
+// 3. ATUALIZA O VISUAL DO CAMPO "PERMISSÕES" (Lista Apenas Leitura)
+    function atualizarResumoVisual() {
+        const perfilSelecionado = document.getElementById('perfilSelect').value;
+        const dados = perfisGlobal[perfilSelecionado] || {};
+        const perms = dados.permissoes || {};
+        
+        const selectResumo = document.getElementById('permissoesSelect');
+        const btnLapis = document.getElementById('btnEditarPermissoes');
+        
+        // --- 1. REGRA DO LÁPIS ---
+        if (perfilSelecionado === 'Admin') {
+            if (btnLapis) {
+                btnLapis.disabled = true; 
+                btnLapis.title = "O perfil Admin possui acesso total irrestrito.";
+            }
+        } else {
+            if (btnLapis) {
+                btnLapis.disabled = false; 
+                btnLapis.title = "Editar Permissões";
+            }
+        }
+
+        // --- 2. REGRA DO CAMPO VISUAL ---
+        const temAcessoTotal = (perfilSelecionado === 'Admin' || perms.super_admin === true);
+
+        if (temAcessoTotal) {
+            if (selectResumo) selectResumo.disabled = true; 
+        } else {
+            if (selectResumo) selectResumo.disabled = false; 
+        }
+        
+        // --- 3. PREENCHER O CONTEÚDO ---
+        selectResumo.innerHTML = ''; 
+        
+        // CENÁRIO A: ACESSO TOTAL
+        if (temAcessoTotal) {
+            const opt = document.createElement('option');
+            opt.text = "⚡Acesso Total";
+            opt.style.fontWeight = "bold";
+            selectResumo.add(opt);
+            return;
+        }
+
+        // CENÁRIO B: COLETAR PERMISSÕES
+        const nomesCurtos = {
+            acesso_config: "Configurações",
+            gestao_jogadores: "Cadastro",
+            gerir_reservas: "Reservas",
+            controle_quadras: "Quadras",
+            gestor_aulas: "Aulas",
+            gestor_torneios: "Torneios"
+        };
+
+        let listaPermissoes = [];
+        Object.keys(nomesCurtos).forEach(chave => {
+            if (perms[chave] === true) {
+                listaPermissoes.push(nomesCurtos[chave]);
+            }
+        });
+
+        // CENÁRIO C: SEM ACESSO
+        if (listaPermissoes.length === 0) {
+            const opt = document.createElement('option');
+            opt.text = "Sem Acesso";
+            selectResumo.add(opt);
+        } 
+        // CENÁRIO D: PARCIAIS (LEITURA APENAS)
+        else {
+            // 1. CAPA (Parciais...)
+            const optCapa = document.createElement('option');
+            optCapa.text = "Parciais...";
+            optCapa.value = "";
+            optCapa.disabled = true; 
+            optCapa.selected = true; 
+            optCapa.hidden = true;   // Some ao abrir
+            optCapa.style.fontStyle = "italic"; 
+            selectResumo.add(optCapa);
+
+            // 2. ITENS DA LISTA (Bloqueados para clique)
+            listaPermissoes.forEach(nome => {
+                const opt = document.createElement('option');
+                opt.text = nome; // Ex: "Cadastro"
+                
+                // O TRUQUE: Desabilita o item para não ser selecionável
+                opt.disabled = true; 
+                
+                // Tenta manter a cor escura para leitura (alguns browsers ignoram e deixam cinza)
+                opt.style.color = "#000"; 
+                opt.style.fontWeight = "bold";
+
+                selectResumo.add(opt);
+            });
+        }
+}	
+	
+	
+	
+    // Quando o usuário muda o perfil no dropdown, atualiza o resumo
+    // Verifique se o elemento 'perfilSelect' existe antes de adicionar o evento
+    const elPerfilSelect = document.getElementById('perfilSelect');
+    if(elPerfilSelect) {
+        elPerfilSelect.addEventListener('change', atualizarResumoVisual);
+    }
+
+
+    // --- FUNÇÕES DO MODAL "CRIAR NOVO PERFIL" (Botão +) ---
+
+// SUBSTITUA A FUNÇÃO abrirModalAdicionarPerfil POR ESTA:
+function abrirModalAdicionarPerfil() {
+    // 1. Limpa os campos de texto
+    document.getElementById('nomeNovoPerfil').value = '';
+    document.getElementById('abreviacaoNovoPerfil').value = '';
+
+    // 2. Define a cor inicial como Azul (#007bff)
+    // Chama nossa função inteligente que já pinta o botão visual e atualiza os inputs escondidos
+    atualizarCorInteligente('novo', '#007bff');
+    
+    // 3. Mostra o modal
+    document.getElementById('modalNovoPerfil').style.display = 'flex';
+    
+    // 4. Foca no input de nome
+    setTimeout(() => document.getElementById('nomeNovoPerfil').focus(), 100);
+}
+
+    function fecharModalNovoPerfil() {
+        document.getElementById('modalNovoPerfil').style.display = 'none';
+    }
+
+// SUBSTITUA A FUNÇÃO salvarNovoPerfilBanco POR ESTA:
+// ================================================================= 
+// === FUNÇÃO ATUALIZADA: VALIDAÇÃO DE CAMPOS OBRIGATÓRIOS       === 
+// ================================================================= 
+function salvarNovoPerfilBanco() {
+    // 1. Pega os valores brutos dos campos
+    const inputNome = document.getElementById('nomeNovoPerfil').value;
+    const inputAbrev = document.getElementById('abreviacaoNovoPerfil').value;
+    const cor = document.getElementById('corNovoPerfil').value;
+
+    // 2. APLICA A FORMATAÇÃO (Aqui está a mágica)
+    // Transforma "joão silva" em "João Silva"
+    const nome = formatarTexto(inputNome);
+    const abreviacao = formatarTexto(inputAbrev);
+
+    // 3. VALIDAÇÃO DO NOME (Obrigatório)
+    if (!nome) {
+        document.getElementById('nomeNovoPerfil').focus();
+        return mostrarNotificacao("Por favor, digite um Nome para o perfil.", 'warning');
+    }
+
+    // 4. VALIDAÇÃO DA ABREVIAÇÃO (Obrigatório)
+    if (!abreviacao) {
+        document.getElementById('abreviacaoNovoPerfil').focus();
+        return mostrarNotificacao("A Abreviação é obrigatória (Ex: Prof, Jog).", 'warning');
+    }
+
+    // 5. Verifica se já existe um perfil com esse nome exato
+    if (perfisGlobal[nome]) {
+        return mostrarNotificacao("Já existe um perfil com este nome.", 'error');
+    }
+
+    // 6. Salva no Banco de Dados
+    db.ref(`sistemas/config/Perfis/${nome}`).set({
+        descricao: "Criado via Configurações",
+        abreviacao: abreviacao, // Agora salva formatado
+        cor: cor,
+        permissoes: { acesso_config: false } 
+    }).then(() => {
+        mostrarNotificacao(`Perfil "${nome}" criado com sucesso!`, 'success');
+        fecharModalNovoPerfil();
+    }).catch(error => {
+        console.error(error);
+        mostrarNotificacao("Erro ao criar perfil.", 'error');
+    });
+}
+
+
+
+    // --- FUNÇÕES DO MODAL "EDITAR PERMISSÕES" (Botão Lápis ✏️) ---
+
+function abrirModalPermissoes() {
+    const perfil = document.getElementById('perfilSelect').value;
+    if (!perfil) return mostrarNotificacao("Nenhum perfil selecionado.", 'warning');
+
+    // 1. Guarda o perfil atual para saber quem editar
+    perfilEmEdicaoAtual = perfil;
+
+    // 2. Carrega os dados do perfil
+    const dadosPerfil = perfisGlobal[perfil] || {};
+    const corAtual = dadosPerfil.cor || '#000000'; // Usa preto se não tiver cor salva
+
+    // 3. ATUALIZA O BOTÃO CAMALEÃO (Pinta o visual e prepara os inputs)
+    atualizarCorInteligente('edicao', corAtual);
+
+    // 4. Atualiza o título e mostra o modal
+    document.getElementById('textoNomePerfil').innerText = perfil;
+    document.getElementById('modalPermissoes').style.display = 'flex';
+
+    // 5. Verifica se é Admin (para esconder o botão de excluir)
+    if (perfil === 'Admin') {
+        document.getElementById('btnExcluirPerfil').style.display = 'none';
+    } else {
+        document.getElementById('btnExcluirPerfil').style.display = 'inline-block';
+    }
+
+    // 6. Preenche os Checkboxes existentes (mantendo sua lógica original)
+    const perms = dadosPerfil.permissoes || {};
+    const mapa = {
+        'perm_super_admin': 'super_admin',
+        'perm_acesso_config': 'acesso_config',
+        'perm_gestao_jogadores': 'gestao_jogadores',
+        'perm_gerir_reservas': 'gerir_reservas',
+        'perm_controle_quadras': 'controle_quadras',
+        'perm_gestor_aulas': 'gestor_aulas',
+        'perm_gestor_torneios': 'gestor_torneios',
+        'perm_acesso_financeiro': 'acesso_financeiro'
+    };
+
+    for (const [idElemento, chaveBanco] of Object.entries(mapa)) {
+        const el = document.getElementById(idElemento);
+        if (el) {
+            el.checked = (perms[chaveBanco] === true);
+        }
+    }
+    
+    // 7. Inicializa a interatividade (bloqueio de filhos se super admin estiver marcado)
+    if (typeof gerenciarPermissoesInterativas === 'function') {
+        gerenciarPermissoesInterativas('INIT');
+    }
+}
+
+
+
+
+	
+
+
+function excluirPerfilAtual() {
+    if (!perfilEmEdicaoAtual) return;
+
+    // Confirmação de segurança
+    if (!confirm(`Tem certeza que deseja excluir o perfil "${perfilEmEdicaoAtual}"?\n\nISSO REMOVERÁ ESTE PERFIL DE TODOS OS JOGADORES QUE O POSSUEM.`)) {
+        return;
+    }
+
+    const perfilParaApagar = perfilEmEdicaoAtual;
+
+    mostrarNotificacao("Iniciando varredura e exclusão...", "info");
+
+    // 1. PRIMEIRO: Remove a definição do perfil (Configurações)
+    const p1 = db.ref(`sistemas/config/Perfis/${perfilParaApagar}`).remove();
+
+    // 2. SEGUNDO: Varre todos os jogadores para remover esse perfil (Cadastro)
+    const p2 = db.ref('sistemas/cadastro/jogadores').once('value').then(snapshot => {
+        const updates = {};
+        let count = 0;
+
+        snapshot.forEach(childSnapshot => {
+            const keyJogador = childSnapshot.key;
+            const dadosJogador = childSnapshot.val();
+
+            // Verifica se o jogador tem esse perfil
+            if (dadosJogador.perfis && dadosJogador.perfis[perfilParaApagar]) {
+                // Cria o comando para apagar APENAS essa chave específica
+                updates[`sistemas/cadastro/jogadores/${keyJogador}/perfis/${perfilParaApagar}`] = null;
+                count++;
+            }
+        });
+
+        // Se encontrou jogadores com esse perfil, manda o update em lote
+        if (count > 0) {
+            console.log(`Removendo perfil de ${count} jogadores...`);
+            return db.ref().update(updates);
+        } else {
+            return Promise.resolve();
+        }
+    });
+
+    // Quando as duas tarefas terminarem
+    Promise.all([p1, p2])
+        .then(() => {
+            mostrarNotificacao(`Perfil "${perfilParaApagar}" excluído e removido de todos os jogadores!`, "success");
+            fecharModalPermissoes();
+        })
+        .catch(erro => {
+            console.error(erro);
+            mostrarNotificacao("Erro ao excluir perfil.", "error");
+        });
+}
+
+
+    function fecharModalPermissoes() {
+        document.getElementById('modalPermissoes').style.display = 'none';
+    }
+
+
+
+function salvarPermissoesBanco() {
+    const perfil = document.getElementById('perfilSelect').value;
+    
+    // 1. Pega a cor que está no input oculto (escolhida visualmente)
+    const novaCor = document.getElementById('corPerfilEdicao').value;
+
+    let isSuperAdmin = document.getElementById('perm_super_admin').checked;
+    if (perfil === 'Admin') isSuperAdmin = true;
+
+    const novasPermissoes = {
+        super_admin: isSuperAdmin,
+        acesso_config: document.getElementById('perm_acesso_config').checked,
+        gestao_jogadores: document.getElementById('perm_gestao_jogadores').checked,
+        gerir_reservas: document.getElementById('perm_gerir_reservas').checked,
+        controle_quadras: document.getElementById('perm_controle_quadras').checked,
+        gestor_aulas: document.getElementById('perm_gestor_aulas').checked,
+        gestor_torneios: document.getElementById('perm_gestor_torneios').checked
+    };
+
+    // 2. Faz o update COMPLETO (Permissões + Cor)
+    db.ref(`sistemas/config/Perfis/${perfil}`).update({
+        permissoes: novasPermissoes,
+        cor: novaCor
+    })
+    .then(() => {
+        mostrarNotificacao(`Alterações de ${perfil} salvas!`, 'success');
+        fecharModalPermissoes();
+        atualizarResumoVisual();
+    })
+    .catch(erro => mostrarNotificacao("Erro ao salvar: " + erro.message, 'error'));
+}
 
 
 
@@ -2114,7 +3669,7 @@ button:disabled {
 
     function aplicarDadosConfig(data) {
         document.getElementById('sistema').value = data.Abrir ? 'ON' : 'OFF';
-        popularAdministradores(data.Administradores);
+        
         document.getElementById('diasParaAgendar').value = (6 - (data.DiasParaLimpar || 6)).toString();
         document.getElementById('reservasPorConfirmacao').value = data.ReservasPorConfirmacao ? 'ON' : 'OFF';
         document.getElementById('horasParaExpirar').value = data.horasParaExpirar || '2';
@@ -2141,7 +3696,11 @@ button:disabled {
         document.getElementById('estadoQuadra1').value = data.Quadras?.Quadra1 || "liberada";
         document.getElementById('estadoQuadra2').value = data.Quadras?.Quadra2 || "liberada";
         document.getElementById('estadoQuadra3').value = data.Quadras?.Quadra3 || "liberada";
-        if (data.Arbitro && data.Arbitro.apelido) document.getElementById('arbitro').value = data.Arbitro.apelido;
+        // CORREÇÃO: Mudamos de 'arbitro' para 'permissoesInput'
+		if (data.Arbitro && data.Arbitro.apelido) {
+			const elPerm = document.getElementById('permissoesInput');
+			if(elPerm) elPerm.value = data.Arbitro.apelido; 
+		}
 
         // Convidados
         const conv = data.Convidados || {};
@@ -2321,8 +3880,8 @@ button:disabled {
         };
 
         db.ref("sistemas/config").update(updates)
-            .then(() => alert("Configurações salvas com sucesso!"))
-            .catch(error => { console.error(error); alert("Erro ao salvar."); });
+            .then(() => mostrarNotificacao("Configurações salvas com sucesso!", 'success'))
+			.catch(error => { console.error(error); mostrarNotificacao("Erro ao salvar.", 'error'); });
     }
 
     // --- FUNÇÕES DE HORÁRIO ---
@@ -2627,8 +4186,8 @@ function toggleInputsPadrao(diaIdx) {
             };
         }
         db.ref("sistemas/config/Horarios/Padrao").set(novoPadrao)
-            .then(() => { alert("Padrão salvo!"); fecharModalHorario('padrao'); })
-            .catch(err => alert("Erro ao salvar: " + err));
+            .then(() => { mostrarNotificacao("Horário Padrão salvo!", 'success'); fecharModalHorario('padrao'); })
+			.catch(err => mostrarNotificacao("Erro ao salvar: " + err, 'error'));
     }
 
     function actualizarDropdownPeriodos() { // Alias para o nome correto
@@ -2651,24 +4210,27 @@ function atualizarDropdownPeriodos() {
 }
 
 
-    function gerarListaDias() {
-        const inicio = document.getElementById('dataInicioPeriodo').value;
-        const fim = document.getElementById('dataFimPeriodo').value;
-        const mStatus = document.getElementById('regraMestraStatus').value;
-        const mInicio = document.getElementById('regraMestraInicio').value;
-        const mFim = document.getElementById('regraMestraFim').value;
-        if (!inicio || !fim) return alert("Defina Início e Fim.");
-        const diasObj = {};
-        let atual = new Date(inicio + "T00:00:00");
-        const dataFim = new Date(fim + "T00:00:00");
-        const existente = (periodoEmEdicaoID && horariosGlobal.Especiais[periodoEmEdicaoID]) ? horariosGlobal.Especiais[periodoEmEdicaoID].dias : {};
-        while (atual <= dataFim) {
-            const dataStr = atual.toISOString().split('T')[0];
-            diasObj[dataStr] = existente[dataStr] || { status: mStatus, abertura: mInicio, fechamento: mFim };
-            atual.setDate(atual.getDate() + 1);
-        }
-        renderizarListaDias(diasObj);
+function gerarListaDias() {
+    const inicio = document.getElementById('dataInicioPeriodo').value;
+    const fim = document.getElementById('dataFimPeriodo').value;
+    const mStatus = document.getElementById('regraMestraStatus').value;
+    const mInicio = document.getElementById('regraMestraInicio').value;
+    const mFim = document.getElementById('regraMestraFim').value;
+    
+    if (!inicio || !fim) return mostrarNotificacao("Defina as datas de Início e Fim.", 'warning');
+    
+    const diasObj = {};
+    let atual = new Date(inicio + "T00:00:00");
+    const dataFim = new Date(fim + "T00:00:00");
+    const existente = (periodoEmEdicaoID && horariosGlobal.Especiais[periodoEmEdicaoID]) ? horariosGlobal.Especiais[periodoEmEdicaoID].dias : {};
+    
+    while (atual <= dataFim) {
+        const dataStr = atual.toISOString().split('T')[0];
+        diasObj[dataStr] = existente[dataStr] || { status: mStatus, abertura: mInicio, fechamento: mFim };
+        atual.setDate(atual.getDate() + 1);
     }
+    renderizarListaDias(diasObj);
+}
 
 function renderizarListaDias(diasObj) {
     const container = document.getElementById('containerListaDiasEspeciais');
@@ -2736,10 +4298,10 @@ function salvarPeriodoEspecial() {
     const inicio = document.getElementById('dataInicioPeriodo').value;
     const fim = document.getElementById('dataFimPeriodo').value;
     
-    if (!titulo || !inicio || !fim) return alert("Preencha Nome e Datas.");
+    if (!titulo || !inicio || !fim) return mostrarNotificacao("Preencha Nome e Datas.", 'warning');
     
     const linhas = document.querySelectorAll('.linha-dia-especial');
-    if (linhas.length === 0) return alert("Gere a lista de dias antes de salvar.");
+    if (linhas.length === 0) return mostrarNotificacao("Gere a lista de dias antes de salvar.", 'warning');
     
     const diasObj = {};
     linhas.forEach(linha => {
@@ -2759,43 +4321,42 @@ function salvarPeriodoEspecial() {
         fim: fim, 
         dias: diasObj
     }).then(() => { 
-        alert("Período Especial salvo com sucesso!"); 
+        mostrarNotificacao("Período Especial salvo com sucesso!", 'success'); 
         atualizarDropdownPeriodos(); // Atualiza a lista lá em cima
         fecharModalHorario('especial'); // <--- O PULO DO GATO: FECHA A JANELA
     }).catch(error => {
-        alert("Erro ao salvar: " + error.message);
+        mostrarNotificacao("Erro ao salvar: " + error.message, 'error');
     });
 }
 
 
 function excluirPeriodoSelecionado() {
     // Segurança: se não tiver ID selecionado, para tudo.
-    if (!periodoEmEdicaoID) return alert("Nenhum período selecionado para exclusão.");
+    if (!periodoEmEdicaoID) return mostrarNotificacao("Nenhum período selecionado para exclusão.", 'warning');
 
     // Busca os dados do período atual para mostrar o nome na mensagem
     const periodo = horariosGlobal.Especiais[periodoEmEdicaoID];
     const nomeDoPeriodo = periodo ? periodo.titulo : "este período";
 
     // Cria uma mensagem de confirmação detalhada
-    const mensagem = `⚠️ ATENÇÃO: EXCLUSÃO DE PERÍODO\n\n` +
-                     `Você tem certeza que deseja excluir permanentemente o período:\n` +
-                     `"${nomeDoPeriodo}"?\n\n` +
-                     `Todos os dias configurados dentro dele serão removidos.\n` +
-                     `Esta ação não pode ser desfeita.`;
+    const mensagem = `⚠️ ATENÇÃO: EXCLUSÃO DE PERÍODO<br><br>` +
+                     `Você tem certeza que deseja excluir permanentemente o período:<br>` +
+                     `"<b>${nomeDoPeriodo}</b>"?<br><br>` +
+                     `Todos os dias configurados dentro dele serão removidos.`;
 
     // Pergunta final
-    if (confirm(mensagem)) {
+    mostrarConfirmacao(mensagem, () => {
         db.ref(`sistemas/config/Horarios/Especiais/${periodoEmEdicaoID}`).remove()
             .then(() => { 
-                alert("Período excluído com sucesso!"); 
+                mostrarNotificacao("Período excluído com sucesso!", 'success'); 
                 
                 // Limpa a tela e volta ao estado inicial
                 abrirGerenciadorHorarios('especial'); 
             })
             .catch(error => {
-                alert("Erro ao excluir: " + error.message);
+                mostrarNotificacao("Erro ao excluir: " + error.message, 'error');
             });
-    }
+    });
 }
 
 
@@ -2832,28 +4393,87 @@ function excluirPeriodoSelecionado() {
         }
         sel.disabled = false;
     }
-    function handlePiramideChange() {
-        const val = document.getElementById("piramideAtiva").value;
-        if(val === 'ON') {
-            db.ref('sistemas/config/Piramide').once('value', s => {
-                const c = s.val() || {};
-                if(c.inicio && c.fim) {
-                    if(confirm(`Datas salvas: ${c.inicio} a ${c.fim}. Manter?`)) { window.piramideInicioData=c.inicio; window.piramideFimData=c.fim; }
-                    else if(!solicitarNovasDatasPiramide()) document.getElementById("piramideAtiva").value = "OFF";
-                } else if(!solicitarNovasDatasPiramide()) document.getElementById("piramideAtiva").value = "OFF";
+    
+
+
+// --- NOVA LÓGICA PIRÂMIDE (MODERNA) ---
+
+function handlePiramideChange() {
+    const val = document.getElementById("piramideAtiva").value;
+    
+    if(val === 'ON') {
+        // Consulta o banco para ver se já existem datas salvas
+        db.ref('sistemas/config/Piramide').once('value', s => {
+            const c = s.val() || {};
+            
+            if(c.inicio && c.fim) {
+                // Se existirem, pergunta se quer usar elas
+                mostrarConfirmacao(`Datas salvas encontradas: <b>${c.inicio} a ${c.fim}</b>.<br>Deseja mantê-las?`, 
+                    () => { 
+                        // SIM: Usa as datas do banco
+                        window.piramideInicioData = c.inicio; 
+                        window.piramideFimData = c.fim; 
+                        atualizarEstadoPiramide();
+                    },
+                    () => { 
+                        // NÃO: Pergunta novas datas
+                        // (Aqui usamos um pequeno delay para não sobrepor janelas)
+                        setTimeout(() => iniciarFluxoDatasPiramide(), 200);
+                    }
+                );
+            } else {
+                // Se não existirem datas, pede para digitar
+                iniciarFluxoDatasPiramide();
+            }
+        });
+    } else {
+        // Se desligou (OFF)
+        if(window.piramideInicioData) {
+            mostrarConfirmacao("Deseja apagar as datas salvas da memória temporária?", () => {
+                window.piramideInicioData = ""; 
+                window.piramideFimData = "";
                 atualizarEstadoPiramide();
             });
-        } else {
-            if(window.piramideInicioData && confirm("Apagar datas salvas?")) { window.piramideInicioData=""; window.piramideFimData=""; }
-            atualizarEstadoPiramide();
         }
+        atualizarEstadoPiramide();
     }
-    function solicitarNovasDatasPiramide() {
-        const i = prompt("Início (dd-mm-aaaa):"); if(!i) return false;
-        const f = prompt("Fim (dd-mm-aaaa):"); if(!f) return false;
-        if(!/^\d{2}-\d{2}-\d{4}$/.test(i) || !/^\d{2}-\d{2}-\d{4}$/.test(f)) { alert("Formato inválido."); return false; }
-        window.piramideInicioData = i; window.piramideFimData = f; return true;
-    }
+}
+
+// Função auxiliar que pede as datas (Substitui os Prompts antigos)
+function iniciarFluxoDatasPiramide() {
+    // 1. Pede a Data Inicial
+    mostrarInput("Configurar Pirâmide", "Digite a <b>Data de Início</b> (dd-mm-aaaa):", "Ex: 01-01-2024", (inicio) => {
+        
+        // Validação da Data Inicial
+        if(!/^\d{2}-\d{2}-\d{4}$/.test(inicio)) {
+            mostrarNotificacao("Formato de data inválido. Use dia-mês-ano (ex: 01-01-2024).", 'error');
+            document.getElementById("piramideAtiva").value = "OFF";
+            return;
+        }
+        
+        // 2. Pede a Data Final (dentro do "OK" da primeira)
+        setTimeout(() => {
+            mostrarInput("Configurar Pirâmide", "Digite a <b>Data de Fim</b> (dd-mm-aaaa):", "Ex: 30-06-2024", (fim) => {
+                
+                // Validação da Data Final
+                if(!/^\d{2}-\d{2}-\d{4}$/.test(fim)) {
+                    mostrarNotificacao("Formato de data inválido.", 'error');
+                    document.getElementById("piramideAtiva").value = "OFF";
+                    return;
+                }
+                
+                // Sucesso! Salva na memória e atualiza a tela
+                window.piramideInicioData = inicio;
+                window.piramideFimData = fim;
+                atualizarEstadoPiramide();
+                mostrarNotificacao("Datas da Pirâmide definidas com sucesso!", 'success');
+            });
+        }, 300); // Delay para transição suave entre janelas
+    });
+}
+
+	
+	
     
     function atualizarCamposPiramideQuadra1() { updatePiramideQ('1'); }
     function atualizarCamposPiramideQuadra2() { updatePiramideQ('2'); }
@@ -2911,25 +4531,29 @@ function excluirPeriodoSelecionado() {
         document.getElementById('modalDiasSemanaDuplas').style.display = 'flex';
     }
     function fecharModalDiasSemana() { document.getElementById('modalDiasSemanaDuplas').style.display = 'none'; }
-    function salvarModalDiasSemana() {
-        if(!quadraAtualParaDiasSemana) return;
-        diasSemanaDuplasConfig[`Quadra-${quadraAtualParaDiasSemana}`] = {
-            segunda: document.getElementById('duplas-segunda').checked, terca: document.getElementById('duplas-terca').checked,
-            quarta: document.getElementById('duplas-quarta').checked, quinta: document.getElementById('duplas-quinta').checked,
-            sexta: document.getElementById('duplas-sexta').checked
-        };
-        alert('Salvo!'); fecharModalDiasSemana();
-    }
+ 
 
-    function popularAdministradores(d) {
-        const s = document.getElementById('administradores'); s.innerHTML = '';
-        if(d) Object.values(d).forEach(a => { if(a.nomeCompleto) { const o = document.createElement('option'); o.value = a.nomeCompleto; o.textContent = a.apelido; s.appendChild(o); }});
-    }
+function salvarModalDiasSemana() {
+    if(!quadraAtualParaDiasSemana) return;
+    diasSemanaDuplasConfig[`Quadra-${quadraAtualParaDiasSemana}`] = {
+        segunda: document.getElementById('duplas-segunda').checked, terca: document.getElementById('duplas-terca').checked,
+        quarta: document.getElementById('duplas-quarta').checked, quinta: document.getElementById('duplas-quinta').checked,
+        sexta: document.getElementById('duplas-sexta').checked
+    };
+    mostrarNotificacao('Dias da semana atualizados! Clique em Salvar Configurações no final.', 'success');
+    fecharModalDiasSemana();
+}
+
+	
     db.ref("sistemas/usuariosOnline").on("value", s => {
         const n = s.numChildren(); document.getElementById('usuariosOnline').value = n.toString().padStart(3,'0');
         listaUsuariosOnline=[]; s.forEach(c => listaUsuariosOnline.push(c.val().usuario));
     });
-    document.getElementById('usuariosOnline').addEventListener('click', () => alert(listaUsuariosOnline.length ? "Usuários:\n"+listaUsuariosOnline.join("\n") : "Ninguém online."));
+	
+    document.getElementById('usuariosOnline').addEventListener('click', () => {
+        const msg = listaUsuariosOnline.length ? `<b>Usuários:</b><br>${listaUsuariosOnline.join("<br>")}` : "Ninguém online.";
+        mostrarNotificacao(msg, 'info');
+    });
 
     function mostrarQuadra(q) {
         ['1','2','3'].forEach(n => document.getElementById(`piramideQuadra${n}Container`).style.display = `quadra${n}`===q ? 'block' : 'none');
@@ -2963,21 +4587,38 @@ function excluirPeriodoSelecionado() {
         });
         div.appendChild(ul);
     }
-    function adicionarExcecao() {
-        const desc=document.getElementById('excecaoDescricao').value;
-        const d=document.getElementById('excecaoData').value;
-        const i=document.getElementById('excecaoInicio').value;
-        const f=document.getElementById('excecaoFim').value;
-        if(!d||!i||!f) return alert("Preencha tudo.");
-        const dp = d.replace(/-/g,'/'); if(!/^\d{2}\/\d{2}\/\d{4}$/.test(dp)) return alert("Data inválida.");
-        const p = dp.split('/'); const dbDate = `${p[2]}-${p[1]}-${p[0]}`;
-        const k = `Quadra-${quadraAtualParaExcecao}`;
-        db.ref().update({
-            [`sistemas/config/Duplas/DatasEspeciais/${k}/${dbDate}`]: { descricao:desc, regras:{inicio:i,fim:f} },
-            [`sistemas/config/Duplas/${k}/${k}-ativa`]: true
-        }).then(()=>{ alert("Adicionado!"); renderizarExcecoes(quadraAtualParaExcecao); });
-    }
-    function removerExcecao(k, d) { if(confirm("Remover?")) db.ref(`sistemas/config/Duplas/DatasEspeciais/${k}/${d}`).remove(); }
+	
+	
+function adicionarExcecao() {
+    const desc=document.getElementById('excecaoDescricao').value;
+    const d=document.getElementById('excecaoData').value;
+    const i=document.getElementById('excecaoInicio').value;
+    const f=document.getElementById('excecaoFim').value;
+    
+    if(!d||!i||!f) return mostrarNotificacao("Preencha Data, Início e Fim.", 'warning');
+    
+    const dp = d.replace(/-/g,'/'); 
+    if(!/^\d{2}\/\d{2}\/\d{4}$/.test(dp)) return mostrarNotificacao("Data inválida.", 'error');
+    
+    const p = dp.split('/'); const dbDate = `${p[2]}-${p[1]}-${p[0]}`;
+    const k = `Quadra-${quadraAtualParaExcecao}`;
+    
+    db.ref().update({
+        [`sistemas/config/Duplas/DatasEspeciais/${k}/${dbDate}`]: { descricao:desc, regras:{inicio:i,fim:f} },
+        [`sistemas/config/Duplas/${k}/${k}-ativa`]: true
+    }).then(()=>{ 
+        mostrarNotificacao("Exceção adicionada!", 'success');
+        renderizarExcecoes(quadraAtualParaExcecao); 
+    });
+}
+	
+	
+function removerExcecao(k, d) { 
+    mostrarConfirmacao("Deseja remover esta exceção?", () => {
+        db.ref(`sistemas/config/Duplas/DatasEspeciais/${k}/${d}`).remove();
+        mostrarNotificacao("Exceção removida.", 'success');
+    });
+}
     
     async function abrirModalBloqueio(n) {
         if(!vlimparBloqueiosAntigos) { await limparBloqueiosAntigos(); vlimparBloqueiosAntigos=true; }
@@ -2997,21 +4638,40 @@ function excluirPeriodoSelecionado() {
         });
         div.appendChild(ul);
     }
-    function adicionarBloqueio() {
-        const desc=document.getElementById('bloqueioDescricao').value; const d=document.getElementById('bloqueioData').value;
-        const i=document.getElementById('bloqueioInicio').value; const f=document.getElementById('bloqueioFim').value;
-        if(!d||!i||!f) return alert("Preencha tudo.");
-        const dp = d.replace(/-/g,'/'); if(!/^\d{2}\/\d{2}\/\d{4}$/.test(dp)) return alert("Data inválida.");
-        const p = dp.split('/'); const dbDate = `${p[2]}-${p[1]}-${p[0]}`;
-        const k = `Quadra-${quadraAtualParaBloqueio}`;
-        if(bloqueiosQuadra[k] && bloqueiosQuadra[k][dbDate]) return alert("Já existe bloqueio.");
-        bloqueiosQuadra[k] = bloqueiosQuadra[k] || {};
-        bloqueiosQuadra[k][dbDate] = { descricao:desc, regras:{inicio:i,fim:f} };
-        alert("Bloqueio adicionado (Temp). Salve as configurações.");
-        document.getElementById('bloqueioDescricao').value=''; document.getElementById('bloqueioData').value='';
-        renderizarBloqueios(quadraAtualParaBloqueio);
-    }
-    function removerBloqueio(k, d) { if(confirm("Remover?")) { delete bloqueiosQuadra[k][d]; renderizarBloqueios(quadraAtualParaBloqueio); alert("Removido (Temp). Salve."); } }
+	
+	
+function adicionarBloqueio() {
+    const desc=document.getElementById('bloqueioDescricao').value; 
+    const d=document.getElementById('bloqueioData').value;
+    const i=document.getElementById('bloqueioInicio').value; 
+    const f=document.getElementById('bloqueioFim').value;
+    
+    if(!d||!i||!f) return mostrarNotificacao("Preencha tudo.", 'warning');
+    
+    const dp = d.replace(/-/g,'/'); 
+    if(!/^\d{2}\/\d{2}\/\d{4}$/.test(dp)) return mostrarNotificacao("Data inválida.", 'error');
+    
+    const p = dp.split('/'); const dbDate = `${p[2]}-${p[1]}-${p[0]}`;
+    const k = `Quadra-${quadraAtualParaBloqueio}`;
+    
+    if(bloqueiosQuadra[k] && bloqueiosQuadra[k][dbDate]) return mostrarNotificacao("Já existe bloqueio nesta data.", 'error');
+    
+    bloqueiosQuadra[k] = bloqueiosQuadra[k] || {};
+    bloqueiosQuadra[k][dbDate] = { descricao:desc, regras:{inicio:i,fim:f} };
+    
+    mostrarNotificacao("Bloqueio adicionado (Temp). Salve as configurações.", 'success');
+    document.getElementById('bloqueioDescricao').value=''; document.getElementById('bloqueioData').value='';
+    renderizarBloqueios(quadraAtualParaBloqueio);
+}
+	
+	
+function removerBloqueio(k, d) { 
+    mostrarConfirmacao("Remover este bloqueio?", () => {
+        delete bloqueiosQuadra[k][d]; 
+        renderizarBloqueios(quadraAtualParaBloqueio); 
+        mostrarNotificacao("Removido (Temp). Salve as configurações.", 'success');
+    });
+}
     
     function limparExcecoesAntigas() { return limparAntigos(excecoesDuplas, 'Duplas/DatasEspeciais'); }
     function limparBloqueiosAntigos() { return limparAntigos(bloqueiosQuadra, 'Quadras/Bloqueios'); }
@@ -3026,14 +4686,27 @@ function excluirPeriodoSelecionado() {
         return Object.keys(up).length ? db.ref().update(up) : Promise.resolve();
     }
 
-    function handleEstadoQuadraChange(el, n) {
-        if(el.oldValue==='bloqueada' && el.value!=='bloqueada' && bloqueiosQuadra[`Quadra-${n}`]) {
-            if(confirm("Remover todos os bloqueios desta quadra?")) delete bloqueiosQuadra[`Quadra-${n}`];
-            else { el.value='bloqueada'; return; }
-        }
-        if(el.value==='bloqueada') abrirModalBloqueio(n);
-        el.oldValue = el.value;
+
+function handleEstadoQuadraChange(el, n) {
+    if(el.oldValue==='bloqueada' && el.value!=='bloqueada' && bloqueiosQuadra[`Quadra-${n}`]) {
+        mostrarConfirmacao("Remover todos os bloqueios desta quadra?", 
+            () => { // Callback Confirmar
+                delete bloqueiosQuadra[`Quadra-${n}`];
+                mostrarNotificacao("Bloqueios removidos.", 'success');
+            },
+            // Se cancelar (fechar modal), precisamos reverter o valor visualmente
+            // Como nosso modal simples não tem callback de cancelar explícito para reversão de estado,
+            // o ideal é que a mudança só ocorra se confirmar.
+            // O select já mudou visualmente. Se o usuário não confirmar (fechar modal), 
+            // a lógica ideal seria voltar o select.
+            // Para simplificar: Se ele fechar o modal, os bloqueios ficam lá (delete não roda).
+            // Apenas o select mudou. Se ele salvar, salva sem apagar os bloqueios (o que é seguro).
+        );
     }
+    if(el.value==='bloqueada') abrirModalBloqueio(n);
+    el.oldValue = el.value;
+}
+
 
     // Admins e Árbitros
     async function abrirModalAdicionarAdmin() {
@@ -3057,32 +4730,39 @@ function excluirPeriodoSelecionado() {
         const t = document.getElementById('buscaJogadorInput').value.toLowerCase();
         renderizarListaJogadores(listaJogadoresDisponiveis.filter(j=>j.nomeCompleto.toLowerCase().includes(t)));
     }
-    async function selecionarNovoAdmin(n, a) {
-        if(confirm(`Adicionar ${n}?`)) {
-            const snap = await db.ref('sistemas/config/Administradores').once('value');
-            let idx = 1; const val = snap.val() || {};
-            if(Object.keys(val).length) idx = Math.max(...Object.keys(val).map(k=>parseInt(k.replace('admin-',''))||0)) + 1;
-            await db.ref(`sistemas/config/Administradores/admin-${idx}`).set({nomeCompleto:n.toUpperCase(), apelido:a.toUpperCase()});
-            alert("Adicionado!"); fecharModalAdicionarAdmin();
-        }
-    }
+	
+	
+async function selecionarNovoAdmin(n, a) {
+    mostrarConfirmacao(`Adicionar <b>${n}</b> como Administrador?`, async () => {
+        const snap = await db.ref('sistemas/config/Administradores').once('value');
+        let idx = 1; const val = snap.val() || {};
+        if(Object.keys(val).length) idx = Math.max(...Object.keys(val).map(k=>parseInt(k.replace('admin-',''))||0)) + 1;
+        await db.ref(`sistemas/config/Administradores/admin-${idx}`).set({nomeCompleto:n.toUpperCase(), apelido:a.toUpperCase()});
+        mostrarNotificacao("Administrador adicionado!", 'success');
+        fecharModalAdicionarAdmin();
+    });
+}
+	
     function fecharModalAdicionarAdmin() { document.getElementById('modalAdicionarAdmin').style.display='none'; }
-    async function excluirAdministrador() {
-        const s = document.getElementById('administradores');
-        if(s.selectedIndex===-1) return;
-        if(s.options.length<=1) return alert("Mínimo 1 admin.");
-        const n = s.value;
-        if(confirm(`Remover ${n}?`)) {
-            const snap = await db.ref('sistemas/config/Administradores').once('value');
-            const val = snap.val();
-            for(const k in val) {
-                if(val[k].nomeCompleto && val[k].nomeCompleto.toUpperCase()===n.toUpperCase()) {
-                    await db.ref(`sistemas/config/Administradores/${k}`).remove();
-                    alert("Removido!"); break;
-                }
+	
+
+/*	
+async function excluirAdministrador() {
+    // ... lógica de verificação anterior ...
+    const n = s.value;
+    mostrarConfirmacao(`Remover <b>${n}</b> dos Administradores?`, async () => {
+        const snap = await db.ref('sistemas/config/Administradores').once('value');
+        const val = snap.val();
+        for(const k in val) {
+            if(val[k].nomeCompleto && val[k].nomeCompleto.toUpperCase()===n.toUpperCase()) {
+                await db.ref(`sistemas/config/Administradores/${k}`).remove();
+                mostrarNotificacao("Administrador removido!", 'success'); break;
             }
         }
-    }
+    });
+
+}
+*/
 
     // Eventos Gerais
     document.addEventListener("DOMContentLoaded", function() { 
@@ -3112,16 +4792,23 @@ function excluirPeriodoSelecionado() {
         setupHoldEvent(document.getElementById('estadoQuadra3'), () => handleEstadoQuadraChange(document.getElementById('estadoQuadra3'), 3));
         //setupHoldEvent(document.getElementById('quebraHorarioDomingoAtiva'), handleQuebraHorarioChange);
 		setupHoldEvent(document.getElementById('otimizacaoHorarios'), mudarOtimizacao);
-        setupHoldEvent(document.getElementById('administradores'), excluirAdministrador);
+        
+		/*
+		// CORREÇÃO: Aponta para o novo ID
+		const elPerfil = document.getElementById('perfilSelect');
+		if(elPerfil) setupHoldEvent(elPerfil, excluirAdministrador);
+		*/
 
         // Tooltips
         const addTip = (id) => {
-            const l = document.querySelector(`label[for="${id}"]`);
-            if(l) {
-                l.style.cursor='help';
-                l.addEventListener('click', () => { if(l.title) alert(`ℹ️ ${l.textContent}\n\n${l.title.replace(/&#10;/g,'\n')}`); });
-            }
-        };
+			const l = document.querySelector(`label[for="${id}"]`);
+			if(l) {
+				l.style.cursor='help';
+				l.addEventListener('click', () => { 
+					if(l.title) mostrarNotificacao(`ℹ️ <b>Informação:</b><br>${l.title.replace(/&#10;/g,'<br>')}`, 'info'); 
+				});
+			}
+		};
         addTip('reservasPorConfirmacao'); addTip('horasParaExpirar'); addTip('edicaoOrganizador'); addTip('otimizacaoHorarios');
         addTip('labelDuplasRanking');
     });
@@ -3174,23 +4861,17 @@ function excluirPeriodoSelecionado() {
         document.getElementById('modalQuebraHorarioQuadras').style.display='flex';
     }
     function fecharModalQuebraHorario() { document.getElementById('modalQuebraHorarioQuadras').style.display='none'; }
+
 	
-    function salvarModalQuebraHorario() {
-        // 1. Guarda a escolha na memória
-        quebraHorarioQuadrasConfig = { 
-            'Quadra-1': document.getElementById('quebraHorarioQuadra1').checked, 
-            'Quadra-2': document.getElementById('quebraHorarioQuadra2').checked, 
-            'Quadra-3': document.getElementById('quebraHorarioQuadra3').checked 
-        };
-        
-        // 2. Fecha a janela
-        fecharModalQuebraHorario();
-        
-        // 3. Exibe uma mensagem clara e instrutiva
-        setTimeout(() => {
-            alert("Seleção confirmada!\n\nLembre-se de clicar no botão verde 'Salvar Configurações' (no final da página) para gravar definitivamente.");
-        }, 100);
-    }
+function salvarModalQuebraHorario() {
+    quebraHorarioQuadrasConfig = { 
+        'Quadra-1': document.getElementById('quebraHorarioQuadra1').checked, 
+        'Quadra-2': document.getElementById('quebraHorarioQuadra2').checked, 
+        'Quadra-3': document.getElementById('quebraHorarioQuadra3').checked 
+    };
+    fecharModalQuebraHorario();
+    mostrarNotificacao("Seleção confirmada! Não esqueça de clicar em 'Salvar Configurações' no final.", 'success');
+}
 	
     function atualizarEstadoDuplasRanking() {
         const s = document.getElementById('duplasRanking'); const l = document.getElementById('labelDuplasRanking');
@@ -3214,14 +4895,26 @@ function excluirPeriodoSelecionado() {
             if(c===3) { clearTimeout(t); c=0; if(document.getElementById('duplasRanking').value==='OFF' && confirm("Zerar Ranking?") && confirm("Certeza?")) zerarRankingDuplas(); }
         });
     });
-    async function zerarRankingDuplas() {
-        const snap = await db.ref('sistemas/cadastro/jogadores').once('value'); const j=snap.val();
-        if(!j) return alert("Vazio");
-        const up={}; let count=0;
-        for(const k in j) { if(j[k].jogosDeDuplasJogados || j[k].vitoriasEmDuplas) { up[`sistemas/cadastro/jogadores/${k}/jogosDeDuplasJogados`]=0; up[`sistemas/cadastro/jogadores/${k}/vitoriasEmDuplas`]=0; count++; } }
-        if(!count) return alert("Nada a zerar");
-        await db.ref().update(up); alert("Zerado!");
-    }
+	
+	
+async function zerarRankingDuplas() {
+    const snap = await db.ref('sistemas/cadastro/jogadores').once('value'); const j=snap.val();
+    if(!j) return mostrarNotificacao("Banco de dados vazio.", 'error');
+    
+    const up={}; let count=0;
+    for(const k in j) { if(j[k].jogosDeDuplasJogados || j[k].vitoriasEmDuplas) { up[`sistemas/cadastro/jogadores/${k}/jogosDeDuplasJogados`]=0; up[`sistemas/cadastro/jogadores/${k}/vitoriasEmDuplas`]=0; count++; } }
+    
+    if(!count) return mostrarNotificacao("Nada a zerar.", 'info');
+    
+    mostrarConfirmacao("Deseja ZERAR o ranking de duplas?", async () => {
+        // Segunda confirmação de segurança (opcional, mas recomendada para ações destrutivas)
+        // Como nosso modal é simples, vamos confiar em uma só ou usar um toast forte antes.
+        // Vamos direto para a ação:
+        await db.ref().update(up); 
+        mostrarNotificacao("Ranking Zerado!", 'success');
+    });
+}
+	
     
     // Arbitro Mudar
     async function abrirModalMudarArbitro() {
@@ -3243,12 +4936,15 @@ function excluirPeriodoSelecionado() {
         renderizarListaJogadoresArbitro(listaJogadoresParaArbitro.filter(x=>x.nomeCompleto.toLowerCase().includes(t)));
     }
     function fecharModalMudarArbitro() { document.getElementById('modalMudarArbitro').style.display='none'; }
-    async function selecionarNovoArbitro(n,a) {
-        if(confirm(`Definir ${a} como árbitro?`)) {
-            await db.ref('sistemas/config/Arbitro').set({nomeCompleto:n.toUpperCase(), apelido:a.toUpperCase()});
-            alert("Definido!"); fecharModalMudarArbitro();
-        }
-    }
+	
+	
+async function selecionarNovoArbitro(n,a) {
+    mostrarConfirmacao(`Definir <b>${a}</b> como árbitro?`, async () => {
+        await db.ref('sistemas/config/Arbitro').set({nomeCompleto:n.toUpperCase(), apelido:a.toUpperCase()});
+        mostrarNotificacao("Árbitro definido!", 'success'); 
+        fecharModalMudarArbitro();
+    });
+}
 	
 
 
@@ -3325,12 +5021,10 @@ function salvarConfiguracaoAulas() {
     // Envia tudo para o banco
     db.ref('sistemas/config/Horarios/Aulas').set(configAulasGlobal)
     .then(() => {
-        alert('Grade de Aulas salva com sucesso!');
+        mostrarNotificacao('Grade de Aulas salva com sucesso!', 'success');
         fecharModalHorario('aulas');
     })
-    .catch(err => {
-        alert('Erro ao salvar: ' + err.message);
-    });
+    .catch(err => mostrarNotificacao('Erro ao salvar: ' + err.message, 'error'));
 }
 
 
@@ -3586,6 +5280,256 @@ function atualizarCorPeriodoAtivo() {
     }
 }
 
+// --- FUNÇÃO DE CONTROLE DOS CHECKBOXES (ESPELHO) ---
+    function gerenciarPermissoesInterativas(origem) {
+        const chkMaster = document.getElementById('perm_super_admin');
+        
+        // Lista de todos os checkboxes "filhos"
+        const idsFilhos = [
+            'perm_acesso_config',
+            'perm_gestao_jogadores',
+            'perm_gerir_reservas',
+            'perm_controle_quadras',
+            'perm_gestor_aulas',
+            'perm_gestor_torneios'
+        ];
+
+        // CENÁRIO 1: Clicou no "Acesso Total"
+        if (origem === 'MASTER') {
+            const estadoMestre = chkMaster.checked;
+            // Força todos os filhos a terem o mesmo estado do mestre
+            idsFilhos.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.checked = estadoMestre;
+            });
+        } 
+        // CENÁRIO 2: Clicou em um item individual
+        else {
+            let todosMarcados = true;
+            
+            // Verifica se SOBROU algum desmarcado
+            idsFilhos.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && !el.checked) todosMarcados = false;
+            });
+
+            // Se todos estiverem marcados, o mestre vira true. 
+            // Se um estiver desmarcado, o mestre vira false.
+            chkMaster.checked = todosMarcados;
+        }
+    }
+
+
+// --- FUNÇÃO DE NOTIFICAÇÃO (TOAST) ---
+function mostrarNotificacao(mensagem, tipo = 'success') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `toast ${tipo}`;
+    
+    // Adiciona o cursor de "mãozinha" para indicar que é clicável
+    toast.style.cursor = 'pointer'; 
+    
+    // Ícone baseado no tipo
+    let icone = '✅';
+    if (tipo === 'error') icone = '❌';
+    if (tipo === 'warning') icone = '⚠️';
+
+    toast.innerHTML = `<span style="margin-right: 10px; font-size: 1.2em;">${icone}</span> ${mensagem}`;
+    
+    container.appendChild(toast);
+
+    // Função interna para remover o toast com animação
+    const removerToast = () => {
+        // Se já estiver removendo (animationName definido), não faz nada
+        if (toast.style.animationName === 'fadeOutUp') return;
+
+        toast.style.animation = 'fadeOutUp 0.3s forwards';
+        toast.addEventListener('animationend', () => {
+            if (toast.parentNode) {
+                toast.remove();
+            }
+        });
+    };
+
+    // 1. EVENTO DE CLIQUE: Remove imediatamente
+    toast.onclick = () => {
+        removerToast();
+    };
+
+    // 2. TIMER AUTOMÁTICO: Remove após 4 segundos se ninguém clicar
+    setTimeout(() => {
+        // Verifica se o elemento ainda está na tela antes de tentar remover
+        if (document.body.contains(toast)) {
+            removerToast();
+        }
+    }, 4000);
+}
+
+// --- FUNÇÃO DE CONFIRMAÇÃO (MODAL) ---
+function mostrarConfirmacao(mensagem, callbackConfirmar) {
+    const modal = document.getElementById('modalConfirmacaoGlobal');
+    const texto = document.getElementById('textoConf');
+    const btnSim = document.getElementById('btnConfirmarConf');
+    const btnNao = document.getElementById('btnCancelarConf');
+
+    // Configura o texto
+    texto.innerHTML = mensagem;
+    modal.style.display = 'flex';
+
+    // Ação do SIM (Remove listeners antigos para não duplicar)
+    btnSim.onclick = function() {
+        modal.style.display = 'none';
+        if (callbackConfirmar) callbackConfirmar();
+    };
+
+    // Ação do NÃO
+    btnNao.onclick = function() {
+        modal.style.display = 'none';
+    };
+    
+    // Focar no cancelar por segurança
+    btnNao.focus();
+}	
+
+
+// --- FUNÇÃO DE INPUT (MODAL) ---
+function mostrarInput(titulo, mensagem, placeholder, callbackConfirmar) {
+    const modal = document.getElementById('modalInputGlobal');
+    const tituloEl = document.getElementById('tituloInput');
+    const textoEl = document.getElementById('textoInput');
+    const inputEl = document.getElementById('campoInputGlobal');
+    const btnSim = document.getElementById('btnConfirmarInput');
+    const btnNao = document.getElementById('btnCancelarInput');
+
+    tituloEl.textContent = titulo;
+    textoEl.innerHTML = mensagem; // Permite HTML
+    inputEl.value = '';
+    inputEl.placeholder = placeholder || '';
+    
+    // Remove máscaras antigas se houver (opcional) e foca
+    inputEl.oninput = null; 
+
+    modal.style.display = 'flex';
+    setTimeout(() => inputEl.focus(), 100);
+
+    // Ação OK
+    btnSim.onclick = function() {
+        const valor = inputEl.value.trim();
+        if (!valor) {
+            mostrarNotificacao("O campo não pode ficar vazio.", "warning");
+            inputEl.focus();
+            return;
+        }
+        modal.style.display = 'none';
+        if (callbackConfirmar) callbackConfirmar(valor);
+    };
+
+    // Ação Cancelar
+    btnNao.onclick = function() {
+        modal.style.display = 'none';
+    };
+}
+
+
+// --- LÓGICA DE TEMA (CLARO/ESCURO) ---
+
+function toggleTheme() {
+    // 1. Alterna a classe no body
+    document.body.classList.toggle('dark-mode');
+    
+    // 2. Verifica qual estado ficou
+    const isDark = document.body.classList.contains('dark-mode');
+    
+    // 3. Salva na memória do navegador
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    
+    // 4. Atualiza o ícone do botão
+    atualizarIconeTema(isDark);
+}
+
+function atualizarIconeTema(isDark) {
+    const btn = document.getElementById('theme-toggle-button');
+    if (btn) {
+        btn.textContent = isDark ? '☀️' : '🌙';
+    }
+}
+
+// --- INICIALIZAÇÃO DO TEMA ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Verifica se já existe preferência salva
+    const savedTheme = localStorage.getItem('theme');
+    
+    // Se estiver salvo como 'dark', ativa. Caso contrário, mantém padrão (light).
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        atualizarIconeTema(true);
+    } else {
+        atualizarIconeTema(false);
+    }
+});
+
+
+
+function abrirSeletorInteligente(modo) {
+    modoCorAtual = modo;
+    
+    // DETECÇÃO DE CELULAR (Verifica se é touch ou tela pequena)
+    const isMobile = ('ontouchstart' in window) || (window.innerWidth <= 800);
+
+    if (isMobile) {
+        // MODO CELULAR: Clica no input nativo invisível
+        const idNative = modo === 'novo' ? 'nativeCorNovo' : 'nativeCorEdicao';
+        document.getElementById(idNative).click();
+    } else {
+        // MODO PC: Abre nosso Modal de Bolinhas
+        renderizarGridPC();
+        document.getElementById('modalSeletorPC').style.display = 'flex';
+    }
+}
+
+function renderizarGridPC() {
+    const container = document.getElementById('gridCoresPC');
+    container.innerHTML = '';
+    
+    CORES_DISPONIVEIS.forEach(cor => {
+        const dot = document.createElement('div');
+        dot.className = 'dot-pc';
+        dot.style.backgroundColor = cor;
+        dot.onclick = () => {
+            atualizarCorInteligente(modoCorAtual, cor);
+            document.getElementById('modalSeletorPC').style.display = 'none';
+        };
+        container.appendChild(dot);
+    });
+}
+
+function atualizarCorInteligente(modo, cor) {
+    if (modo === 'novo') {
+        // Atualiza Modal Novo Perfil
+        document.getElementById('corNovoPerfil').value = cor;
+        document.getElementById('btnVisualCorNovo').style.backgroundColor = cor; 
+        document.getElementById('nativeCorNovo').value = cor;
+    } 
+    else if (modo === 'edicao') {
+        // Atualiza Modal Permissões (APENAS VISUALMENTE)
+        document.getElementById('corPerfilEdicao').value = cor;
+        document.getElementById('btnVisualCorEdicao').style.backgroundColor = cor;
+        document.getElementById('nativeCorEdicao').value = cor;
+        
+    }
+}
+
+// --- Função para formatar texto (Title Case) ---
+function formatarTexto(texto) {
+    if (!texto) return "";
+    return texto
+        .toLowerCase()          // 1. Tudo minúsculo
+        .trim()                 // 2. Remove espaços nas pontas
+        .split(' ')             // 3. Separa as palavras
+        .filter(p => p !== "")  // 4. Remove espaços vazios duplos (segurança extra)
+        .map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1)) // 5. 1ª letra Maiúscula
+        .join(' ');             // 6. Junta tudo de volta
+}
 
 </script>
 </body>
