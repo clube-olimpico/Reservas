@@ -103,13 +103,14 @@
         }
         #piramide { width: 45px !important; flex: none; text-align: center; }
         
+        /* Ajuste do container de checkboxes dinâmicos */
         .roles-container {
             display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
             margin-bottom: 15px; padding: 10px;
             background-color: rgba(0,0,0,0.05);
             border: 1px solid var(--border-color); border-radius: 5px;
         }
-        .role-option { display: flex; align-items: center; font-size: 16px; cursor: pointer; width: auto; }
+        .role-option { display: flex; align-items: center; font-size: 16px; cursor: pointer; width: auto; text-align: left;}
         .role-option input { margin-right: 8px; width: auto; transform: scale(1.2); }
 
         button#botaoAcao {
@@ -128,23 +129,20 @@
         .view-desktop { display: inline; }
 
         .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; color: white; margin-left: 3px; vertical-align: middle; }
-        .badge-admin { background-color: #dc3545; }
-        .badge-prof { background-color: #007bff; }
-        .badge-arb { background-color: #fd7e14; }
-        .badge-op { background-color: #6c757d; }
-
+        
         /* --- ESTILO ESPECIAL DA COLUNA DE FUNÇÕES (MOBILE FIX) --- */
         .col-vinculo-mobile {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 5px;
-            flex-wrap: wrap; /* No desktop permite quebra se necessário */
+            flex-wrap: wrap; 
         }
         .badges-container {
             display: flex;
             gap: 3px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .loading-overlay {
@@ -154,23 +152,50 @@
             font-size: 24px; z-index: 3000;
         }
         
+        /* --- RODAPÉ DISCRETO --- */
         .footer {
             position: fixed; bottom: 0; left: 0; width: 100%;
             background-color: var(--footer-bg); color: var(--text-color); 
-            text-align: center; padding: 12px 0; font-size: 16px; font-weight: bold;
+            
+            /* Flexbox */
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            
+            /* ALTURA FINA (35px) */
+            height: 35px;
+            padding: 0 10px; 
+            box-sizing: border-box; 
+            
             box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); z-index: 1500;
         }
 
-        .fab-btn {
-            width: 60px; height: 60px; border-radius: 50%; border: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3); cursor: pointer;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 30px; color: white; position: fixed; bottom: 70px; 
-            z-index: 2000; transition: transform 0.2s;
+        .footer-text {
+            font-size: 14px; font-weight: bold; text-align: center; flex: 1;
+            line-height: 35px;
         }
-        .fab-btn:active { transform: scale(0.90); }
-        .fab-add { left: 20px; background-color: #4CAF50; }
-        .fab-theme { right: 20px; background-color: var(--fab-theme-bg); color: var(--fab-theme-color); border: var(--fab-theme-border); font-size: 24px; }
+
+        /* --- BOTÕES ALINHADOS PARA CIMA (15px) --- */
+        .footer-btn {
+            width: 45px; height: 45px; 
+            border-radius: 50%; border: none;
+            cursor: pointer; 
+            display: flex; justify-content: center; align-items: center;
+            font-size: 24px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+            
+            /* MARGEM AUMENTADA (SOBE O BOTÃO) */
+            margin-bottom: 30px; 
+            position: relative; 
+            z-index: 1501;
+        }
+        .footer-btn:active { transform: scale(0.90); }
+
+        /* Cores Específicas dos Botões */
+        #fabAdd { background-color: #4CAF50; color: white; font-weight: bold; font-size: 26px; }
+        #fabTheme { background-color: var(--fab-theme-bg); color: var(--fab-theme-color); border: var(--fab-theme-border); font-size: 20px; }
+        
         .hidden { display: none !important; }
 
         /* --- EXTRAS --- */
@@ -240,34 +265,26 @@
             #simbolo_piramide { font-size: 20px; margin: 0 2px; }
             #piramide { width: 40px !important; flex: 0 0 40px; padding: 5px; text-align: center; }
             #filtrarPiramide { width: auto !important; flex: 0 0 auto; margin-left: 5px; transform: scale(1.2); }
+            /* Ajuste grid mobile */
             .roles-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
             .role-option { width: auto; margin-bottom: 0; font-size: 14px; white-space: nowrap; }
             .toast-container { right: 0; left: 0; top: 10px; align-items: center; }
             .toast { width: 90%; min-width: auto; }
-            .fab-btn { bottom: 70px; width: 50px; height: 50px; font-size: 24px; }
-            .fab-add { left: 15px; } .fab-theme { right: 15px; }
+            /* AJUSTE BOTÕES MOBILE */
+            .fab-btn { margin-bottom: 15px; width: 45px; height: 45px; font-size: 24px; }
+            
             .view-desktop { display: none !important; } .view-mobile { display: inline-block !important; }
             #tabelaJogadoresContainer th:nth-child(2), #tabelaJogadoresContainer td:nth-child(2) { display: none; }
-            
-            /* Ajuste Aniversários Mobile */
             .birthday-container { width: 100%; padding-left: 15px; padding-right: 15px; box-sizing: border-box; }
             .filters { display: flex; flex-direction: row; gap: 8px; flex-wrap: nowrap; }
             .filters input, .filters select { flex: 1; min-width: 0; padding-left: 6px; padding-right: 6px; font-size: 14px; }
-
-            /* Ajuste da Coluna de Funções no Mobile */
-            .col-vinculo-mobile {
-                flex-direction: column; /* FORÇA UM EMBAIXO DO OUTRO */
-                gap: 2px;
-            }
-            .badges-container {
-                justify-content: center;
-                flex-wrap: wrap; /* Garante que badges quebrem linha se forem muitos */
-            }
+            .col-vinculo-mobile { flex-direction: column; gap: 2px; }
+            .badges-container { justify-content: center; flex-wrap: wrap; }
         }
     </style>
 </head>
 <body>
-    <div id="loadingOverlay" class="loading-overlay">Carregando... Aguarde.</div>
+    <div id="loadingOverlay" class="loading-overlay">Carregando... Aguarde.</div> 
     <div id="toastContainer" class="toast-container"></div>
 
     <div id="customModal" class="modal-prompt-overlay">
@@ -282,8 +299,15 @@
         </div>
     </div>
 
-    <button id="fabAdd" class="fab-btn fab-add" onclick="abrirFormularioInteligente()">+</button>
-    <button id="fabTheme" class="fab-btn fab-theme" onclick="toggleTheme()" title="Alternar Tema">🌙</button>
+    <div class="footer" id="footer">
+        <button id="fabAdd" class="footer-btn" onclick="abrirFormularioInteligente()">+</button>
+        
+        <div class="footer-text">
+            Total: <span id="totalJogadores">0</span>
+        </div>
+        
+        <button id="fabTheme" class="footer-btn" onclick="toggleTheme()" title="Alternar Tema">🌙</button>
+    </div>
 
     <div class="tab-container">
         <button class="tab-button selected" onclick="mostrarAba(event, 'cadastro')">Cadastro</button>
@@ -322,11 +346,8 @@
                     </select>
                 </div>
                 
-                <div class="roles-container">
-                    <label class="role-option"><input type="checkbox" id="role-admin"> Admin</label>
-                    <label class="role-option"><input type="checkbox" id="role-professor"> Professor</label>
-                    <label class="role-option"><input type="checkbox" id="role-arbitro"> Árbitro</label>
-                    <label class="role-option"><input type="checkbox" id="role-operador"> Operador</label>
+                <div class="roles-container" id="containerPerfisDinamicos">
+                   <span style="font-size:12px; color:#888;">Carregando perfis...</span>
                 </div>
             
                 <div class="form-group" id="grp-classe">
@@ -336,7 +357,7 @@
                         <option value="A">A</option>
                         <option value="B">B</option>
                         <option value="C">C</option>
-                        <option value="">(Sem classe)</option>
+                        <option value="SEM_CLASSE">(Sem classe)</option>
                     </select>
                     <span id="simbolo_piramide" style="margin-right: 10px;">🔺</span>
                     <input type="text" id="piramide" maxlength="2" style="width: 40px; height: 38px; text-align: center; padding: 5px; border: 1px solid var(--border-color); border-radius: 3px;" value="">
@@ -389,13 +410,9 @@
         </div>
     </div>
 
-    <div class="footer" id="footer">
-        Total de Jogadores: <span id="totalJogadores">0</span>
-    </div>
-
     <script>
         const firebaseConfig = {
-            apiKey: "SUA_API_KEY", // <--- COLE SUA CHAVE AQUI
+            apiKey: "SUA_API_KEY", 
             authDomain: "agenda-5ce95.firebaseapp.com",
             databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com/",
             projectId: "agenda-5ce95",
@@ -409,22 +426,79 @@
         let modoCadastro = true;
         let modoConsulta = false;
         let abaAtual = 'cadastro';
-        let criteriosConsulta = { nome: "", apelido: "", socio: "", classe: "", niver: "" };
+        
+        let listaJogadoresGlobal = null;
+        let filtroAtivo = null;
 
-        // --- FUNÇÕES AUXILIARES ---
+        let listaPerfisGlobal = {}; 
+        let listenerJogadoresAtivo = false;
+
+        // --- CARREGAR PERFIS E ATUALIZAR CORES AUTOMATICAMENTE ---
+        database.ref('sistemas/config/Perfis').on('value', (snapshot) => {
+            listaPerfisGlobal = snapshot.val() || {};
+            renderizarCheckboxesPerfis();
+            
+            // CORREÇÃO: Se já temos jogadores, redesenha a tabela para aplicar as novas cores
+            if (listaJogadoresGlobal) {
+                renderizarTabelaUsandoGlobal();
+            } else {
+                if(!modoCadastro) carregarJogadores();
+            }
+        });
+
+        function renderizarCheckboxesPerfis() {
+            const container = document.getElementById('containerPerfisDinamicos');
+            if(!container) return; 
+            container.innerHTML = ''; 
+
+            const nomesPerfis = Object.keys(listaPerfisGlobal);
+
+            if (nomesPerfis.length === 0) {
+                container.innerHTML = '<span style="font-size:12px; color:#888;">Nenhum perfil configurado.</span>';
+                return;
+            }
+
+            nomesPerfis.forEach(nomePerfil => {
+                const label = document.createElement('label');
+                label.className = 'role-option';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.name = 'perfisDinamicos';
+                checkbox.value = nomePerfil;
+                checkbox.id = 'chk_perfil_' + nomePerfil;
+
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(' ' + nomePerfil));
+                container.appendChild(label);
+            });
+        }
+
+        function getCorDoPerfil(nomePerfil) {
+            if (nomePerfil === 'Admin') return '#dc3545';
+            if (listaPerfisGlobal[nomePerfil] && listaPerfisGlobal[nomePerfil].cor) {
+                return listaPerfisGlobal[nomePerfil].cor;
+            }
+            return '#6c757d';
+        }
+
+        function formatarTextoPerfil(nomePerfil) {
+            if (listaPerfisGlobal[nomePerfil] && listaPerfisGlobal[nomePerfil].abreviacao) {
+                return listaPerfisGlobal[nomePerfil].abreviacao;
+            }
+            if (nomePerfil.length > 7) return nomePerfil.substring(0, 7); 
+            return nomePerfil;
+        }
+
         function capitalizarNome(str) {
             if (!str) return "";
             return str.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
         }
-
         function formatarNomeInteligente(nomeCompletoRaw, apelidoRaw) {
             const nomeCompleto = capitalizarNome(nomeCompletoRaw);
             const apelido = capitalizarNome(apelidoRaw);
             const apelidoWords = apelido.split(' ');
-            const todasPalavrasPresentes = apelidoWords.every(word => 
-                nomeCompleto.toLowerCase().includes(word.toLowerCase())
-            );
-
+            const todasPalavrasPresentes = apelidoWords.every(word => nomeCompleto.toLowerCase().includes(word.toLowerCase()));
             if (todasPalavrasPresentes) {
                 let nomeFormatado = nomeCompleto;
                 apelidoWords.forEach(word => {
@@ -436,7 +510,6 @@
                 return `${nomeCompleto} (<b>${apelido}</b>)`;
             }
         }
-
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
@@ -448,67 +521,51 @@
             document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('selected'));
             event.target.classList.add('selected');
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
             const fabAdd = document.getElementById('fabAdd');
             const fabTheme = document.getElementById('fabTheme');
             const footer = document.getElementById('footer');
             abaAtual = abaId;
-
             if (abaId === 'aniversarios') {
                 document.getElementById('aniversariosTab').classList.add('active');
-                fabAdd.classList.add('hidden');
-                fabTheme.classList.add('hidden');
+                // Esconde a barra inferior apenas nos aniversários para limpar a tela
                 footer.style.display = 'none';
-                
-                // Rola para o topo ao abrir a aba
                 window.scrollTo(0, 0);
-                
                 loadBirthdayData();
             } else {
                 document.getElementById('cadastroConsultaTab').classList.add('active');
-                fabAdd.classList.remove('hidden');
-                fabTheme.classList.remove('hidden'); 
-                footer.style.display = 'block';
-
+                footer.style.display = 'flex'; // Volta a exibir a barra com botões
+                
+                // Reset de filtros visuais ao mudar aba
                 if (abaId === 'consulta') {
-                    fabAdd.textContent = "🔍"; // Lupa
-                    fabAdd.title = "Filtrar Jogadores";
-                    modoConsulta = true;
+                    fabAdd.textContent = "🔍"; fabAdd.title = "Filtrar Jogadores"; modoConsulta = true;
                 } else {
-                    fabAdd.textContent = "+";
-                    fabAdd.title = "Novo Cadastro";
-                    modoConsulta = false;
-                    carregarJogadores(); 
+                    fabAdd.textContent = "+"; fabAdd.title = "Novo Cadastro"; modoConsulta = false; 
+                    filtroAtivo = null; // Reset filtro ao voltar para cadastro
+                    renderizarTabelaUsandoGlobal(); // Mostra todos
                 }
             }
         }
 
-        // --- FORMULÁRIO INTELIGENTE ---
+        // --- FORMULÁRIO ---
         function abrirFormularioInteligente() {
             const overlay = document.getElementById('formOverlay');
             limparCampos();
-
             const btnAcao = document.getElementById("botaoAcao");
             const titulo = document.getElementById("titulo");
             const socioSelect = document.getElementById("socio");
             const classeSelect = document.getElementById("classe");
-            
-            // Elementos de UI para busca unificada
             const grpApelido = document.getElementById("grp-apelido");
             const lblNome = document.getElementById("lbl-nome");
             const inputNome = document.getElementById("nome");
+            const containerPerfis = document.getElementById("containerPerfisDinamicos");
 
             if (modoConsulta) {
-                // MODO CONSULTA (BUSCA UNIFICADA)
                 titulo.textContent = "Consultar Jogador";
                 btnAcao.textContent = "Consultar";
-                
-                // Transforma campo Nome em "Nome ou Apelido"
                 lblNome.textContent = "Nome ou Apelido:";
                 inputNome.placeholder = "Digite nome ou apelido para buscar...";
-                grpApelido.style.display = "none"; // Esconde campo apelido separado
+                if(grpApelido) grpApelido.style.display = "none";
                 
-                // Adiciona opção "Todos" e SELECIONA
                 if (!socioSelect.querySelector('option[value="todos"]')) {
                     const opt = document.createElement("option"); opt.value="todos"; opt.textContent="Todos";
                     socioSelect.insertBefore(opt, socioSelect.options[1]);
@@ -520,34 +577,35 @@
                     classeSelect.insertBefore(opt, classeSelect.options[1]);
                 }
                 classeSelect.value = "todos"; 
+                
+                if(containerPerfis) containerPerfis.style.display = "grid"; 
 
             } else {
-                // MODO CADASTRO (PADRÃO)
                 titulo.textContent = "Cadastrar Jogador";
                 btnAcao.textContent = "Cadastrar";
                 modoCadastro = true;
-                
-                // Restaura campos
                 lblNome.textContent = "Nome:";
                 inputNome.placeholder = "Digite o nome";
-                grpApelido.style.display = "flex"; // Mostra campo apelido
-                
+                if(grpApelido) grpApelido.style.display = "flex";
                 let optS = socioSelect.querySelector('option[value="todos"]'); if(optS) optS.remove();
                 let optC = classeSelect.querySelector('option[value="todos"]'); if(optC) optC.remove();
+                
+                if(containerPerfis) containerPerfis.style.display = "grid";
             }
-
-            if (!overlay.classList.contains('active')) {
-                overlay.classList.add('active');
-            }
+            if (!overlay.classList.contains('active')) { overlay.classList.add('active'); }
         }
 
         function toggleForm() {
             const overlay = document.getElementById('formOverlay');
             if (overlay.classList.contains('active')) {
                 overlay.classList.remove('active');
-            } else {
-                abrirFormularioInteligente();
+                if (abaAtual === 'consulta') {
+                    modoConsulta = true;
+                } else {
+                    modoConsulta = false;
+                }
             }
+            else abrirFormularioInteligente();
         }
 
         function limparCampos() {
@@ -558,313 +616,145 @@
             document.getElementById("socio").value = "";
             document.getElementById("classe").value = "";
             document.getElementById("piramide").value = "";
-            document.getElementById("role-admin").checked = false;
-            document.getElementById("role-professor").checked = false;
-            document.getElementById("role-arbitro").checked = false;
-            document.getElementById("role-operador").checked = false;
+            
+            const checkboxes = document.querySelectorAll('input[name="perfisDinamicos"]');
+            checkboxes.forEach(chk => chk.checked = false);
+            
             document.getElementById("nome").disabled = false;
             document.getElementById("filtrarPiramide").checked = false;
         }
 
         function acaoFormulario() {
             const textoBotao = document.getElementById("botaoAcao").textContent;
-            
-            if (textoBotao === "Consultar") {
-                consultarJogador();
-            } else if (textoBotao === "Atualizar" || textoBotao === "Salvar") {
-                salvarJogador(); 
-            } else {
-                cadastrarJogador();
-            }
+            if (textoBotao === "Consultar") aplicarFiltrosEAtualizar();
+            else if (textoBotao === "Atualizar" || textoBotao === "Salvar") salvarJogador(); 
+            else cadastrarJogador();
         }
 
-        // --- CONSULTA (CORRIGIDA COM BUSCA UNIFICADA) ---
-        function consultarJogador() { 
-            // Pega o texto do campo "Nome" (que agora serve para ambos)
+        // --- FILTRO CLIENT-SIDE (Corrigido para SEM_CLASSE) ---
+        function aplicarFiltrosEAtualizar() {
             const textoBusca = document.getElementById("nome").value.trim().toUpperCase();
-            
-            criteriosConsulta.socio = document.getElementById("socio").value;
-            criteriosConsulta.classe = document.getElementById("classe").value;
-            
-            // CORREÇÃO: Tratamento de Data (Converter YYYY-MM-DD para DD/MM/AAAA)
+            const socio = document.getElementById("socio").value;
+            const classe = document.getElementById("classe").value;
             let niverInput = document.getElementById("niver").value;
-            if(niverInput.includes('-')) {
-                const p = niverInput.split('-');
-                niverInput = `${p[2]}/${p[1]}/${p[0]}`;
-            }
-            criteriosConsulta.niver = niverInput;
-
-            let piramide = document.getElementById("piramide").value.trim();
+            if(niverInput.includes('-')) { const p = niverInput.split('-'); niverInput = `${p[2]}/${p[1]}/${p[0]}`; }
+            const piramide = document.getElementById("piramide").value.trim();
             const filtrarPiramide = document.getElementById("filtrarPiramide").checked;
-            
-            // Filtros de Função
-            const filtroAdmin = document.getElementById("role-admin").checked;
-            const filtroProf = document.getElementById("role-professor").checked;
-            const filtroArb = document.getElementById("role-arbitro").checked;
-            const filtroOp = document.getElementById("role-operador").checked;
-
             const simboloPiramide = document.getElementById("simbolo_piramide");
-            const piramideAtivada = simboloPiramide.classList.contains("piramide-clicada");
+            const piramideAtivada = simboloPiramide ? simboloPiramide.classList.contains("piramide-clicada") : false;
+            const perfisMarcados = Array.from(document.querySelectorAll('input[name="perfisDinamicos"]:checked')).map(cb => cb.value);
 
-            // Validação mínima
-            if (textoBusca === "" && 
-                piramide === "" && !filtrarPiramide && !piramideAtivada && 
-                criteriosConsulta.socio !== "todos" && criteriosConsulta.classe !== "todos" &&
-                criteriosConsulta.niver === "" &&
-                !filtroAdmin && !filtroProf && !filtroArb && !filtroOp) {
-                return showToast("Digite pelo menos um critério para consulta.", "error");
+            if (textoBusca === "" && piramide === "" && !filtrarPiramide && !piramideAtivada && 
+                (socio === "" || socio === "todos") && (classe === "" || classe === "todos") &&
+                niverInput === "" && perfisMarcados.length === 0) {
+                
+                filtroAtivo = null; 
+            } else {
+                filtroAtivo = {
+                    texto: textoBusca,
+                    socio: socio,
+                    classe: classe,
+                    niver: niverInput,
+                    piramide: piramide,
+                    filtrarPiramide: filtrarPiramide,
+                    piramideAtivada: piramideAtivada,
+                    perfis: perfisMarcados
+                };
             }
 
+            toggleForm();
+            renderizarTabelaUsandoGlobal();
+        }
+
+        // --- RENDERIZAÇÃO INTELIGENTE (Corrigido para SEM_CLASSE) ---
+        function renderizarTabelaUsandoGlobal() {
             const tabela = document.getElementById("tabela-jogadores");
             tabela.innerHTML = "";
+
+            if (!listaJogadoresGlobal) return; 
+
+            let encontrado = false;
             
-            toggleForm();
-            document.getElementById("loadingOverlay").style.display = "flex";
+            Object.keys(listaJogadoresGlobal).forEach(key => {
+                const jogador = listaJogadoresGlobal[key];
+                const jogadorNome = key;
+                if (jogadorNome.toUpperCase() === "CONVIDADO") return;
 
-            database.ref("sistemas/cadastro/jogadores").once("value", snapshot => {
-                let encontrado = false;
-                snapshot.forEach(childSnapshot => {
-                    const jogadorNome = childSnapshot.key;
-                    const jogador = childSnapshot.val();
-                    if (jogadorNome.toUpperCase() === "CONVIDADO") return;
+                let passarFiltro = true;
 
-                    const jogadorApelido = jogador.apelido ? jogador.apelido.toUpperCase() : ""; 
+                if (filtroAtivo) {
+                    const jogadorApelido = jogador.apelido ? jogador.apelido.toUpperCase() : "";
                     const jogadorSocio = jogador.socio || "";
                     const jogadorClasse = jogador.classe || "";
                     const jogadorNiver = jogador.niver || "";
                     const jogadorPiramide = jogador.piramide || "";
 
-                    // Filtro Inteligente: Verifica se o texto está no Nome OU no Apelido
-                    let filtroTexto = true;
-                    if (textoBusca !== "") {
-                        filtroTexto = jogadorNome.includes(textoBusca) || jogadorApelido.includes(textoBusca);
+                    if (filtroAtivo.texto !== "") {
+                        if (!jogadorNome.includes(filtroAtivo.texto) && !jogadorApelido.includes(filtroAtivo.texto)) passarFiltro = false;
+                    }
+                    if (passarFiltro && filtroAtivo.socio !== "" && filtroAtivo.socio !== "todos") {
+                        if (jogadorSocio !== filtroAtivo.socio) passarFiltro = false;
                     }
                     
-                    let filtroSocio = true;
-                    if (criteriosConsulta.socio !== "" && criteriosConsulta.socio !== "todos") filtroSocio = jogadorSocio === criteriosConsulta.socio;
-                    
-                    let filtroClasse = true;
-                    if (criteriosConsulta.classe === "todos") { filtroClasse = true; } 
-                    else { filtroClasse = jogadorClasse === criteriosConsulta.classe; }
-                    
-                    const filtroNiver = criteriosConsulta.niver === "" || jogadorNiver === criteriosConsulta.niver;
-                    
-                    let filtroPiramide = true;
-                    if (piramideAtivada && filtrarPiramide) filtroPiramide = (jogadorPiramide === piramide) && (jogadorPiramide >= 1 && jogadorPiramide <= 99);
-                    else if (piramideAtivada) filtroPiramide = jogadorPiramide >= 1 && jogadorPiramide <= 99;
-                    else if (filtrarPiramide) filtroPiramide = piramide === "" ? jogadorPiramide === "" : jogadorPiramide === piramide;
-
-                    // Filtros de Função
-                    let atendeFiltroFuncao = true;
-                    const f = jogador.funcoes || {};
-                    if (filtroAdmin && !f.admin) atendeFiltroFuncao = false;
-                    if (filtroProf && !f.professor) atendeFiltroFuncao = false;
-                    if (filtroArb && !f.arbitro) atendeFiltroFuncao = false;
-                    if (filtroOp && !f.operador) atendeFiltroFuncao = false;
-
-                    if (filtroTexto && filtroSocio && filtroClasse && filtroNiver && filtroPiramide && atendeFiltroFuncao) {
-                        encontrado = true;
-                        
-                        let badgesHtml = '';
-                        if(jogador.funcoes) {
-                            if(jogador.funcoes.admin) badgesHtml += '<span class="badge badge-admin">Admin</span>';
-                            if(jogador.funcoes.professor) badgesHtml += '<span class="badge badge-prof">Prof</span>';
-                            if(jogador.funcoes.arbitro) badgesHtml += '<span class="badge badge-arb">Árbitro</span>';
-                            if(jogador.funcoes.operador) badgesHtml += '<span class="badge badge-op">Oper</span>';
+                    // Lógica Especial para Sem Classe
+                    if (passarFiltro && filtroAtivo.classe !== "todos") {
+                        if (filtroAtivo.classe === "SEM_CLASSE") {
+                            if (jogadorClasse !== "") passarFiltro = false;
+                        } else if (filtroAtivo.classe !== "") {
+                            if (jogadorClasse !== filtroAtivo.classe) passarFiltro = false;
                         }
-                        let vinculoFormatado = (jogador.socio === "visitante") ? "Staff" : (jogador.socio.charAt(0).toUpperCase() + jogador.socio.slice(1));
-
-                        const nomeCapitalizado = capitalizarNome(jogadorNome);
-                        const apelidoCapitalizado = capitalizarNome(jogador.apelido);
-                        const nomeMobile = formatarNomeInteligente(jogadorNome, jogador.apelido);
-
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
-                            <td style="text-align: left;">
-                                <span class="view-desktop">${nomeCapitalizado}</span>
-                                <span class="view-mobile">${nomeMobile}</span>
-                            </td>
-                            <td style="text-align: left;">${apelidoCapitalizado}</td>
-                            <td>
-                                <div class="col-vinculo-mobile">
-                                    <span>${vinculoFormatado}</span>
-                                    <div class="badges-container">${badgesHtml}</div>
-                                </div>
-                            </td>
-                        `;
-                        
-                        let clickTimeout, isDoubleClick = false;
-                        row.addEventListener("click", () => {
-                            clickTimeout = setTimeout(() => { if (!isDoubleClick) excluirJogador(jogadorNome, jogador.apelido); }, 300);
-                        });
-                        row.addEventListener("dblclick", () => {
-                            isDoubleClick = true; clearTimeout(clickTimeout); editarJogador(jogadorNome); setTimeout(() => { isDoubleClick = false; }, 350);
-                        });
-                        tabela.appendChild(row);
                     }
-                });
-                
-                document.getElementById("loadingOverlay").style.display = "none";
-                if (!encontrado) showToast("Nenhum jogador encontrado com esses critérios.", "info");
-                atualizarTotalJogadores();
-            });
-        }
 
-        async function cadastrarJogador() {
-            const nome = document.getElementById("nome").value.trim().toUpperCase();
-            let apelido = document.getElementById("apelido").value.trim();
-            const socio = document.getElementById("socio").value;
-            const classe = document.getElementById("classe").value;
-            let niver = document.getElementById("niver").value;
-            const piramide = document.getElementById("piramide").value.trim();
-            
-            const funcoes = {
-                admin: document.getElementById("role-admin").checked,
-                professor: document.getElementById("role-professor").checked,
-                arbitro: document.getElementById("role-arbitro").checked,
-                operador: document.getElementById("role-operador").checked
-            };
-            
-            if (nome === "" || apelido === "" || niver === "") return showToast("Preencha todos os campos obrigatórios.", "error");
-            const partesData = niver.split("-");
-            if (partesData.length === 3) niver = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
-            if (!/^[A-Z\s]+$/.test(nome)) return showToast("O nome deve conter apenas letras e espaços.", "error");
-            if (socio === "") return showToast("Escolha um tipo de sócio.", "error");
-            if (classe === "" && document.getElementById("classe").selectedIndex === 0) return showToast("Escolha uma classe ou selecione '(Sem classe)'", "error");
-            
-            apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
-            const piramideValue = piramide.trim() === "" ? "" : piramide;
-            
-            const [ano, mes, dia] = partesData;
-            const dataNascimento = new Date(ano, mes - 1, dia);
-            const hoje = new Date();
-            let idade = hoje.getFullYear() - dataNascimento.getFullYear();
-            if (hoje.getMonth() < dataNascimento.getMonth() || (hoje.getMonth() === dataNascimento.getMonth() && hoje.getDate() < dataNascimento.getDate())) idade--;
-            
-            if (idade > 21 && socio === "dependente") {
-                const resposta = await showCustomModal("Verificação", "Dependente maior de 21 anos. É cônjuge ou filho(a)?", true);
-                if (!resposta) return;
-                const relacionamento = resposta.trim().toLowerCase();
-                const conjugeAceito = ["conjuge", "cônjuge", "esposa", "esposo", "marido"].includes(relacionamento);
-                if (!conjugeAceito) { showToast("Não é possível cadastrar filho(a) maior de 21 anos como dependente.", "error"); limparCampos(); return; }
-            }
-            const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
-            const apelidoRef = database.ref("sistemas/cadastro/apelidos/" + apelido);
-
-            jogadorRef.get().then(snapshot => {
-                if (snapshot.exists()) { showToast("Já existe um jogador com esse Nome.", "error"); return; }
-                apelidoRef.get().then(snapshot => {
-                    if (snapshot.exists()) { showToast("Já existe um jogador com esse Apelido.", "error"); return; }
-                    jogadorRef.set({ apelido, socio, classe, niver, piramide: piramideValue, funcoes: funcoes })
-                        .then(() => apelidoRef.set(true).then(() => {
-                            showToast("Jogador cadastrado com sucesso!", "success");
-                            toggleForm();
-                            carregarJogadores();
-                        }));
-                });
-            });
-        }
-
-        function editarJogador(nome) {
-            database.ref("sistemas/cadastro/jogadores/" + nome).once("value").then((snapshot) => {
-                if (snapshot.exists()) {
-                    const jogador = snapshot.val();
-                    abrirFormularioInteligente(); // Pode estar na aba consulta, entao abre normal
-                    
-                    // Força modo cadastro para exibir o campo Apelido
-                    modoConsulta = false; 
-                    document.getElementById("grp-apelido").style.display = "flex";
-                    document.getElementById("lbl-nome").textContent = "Nome:";
-                    document.getElementById("nome").placeholder = "Digite o nome";
-                    
-                    document.getElementById("nome").value = nome;
-                    document.getElementById("apelido").value = jogador.apelido;
-                    document.getElementById("socio").value = jogador.socio || "";
-                    document.getElementById("classe").value = jogador.classe || "";
-                    
-                    const niverInput = document.getElementById("niver");
-                    if (jogador.niver && jogador.niver.includes('/')) {
-                        const [dia, mes, ano] = jogador.niver.split('/');
-                        niverInput.type = 'date'; 
-                        niverInput.value = `${ano}-${mes}-${dia}`;
-                    } else {
-                        niverInput.type = 'text'; niverInput.value = "";
+                    if (passarFiltro && filtroAtivo.niver !== "") {
+                        if (jogadorNiver !== filtroAtivo.niver) passarFiltro = false;
                     }
-                    
-                    document.getElementById("piramide").value = jogador.piramide || "";
-                    const funcoes = jogador.funcoes || {};
-                    document.getElementById("role-admin").checked = funcoes.admin || false;
-                    document.getElementById("role-professor").checked = funcoes.professor || false;
-                    document.getElementById("role-arbitro").checked = funcoes.arbitro || false;
-                    document.getElementById("role-operador").checked = funcoes.operador || false;
-                    document.getElementById("nome").disabled = true;
-                    
-                    document.getElementById("botaoAcao").textContent = "Atualizar";
-                    document.getElementById("titulo").textContent = "Editar Jogador";
-                    modoCadastro = false;
+                    if (passarFiltro) {
+                         if (filtroAtivo.piramideAtivada && filtroAtivo.filtrarPiramide) {
+                            if (!((jogadorPiramide === filtroAtivo.piramide) && (jogadorPiramide >= 1 && jogadorPiramide <= 99))) passarFiltro = false;
+                         }
+                         else if (filtroAtivo.piramideAtivada) {
+                             if (!(jogadorPiramide >= 1 && jogadorPiramide <= 99)) passarFiltro = false;
+                         }
+                         else if (filtroAtivo.filtrarPiramide) {
+                             if (filtroAtivo.piramide === "") { if (jogadorPiramide !== "") passarFiltro = false; }
+                             else { if (jogadorPiramide !== filtroAtivo.piramide) passarFiltro = false; }
+                         }
+                    }
+                    if (passarFiltro && filtroAtivo.perfis && filtroAtivo.perfis.length > 0) {
+                        let temPerfil = false;
+                        if (jogador.perfis) {
+                            if(filtroAtivo.perfis.some(p => jogador.perfis[p] === true)) temPerfil = true;
+                        } else if (jogador.funcoes) {
+                            if(filtroAtivo.perfis.some(p => {
+                                const k = p.toLowerCase();
+                                if(k === 'árbitro' && jogador.funcoes['arbitro']) return true;
+                                return jogador.funcoes[k] === true;
+                            })) temPerfil = true;
+                        }
+                        if (!temPerfil) passarFiltro = false;
+                    }
                 }
-            });
-        }
 
-        async function salvarJogador() {
-            const nome = document.getElementById("nome").value.trim().toUpperCase();
-            let apelido = document.getElementById("apelido").value.trim();
-            const socio = document.getElementById("socio").value;
-            const classe = document.getElementById("classe").value;
-            let niver = document.getElementById("niver").value;
-            const piramide = document.getElementById("piramide").value.trim();
-            const funcoes = {
-                admin: document.getElementById("role-admin").checked,
-                professor: document.getElementById("role-professor").checked,
-                arbitro: document.getElementById("role-arbitro").checked,
-                operador: document.getElementById("role-operador").checked
-            };
-            if (niver) niver = niver.split("-").reverse().join("/");
-            apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
-            const piramideValue = piramide.trim() === "" ? "" : piramide;
-            
-            const confirmacao = await showCustomModal("Atualizar Jogador", "Confirma a atualização dos dados?");
-            if (!confirmacao) return;
-
-            database.ref("sistemas/cadastro/jogadores/" + nome).update({
-                apelido: apelido || "", socio: socio || "", classe: classe || "", niver: niver, piramide: piramideValue, funcoes: funcoes
-            }).then(() => {
-                showToast("Jogador atualizado com sucesso!", "success");
-                toggleForm();
-                if(modoConsulta) consultarJogador(); 
-                else carregarJogadores(); 
-            }).catch((error) => { showToast("Erro ao atualizar.", "error"); });
-        }
-
-        async function excluirJogador(nome, apelido) {
-            const confirmacao = await showCustomModal("Excluir Jogador", `Tem certeza que deseja excluir o jogador <b>${nome}</b>?`);
-            if (!confirmacao) return;
-            database.ref("sistemas/cadastro/jogadores/" + nome).remove()
-                .then(() => database.ref("sistemas/cadastro/apelidos/" + apelido).remove()
-                    .then(() => { showToast("Excluído com sucesso!", "success"); carregarJogadores(); }));
-        }
-
-        function carregarJogadores() {
-            const tabela = document.getElementById("tabela-jogadores");
-            database.ref("sistemas/cadastro/jogadores").on("value", (snapshot) => {
-                tabela.innerHTML = "";
-                snapshot.forEach((childSnapshot) => {
-                    const nomeRaw = childSnapshot.key;
-                    const jogador = childSnapshot.val();
-                    if (nomeRaw.toUpperCase() === "CONVIDADO") return;
-                    
+                if (passarFiltro) {
+                    encontrado = true;
                     let badgesHtml = '';
-                    if(jogador.funcoes) {
-                        if(jogador.funcoes.admin) badgesHtml += '<span class="badge badge-admin">Admin</span>';
-                        if(jogador.funcoes.professor) badgesHtml += '<span class="badge badge-prof">Prof</span>';
-                        if(jogador.funcoes.arbitro) badgesHtml += '<span class="badge badge-arb">Árbitro</span>';
-                        if(jogador.funcoes.operador) badgesHtml += '<span class="badge badge-op">Oper</span>';
+                    if (jogador.perfis) {
+                         Object.keys(jogador.perfis).forEach(p => {
+                             const cor = getCorDoPerfil(p);
+                             const textoAbreviado = formatarTextoPerfil(p);
+                             badgesHtml += `<span class="badge" style="background-color: ${cor}" title="${p}">${textoAbreviado}</span>`;
+                         });
+                    } else if(jogador.funcoes) {
+                         if(jogador.funcoes.admin) badgesHtml += '<span class="badge" style="background-color: #dc3545">Admin</span>';
+                         if(jogador.funcoes.professor) badgesHtml += '<span class="badge" style="background-color: #3498db">Prof</span>';
+                         if(jogador.funcoes.arbitro) badgesHtml += '<span class="badge" style="background-color: #f39c12">Árbitro</span>';
+                         if(jogador.funcoes.operador) badgesHtml += '<span class="badge" style="background-color: #34495e">Oper</span>';
                     }
-                    let vinculoFormatado = (jogador.socio === "visitante") ? "Staff" : (jogador.socio.charAt(0).toUpperCase() + jogador.socio.slice(1));
 
-                    const nomeCapitalizado = capitalizarNome(nomeRaw);
+                    let vinculoFormatado = (jogador.socio === "visitante") ? "Staff" : (jogador.socio.charAt(0).toUpperCase() + jogador.socio.slice(1));
+                    const nomeCapitalizado = capitalizarNome(jogadorNome);
                     const apelidoCapitalizado = capitalizarNome(jogador.apelido);
-                    const nomeMobile = formatarNomeInteligente(nomeRaw, jogador.apelido);
+                    const nomeMobile = formatarNomeInteligente(jogadorNome, jogador.apelido);
 
                     const row = document.createElement("tr");
                     row.innerHTML = `
@@ -880,21 +770,177 @@
                             </div>
                         </td>
                     `;
-                    
                     let clickTimeout, isDoubleClick = false;
                     row.addEventListener("click", () => {
-                        clickTimeout = setTimeout(() => { if (!isDoubleClick) excluirJogador(nomeRaw, jogador.apelido); }, 300);
+                        clickTimeout = setTimeout(() => { if (!isDoubleClick) excluirJogador(jogadorNome, jogador.apelido); }, 300);
                     });
                     row.addEventListener("dblclick", () => {
-                        isDoubleClick = true; clearTimeout(clickTimeout); editarJogador(nomeRaw); setTimeout(() => { isDoubleClick = false; }, 350);
+                        isDoubleClick = true; clearTimeout(clickTimeout); editarJogador(jogadorNome); setTimeout(() => { isDoubleClick = false; }, 350);
                     });
                     tabela.appendChild(row);
+                }
+            });
+
+            if (!encontrado && filtroAtivo) showToast("Nenhum jogador encontrado com esses critérios.", "info");
+            atualizarTotalJogadores();
+            const overlay = document.getElementById("loadingOverlay");
+            if (overlay) overlay.style.display = "none";
+        }
+		
+        async function cadastrarJogador() {
+            const nome = document.getElementById("nome").value.trim().toUpperCase();
+            let apelido = document.getElementById("apelido").value.trim();
+            const socio = document.getElementById("socio").value;
+            
+            // CORREÇÃO: Converte SEM_CLASSE para vazio antes de salvar
+            let classe = document.getElementById("classe").value;
+            if (classe === "SEM_CLASSE") classe = "";
+
+            let niver = document.getElementById("niver").value;
+            const piramide = document.getElementById("piramide").value.trim();
+            
+            const perfisObj = {};
+            document.querySelectorAll('input[name="perfisDinamicos"]:checked').forEach(chk => {
+                perfisObj[chk.value] = true;
+            });
+            
+            if (nome === "" || apelido === "" || niver === "") return showToast("Preencha todos os campos obrigatórios.", "error");
+            const partesData = niver.split("-");
+            if (partesData.length === 3) niver = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
+            if (!/^[A-Z\s]+$/.test(nome)) return showToast("O nome deve conter apenas letras e espaços.", "error");
+            if (socio === "") return showToast("Escolha um tipo de sócio.", "error");
+            
+            apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
+            const piramideValue = piramide.trim() === "" ? "" : piramide;
+            
+            const jogadorRef = database.ref("sistemas/cadastro/jogadores/" + nome);
+            const apelidoRef = database.ref("sistemas/cadastro/apelidos/" + apelido);
+
+            jogadorRef.get().then(snapshot => {
+                if (snapshot.exists()) { showToast("Já existe um jogador com esse Nome.", "error"); return; }
+                apelidoRef.get().then(snapshot => {
+                    if (snapshot.exists()) { showToast("Já existe um jogador com esse Apelido.", "error"); return; }
+                    
+                    jogadorRef.set({ 
+                        apelido, socio, classe, niver, 
+                        piramide: piramideValue, 
+                        perfis: perfisObj  
+                    })
+                    .then(() => apelidoRef.set(true).then(() => {
+                        showToast("Jogador cadastrado com sucesso!", "success");
+                        toggleForm();
+                    }));
                 });
-                atualizarTotalJogadores();
-                document.getElementById("loadingOverlay").style.display = "none";
             });
         }
 
+        function editarJogador(nome) {
+            database.ref("sistemas/cadastro/jogadores/" + nome).once("value").then((snapshot) => {
+                if (snapshot.exists()) {
+                    const jogador = snapshot.val();
+                    abrirFormularioInteligente(); 
+                    
+                    modoConsulta = false; 
+                    const grpApelido = document.getElementById("grp-apelido");
+                    if(grpApelido) grpApelido.style.display = "flex";
+
+                    document.getElementById("lbl-nome").textContent = "Nome:";
+                    document.getElementById("nome").placeholder = "Digite o nome";
+                    
+                    document.getElementById("nome").value = nome;
+                    document.getElementById("apelido").value = jogador.apelido;
+                    document.getElementById("socio").value = jogador.socio || "";
+                    
+                    // CORREÇÃO: Se vazio, mostra a opção "(Sem classe)"
+                    document.getElementById("classe").value = jogador.classe || "SEM_CLASSE";
+                    
+                    const niverInput = document.getElementById("niver");
+                    if (jogador.niver && jogador.niver.includes('/')) {
+                        const [dia, mes, ano] = jogador.niver.split('/');
+                        niverInput.type = 'date'; niverInput.value = `${ano}-${mes}-${dia}`;
+                    } else { niverInput.type = 'text'; niverInput.value = ""; }
+                    
+                    document.getElementById("piramide").value = jogador.piramide || "";
+                    
+                    document.querySelectorAll('input[name="perfisDinamicos"]').forEach(c => c.checked = false);
+
+                    if (jogador.perfis) {
+                        Object.keys(jogador.perfis).forEach(perfilNome => {
+                            const chk = document.getElementById('chk_perfil_' + perfilNome);
+                            if (chk) chk.checked = true;
+                        });
+                    } else if (jogador.funcoes) {
+                        if (jogador.funcoes.admin) { const c=document.getElementById('chk_perfil_Admin'); if(c) c.checked=true; }
+                        if (jogador.funcoes.professor) { const c=document.getElementById('chk_perfil_Professor'); if(c) c.checked=true; }
+                        if (jogador.funcoes.arbitro) { const c=document.getElementById('chk_perfil_Arbitro'); if(c) c.checked=true; } 
+                        if (jogador.funcoes.operador) { const c=document.getElementById('chk_perfil_Operador'); if(c) c.checked=true; }
+                    }
+
+                    document.getElementById("nome").disabled = true;
+                    document.getElementById("botaoAcao").textContent = "Atualizar";
+                    document.getElementById("titulo").textContent = "Editar Jogador";
+                    modoCadastro = false;
+                }
+            });
+        }
+
+        async function salvarJogador() {
+            const nome = document.getElementById("nome").value.trim().toUpperCase();
+            let apelido = document.getElementById("apelido").value.trim();
+            const socio = document.getElementById("socio").value;
+            
+            // CORREÇÃO: Converte SEM_CLASSE para vazio antes de salvar
+            let classe = document.getElementById("classe").value;
+            if (classe === "SEM_CLASSE") classe = "";
+
+            let niver = document.getElementById("niver").value;
+            const piramide = document.getElementById("piramide").value.trim();
+            
+            const perfisObj = {};
+            document.querySelectorAll('input[name="perfisDinamicos"]:checked').forEach(chk => {
+                perfisObj[chk.value] = true;
+            });
+
+            if (niver) niver = niver.split("-").reverse().join("/");
+            apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
+            const piramideValue = piramide.trim() === "" ? "" : piramide;
+            
+            const confirmacao = await showCustomModal("Atualizar Jogador", "Confirma a atualização dos dados?");
+            if (!confirmacao) return;
+
+            database.ref("sistemas/cadastro/jogadores/" + nome).update({
+                apelido: apelido || "", 
+                socio: socio || "", 
+                classe: classe || "", 
+                niver: niver, 
+                piramide: piramideValue, 
+                perfis: perfisObj 
+            }).then(() => {
+                showToast("Jogador atualizado com sucesso!", "success");
+                toggleForm(); 
+            }).catch((error) => { showToast("Erro ao atualizar.", "error"); });
+        }
+		
+        async function excluirJogador(nome, apelido) {
+            const confirmacao = await showCustomModal("Excluir Jogador", `Tem certeza que deseja excluir o jogador <b>${nome}</b>?`);
+            if (!confirmacao) return;
+            database.ref("sistemas/cadastro/jogadores/" + nome).remove()
+                .then(() => database.ref("sistemas/cadastro/apelidos/" + apelido).remove()
+                    .then(() => { 
+                        showToast("Excluído com sucesso!", "success"); 
+                    }));
+        }
+		
+        function carregarJogadores() {
+            if (listenerJogadoresAtivo) return;
+            listenerJogadoresAtivo = true;
+            
+            database.ref("sistemas/cadastro/jogadores").on("value", (snapshot) => {
+                listaJogadoresGlobal = snapshot.val() || {};
+                renderizarTabelaUsandoGlobal();
+            });
+        }
+		
         function atualizarTotalJogadores() {
             const trs = document.querySelectorAll('#tabela-jogadores tr');
             let visibleCount = 0;
@@ -902,9 +948,9 @@
             document.getElementById("totalJogadores").textContent = visibleCount;
         }
 
-        // --- UTILS ---
         function showToast(message, type = 'info') {
             const container = document.getElementById('toastContainer');
+            if(!container) return;
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
             toast.textContent = message;
@@ -946,7 +992,6 @@
                 if (!playerData) { birthdayList.innerHTML = '<p class="status-message">Nenhum jogador encontrado.</p>'; return; }
                 for (const fullName in playerData) {
                     const player = playerData[fullName];
-                    // REMOVIDO: Filtro de 01/01/2001
                     if (player.niver && player.niver.length === 10) {
                         const [day, month] = player.niver.split('/');
                         const monthInt = parseInt(month);
@@ -978,12 +1023,11 @@
                     
                     const nameSpan = document.createElement('span'); 
                     nameSpan.className = 'birthday-name'; 
-                    // CHANGE HERE: Use formatarNomeInteligente instead of manual construction
                     nameSpan.innerHTML = formatarNomeInteligente(player.fullName, player.nickname);
                     
                     itemDiv.appendChild(daySpan); itemDiv.appendChild(nameSpan); monthDiv.appendChild(itemDiv);
                 });
-                birthdayList.appendChild(monthDiv);
+                birthdayList.appendChild(monthDiv); 
             });
         }
         
@@ -996,7 +1040,6 @@
             const simboloPiramide = document.getElementById("simbolo_piramide");
             if (simboloPiramide) { simboloPiramide.addEventListener("click", () => simboloPiramide.classList.toggle("piramide-clicada")); simboloPiramide.style.cursor = "pointer"; }
             
-            // Carrega lista inicial
             carregarJogadores();
         });
     </script>
