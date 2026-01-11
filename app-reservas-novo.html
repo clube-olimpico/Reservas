@@ -202,7 +202,7 @@ body {
     border-radius: 15px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     
-    z-index: 2000; /* Garante que fique ACIMA de tudo */
+    z-index: 9005; /* ALTERADO DE 2000 PARA 9005 (Para vencer a tabela 9000) */
     padding: 10px 20px 20px 20px; /* Topo: 10px, Dir: 20px, Baixo: 20px, Esq: 20px */
     box-sizing: border-box;
     
@@ -224,7 +224,7 @@ body {
     top: 0; left: 0; width: 100%; height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(3px);
-    z-index: 1999; /* Fica logo atrás do formulário */
+    z-index: 9004; /* ALTERADO DE 1999 PARA 9004 */
     display: none;
 }
 .form-backdrop.visible {
@@ -280,7 +280,7 @@ body {
 
     cursor: pointer !important;
     line-height: 1 !important;
-    z-index: 2002 !important;
+    z-index: 9006 !important; /* ALTERADO DE 2002 PARA 9006 */
 }
 
 .close-form-btn:hover {
@@ -756,6 +756,12 @@ th, td {
 
 th {
     background-color: #f2f2f2;
+	/* --- BLOQUEIA SELEÇÃO DE TEXTO --- */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE 10+ e Edge */
+    user-select: none;         /* Padrão */
+    /* -------------------------------- */
 }
 
 /* Estilo para cabeçalho */
@@ -848,7 +854,7 @@ th {
     width: 100vw;
     height: 100vh;
     background-color: white;
-    z-index: 9999;
+    z-index: 9000; /* ALTERADO DE 9999 PARA 9000 */
     overflow: auto;
 }
 
@@ -972,6 +978,12 @@ body.dark-mode td {
 
 body.dark-mode th {
     background-color: #333333;
+	/* --- BLOQUEIA SELEÇÃO DE TEXTO --- */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE 10+ e Edge */
+    user-select: none;         /* Padrão */
+    /* -------------------------------- */
 }
 
 /* Cor específica para #f2f2f2 no modo escuro */
@@ -993,7 +1005,7 @@ body.dark-mode [style*="background-color: #f2f2f2"] {
     border: none;
     font-size: 24px; /* Tamanho do ícone/texto */
     cursor: pointer;
-    z-index: 1001;   /* Garante que o botão fique sobre outros elementos */
+    z-index: 9001; /* ALTERADO DE 1001 PARA 9001 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1093,7 +1105,7 @@ body.dark-mode .resumo-partida {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6); /* Fundo preto semitransparente */
     backdrop-filter: blur(5px); /* Efeito de desfoque que você pediu */
-    z-index: 10001; /* Garante que fique na frente de tudo */
+    z-index: 10001; /* Mantenha 10001, pois já é maior que 9000 */
     justify-content: center;
     align-items: center;
 }
@@ -2639,7 +2651,7 @@ body.dark-mode .legenda-conteudo {
     font-weight: bold;
     
     cursor: pointer;
-    z-index: 1001; /* Mesma elevação do botão de tema */
+    z-index: 9001; /* ALTERADO DE 1001 PARA 9001 */
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     
     /* Transição para a futura animação do ícone */
@@ -4842,7 +4854,11 @@ body.dark-mode .sb-input.super-tb[readonly]:not(:disabled) {
 /* ================================================================= */
 
 
-
+/* --- CORREÇÃO: FUNDO DO TÍTULO NO MODO ESCURO --- */
+body.dark-mode .header-legenda-container {
+    background-color: #121212 !important; /* Cor de fundo do Modo Escuro */
+    border-bottom: 1px solid #444;      /* Ajuste da cor da borda inferior */
+}
 
 
 </style>
@@ -5382,7 +5398,7 @@ body.dark-mode .sb-input.super-tb[readonly]:not(:disabled) {
 </div> 
 
 
-<div id="modalDelegacao" class="modal-overlay">
+<div id="modalDelegacao" class="modal-overlay"> 
     <div class="modal-content">
         <h3 style="margin-top: 0; text-align: center;">Delegar Anotação do Placar</h3>
         <p style="text-align: center; font-size: 0.9em; color: #666;">Selecione um jogador online para permitir que ele atualize as parciais deste jogo.</p>
@@ -5639,7 +5655,7 @@ body.dark-mode .sb-input.super-tb[readonly]:not(:disabled) {
             Por favor, digite o nome completo do convidado:
         </p>
         
-        <input type="text" id="inputNomeConvidado" class="convidado-nome-input">
+        <input type="text" id="inputNomeConvidado" class="convidado-nome-input" oninput="this.value = this.value.toUpperCase()" placeholder="NOME DO CONVIDADO">
         
         <div style="display: flex; justify-content: center; gap: 10px; margin-top: 25px;">
             <button id="btnConfirmarInputNome" style="background-color: #28a745; width: auto !important; padding: 10px 20px;">Confirmar</button>
@@ -5969,8 +5985,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v2.0.1'; // Versão atual do sistema     
-const DataVersaoSistema = '01/01/2026';   
+const VersaoSistema = 'v2.0.2'; // Versão atual do sistema     
+const DataVersaoSistema = '11/01/2026';   
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -5978,7 +5994,7 @@ let vPermitirExclusaoAposJogo = false; // Mude para true para permitir que usuá
 
 //******************************************************** 
 
-let piramideInicioTorneio = null;  
+let piramideInicioTorneio = null;    
 let piramideFimTorneio = null;
 let piramideAtivaGlobal = false; 
 
@@ -10301,58 +10317,149 @@ async function limparReservasExpiradas() {
                 for (const key in reservasDaQuadra) {
                     const reserva = reservasDaQuadra[key];
 
+                    // Ignora a segunda hora da reserva (já tratada pela primeira)
                     if (reserva.borda === undefined && reserva.duracao > 1) {
                         continue;
                     }
                     
+                    // Verifica se está pendente e expirada
                     if (reserva.status === 'pendente' && agora > reserva.expiraEm) {
-                        console.warn(`🗑️ Reserva expirada encontrada em ${quadra} (${key}). Marcando para remoção e log.`);
                         
-                        // ---- INÍCIO DA CORREÇÃO PARA O LOG ----
-                        // 1. A lista de sócios para o log vem das chaves do objeto de confirmações, que tem o histórico completo.
-                        const jogadoresParaLog = Object.keys(reserva.confirmacoes);
-
-                        // 2. Adiciona "Convidado" à lista se ele existia na reserva.
-                        if ((reserva.jogadores_completo || reserva.jogadores).toLowerCase().includes('convidado')) {
-                            if (!jogadoresParaLog.includes('Convidado')) {
-                                jogadoresParaLog.push('Convidado');
+                        // 1. RECONSTRÓI A LISTA TOTAL DE JOGADORES ORIGINAIS
+                        let todosJogadores = [];
+                        if (reserva.jogadores_completo) {
+                            todosJogadores = reserva.jogadores_completo.split(',').map(j => j.trim());
+                        } else {
+                            // Fallback para dados antigos (junta visual da hora 1 + hora 2)
+                            let j1 = reserva.jogadores.split(',').map(j => j.trim());
+                            todosJogadores.push(...j1);
+                            
+                            if (reserva.duracao > 1) {
+                                const key2 = `${reserva.dia}_${reserva.hora + 1}`;
+                                const reserva2 = reservasDaQuadra[key2];
+                                if (reserva2 && reserva2.jogadores) {
+                                    todosJogadores.push(...reserva2.jogadores.split(',').map(j => j.trim()));
+                                }
                             }
+                            // Remove duplicatas
+                            todosJogadores = [...new Set(todosJogadores)];
                         }
-                        // ---- FIM DA CORREÇÃO PARA O LOG ----
 
-                        const dataDaReserva = new Date();
-                        const diaDaSemanaHoje = dataDaReserva.getDay() === 0 ? 7 : dataDaReserva.getDay();
-                        let diff = reserva.dia - diaDaSemanaHoje;
-                        if (diff < 0) diff += 7;
-                        dataDaReserva.setDate(new Date().getDate() + diff);
-                        const dataFormatada = `${String(dataDaReserva.getDate()).padStart(2, '0')}-${String(dataDaReserva.getMonth() + 1).padStart(2, '0')}-${dataDaReserva.getFullYear()}`;
-                        
-                        const horaFinal = reserva.hora + reserva.duracao;
-                        const horarioFormatado = `${String(reserva.hora).padStart(2, '0')}:00 - ${String(horaFinal).padStart(2, '0')}:00`;
-                        
-                        let duracaoTexto = reserva.duracao === 1 ? "1 Hora" : "2 Horas";
-                        if (reserva.duracao === 3) duracaoTexto = "2 Horas - Pirâmide";
-                        
-                        const logData = {
-                            exclusao: new Date().toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(',', ''),
-                            quadra: quadra,
-                            horario: horarioFormatado,
-                            jogadores: jogadoresParaLog.map(capitalizarNome), // Usa a lista reconstruída
-                            usuario: "SISTEMA",
-                            duracao: duracaoTexto,
-                            data: dataFormatada,
-                            statusNoMomentoDaExclusao: 'expirada',
-                            organizadorDaReserva: reserva.organizador,
-                            confirmacoes: traduzirConfirmacoesParaLog(reserva.confirmacoes),
-							motivo: "Reserva expirada por falta de confirmação"
-                        };
-                        
-                        logsParaRegistrar.push(logData);
+                        // 2. FILTRA OS "SOBREVIVENTES"
+                        // Mantém: Organizador, Convidados e Quem já confirmou (true)
+                        const jogadoresQueFicam = todosJogadores.filter(apelido => {
+                            const isOrganizador = apelido === reserva.organizador;
+                            // Verifica se começa com "Convidado" (cobre "Convidado" e "Convidado - Nome")
+                            const isConvidado = apelido.startsWith("Convidado") || apelido.toLowerCase() === 'convidado';
+                            const confirmou = reserva.confirmacoes && reserva.confirmacoes[apelido] === true;
+                            
+                            return isOrganizador || isConvidado || confirmou;
+                        });
 
-                        updates[`sistemas/reservas/${quadra}/${key}`] = null;
-                        if (reserva.duracao > 1) {
-                            const key2 = `${reserva.dia}_${reserva.hora + 1}`;
-                            updates[`sistemas/reservas/${quadra}/${key2}`] = null; 
+                        // 3. DECISÃO: SALVAR OU EXCLUIR?
+                        if (jogadoresQueFicam.length >= 2) {
+                            // === CENÁRIO A: SALVAR (Sobraram jogadores suficientes) ===
+                            console.log(`✅ Reserva em ${quadra} (${key}) salva parcialmente com: ${jogadoresQueFicam.join(', ')}`);
+
+                            const novoStatus = 'confirmada';
+                            const novaListaCompleta = jogadoresQueFicam.join(', ');
+                            
+                            // Recalcula a visualização das células (Quem aparece na hora 1 e 2)
+                            let visualParte1 = "";
+                            let visualParte2 = "";
+
+                            if (reserva.duracao > 1) {
+                                // Lógica de distribuição: 1º e 3º na hora 1, 2º e 4º na hora 2
+                                const p1 = [];
+                                const p2 = [];
+                                jogadoresQueFicam.forEach((jogador, index) => {
+                                    if (index === 0 || index === 2) p1.push(jogador);
+                                    if (index === 1 || index === 3) p2.push(jogador);
+                                });
+                                visualParte1 = p1.join(', ');
+                                visualParte2 = p2.join(', ');
+                            } else {
+                                visualParte1 = novaListaCompleta;
+                            }
+
+                            // Prepara atualizações para a Hora 1
+                            updates[`sistemas/reservas/${quadra}/${key}/status`] = novoStatus;
+                            updates[`sistemas/reservas/${quadra}/${key}/jogadores_completo`] = novaListaCompleta;
+                            updates[`sistemas/reservas/${quadra}/${key}/jogadores`] = visualParte1;
+                            updates[`sistemas/reservas/${quadra}/${key}/expiraEm`] = null; // Remove validade
+
+                            // Prepara atualizações para a Hora 2 (se houver)
+                            if (reserva.duracao > 1) {
+                                const key2 = `${reserva.dia}_${reserva.hora + 1}`;
+                                updates[`sistemas/reservas/${quadra}/${key2}/status`] = novoStatus;
+                                updates[`sistemas/reservas/${quadra}/${key2}/jogadores_completo`] = novaListaCompleta;
+                                updates[`sistemas/reservas/${quadra}/${key2}/jogadores`] = visualParte2;
+                                updates[`sistemas/reservas/${quadra}/${key2}/expiraEm`] = null;
+                            }
+
+                            // Reconstrói o objeto de confirmações apenas com quem ficou
+                            const novasConfirmacoes = {};
+                            jogadoresQueFicam.forEach(j => {
+                                // Se não é convidado, marca como confirmado (pois ou era org ou já tinha aceito)
+                                if (!j.startsWith("Convidado") && j.toLowerCase() !== 'convidado') {
+                                    novasConfirmacoes[j] = true;
+                                }
+                            });
+                            updates[`sistemas/reservas/${quadra}/${key}/confirmacoes`] = novasConfirmacoes;
+                            if (reserva.duracao > 1) {
+                                const key2 = `${reserva.dia}_${reserva.hora + 1}`;
+                                updates[`sistemas/reservas/${quadra}/${key2}/confirmacoes`] = novasConfirmacoes;
+                            }
+
+                        } else {
+                            // === CENÁRIO B: EXCLUIR (Não sobraram jogadores suficientes) ===
+                            console.warn(`🗑️ Reserva expirada em ${quadra} (${key}) com jogadores insuficientes. Removendo.`);
+                            
+                            // Monta lista para o Log de Exclusão
+                            // (Inclui quem estava pendente para saber quem caiu)
+                            const jogadoresParaLog = Object.keys(reserva.confirmacoes || {});
+                            if ((reserva.jogadores_completo || reserva.jogadores).toLowerCase().includes('convidado')) {
+                                if (!jogadoresParaLog.some(j => j.toLowerCase().includes('convidado'))) {
+                                    jogadoresParaLog.push('Convidado');
+                                }
+                            }
+
+                            const dataDaReserva = new Date();
+                            const diaDaSemanaHoje = dataDaReserva.getDay() === 0 ? 7 : dataDaReserva.getDay();
+                            let diff = reserva.dia - diaDaSemanaHoje;
+                            if (diff < 0) diff += 7;
+                            dataDaReserva.setDate(new Date().getDate() + diff);
+                            const dataFormatada = `${String(dataDaReserva.getDate()).padStart(2, '0')}-${String(dataDaReserva.getMonth() + 1).padStart(2, '0')}-${dataDaReserva.getFullYear()}`;
+                            
+                            const horaFinal = reserva.hora + reserva.duracao;
+                            const horarioFormatado = `${String(reserva.hora).padStart(2, '0')}:00 - ${String(horaFinal).padStart(2, '0')}:00`;
+                            
+                            let duracaoTexto = reserva.duracao === 1 ? "1 Hora" : "2 Horas";
+                            if (reserva.duracao === 3) duracaoTexto = "2 Horas - Pirâmide";
+                            
+                            const logData = {
+                                exclusao: new Date().toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(',', ''),
+                                quadra: quadra,
+                                horario: horarioFormatado,
+                                jogadores: jogadoresParaLog.map(capitalizarNome),
+                                usuario: "SISTEMA",
+                                duracao: duracaoTexto,
+                                data: dataFormatada,
+                                statusNoMomentoDaExclusao: 'expirada',
+                                organizadorDaReserva: reserva.organizador,
+                                confirmacoes: traduzirConfirmacoesParaLog(reserva.confirmacoes),
+                                motivo: "Reserva expirada e com número insuficiente de jogadores confirmados"
+                            };
+                            
+                            logsParaRegistrar.push(logData);
+
+                            // Deleta a hora 1
+                            updates[`sistemas/reservas/${quadra}/${key}`] = null;
+                            // Deleta a hora 2 se existir
+                            if (reserva.duracao > 1) {
+                                const key2 = `${reserva.dia}_${reserva.hora + 1}`;
+                                updates[`sistemas/reservas/${quadra}/${key2}`] = null; 
+                            }
                         }
                     }
                 }
@@ -10360,9 +10467,15 @@ async function limparReservasExpiradas() {
         }
 
         if (Object.keys(updates).length > 0) {
-            await registrarExclusao(logsParaRegistrar);
             await database.ref().update(updates);
-            console.log(`✅ ${logsParaRegistrar.length} reserva(s) expirada(s) removida(s) e logada(s) com sucesso.`);
+            
+            // Só salva o log se houver exclusões reais
+            if (logsParaRegistrar.length > 0) {
+                await registrarExclusao(logsParaRegistrar);
+                console.log(`✅ Processamento concluído: Reservas insuficientes removidas e reservas suficientes salvas.`);
+            } else {
+                console.log(`✅ Processamento concluído: Reservas expiradas foram salvas/atualizadas.`);
+            }
         } else {
             console.log("✅ Nenhuma reserva expirada encontrada.");
         }
@@ -17312,10 +17425,12 @@ function aplicarLimitesDeHorarioVisual() {
 
 
 // --- FUNÇÃO PARA ABRIR PELA TABELA (MODO CONTEXTUAL + REGRA DA DURAÇÃO) ---
+// --- FUNÇÃO PARA ABRIR PELA TABELA (MODO CONTEXTUAL + REGRAS DE DURAÇÃO) ---
+// --- FUNÇÃO PARA ABRIR PELA TABELA (MODO CONTEXTUAL + REGRAS DE DURAÇÃO + AULAS) ---
 function abrirAgendamentoPelaCelula(dia, hora) {
     if (navigator.vibrate) navigator.vibrate(50);
 
-    // 1. Limpa sujeiras anteriores (Isso destrava tudo primeiro)
+    // 1. Limpa sujeiras anteriores
     limparCampos(); 
     carregarJogadores();
 
@@ -17323,12 +17438,12 @@ function abrirAgendamentoPelaCelula(dia, hora) {
     const campoQuadra = document.getElementById('quadra');
     const campoDia = document.getElementById('dia');
     const campoHora = document.getElementById('hora');
-    const campoDuracao = document.getElementById('duracao'); // Pegamos o campo Duração
+    const campoDuracao = document.getElementById('duracao'); 
 
     campoQuadra.value = quadraSelecionada;
     campoDia.value = dia;
     
-    // Atualiza a lista de horários para este dia
+    // Atualiza a lista de horários (para popular o dropdown)
     atualizarOpcoesHorario(); 
     campoHora.value = hora;
 
@@ -17347,41 +17462,80 @@ function abrirAgendamentoPelaCelula(dia, hora) {
         console.error("Erro ao preencher jogador logado:", e);
     }
 
-    // --- A REGRA DA DURAÇÃO (O CÉREBRO) ---
-    // Verifica se a PRÓXIMA HORA está ocupada
-    const reservasDaQuadra = reservasPorQuadra[quadraSelecionada] || {};
-    const keyProximaHora = `${dia}_${hora + 1}`;
+    // =================================================================
+    // === CÁLCULO INTELIGENTE DA DURAÇÃO (CONSIDERANDO TUDO) ===
+    // =================================================================
     
-    // Verifica se existe reserva na próxima hora (que tenha borda, ou seja, é uma reserva válida)
-    const proximaHoraOcupada = !!reservasDaQuadra[keyProximaHora]; 
+    // A. Regras de Fechamento (Teto)
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+    const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
+    
+    let diff = dia - diaDaSemanaHoje;
+    if (diff < 0) diff += 7;
+    
+    const dataAlvo = new Date(hoje);
+    dataAlvo.setDate(hoje.getDate() + diff);
+
+    const regrasDoDia = obterRegrasDeHorario(dataAlvo);
+    const horaFechamento = regrasDoDia.fim; 
+    const slotsAteFechar = horaFechamento - hora;
+
+    // B. Verificação de Ocupação da Próxima Hora
+    const proximaHora = parseInt(hora) + 1;
+    const keyProximaHora = `${dia}_${proximaHora}`;
+    
+    // Check 1: Existe Reserva comum ou Manutenção no banco?
+    const reservasDaQuadra = reservasPorQuadra[quadraSelecionada] || {};
+    const temReservaNoBanco = !!reservasDaQuadra[keyProximaHora];
+
+    // Check 2: Existe AULA FIXA na grade? (AQUI ESTAVA FALTANDO)
+    let temAulaFixa = false;
+    
+    // Mapeia o nome da quadra para a chave da config
+    let quadraKeySimple = "";
+    if (quadraSelecionada.includes("1")) quadraKeySimple = "Quadra1";
+    else if (quadraSelecionada.includes("2")) quadraKeySimple = "Quadra2";
+    else if (quadraSelecionada.includes("3")) quadraKeySimple = "Quadra3";
+
+    const configAula = configAulasGlobal[quadraKeySimple];
+    
+    // Se a aula estiver ativa e houver uma marcação para a próxima hora
+    if (configAula && configAula.Ativo && configAula.Grade) {
+        // A chave da grade é igual à do banco: "dia_hora" (ex: "1_14")
+        if (configAula.Grade[keyProximaHora] === true) {
+            temAulaFixa = true;
+        }
+    }
+
+    // C. Decisão Final: Bloqueia se (Pouco Tempo) OU (Reserva Próxima) OU (Aula Próxima)
+    const bloquearLongaDuracao = (slotsAteFechar < 2) || temReservaNoBanco || temAulaFixa;
 
     const op2h = campoDuracao.querySelector('option[value="2"]');
     const opPiramide = campoDuracao.querySelector('option[value="3-piramide"]');
 
-    if (proximaHoraOcupada) {
-        // CONFLITO DETECTADO: Força 1 Hora e esconde as opções longas
+    if (bloquearLongaDuracao) {
+        // CONFLITO: Força 1 Hora
         campoDuracao.value = "1";
         
         if (op2h) op2h.style.display = 'none';
         if (opPiramide) opPiramide.style.display = 'none';
         
     } else {
-        // SEM CONFLITO: Restaura as opções
+        // LIVRE: Restaura as opções
         if (op2h) op2h.style.display = 'block';
         
-        // A Pirâmide só aparece se estiver ativa nas configurações globais
         if (opPiramide) {
             opPiramide.style.display = piramideAtivaGlobal ? 'block' : 'none'; 
         }
     }
-    // ---------------------------------------
+    // =================================================================
 
-    // 4. TRAVA os campos de contexto (Visual de "Leitura Apenas")
+    // 4. TRAVA os campos de contexto
     campoQuadra.disabled = true;
     campoDia.disabled = true;
     campoHora.disabled = true;
     
-    // Visual de travado (cinza claro)
     campoQuadra.style.backgroundColor = "#e9ecef";
     campoDia.style.backgroundColor = "#e9ecef";
     campoHora.style.backgroundColor = "#e9ecef";
@@ -17391,6 +17545,8 @@ function abrirAgendamentoPelaCelula(dia, hora) {
     document.getElementById('formBackdrop').classList.add('visible');
     document.getElementById('fab-toggle-form').classList.add('active');
 }
+
+
 </script>
 
 <div id="versao-desatualizada-overlay">
