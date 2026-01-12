@@ -1059,9 +1059,7 @@
           "classe": "C",
           "niver": "04/10/1979",
           "perfis": {
-            "Admin": true,
             "Financeiro": true,
-            "Operador": true,
             "Professor": true
           },
           "piramide": "65",
@@ -1466,7 +1464,13 @@
           "cor": "#007bff",
           "descricao": "Criado via Configurações",
           "permissoes": {
-            "acesso_config": false
+            "acesso_config": false,
+            "controle_quadras": false,
+            "gerir_reservas": true,
+            "gestao_jogadores": false,
+            "gestor_aulas": false,
+            "gestor_torneios": false,
+            "super_admin": false
           }
         },
         "Professor": {
@@ -1478,8 +1482,8 @@
             "controle_quadras": false,
             "gerir_reservas": false,
             "gestao_jogadores": false,
-            "gestor_aulas": false,
-            "gestor_torneios": false,
+            "gestor_aulas": true,
+            "gestor_torneios": true,
             "super_admin": false
           }
         }
@@ -1530,34 +1534,30 @@
         "1_6": {
           "borda": "2h",
           "confirmacoes": {
-            "Alessandro Xavier": false,
             "Ana Maria Marinho": true
           },
           "dia": 1,
           "duracao": 2,
-          "expiraEm": 1768062802930,
           "hora": 6,
-          "jogadores": "Ana Maria Marinho, Alessandro Xavier",
-          "jogadores_completo": "Ana Maria Marinho, Alessandro Xavier, Convidado - Roberto, Convidado - Rafael",
+          "jogadores": "Ana Maria Marinho, Convidado - Roger Federer",
+          "jogadores_completo": "Ana Maria Marinho, Convidado - Rafael Nadal, Convidado - Roger Federer",
           "organizador": "Ana Maria Marinho",
-          "status": "pendente"
+          "status": "confirmada"
         },
         "1_7": {
           "confirmacoes": {
-            "Alessandro Xavier": false,
             "Ana Maria Marinho": true
           },
           "dia": 1,
           "duracao": 2,
-          "expiraEm": 1768062802930,
           "hora": 7,
-          "jogadores": "Convidado - Roberto, Convidado - Rafael",
-          "jogadores_completo": "Ana Maria Marinho, Alessandro Xavier, Convidado - Roberto, Convidado - Rafael",
+          "jogadores": "Convidado - Rafael Nadal",
+          "jogadores_completo": "Ana Maria Marinho, Convidado - Rafael Nadal, Convidado - Roger Federer",
           "organizador": "Ana Maria Marinho",
-          "status": "pendente"
+          "status": "confirmada"
         }
       }
     },
-    "version": "v2.0.1"
+    "version": "v2.0.2"
   }
 }
