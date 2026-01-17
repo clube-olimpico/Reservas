@@ -146,7 +146,6 @@
           },
           "niver": "26/06/1975",
           "perfis": {
-            "Financeiro": true,
             "Professor": true
           },
           "piramide": "38",
@@ -701,7 +700,7 @@
           "jogosDeDuplasJogados": 3,
           "niver": "13/04/1975",
           "perfis": {
-            "Professor": true
+            "Árbitro": true
           },
           "piramide": "14",
           "socio": "titular",
@@ -959,8 +958,7 @@
           "jogosDeDuplasJogados": 3,
           "niver": "26/05/1973",
           "perfis": {
-            "Admin": true,
-            "Financeiro": true
+            "Admin": true
           },
           "piramide": "1",
           "socio": "titular",
@@ -1062,7 +1060,6 @@
           "classe": "C",
           "niver": "04/10/1979",
           "perfis": {
-            "Financeiro": true,
             "Professor": true
           },
           "piramide": "65",
@@ -1114,20 +1111,6 @@
     },
     "config": {
       "Abrir": true,
-      "Administradores": {
-        "admin-8": {
-          "apelido": "TABORDA",
-          "nomeCompleto": "RONALDO TABORDA"
-        },
-        "admin-9": {
-          "apelido": "JOAO DARIO",
-          "nomeCompleto": "JOAO DARIO DINIZ"
-        }
-      },
-      "Arbitro": {
-        "apelido": "JOAO BENTO",
-        "nomeCompleto": "JOAO BENTO PEREIRA"
-      },
       "Convidados": {
         "DiasDeSemana": true,
         "FimDeSemana": true,
@@ -1448,20 +1431,6 @@
             "super_admin": true
           }
         },
-        "Financeiro": {
-          "abreviacao": "Finanças",
-          "cor": "#fd7e14",
-          "descricao": "Criado via Configurações",
-          "permissoes": {
-            "acesso_config": false,
-            "controle_quadras": false,
-            "gerir_reservas": false,
-            "gestao_jogadores": true,
-            "gestor_aulas": true,
-            "gestor_torneios": false,
-            "super_admin": false
-          }
-        },
         "Operador": {
           "abreviacao": "Oper",
           "cor": "#007bff",
@@ -1486,6 +1455,20 @@
             "gerir_reservas": false,
             "gestao_jogadores": false,
             "gestor_aulas": true,
+            "gestor_torneios": true,
+            "super_admin": false
+          }
+        },
+        "Árbitro": {
+          "abreviacao": "Árbitro",
+          "cor": "#fd7e14",
+          "descricao": "Criado via Configurações",
+          "permissoes": {
+            "acesso_config": false,
+            "controle_quadras": false,
+            "gerir_reservas": false,
+            "gestao_jogadores": false,
+            "gestor_aulas": false,
             "gestor_torneios": true,
             "super_admin": false
           }
@@ -1534,21 +1517,6 @@
     },
     "reservas": {
       "Quadra 1 - Coberta": {
-        "3_21": {
-          "dataCancelamento": "2026-01-14T22:00:02.814Z",
-          "dia": 3,
-          "hora": 21,
-          "responsavel": "VANIA TABORDA",
-          "status": "aula_cancelada"
-        },
-        "3_7": {
-          "borda": "1h",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 7,
-          "jogadores": "Ana Maria Marinho",
-          "organizador": "Ana Maria Marinho"
-        },
         "4_10": {
           "borda": "1h",
           "dia": 4,
@@ -1611,6 +1579,17 @@
           "status": "confirmada",
           "tipo": "aula_extra"
         },
+        "5_12": {
+          "borda": "1h",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 12,
+          "jogadores": "Aula",
+          "jogadores_completo": "Aula",
+          "organizador": "VANIA TABORDA",
+          "status": "confirmada",
+          "tipo": "aula_extra"
+        },
         "5_7": {
           "borda": "1h",
           "dia": 5,
@@ -1620,9 +1599,16 @@
           "organizador": "Ana Julia"
         },
         "5_8": {
-          "dataCancelamento": "2026-01-16T00:28:54.792Z",
+          "dataCancelamento": "2026-01-16T20:31:20.316Z",
           "dia": 5,
           "hora": 8,
+          "responsavel": "VANIA TABORDA",
+          "status": "aula_cancelada"
+        },
+        "6_10": {
+          "dataCancelamento": "2026-01-16T09:33:29.255Z",
+          "dia": 6,
+          "hora": 10,
           "responsavel": "VANIA TABORDA",
           "status": "aula_cancelada"
         },
@@ -1632,13 +1618,47 @@
           "duracao": 3,
           "hora": 12,
           "jogadores": "Ana Maria Marinho",
-          "organizador": "Ana Maria Marinho"
+          "organizador": "Ana Maria Marinho",
+          "resultado": {
+            "dataInformado": "2026-01-17T01:58:38.618Z",
+            "informadoPor": "Árbitro: Leo Carrara",
+            "perdedor": "An Alice",
+            "set1": {
+              "placar": "6x1",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "6x1",
+              "tiebreak": ""
+            },
+            "set3": "",
+            "tipo": "Placar Normal",
+            "vencedor": "Ana Maria Marinho"
+          },
+          "status": "finalizada"
         },
         "6_13": {
           "dia": 6,
           "hora": 13,
           "jogadores": "An Alice",
-          "organizador": "Ana Maria Marinho"
+          "organizador": "Ana Maria Marinho",
+          "resultado": {
+            "dataInformado": "2026-01-17T01:58:38.618Z",
+            "informadoPor": "Árbitro: Leo Carrara",
+            "perdedor": "An Alice",
+            "set1": {
+              "placar": "6x1",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "6x1",
+              "tiebreak": ""
+            },
+            "set3": "",
+            "tipo": "Placar Normal",
+            "vencedor": "Ana Maria Marinho"
+          },
+          "status": "finalizada"
         },
         "6_8": {
           "dataCancelamento": "2026-01-15T22:13:55.442Z",
@@ -1646,14 +1666,23 @@
           "hora": 8,
           "responsavel": "Ana Maria Marinho",
           "status": "aula_cancelada"
-        }
+        },
+        "7_8": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "Taborda",
+          "organizador": "Taborda"
+        },
+        "duracao": 1
       }
     },
     "usuariosOnline": {
       "xllafuafw": {
         "sessionId": "xllafuafw",
-        "timestamp": 1768528560968,
-        "usuario": "RONALDO TABORDA"
+        "timestamp": 1768615626528,
+        "usuario": "ANA LICE DOURADO"
       }
     },
     "version": "v2.0.2"
