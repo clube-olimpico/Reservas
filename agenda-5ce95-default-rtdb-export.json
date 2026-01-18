@@ -47,6 +47,7 @@
         "Edna Bittencourt": true,
         "Elenilson": true,
         "Elisa Voj": true,
+        "Erick": true,
         "Fabiana": true,
         "Fabio Batista": true,
         "Federer": true,
@@ -89,7 +90,6 @@
         "Maico": true,
         "Makoto": true,
         "Manu": true,
-        "Manutencao": true,
         "Marcelo Silva": true,
         "Marco Ribeiro": true,
         "Marcos Colombo": true,
@@ -466,12 +466,15 @@
           "piramide": "",
           "socio": "dependente"
         },
-        "ERIK MANUTENCAO": {
-          "apelido": "Manutencao",
+        "ERICK CLUBE": {
+          "apelido": "Erick",
           "classe": "",
-          "niver": "20/10/2005",
+          "niver": "01/01/2001",
+          "perfis": {
+            "Manutenção": true
+          },
           "piramide": "",
-          "socio": "titular"
+          "socio": "visitante"
         },
         "FABIANA VILLATORRE": {
           "apelido": "Fabiana",
@@ -1431,14 +1434,14 @@
             "super_admin": true
           }
         },
-        "Operador": {
-          "abreviacao": "Oper",
-          "cor": "#007bff",
+        "Manutenção": {
+          "abreviacao": "Manut",
+          "cor": "#6f42c1",
           "descricao": "Criado via Configurações",
           "permissoes": {
             "acesso_config": false,
-            "controle_quadras": false,
-            "gerir_reservas": true,
+            "controle_quadras": true,
+            "gerir_reservas": false,
             "gestao_jogadores": false,
             "gestor_aulas": false,
             "gestor_torneios": false,
@@ -1517,67 +1520,16 @@
     },
     "reservas": {
       "Quadra 1 - Coberta": {
-        "4_10": {
+        "1_13": {
           "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 10,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "VANIA TABORDA",
-          "status": "confirmada",
-          "tipo": "aula_extra"
-        },
-        "4_12": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 12,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "VANIA TABORDA",
-          "status": "confirmada",
-          "tipo": "aula_extra"
-        },
-        "4_13": {
-          "borda": "1h",
-          "dia": 4,
+          "dia": 1,
           "duracao": 1,
           "hora": 13,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "VANIA TABORDA",
+          "jogadores": "Manutencao",
+          "jogadores_completo": "Manutencao",
+          "organizador": "ERIK MANUTENCAO",
           "status": "confirmada",
-          "tipo": "aula_extra"
-        },
-        "4_7": {
-          "dataCancelamento": "2026-01-15T23:07:38.885Z",
-          "dia": 4,
-          "hora": 7,
-          "responsavel": "VANIA TABORDA",
-          "status": "aula_cancelada"
-        },
-        "4_8": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 8,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "VANIA TABORDA",
-          "status": "confirmada",
-          "tipo": "aula_extra"
-        },
-        "4_9": {
-          "borda": "1h",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 9,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "VANIA TABORDA",
-          "status": "confirmada",
-          "tipo": "aula_extra"
+          "tipo": "manutencao"
         },
         "5_12": {
           "borda": "1h",
@@ -1660,12 +1612,45 @@
           },
           "status": "finalizada"
         },
+        "6_19": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 19,
+          "jogadores": "Manutencao",
+          "jogadores_completo": "Manutencao",
+          "organizador": "ERICK CLUBE",
+          "status": "confirmada",
+          "tipo": "manutencao"
+        },
+        "6_20": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Manutencao",
+          "jogadores_completo": "Manutencao",
+          "organizador": "ERIK MANUTENCAO",
+          "status": "confirmada",
+          "tipo": "manutencao"
+        },
         "6_8": {
           "dataCancelamento": "2026-01-15T22:13:55.442Z",
           "dia": 6,
           "hora": 8,
           "responsavel": "Ana Maria Marinho",
           "status": "aula_cancelada"
+        },
+        "7_13": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 13,
+          "jogadores": "Manutencao",
+          "jogadores_completo": "Manutencao",
+          "organizador": "ERIK MANUTENCAO",
+          "status": "confirmada",
+          "tipo": "manutencao"
         },
         "7_8": {
           "borda": "1h",
@@ -1675,14 +1660,18 @@
           "jogadores": "Taborda",
           "organizador": "Taborda"
         },
+        "7_9": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 9,
+          "jogadores": "Aula",
+          "jogadores_completo": "Aula",
+          "organizador": "VANIA TABORDA",
+          "status": "confirmada",
+          "tipo": "aula_extra"
+        },
         "duracao": 1
-      }
-    },
-    "usuariosOnline": {
-      "xllafuafw": {
-        "sessionId": "xllafuafw",
-        "timestamp": 1768615626528,
-        "usuario": "ANA LICE DOURADO"
       }
     },
     "version": "v2.0.2"
