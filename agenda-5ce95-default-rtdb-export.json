@@ -474,7 +474,7 @@
             "Manutenção": true
           },
           "piramide": "",
-          "socio": "visitante"
+          "socio": "titular"
         },
         "FABIANA VILLATORRE": {
           "apelido": "Fabiana",
@@ -1066,7 +1066,7 @@
             "Professor": true
           },
           "piramide": "65",
-          "socio": "dependente"
+          "socio": "titular"
         },
         "VERIDIANE BULLA VOJCIECHOVSKI": {
           "apelido": "Veridiane Voj",
@@ -1520,42 +1520,53 @@
     },
     "reservas": {
       "Quadra 1 - Coberta": {
-        "1_13": {
+        "1_11": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Ana Julia": false,
+            "Ana Maria Marinho": true
+          },
+          "dia": 1,
+          "duracao": 2,
+          "expiraEm": 1768784091579,
+          "hora": 11,
+          "jogadores": "Ana Maria Marinho",
+          "jogadores_completo": "Ana Maria Marinho, Ana Julia",
+          "organizador": "Ana Maria Marinho",
+          "status": "pendente"
+        },
+        "1_12": {
+          "confirmacoes": {
+            "Ana Julia": false,
+            "Ana Maria Marinho": true
+          },
+          "dia": 1,
+          "duracao": 2,
+          "expiraEm": 1768784091579,
+          "hora": 12,
+          "jogadores": "Ana Julia",
+          "jogadores_completo": "Ana Maria Marinho, Ana Julia",
+          "organizador": "Ana Maria Marinho",
+          "status": "pendente"
+        },
+        "1_7": {
           "borda": "1h",
           "dia": 1,
           "duracao": 1,
-          "hora": 13,
-          "jogadores": "Manutencao",
-          "jogadores_completo": "Manutencao",
-          "organizador": "ERIK MANUTENCAO",
-          "status": "confirmada",
-          "tipo": "manutencao"
+          "hora": 7,
+          "jogadores": "Erick",
+          "organizador": "Erick"
         },
-        "5_12": {
+        "1_9": {
           "borda": "1h",
-          "dia": 5,
+          "dia": 1,
           "duracao": 1,
-          "hora": 12,
+          "hora": 9,
           "jogadores": "Aula",
           "jogadores_completo": "Aula",
           "organizador": "VANIA TABORDA",
           "status": "confirmada",
           "tipo": "aula_extra"
-        },
-        "5_7": {
-          "borda": "1h",
-          "dia": 5,
-          "duracao": 1,
-          "hora": 7,
-          "jogadores": "Ana Julia",
-          "organizador": "Ana Julia"
-        },
-        "5_8": {
-          "dataCancelamento": "2026-01-16T20:31:20.316Z",
-          "dia": 5,
-          "hora": 8,
-          "responsavel": "VANIA TABORDA",
-          "status": "aula_cancelada"
         },
         "6_10": {
           "dataCancelamento": "2026-01-16T09:33:29.255Z",
@@ -1641,16 +1652,20 @@
           "responsavel": "Ana Maria Marinho",
           "status": "aula_cancelada"
         },
-        "7_13": {
-          "borda": "1h",
+        "7_14": {
+          "borda": "2h",
           "dia": 7,
-          "duracao": 1,
-          "hora": 13,
-          "jogadores": "Manutencao",
-          "jogadores_completo": "Manutencao",
-          "organizador": "ERIK MANUTENCAO",
-          "status": "confirmada",
-          "tipo": "manutencao"
+          "duracao": 2,
+          "hora": 14,
+          "jogadores": "Taborda",
+          "organizador": "Taborda"
+        },
+        "7_15": {
+          "dia": 7,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Ana Julia",
+          "organizador": "Taborda"
         },
         "7_8": {
           "borda": "1h",
@@ -1672,6 +1687,13 @@
           "tipo": "aula_extra"
         },
         "duracao": 1
+      }
+    },
+    "usuariosOnline": {
+      "xllafuafw": {
+        "sessionId": "xllafuafw",
+        "timestamp": 1768783614070,
+        "usuario": "ANA MARIA MARINHO GOMES"
       }
     },
     "version": "v2.0.2"
