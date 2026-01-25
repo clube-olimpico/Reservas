@@ -144,7 +144,7 @@
             "operador": false,
             "professor": false
           },
-          "niver": "26/06/1975",
+          "niver": "01/01/2001",
           "perfis": {
             "Professor": true
           },
@@ -1245,7 +1245,7 @@
             "Professor": "Vania"
           },
           "Quadra2": {
-            "Ativo": false,
+            "Ativo": true,
             "Grade": {
               "3_6": true
             },
@@ -1261,7 +1261,7 @@
               "1_9": true,
               "5_6": true
             },
-            "Professor": "Leo carrara"
+            "Professor": "Rildo"
           }
         },
         "Especiais": {
@@ -1520,6 +1520,27 @@
     },
     "reservas": {
       "Quadra 1 - Coberta": {
+        "1_6": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 6,
+          "jogadores": "Aula",
+          "jogadores_completo": "Aula",
+          "organizador": "VANIA TABORDA",
+          "responsavel": "VANIA TABORDA",
+          "status": "confirmada",
+          "timestamp": 1769264083919,
+          "tipo": "aula_extra"
+        },
+        "1_7": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 7,
+          "jogadores": "Adriano Feitosa",
+          "organizador": "Adriano Feitosa"
+        },
         "5_22": {
           "borda": "1h",
           "dia": "5",
@@ -1620,14 +1641,91 @@
           "organizador": "VANIA TABORDA",
           "status": "confirmada",
           "tipo": "aula_extra"
+        },
+        "6_20": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Aula",
+          "jogadores_completo": "Aula",
+          "organizador": "VANIA TABORDA",
+          "status": "confirmada",
+          "tipo": "aula_extra"
+        },
+        "7_8": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "Aula",
+          "jogadores_completo": "Aula",
+          "organizador": "VANIA TABORDA",
+          "status": "confirmada",
+          "tipo": "aula_extra"
+        },
+        "7_9": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 9,
+          "jogadores": "Aula",
+          "jogadores_completo": "Aula",
+          "organizador": "VANIA TABORDA",
+          "status": "confirmada",
+          "tipo": "aula_extra"
         }
-      }
-    },
-    "usuariosOnline": {
-      "xllafuafw": {
-        "sessionId": "xllafuafw",
-        "timestamp": 1769224729473,
-        "usuario": "VANIA TABORDA"
+      },
+      "Quadra 2 - Aberta": {
+        "1_6": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 6,
+          "jogadores": "Aula",
+          "jogadores_completo": "Aula",
+          "organizador": "ADRIANO GOMES FEITOSA",
+          "status": "confirmada",
+          "timestamp": 1769290593072,
+          "tipo": "aula_extra"
+        },
+        "1_8": {
+          "borda": "1h",
+          "dia": 1,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "Aula",
+          "jogadores_completo": "Aula",
+          "organizador": "ADRIANO GOMES FEITOSA",
+          "status": "confirmada",
+          "timestamp": 1769296619071,
+          "tipo": "aula_extra"
+        },
+        "6_19": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 19,
+          "jogadores": "Aula",
+          "jogadores_completo": "Aula",
+          "organizador": "ADRIANO GOMES FEITOSA",
+          "responsavel": "ADRIANO GOMES FEITOSA",
+          "status": "confirmada",
+          "timestamp": 1769290526316,
+          "tipo": "aula_extra"
+        },
+        "6_20": {
+          "borda": "1h",
+          "dia": 6,
+          "duracao": 1,
+          "hora": 20,
+          "jogadores": "Aula",
+          "jogadores_completo": "Aula",
+          "organizador": "ADRIANO GOMES FEITOSA",
+          "status": "confirmada",
+          "timestamp": 1769290103697,
+          "tipo": "aula_extra"
+        }
       }
     },
     "version": "v2.0.2"
