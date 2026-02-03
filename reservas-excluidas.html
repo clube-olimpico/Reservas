@@ -381,58 +381,51 @@ function isMobile() {
 
 // Substitua o seu bloco fetch original por este
 
-showLoading()
+// --- CÓDIGO LIMPO E DEFINITIVO (MÉTODO PADRÃO) ---
+    showLoading();
 
-const url = `https://clube-olimpico.github.io/Reservas/logs/reservas-excluidas.json?t=${new Date().getTime()}`;
+    // Adiciona o timestamp para forçar o navegador a buscar a versão mais recente possível
+    const url = `https://clube-olimpico.github.io/Reservas/logs/reservas-excluidas.json?t=${new Date().getTime()}`;
 
-fetch(url)
-  .then(r => r.json())
-  .then(data => {
-    // ==========================================================
-    // INÍCIO DA CORREÇÃO DEFINITIVA
-    // ==========================================================
-    // 1. Atribui um ID persistente a cada log (seu índice original no arquivo)
-    const allLogsWithId = data.map((log, index) => ({ ...log, id: index }));
-    
-    // 2. Pega a lista de IDs que já foram excluídos nesta sessão
-    const idsExcluidos = JSON.parse(sessionStorage.getItem('idsExcluidos')) || [];
+    fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        // Mapeia IDs para controle interno
+        const allLogsWithId = data.map((log, index) => ({ ...log, id: index }));
+        
+        // Filtra itens excluídos na sessão atual
+        const idsExcluidos = JSON.parse(sessionStorage.getItem('idsExcluidos')) || [];
+        logs = allLogsWithId.filter(log => !idsExcluidos.includes(log.id));
 
-    // 3. Filtra a lista completa, removendo os logs cujo ID persistente já foi excluído
-    logs = allLogsWithId.filter(log => !idsExcluidos.includes(log.id));
-    // ==========================================================
-    // FIM DA CORREÇÃO
-    // ==========================================================
+        // Ordenação: Do mais recente para o mais antigo
+        logs.sort((a, b) => {
+          try {
+              const [dataStrA, horaStrA] = a.exclusao.split(' ');
+              const [dataStrB, horaStrB] = b.exclusao.split(' ');
+              // Converte para data comparável
+              const dataA = new Date(dataStrA.split('/').reverse().join('-') + 'T' + horaStrA);
+              const dataB = new Date(dataStrB.split('/').reverse().join('-') + 'T' + horaStrB);
+              return dataA - dataB; // Se quiser o mais novo em cima, inverta para: dataB - dataA
+          } catch (e) {
+              return 0;
+          }
+        });
 
-    // Ordena inicialmente a lista já filtrada em ordem crescente
-    logs.sort((a, b) => {
-      const [dataStrA, horaStrA] = a.exclusao.split(' ');
-      const [dataStrB, horaStrB] = b.exclusao.split(' ');
-      const dataA = new Date(dataStrA.split('/').reverse().join('-') + 'T' + horaStrA);
-      const dataB = new Date(dataStrB.split('/').reverse().join('-') + 'T' + horaStrB);
-      return dataA - dataB;
-    });
+        exibirLogs(logs);
 
-    exibirLogs(logs);
-
-    // Atualiza o texto do botão de ordenação
-    const botao = document.getElementById("botaoOrdenacao");
-    const simbolo = "↓";
-    botao.innerHTML = isMobile()
-      ? `<span class="icone-seta">↓</span>`
-      : "↓ Decrescente";
-      
-    // Esconde o loading após tudo estar carregado e processado
-    setTimeout(() => {
+        const botao = document.getElementById("botaoOrdenacao");
+        if(botao) {
+            botao.innerHTML = isMobile() ? `<span class="icone-seta">↓</span>` : "↓ Decrescente";
+        }
+        
         hideLoading();
-    }, 200); // 1000 milissegundos = 1 segundo
-  })
-  .catch(error => {
-    console.error('Erro ao carregar dados:', error);
-    // Esconde o loading mesmo em caso de erro
-    hideLoading();
-    // Opcional: mostrar mensagem de erro ao usuário
-    alert('Erro ao carregar os dados. Por favor, tente recarregar a página.');
-  });
+      })
+      .catch(error => {
+        console.error('Erro ao carregar dados:', error);
+        hideLoading();
+        // Opcional: Avisar se falhar
+        // alert('Ainda processando atualização. Tente novamente em 1 minuto.');
+      });
   
   
   
@@ -531,32 +524,41 @@ function exibirLogs(lista) {
             .map(j => j.replace("Convidado - ", "")); // Remove o prefixo para exibição limpa
 
         // 2. Aplica Cores aos Sócios
+        // 2. Aplica Cores aos Sócios com Diagnóstico por Console
         const sociosFormatados = socios.map(apelido => {
-            let estilo = 'color: black;'; // Cor padrão (preto)
+            const apelidoLimpo = apelido.trim();
+            let estilo = 'color: #ff9800; font-weight: bold;'; // Padrão: Laranja (Pendente)
             
-            // Verifica o status no objeto 'confirmacoes' do log
-            if (log.confirmacoes) {
-                // Busca a chave ignorando maiúsculas/minúsculas para evitar erros
-                const chaveStatus = Object.keys(log.confirmacoes).find(k => k.toLowerCase() === apelido.toLowerCase());
-                const status = chaveStatus ? log.confirmacoes[chaveStatus] : null;
+            //console.log(`--- Analisando Jogador: ${apelidoLimpo} ---`);
+            //console.log("Objeto de confirmações do Log:", log.confirmacoes);
 
-                if (status === 'confirmado' || status === true) {
-                    estilo = 'color: green; font-weight: bold;';
-                } else if (status === 'pendente' || status === false || status === 'pendente') {
-                    estilo = 'color: #ff9800; font-weight: bold;'; // Laranja
-                } else if (status === 'recusado') {
-                    estilo = 'color: red; text-decoration: line-through; font-weight: bold;';
+            if (log.confirmacoes) {
+                // Tenta buscar o status de várias formas para não ter erro
+                const statusIndividual = log.confirmacoes[apelidoLimpo];
+                //console.log(`Status encontrado para ${apelidoLimpo}:`, statusIndividual);
+
+                if (statusIndividual === true || statusIndividual === 'confirmado' || statusIndividual === 'true') {
+                    //console.log(`=> Aplicando VERDE para ${apelidoLimpo}`);
+                    estilo = 'color: #28a745; font-weight: bold;';
+                } else if (statusIndividual === 'recusado') {
+                    //console.log(`=> Aplicando VERMELHO/RISCADO para ${apelidoLimpo}`);
+                    estilo = 'color: #dc3545; text-decoration: line-through; font-weight: bold;';
+                } else {
+                    //console.log(`=> Mantendo LARANJA para ${apelidoLimpo} (Status não reconhecido)`);
                 }
+            } else {
+                //console.log(`=> ALERTA: O log desta reserva não possui o objeto 'confirmacoes'.`);
             }
             
-            // Regra Visual: Organizador é sempre Verde (exceto se recusou explicitamente)
-            if (log.organizadorDaReserva && apelido.toLowerCase() === log.organizadorDaReserva.toLowerCase()) {
-                 if (!estilo.includes('red')) {
-                     estilo = 'color: green; font-weight: bold;';
+            // Regra do Organizador 
+            if (log.organizadorDaReserva && apelidoLimpo.toLowerCase() === log.organizadorDaReserva.trim().toLowerCase()) {
+                 //console.log(`=> ${apelidoLimpo} identificado como Organizador.`);
+                 if (!estilo.includes('line-through')) {
+                     estilo = 'color: #28a745; font-weight: bold;';
                  }
             }
 
-            return `<span style="${estilo}">${apelido}</span>`;
+            return `<span style="${estilo}">${apelidoLimpo}</span>`;
         });
 
         // 3. Monta as strings finais
@@ -612,9 +614,24 @@ function exibirLogs(lista) {
             }
         }
 
+        // --- TRATAMENTO DE MOTIVOS ESPECIAIS (AULAS) ---
         let motivoHtml = '';
         if (log.motivo) {
-            motivoHtml = `<p style="font-size: 0.9em;"><strong>Motivo:</strong> <span style="font-style: italic; color: #555;">${log.motivo}</span></p>`;
+            let estiloMotivo = "font-style: italic; color: #555;";
+            let iconeMotivo = "";
+
+            // Se for liberação de Grade Fixa
+            if (log.motivo.includes("Grade Fixa liberado")) {
+                estiloMotivo = "color: #28a745; font-weight: bold;"; // Verde
+                iconeMotivo = "🔓 "; 
+            } 
+            // Se for cancelamento de Aula Extra
+            else if (log.motivo.includes("Aula Extra cancelada")) {
+                estiloMotivo = "color: #d9534f; font-weight: bold;"; // Vermelho
+                iconeMotivo = "🚫 ";
+            }
+
+            motivoHtml = `<p style="font-size: 0.9em;"><strong>Motivo:</strong> <span style="${estiloMotivo}">${iconeMotivo}${log.motivo}</span></p>`;
         }
 
         // --- Montagem Final do Card ---
@@ -1090,7 +1107,7 @@ function gerarPlacarPiramideHtml(resultado, jogadores) {
 
     // Arrays para guardar os scores HTML de cada set
     const scoresVencedorPartida = [];
-    const scoresPerdedorPartida = [];
+    const scoresPerdedorPartida = []; 
 
     ['set1', 'set2', 'set3'].forEach(setKey => {
         const setData = resultado[setKey];
@@ -1106,7 +1123,7 @@ function gerarPlacarPiramideHtml(resultado, jogadores) {
                 
                 let tb1_str = '', tb2_str = '';
                 if(setTiebreak && setTiebreak.includes('-')){
-                    [tb1_str, tb2_str] = setTiebreak.split('-');
+                    [tb1_str, tb2_str] = setTiebreak.split('-'); 
                 }
 
                 // Determina quem venceu ESTE SET para aplicar o negrito
