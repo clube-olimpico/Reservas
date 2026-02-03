@@ -870,12 +870,12 @@
                     
                     document.getElementById("piramide").value = jogador.piramide || "";
                     
-                    document.querySelectorAll('input[name="perfisDinamicos"]').forEach(c => c.checked = false);
+                    document.querySelectorAll('input[name="perfisDinamicos"]').forEach(c => c.checked = false); 
 
                     if (jogador.perfis) {
                         Object.keys(jogador.perfis).forEach(perfilNome => {
                             const chk = document.getElementById('chk_perfil_' + perfilNome);
-                            if (chk) chk.checked = true;
+                            if (chk) chk.checked = true; 
                         });
                     } else if (jogador.funcoes) {
                         if (jogador.funcoes.admin) { const c=document.getElementById('chk_perfil_Admin'); if(c) c.checked=true; }
