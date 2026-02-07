@@ -6362,8 +6362,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v2.0.3'; // Versão atual do sistema     
-const DataVersaoSistema = '02/02/2026';    
+const VersaoSistema = 'v2.0.4'; // Versão atual do sistema     
+const DataVersaoSistema = '07/02/2026';    
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -7025,6 +7025,10 @@ function limparTabela() {
             cell.style.verticalAlign = "";
             cell.style.boxSizing = "";
             cell.style.position = ""; 
+            
+            // --- CORREÇÃO: Reseta o Negrito ---
+            cell.style.fontWeight = ""; 
+            // ----------------------------------
 
             // 3. CORREÇÃO CRÍTICA DO DESLOCAMENTO (Manutenção > 2h)
             cell.rowSpan = 1; 
@@ -7040,12 +7044,15 @@ function limparTabela() {
             delete cell.dataset.duracao;
             delete cell.dataset.blocked;
             delete cell.dataset.motivo;
+            delete cell.dataset.horarioInicio; // Garante limpeza completa
+            delete cell.dataset.horarioFim;
+            delete cell.dataset.data;
             
             cell.removeAttribute("data-duracao");
+            cell.removeAttribute("data-blocked");
         }
     }
 }
-
 
 // Função para selecionar a quadra e carregar suas reservas
 // EM "app-reservas - ativo.html" (Linha 4153)
@@ -7440,13 +7447,31 @@ function carregarReservas(quadra) {
                                                 nomeParaExibir = `${displayRank} - ${apelido}`;
                                             }
                                         }
-                                    }
+                                    } 
+                                    
                                     let styles = '';
                                     const status = reserva.confirmacoes ? reserva.confirmacoes[apelido.trim()] : true;
+                                    
+                                    // Cores de status
                                     if (isConvidadoNomeado || isConvidadoGenerico) styles = `color: ${isDarkMode ? 'white' : 'black'};`;
                                     else if (status === true) styles = `color: ${isDarkMode ? 'white' : 'black'};`;
                                     else if (status === false) styles = `color: ${isDarkMode ? '#FFB74D' : '#EF6C00'};`;
                                     else if (status === 'recusado') styles = `color: red; text-decoration: line-through;`;
+
+                                    // --- NOVO: NEGRITO PARA ORGANIZADOR (REGRAS ATUALIZADAS) ---
+                                    if (reserva.organizador && apelido.trim().toLowerCase() === reserva.organizador.trim().toLowerCase()) {
+                                        // Regra 1: Reservas de 2 Horas -> Sempre negrita
+                                        if (reserva.duracao === 2) {
+                                            styles += ' font-weight: 900;';
+                                        }
+                                        // Regra 2: Reservas de 1 Hora -> Negrita APENAS se houver mais de 1 jogador
+                                        // (Se for 1h e jogar sozinho, não negrita)
+                                        else if (reserva.duracao === 1 && jogadoresArray.length > 1) {
+                                            styles += ' font-weight: 900;';
+                                        }
+                                    }
+                                    // -------------------------------------------------------
+
                                     nomesHtml.push(`<span style="${styles}">${nomeParaExibir}</span>`);
                                 });
                                 return nomesHtml.join(isPiramideGame ? '<br>' : ', ');
@@ -7467,7 +7492,7 @@ function carregarReservas(quadra) {
                             }
 
                             let jogadoresParte1 = [];
-                            let jogadoresParte2 = [];
+                            let jogadoresParte2 = []; 
 
                             if (reserva.duracao > 1) { 
                                 jogadoresParaExibir.forEach((jogador, index) => {
@@ -7485,8 +7510,16 @@ function carregarReservas(quadra) {
                                 cell.innerHTML = '<span class="live-indicator"></span>' + cell.innerHTML;
                             }
                             
-                            if (reserva.duracao === 2) configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
-                            else if (reserva.duracao === 1) cell.style.border = '2px solid black';
+                            //if (reserva.duracao === 2) configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
+                            //else if (reserva.duracao === 1) cell.style.border = '2px solid black';
+							// --- CORREÇÃO: Aplica borda grossa se for 2h OU Pirâmide (que é 3) ---
+                            if (reserva.duracao === 2 || isPiramide) {
+                                configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
+                            }
+                            else if (reserva.duracao === 1) {
+                                cell.style.border = '2px solid black';
+                            }
+                            // --------------------------------------------------------------------
                             
                             if (reserva.duracao > 1) {
                                 const cell2 = tabela.rows[rowIndex + 1]?.cells[colIndex];
@@ -8005,6 +8038,9 @@ function obterRegrasDeHorario(data) {
 // =================================================================
 // FUNÇÃO ATUALIZADA: GERA A LISTA DE HORÁRIOS (COM BLOQUEIO REAL)
 // =================================================================
+// =================================================================
+// FUNÇÃO ATUALIZADA: GERA A LISTA DE HORÁRIOS (CORREÇÃO DE DURAÇÃO 1H)
+// =================================================================
 window.atualizarOpcoesHorario = function() {
     const elQuadra = document.getElementById('quadra');
     const elDia = document.getElementById('dia');
@@ -8016,9 +8052,9 @@ window.atualizarOpcoesHorario = function() {
         return;
     }
     
-    // =========================================================
-    // === LÓGICA DO SMART LOCK (CLIQUE NA TABELA) ===
-    // =========================================================
+    // ---------------------------------------------------------
+    // 1. SMART LOCK (Prioridade Total: Clique na Tabela)
+    // ---------------------------------------------------------
     if (window.horarioBloqueadoPelaTabela !== null && window.horarioBloqueadoPelaTabela !== undefined) {
         elHora.innerHTML = ''; 
         const horaFixa = parseInt(window.horarioBloqueadoPelaTabela);
@@ -8037,15 +8073,13 @@ window.atualizarOpcoesHorario = function() {
         elHora.disabled = true;
         elHora.style.backgroundColor = "#e9ecef"; 
 		
-		// --- ADICIONE ESTAS LINHAS AQUI PARA LIBERAR O BOTÃO NO CLIQUE DA TABELA ---
         const btnAddInterno = document.querySelector('.add-jogador');
         if (btnAddInterno) {
             btnAddInterno.style.pointerEvents = 'auto';
             btnAddInterno.style.opacity = '1';
         }
-        // -------------------------------------------------------------------------
         
-        // Se viemos da tabela, garantimos que a duração não esteja no estado "Sem opções"
+        // Garante que a duração tenha as opções, caso tenha vindo de um estado "Sem opções"
         if (elDuracao.innerHTML.includes("Sem opções")) {
             elDuracao.innerHTML = '<option value="1">1 hora</option><option value="2">2 horas</option><option value="3-piramide">Pirâmide</option>';
             elDuracao.value = "1";
@@ -8055,11 +8089,11 @@ window.atualizarOpcoesHorario = function() {
         return; 
     }
 
-    // 2. RESET DE SEGURANÇA
+    // 2. RESET DE SEGURANÇA (Para o botão +)
     elHora.disabled = false;
     elHora.style.backgroundColor = ""; 
 
-    // 3. DADOS BÁSICOS
+    // 3. DADOS BÁSICOS E DATAS
     const quadraNome = elQuadra.value;
     const diaVal = parseInt(elDia.value);
     
@@ -8089,7 +8123,7 @@ window.atualizarOpcoesHorario = function() {
         return;
     }
 
-    // 4. MAPA DE OCUPAÇÃO
+    // 4. MAPA DE OCUPAÇÃO (Verifica Bloqueios, Aulas e Reservas)
     const numeroQuadra = quadraNome.match(/\d+/); 
     const quadraKeyFull = numeroQuadra ? `Quadra-${numeroQuadra[0]}` : 'Quadra-1'; 
     const bloqueioDoDia = (typeof bloqueiosQuadra !== 'undefined') ? bloqueiosQuadra[quadraKeyFull]?.[dataFormatada] : null;
@@ -8114,19 +8148,25 @@ window.atualizarOpcoesHorario = function() {
         for (let k = 0; k < hDur; k++) horasOcupadasSet.add(hInicio + k);
     }
 
-    // 5. CÁLCULO DOS HORÁRIOS LIVRES
+    // 5. CÁLCULO DOS HORÁRIOS LIVRES (Baseado na regra 1h)
     const slotsLivres1h = new Set();
     const inicioRegra = regras.inicio || 6;
     const fimRegra = regras.fim || 23;
 
     for (let h = inicioRegra; h < fimRegra; h++) {
         if (ehHoje && h < horaAtual) continue; 
+        
+        // Verifica Bloqueio Administrativo
         if (bloqueioDoDia && bloqueioDoDia.regras) {
             const inicioB = parseInt(bloqueioDoDia.regras.inicio.split(':')[0]);
             const fimB = parseInt(bloqueioDoDia.regras.fim.split(':')[0]);
             if (h >= inicioB && h < fimB) continue;
         }
+        
+        // Verifica Reservas
         if (horasOcupadasSet.has(h)) continue;
+        
+        // Verifica Grade de Aulas (Se não foi cancelada)
         if (configAula && configAula.Ativo && configAula.Grade) {
             const keyAula = `${diaDaSemanaGrade}_${h}`;
             if (configAula.Grade[keyAula] === true) {
@@ -8137,7 +8177,8 @@ window.atualizarOpcoesHorario = function() {
         slotsLivres1h.add(h);
     }
 
-    // 6. CHECK DE SEQUÊNCIA
+    // 6. CHECK DE SEQUÊNCIA (O Cérebro da Lógica)
+    // Verifica se existe pelo menos UM par de horas consecutivas (ex: 20h e 21h livres)
     let existeSequencia = false;
     for (let h of slotsLivres1h) {
         if (slotsLivres1h.has(h + 1)) {
@@ -8146,16 +8187,15 @@ window.atualizarOpcoesHorario = function() {
         }
     }
 
-    // 7. TRATAMENTO DE LOTAÇÃO (O BOTÃO (+) INTERNO AGORA É TRAVADO AQUI)
-    // 7. TRATAMENTO DE LOTAÇÃO (ESTÉTICA)
+    // 7. TRATAMENTO VISUAL DO CAMPO DURAÇÃO
     const btnAddInterno = document.querySelector('.add-jogador');
 
     if (slotsLivres1h.size === 0) {
-        // MODO BLOQUEADO (Quando não tem horário)
+        // CASO A: SEM HORÁRIOS (Lotação Total)
         elDuracao.innerHTML = '<option value="">Sem opções</option>';
         elDuracao.disabled = true;
         elDuracao.style.backgroundColor = "#e9ecef";
-        elDuracao.style.color = "#6c757d"; // Texto cinza
+        elDuracao.style.color = "#6c757d";
 
         elHora.innerHTML = '<option value="">Sem horários</option>';
         elHora.disabled = true;
@@ -8164,26 +8204,51 @@ window.atualizarOpcoesHorario = function() {
             btnAddInterno.style.pointerEvents = 'none';
             btnAddInterno.style.opacity = '0.3';
         }
-        return;
+        return; // Sai da função aqui
     } else {
-        // MODO RESTAURAÇÃO (Quando você muda a data e VOLTA a ter horário)
+        // CASO B: TEM HORÁRIOS (Restaura o menu)
+        
+        // 1. Se estava bloqueado ("Sem opções"), restaura o HTML completo
         if (elDuracao.innerHTML.includes("Sem opções") || elDuracao.value === "") {
-            elDuracao.innerHTML = '<option value="1">1 Hora</option><option value="2">2 Horas</option><option value="3-piramide">Pirâmide</option>';
+            elDuracao.innerHTML = '<option value="1">1 hora</option><option value="2">2 horas</option><option value="3-piramide">Pirâmide</option>';
             elDuracao.value = "1";
         }
         
-        // --- AQUI ESTÁ A CORREÇÃO PARA O EFEITO COLATERAL ---
-        elDuracao.disabled = false;           // Reabilita o campo
-        elDuracao.style.backgroundColor = ""; // Remove o fundo cinza
-        elDuracao.style.color = "";           // Volta a cor do texto original
-        // --------------------------------------------------
+        // 2. Destrava o campo (padrão)
+        elDuracao.disabled = false;           
+        elDuracao.style.backgroundColor = ""; 
+        elDuracao.style.color = "";           
+
+        // 3. Aplica a Lógica Inteligente (AQUI ESTAVA O ERRO ANTES)
+        // Se não houver sequência (só tem buracos de 1h), esconde as opções de 2h/Pirâmide
+        const op2h = elDuracao.querySelector('option[value="2"]');
+        const opPiramide = elDuracao.querySelector('option[value="3-piramide"]');
+
+        if (!existeSequencia) {
+            // BLOQUEIA VISUALMENTE 2H E PIRÂMIDE
+            if (op2h) op2h.style.display = 'none';
+            if (opPiramide) opPiramide.style.display = 'none';
+            
+            // Se o usuário tinha 2h selecionado e trocou de dia para um lotado, força volta pra 1h
+            if (elDuracao.value === '2' || elDuracao.value === '3-piramide') {
+                elDuracao.value = '1';
+            }
+        } else {
+            // LIBERA VISUALMENTE
+            if (op2h) op2h.style.display = 'block';
+            // Pirâmide depende também da config global
+            if (opPiramide) {
+                opPiramide.style.display = (typeof piramideAtivaGlobal !== 'undefined' && piramideAtivaGlobal) ? 'block' : 'none';
+            }
+        }
 
         if (btnAddInterno) {
             btnAddInterno.style.pointerEvents = 'auto';
             btnAddInterno.style.opacity = '1';
         }
 
-        // Se estiver em modo Aula ou Manutenção, ele trava de novo (mas com o valor 1)
+        // 4. Trava final para Modos Especiais (Manutenção/Aula)
+        // Esses modos exigem 1h fixa, então travamos o campo independente da sequência
         const ehModoRestrito = (window.modoAtual === 'manutencao' || window.modoAtual === 'aula');
         if (ehModoRestrito) {
             elDuracao.disabled = true;
@@ -8191,7 +8256,7 @@ window.atualizarOpcoesHorario = function() {
         }
     }
 
-    // 8. GERA LISTA FINAL
+    // 8. GERA LISTA DE HORÁRIOS FINAL
     let duracaoValor = parseInt(elDuracao.value) || 1;
     const duracaoAtual = elDuracao.value === '3-piramide' ? 2 : duracaoValor;
     
@@ -8199,6 +8264,7 @@ window.atualizarOpcoesHorario = function() {
     let encontrouHorario = false;
 
     listaOrdenada.forEach(h => {
+        // Filtra: Só mostra o horário X se o horário X+1 também estiver livre (caso seja reserva de 2h)
         if (duracaoAtual > 1 && !slotsLivres1h.has(h + 1)) return;
         
         const option = document.createElement('option');
@@ -8210,6 +8276,7 @@ window.atualizarOpcoesHorario = function() {
         encontrouHorario = true;
     });
 
+    // Segurança final caso o filtro tenha removido tudo
     if (!encontrouHorario) {
         const option = document.createElement('option');
         option.text = "Sem horários";
@@ -8217,6 +8284,7 @@ window.atualizarOpcoesHorario = function() {
         elHora.disabled = true;
     }
 };
+
 
 
 
@@ -8514,6 +8582,9 @@ async function atualizarTabela() {
     agendamentoEmAndamento = true;
 	
 	try {
+	
+	    const dataCompletaParaGravar = calcularDataDoDiaSelecionado(dia);
+		
         const reservasRef = database.ref(`sistemas/reservas/${quadra}`);
         const key1 = `${dia}_${horaSelecionada}`;
         const key2 = `${dia}_${horaSelecionada + 1}`;
@@ -8606,10 +8677,29 @@ async function atualizarTabela() {
             const isHoje = (diaSel === ds);
 
             if (isHoje || isAula || jogadores.length === 1 || isPiramide || restoSaoConvidados) {
-				// Se a reserva for para HOJE, ou for Aula, 1 jogador, Pirâmide ou com Convidados, a reserva é DIRETA
 				console.log("Executando agendamento direto (Reserva para hoje ou caso de exceção)...");
+                
+                const confirmacoesAuto = {};
+                jogadores.forEach(j => confirmacoesAuto[j] = true); 
+
+                const reservaMetadataDireta = { 
+                    jogadores_completo: jogadores.join(', '), 
+                    status: 'confirmada', 
+                    organizador: organizadorApelido, 
+                    confirmacoes: confirmacoesAuto,
+                    dataCompleta: dataCompletaParaGravar // <--- O PULO DO GATO (Adicionado aqui)
+                };
+
                 if (duracao === 1) {
-                    const reservaData = { jogadores: jogadores.join(', '), dia, hora: horaSelecionada, duracao, borda: '1h', organizador: organizadorApelido }; 
+                    const reservaData = { 
+                        jogadores: jogadores.join(', '), 
+                        dia, 
+                        hora: horaSelecionada, 
+                        duracao, 
+                        borda: '1h', 
+                        dataCompleta: dataCompletaParaGravar, // <--- GARANTIA EXTRA
+                        ...reservaMetadataDireta 
+                    }; 
                     await runTransaction(reservasRef.child(key1), current => transactionUpdate(current, reservaData));
                 } else if (duracao === 2 || duracao === 3) {
                     let jogadoresParte1 = "", jogadoresParte2 = "";
@@ -8623,12 +8713,35 @@ async function atualizarTabela() {
                         if (jogadores.length >= 4) parte2Array.push(jogadores[3]);
                         jogadoresParte1 = parte1Array.join(', '); jogadoresParte2 = parte2Array.join(', ');
                     }
-                    const reservaData1 = { jogadores: jogadoresParte1, dia, hora: horaSelecionada, duracao, borda: '2h', organizador: organizadorApelido }; 
+                    
+                    const reservaData1 = { 
+                        jogadores: jogadoresParte1, 
+                        dia, 
+                        hora: horaSelecionada, 
+                        duracao, 
+                        borda: '2h', 
+                        dataCompleta: dataCompletaParaGravar, // <--- GARANTIA EXTRA
+                        ...reservaMetadataDireta 
+                    }; 
+                    
                     let reservaData2;
                     if (duracao === 3) {
-                        reservaData2 = { jogadores: jogadoresParte2, dia, hora: horaSelecionada + 1, organizador: organizadorApelido }; 
+                        reservaData2 = { 
+                            jogadores: jogadoresParte2, 
+                            dia, 
+                            hora: horaSelecionada + 1, 
+                            dataCompleta: dataCompletaParaGravar, // <--- GARANTIA EXTRA
+                            ...reservaMetadataDireta 
+                        }; 
                     } else {
-                        reservaData2 = { jogadores: jogadoresParte2, dia, hora: horaSelecionada + 1, duracao, organizador: organizadorApelido }; 
+                        reservaData2 = { 
+                            jogadores: jogadoresParte2, 
+                            dia, 
+                            hora: horaSelecionada + 1, 
+                            duracao, 
+                            dataCompleta: dataCompletaParaGravar, // <--- GARANTIA EXTRA
+                            ...reservaMetadataDireta 
+                        }; 
                     }
                     await runTransaction(reservasRef.child(key1), current => transactionUpdate(current, reservaData1));
                     try {
@@ -8637,7 +8750,8 @@ async function atualizarTabela() {
                         await reservasRef.child(key1).remove(); throw err2;
                     }
                 }
-            } else {
+            } 
+			  else {
                 // Caso contrário, a reserva fica PENDENTE de confirmação (já inclui organizador na 'reservaMetadata')
                 console.log("Executando agendamento pendente de confirmação...");
                 const confirmacoes = {};
@@ -8654,8 +8768,17 @@ async function atualizarTabela() {
 			
                 const reservaMetadata = { jogadores_completo: jogadores.join(', '), status: 'pendente', organizador: organizadorApelido, expiraEm: expiraEm, confirmacoes: confirmacoes };
 
+                
                 if (duracao === 1) {
-                    const reservaData = { jogadores: jogadores.join(', '), dia, hora: horaSelecionada, duracao, borda: '1h', ...reservaMetadata };
+                    const reservaData = { 
+                        jogadores: jogadores.join(', '), 
+                        dia, 
+                        hora: horaSelecionada, 
+                        duracao, 
+                        borda: '1h', 
+                        dataCompleta: dataCompletaParaGravar, // <--- ADICIONADO
+                        ...reservaMetadata 
+                    };
                     await runTransaction(reservasRef.child(key1), current => transactionUpdate(current, reservaData));
                 } else if (duracao === 2) {
                     let jogadoresPrimeiraHora = "", jogadoresSegundaHora = "";
@@ -8666,8 +8789,25 @@ async function atualizarTabela() {
                         jogadoresPrimeiraHora = jogadores.slice(0, 2).join(', ');
                         jogadoresSegundaHora = jogadores.slice(2).join(', ');
                     }
-                    const reservaPendente1 = { jogadores: jogadoresPrimeiraHora, dia, hora: horaSelecionada, duracao, borda: '2h', ...reservaMetadata };
-                    const reservaPendente2 = { jogadores: jogadoresSegundaHora, dia, hora: horaSelecionada + 1, ...reservaMetadata, duracao }; 
+                    
+                    const reservaPendente1 = { 
+                        jogadores: jogadoresPrimeiraHora, 
+                        dia, 
+                        hora: horaSelecionada, 
+                        duracao, 
+                        borda: '2h', 
+                        dataCompleta: dataCompletaParaGravar, // <--- ADICIONADO
+                        ...reservaMetadata 
+                    };
+                    
+                    const reservaPendente2 = { 
+                        jogadores: jogadoresSegundaHora, 
+                        dia, 
+                        hora: horaSelecionada + 1, 
+                        dataCompleta: dataCompletaParaGravar, // <--- ADICIONADO
+                        ...reservaMetadata, 
+                        duracao 
+                    }; 
                     
                     await runTransaction(reservasRef.child(key1), current => transactionUpdate(current, reservaPendente1));
                     try {
@@ -8881,7 +9021,7 @@ async function excluirReserva(horaIndex, diaIndex) {
         const isProfessorDono = verificarPermissao('gestor_aulas') && isUsuarioProfessor(quadraAtual);
         const isManutencaoUser = verificarPermissao('controle_quadras');
 
-        // --- LÓGICA DE PERMISSÃO ATUALIZADA ---
+        // --- LÓGICA DE PERMISSÃO ---
         if (isManutencao) {
             if (isManutencaoUser || isUsuarioAdmin()) {
                 temPermissao = true;
@@ -8900,7 +9040,7 @@ async function excluirReserva(horaIndex, diaIndex) {
 			   mostrarNotificacao("<b>⛔ Atenção:</b><br><br>Apenas o organizador ou Admin podem excluir reserva pendente.", 'warning');
 			}
         } else {
-            // Reserva Normal
+            // Reserva Normal ou Pirâmide
             let jogadoresNaReserva = (reserva1.jogadores_completo || reserva1.jogadores).split(', ').map(j => j.trim());
             if (reserva2) {
                 const j2 = (reserva2.jogadores_completo || reserva2.jogadores).split(', ').map(j => j.trim());
@@ -8926,10 +9066,24 @@ async function excluirReserva(horaIndex, diaIndex) {
             const horarioFormatado = `${String(reserva1.hora).padStart(2, '0')}:00 - ${String(horaFinal).padStart(2, '0')}:00`;
             
             let listaJogadoresParaLog;
+            
             if (reserva1.jogadores_completo) {
                 listaJogadoresParaLog = reserva1.jogadores_completo.split(',').map(j => j.trim());
             } else {
                 listaJogadoresParaLog = reserva1.jogadores.split(',').map(j => j.trim());
+                if (reserva1.duracao > 1 && reserva2 && reserva2.jogadores) {
+                    const jogadoresParte2 = reserva2.jogadores.split(',').map(j => j.trim());
+                    listaJogadoresParaLog = [...listaJogadoresParaLog, ...jogadoresParte2];
+                }
+                listaJogadoresParaLog = [...new Set(listaJogadoresParaLog)];
+            }
+
+            // CORREÇÃO 1: COR VERDE NA PIRÂMIDE
+            if (reserva1.duracao === 3) {
+                if (!reserva1.confirmacoes) reserva1.confirmacoes = {};
+                listaJogadoresParaLog.forEach(player => {
+                    reserva1.confirmacoes[player] = true;
+                });
             }
 
             let duracaoTexto = reserva1.duracao === 1 ? "1 Hora" : "2 Horas";
@@ -8939,20 +9093,33 @@ async function excluirReserva(horaIndex, diaIndex) {
                 return { apelido: apelido, posicao: "0" };
             });
             
-            const isParticipante = listaJogadoresParaLog.includes(apelidoJogadorLogado);
-            let usuarioParaLog = jogadorLogado;
+            // CORREÇÃO 2: LÓGICA DINÂMICA DE SUFIXO
+            let sufixoPerfis = "";
+            const dadosUsuarioLogado = Object.values(jogadoresData).find(j => j.nomeCompleto === jogadorLogado);
+
+            if (dadosUsuarioLogado && dadosUsuarioLogado.perfis) {
+                const perfisAtivos = Object.keys(dadosUsuarioLogado.perfis).filter(k => dadosUsuarioLogado.perfis[k] === true);
+                const listaFormatada = perfisAtivos.map(nomePerfil => {
+                    const configPerfil = perfisConfigGlobal[nomePerfil];
+                    return (configPerfil && configPerfil.abreviacao) ? configPerfil.abreviacao : nomePerfil;
+                });
+                
+                if (listaFormatada.length > 0) {
+                    sufixoPerfis = ` (${listaFormatada.join(', ')})`;
+                }
+            }
             
-            if (isUsuarioAdmin() && !isParticipante) usuarioParaLog = `${jogadorLogado} (Admin)`;
-            else if (isProfessorDono && !isParticipante && isAula) usuarioParaLog = `${jogadorLogado} (Professor)`;
-            else if (isManutencaoUser && isManutencao) usuarioParaLog = `${jogadorLogado} (Manutenção)`;
+            if (sufixoPerfis === "") {
+                 if (isUsuarioAdmin()) sufixoPerfis = " (Admin)";
+                 else if (isProfessorDono) sufixoPerfis = " (Prof)";
+            }
+
+            const usuarioParaLog = `${jogadorLogado}${sufixoPerfis}`;
             
-            // --- DEFINIÇÃO DO MOTIVO ---
             let motivoLog = "Excluído manualmente"; 
             if (isAula) motivoLog = "Aula Extra cancelada pelo Professor"; 
             if (isManutencao) motivoLog = "Manutenção cancelada pela Equipe";
-            // ---------------------------
 
-            
             let logData = {
                 quadra: quadraAtual,
                 horario: horarioFormatado,
@@ -8963,21 +9130,32 @@ async function excluirReserva(horaIndex, diaIndex) {
                 motivo: motivoLog
             };
 
-            
-            if (reserva1.status) logData.statusNoMomentoDaExclusao = reserva1.status;
+            // =================================================================
+            // CORREÇÃO 3: STATUS E ORGANIZADOR
+            // =================================================================
+            if (reserva1.status) {
+                logData.statusNoMomentoDaExclusao = reserva1.status;
+            } else if (reserva1.duracao === 3) {
+                logData.statusNoMomentoDaExclusao = "Aguardando";
+            }
+
             if (reserva1.resultado) logData.resultado = reserva1.resultado;
 			
-			// ADICIONE ESTAS DUAS ABAIXO PARA RESOLVER O PROBLEMA:
-if (reserva1.confirmacoes) logData.confirmacoes = reserva1.confirmacoes;
-if (reserva1.organizador) logData.organizadorDaReserva = reserva1.organizador;
-			
-			
-			//console.log("Objeto logData final que será enviado ao JSON:", logData);
-
+            // --- AQUI ESTÁ A MUDANÇA: Usa a nova função de tradução ---
+            if (reserva1.confirmacoes) {
+                logData.confirmacoes = traduzirConfirmacoesParaLog(reserva1.confirmacoes);
+            }
+            // ----------------------------------------------------------
             
+            if (reserva1.organizador) {
+                logData.organizadorDaReserva = reserva1.organizador;
+            } else if (reserva1.duracao === 3 && listaJogadoresParaLog.length > 0) {
+                logData.organizadorDaReserva = listaJogadoresParaLog[0];
+            }
+            // =================================================================
+			
             registrarExclusao(logData); 
             
-            // === LÓGICA DE EXCLUSÃO (Com suporte a anistia de aula) ===
             const criarExcecao = (h) => ({
                 status: 'aula_cancelada',
                 responsavel: reserva1.organizador || "Sistema",
@@ -8986,7 +9164,6 @@ if (reserva1.organizador) logData.organizadorDaReserva = reserva1.organizador;
                 hora: h
             });
 
-            // Se for jogo normal ou manutenção, apaga (null). Se for aula fixa, cria exceção.
             const deveRestaurarH1 = verificarSeEhGradeFixa(quadraAtual, diaIndex, reserva1.hora) && !isManutencao;
             const valorH1 = deveRestaurarH1 ? criarExcecao(reserva1.hora) : null;
 
@@ -9003,7 +9180,6 @@ if (reserva1.organizador) logData.organizadorDaReserva = reserva1.organizador;
 
             database.ref().update(updates);
             
-            // --- MENSAGEM FINAL ---
             if (isAula) mostrarNotificacao('Aula Extra cancelada com sucesso!', 'success');
             else if (isManutencao) mostrarNotificacao('Manutenção cancelada e horário liberado!', 'success');
             else mostrarNotificacao('Reserva excluída com sucesso!', 'success');
@@ -9014,6 +9190,8 @@ if (reserva1.organizador) logData.organizadorDaReserva = reserva1.organizador;
         mostrarNotificacao("<b>⚠️ Erro:</b><br>Ocorreu um problema inesperado durante a exclusão.", 'error');
     }
 }
+
+
 
 
 
@@ -9390,8 +9568,9 @@ function preencherCeldas(dataInicio, ajustes, linhaDatas) {
 
 
 // SUBSTITUA A SUA FUNÇÃO INTEIRA PELA VERSÃO FINAL ABAIXO
+// SUBSTITUA A SUA FUNÇÃO INTEIRA PELA VERSÃO FINAL ABAIXO
 async function LimparDiasAnteriores() {
-    console.log("🟢 Iniciando LimparDiasAnteriores com Leitura em Lote...");
+    console.log("🟢 Iniciando LimparDiasAnteriores com Verificação de Data Real...");
     const reservasParaExcluir = [];
     const updates = {};
     let operacaoSucesso = true;
@@ -9415,10 +9594,11 @@ async function LimparDiasAnteriores() {
             const reservasDaQuadra = dadosCompletos[quadra];
             const chavesIgnoradas = new Set(); 
 
-            for (let dia = 2; dia <= DiasParaLimpar; dia++) {
-                const dataParaLimpar = new Date(dataAtual);
-                dataParaLimpar.setDate(dataAtual.getDate() - dia);
-                const diaIndex = dataParaLimpar.getDay() === 0 ? 7 : dataParaLimpar.getDay();
+            // Varre do dia 0 (hoje) até o limite configurado
+            for (let dia = 0; dia <= DiasParaLimpar; dia++) {
+                const dataCalculadaLoop = new Date(dataAtual);
+                dataCalculadaLoop.setDate(dataAtual.getDate() - dia);
+                const diaIndex = dataCalculadaLoop.getDay() === 0 ? 7 : dataCalculadaLoop.getDay();
 
                 for (let hora = 6; hora <= 22; hora++) {
                     const key = `${diaIndex}_${hora}`;
@@ -9428,6 +9608,20 @@ async function LimparDiasAnteriores() {
                     const reserva = reservasDaQuadra[key];
 
                     if (!reserva) continue;
+
+                    // --- LÓGICA DE DATA REAL (A CORREÇÃO) ---
+                    let dataRealDaReservaFormatada;
+                    
+                    if (reserva.dataCompleta) {
+                        // Se a reserva tem data gravada, CONFIAMOS NELA.
+                        // Formato esperado YYYY-MM-DD -> Convertendo para DD-MM-YYYY para o Log
+                        const partesData = reserva.dataCompleta.split('-');
+                        dataRealDaReservaFormatada = `${partesData[2]}-${partesData[1]}-${partesData[0]}`; 
+                    } else {
+                        // Fallback para reservas antigas: Assume que é do passado calculado pelo loop
+                        dataRealDaReservaFormatada = dataCalculadaLoop.toLocaleDateString('pt-BR').replace(/\//g, '-');
+                    }
+                    // ----------------------------------------
 
                     // CASO 1: PENDÊNCIA DA PIRÂMIDE
                     if (reserva.status === 'resultado_pendente' && reserva.duracao === 3 && reserva.resultado) {
@@ -9443,7 +9637,6 @@ async function LimparDiasAnteriores() {
                             jogadoresArray = [reserva.jogadores, segundaReserva?.jogadores].filter(Boolean).map(j => j.trim());
                         }
                         
-                        const dataFormatada = dataParaLimpar.toLocaleDateString('pt-BR').replace(/\//g, '-');
                         const horarioFormatado = `${hora.toString().padStart(2, '0')}:00 - ${(hora + 2).toString().padStart(2, '0')}:00`;
                         const jogadoresComPosicao = jogadoresArray.map(apelido => ({
                             apelido: apelido,
@@ -9452,12 +9645,17 @@ async function LimparDiasAnteriores() {
 
                         let logData = {
                             exclusao: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(',', ''),
-                            quadra: quadra, data: dataFormatada, horario: horarioFormatado, duracao: "2 Horas - Pirâmide",
-                            jogadores: jogadoresComPosicao, usuario: "SISTEMA",
+                            quadra: quadra, 
+                            data: dataRealDaReservaFormatada, // <--- USA A DATA CORRETA
+                            horario: horarioFormatado, 
+                            duracao: "2 Horas - Pirâmide",
+                            jogadores: jogadoresComPosicao, 
+                            usuario: "SISTEMA",
                             motivo: "Resultado confirmado e reserva limpa automaticamente por decurso de prazo.",
                             statusNoMomentoDaExclusao: novoStatus, 
                             organizadorDaReserva: reserva.organizador,
-                            confirmacoes: traduzirConfirmacoesParaLog(reserva.confirmacoes), resultado: reserva.resultado
+                            confirmacoes: traduzirConfirmacoesParaLog(reserva.confirmacoes), 
+                            resultado: reserva.resultado
                         };
                         reservasParaExcluir.push(logData);
 
@@ -9511,7 +9709,6 @@ async function LimparDiasAnteriores() {
                             if (duracaoCalculada > 1) chavesIgnoradas.add(`${diaIndex}_${hora + 1}`);
                         }
 
-                        const dataFormatada = dataParaLimpar.toLocaleDateString('pt-BR').replace(/\//g, '-');
                         const horarioFormatado = `${hora.toString().padStart(2, '0')}:00 - ${(hora + duracaoCalculada).toString().padStart(2, '0')}:00`;
                         
                         let duracaoTexto = `${duracaoCalculada} Hora${duracaoCalculada > 1 ? 's' : ''}`;
@@ -9539,7 +9736,7 @@ async function LimparDiasAnteriores() {
                         let logData = {
                             exclusao: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(',', ''),
                             quadra: quadra, 
-                            data: dataFormatada, 
+                            data: dataRealDaReservaFormatada, // <--- USA A DATA CORRETA
                             horario: horarioFormatado, 
                             duracao: duracaoTexto,
                             jogadores: jogadoresComPosicao, 
@@ -9547,13 +9744,20 @@ async function LimparDiasAnteriores() {
                             motivo: motivoLog 
                         };
                         
-                        // --- CORREÇÃO AQUI ---
-                        // Forçamos a gravação do organizador se ele existir, INDEPENDENTE do status.
-                        // Isso garante que o nome fique verde nos logs (regra de 1 jogador).
                         if (!isManutencao && !isAula) {
-                            if (reserva.organizador) logData.organizadorDaReserva = reserva.organizador;
-                            if (reserva.confirmacoes) logData.confirmacoes = traduzirConfirmacoesParaLog(reserva.confirmacoes);
-                            if (reserva.status) logData.statusNoMomentoDaExclusao = reserva.status;
+                            if (reserva.organizador) {
+                                logData.organizadorDaReserva = reserva.organizador;
+                            } else if (jogadoresArray.length > 0) {
+                                logData.organizadorDaReserva = jogadoresArray[0];
+                            }
+
+                            if (reserva.confirmacoes) {
+                                logData.confirmacoes = traduzirConfirmacoesParaLog(reserva.confirmacoes);
+                            }
+                            
+                            if (reserva.status) {
+                                logData.statusNoMomentoDaExclusao = reserva.status;
+                            }
                         }
                         
                         if (reserva.resultado) logData.resultado = reserva.resultado;
@@ -9593,7 +9797,6 @@ async function LimparDiasAnteriores() {
         console.log(operacaoSucesso ? "✅ Operação de limpeza concluída" : "⚠️ Operação de limpeza concluída com erros");
     }
 }
-
 
 
 
@@ -11240,30 +11443,40 @@ function b64_to_utf8(str) {
  * @param {object} confirmacoes Objeto de confirmações original.
  * @returns {object} Novo objeto com os valores traduzidos, ou undefined se a entrada for nula.
  */
+// Função auxiliar para preparar as confirmações para o LOG (JSON)
+// Função auxiliar: Grava STATUS + NOME COMPLETO no mesmo campo
+// Função auxiliar: Grava STATUS + NOME COMPLETO (Ignorando Convidados)
 function traduzirConfirmacoesParaLog(confirmacoes) {
-    if (!confirmacoes) {
-        return undefined; // Retorna undefined se não houver confirmações
-    }
+    if (!confirmacoes) return undefined;
     
     const confirmacoesTraduzidas = {};
-    for (const jogador in confirmacoes) {
-        if (confirmacoes.hasOwnProperty(jogador)) {
-            const status = confirmacoes[jogador];
-            
-            // Lógica expandida para traduzir true e false
-            if (status === true) {
-                confirmacoesTraduzidas[jogador] = "confirmado";
-            } else if (status === false) {
-                confirmacoesTraduzidas[jogador] = "pendente";
-            } else {
-                // Mantém outros valores como 'recusado' intactos
-                confirmacoesTraduzidas[jogador] = status;
+    
+    for (const apelido in confirmacoes) {
+        if (confirmacoes.hasOwnProperty(apelido)) {
+            // CORREÇÃO: Pula se for Convidado (não precisa aparecer nos detalhes)
+            if (apelido.startsWith("Convidado")) {
+                continue;
             }
+
+            const status = confirmacoes[apelido];
+            
+            // 1. Traduz o Status
+            let statusTexto = status;
+            if (status === true) statusTexto = "confirmado";
+            else if (status === false) statusTexto = "pendente";
+            
+            // 2. Busca o Nome Completo
+            let nomeCompleto = apelido;
+            if (typeof jogadoresData !== 'undefined' && jogadoresData[apelido] && jogadoresData[apelido].nomeCompleto) {
+                nomeCompleto = jogadoresData[apelido].nomeCompleto; 
+            }
+            
+            // 3. Grava chave=Apelido, valor=status|NomeCompleto
+            confirmacoesTraduzidas[apelido] = `${statusTexto}|${nomeCompleto}`;
         }
     }
     return confirmacoesTraduzidas;
 }
-
 
 /**
  * Executa uma transação do Firebase e a encapsula em uma Promise para uso com async/await.
@@ -11411,7 +11624,7 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
             return;
         }
 
-        // --- 2. LÓGICA CAMALEÃO: PEGA A COR DA CÉLULA NA GRADE ---
+        // --- 2. LÓGICA CAMALEÃO ---
         let corFundo = '#0d6efd'; 
         let corTexto = '#ffffff';
 
@@ -11464,7 +11677,11 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
         });
 
         const temResultado = reserva.resultado || reserva.resultadoDuplas;
-        const isPiramide = (reserva.duracao === 3);
+        
+        // --- CORREÇÃO AQUI (USAR == em vez de ===) ---
+        // Isso garante que funcione mesmo se a duração vier como texto "3" do banco
+        const isPiramide = (reserva.duracao == 3); 
+        // ---------------------------------------------
 
         if (temResultado || isPiramide) modalContent.classList.add('modo-placar');
         else modalContent.classList.add('modo-normal');
@@ -11499,27 +11716,21 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
         
         modalTitle.textContent = tituloTexto;
 
-        // =================================================================
-        // [ATUALIZADO] CÁLCULO INTELIGENTE DE DURAÇÃO (Manutenção E Aula)
-        // =================================================================
+        // CÁLCULO INTELIGENTE DE DURAÇÃO
         let duracaoBloco = 1;
         if (tipoLower === 'manutencao' || tipoLower === 'aula') {
             const reservasDaQuadra = reservasPorQuadra[quadra] || {};
-            // Olha para as próximas horas
             for (let h = parseInt(reserva.hora) + 1; h <= 23; h++) {
                 const nextKey = `${reserva.dia}_${h}`;
                 const nextR = reservasDaQuadra[nextKey];
                 const nextNome = (nextR && nextR.jogadores) ? nextR.jogadores.toLowerCase().trim() : "";
-                
-                // Se o próximo bloco for do MESMO tipo (Aula com Aula, Manut com Manut), soma.
                 if (nextNome === tipoLower) {
                     duracaoBloco++;
                 } else {
-                    break; // Parou a sequência
+                    break; 
                 }
             }
         }
-        // =================================================================
 
         // --- LÓGICA DE CONTEÚDO ---
         if (tipoLower === 'manutencao') {
@@ -11528,7 +11739,6 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
             const statusElement = document.getElementById('modal-status');
             const labelJogadores = jogadoresDiv.previousElementSibling;
 
-            // 1. Limpeza visual: esconde campos técnicos e o rótulo "Jogadores:"
             organizadorRow.style.display = 'none'; 
             if (statusElement && statusElement.parentElement) {
                 statusElement.parentElement.style.display = 'none';
@@ -11537,7 +11747,6 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
                 labelJogadores.style.display = 'none';
             }
 
-            // 2. Preenchimento dos dados básicos (Quadra, Data, Horário)
             document.getElementById('modal-quadra').textContent = quadra;
             document.getElementById('modal-dia').textContent = nomesDiasMap[reserva.dia];
             const elData = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`);
@@ -11546,17 +11755,12 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
             const horaFim = parseInt(reserva.hora) + duracaoBloco;
             document.getElementById('modal-horario').textContent = `${String(reserva.hora).padStart(2, '0')}:00 - ${String(horaFim).padStart(2, '0')}:00`;
 
-            // 3. Definição das cores
             const isDarkMode = document.body.classList.contains('dark-mode');
             const bgM = isDarkMode ? '#424242' : '#f8f9fa';
             const bordaM = isDarkMode ? '#555' : '#dee2e6';
-            
-            // COR DEFINIDA: Cinza para o destaque do título interno
             const cinzaDestaque = isDarkMode ? '#aaaaaa' : '#666666';  
-            
             const nomeResponsavel = capitalizarNome(reserva.responsavel || reserva.organizador || "Manutenção");
 
-            // 4. Renderização do quadro (Título com cor cinza e Responsável com cor padrão)
             jogadoresDiv.style.display = 'block';
             jogadoresDiv.innerHTML = `
                 <div style="padding: 15px 5px; border: 1px solid ${bordaM}; border-radius: 8px; background-color: ${bgM}; text-align: center; margin-top: 10px;">
@@ -11584,13 +11788,10 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
             document.getElementById('modal-quadra').textContent = quadra;
             document.getElementById('modal-dia').textContent = nomesDiasMap[reserva.dia];
             document.getElementById('modal-data').textContent = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
-            
-            // --- APLICAÇÃO DO CÁLCULO PARA AULAS ---
             document.getElementById('modal-duracao').textContent = duracaoBloco > 1 ? `${duracaoBloco} Horas` : '1 Hora';
             
             const horaFim = parseInt(reserva.hora) + duracaoBloco;
             document.getElementById('modal-horario').textContent = `${String(reserva.hora).padStart(2, '0')}:00 - ${String(horaFim).padStart(2, '0')}:00`;
-            // ---------------------------------------
 
             statusElement.textContent = 'Confirmada';
             statusElement.style.color = 'green';
@@ -11607,7 +11808,7 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
                     <span style="font-size: 1.1em; color: ${isDarkMode ? '#ddd' : '#333'};">Professor: <b>${nomeProfessor}</b></span>
                 </div>`;
         } else {
-            // Lógica Normal (Sócios) - SEM ALTERAÇÕES
+            // Lógica Normal (Sócios)
             let listaDeApelidos = [];
             if (reserva.jogadores_completo) listaDeApelidos = reserva.jogadores_completo.split(',').map(j => j.trim());
             else {
@@ -11634,7 +11835,7 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
             document.getElementById('modal-dia').textContent = nomesDiasMap[reserva.dia];
             document.getElementById('modal-data').textContent = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
             let duracaoTexto = reserva.duracao === 1 ? "1 Hora" : "2 Horas";
-            if (reserva.duracao === 3) duracaoTexto = "2 Horas - Pirâmide";
+            if (reserva.duracao == 3) duracaoTexto = "2 Horas - Pirâmide";
             document.getElementById('modal-duracao').textContent = duracaoTexto;
             const hFim = reserva.hora + (reserva.duracao === 1 ? 1 : 2);
             document.getElementById('modal-horario').textContent = `${String(reserva.hora).padStart(2, '0')}:00 - ${String(hFim).padStart(2, '0')}:00`;
@@ -11681,23 +11882,27 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
                 }
             } else {
                  if (funcaoAtualizarPlacarDetalhes) { window.removeEventListener('resize', funcaoAtualizarPlacarDetalhes); funcaoAtualizarPlacarDetalhes = null; }
+                 
+                 // --- LISTA DE JOGADORES COM STATUS --- 
                  jogDiv.innerHTML = '<ul>' + socios.map(ap => {
 					let stTxt = '';
-					const statusIndividual = reserva.confirmacoes ? reserva.confirmacoes[ap] : null;
+                    
+                    // SÓ MOSTRA O STATUS SE NÃO FOR PIRÂMIDE
+                    // Agora usando a variável isPiramide que foi corrigida acima com '=='
+                    if (!isPiramide) {
+                        const statusIndividual = reserva.confirmacoes ? reserva.confirmacoes[ap] : null;
 
-					if (statusIndividual === true) {
-						// CONFIRMADO
-						stTxt = '<span class="status-confirmado">(✓)</span>';
-					} 
-					else if (statusIndividual === "recusado") {
-						// RECUSADO (Ajuste para bater com o que sua função gravarStatus grava)
-						const corX = document.body.classList.contains('dark-mode') ? '#EF5350' : 'red';
-						stTxt = `<span style="color: ${corX}; font-weight: bold;">(X)</span>`;
-					}
-					else {
-						// PENDENTE (Se for false ou se ainda não houver resposta)
-						stTxt = '<span class="status-pendente">(?)</span>';
-					} 
+                        if (statusIndividual === true) {
+                            stTxt = '<span class="status-confirmado">(✓)</span>';
+                        } 
+                        else if (statusIndividual === "recusado") {
+                            const corX = document.body.classList.contains('dark-mode') ? '#EF5350' : 'red';
+                            stTxt = `<span style="color: ${corX}; font-weight: bold;">(X)</span>`;
+                        }
+                        else {
+                            stTxt = '<span class="status-pendente">(?)</span>';
+                        } 
+                    }
 
 					return `<li><span class="modal-player-name">${capitalizarNome(jogadoresData[ap.trim()]?.nomeCompleto || ap)}</span> ${stTxt}</li>`;
 				}).join('') + '</ul>';
@@ -11711,7 +11916,7 @@ async function exibirDetalhesReserva(reservaInicial, key, quadra) {
         }
         
         const btnPlacar = document.getElementById('container-btn-placar-ao-vivo');
-        if (reserva.duracao === 3 && reserva.status === 'em_andamento') {
+        if (reserva.duracao == 3 && reserva.status === 'em_andamento') {
             btnPlacar.style.display = 'block';
             document.getElementById('btn-placar-ao-vivo').onclick = () => abrirPlacarAoVivo(key, quadra);
         } else {
@@ -18824,125 +19029,42 @@ function verificarPermissao(permissaoAlvo) {
 // SUBSTITUA A FUNÇÃO executarAgendamentoAulaExtra POR ESTA VERSÃO AJUSTADA
 // SUBSTITUA A FUNÇÃO executarAgendamentoAulaExtra POR ESTA VERSÃO FINAL
 // SUBSTITUA POR ESTA VERSÃO (PADRÃO MANUTENÇÃO)
+// SUBSTITUA A FUNÇÃO executarAgendamentoAulaExtra INTEIRA POR ESTA
 async function executarAgendamentoAulaExtra(dia, hora, quadra) {
-    
-    // CENÁRIO 1: CLIQUE NO BOTÃO (+)
+    // Se for pelo botão (+), abre form
     if (!dia || !hora || !quadra) {
-        
         abrirFormularioReserva(); 
-        
-        // --- NOVO: Aplica a restrição de quadra baseada no professor logado ---
-        if (typeof restringirQuadraPeloConfig === 'function') {
-            restringirQuadraPeloConfig();
-        }
-        // ---------------------------------------------------------------------
-
-        // 1. ATIVA O MODO ESPECIAL (Visual)
-        const formContainer = document.querySelector('.form-container');
-        if (formContainer) formContainer.classList.add('modo-manutencao');
-
-        // 2. Título "Nova Aula"
-        const formTitle = document.querySelector('.form-header h3');
-        if (formTitle) formTitle.textContent = 'Nova Aula';
-        
-        // 3. Destrava campos para edição inicial
-        ['quadra', 'dia', 'hora'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) { el.disabled = false; el.style.backgroundColor = ""; }
-        });
-
-        // 4. Inicializa o Dia e FORÇA a atualização dos horários
-        const elDia = document.getElementById('dia');
-        if (elDia && elDia.options.length > 0) {
-             elDia.selectedIndex = 0;
-             if (typeof atualizarOpcoesHorario === 'function') {
-                 atualizarOpcoesHorario();
-             }
-        }
-
-        // 5. Trava Duração em "1 Hora" (COM TRAVA DE SEGURANÇA PARA LOTAÇÃO)
-        const elDur = document.getElementById('duracao');
-        if (elDur) {
-            // SÓ FORÇA "1" SE NÃO ESTIVER NO ESTADO "SEM OPÇÕES"
-            if (!elDur.innerHTML.includes("Sem opções")) {
-                elDur.value = '1';
-            }
-            elDur.disabled = true; 
-            elDur.style.backgroundColor = '#e9ecef';
-            elDur.style.color = "#6c757d"; // Garante legibilidade no cinza
-        }
-
-        // 6. Label "Professor"
-        const labelJog1 = document.querySelector('label[for="jogador1"]');
-        if (labelJog1) labelJog1.textContent = 'Professor:';
-
-        // 7. Campo do Jogador: Mantém o nome, trava e esconde extras
-        const campoJog1 = document.getElementById('jogador1');
-        if (campoJog1) {
-            campoJog1.disabled = true; 
-            campoJog1.style.backgroundColor = '#e9ecef';
-        }
-        
-        // Esconde campos extras
-        ['jogador2', 'jogador3', 'jogador4'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el && el.parentElement) el.parentElement.style.display = 'none';
-        });
-
-        // 8. O SEGREDO: Troca a função do botão para a exclusiva de AULA
         const btnAgendar = document.getElementById('botaoAgendar');
         if (btnAgendar) {
-             btnAgendar.textContent = 'Confirmar';
-             // Remove listeners antigos (clone) e adiciona o novo
              const novoBtn = btnAgendar.cloneNode(true);
              btnAgendar.parentNode.replaceChild(novoBtn, btnAgendar);
+             novoBtn.id = 'botaoAgendar'; novoBtn.textContent = 'Confirmar';
              novoBtn.onclick = salvarAulaPeloForm; 
         }
-
         return; 
     }
-
-    // CENÁRIO 2: CLIQUE NA CÉLULA (Mantido original - Salva direto)
+    // Clique Direto na Célula
     const key = `${dia}_${hora}`;
     const reservasRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
-    
     try {
         const snapshot = await reservasRef.once('value');
-        const dadoAtual = snapshot.val();
-
-        if (snapshot.exists() && dadoAtual.status !== 'aula_cancelada') {
-            mostrarNotificacao("Este horário acabou de ser ocupado!", 'error');
-            return;
+        if (snapshot.exists() && snapshot.val().status !== 'aula_cancelada') {
+            mostrarNotificacao("Horário ocupado!", 'error'); return;
         }
+        // --- USA A NOVA FUNÇÃO AUXILIAR ---
+        const dataCompletaParaGravar = calcularDataDoDiaSelecionado(dia);
 
         const apelidoLogado = localStorage.getItem('jogadorLogado');
         const dadosAula = {
-            jogadores: "Aula", 
-            jogadores_completo: "Aula", 
-            dia: dia,
-            hora: hora,
-            duracao: 1,
-            borda: '1h',
-            status: 'confirmada',
-            organizador: apelidoLogado || 'Professor',
-            tipo: 'aula_extra',
+            jogadores: "Aula", jogadores_completo: "Aula", 
+            dia: dia, hora: hora, duracao: 1, borda: '1h', status: 'confirmada',
+            organizador: apelidoLogado || 'Professor', tipo: 'aula_extra',
+            dataCompleta: dataCompletaParaGravar, // <--- GARANTIDO
             timestamp: firebase.database.ServerValue.TIMESTAMP
         };
-
         await reservasRef.set(dadosAula);
-        mostrarNotificacao("Aula agendada com sucesso!", "success");
-        
-        const formContainer = document.querySelector('.form-container');
-        const formBackdrop = document.getElementById('formBackdrop');
-        const fabBtn = document.getElementById('fab-toggle-form');
-        if (formContainer) formContainer.classList.remove('visible');
-        if (formBackdrop) formBackdrop.classList.remove('visible');
-        if (fabBtn) fabBtn.classList.remove('active');
-
-    } catch (erro) {
-        console.error(erro);
-        mostrarNotificacao("Erro ao agendar aula: " + erro.message, "error");
-    }
+        mostrarNotificacao("Aula agendada!", "success");
+    } catch (erro) { console.error(erro); mostrarNotificacao("Erro: " + erro.message, "error"); }
 }
 
 
@@ -19224,125 +19346,42 @@ function exibirModalAgendamentoDinamico(dia, hora, quadra, podeJogar, opcoesTecn
 // --- FUNÇÃO DE MANUTENÇÃO (COM TEXTO COMPLETO E ALINHADO) ---
 // --- FUNÇÃO DE MANUTENÇÃO (HÍBRIDA: CÉLULA E BOTÃO +) ---
 // --- FUNÇÃO DE MANUTENÇÃO (ATUALIZADA: DURAÇÃO FIXA) ---
+// SUBSTITUA A FUNÇÃO executarAgendamentoManutencao INTEIRA POR ESTA
 async function executarAgendamentoManutencao(dia, hora, quadra) {
-    
-    // CENÁRIO A: CLIQUE NO BOTÃO (+) (Sem dia/hora definidos)
     if (!dia || !hora || !quadra) {
-        
         abrirFormularioReserva(); 
-
-        // 1. ATIVA O MODO MANUTENÇÃO
-        const formContainer = document.querySelector('.form-container');
-        if (formContainer) formContainer.classList.add('modo-manutencao');
-
-        // 2. Preenche e Desbloqueia Campos Básicos
-        const campoQuadra = document.getElementById('quadra');
-        const campoDia = document.getElementById('dia');
-        const campoHora = document.getElementById('hora');
-        
-        [campoQuadra, campoDia, campoHora].forEach(el => {
-            if(el) {
-                el.disabled = false;
-                el.style.backgroundColor = ""; 
-                el.style.color = "";
-            }
-        });
-
-        if (typeof quadraSelecionada !== 'undefined') campoQuadra.value = quadraSelecionada;
-        if (campoDia && campoDia.options.length > 0) {
-            campoDia.selectedIndex = 0;
-            // Chama a atualização de horários que agora tem a inteligência do "Sem opções"
-            if (typeof atualizarOpcoesHorario === 'function') atualizarOpcoesHorario(); 
-        }
-
-        // 3. CONFIGURA O CAMPO RESPONSÁVEL (TRAVADO)
-        const formTitle = document.querySelector('.form-header h3');
-        if (formTitle) formTitle.textContent = 'Nova Manutenção';
-
-        const labelResp = document.querySelector('label[for="jogador1"]');
-        if (labelResp) labelResp.textContent = 'Responsável:'; 
-        
-        const campoResp = document.getElementById('jogador1');
-        if (campoResp) {
-            const apelidoLogado = localStorage.getItem('jogadorLogado');
-            if (apelidoLogado) {
-                campoResp.value = apelidoLogado;
-                if (campoResp.tagName === 'SELECT') {
-                    const options = Array.from(campoResp.options);
-                    const option = options.find(opt => opt.text === apelidoLogado || opt.value === apelidoLogado);
-                    if (option) campoResp.value = option.value;
-                }
-            }
-            campoResp.style.pointerEvents = 'none'; 
-            campoResp.style.backgroundColor = '#e9ecef';
-        }
-
-        // 4. CONFIGURA O CAMPO DURAÇÃO (COM TRAVA DE SEGURANÇA PARA LOTAÇÃO)
-        const campoDuracao = document.getElementById('duracao');
-        if (campoDuracao) {
-            // SÓ FORÇA "1" SE NÃO ESTIVER NO ESTADO "SEM OPÇÕES"
-            if (!campoDuracao.innerHTML.includes("Sem opções")) {
-                campoDuracao.value = "1";
-            }
-            
-            campoDuracao.disabled = true; // Impede alteração manual
-            campoDuracao.style.backgroundColor = "#e9ecef"; // Fundo cinza
-            campoDuracao.style.color = "#6c757d"; // Texto cinza escuro
-            
-            const opPiramide = campoDuracao.querySelector('option[value="3-piramide"]');
-            if (opPiramide) opPiramide.style.display = 'none';
-        }
-
-        // Esconde extras
-        ['jogador2', 'jogador3', 'jogador4'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el && el.parentElement) el.parentElement.style.display = 'none';
-        });
-
-        // Botão Confirmar
         const btnConfirmar = document.getElementById('botaoAgendar');
         if (btnConfirmar) {
             const novoBtn = btnConfirmar.cloneNode(true);
             btnConfirmar.parentNode.replaceChild(novoBtn, btnConfirmar);
-            novoBtn.id = 'botaoAgendar';
             novoBtn.textContent = 'Confirmar';
-            novoBtn.onclick = function() { salvarManutencaoPeloForm(); };
+            novoBtn.onclick = salvarManutencaoPeloForm;
         }
         return;
     }
-
-    // CENÁRIO B: CLIQUE NA CÉLULA (Direto)
+    // Clique Direto
     const key = `${dia}_${hora}`;
     const reservasRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
     
     const snapshot = await reservasRef.once('value');
-    const dadoAtual = snapshot.val();
-    
-    if (snapshot.exists() && dadoAtual.status !== 'aula_cancelada') {
-        mostrarNotificacao("Este horário acabou de ser ocupado!", 'error');
-        return;
+    if (snapshot.exists() && snapshot.val().status !== 'aula_cancelada') {
+        mostrarNotificacao("Horário ocupado!", 'error'); return;
     }
+    // --- USA A NOVA FUNÇÃO AUXILIAR ---
+    const dataCompletaParaGravar = calcularDataDoDiaSelecionado(dia);
 
     const dadosManutencao = {
-        jogadores: "Manutencao", 
-        jogadores_completo: "Manutencao",
-        dia: dia,
-        hora: hora,
-        duracao: 1, 
-        borda: '1h',
-        status: 'confirmada',
-        organizador: localStorage.getItem('jogadorLogado'),
-        tipo: 'manutencao'
+        jogadores: "Manutencao", jogadores_completo: "Manutencao",
+        dia: dia, hora: hora, duracao: 1, borda: '1h', status: 'confirmada',
+        organizador: localStorage.getItem('jogadorLogado'), tipo: 'manutencao',
+        dataCompleta: dataCompletaParaGravar // <--- GARANTIDO
     };
-
     try {
         await reservasRef.set(dadosManutencao);
-        mostrarNotificacao("Manutenção agendada com sucesso!", 'success');
-    } catch (err) {
-        console.error(err);
-        mostrarNotificacao("Erro ao agendar manutenção.", 'error');
-    }
+        mostrarNotificacao("Manutenção agendada!", 'success');
+    } catch (err) { console.error(err); mostrarNotificacao("Erro.", 'error'); }
 }
+
 
 
 
@@ -19829,19 +19868,7 @@ function mostrarOpcoesManutencao(dia, hora, quadra) {
             const responsavelOriginal = (reservaInicial && reservaInicial.organizador) ? reservaInicial.organizador : "Erick";
             const usuarioLogado = localStorage.getItem('jogadorLogado') || "Desconhecido";
 
-            // Define o Motivo com base na comparação
-            let motivoLog = "";
-            
-            if (usuarioLogado === responsavelOriginal) {
-                motivoLog = "Manutenção liberada pelo Responsavel";
-            } else {
-                // Se quem excluiu não é o dono, verifica o perfil
-                if (typeof isUsuarioAdmin === 'function' && isUsuarioAdmin()) {
-                    motivoLog = "Manutenção liberada pelo Admin"; // (Perfil Admin)
-                } else {
-                    motivoLog = "Manutenção liberada pela Equipe de Manutenção"; // (Perfil Manutenção)
-                }
-            }
+         
             
             // --- LÓGICA DE ABREVIAÇÃO DE PERFIS (IGUAL AULA) ---
             let sufixoPerfis = "";
@@ -19857,7 +19884,7 @@ function mostrarOpcoesManutencao(dia, hora, quadra) {
                 });
                 
                 if (listaFormatada.length > 0) {
-                    sufixoPerfis = ` (${listaFormatada.join(', ')})`;
+                    sufixoPerfis = ` (${listaFormatada.join(', ')})`; 
                 }
             }
             if (sufixoPerfis === "") sufixoPerfis = " (Via Menu)"; // Fallback padrão
@@ -19880,7 +19907,7 @@ function mostrarOpcoesManutencao(dia, hora, quadra) {
                 
                 duracao: `${duracao}h`,
                 data: dataTexto,
-                motivo: motivoLog 
+                motivo: "Manutenção liberada para uso dos sócios" 
             };
             
             // Registra Log e Atualiza Banco
@@ -20083,116 +20110,74 @@ function verificarPermissoesBotaoMais() {
 // --- FUNÇÃO CORRIGIDA: SALVAR MANUTENÇÃO (PADRÃO ASYNC/AWAIT) ---
 window.salvarManutencaoPeloForm = async function() {
     if (navigator.vibrate) { navigator.vibrate(50); }
-
     const inputHora = document.getElementById('hora');
-    
-    // 1. TRAVA DE SEGURANÇA (O que acabamos de implementar)
-    if (!inputHora || inputHora.value === "" || inputHora.value === "Sem horários" || inputHora.value === "Fechado") {
-        mostrarNotificacao("<b>⚠️ Atenção:</b><br>Não há horários disponíveis para agendar manutenção nesta data.", 'warning');
-        return; 
+    if (!inputHora || inputHora.value === "" || inputHora.value === "Sem horários") {
+        mostrarNotificacao("Sem horários disponíveis.", 'warning'); return; 
     }
-
     const quadra = document.getElementById('quadra').value;
     const dia = parseInt(document.getElementById('dia').value, 10);
     const hora = parseInt(document.getElementById('hora').value, 10);
     
-    if (!quadra || isNaN(dia) || isNaN(hora)) {
-        mostrarNotificacao("Por favor, preencha todos os campos corretamente.", "error");
-        return;
-    }
+    if (!quadra || isNaN(dia) || isNaN(hora)) { mostrarNotificacao("Preencha corretamente.", "error"); return; }
+
+    // --- USA A NOVA FUNÇÃO AUXILIAR ---
+    const dataCompletaParaGravar = calcularDataDoDiaSelecionado(dia);
 
     const apelidoLogado = localStorage.getItem('jogadorLogado');
     const key = `${dia}_${hora}`;
     const reservasRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
 
     try {
-        // 2. VERIFICA SE O HORÁRIO AINDA ESTÁ LIVRE
         const snapshot = await reservasRef.once('value');
-        const dadoAtual = snapshot.val();
-
-        if (snapshot.exists() && dadoAtual.status !== 'aula_cancelada') {
-            mostrarNotificacao("Este horário já foi ocupado!", "error");
-            if (typeof atualizarOpcoesHorario === 'function') atualizarOpcoesHorario();
-            return;
+        if (snapshot.exists() && snapshot.val().status !== 'aula_cancelada') {
+            mostrarNotificacao("Horário ocupado!", "error"); return;
         }
-
-        // 3. MONTA OS DADOS DA MANUTENÇÃO
         const dadosManutencao = {
-            jogadores: "Manutencao",
-            jogadores_completo: "Manutencao",
-            dia: dia,
-            hora: hora,
-            duracao: 1,
-            borda: '1h',
-            status: 'confirmada',
-            organizador: apelidoLogado || 'Staff',
-            responsavel: apelidoLogado || 'Staff',
+            jogadores: "Manutencao", jogadores_completo: "Manutencao",
+            dia: dia, hora: hora, duracao: 1, borda: '1h',
+            status: 'confirmada', organizador: apelidoLogado || 'Staff', responsavel: apelidoLogado || 'Staff',
             tipo: 'manutencao',
+            dataCompleta: dataCompletaParaGravar, // <--- GARANTIDO
             timestamp: firebase.database.ServerValue.TIMESTAMP
         };
-
-        // 4. SALVA NO FIREBASE
         await reservasRef.set(dadosManutencao);
-        
-        mostrarNotificacao("Manutenção agendada com sucesso!", "success");
-        
-        // 5. FECHA AS JANELAS E LIMPA O FORMULÁRIO
-        const formContainer = document.querySelector('.form-container');
-        const formBackdrop = document.getElementById('formBackdrop');
-        const fabBtn = document.getElementById('fab-toggle-form');
-
-        if (formContainer) formContainer.classList.remove('visible');
-        if (formBackdrop) formBackdrop.classList.remove('visible');
-        if (fabBtn) fabBtn.classList.remove('active');
-        
+        mostrarNotificacao("Manutenção agendada!", "success");
         if (typeof limparCampos === 'function') limparCampos();
-
-    } catch (erro) {
-        console.error(erro);
-        mostrarNotificacao("Erro ao salvar: " + erro.message, "error");
-    }
+        document.querySelector('.form-container').classList.remove('visible');
+        document.getElementById('formBackdrop').classList.remove('visible');
+        document.getElementById('fab-toggle-form').classList.remove('active');
+    } catch (erro) { console.error(erro); mostrarNotificacao("Erro: " + erro.message, "error"); }
 }
+
+
 
 
 
 // --- NOVA FUNÇÃO EXCLUSIVA (ADICIONE NO SEU CÓDIGO) ---
 // --- FUNÇÃO EXCLUSIVA DE AULA (PADRÃO VISUAL IGUAL MANUTENÇÃO) ---
 window.salvarAulaPeloForm = async function() {
-    
     if (navigator.vibrate) { navigator.vibrate(50); }
-	
 	const inputHora = document.getElementById('hora');
-    
-    // TRAVA DE SEGURANÇA
     if (!inputHora || inputHora.value === "" || inputHora.value === "Sem horários" || inputHora.value === "Fechado") {
-        mostrarNotificacao("<b>⚠️ Atenção:</b><br>Não há horários disponíveis para agendar nova aula nesta data.", 'warning');
-        return; // Interrompe o salvamento
+        mostrarNotificacao("<b>⚠️ Atenção:</b><br>Não há horários disponíveis.", 'warning');
+        return; 
     }
-
-    // 1. Coleta os dados DO FORMULÁRIO
     const quadra = document.getElementById('quadra').value;
     const dia = parseInt(document.getElementById('dia').value, 10);
     const hora = parseInt(document.getElementById('hora').value, 10);
     
-    // Validações básicas
-    if (!quadra || !dia || !hora) {
-        mostrarNotificacao("Por favor, preencha todos os campos.", "error");
-        return;
-    }
+    if (!quadra || !dia || !hora) { mostrarNotificacao("Preencha todos os campos.", "error"); return; }
 
-    // 2. Prepara os dados fixos de AULA
+    // --- USA A NOVA FUNÇÃO AUXILIAR ---
+    const dataCompletaParaGravar = calcularDataDoDiaSelecionado(dia);
+
     const apelidoLogado = localStorage.getItem('jogadorLogado');
     const dadosAula = {
-        jogadores: "Aula",
-        jogadores_completo: "Aula",
-        dia: dia,
-        hora: hora,
-        duracao: 1,
-        borda: '1h',
-        status: 'confirmada',
-        organizador: apelidoLogado || 'Professor',
-        responsavel: apelidoLogado,
-        tipo: 'aula_extra',         
+        jogadores: "Aula", jogadores_completo: "Aula", 
+        dia: dia, hora: hora, duracao: 1, borda: '1h',
+        status: 'confirmada', organizador: apelidoLogado || 'Professor', responsavel: apelidoLogado,
+        tipo: 'aula_extra',
+        dataCompleta: dataCompletaParaGravar, // <--- GARANTIDO
         timestamp: firebase.database.ServerValue.TIMESTAMP
     };
 
@@ -20200,38 +20185,20 @@ window.salvarAulaPeloForm = async function() {
     const reservasRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
 
     try {
-        // 3. Verifica colisão
         const snapshot = await reservasRef.once('value');
-        const dadoAtual = snapshot.val();
-
-        if (snapshot.exists() && dadoAtual.status !== 'aula_cancelada') {
-            mostrarNotificacao("Este horário já está ocupado!", "error");
+        if (snapshot.exists() && snapshot.val().status !== 'aula_cancelada') {
+            mostrarNotificacao("Horário ocupado!", "error");
             if (typeof atualizarOpcoesHorario === 'function') atualizarOpcoesHorario();
             return;
         }
-
-        // 4. Salva no Firebase
         await reservasRef.set(dadosAula);
-        
-        mostrarNotificacao("Aula agendada com sucesso!", "success");
-        
-        // 5. Fecha tudo e limpa
-        const formContainer = document.querySelector('.form-container');
-        const formBackdrop = document.getElementById('formBackdrop');
-        const fabBtn = document.getElementById('fab-toggle-form');
-
-        if (formContainer) formContainer.classList.remove('visible');
-        if (formBackdrop) formBackdrop.classList.remove('visible');
-        if (fabBtn) fabBtn.classList.remove('active');
-        
+        mostrarNotificacao("Aula agendada!", "success");
         limparCampos(); 
-
-    } catch (erro) {
-        console.error(erro);
-        mostrarNotificacao("Erro ao salvar aula: " + erro.message, "error"); 
-    }
+        document.querySelector('.form-container').classList.remove('visible');
+        document.getElementById('formBackdrop').classList.remove('visible');
+        document.getElementById('fab-toggle-form').classList.remove('active');
+    } catch (erro) { console.error(erro); mostrarNotificacao("Erro: " + erro.message, "error"); }
 };
-
 
 // --- CONTROLE DINÂMICO DE QUADRAS (VIA FIREBASE) ---
 
@@ -20327,6 +20294,33 @@ function liberarTodasQuadras() {
 }
 
 
+// --- FUNÇÃO AUXILIAR: Calcula a data exata (YYYY-MM-DD) baseada no dia da semana (1-7) ---
+// --- FUNÇÃO AUXILIAR CORRIGIDA (SEM FUSO HORÁRIO) ---
+function calcularDataDoDiaSelecionado(diaSelecionado) {
+    const data = new Date(); // Pega a data/hora atual do seu computador
+    
+    // Descobre o índice de hoje (1=Segunda ... 7=Domingo)
+    const diaHojeIndex = data.getDay() === 0 ? 7 : data.getDay();
+    
+    // Calcula quantos dias faltam para chegar no dia selecionado
+    let diff = diaSelecionado - diaHojeIndex;
+    
+    // Se o dia selecionado já passou na semana (ex: Hoje é Sexta e escolheu Terça),
+    // significa que é na próxima semana, então soma 7 dias.
+    if (diff < 0) diff += 7;
+    
+    // Adiciona os dias à data de hoje
+    data.setDate(data.getDate() + diff);
+    
+    // --- O SEGREDO ESTÁ AQUI ---
+    // Não usamos toISOString(). Montamos a string manualmente com os dados locais.
+    // Isso impede que 22:00 vire o dia seguinte.
+    const yyyy = data.getFullYear();
+    const mm = String(data.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
+    const dd = String(data.getDate()).padStart(2, '0');
+    
+    return `${yyyy}-${mm}-${dd}`;
+}
 
 
 </script>
