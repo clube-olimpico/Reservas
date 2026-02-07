@@ -5180,6 +5180,22 @@ body.dark-mode .dia-bloqueado-visual {
 }
 /* fim de  AJUSTE FINAL - APENAS BOTÕES PRINCIPAIS DE SALVAR NO CELULAR */ 
 
+
+/* --- CORREÇÃO DE CAMADAS DOS MODAIS --- */
+
+/* Modal Sobre o Sistema (Nível Alto) */
+#infoModalOverlay {
+    z-index: 2000; 
+}
+
+/* Modal de Confirmação/Logout (Nível Altíssimo - Para ficar na frente do Sobre) */
+#modalOverlay, /* Caso use o modal genérico */
+#confirmModalOverlay {
+    z-index: 3000 !important; 
+}
+/* --- FIM DE CORREÇÃO DE CAMADAS DOS MODAIS --- */
+
+
 </style>
 
 
@@ -5990,11 +6006,14 @@ body.dark-mode .dia-bloqueado-visual {
         <h3>Sobre o Sistema</h3>
 
         <div class="info-section">
-			<div class="user-logout-line">
-				<span><strong>Login:</strong> <span id="info-modal-user-name">Carregando...</span></span>
+			<div class="user-logout-line" style="display: flex; align-items: center;">
+				<div style="text-align: left; flex-grow: 1;">
+					<p style="margin: 0;"><strong>Login:</strong> <span id="info-modal-user-name">...</span></p>
+					<p style="margin: 4px 0 0 0;"><strong>Apelido:</strong> <span id="info-modal-apelido">...</span></p>
+				</div>
 				
-				<button id="inlineLogoutBtn" title="Fazer logout">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+				<button id="inlineLogoutBtn" title="Fazer logout" style="background: none; border: none; cursor: pointer; padding: 5px; transform: scale(1.1);">
+					<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #d32f2f;">
 						<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
 						<polyline points="16 17 21 12 16 7"></polyline>
 						<line x1="21" y1="12" x2="9" y2="12"></line>
@@ -6010,8 +6029,6 @@ body.dark-mode .dia-bloqueado-visual {
         <div class="info-section">
             <h4>Links Rápidos</h4>
             <ul class="quick-links">
-				<li><a href="https://clube-olimpico.github.io/Reservas/manual.html" target="_blank">Manual do Sistema</a></li>
-				<li><a href="https://clube-olimpico.github.io/Reservas/ranking.html" target="_blank">Rankings (Pirâmides e Duplas)</a></li>
 				<li><a href="https://wa.me/5541999176972" target="_blank">Admin Sistema (Ronaldo Taborda)</a></li>
 				<li><a href="https://wa.me/5541999478950" target="_blank">Admin Pirâmide (Edemar Titschkowski)</a></li>
 				<li><a href="https://wa.me/5541998409631" target="_blank">Árbitro Pirâmide (Lenardo Carrara)</a></li
@@ -6212,6 +6229,7 @@ const logoutBtn = document.getElementById('inlineLogoutBtn');
 
 if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
     const userNameSpan = document.getElementById('info-modal-user-name');
+    const apelidoSpan = document.getElementById('info-modal-apelido'); // <--- Novo Elemento
     const versionSpan = document.getElementById('info-modal-version');
     const adminsSpan = document.getElementById('info-modal-admins'); 
     const arbitroSpan = document.getElementById('info-modal-arbitro');
@@ -6226,22 +6244,49 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
         
         const jogadorLogado = localStorage.getItem('jogadorLogado') || 'Não identificado';
         
-        // 1. Identifica perfis do usuário logado
-        const dadosLogado = Object.values(jogadoresData).find(j => j.nomeCompleto === jogadorLogado);
-        let textoPerfisLogado = "(Sócio)";
-        
-        if (dadosLogado && dadosLogado.perfis) {
-            const ativos = Object.keys(dadosLogado.perfis).filter(k => dadosLogado.perfis[k] === true);
-            if (ativos.length > 0) {
-                textoPerfisLogado = `(${ativos.join(', ')})`;
+        // 1. Busca os dados completos do usuário logado na memória
+        // O 'jogadorLogado' é o Nome Completo. Precisamos achar a chave (Apelido).
+        let apelidoEncontrado = jogadorLogado;
+        let dadosLogado = null;
+
+        if (typeof jogadoresData !== 'undefined') {
+            // Procura qual chave (apelido) tem esse nome completo
+            const chave = Object.keys(jogadoresData).find(k => jogadoresData[k].nomeCompleto === jogadorLogado);
+            if (chave) {
+                apelidoEncontrado = chave; // Ex: "Adriano Feitosa"
+                dadosLogado = jogadoresData[chave];
             }
         }
 
-        userNameSpan.innerHTML = `${jogadorLogado} <small style="font-weight:normal;">${textoPerfisLogado}</small>`;
+        // 2. Monta a lista de abreviações dos perfis ativos
+        let textoAbreviacao = "Sócio"; // Padrão
+        
+        if (dadosLogado && dadosLogado.perfis) {
+            const perfisAtivos = Object.keys(dadosLogado.perfis).filter(k => dadosLogado.perfis[k] === true);
+            
+            if (perfisAtivos.length > 0) {
+                // Mapeia os nomes técnicos para as abreviações da configuração global
+                const abreviacoes = perfisAtivos.map(perfil => {
+                    if (typeof perfisConfigGlobal !== 'undefined' && perfisConfigGlobal[perfil]) {
+                        return perfisConfigGlobal[perfil].abreviacao || perfil;
+                    }
+                    return perfil; // Fallback se não achar config
+                });
+                textoAbreviacao = abreviacoes.join(', ');
+            }
+        }
+
+        // 3. Preenche na tela (Separado)
+        userNameSpan.textContent = jogadorLogado.toUpperCase(); // Linha 1: ADRIANO GOMES FEITOSA
+        
+        if (apelidoSpan) {
+            apelidoSpan.textContent = `${apelidoEncontrado} (${textoAbreviacao})`; // Linha 2: Adriano Feitosa (Prof)
+        }
+
         versionSpan.textContent = VersaoSistema;
         dataVersaoSpan.textContent = DataVersaoSistema;
 
-        // 2. Lista de Admins Dinâmica
+        // 4. Lista de Admins Dinâmica (Mantido seu código original)
         const listaAdminsDinamic = Object.values(jogadoresData).filter(j => {
             if (!j.perfis) return false;
             return Object.keys(j.perfis).some(pName => 
@@ -6254,17 +6299,12 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
         }
         adminsSpan.textContent = listaAdminsDinamic.join(', ') || "Nenhum definido"; 
 
-        // 3. Lista de Árbitros Dinâmica (CORRIGIDA - APENAS PERFIL ÁRBITRO)
+        // 5. Lista de Árbitros Dinâmica (Mantido seu código original)
         const listaArbitrosDinamic = Object.values(jogadoresData).filter(j => {
             if (!j.perfis) return false;
-            
             return Object.keys(j.perfis).some(pName => {
                 const perfilAtivo = j.perfis[pName] === true;
-                
-                // Normaliza o nome para remover acentos e caixa alta (Árbitro -> arbitro)
                 const nomeNormalizado = pName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-                
-                // Verifica APENAS se o nome do perfil é "arbitro", ignorando permissões genéricas
                 return perfilAtivo && nomeNormalizado === 'arbitro';
             });
         }).map(j => capitalizarNome(j.nomeCompleto));
@@ -6274,18 +6314,26 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
         modalOverlay.style.display = 'flex';
     });
 	
-	
+    // Listeners dos botões (Mantidos)
+    // Listener do botão de Logout (Ajustado para manter tela Sobre aberta)
     logoutBtn.addEventListener('click', () => { 
-        if (navigator.vibrate) { 
-            navigator.vibrate(50);
+        if (navigator.vibrate) { navigator.vibrate(50); }
+        
+        // NÃO fechamos mais o modal "Sobre" aqui.
+        // Ele fica aberto no fundo. Se o usuário confirmar o logout, a página recarrega mesmo.
+        // Se ele cancelar o logout, ele verá a tela "Sobre" novamente.
+        
+        if (typeof confirmarLogout === 'function') {
+            confirmarLogout(); 
+        } else {
+            // Fallback caso não tenha função customizada
+            if (confirm("Deseja realmente sair do sistema?")) {
+                fazerLogout();
+            }
         }
-        fecharModal();
-        confirmarLogout(); 
     });
     closeBtn.addEventListener('click', () => {
-        if (navigator.vibrate) { 
-            navigator.vibrate(50);
-        }
+        if (navigator.vibrate) { navigator.vibrate(50); }
         fecharModal();
     });
     modalOverlay.addEventListener('click', (event) => {
@@ -6294,6 +6342,8 @@ if (gatilhoPainel && modalOverlay && closeBtn && logoutBtn) {
         }
     });
 }
+
+
 document.addEventListener('DOMContentLoaded', function () {
     
     // ... (código do toggleSenha, código do FAB, etc.) ...
