@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <title>Clube Olímpico - Sistema de Reservas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	
+	<link rel="manifest" href="manifest.json">
+    
+    <meta name="theme-color" content="#4CAF50">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Reservas">
+	
 	<!-- Configurações para evitar cache -->
     <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="pragma" content="no-cache">
@@ -5183,15 +5193,15 @@ body.dark-mode .dia-bloqueado-visual {
 
 /* --- CORREÇÃO DE CAMADAS DOS MODAIS --- */
 
-/* Modal Sobre o Sistema (Nível Alto) */
+/* Modal Sobre o Sistema */
 #infoModalOverlay {
-    z-index: 2000; 
+    z-index: 10000 !important; 
 }
 
-/* Modal de Confirmação/Logout (Nível Altíssimo - Para ficar na frente do Sobre) */
-#modalOverlay, /* Caso use o modal genérico */
+/* Modal de Confirmação/Logout (Precisa ser maior que o Sobre) */
+#modalOverlay, 
 #confirmModalOverlay {
-    z-index: 3000 !important; 
+    z-index: 10001 !important; 
 }
 /* --- FIM DE CORREÇÃO DE CAMADAS DOS MODAIS --- */
 
@@ -6412,7 +6422,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v2.0.4'; // Versão atual do sistema     
+const VersaoSistema = 'v2.0.5'; // Versão atual do sistema     
 const DataVersaoSistema = '07/02/2026';    
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
