@@ -367,6 +367,8 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 
+
+
 let logs = [];
 let ordemCrescente = true; // A ordem inicial é crescente
 let logsFiltrados = []; // Armazena os dados filtrados
@@ -491,160 +493,178 @@ function exibirLogs(lista) {
         const logEntryDiv = document.createElement('div');
         logEntryDiv.className = 'log-entry';
 
-        // --- Formatação da Data e Duração ---
+        // --- Formatação da Data ---
         let dataParts = log.exclusao.split(' ');
         let dataFormatada = dataParts[0].split('/').reverse().join('-') + 'T' + dataParts[1] + ':00';   
         let date = new Date(dataFormatada);
         let formattedDate = isNaN(date) ? 'Data inválida' : date.toLocaleString('pt-BR', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
+            day: '2-digit', month: '2-digit', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
         }).replace(',', '');
         
+        // --- Duração ---
         let duracaoDisplay = log.duracao;
+        let isPiramide = false;
         if (typeof duracaoDisplay === 'number') {
-            duracaoDisplay = duracaoDisplay === 3 ? "2 Horas - Pirâmide" : duracaoDisplay === 2 ? "2 Horas" : "1 Hora";
+            if (duracaoDisplay === 3) { duracaoDisplay = "2 Horas - Pirâmide"; isPiramide = true; }
+            else if (duracaoDisplay === 2) duracaoDisplay = "2 Horas";
+            else duracaoDisplay = "1 Hora";
+        } else if (typeof duracaoDisplay === 'string' && duracaoDisplay.includes('Pirâmide')) {
+            isPiramide = true;
         }
 
-        // ==========================================================
-        // ===== FORMATAÇÃO DOS JOGADORES COM CORES DE STATUS =====
-        // ==========================================================
+        // --- Jogadores (Cabeçalho - Usa APELIDOS) ---
         let listaDeApelidos = [];
         if (Array.isArray(log.jogadores)) {
-            // Suporta tanto o formato antigo ["Nome"] quanto o novo [{apelido:"Nome", posicao:"10"}]
             listaDeApelidos = log.jogadores.map(j => (typeof j === 'object' ? j.apelido : j));
         }
 
-        // 1. Filtra Sócios vs. Convidados
         const socios = listaDeApelidos.filter(j => !j.startsWith("Convidado"));
-        const convidados = listaDeApelidos
-            .filter(j => j.startsWith("Convidado - "))
-            .map(j => j.replace("Convidado - ", "")); // Remove o prefixo para exibição limpa
+        const convidados = listaDeApelidos.filter(j => j.startsWith("Convidado - ")).map(j => j.replace("Convidado - ", ""));
 
-        // 2. Aplica Cores aos Sócios
-        // 2. Aplica Cores aos Sócios com Diagnóstico por Console
+        // Busca o status usando o Apelido como chave para pintar o cabeçalho
         const sociosFormatados = socios.map(apelido => {
             const apelidoLimpo = apelido.trim();
-            let estilo = 'color: #ff9800; font-weight: bold;'; // Padrão: Laranja (Pendente)
+            let estilo = 'color: #ff9800; font-weight: bold;'; // Laranja (Padrão)
             
-            //console.log(`--- Analisando Jogador: ${apelidoLimpo} ---`);
-            //console.log("Objeto de confirmações do Log:", log.confirmacoes);
+            if (log.confirmacoes && log.confirmacoes[apelidoLimpo]) {
+                const valorBruto = log.confirmacoes[apelidoLimpo].toString();
+                const statusReal = valorBruto.split('|')[0]; 
 
-            if (log.confirmacoes) {
-                // Tenta buscar o status de várias formas para não ter erro
-                const statusIndividual = log.confirmacoes[apelidoLimpo];
-                //console.log(`Status encontrado para ${apelidoLimpo}:`, statusIndividual);
-
-                if (statusIndividual === true || statusIndividual === 'confirmado' || statusIndividual === 'true') {
-                    //console.log(`=> Aplicando VERDE para ${apelidoLimpo}`);
-                    estilo = 'color: #28a745; font-weight: bold;';
-                } else if (statusIndividual === 'recusado') {
-                    //console.log(`=> Aplicando VERMELHO/RISCADO para ${apelidoLimpo}`);
-                    estilo = 'color: #dc3545; text-decoration: line-through; font-weight: bold;';
-                } else {
-                    //console.log(`=> Mantendo LARANJA para ${apelidoLimpo} (Status não reconhecido)`);
+                if (statusReal === 'true' || statusReal === 'confirmado') {
+                    estilo = 'color: #28a745; font-weight: bold;'; // Verde
+                } else if (statusReal === 'recusado') {
+                    estilo = 'color: #dc3545; text-decoration: line-through; font-weight: bold;'; // Vermelho Riscado
                 }
-            } else {
-                //console.log(`=> ALERTA: O log desta reserva não possui o objeto 'confirmacoes'.`);
             }
-            
-            // Regra do Organizador 
             if (log.organizadorDaReserva && apelidoLimpo.toLowerCase() === log.organizadorDaReserva.trim().toLowerCase()) {
-                 //console.log(`=> ${apelidoLimpo} identificado como Organizador.`);
-                 if (!estilo.includes('line-through')) {
-                     estilo = 'color: #28a745; font-weight: bold;';
-                 }
+                 if (!estilo.includes('line-through')) estilo = 'color: #28a745; font-weight: bold;';
             }
-
             return `<span style="${estilo}">${apelidoLimpo}</span>`;
         });
 
-        // 3. Monta as strings finais
         let jogadoresHtml = sociosFormatados.join(', ');
+        
+        // ==================================================================================
+        // --- Detalhes (Tabela - Usa NOMES COMPLETOS) ---
+        // ==================================================================================
+        let divDetalhesJogadores = '';
+        
+        if (!isPiramide && log.confirmacoes && Object.keys(log.confirmacoes).length > 0) {
+            const confId = `conf-${log.id}`;
+            
+            jogadoresHtml += ` <a href="javascript:void(0);" onclick="toggleDisplay('${confId}', this)" style="margin-left: 10px; color: #007bff; text-decoration: none; cursor: pointer;">Detalhes</a>`;
+
+            let rows = '';
+            
+            // 1. FILTRO: Removemos "Convidado" da lista de detalhes
+            const nomesOrdenados = Object.keys(log.confirmacoes).filter(n => !n.startsWith('Convidado')).sort();
+            
+            nomesOrdenados.forEach(apelido => {
+                const valorBruto = log.confirmacoes[apelido].toString(); 
+                const partes = valorBruto.split('|');
+                const rawStatus = partes[0];
+                const nomeCompletoExibicao = partes[1] || apelido;
+
+                // --- DEFINIÇÃO PADRÃO (PENDENTE) ---
+                let statusTexto = 'Pendente';
+                let statusCor = '#ff9800'; // Laranja
+                
+                // === AQUI ESTÁ: ? GRANDE E EM NEGRITO ===
+                let icone = '<span style="font-size: 16px; font-weight: bold; line-height: 1;">?</span>'; 
+
+                // --- VERIFICAÇÕES ---
+                if (rawStatus === 'true' || rawStatus === 'confirmado') {
+                    statusTexto = 'Confirmado'; 
+                    statusCor = '#28a745'; // Verde
+                    icone = '✓';
+                } else if (rawStatus === 'recusado') {
+                    statusTexto = 'Recusado'; 
+                    statusCor = '#dc3545'; // Vermelho
+                    icone = '✖';
+                }
+
+                rows += `
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 8px 0; color: #333; text-align: left;">${capitalizarNome(nomeCompletoExibicao)}</td>
+                        <td style="padding: 8px 0; text-align: right; color: ${statusCor}; font-weight: bold; white-space: nowrap;">
+                            ${icone} ${statusTexto}
+                        </td>
+                    </tr>`;
+            });
+
+            divDetalhesJogadores = `
+                <div id="${confId}" style="display: none; width: 100%; background: #fdfdfd; padding: 5px 15px; border: 1px solid #eee; border-radius: 5px; margin-top: 8px; margin-bottom: 10px; box-sizing: border-box;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+                        ${rows}
+                    </table>
+                </div>`;
+        }
+        // ==================================================================================
+
         let convidadosHtml = ''; 
         if (convidados.length > 0) {
             convidadosHtml = `<p>Convidados: ${convidados.join(', ')}</p>`;
         }
-        // ==========================================================
 
-        
-        // --- Exibição de Resultado (Placar) ---
+        // --- Restante (Resultado, Status Geral, Motivo) ---
         let resultadoHtml = '';
         const resultadoId = `resultado-${log.id}`;
         let detalhesPlacar = '';
-
         if (log.resultado && Array.isArray(log.jogadores) && log.jogadores.length > 0) {
             detalhesPlacar = gerarPlacarPiramideHtml(log.resultado, log.jogadores);
         } else if (log.resultadoDuplas) {
             detalhesPlacar = gerarPlacarDuplasHtml(log.resultadoDuplas);
         }
-
         if (detalhesPlacar) {
             resultadoHtml = `
                 <p style="margin-top: 8px; margin-bottom: 2px;">
                     <strong>Resultado do Jogo:</strong> 
-                    <a href="javascript:void(0);" onclick="toggleResultado('${resultadoId}', this)" style="color: #007bff; text-decoration: none; font-weight: normal;">Ver Detalhes</a>
+                    <a href="javascript:void(0);" onclick="toggleDisplay('${resultadoId}', this)" style="color: #007bff; text-decoration: none;">Detalhes</a>
                 </p>
-                <div id="${resultadoId}" style="display: none;">
-                    ${detalhesPlacar}
-                </div>`;
+                <div id="${resultadoId}" style="display: none;">${detalhesPlacar}</div>`;
         }
 
-        // --- Detalhes de Status Geral da Reserva ---
         let detalhesConfirmacao = '';
         if (log.statusNoMomentoDaExclusao) {
-            const statusLowerCase = log.statusNoMomentoDaExclusao.toLowerCase();
+            const statusLower = log.statusNoMomentoDaExclusao.toLowerCase();
             let statusStyle = 'color: green;'; 
+            if (statusLower.includes('pendente') || statusLower.includes('aguardando')) statusStyle = 'color: orange;';
+            else if (statusLower.includes('expirada') || statusLower.includes('recusado')) statusStyle = 'color: red;';
+            else if (statusLower.includes('cancelada')) statusStyle = 'color: #db7093;'; 
+            else if (statusLower.includes('finalizada')) statusStyle = 'color: #007bff;';
 
-            if (statusLowerCase.includes('pendente')) {
-                statusStyle = 'color: orange;';
-            } else if (statusLowerCase.includes('expirada') || statusLowerCase.includes('recusado')) {
-                statusStyle = 'color: red;';
-            } else if (statusLowerCase.includes('cancelada')) {
-                statusStyle = 'color: #db7093;'; 
-            } else if (statusLowerCase.includes('finalizada')) {
-                statusStyle = 'color: #007bff;';
-            }
-            detalhesConfirmacao += `<p style="font-size: 0.9em; margin-top: 8px;"><strong>Status:</strong> <span style="${statusStyle} font-weight: bold;">${log.statusNoMomentoDaExclusao.toUpperCase()}</span></p>`;
+            const statusFmt = capitalizarNome(log.statusNoMomentoDaExclusao.replace(/_/g, ' '));
+            detalhesConfirmacao += `<p style="font-size: 0.9em; margin-top: 8px;"><strong>Status Geral:</strong> <span style="${statusStyle} font-weight: bold;">${statusFmt}</span></p>`;
             
             if (log.organizadorDaReserva) {
                 detalhesConfirmacao += `<p style="font-size: 0.9em;"><strong>Organizador:</strong> ${log.organizadorDaReserva}</p>`;
             }
         }
 
-        // --- TRATAMENTO DE MOTIVOS ESPECIAIS (AULAS) ---
         let motivoHtml = '';
         if (log.motivo) {
-            let estiloMotivo = "font-style: italic; color: #555;";
-            let iconeMotivo = "";
-
-            // Se for liberação de Grade Fixa
-            if (log.motivo.includes("Grade Fixa liberado")) {
-                estiloMotivo = "color: #28a745; font-weight: bold;"; // Verde
-                iconeMotivo = "🔓 "; 
-            } 
-            // Se for cancelamento de Aula Extra
-            else if (log.motivo.includes("Aula Extra cancelada")) {
-                estiloMotivo = "color: #d9534f; font-weight: bold;"; // Vermelho
-                iconeMotivo = "🚫 ";
-            }
-
-            motivoHtml = `<p style="font-size: 0.9em;"><strong>Motivo:</strong> <span style="${estiloMotivo}">${iconeMotivo}${log.motivo}</span></p>`;
+            let estilo = "font-style: italic; color: #555;";
+            let icone = "";
+            if (log.motivo.includes("Grade Fixa")) { estilo = "color: #28a745; font-weight: bold;"; icone = "🔓 "; }
+            else if (log.motivo.includes("Aula Extra")) { estilo = "color: #d9534f; font-weight: bold;"; icone = "🚫 "; }
+            motivoHtml = `<p style="font-size: 0.9em;"><strong>Motivo:</strong> <span style="${estilo}">${icone}${log.motivo}</span></p>`;
         }
 
-        // --- Montagem Final do Card ---
         logEntryDiv.innerHTML = `
             <button onclick="solicitarExclusaoLog(${log.id})" style="float: right; cursor: pointer; background: #f2f2f2; color: #dc3545; border: 1px solid #dc3545; border-radius: 50%; width: 24px; height: 24px; font-size: 14px; font-weight: bold; line-height: 22px; text-align: center; padding: 0;">X</button>
             <p><strong>Exclusão: ${formattedDate}</strong></p>
             <p><strong>Data da Reserva:</strong> ${log.data}</p>
             <p>${log.quadra} | ${log.horario}</p>
             <p>Duração: ${duracaoDisplay || 'N/A'}</p>
+            
             <p>Jogadores: ${jogadoresHtml}</p>
+            ${divDetalhesJogadores}
+            
             ${convidadosHtml} 
             ${resultadoHtml}
-            <p>Excluído por: <strong>${log.usuario || 'N/A'}</strong></p>
+            
+            <p style="margin-top:10px;">Excluído por: <strong>${log.usuario || 'N/A'}</strong></p>
             ${detalhesConfirmacao}
             ${motivoHtml} 
             <hr>`;
@@ -653,8 +673,6 @@ function exibirLogs(lista) {
     logsContainer.appendChild(fragment);
     document.getElementById('total-registros').textContent = `Total de registros: ${lista.length}`;
 }
-
-
 
 
 // Substitua sua função solicitarExclusaoLog por esta
@@ -799,7 +817,7 @@ function filtrarLogs() {
                 const categoria = status.split('_')[1]; // "reserva" ou "jogo"
                 
                 // Listas de status que definem cada categoria
-                const statusesDeJogo = ['em_andamento', 'resultado_pendente', 'resultado_recusado', 'finalizada', 'Cancelada'];
+                const statusesDeJogo = ['em_andamento', 'resultado_pendente', 'resultado_recusado', 'finalizada', 'Aguardando'];
                 const statusesDeReserva = ['pendente', 'confirmada', 'expirada'];
 
                 if (categoria === 'jogo') {
@@ -845,6 +863,7 @@ function gerenciarFiltroStatusDinamico() {
         ],
         jogo: [
             { value: "categoria_jogo", text: "Todos os Jogos" },
+			{ value: "Aguardando", text: "Aguardando" },
             { value: "em_andamento", text: "Em Andamento" },
             { value: "finalizada", text: "Finalizado" },
             { value: "Cancelada", text: "Cancelado" }, // Mantendo o "C" maiúsculo como nos seus dados
@@ -1007,18 +1026,22 @@ function mostrarStatusJogador(nomeJogador, status) {
 
 
 // Adicione esta nova função ao seu script
-function toggleResultado(resultadoId, linkElement) {
-    const resultadoDiv = document.getElementById(resultadoId);
-    if (resultadoDiv) {
-        if (resultadoDiv.style.display === 'none') {
-            resultadoDiv.style.display = 'block';
-            linkElement.textContent = 'Ocultar Detalhes';
+// Função genérica para mostrar/esconder elementos (Placar ou Detalhes Jogadores)
+// Função genérica para mostrar/esconder elementos
+// Função genérica para mostrar/esconder elementos
+function toggleDisplay(elementId, linkElement) {
+    const el = document.getElementById(elementId);
+    if (el) {
+        if (el.style.display === 'none') {
+            el.style.display = 'block';
+            linkElement.textContent = 'Ocultar'; // Sem parênteses
         } else {
-            resultadoDiv.style.display = 'none';
-            linkElement.textContent = 'Ver Detalhes'; 
+            el.style.display = 'none';
+            linkElement.textContent = 'Detalhes'; // Sem parênteses
         }
     }
 }
+
 
 // Adicione esta nova função ao seu script
 function capitalizarNome(nome) {
