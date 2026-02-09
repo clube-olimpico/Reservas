@@ -5384,7 +5384,7 @@ body.dark-mode .header-logout svg {
         <span class="header-user" id="header-nome">Olá, Sócio</span>
     </div>
     
-    <button class="header-logout" onclick="fazerLogout()" title="Sair / Trocar Usuário">
+    <button class="header-logout" onclick="confirmarLogout()" title="Sair / Trocar Usuário">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
             <polyline points="16 17 21 12 16 7"></polyline>
@@ -6601,7 +6601,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v2.0.7'; // Versão atual do sistema     
+const VersaoSistema = 'v2.0.8'; // Versão atual do sistema     
 const DataVersaoSistema = '09/02/2026';    
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
@@ -10521,9 +10521,12 @@ function fazerLogin() {
             document.getElementById('pageOverlay').style.display = 'none';
             loginScreen.style.display = 'none';
             contentElement.style.display = 'block';
+			atualizarCabecalhoUsuario();
             atualizarPrimeiroAcesso(nomeCompleto); 
             checarAniversario();
         };
+		
+		
 
         // Chama o modal de confirmação (VERDE)
         mostrarConfirmacao(mensagem, acaoAoConfirmar, null, 'success');
@@ -20569,49 +20572,53 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
 // ==========================================================
     // --- FUNÇÃO DO CABEÇALHO (DADOS REAIS: NOME E APELIDO) ---
     // ==========================================================
-    document.addEventListener("DOMContentLoaded", function() {
-        var nomeLogado = localStorage.getItem("jogadorLogado"); // Ex: "ANA MARIA MARINHO GOMES"
+// 1. Função Global para atualizar o nome (chamada no Login e no Carregamento)
+    function atualizarCabecalhoUsuario() {
+        var nomeLogado = localStorage.getItem("jogadorLogado");
+        var elementoNome = document.getElementById("header-nome");
         
-        if (nomeLogado) {
-            // 1. Formata o Nome Completo para ficar bonito (Title Case)
+        if (nomeLogado && elementoNome) {
+            // Formata Nome Completo para Título (PC)
             var nomePC = nomeLogado.toLowerCase().split(' ').map(function(palavra) {
                 return palavra.charAt(0).toUpperCase() + palavra.slice(1);
             }).join(' ');
 
-            // 2. Busca o Apelido Real no Cache do Sistema
-            var apelidoMobile = nomePC.split(' ')[0]; // Fallback temporário
-            
+            // Tenta pegar o Apelido do Cache (Mobile)
+            var apelidoMobile = nomePC.split(' ')[0]; 
             try {
                 var cacheRaw = localStorage.getItem('jogadoresDataCache');
                 if (cacheRaw) {
                     var dadosJogadores = JSON.parse(cacheRaw);
-                    // O cache usa o Nome Completo como chave. Buscamos o objeto dele.
                     if (dadosJogadores[nomeLogado] && dadosJogadores[nomeLogado].apelido) {
-                        apelidoMobile = dadosJogadores[nomeLogado].apelido; // Ex: "Ana" ou "Aninha" (o que estiver no banco)
+                        apelidoMobile = dadosJogadores[nomeLogado].apelido;
                     }
                 }
-            } catch (e) {
-                console.warn("Não foi possível recuperar o apelido do cache para o cabeçalho.");
-            }
+            } catch (e) { console.warn("Cache indisp."); }
 
-            // 3. Injeta no HTML com as classes de controle
-            var elementoNome = document.getElementById("header-nome");
-            if (elementoNome) {
-                elementoNome.innerHTML = 'Olá, <span class="nome-desktop">' + nomePC + '</span><span class="nome-mobile">' + apelidoMobile + '</span>';
-            }
-        }
-    });
-
-    function fazerLogout() {
-        if (typeof mostrarConfirmacao === 'function') {
-             confirmarLogout(); 
-        } else {
-            if (confirm("Deseja realmente sair?")) {
-                localStorage.removeItem("jogadorLogado");
-                window.location.reload();
-            }
+            // Atualiza o HTML
+            elementoNome.innerHTML = 'Olá, <span class="nome-desktop">' + nomePC + '</span><span class="nome-mobile">' + apelidoMobile + '</span>';
         }
     }
+
+    // 2. Executa ao carregar a página
+    document.addEventListener("DOMContentLoaded", function() {
+        // Atualiza o nome assim que abre
+        atualizarCabecalhoUsuario(); 
+        
+        // Reconecta o botão CONFIRMAR da janela de sair
+        var btnConfirmar = document.getElementById("btn-confirmar-logout");
+        if (btnConfirmar) {
+            btnConfirmar.onclick = fazerLogout; 
+        }
+
+        // Reconecta o botão CANCELAR da janela de sair
+        var btnCancelar = document.getElementById("btn-cancelar-logout");
+        var modal = document.getElementById("modal-logout");
+        if (btnCancelar && modal) {
+            btnCancelar.onclick = function() { modal.style.display = "none"; };
+        }
+    });
+    
 
 </script>
 
