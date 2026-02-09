@@ -36,7 +36,7 @@ body {
     margin: 0;
     padding: 0;
     /* Adicionado para dar espaço para o Cabeçalho Novo + Abas */
-    padding-top: 105px; 
+    padding-top: 100px; 
     background-color: #f4f4f4; 
 }
 
@@ -919,7 +919,7 @@ th {
     background-color: #f1f1f1; /* Cor mais neutra para abas não selecionadas */
     color: #555; /* Texto mais escuro para contraste */
     font-weight: bold;
-    border: none;
+    border: 2px solid #ccc;
     padding: 8px 20px;
     margin: 5px;
     cursor: pointer;
@@ -5214,52 +5214,134 @@ body.dark-mode .dia-bloqueado-visual {
 /* --- FIM DE CORREÇÃO DE CAMADAS DOS MODAIS --- */
 
 
-/* --- NOVO CABEÇALHO (Estilo Banco do Brasil) --- */
+
+/* --- CABEÇALHO (Versão Final Profissional) --- */
 #app-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 45px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #ddd;
+    height: 35px;
+    
+    /* EFEITO DEGRADÊ (Do Branco para o Cinza Gelo) */
+    background: linear-gradient(to bottom, #ffffff 0%, #e8e8e8 100%);
+    
+    /* Sombra mais marcada para destacar do fundo */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 15px;
-    z-index: 2000; /* Fica acima de tudo, inclusive das abas (1100) */
     box-sizing: border-box;
+    z-index: 2000;
 }
 
 .header-left {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    flex-grow: 1; 
 }
 
 .header-logo {
-    width: 38px;
-    height: 38px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     object-fit: cover;
+    
+    /* Borda sutil para dar acabamento */
+    border: 2px solid rgba(255,255,255,0.5); 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    /* MÁGICA PARA O MODO CLARO (Remove o fundo branco) */
+    mix-blend-mode: multiply; 
+    /* Aumenta o contraste para o branco ficar puríssimo e sumir de vez */
+    filter: contrast(1.2) brightness(1.1); 
+}
+
+/* --- MÁGICA PARA O MODO ESCURO (Inverte para virar Branco) --- */
+body.dark-mode .header-logo {
+    /* 1. Volta ao normal (Remove a inversão e a mistura de tela) */
+    mix-blend-mode: normal !important; 
+    filter: none !important;
+    
+    /* 2. Ajuste visual */
+    /* Como o fundo da imagem é branco, ele vai parecer uma "bolinha branca" */
+    /* Adicionamos uma borda cinza para suavizar o recorte */
+    border: 2px solid #555 !important;
+    
+    /* Opcional: Reduzir levemente o brilho para o branco não "estourar" os olhos no escuro */
+    opacity: 0.9;
 }
 
 .header-user {
     font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 15px; /* Ajustado para caber nome composto */
+    font-weight: 700;
     color: #333;
+    white-space: nowrap;
+    text-shadow: 0 1px 0 #fff; /* Leve brilho no texto */
 }
 
+/* A VACINA DO BOTÃO SAIR */
 .header-logout {
-    background: none;
-    border: none;
+    background: transparent !important; /* Remove o verde */
+    background-color: transparent !important; /* Garante remoção */
+    border: none !important;
+    box-shadow: none !important; /* Remove sombra do botão antigo */
+    width: auto !important; /* Remove a largura gigante */
+    margin: 0 !important;
+    padding: 8px !important;
     cursor: pointer;
-    padding: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #555; /* Cor do ícone cinza escuro (mais elegante) */
+    transition: transform 0.2s;
 }
+
+.header-logout:active {
+    transform: scale(0.95); /* Efeito de clique sutil */
+}
+
+/* --- AJUSTES DO CABEÇALHO PARA MODO ESCURO --- */
+
+/* 1. O Fundo da Barra (Cinza Escuro com Degradê Suave) */
+body.dark-mode #app-header {
+    background: linear-gradient(to bottom, #333333 0%, #1a1a1a 100%) !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.6) !important; /* Sombra mais escura */
+    border-bottom: 1px solid #444; /* Linha sutil para separar */
+}
+
+/* 2. O Texto "Olá, Nome" (Vira Branco) */
+body.dark-mode .header-user {
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8); /* Sombra no texto para leitura */
+}
+
+/* 3. A Borda da Bolinha do Logo (Vira Cinza para não brilhar) */
+body.dark-mode .header-logo {
+    border: 2px solid #555 !important;
+}
+
+/* 4. O Ícone de Sair (Vermelho mais claro para destacar no preto) */
+body.dark-mode .header-logout svg {
+    stroke: #ef5350 !important; /* Vermelho claro */
+}
+/* --- FIM DE CABEÇALHO (Versão Final Profissional) --- */
+
+
+/* --- CONTROLE DE EXIBIÇÃO DE NOME (PC vs CELULAR) --- */
+.nome-desktop { display: inline; } /* PC: Mostra nome completo */
+.nome-mobile { display: none; }    /* PC: Esconde apelido */
+
+@media (max-width: 600px) {
+    .nome-desktop { display: none; } /* Celular: Esconde nome completo */
+    .nome-mobile { display: inline; } /* Celular: Mostra apelido */
+}
+/* FIM DE --- CONTROLE DE EXIBIÇÃO DE NOME (PC vs CELULAR) --- */
+
 
 </style>
 
@@ -5271,7 +5353,7 @@ body.dark-mode .dia-bloqueado-visual {
 
 <header id="app-header">
     <div class="header-left">
-        <img src="logo-final.png" alt="Logo" class="header-logo">
+        <img src="https://clube-olimpico.github.io/Reservas/novo-logo-6.png" alt="Logo" class="header-logo">
         <span class="header-user" id="header-nome">Olá, Sócio</span>
     </div>
     
@@ -6492,8 +6574,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v2.0.6'; // Versão atual do sistema     
-const DataVersaoSistema = '07/02/2026';    
+const VersaoSistema = 'v2.0.7'; // Versão atual do sistema     
+const DataVersaoSistema = '09/02/2026';    
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -10256,7 +10338,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Chamada inicial ao carregar a página
     ajustarHorariosCelular();
 
-    // Listener para alterar layout ao clicar duas vezes
+// Listener para alterar layout ao clicar duas vezes
     tabelaContainer.addEventListener('dblclick', (event) => {
     const target = event.target;
     if (!((target.tagName === 'TH' || target.tagName === 'TD') && target.innerText.includes('Horários'))) {
@@ -10268,12 +10350,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (tabelaContainer.classList.contains('fullscreen')) {
         if (tabContainer) {
-            const tabHeight = tabContainer.offsetHeight;
+            const tabHeight = tabContainer.offsetHeight; // Isso é 55px
 
-            // --- AJUSTE FINO AQUI ---
-            // Usamos a altura medida E adicionamos 5 pixels de segurança
+            // --- AJUSTE FINO AQUI (CORRIGIDO) ---
+            // Precisamos somar a altura do novo cabeçalho (50px)
+            const headerHeight = 50; 
             const safetyMargin = 10;
-            const finalTopPosition = tabHeight + safetyMargin;
+            
+            // Nova Fórmula: 50 (Header) + 55 (Botões) + 10 (Margem) = 115px
+            const finalTopPosition = headerHeight + tabHeight + safetyMargin;
 
             tabelaContainer.style.top = finalTopPosition + 'px';
             tabelaContainer.style.height = `calc(100vh - ${finalTopPosition}px)`;
@@ -20452,6 +20537,54 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
     return `${yyyy}-${mm}-${dd}`;
 }
 
+
+// ==========================================================
+// ==========================================================
+    // --- FUNÇÃO DO CABEÇALHO (DADOS REAIS: NOME E APELIDO) ---
+    // ==========================================================
+    document.addEventListener("DOMContentLoaded", function() {
+        var nomeLogado = localStorage.getItem("jogadorLogado"); // Ex: "ANA MARIA MARINHO GOMES"
+        
+        if (nomeLogado) {
+            // 1. Formata o Nome Completo para ficar bonito (Title Case)
+            var nomePC = nomeLogado.toLowerCase().split(' ').map(function(palavra) {
+                return palavra.charAt(0).toUpperCase() + palavra.slice(1);
+            }).join(' ');
+
+            // 2. Busca o Apelido Real no Cache do Sistema
+            var apelidoMobile = nomePC.split(' ')[0]; // Fallback temporário
+            
+            try {
+                var cacheRaw = localStorage.getItem('jogadoresDataCache');
+                if (cacheRaw) {
+                    var dadosJogadores = JSON.parse(cacheRaw);
+                    // O cache usa o Nome Completo como chave. Buscamos o objeto dele.
+                    if (dadosJogadores[nomeLogado] && dadosJogadores[nomeLogado].apelido) {
+                        apelidoMobile = dadosJogadores[nomeLogado].apelido; // Ex: "Ana" ou "Aninha" (o que estiver no banco)
+                    }
+                }
+            } catch (e) {
+                console.warn("Não foi possível recuperar o apelido do cache para o cabeçalho.");
+            }
+
+            // 3. Injeta no HTML com as classes de controle
+            var elementoNome = document.getElementById("header-nome");
+            if (elementoNome) {
+                elementoNome.innerHTML = 'Olá, <span class="nome-desktop">' + nomePC + '</span><span class="nome-mobile">' + apelidoMobile + '</span>';
+            }
+        }
+    });
+
+    function fazerLogout() {
+        if (typeof mostrarConfirmacao === 'function') {
+             confirmarLogout(); 
+        } else {
+            if (confirm("Deseja realmente sair?")) {
+                localStorage.removeItem("jogadorLogado");
+                window.location.reload();
+            }
+        }
+    }
 
 </script>
 
