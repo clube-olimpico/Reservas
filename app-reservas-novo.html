@@ -518,12 +518,39 @@ body.dark-mode .motivo-resultado {
 
 
 
-.tab-button {
-    padding-top: 3px !important;
-    padding-bottom: 3px !important;
-    font-size: 1.0em;
-}
+/* --- CORREÇÃO PARA IPHONE dentro de max-width: 600px */
+    
+    /* 1. Garante que o container ocupe a largura exata da tela sem vazar */
+    .tab-container {
+        padding: 0 5px !important;       
+        box-sizing: border-box !important; 
+        display: flex !important;        
+        width: 100% !important;          
+        justify-content: space-between !important;
+    }
 
+    /* 2. Força os botões a terem tamanhos matematicamente iguais */
+    .tab-button {
+        flex: 1 !important;              /* Divide o espaço disponível por 3 */
+        width: 0 !important;             /* Zera a largura base para o flex funcionar */
+        min-width: 0 !important;         /* Permite encolher o texto se necessário */
+        
+        /* Remove o padding lateral excessivo que causava a quebra no iPhone */
+        padding: 4px 0px !important; 
+        margin: 0 2px !important;    
+        
+        font-size: 0.85rem !important;   /* Fonte segura para telas estreitas */
+        font-weight: bold !important;
+        line-height: 1.1 !important;
+        
+        /* Centralização vertical e horizontal */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        height: 40px !important;
+    }
+/* --- fim de CORREÇÃO PARA IPHONE dentro de max-width: 600px */
 
 
 .form-container {
