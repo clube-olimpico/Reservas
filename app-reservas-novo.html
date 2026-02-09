@@ -5263,6 +5263,18 @@ body.dark-mode .dia-bloqueado-visual {
     box-sizing: border-box;
     z-index: 2000;
 }
+/* --- CORREÇÃO DO CLIQUE NO IPHONE --- */
+#app-header, .header-legenda, #header-nome {
+    /* 1. O SEGREDO: Diz ao iPhone para não fazer zoom com duplo toque */
+    touch-action: manipulation; 
+    
+    /* 2. Impede que o texto fique azul (selecionado) ao clicar várias vezes */
+    -webkit-user-select: none;
+    user-select: none;
+    
+    /* 3. Garante que o sistema entenda que é um botão */
+    cursor: pointer;
+}
 
 .header-left {
     display: flex;
