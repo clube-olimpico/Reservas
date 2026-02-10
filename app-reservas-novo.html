@@ -10684,6 +10684,7 @@ function confirmarLogout() {
 function fazerLogout() {
     localStorage.removeItem('jogadorLogado'); // Remove o jogador logado do localStorage
     window.location.reload(); // Recarrega a página para voltar à tela de login
+	window.scrollTo(0, 0); 
 }
 
 
