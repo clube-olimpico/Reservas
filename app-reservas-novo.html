@@ -142,13 +142,33 @@ body {
     }
 
     /* Dropdown de seleção de jogadores */
+	/* ADICIONADO: Força a altura exata (fica igual no Android/iPhone) */
+    /* Dropdown de seleção de jogadores - Com Setinha Customizada */
     #jogadorSelect {
         width: 100%;
-        padding: 10px;
+        height: 35px;
+        padding: 5px 10px;
         font-size: 16px;
         border: 1px solid #ccc;
         border-radius: 5px;
         margin-bottom: 20px;
+        background-color: #ffffff;
+        
+        /* Limpa o estilo nativo (remove a seta feia/antiga) */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+
+        /* --- DESENHA A NOVA SETINHA --- */
+        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+        background-repeat: no-repeat;
+        /* Posiciona a seta à direita */
+        background-position: right 10px top 50%;
+        /* Define o tamanho da seta */
+        background-size: 12px auto;
+        
+        /* Adiciona espaço extra à direita para o texto não ficar em cima da seta */
+        padding-right: 30px; 
     }
 
     /* Botão de entrar */
@@ -6614,8 +6634,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v2.1.0'; // Versão atual do sistema     
-const DataVersaoSistema = '10/02/2026';    
+const VersaoSistema = 'v2.1.1'; // Versão atual do sistema     
+const DataVersaoSistema = '10/02/2026';     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -7212,24 +7232,29 @@ function atualizarReservasQuadra(quadra) {
     }
 }
 
+// SUBSTITUA A FUNÇÃO configurarBordasDuracao2 INTEIRA POR ESTA:
 function configurarBordasDuracao2(cell, tabela, rowIndex, colIndex) {
+    // Define a cor: #555 se for escuro, #bbb se for claro (Cinza Médio)
+    const isDark = document.body.classList.contains('dark-mode');
+    const corBorda = isDark ? '2px solid #555' : '2px solid #666';
+
     if (cell.rowSpan > 1) {
-        cell.style.borderTop = '2px solid black';
-        cell.style.borderLeft = '2px solid black';
-        cell.style.borderRight = '2px solid black';
-        cell.style.borderBottom = '2px solid black';
+        cell.style.borderTop = corBorda;
+        cell.style.borderLeft = corBorda;
+        cell.style.borderRight = corBorda;
+        cell.style.borderBottom = corBorda;
     } else {
-        cell.style.borderTop = '2px solid black';
-        cell.style.borderLeft = '2px solid black';
-        cell.style.borderRight = '2px solid black';
+        cell.style.borderTop = corBorda;
+        cell.style.borderLeft = corBorda;
+        cell.style.borderRight = corBorda;
         cell.style.borderBottom = 'none';
 
         const cellNext = tabela.rows[rowIndex + 1]?.cells[colIndex];
         if (cellNext) {
             cellNext.style.borderTop = 'none';
-            cellNext.style.borderLeft = '2px solid black';
-            cellNext.style.borderRight = '2px solid black';
-            cellNext.style.borderBottom = '2px solid black';
+            cellNext.style.borderLeft = corBorda;
+            cellNext.style.borderRight = corBorda;
+            cellNext.style.borderBottom = corBorda;
         }
     }
 }
@@ -7587,7 +7612,7 @@ function carregarReservas(quadra) {
                             // Estilo BASE da Manutenção
                             cell.style.backgroundColor = isDark ? '#252525' : '#e9ecef';
                             cell.style.color = isDark ? '#999' : '#555'; // <--- A COR "ACIZENTADA" É ESTA
-                            cell.style.border = isDark ? '2px solid #555' : '2px solid black';
+                            cell.style.border = isDark ? '2px solid #555' : '2px solid #666';
                             cell.style.boxSizing = "border-box";
                             cell.style.verticalAlign = 'middle'; 
                             cell.style.textAlign = 'center'; 
@@ -7650,7 +7675,7 @@ function carregarReservas(quadra) {
 							cell.style.textAlign = 'center';     
 							
 							// Mantém a borda variando conforme o tema, ou pode fixar se preferir
-							cell.style.border = isDark ? '2px solid #555' : '2px solid black';
+							cell.style.border = isDark ? '2px solid #555' : '2px solid #666';
 
 							if (mapaMesclagem[key] && mapaMesclagem[key].rowSpan > 1) {
 								const horaFim = reserva.hora + mapaMesclagem[key].rowSpan;
@@ -7769,7 +7794,7 @@ function carregarReservas(quadra) {
                                 configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
                             }
                             else if (reserva.duracao === 1) {
-                                cell.style.border = '2px solid black';
+                                cell.style.border = isDarkMode ? '2px solid #555' : '2px solid #666';
                             }
                             // --------------------------------------------------------------------
                             
@@ -7839,7 +7864,7 @@ function carregarReservas(quadra) {
 
                             cell.style.backgroundColor = corFundo;
 
-                            if (borda === '1h') cell.style.border = '2px solid black';
+                            if (borda === '1h') cell.style.border = isDarkMode ? '2px solid #555' : '2px solid #666';
                             else if (borda === '2h') configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
 
                             if (reserva.duracao > 1) {
@@ -10193,10 +10218,29 @@ function processarEPreencherJogadores(todosJogadores) {
             option.textContent = nome;
             select.appendChild(option);
         });
+        
         // Tenta manter a seleção anterior se ela ainda for válida
         if (valorJaSelecionado && select.querySelector(`option[value='${valorJaSelecionado}']`)) {
             select.value = valorJaSelecionado;
         }
+        
+        // >>> COLE ESTE BLOCO NOVO AQUI EMBAIXO: <<<
+        // Se for o dropdown de Login e estiver vazio, tenta pegar o último usado
+        else if (select.id === 'jogadorSelect') {
+            const ultimoUser = localStorage.getItem('ultimoUsuarioLogado');
+            if (ultimoUser) {
+                // O localStorage guarda o Nome Completo, mas o select usa o Apelido (Key).
+                // Vamos encontrar qual apelido pertence a esse Nome Completo.
+                const apelidoEncontrado = Object.keys(jogadoresData).find(
+                    key => jogadoresData[key].nomeCompleto === ultimoUser
+                );
+                
+                if (apelidoEncontrado) {
+                    select.value = apelidoEncontrado;
+                }
+            }
+        }
+        // ------------------------------------------
     });
 }
 
@@ -10571,10 +10615,17 @@ function fazerLogin() {
 
         const acaoAoConfirmar = () => {
             localStorage.setItem('jogadorLogado', nomeCompleto);
+            
+            // >>> ADICIONE ESTA LINHA AQUI: <<<
+            localStorage.setItem('ultimoUsuarioLogado', nomeCompleto); 
+            // ---------------------------------
+
             document.getElementById('pageOverlay').style.display = 'none';
             loginScreen.style.display = 'none';
             contentElement.style.display = 'block';
-			atualizarCabecalhoUsuario();
+            
+            atualizarCabecalhoUsuario(); 
+            
             atualizarPrimeiroAcesso(nomeCompleto); 
             checarAniversario();
         };
