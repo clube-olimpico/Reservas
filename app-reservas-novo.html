@@ -6614,8 +6614,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v2.0.9'; // Versão atual do sistema     
-const DataVersaoSistema = '09/02/2026';    
+const VersaoSistema = 'v2.1.0'; // Versão atual do sistema     
+const DataVersaoSistema = '10/02/2026';    
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -9847,7 +9847,7 @@ async function LimparDiasAnteriores() {
             const chavesIgnoradas = new Set(); 
 
             // Varre do dia 0 (hoje) até o limite configurado
-            for (let dia = 0; dia <= DiasParaLimpar; dia++) {
+            for (let dia = 2; dia <= DiasParaLimpar; dia++) {
                 const dataCalculadaLoop = new Date(dataAtual);
                 dataCalculadaLoop.setDate(dataAtual.getDate() - dia);
                 const diaIndex = dataCalculadaLoop.getDay() === 0 ? 7 : dataCalculadaLoop.getDay();
