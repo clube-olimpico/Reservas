@@ -6614,7 +6614,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v2.0.8'; // Versão atual do sistema     
+const VersaoSistema = 'v2.0.9'; // Versão atual do sistema     
 const DataVersaoSistema = '09/02/2026';    
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
@@ -10379,35 +10379,75 @@ document.addEventListener('DOMContentLoaded', () => {
     ajustarHorariosCelular();
 
 // Listener para alterar layout ao clicar duas vezes
+// ==========================================================
+    // --- FUNÇÃO DE DUPLO CLIQUE (FINAL: COM CALÇO DE ROLAGEM) ---
+    // ==========================================================
+// ==========================================================
+    // --- FUNÇÃO DE DUPLO CLIQUE (VERSÃO FINAL: CORREÇÃO DE ROLAGEM) ---
+    // ==========================================================
     tabelaContainer.addEventListener('dblclick', (event) => {
-    const target = event.target;
-    if (!((target.tagName === 'TH' || target.tagName === 'TD') && target.innerText.includes('Horários'))) {
-        return;
-    }
-
-    tabelaContainer.classList.toggle('fullscreen');
-    const tabContainer = document.querySelector('.tab-container');
-
-    if (tabelaContainer.classList.contains('fullscreen')) {
-        if (tabContainer) {
-            const tabHeight = tabContainer.offsetHeight; // Isso é 55px
-
-            // --- AJUSTE FINO AQUI (CORRIGIDO) ---
-            // Precisamos somar a altura do novo cabeçalho (50px)
-            const headerHeight = 50; 
-            const safetyMargin = 10;
-            
-            // Nova Fórmula: 50 (Header) + 55 (Botões) + 10 (Margem) = 115px
-            const finalTopPosition = headerHeight + tabHeight + safetyMargin;
-
-            tabelaContainer.style.top = finalTopPosition + 'px';
-            tabelaContainer.style.height = `calc(100vh - ${finalTopPosition}px)`;
+        const target = event.target;
+        // Verifica clique válido
+        if (!((target.tagName === 'TH' || target.tagName === 'TD') && target.innerText.includes('Horários'))) {
+            return;
         }
-    } else {
-        tabelaContainer.style.top = '';
-        tabelaContainer.style.height = '';
-    }
-});
+
+        tabelaContainer.classList.toggle('fullscreen');
+        
+        const header = document.getElementById('app-header'); 
+        const tabContainer = document.querySelector('.tab-container'); 
+
+        if (tabelaContainer.classList.contains('fullscreen')) {
+            // --- MODO TELA CHEIA (ATIVADO) ---
+            
+            // 1. Esconde a barra do topo
+            if (header) header.style.display = 'none'; 
+
+            // 2. Botões colados no teto
+            if (tabContainer) {
+                tabContainer.style.top = '0px'; 
+                tabContainer.style.zIndex = '9001'; 
+            }
+
+            // 3. Tabela com altura DINÂMICA (dvh)
+            tabelaContainer.style.top = '60px';
+            
+            // Tenta usar 'dvh' (Dynamic Viewport Height) para celulares modernos
+            // Se o navegador for antigo, o CSS fallback (se houver) ou o cálculo padrão assume.
+            // O 'calc' garante que a tabela ocupe o espaço restante.
+            tabelaContainer.style.height = 'calc(100dvh - 60px)'; 
+            
+            // Fallback para navegadores que não entendem dvh (usa vh normal)
+            if (!CSS.supports('height: 100dvh')) {
+                 tabelaContainer.style.height = 'calc(100vh - 60px)';
+            }
+
+            // 4. O "SUPER CALÇO": Aumentamos para 300px
+            // Isso garante que 22h, 23h e Rodapé passem longe da barra do navegador
+            tabelaContainer.style.paddingBottom = '300px'; 
+            
+            // 5. Força a rolagem a funcionar
+            tabelaContainer.style.overflowY = 'scroll'; 
+            tabelaContainer.style.webkitOverflowScrolling = 'touch'; // Fluidez no iPhone
+
+        } else {
+            // --- MODO NORMAL (RESTAURADO) ---
+            
+            if (header) header.style.display = 'flex'; 
+
+            if (tabContainer) {
+                tabContainer.style.top = '50px'; 
+                tabContainer.style.zIndex = ''; 
+            }
+
+            tabelaContainer.style.top = '105px';
+            tabelaContainer.style.height = 'calc(100vh - 105px)';
+            
+            // Remove o calço e configurações extras
+            tabelaContainer.style.paddingBottom = '0px';
+            tabelaContainer.style.overflowY = ''; 
+        }
+    });
 	
 	
 	const header = document.querySelector('.header'); // Seleciona o título da quadra
