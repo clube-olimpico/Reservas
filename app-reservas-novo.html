@@ -20722,6 +20722,20 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
         if (btnCancelar && modal) {
             btnCancelar.onclick = function() { modal.style.display = "none"; };
         }
+		
+		// --- CORREÇÃO IPHONE (Estratégia Viewport) ---
+        // Monitora o tamanho visual da tela. 
+        // Quando o teclado fecha, a tela "cresce" de volta, e forçamos o scroll para o topo.
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', function() {
+                // Verifica se a tela está na altura total (teclado fechado)
+                // e se houve algum deslocamento de rolagem indesejado
+                if (window.visualViewport.height >= window.innerHeight - 10 && window.scrollY > 0) {
+                     window.scrollTo(0, 0);
+                }
+            });
+        }
+		
     });
     
 
