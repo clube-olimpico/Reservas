@@ -52,7 +52,8 @@ body {
     
     /* --- NOVAS LINHAS --- */
     border-radius: 15px; /* Cantos arredondados, valor pode ser ajustado */
-    transition: background-color 0.4s ease, box-shadow 0.4s ease; /* Transição suave */
+    /* Adicionamos top e transform para animar a subida e descida */
+    transition: background-color 0.4s ease, box-shadow 0.4s ease, top 0.4s ease, transform 0.4s ease;
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Sombra suave: 0 horizontal, 4px vertical, 20px de desfoque, cor preta com 15% de opacidade */
     /* --- FIM DAS NOVAS LINHAS --- */
 
@@ -1101,7 +1102,7 @@ body.dark-mode #loginHeader h3 {
 
 /* Garante que os campos de input e select tenham o estilo escuro correto */
 body.dark-mode #loginScreen #jogadorSelect,
-body.dark-mode #loginScreen #senha {
+body.dark-mode #loginScreen #acesso_user {
     background-color: #333;
     color: #fff;
     border: 1px solid #555;
@@ -5135,17 +5136,22 @@ body.dark-mode .dia-bloqueado-visual {
         flex-shrink: 0 !important;            /* Não deixa esmagar */
     }
 
-    /* 3. O Campo de Digitação (O culpado do problema) */
-    #loginScreen .input-container input {
-        flex: 1 !important;                   /* Ocupa TODO o espaço que sobrar no meio */
-        width: auto !important;               /* Reseta o width: 280% do desktop */
-        min-width: 0 !important;              /* O SEGREDO: Permite que o input encolha se precisar */
-        
-        padding: 0 10px !important;           /* Reseta o padding-right: 150px do desktop */
-        height: 40px !important;              /* Altura padrão */
-        margin: 0 !important;
-        box-sizing: border-box !important;
-    }
+    /* 3. O Campo de Digitação (Garante bolinhas em todos os dispositivos) */
+	#loginScreen #acesso_user {
+		flex: 1 !important;
+		width: auto !important;
+		min-width: 0 !important;
+		padding: 0 10px !important;
+		height: 40px !important;
+		margin: 0 !important;
+		box-sizing: border-box !important;
+
+		/* --- O SEGREDO PARA AS BOLINHAS (Mobile + Desktop) --- */
+		/* Usamos os três tipos de prefixos para garantir compatibilidade total */
+		-webkit-text-security: disc !important;
+		-moz-text-security: disc !important; /* Para Firefox antigo */
+		text-security: disc !important;      /* Padrão futuro */
+	}
 
     /* 4. O Botão do Olho (Fica na direita) */
     #loginScreen #toggleSenha {
@@ -5174,6 +5180,13 @@ body.dark-mode .dia-bloqueado-visual {
         flex-shrink: 0 !important;            /* Não deixa esmagar */
     }
 }
+
+/* Isso garante bolinhas em qualquer dispositivo, sem mexer no tamanho do campo */
+#acesso_user {
+    -webkit-text-security: disc !important;
+    text-security: disc !important;
+}
+
 /* ================================================================ */
 /* === fim de CORREÇÃO DE LOGIN APENAS PARA CELULAR (IGUAL AO PC) === */
 /* ================================================================ */
@@ -5452,11 +5465,14 @@ body.dark-mode .header-logout svg {
             </select>
         </div>
         
-       <div class="input-container">
-    <label for="senha" class="label-senha">Senha:</label>
-    <input type="password" id="senha" placeholder="Digite sua senha" inputmode="numeric" pattern="[0-9]*" maxlength="8">
-    <button type="button" id="toggleSenha">👁️</button>
-</div>
+        <div class="input-container">
+            <label for="acesso_user" class="label-senha">Senha:</label>
+            <input type="tel" id="acesso_user" name="user_code" placeholder="Data de Nascimento" 
+                   inputmode="numeric" pattern="[0-9]*" maxlength="8" 
+                   autocomplete="one-time-code" 
+                   oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+            <button type="button" id="toggleSenha">👁️</button>
+        </div>
         
         <button onclick="fazerLogin()">Entrar</button>
     </div>
@@ -6297,17 +6313,27 @@ body.dark-mode .header-logout svg {
         
 document.addEventListener('DOMContentLoaded', function () {
     const toggleButton = document.getElementById('toggleSenha');
-    const senhaInput = document.getElementById('senha');
+    const senhaInput = document.getElementById('acesso_user'); // ID novo
 
-    toggleButton.addEventListener('click', function () {
-        if (senhaInput.type === 'password') {
-            senhaInput.type = 'text';
-            toggleButton.textContent = '🙈';
-        } else {
-            senhaInput.type = 'password';
-            toggleButton.textContent = '👁️';
-        }
-    });
+    if (toggleButton && senhaInput) {
+        toggleButton.addEventListener('click', function () {
+            // Verificamos se as bolinhas estão ativas no CSS
+            // Usamos getComputedStyle para ler o estado real, seja no PC ou Celular
+            const estiloAtual = window.getComputedStyle(senhaInput).webkitTextSecurity;
+            
+            if (estiloAtual !== 'none') {
+                // MOSTRAR: Remove as bolinhas
+                senhaInput.style.setProperty('-webkit-text-security', 'none', 'important');
+                senhaInput.style.setProperty('text-security', 'none', 'important');
+                toggleButton.textContent = '🙈';
+            } else {
+                // ESCONDER: Volta as bolinhas
+                senhaInput.style.setProperty('-webkit-text-security', 'disc', 'important');
+                senhaInput.style.setProperty('text-security', 'disc', 'important');
+                toggleButton.textContent = '👁️';
+            }
+        });
+    }
 
 
     const notificacaoElement = document.getElementById('notificacao');
@@ -6635,7 +6661,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Ajuste manual da atualização de versão do Sistema ******
 
 const VersaoSistema = 'v2.1.1'; // Versão atual do sistema     
-const DataVersaoSistema = '11/02/2026';     
+const DataVersaoSistema = '12/02/2026';     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -10560,7 +10586,7 @@ function fazerLogin() {
     
     let jogadorSelect = document.getElementById('jogadorSelect');
     let jogadorSelecionado = jogadorSelect.value; // Apelido selecionado
-    let senhaInput = document.getElementById("senha");
+    let senhaInput = document.getElementById("acesso_user");
     let senhaDigitada = senhaInput.value;
     let loginScreen = document.getElementById('loginScreen');
     let contentElement = document.getElementById('content');
@@ -20722,7 +20748,39 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
         if (btnCancelar && modal) {
             btnCancelar.onclick = function() { modal.style.display = "none"; };
         }
-    });
+		
+		// --- LÓGICA DE LOGIN: MODO COMPACTO PARA CELULAR ---
+	// --- LÓGICA DE LOGIN: MODO COMPACTO (ESCONDE TÍTULOS) ---
+		// --- SOLUÇÃO FINAL SIMPLIFICADA (ESCONDE TÍTULOS) ---
+    // --- SOLUÇÃO FINAL: JANELA COMPACTA (SEM MARGENS) ---
+	// --- SOLUÇÃO FINAL: MODO SUPER COMPACTO (ESCONDE TODOS OS TÍTULOS) ---
+	// --- SOLUÇÃO FINAL: APENAS ESCONDE TEXTOS (MANTÉM POSIÇÃO) ---
+// --- SOLUÇÃO FINAL: ESCONDE CABEÇALHO INTEIRO (SIMETRIA PERFEITA) ---
+// --- AJUSTE FINAL: ESCONDE CABEÇALHO + SOBE A JANELA ---
+    var campoSenha = document.getElementById('acesso_user');
+    var telaLogin = document.getElementById('loginScreen');
+    var headerContainer = document.getElementById('loginHeader');
+    
+    if (campoSenha && telaLogin && headerContainer) {
+        
+        // 1. AO DIGITAR (Teclado Abre)
+        campoSenha.addEventListener('focus', function() {
+            if (window.innerWidth < 768) {
+                // Esconde o cabeçalho para a janela ficar pequena
+                headerContainer.style.display = 'none';
+
+                // --- AQUI VOCÊ AJUSTA A ALTURA ---
+                // Mude '40%' para subir ou descer.
+                // 30% = Mais para o topo
+                // 40% = Um pouco acima do meio
+                // 50% = No meio exato
+                telaLogin.style.top = '30%'; 
+            }
+        });
+
+        
+    }	
+    }); 
     
 
 </script>
