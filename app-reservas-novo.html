@@ -93,13 +93,13 @@ body {
     width: 100%;
 }
 
-.label-senha {
+.label-acesso {
     white-space: nowrap; /* Impede que o texto do label quebre em várias linhas */
     font-weight: bold;
 }
 
 
-.input-container {
+.acesso-wrapper {
     position: relative; /* Permite posicionamento absoluto do botão */
     display: flex;
     align-items: center;
@@ -109,7 +109,7 @@ body {
 
 
 /* Campo de entrada de senha */
-.input-container input {
+.acesso-wrapper input {
     width: 280%;
     padding-right: 150px; /* Espaço para o botão à direita */
 	padding: 12px 16px; /* Padding vertical e horizontal */
@@ -1079,7 +1079,7 @@ body.dark-mode #loginScreen {
 
 /* Garante que o texto dos labels e títulos fique branco */
 body.dark-mode #loginScreen h2,
-body.dark-mode #loginScreen .label-senha {
+body.dark-mode #loginScreen .label-acesso {
     color: #f1f1f1;
 }
 
@@ -5117,7 +5117,7 @@ body.dark-mode .dia-bloqueado-visual {
 @media (max-width: 600px) {
 
     /* 1. O Container da linha: Flexbox para alinhar tudo na mesma régua */
-    #loginScreen .input-container {
+    #loginScreen .acesso-wrapper {
         display: flex !important;
         flex-direction: row !important;       /* Linha horizontal */
         align-items: center !important;       /* Centraliza verticalmente */
@@ -5129,7 +5129,7 @@ body.dark-mode .dia-bloqueado-visual {
     }
 
     /* 2. O Rótulo "Senha:" (Fica na esquerda) */
-    #loginScreen .label-senha {
+    #loginScreen .label-acesso {
         width: auto !important;
         margin: 0 !important;
         white-space: nowrap !important;       /* Não quebra linha */
@@ -5465,14 +5465,14 @@ body.dark-mode .header-logout svg {
             </select>
         </div>
         
-        <div class="input-container">
-            <label for="acesso_user" class="label-senha">Senha:</label>
-            <input type="tel" id="acesso_user" name="user_code" placeholder="Data de Nascimento" 
-                   inputmode="numeric" pattern="[0-9]*" maxlength="8" 
-                   autocomplete="one-time-code" 
-                   oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-            <button type="button" id="toggleSenha">👁️</button>
-        </div>
+        <div class="acesso-wrapper">
+			<label for="acesso_user" class="label-acesso">Código:</label>
+			<input type="tel" id="acesso_user" name="user_code" placeholder="Data de Nascimento" 
+				   inputmode="numeric" pattern="[0-9]*" maxlength="8" 
+				   autocomplete="off" 
+				   oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+			<button type="button" id="toggleSenha">👁️</button>
+		</div>
         
         <button onclick="fazerLogin()">Entrar</button>
     </div>
@@ -20750,18 +20750,16 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
         }
 		
 		// --- LÓGICA DE LOGIN: MODO COMPACTO PARA CELULAR ---
-	// --- LÓGICA DE LOGIN: MODO COMPACTO (ESCONDE TÍTULOS) ---
-		// --- SOLUÇÃO FINAL SIMPLIFICADA (ESCONDE TÍTULOS) ---
-    // --- SOLUÇÃO FINAL: JANELA COMPACTA (SEM MARGENS) ---
-	// --- SOLUÇÃO FINAL: MODO SUPER COMPACTO (ESCONDE TODOS OS TÍTULOS) ---
-	// --- SOLUÇÃO FINAL: APENAS ESCONDE TEXTOS (MANTÉM POSIÇÃO) ---
-// --- SOLUÇÃO FINAL: ESCONDE CABEÇALHO INTEIRO (SIMETRIA PERFEITA) ---
-// --- AJUSTE FINAL: ESCONDE CABEÇALHO + SOBE A JANELA ---
+
     var campoSenha = document.getElementById('acesso_user');
     var telaLogin = document.getElementById('loginScreen');
     var headerContainer = document.getElementById('loginHeader');
+	
     
     if (campoSenha && telaLogin && headerContainer) {
+	    // Limpeza inicial: Remove qualquer tentativa do Android de preencher senhas
+        // Isso ajuda a remover os ícones de chave/cartão
+        campoSenha.setAttribute('autocomplete', 'off');
         
         // 1. AO DIGITAR (Teclado Abre)
         campoSenha.addEventListener('focus', function() {
