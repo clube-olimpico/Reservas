@@ -6615,7 +6615,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Ajuste manual da atualização de versão do Sistema ******
 
 const VersaoSistema = 'v2.1.1'; // Versão atual do sistema     
-const DataVersaoSistema = '10/02/2026';     
+const DataVersaoSistema = '09/02/2026';    
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -7212,29 +7212,24 @@ function atualizarReservasQuadra(quadra) {
     }
 }
 
-// SUBSTITUA A FUNÇÃO configurarBordasDuracao2 INTEIRA POR ESTA:
 function configurarBordasDuracao2(cell, tabela, rowIndex, colIndex) {
-    // Define a cor: #555 se for escuro, #bbb se for claro (Cinza Médio)
-    const isDark = document.body.classList.contains('dark-mode');
-    const corBorda = isDark ? '2px solid #555' : '2px solid #666';
-
     if (cell.rowSpan > 1) {
-        cell.style.borderTop = corBorda;
-        cell.style.borderLeft = corBorda;
-        cell.style.borderRight = corBorda;
-        cell.style.borderBottom = corBorda;
+        cell.style.borderTop = '2px solid black';
+        cell.style.borderLeft = '2px solid black';
+        cell.style.borderRight = '2px solid black';
+        cell.style.borderBottom = '2px solid black';
     } else {
-        cell.style.borderTop = corBorda;
-        cell.style.borderLeft = corBorda;
-        cell.style.borderRight = corBorda;
+        cell.style.borderTop = '2px solid black';
+        cell.style.borderLeft = '2px solid black';
+        cell.style.borderRight = '2px solid black';
         cell.style.borderBottom = 'none';
 
         const cellNext = tabela.rows[rowIndex + 1]?.cells[colIndex];
         if (cellNext) {
             cellNext.style.borderTop = 'none';
-            cellNext.style.borderLeft = corBorda;
-            cellNext.style.borderRight = corBorda;
-            cellNext.style.borderBottom = corBorda;
+            cellNext.style.borderLeft = '2px solid black';
+            cellNext.style.borderRight = '2px solid black';
+            cellNext.style.borderBottom = '2px solid black';
         }
     }
 }
@@ -7592,7 +7587,7 @@ function carregarReservas(quadra) {
                             // Estilo BASE da Manutenção
                             cell.style.backgroundColor = isDark ? '#252525' : '#e9ecef';
                             cell.style.color = isDark ? '#999' : '#555'; // <--- A COR "ACIZENTADA" É ESTA
-                            cell.style.border = isDark ? '2px solid #555' : '2px solid #666';
+                            cell.style.border = isDark ? '2px solid #555' : '2px solid black';
                             cell.style.boxSizing = "border-box";
                             cell.style.verticalAlign = 'middle'; 
                             cell.style.textAlign = 'center'; 
@@ -7655,7 +7650,7 @@ function carregarReservas(quadra) {
 							cell.style.textAlign = 'center';     
 							
 							// Mantém a borda variando conforme o tema, ou pode fixar se preferir
-							cell.style.border = isDark ? '2px solid #555' : '2px solid #666';
+							cell.style.border = isDark ? '2px solid #555' : '2px solid black';
 
 							if (mapaMesclagem[key] && mapaMesclagem[key].rowSpan > 1) {
 								const horaFim = reserva.hora + mapaMesclagem[key].rowSpan;
@@ -7774,7 +7769,7 @@ function carregarReservas(quadra) {
                                 configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
                             }
                             else if (reserva.duracao === 1) {
-                                cell.style.border = isDarkMode ? '2px solid #555' : '2px solid #666';
+                                cell.style.border = '2px solid black';
                             }
                             // --------------------------------------------------------------------
                             
@@ -7844,7 +7839,7 @@ function carregarReservas(quadra) {
 
                             cell.style.backgroundColor = corFundo;
 
-                            if (borda === '1h') cell.style.border = isDarkMode ? '2px solid #555' : '2px solid #666';
+                            if (borda === '1h') cell.style.border = '2px solid black';
                             else if (borda === '2h') configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
 
                             if (reserva.duracao > 1) {
@@ -10387,9 +10382,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==========================================================
     // --- FUNÇÃO DE DUPLO CLIQUE (FINAL: COM CALÇO DE ROLAGEM) ---
     // ==========================================================
-// ==========================================================
-    // --- FUNÇÃO DE DUPLO CLIQUE (VERSÃO FINAL: CORREÇÃO DE ROLAGEM) ---
-    // ==========================================================
     tabelaContainer.addEventListener('dblclick', (event) => {
         const target = event.target;
         // Verifica clique válido
@@ -10403,40 +10395,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const tabContainer = document.querySelector('.tab-container'); 
 
         if (tabelaContainer.classList.contains('fullscreen')) {
-            // --- MODO TELA CHEIA (ATIVADO) ---
+            // --- MODO TELA CHEIA ---
             
             // 1. Esconde a barra do topo
             if (header) header.style.display = 'none'; 
 
-            // 2. Botões colados no teto
+            // 2. Botões no teto
             if (tabContainer) {
                 tabContainer.style.top = '0px'; 
                 tabContainer.style.zIndex = '9001'; 
             }
 
-            // 3. Tabela com altura DINÂMICA (dvh)
+            // 3. Tabela com altura ajustada e CALÇO EXTRA
             tabelaContainer.style.top = '60px';
+            tabelaContainer.style.height = 'calc(100vh - 60px)';
             
-            // Tenta usar 'dvh' (Dynamic Viewport Height) para celulares modernos
-            // Se o navegador for antigo, o CSS fallback (se houver) ou o cálculo padrão assume.
-            // O 'calc' garante que a tabela ocupe o espaço restante.
-            tabelaContainer.style.height = 'calc(100dvh - 60px)'; 
-            
-            // Fallback para navegadores que não entendem dvh (usa vh normal)
-            if (!CSS.supports('height: 100dvh')) {
-                 tabelaContainer.style.height = 'calc(100vh - 60px)';
-            }
-
-            // 4. O "SUPER CALÇO": Aumentamos para 300px
-            // Isso garante que 22h, 23h e Rodapé passem longe da barra do navegador
-            tabelaContainer.style.paddingBottom = '300px'; 
-            
-            // 5. Força a rolagem a funcionar
-            tabelaContainer.style.overflowY = 'scroll'; 
-            tabelaContainer.style.webkitOverflowScrolling = 'touch'; // Fluidez no iPhone
+            // O SEGREDO: Adiciona 150px de espaço vazio no final da tabela
+            // Isso obriga a rolagem a ir até o "fundo" da tela, revelando tudo.
+            tabelaContainer.style.paddingBottom = '150px'; 
 
         } else {
-            // --- MODO NORMAL (RESTAURADO) ---
+            // --- MODO NORMAL ---
             
             if (header) header.style.display = 'flex'; 
 
@@ -10448,9 +10427,8 @@ document.addEventListener('DOMContentLoaded', () => {
             tabelaContainer.style.top = '105px';
             tabelaContainer.style.height = 'calc(100vh - 105px)';
             
-            // Remove o calço e configurações extras
+            // Remove o calço para voltar ao normal
             tabelaContainer.style.paddingBottom = '0px';
-            tabelaContainer.style.overflowY = ''; 
         }
     });
 	
