@@ -6841,7 +6841,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v2.1.2'; // Versão atual do sistema     
+const VersaoSistema = 'v2.1.3'; // Versão atual do sistema     
 const DataVersaoSistema = '12/02/2026';     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
@@ -21040,7 +21040,19 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
             if (header) header.style.display = 'none';
             
             // Sua altura preferida de 35%
-            if (telaLogin) telaLogin.style.top = '35%'; 
+            if (telaLogin) {
+                // --- VERIFICAÇÃO DE TELA CHEIA (APP INSTALADO) ---
+                // Detecta se está rodando como "App" (Standalone) no iOS ou Android
+                var isStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
+
+                if (isStandalone) {
+                    // MODO TELA CHEIA (Sem barra de endereço -> Mais espaço)
+                    telaLogin.style.top = '40%'; // Desce um pouco mais
+                } else {
+                    // MODO NAVEGADOR (Com barras em cima/baixo -> Menos espaço)
+                    telaLogin.style.top = '35%'; // Sobe para não cortar
+                }
+            } 
 
             // --- LÓGICA DE FOCO E CURSOR ---
             if (campo) {
