@@ -5566,6 +5566,174 @@ body.dark-mode .tecla-funcao {
 }
 
 
+
+/* --- ----------------------------------------*/
+/* --- ESTILO DO SISTEMA DE NOTIFICAÇÕES --- */
+/* --- --------------------------------------- */
+
+/* 1. O BADGE (BOLINHA VERMELHA) */
+.notificacao-container {
+    position: relative; /* Importante para a bolinha ficar presa aqui */
+}
+
+.badge-vermelho {
+    position: absolute;
+    top: -5px;    /* Ajuste fino vertical */
+    right: -6px;  /* Ajuste fino horizontal */
+    
+    background-color: #ff3b30; /* Vermelho vibrante (padrão iOS) */
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    
+    height: 16px;
+    min-width: 16px;
+    border-radius: 50%; /* Faz virar uma bolinha perfeita */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    border: 2px solid #ffffff; /* Borda branca para destacar do fundo */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+/* 2. A JANELA MODAL (MURAL) */
+.modal-grande {
+    width: 90%;
+    max-width: 600px; /* Não deixa ficar gigante no PC */
+    max-height: 85vh; /* Ocupa até 85% da altura da tela */
+    overflow-y: auto; /* Cria barra de rolagem se tiver muita mensagem */
+    border-radius: 12px;
+    padding: 0; /* Remove padding padrão para caber o cabeçalho */
+}
+
+/* Cabeçalho fixo do modal */
+.modal-header {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+}
+
+/* Botão X de fechar */
+.close-button {
+    font-size: 28px;
+    color: #aaa;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+/* Área de conteúdo (Lista) */
+.lista-msg-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 200px;
+}
+
+/* 3. OS CARTÕES DE MENSAGEM (CARDS) */
+.card-mensagem {
+    background-color: #ffffff;
+    border-left: 5px solid #4CAF50; /* Tarja Verde lateral */
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* Sombra suave */
+    transition: transform 0.2s;
+	position: relative; /* Necessário para posicionar o botão X */
+}
+
+/* Botão de Excluir Mensagem */
+.btn-excluir-msg {
+    display: none; 
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    color: #d32f2f;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background 0.2s;
+    z-index: 2;
+}
+
+.btn-excluir-msg:hover {
+    background-color: #ffebee;
+    color: #b71c1c;
+}
+
+.modo-admin-ativo .btn-excluir-msg {
+    display: block !important;
+}
+
+.card-mensagem:active {
+    transform: scale(0.98); /* Efeito de clique sutil */
+}
+
+.card-mensagem h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    color: #222;
+    font-weight: 600;
+}
+
+.card-mensagem p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    white-space: pre-wrap; /* Mantém os parágrafos do texto */
+}
+
+.card-info-autor {
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+    font-size: 11px;
+    color: #999;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Ajustes para MODO ESCURO */
+body.dark-mode .modal-header {
+    background-color: #2c2c2e;
+    border-bottom-color: #444;
+}
+body.dark-mode .modal-header h3 { color: #fff; }
+
+body.dark-mode .lista-msg-container {
+    background-color: #1c1c1e;
+}
+
+body.dark-mode .card-mensagem {
+    background-color: #333;
+    border-left-color: #66bb6a; /* Verde mais claro */
+}
+body.dark-mode .card-mensagem h3 { color: #fff; }
+body.dark-mode .card-mensagem p { color: #ccc; }
+body.dark-mode .card-info-autor { border-top-color: #444; }
+
+/* --- ----------------------------------------*/
+/* --- fim de ESTILO DO SISTEMA DE NOTIFICAÇÕES --- */
+/* --- --------------------------------------- */
+
 </style>
 
 
@@ -5580,13 +5748,24 @@ body.dark-mode .tecla-funcao {
         <span class="header-user" id="header-nome">Olá, Sócio</span>
     </div>
     
-    <button class="header-logout" onclick="confirmarLogout()" title="Sair / Trocar Usuário">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-            <polyline points="16 17 21 12 16 7"></polyline>
-            <line x1="21" y1="12" x2="9" y2="12"></line>
-        </svg>
-    </button>
+    <div class="header-right" style="display: flex; align-items: center;">
+        
+        <div class="notificacao-container" onclick="abrirMuralMensagens()" title="Mural de Avisos" style="display: flex; align-items: center; justify-content: center; margin-right: 8px; cursor: pointer;">
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+				<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+			</svg>
+			<span id="notificacao-badge" class="badge-vermelho" style="display: none;">0</span>
+		</div>
+
+        <button class="header-logout" onclick="confirmarLogout()" title="Sair / Trocar Usuário">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+        </button>
+    </div>
 </header>
 
  <!-- Tela de carregamento -->
@@ -6466,6 +6645,34 @@ body.dark-mode .tecla-funcao {
 </div>
 
 
+<div id="modal-mensagens" class="modal-overlay" style="display: none;">
+    <div class="modal-content modal-grande">
+        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h3 style="margin: 0;">🔔 Mural de Avisos</h3>
+            <span class="close-button" onclick="fecharMuralMensagens()" style="position: static; font-size: 28px; cursor: pointer;">&times;</span>
+        </div>
+
+        <div id="admin-area-mensagens" style="display: none; padding: 15px; background: #f0f8ff; border: 1px solid #cce5ff; border-radius: 8px; margin-bottom: 15px;">
+            <button onclick="mostrarFormularioMensagem()" style="width:100%; background-color: #007bff; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">✍️ Escrever Nova Mensagem</button>
+            
+            <div id="form-nova-mensagem" style="display: none; margin-top: 15px;">
+                <input type="text" id="msg-titulo" placeholder="Título do Aviso" style="width: 100%; margin-bottom: 10px; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px;">
+                <textarea id="msg-texto" rows="4" placeholder="Mensagem..." style="width: 100%; margin-bottom: 10px; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px;"></textarea>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="enviarMensagemFirebase()" style="flex: 1; background-color: #28a745; color: white; padding: 10px; border-radius: 5px;">Enviar</button>
+                    <button onclick="ocultarFormularioMensagem()" style="flex: 1; background-color: #6c757d; color: white; padding: 10px; border-radius: 5px;">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lista-mensagens" class="lista-msg-container">
+            <p style="text-align: center; color: #888;">Carregando avisos...</p>
+        </div>
+    </div>
+</div>
+
+
 
 
 <footer style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #555;">
@@ -6841,7 +7048,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v2.1.3'; // Versão atual do sistema     
+const VersaoSistema = 'v2.1.4'; // Versão atual do sistema     
 const DataVersaoSistema = '12/02/2026';     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
@@ -6922,6 +7129,8 @@ let funcaoAtualizarPlacarDetalhes = null;
 // --- VARIÁVEIS GLOBAIS DE AUTOMAÇÃO ---
 let debounceTimer = null; // O cronômetro do salvamento
 
+
+let totalMensagensAtivas = 0; // Controla a quantidade de avisos para bloquear o clique
 
 // =================================================================
 // === 1. LÓGICA DO PLACAR (Pontos e Games) ===
@@ -21136,8 +21345,243 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
         });
     });
 	
+
+
+// ==================================================
+    // === SISTEMA DE NOTIFICAÇÕES (MURAL DE AVISOS) ===
+    // ==================================================
+
+    const STORAGE_KEY_MSG = 'ultimo_acesso_mensagens';
+
+    document.addEventListener('DOMContentLoaded', function() {
+        iniciarListenerMensagens();
+    });
+
+
+    function iniciarListenerMensagens() {
+        var mensagensRef = database.ref('sistemas/mensagens');
+        
+        mensagensRef.on('value', function(snapshot) {
+            var listaDiv = document.getElementById('lista-mensagens');
+            var badge = document.getElementById('notificacao-badge');
+            
+            if (!listaDiv) return;
+
+            listaDiv.innerHTML = ''; 
+            var htmlMensagens = '';
+            var contadorNaoLidas = 0;
+            
+            var nomeLogado = localStorage.getItem('jogadorLogado') || 'anonimo';
+            var storageKey = 'ultimo_acesso_msg_' + nomeLogado;
+            var ultimoAcesso = localStorage.getItem(storageKey) || 0;
+
+            // Verifica se é Admin (para mostrar o botão X)
+            var isUserAdmin = (typeof isUsuarioAdmin === 'function' && isUsuarioAdmin());
+
+            var mensagensArray = [];
+
+            snapshot.forEach(function(childSnapshot) {
+                var msg = childSnapshot.val();
+                if (msg.ativo) { 
+                    mensagensArray.push(msg);
+                    if (msg.data_envio > ultimoAcesso) {
+                        contadorNaoLidas++;
+                    }
+                }
+            });
+
+            // --- CORREÇÃO AQUI: Removemos o 'window.' ---
+            // Agora atualizamos a variável global correta
+            totalMensagensAtivas = mensagensArray.length; 
+            // ------------------------------------------
+
+            // Ordena: Mais recentes primeiro
+            mensagensArray.sort(function(a, b) {
+                return b.data_envio - a.data_envio;
+            });
+
+            if (mensagensArray.length === 0) {
+                htmlMensagens = '<p style="text-align:center; padding:20px; color:#999;">Nenhum aviso no momento.</p>';
+            } else {
+                mensagensArray.forEach(function(msg) {
+                    var dataObj = new Date(msg.data_envio);
+                    var dataFormatada = dataObj.toLocaleDateString('pt-BR') + ' às ' + dataObj.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+                    var tagNovo = (msg.data_envio > ultimoAcesso) ? '<span style="color:#ff3b30; font-size:11px; font-weight:bold; margin-left:8px;">● NOVO</span>' : '';
+
+                    // Botão Excluir (HTML escondido, revelado via CSS .modo-admin-ativo)
+                    var btnExcluir = '<span class="btn-excluir-msg" onclick="excluirMensagem(\'' + msg.id + '\')" title="Excluir este aviso">&times;</span>';
+
+                    htmlMensagens += 
+                        '<div class="card-mensagem">' +
+                            btnExcluir + 
+                            '<h3>' + msg.titulo + tagNovo + '</h3>' +
+                            '<p>' + msg.texto + '</p>' +
+                            '<div class="card-info-autor">' +
+                                '<span>Por: ' + (msg.autor || 'Administração') + '</span>' +
+                                '<span>' + dataFormatada + '</span>' +
+                            '</div>' +
+                        '</div>';
+                });
+            }
+
+            listaDiv.innerHTML = htmlMensagens;
+
+            if (contadorNaoLidas > 0) {
+                badge.style.display = 'flex';
+                badge.textContent = contadorNaoLidas > 9 ? '9+' : contadorNaoLidas;
+                badge.style.transform = 'scale(1.2)';
+                setTimeout(function(){ badge.style.transform = 'scale(1)'; }, 200);
+            } else {
+                badge.style.display = 'none';
+            }
+        });
+    }
+	
+	
+    // --- ABRIR E FECHAR MURAL ---
+    window.abrirMuralMensagens = function() {
+        var modal = document.getElementById('modal-mensagens');
+        var areaAdmin = document.getElementById('admin-area-mensagens');
+        var listaDiv = document.getElementById('lista-mensagens'); // <--- NOVO
+        
+        var isUserAdmin = (typeof isUsuarioAdmin === 'function' && isUsuarioAdmin());
+
+        if (!isUserAdmin && totalMensagensAtivas === 0) {
+            mostrarNotificacao("Sem notificações ou avisos....", 'warning');
+            return; 
+        }
+
+        if (!modal) {
+            console.error("Erro: Modal não encontrado.");
+            return;
+        }
+        
+        modal.style.display = 'flex';
+        
+        // --- CORREÇÃO DO PROBLEMA DO (X) ---
+        if (isUserAdmin) {
+            if (areaAdmin) areaAdmin.style.display = 'block';
+            // Adiciona a classe que torna os botões (x) visíveis via CSS
+            if (listaDiv) listaDiv.classList.add('modo-admin-ativo');
+        } else {
+            if (areaAdmin) areaAdmin.style.display = 'none';
+            // Remove a classe para usuários comuns
+            if (listaDiv) listaDiv.classList.remove('modo-admin-ativo');
+        }
+        // -----------------------------------
+
+        var nomeLogado = localStorage.getItem('jogadorLogado') || 'anonimo';
+        var storageKey = 'ultimo_acesso_msg_' + nomeLogado;
+        localStorage.setItem(storageKey, Date.now());
+        
+        var badge = document.getElementById('notificacao-badge');
+        if (badge) badge.style.display = 'none';
+    };
+	
+	
 	
 
+    window.fecharMuralMensagens = function() {
+        document.getElementById('modal-mensagens').style.display = 'none';
+        window.ocultarFormularioMensagem();
+    };
+
+    // --- FUNÇÕES DE ESCRITA (ADMIN) ---
+
+    window.mostrarFormularioMensagem = function() {
+        document.getElementById('form-nova-mensagem').style.display = 'block';
+        document.getElementById('msg-titulo').focus();
+    };
+
+    window.ocultarFormularioMensagem = function() {
+        document.getElementById('form-nova-mensagem').style.display = 'none';
+        document.getElementById('msg-titulo').value = '';
+        document.getElementById('msg-texto').value = '';
+    };
+
+    window.enviarMensagemFirebase = function() {
+        var titulo = document.getElementById('msg-titulo').value.trim();
+        var texto = document.getElementById('msg-texto').value.trim();
+        
+        // 1. Validação
+        if (!titulo || !texto) {
+            mostrarNotificacao("Preencha título e mensagem antes de enviar!", 'warning');
+            return;
+        }
+
+        // 2. Define a ação de envio
+        var acaoEnviar = function() {
+            var nomeLogado = localStorage.getItem('jogadorLogado') || "Admin";
+            var nomeAutor = nomeLogado + " (Admin)";
+
+            var novaMsgRef = database.ref('sistemas/mensagens').push();
+            novaMsgRef.set({
+                id: novaMsgRef.key,
+                titulo: titulo,
+                texto: texto,
+                autor: nomeAutor,
+                data_envio: firebase.database.ServerValue.TIMESTAMP,
+                ativo: true
+            }, function(error) {
+                if (error) {
+                    mostrarNotificacao("Erro ao enviar: " + error.message, 'error');
+                } else {
+                    mostrarNotificacao("Mensagem enviada com sucesso!", 'success');
+                    window.ocultarFormularioMensagem();
+                }
+            });
+        };
+
+        // 3. Chama seu MODAL NATIVO
+        mostrarConfirmacao(
+            "Confirma o envio desta mensagem para <b>TODOS</b> os usuários?", 
+            acaoEnviar, 
+            null, 
+            'primary'
+        );
+
+        // --- CORREÇÃO DO PROBLEMA DE TELA PRETA (Z-INDEX) ---
+        // Força a janela de confirmação a ficar na frente do Mural de Avisos
+        setTimeout(function() {
+            var modalConf = document.getElementById('modalConfirmacaoOverlay');
+            if(modalConf) {
+                modalConf.style.zIndex = "99999"; // Máxima prioridade visual
+            }
+        }, 50);
+    };
+	
+	
+    // --- FUNÇÃO PARA EXCLUIR MENSAGEM (ADMIN) ---
+    window.excluirMensagem = function(idMensagem) {
+        // Define a ação de exclusão
+        var acaoExcluir = function() {
+            // Remove do Firebase (apaga permanentemente)
+            database.ref('sistemas/mensagens/' + idMensagem).remove()
+            .then(function() {
+                mostrarNotificacao("Mensagem excluída com sucesso!", 'success');
+            })
+            .catch(function(error) {
+                mostrarNotificacao("Erro ao excluir: " + error.message, 'error');
+            });
+        };
+
+        // Chama o Modal de Confirmação Nativo
+        mostrarConfirmacao(
+            "Tem certeza que deseja <b>EXCLUIR</b> este aviso permanentemente?",
+            acaoExcluir,
+            null, // Nenhuma ação ao cancelar
+            'danger' // Cor vermelha para indicar perigo
+        );
+
+        // Ajuste de Z-Index para o modal ficar sobre o mural
+        setTimeout(function() {
+            var modalConf = document.getElementById('modalConfirmacaoOverlay');
+            if(modalConf) modalConf.style.zIndex = "99999";
+        }, 50);
+    };
+	
+	
+	
 </script>
 
 <div id="versao-desatualizada-overlay">
