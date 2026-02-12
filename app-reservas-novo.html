@@ -7048,7 +7048,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v2.1.4'; // Versão atual do sistema     
+const VersaoSistema = 'v2.1.5'; // Versão atual do sistema     
 const DataVersaoSistema = '12/02/2026';     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
@@ -7131,6 +7131,8 @@ let debounceTimer = null; // O cronômetro do salvamento
 
 
 let totalMensagensAtivas = 0; // Controla a quantidade de avisos para bloquear o clique
+
+let ultimoSnapshotMsg = null; // Guarda os dados do Firebase na memória
 
 // =================================================================
 // === 1. LÓGICA DO PLACAR (Pontos e Games) ===
@@ -21351,139 +21353,79 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
     // === SISTEMA DE NOTIFICAÇÕES (MURAL DE AVISOS) ===
     // ==================================================
 
-    const STORAGE_KEY_MSG = 'ultimo_acesso_mensagens';
+    // OBS: As variáveis globais 'ultimoSnapshotMsg' e 'totalMensagensAtivas' 
+    // já foram criadas no topo do arquivo. Aqui apenas as usamos.
 
-    document.addEventListener('DOMContentLoaded', function() {
-        iniciarListenerMensagens();
+    // Espera a janela carregar TUDO (imagens, scripts) e espera mais 1 segundo
+    // Isso garante que a tela "Carregando..." já sumiu antes de tentar buscar mensagens
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            iniciarListenerMensagens();
+        }, 1500); // 1.5 segundos de atraso proposital
     });
-
 
     function iniciarListenerMensagens() {
         var mensagensRef = database.ref('sistemas/mensagens');
         
         mensagensRef.on('value', function(snapshot) {
-            var listaDiv = document.getElementById('lista-mensagens');
-            var badge = document.getElementById('notificacao-badge');
-            
-            if (!listaDiv) return;
-
-            listaDiv.innerHTML = ''; 
-            var htmlMensagens = '';
-            var contadorNaoLidas = 0;
-            
-            var nomeLogado = localStorage.getItem('jogadorLogado') || 'anonimo';
-            var storageKey = 'ultimo_acesso_msg_' + nomeLogado;
-            var ultimoAcesso = localStorage.getItem(storageKey) || 0;
-
-            // Verifica se é Admin (para mostrar o botão X)
-            var isUserAdmin = (typeof isUsuarioAdmin === 'function' && isUsuarioAdmin());
-
-            var mensagensArray = [];
-
-            snapshot.forEach(function(childSnapshot) {
-                var msg = childSnapshot.val();
-                if (msg.ativo) { 
-                    mensagensArray.push(msg);
-                    if (msg.data_envio > ultimoAcesso) {
-                        contadorNaoLidas++;
-                    }
-                }
-            });
-
-            // --- CORREÇÃO AQUI: Removemos o 'window.' ---
-            // Agora atualizamos a variável global correta
-            totalMensagensAtivas = mensagensArray.length; 
-            // ------------------------------------------
-
-            // Ordena: Mais recentes primeiro
-            mensagensArray.sort(function(a, b) {
-                return b.data_envio - a.data_envio;
-            });
-
-            if (mensagensArray.length === 0) {
-                htmlMensagens = '<p style="text-align:center; padding:20px; color:#999;">Nenhum aviso no momento.</p>';
-            } else {
-                mensagensArray.forEach(function(msg) {
-                    var dataObj = new Date(msg.data_envio);
-                    var dataFormatada = dataObj.toLocaleDateString('pt-BR') + ' às ' + dataObj.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
-                    var tagNovo = (msg.data_envio > ultimoAcesso) ? '<span style="color:#ff3b30; font-size:11px; font-weight:bold; margin-left:8px;">● NOVO</span>' : '';
-
-                    // Botão Excluir (HTML escondido, revelado via CSS .modo-admin-ativo)
-                    var btnExcluir = '<span class="btn-excluir-msg" onclick="excluirMensagem(\'' + msg.id + '\')" title="Excluir este aviso">&times;</span>';
-
-                    htmlMensagens += 
-                        '<div class="card-mensagem">' +
-                            btnExcluir + 
-                            '<h3>' + msg.titulo + tagNovo + '</h3>' +
-                            '<p>' + msg.texto + '</p>' +
-                            '<div class="card-info-autor">' +
-                                '<span>Por: ' + (msg.autor || 'Administração') + '</span>' +
-                                '<span>' + dataFormatada + '</span>' +
-                            '</div>' +
-                        '</div>';
-                });
-            }
-
-            listaDiv.innerHTML = htmlMensagens;
-
-            if (contadorNaoLidas > 0) {
-                badge.style.display = 'flex';
-                badge.textContent = contadorNaoLidas > 9 ? '9+' : contadorNaoLidas;
-                badge.style.transform = 'scale(1.2)';
-                setTimeout(function(){ badge.style.transform = 'scale(1)'; }, 200);
-            } else {
-                badge.style.display = 'none';
-            }
+            // Salva os dados na variável global (criada no topo) e desenha a tela
+            ultimoSnapshotMsg = snapshot;
+            renderizarListaMensagens();
         });
     }
-	
-	
-    // --- ABRIR E FECHAR MURAL ---
+
+    // --- ABRIR MURAL ---
     window.abrirMuralMensagens = function() {
         var modal = document.getElementById('modal-mensagens');
         var areaAdmin = document.getElementById('admin-area-mensagens');
-        var listaDiv = document.getElementById('lista-mensagens'); // <--- NOVO
+        var listaDiv = document.getElementById('lista-mensagens');
         
         var isUserAdmin = (typeof isUsuarioAdmin === 'function' && isUsuarioAdmin());
 
+        // Trava: se não é admin e não tem msg, não abre
         if (!isUserAdmin && totalMensagensAtivas === 0) {
-            mostrarNotificacao("Sem notificações ou avisos....", 'warning');
+            mostrarNotificacao("⚠️ Não há novas notificações ou avisos no momento.", 'warning');
             return; 
         }
 
-        if (!modal) {
-            console.error("Erro: Modal não encontrado.");
-            return;
-        }
+        if (!modal) return;
         
         modal.style.display = 'flex';
         
-        // --- CORREÇÃO DO PROBLEMA DO (X) ---
+        // Ajustes de Admin (botões de excluir)
         if (isUserAdmin) {
             if (areaAdmin) areaAdmin.style.display = 'block';
-            // Adiciona a classe que torna os botões (x) visíveis via CSS
             if (listaDiv) listaDiv.classList.add('modo-admin-ativo');
         } else {
             if (areaAdmin) areaAdmin.style.display = 'none';
-            // Remove a classe para usuários comuns
             if (listaDiv) listaDiv.classList.remove('modo-admin-ativo');
         }
-        // -----------------------------------
 
+        // --- LÓGICA DO VISUAL "NOVO" ---
+        // 1. Escondemos o BADGE (bolinha vermelha) para limpar a tela inicial.
+        var badge = document.getElementById('notificacao-badge');
+        if (badge) badge.style.display = 'none';
+
+        // 2. NÃO salvamos a data no localStorage ainda!
+        // Assim, a função renderizarListaMensagens() continua achando que é "novo" 
+        // e mantém a tag vermelha enquanto você lê.
+        renderizarListaMensagens();
+    };
+
+    // --- FECHAR MURAL ---
+    window.fecharMuralMensagens = function() {
+        document.getElementById('modal-mensagens').style.display = 'none';
+        window.ocultarFormularioMensagem();
+
+        // --- AGORA SIM: SALVAMOS A LEITURA ---
+        // Quando o usuário fecha a janela, entendemos que ele terminou de ler.
+        // Gravamos a hora atual. Na próxima vez que ele abrir, o (NOVO) terá sumido.
         var nomeLogado = localStorage.getItem('jogadorLogado') || 'anonimo';
         var storageKey = 'ultimo_acesso_msg_' + nomeLogado;
         localStorage.setItem(storageKey, Date.now());
         
-        var badge = document.getElementById('notificacao-badge');
-        if (badge) badge.style.display = 'none';
-    };
-	
-	
-	
-
-    window.fecharMuralMensagens = function() {
-        document.getElementById('modal-mensagens').style.display = 'none';
-        window.ocultarFormularioMensagem();
+        // Atualiza a lista em background para limpar o status para a próxima vez
+        renderizarListaMensagens();
     };
 
     // --- FUNÇÕES DE ESCRITA (ADMIN) ---
@@ -21503,13 +21445,11 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
         var titulo = document.getElementById('msg-titulo').value.trim();
         var texto = document.getElementById('msg-texto').value.trim();
         
-        // 1. Validação
         if (!titulo || !texto) {
             mostrarNotificacao("Preencha título e mensagem antes de enviar!", 'warning');
             return;
         }
 
-        // 2. Define a ação de envio
         var acaoEnviar = function() {
             var nomeLogado = localStorage.getItem('jogadorLogado') || "Admin";
             var nomeAutor = nomeLogado + " (Admin)";
@@ -21532,7 +21472,6 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
             });
         };
 
-        // 3. Chama seu MODAL NATIVO
         mostrarConfirmacao(
             "Confirma o envio desta mensagem para <b>TODOS</b> os usuários?", 
             acaoEnviar, 
@@ -21540,22 +21479,15 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
             'primary'
         );
 
-        // --- CORREÇÃO DO PROBLEMA DE TELA PRETA (Z-INDEX) ---
-        // Força a janela de confirmação a ficar na frente do Mural de Avisos
         setTimeout(function() {
             var modalConf = document.getElementById('modalConfirmacaoOverlay');
-            if(modalConf) {
-                modalConf.style.zIndex = "99999"; // Máxima prioridade visual
-            }
+            if(modalConf) modalConf.style.zIndex = "99999";
         }, 50);
     };
-	
-	
+    
     // --- FUNÇÃO PARA EXCLUIR MENSAGEM (ADMIN) ---
     window.excluirMensagem = function(idMensagem) {
-        // Define a ação de exclusão
         var acaoExcluir = function() {
-            // Remove do Firebase (apaga permanentemente)
             database.ref('sistemas/mensagens/' + idMensagem).remove()
             .then(function() {
                 mostrarNotificacao("Mensagem excluída com sucesso!", 'success');
@@ -21565,21 +21497,92 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
             });
         };
 
-        // Chama o Modal de Confirmação Nativo
         mostrarConfirmacao(
             "Tem certeza que deseja <b>EXCLUIR</b> este aviso permanentemente?",
             acaoExcluir,
-            null, // Nenhuma ação ao cancelar
-            'danger' // Cor vermelha para indicar perigo
+            null, 
+            'danger'
         );
 
-        // Ajuste de Z-Index para o modal ficar sobre o mural
         setTimeout(function() {
             var modalConf = document.getElementById('modalConfirmacaoOverlay');
             if(modalConf) modalConf.style.zIndex = "99999";
         }, 50);
     };
-	
+
+    // --- FUNÇÃO QUE DESENHA A LISTA NA TELA ---
+    window.renderizarListaMensagens = function() {
+        if (!ultimoSnapshotMsg) return;
+
+        var listaDiv = document.getElementById('lista-mensagens');
+        var badge = document.getElementById('notificacao-badge');
+        
+        if (!listaDiv) return;
+
+        listaDiv.innerHTML = ''; 
+        var htmlMensagens = '';
+        var contadorNaoLidas = 0;
+        
+        // Pega data do último acesso (Que agora só atualiza no FECHAR)
+        var nomeLogado = localStorage.getItem('jogadorLogado') || 'anonimo';
+        var storageKey = 'ultimo_acesso_msg_' + nomeLogado;
+        var ultimoAcesso = localStorage.getItem(storageKey) || 0;
+
+        var mensagensArray = [];
+
+        ultimoSnapshotMsg.forEach(function(childSnapshot) {
+            var msg = childSnapshot.val();
+            if (msg.ativo) { 
+                mensagensArray.push(msg);
+                if (msg.data_envio > ultimoAcesso) {
+                    contadorNaoLidas++;
+                }
+            }
+        });
+
+        // Atualiza a variável GLOBAL que está no topo do arquivo
+        totalMensagensAtivas = mensagensArray.length;
+
+        mensagensArray.sort(function(a, b) {
+            return b.data_envio - a.data_envio;
+        });
+
+        if (mensagensArray.length === 0) {
+            htmlMensagens = '<p style="text-align:center; padding:20px; color:#999;">Nenhum aviso no momento.</p>';
+        } else {
+            mensagensArray.forEach(function(msg) {
+                var dataObj = new Date(msg.data_envio);
+                var dataFormatada = dataObj.toLocaleDateString('pt-BR') + ' às ' + dataObj.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+                
+                // Enquanto a janela está aberta, o ultimoAcesso é antigo, então mostra o NOVO
+                var tagNovo = (msg.data_envio > ultimoAcesso) ? '<span style="color:#ff3b30; font-size:11px; font-weight:bold; margin-left:8px;">● NOVO</span>' : '';
+
+                var btnExcluir = '<span class="btn-excluir-msg" onclick="excluirMensagem(\'' + msg.id + '\')" title="Excluir este aviso">&times;</span>';
+
+                htmlMensagens += 
+                    '<div class="card-mensagem">' +
+                        btnExcluir + 
+                        '<h3>' + msg.titulo + tagNovo + '</h3>' +
+                        '<p>' + msg.texto + '</p>' +
+                        '<div class="card-info-autor">' +
+                            '<span>Por: ' + (msg.autor || 'Administração') + '</span>' +
+                            '<span>' + dataFormatada + '</span>' +
+                        '</div>' +
+                    '</div>';
+            });
+        }
+
+        listaDiv.innerHTML = htmlMensagens;
+
+        if (contadorNaoLidas > 0) {
+            badge.style.display = 'flex';
+            badge.textContent = contadorNaoLidas > 9 ? '9+' : contadorNaoLidas;
+            badge.style.transform = 'scale(1.2)';
+            setTimeout(function(){ badge.style.transform = 'scale(1)'; }, 200);
+        } else {
+            badge.style.display = 'none';
+        }
+    };
 	
 	
 </script>
