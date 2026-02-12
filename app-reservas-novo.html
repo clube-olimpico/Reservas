@@ -1100,12 +1100,19 @@ body.dark-mode #loginHeader h3 {
     text-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Adiciona um brilho sutil azul */
 }
 
+
 /* Garante que os campos de input e select tenham o estilo escuro correto */
+/* O !important é necessário para vencer o style="..." do HTML */
 body.dark-mode #loginScreen #jogadorSelect,
 body.dark-mode #loginScreen #acesso_user {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #555;
+    background-color: #333 !important;
+    color: #fff !important;
+    border: 1px solid #555 !important;
+}
+
+/* Garante que o placeholder (texto de ajuda) fique legível no escuro */
+body.dark-mode #acesso_user::placeholder {
+    color: #bbb !important;
 }
 
 body.dark-mode h1,
@@ -5416,6 +5423,144 @@ body.dark-mode .header-logout svg {
 /* FIM DE --- CONTROLE DE EXIBIÇÃO DE NOME (PC vs CELULAR) --- */
 
 
+/* --- TECLADO ESTILO GAVETA (NATIVO) --- */
+/* --- TECLADO VIRTUAL ESTILO NATIVO (IOS/ANDROID) --- */
+.teclado-gaveta {
+    position: fixed;
+    bottom: -100%; /* Começa escondido */
+    left: 0;
+    width: 100%;
+    
+    /* COR DE FUNDO EXATA DO TECLADO DO IPHONE/SAMSUNG */
+    background-color: #d1d5db; 
+    
+    z-index: 9999;
+    transition: bottom 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Slide rápido */
+    padding-bottom: 20px; /* Espaço para a barra de gesto do celular */
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}
+
+.teclado-gaveta.aberto {
+    bottom: 0;
+}
+
+/* Barra superior (Concluído) */
+.teclado-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f2f5; 
+    padding: 10px 15px;
+    border-bottom: 1px solid #c8cdd1;
+    height: 25px;
+}
+
+.teclado-botao-concluir {
+    font-size: 17px;
+    font-weight: 600;
+    color: #007aff; /* Azul nativo do iOS/Android */
+    cursor: pointer;
+}
+
+/* Container das Teclas */
+.teclado-grid {
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px; 
+}
+
+.teclado-linha {
+    display: flex;
+    justify-content: center;
+    gap: 6px; 
+    width: 100%;
+}
+
+/* A TECLA EM SI (O visual importante - BLINDADO CONTRA VERDE) */
+.tecla {
+    flex: 1; 
+    height: 48px; 
+    
+    /* VISUAL BRANCO COM SOMBRA SUTIL + BLINDAGEM (!important) */
+    background-color: #ffffff !important;
+    border: none !important;
+    border-radius: 5px; 
+    box-shadow: 0 1px 0 #888888 !important;
+    
+    /* TEXTO */
+    color: #000 !important;
+    font-size: 25px;
+    font-weight: 400;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    
+    /* REMOVE ESTILOS PADRÃO */
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none !important; /* Remove borda azul/verde de foco */
+}
+
+/* Efeito ao tocar na tecla (ficar cinza escuro, NÃO VERDE) */
+.tecla:active {
+    background-color: #d1d1d6 !important; /* Cinza clássico de toque */
+    transform: translateY(1px); 
+    box-shadow: none !important;
+}
+
+/* Botões de Função (C e Backspace) - Cinza mais escuro */
+.tecla-funcao {
+    background-color: #acb3bc !important; 
+    color: #000 !important;
+    box-shadow: 0 1px 0 #6e7275 !important;
+}
+
+.tecla-funcao:active {
+    background-color: #ffffff !important; /* Inverte a cor ao clicar */
+    transform: translateY(1px);
+}
+
+/* Ajuste do ícone SVG do Backspace */
+.tecla svg {
+    pointer-events: none;
+}
+
+/* MODO ESCURO (Se o usuário ativar) */
+body.dark-mode .teclado-gaveta {
+    background-color: #1c1c1e; 
+    border-top-color: #333;
+}
+body.dark-mode .teclado-header {
+    background-color: #252525;
+    border-bottom: 1px solid #111;
+}
+body.dark-mode .tecla {
+    background-color: #555555 !important; 
+    color: #fff !important;
+    box-shadow: 0 1px 0 #111 !important;
+}
+body.dark-mode .tecla:active {
+    background-color: #777 !important;
+}
+body.dark-mode .tecla-funcao {
+    background-color: #3a3a3a !important; 
+    box-shadow: 0 1px 0 #111 !important;
+}
+/* --- FIM DE TECLADO ESTILO GAVETA (NATIVO) --- */
+
+
+#acesso_user::placeholder {
+    font-size: 16px !important;       /* Fonte menor apenas para o aviso */
+    letter-spacing: normal !important; /* Letras normais, sem espaçamento */
+    font-weight: normal !important;
+    opacity: 0.7;                      /* Um pouco mais suave */
+}
+
+
 </style>
 
 
@@ -5465,18 +5610,49 @@ body.dark-mode .header-logout svg {
             </select>
         </div>
         
-        <div class="acesso-wrapper">
-			<label for="acesso_user" class="label-acesso">Código:</label>
-			<input type="tel" id="acesso_user" name="user_code" placeholder="Data de Nascimento" 
-				   inputmode="numeric" pattern="[0-9]*" maxlength="8" 
-				   autocomplete="off" 
-				   oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-			<button type="button" id="toggleSenha">👁️</button>
+        <div class="acesso-wrapper" style="margin-bottom: 15px;">
+			<label for="acesso_user" class="label-acesso">Senha:</label>
+            <input type="text" id="acesso_user" placeholder="Digite sua senha..." 
+			   maxlength="8" autocomplete="off" readonly
+			   style="text-align: left; padding-left: 15px; font-size: 22px; letter-spacing: 3px; background-color: #f9f9f9; color: #333; cursor: pointer;">            <button type="button" id="toggleSenha">👁️</button>
 		</div>
-        
+		       
         <button onclick="fazerLogin()">Entrar</button>
     </div>
 </div>
+
+
+<div id="teclado-overlay" class="teclado-gaveta">
+    <div class="teclado-header">
+        <div class="teclado-placeholder"></div> <div class="teclado-botao-concluir" onclick="fecharTeclado()">Concluído</div>
+    </div>
+
+    <div class="teclado-grid">
+        <div class="teclado-linha">
+            <button class="tecla" onclick="teclar('1')">1</button>
+            <button class="tecla" onclick="teclar('2')">2</button>
+            <button class="tecla" onclick="teclar('3')">3</button>
+        </div>
+        <div class="teclado-linha">
+            <button class="tecla" onclick="teclar('4')">4</button>
+            <button class="tecla" onclick="teclar('5')">5</button>
+            <button class="tecla" onclick="teclar('6')">6</button>
+        </div>
+        <div class="teclado-linha">
+            <button class="tecla" onclick="teclar('7')">7</button>
+            <button class="tecla" onclick="teclar('8')">8</button>
+            <button class="tecla" onclick="teclar('9')">9</button>
+        </div>
+        <div class="teclado-linha">
+            <button class="tecla tecla-funcao" onclick="limparSenha()">C</button>
+            <button class="tecla" onclick="teclar('0')">0</button>
+            <button class="tecla tecla-funcao" onclick="apagarUltimo()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
 
 <!-- Conteúdo Principal -->
 <div id="mainContent" style="display: none; text-align: center;">
@@ -6660,7 +6836,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v2.1.1'; // Versão atual do sistema     
+const VersaoSistema = 'v2.1.2'; // Versão atual do sistema     
 const DataVersaoSistema = '12/02/2026';     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
@@ -20749,37 +20925,201 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
             btnCancelar.onclick = function() { modal.style.display = "none"; };
         }
 		
-		// --- LÓGICA DE LOGIN: MODO COMPACTO PARA CELULAR ---
+				
+    }); 
 
-    var campoSenha = document.getElementById('acesso_user');
-    var telaLogin = document.getElementById('loginScreen');
-    var headerContainer = document.getElementById('loginHeader');
-	
-    
-    if (campoSenha && telaLogin && headerContainer) {
-	    // Limpeza inicial: Remove qualquer tentativa do Android de preencher senhas
-        // Isso ajuda a remover os ícones de chave/cartão
-        campoSenha.setAttribute('autocomplete', 'off');
+
+
+// ==================================================
+    // === LÓGICA DO TECLADO VIRTUAL (SOLUÇÃO DEFINITIVA) ===
+    // ==================================================
+
+    // Adiciona número ao visor
+    window.teclar = function(numero) {
+        var campo = document.getElementById('acesso_user');
+        if (!campo) return;
         
-        // 1. AO DIGITAR (Teclado Abre)
-        campoSenha.addEventListener('focus', function() {
-            if (window.innerWidth < 768) {
-                // Esconde o cabeçalho para a janela ficar pequena
-                headerContainer.style.display = 'none';
+        // Limite de 8 dígitos (data de nascimento)
+        if (campo.value.length < 8) {
+            campo.value += numero;
+        }
+    };
 
-                // --- AQUI VOCÊ AJUSTA A ALTURA ---
-                // Mude '40%' para subir ou descer.
-                // 30% = Mais para o topo
-                // 40% = Um pouco acima do meio
-                // 50% = No meio exato
-                telaLogin.style.top = '30%'; 
+    // Apaga o último número (Backspace)
+    window.apagarUltimo = function() {
+        var campo = document.getElementById('acesso_user');
+        if (!campo) return;
+        
+        campo.value = campo.value.slice(0, -1);
+    };
+
+    // Limpa tudo (C)
+    window.limparSenha = function() {
+        var campo = document.getElementById('acesso_user');
+        if (!campo) return;
+        
+        campo.value = '';
+    };
+    
+    // Pequeno ajuste para o botão "Olho" funcionar com input readonly
+    // --- CORREÇÃO DO BOTÃO OLHO ---
+    // --- LÓGICA DO BOTÃO OLHO (COM DIAGNÓSTICO) ---
+    // --- LÓGICA DO BOTÃO OLHO (CORRIGIDA COM FORÇA BRUTA) ---
+    document.addEventListener('DOMContentLoaded', function() {
+        var toggleBtn = document.getElementById('toggleSenha');
+        var campo = document.getElementById('acesso_user');
+
+        if(toggleBtn && campo) {
+            // Remove listeners antigos
+            var novoBtn = toggleBtn.cloneNode(true);
+            toggleBtn.parentNode.replaceChild(novoBtn, toggleBtn);
+            
+            // Garante estado inicial
+            campo.style.setProperty('-webkit-text-security', 'disc', 'important');
+            
+            novoBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Verifica se está com bolinhas (disc)
+                var estiloAtual = window.getComputedStyle(campo).webkitTextSecurity;
+                var estaOculto = estiloAtual === 'disc' || estiloAtual === 'circle' || estiloAtual === 'square';
+                
+                if (estaOculto) {
+                    // MOSTRAR: Remove as bolinhas com 'important' para vencer o CSS
+                    campo.style.setProperty('-webkit-text-security', 'none', 'important');
+                    novoBtn.textContent = '🙈'; // Ícone aberto
+                } else {
+                    // ESCONDER: Volta as bolinhas
+                    campo.style.setProperty('-webkit-text-security', 'disc', 'important');
+                    novoBtn.textContent = '👁️'; // Ícone fechado
+                }
+            });
+        }
+    });  
+
+
+// ==================================================
+    // === LÓGICA DO TECLADO SLIDE (FINAL + COMPORTAMENTO DA JANELA) ===
+    // ==================================================
+    
+    // 1. Funções de Digitação
+    window.teclar = function(numero) {
+        var campo = document.getElementById('acesso_user');
+        if (campo.value.length < 8) {
+            campo.value += numero;
+            if (navigator.vibrate) navigator.vibrate(10);
+        }
+    };
+    
+    window.apagarUltimo = function() {
+        var campo = document.getElementById('acesso_user');
+        campo.value = campo.value.slice(0, -1);
+    };
+
+    window.limparSenha = function() {
+        var campo = document.getElementById('acesso_user');
+        campo.value = '';
+    };
+
+    // 2. Controle de Abrir/Fechar a Gaveta e Foco Visual
+    window.abrirTeclado = function() {
+        if (window.innerWidth < 768) {
+            // Abre a gaveta
+            document.getElementById('teclado-overlay').classList.add('aberto');
+            
+            var header = document.getElementById('loginHeader');
+            var telaLogin = document.getElementById('loginScreen');
+            var campo = document.getElementById('acesso_user');
+
+            if (header) header.style.display = 'none';
+            
+            // Sua altura preferida de 35%
+            if (telaLogin) telaLogin.style.top = '35%'; 
+
+            // --- LÓGICA DE FOCO E CURSOR ---
+            if (campo) {
+                // 1. Simula o Foco (Borda Azul igual do iPhone/Android)
+                campo.style.borderColor = "#007aff";
+                campo.style.boxShadow = "0 0 0 2px rgba(0,122,255,0.3)";
+                
+                // 2. Garante que o cursor virtual vá para o final do texto
+                // Isso impede que o texto fique "selecionado" (azul) parecendo que vai apagar
+                var tamanhoTexto = campo.value.length;
+                campo.setSelectionRange(tamanhoTexto, tamanhoTexto);
+            }
+        }
+    };
+
+    window.fecharTeclado = function() {
+        document.getElementById('teclado-overlay').classList.remove('aberto');
+        
+        var header = document.getElementById('loginHeader');
+        var telaLogin = document.getElementById('loginScreen');
+        var campo = document.getElementById('acesso_user');
+
+        if (header) header.style.display = 'block';
+        if (telaLogin) telaLogin.style.top = '50%'; 
+        
+        // Remove o foco visual (Borda volta ao normal)
+        if (campo) {
+            campo.style.borderColor = ""; 
+            campo.style.boxShadow = "";
+        }
+    };
+
+    // 3. Configuração de Eventos
+    document.addEventListener('DOMContentLoaded', function() {
+        var campo = document.getElementById('acesso_user');
+        
+        if (campo) {
+            function tentarAbrir(e) {
+                if (window.innerWidth < 768) {
+                    e.preventDefault(); // Impede teclado nativo
+                    campo.blur();       // Tira foco nativo
+                    abrirTeclado();     // Chama nossa função que arruma a tela
+                }
+            }
+
+            campo.addEventListener('click', tentarAbrir);
+            campo.addEventListener('touchstart', tentarAbrir, { passive: false });
+        }
+
+        // Ajuste PC vs Celular
+        function ajustarInput() {
+            if (window.innerWidth >= 768) {
+                 campo.removeAttribute('readonly');
+                 campo.style.pointerEvents = 'auto';
+                 campo.style.cursor = 'text';
+                 // Garante que o header esteja visível no PC
+                 var header = document.getElementById('loginHeader');
+                 if(header) header.style.display = 'block';
+            } else {
+                 campo.setAttribute('readonly', 'readonly');
+                 campo.style.pointerEvents = 'auto';
+                 campo.style.cursor = 'pointer';
+            }
+        }
+        
+        ajustarInput();
+        window.addEventListener('resize', ajustarInput);
+        
+        // Fechar ao clicar fora
+        document.addEventListener('click', function(event) {
+            var teclado = document.getElementById('teclado-overlay');
+            var campoAlvo = document.getElementById('acesso_user');
+            
+            // Se o clique NÃO foi no teclado E NÃO foi no campo de senha
+            if (teclado && campoAlvo && !teclado.contains(event.target) && event.target !== campoAlvo) {
+                // Verifica se o teclado está aberto antes de mandar fechar
+                if (teclado.classList.contains('aberto')) {
+                    fecharTeclado();
+                }
             }
         });
-
-        
-    }	
-    }); 
-    
+    });
+	
+	
 
 </script>
 
