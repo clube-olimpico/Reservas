@@ -5481,6 +5481,11 @@ body.dark-mode .header-logout svg {
 .tecla {
     flex: 1; 
     height: 48px; 
+	
+	/* --- A CORREÇÃO PARA O IPHONE (ZOOM) --- */
+    /* Isso impede o iPhone de tentar dar zoom ao clicar rápido 2x */
+    touch-action: manipulation !important; 
+    /* -------------------------------------- */
     
     /* VISUAL BRANCO COM SOMBRA SUTIL + BLINDAGEM (!important) */
     background-color: #ffffff !important;
