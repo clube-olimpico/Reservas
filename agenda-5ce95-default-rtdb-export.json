@@ -146,6 +146,7 @@
           },
           "niver": "01/01/2001",
           "perfis": {
+            "Admin": true,
             "Professor": true
           },
           "piramide": "38",
@@ -1516,153 +1517,26 @@
       "githubToken": "***SEGREDO_REMOVIDO***",
       "horasParaExpirar": 1
     },
+    "mensagens": {
+      "-OlJKvjsPs0L_ar_iFpA": {
+        "ativo": true,
+        "autor": "ADRIANO GOMES FEITOSA (Admin)",
+        "data_envio": 1770941562051,
+        "id": "-OlJKvjsPs0L_ar_iFpA",
+        "texto": "Nao percam!",
+        "titulo": "Torneio da Amizade"
+      },
+      "-OlJLHNxGb9IGAzuqXaY": {
+        "ativo": true,
+        "autor": "RONALDO TABORDA (Admin)",
+        "data_envio": 1770941654810,
+        "id": "-OlJLHNxGb9IGAzuqXaY",
+        "texto": "Façam suas reservas.",
+        "titulo": "Jantar de confraternização"
+      }
+    },
     "reservas": {
       "Quadra 1 - Coberta": {
-        "2_10": {
-          "borda": "1h",
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 10,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "VANIA TABORDA",
-          "status": "confirmada",
-          "timestamp": 1770726866214,
-          "tipo": "aula_extra"
-        },
-        "2_11": {
-          "borda": "1h",
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 11,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "VANIA TABORDA",
-          "status": "confirmada",
-          "timestamp": 1770726868134,
-          "tipo": "aula_extra"
-        },
-        "2_12": {
-          "borda": "2h",
-          "confirmacoes": {
-            "Adriano Feitosa": true,
-            "Alexandre Camargo": true
-          },
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 12,
-          "jogadores": "Adriano Feitosa",
-          "jogadores_completo": "Adriano Feitosa, Alexandre Camargo",
-          "organizador": "Adriano Feitosa",
-          "status": "confirmada"
-        },
-        "2_13": {
-          "confirmacoes": {
-            "Adriano Feitosa": true,
-            "Alexandre Camargo": true
-          },
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 13,
-          "jogadores": "Alexandre Camargo",
-          "jogadores_completo": "Adriano Feitosa, Alexandre Camargo",
-          "organizador": "Adriano Feitosa",
-          "status": "confirmada"
-        },
-        "2_14": {
-          "borda": "1h",
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 14,
-          "jogadores": "Manutencao",
-          "jogadores_completo": "Manutencao",
-          "organizador": "ERICK CLUBE",
-          "status": "confirmada",
-          "tipo": "manutencao"
-        },
-        "2_15": {
-          "borda": "2h",
-          "confirmacoes": {
-            "Federer": true,
-            "Nadal": true
-          },
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
-          "duracao": 3,
-          "hora": 15,
-          "jogadores": "Nadal",
-          "jogadores_completo": "Nadal, Federer",
-          "organizador": "Nadal",
-          "status": "confirmada"
-        },
-        "2_16": {
-          "confirmacoes": {
-            "Federer": true,
-            "Nadal": true
-          },
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
-          "hora": 16,
-          "jogadores": "Federer",
-          "jogadores_completo": "Nadal, Federer",
-          "organizador": "Nadal",
-          "status": "confirmada"
-        },
-        "2_19": {
-          "dataCancelamento": "2026-02-10T17:09:44.747Z",
-          "dia": 2,
-          "hora": 19,
-          "responsavel": "VANIA TABORDA",
-          "status": "aula_cancelada"
-        },
-        "2_21": {
-          "borda": "2h",
-          "confirmacoes": {
-            "Alessandro Xavier": true,
-            "Erick": true
-          },
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 21,
-          "jogadores": "Erick",
-          "jogadores_completo": "Erick, Alessandro Xavier",
-          "organizador": "Erick",
-          "status": "confirmada"
-        },
-        "2_22": {
-          "confirmacoes": {
-            "Alessandro Xavier": true,
-            "Erick": true
-          },
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 22,
-          "jogadores": "Alessandro Xavier",
-          "jogadores_completo": "Erick, Alessandro Xavier",
-          "organizador": "Erick",
-          "status": "confirmada"
-        },
-        "2_9": {
-          "borda": "1h",
-          "confirmacoes": {
-            "Vania": true
-          },
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 9,
-          "jogadores": "Vania",
-          "jogadores_completo": "Vania",
-          "organizador": "Vania",
-          "status": "confirmada"
-        },
         "3_12": {
           "borda": "1h",
           "dataCompleta": "2026-02-11",
@@ -1712,98 +1586,159 @@
           "organizador": "RONALDO TABORDA",
           "status": "confirmada",
           "tipo": "manutencao"
+        },
+        "4_22": {
+          "borda": "1h",
+          "confirmacoes": {
+            "Adriano Feitosa": true
+          },
+          "dataCompleta": "2026-02-12",
+          "dia": 4,
+          "duracao": 1,
+          "hora": 22,
+          "jogadores": "Adriano Feitosa",
+          "jogadores_completo": "Adriano Feitosa",
+          "organizador": "Adriano Feitosa",
+          "status": "confirmada"
+        },
+        "5_10": {
+          "borda": "2h",
+          "confirmacoes": {
+            "An Alice": true,
+            "Ana Maria Marinho": true
+          },
+          "dataCompleta": "2026-02-13",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 10,
+          "jogadores": "An Alice",
+          "jogadores_completo": "An Alice, Ana Maria Marinho",
+          "organizador": "An Alice",
+          "status": "confirmada"
+        },
+        "5_11": {
+          "confirmacoes": {
+            "An Alice": true,
+            "Ana Maria Marinho": true
+          },
+          "dataCompleta": "2026-02-13",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 11,
+          "jogadores": "Ana Maria Marinho",
+          "jogadores_completo": "An Alice, Ana Maria Marinho",
+          "organizador": "An Alice",
+          "status": "confirmada"
+        },
+        "5_6": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Lucas Titon": true,
+            "Rodrigo Voj": true
+          },
+          "dataCompleta": "2026-02-13",
+          "dia": 5,
+          "duracao": 3,
+          "hora": 6,
+          "jogadores": "Lucas Titon",
+          "jogadores_completo": "Lucas Titon, Rodrigo Voj",
+          "organizador": "Adriano Feitosa",
+          "status": "confirmada"
+        },
+        "5_7": {
+          "confirmacoes": {
+            "Lucas Titon": true,
+            "Rodrigo Voj": true
+          },
+          "dataCompleta": "2026-02-13",
+          "dia": 5,
+          "hora": 7,
+          "jogadores": "Rodrigo Voj",
+          "jogadores_completo": "Lucas Titon, Rodrigo Voj",
+          "organizador": "Adriano Feitosa",
+          "status": "confirmada"
+        },
+        "5_8": {
+          "borda": "1h",
+          "dataCompleta": "2026-02-13",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "Aula",
+          "jogadores_completo": "Aula",
+          "organizador": "ADRIANO GOMES FEITOSA",
+          "status": "confirmada",
+          "timestamp": 1770941504389,
+          "tipo": "aula_extra"
+        },
+        "5_9": {
+          "borda": "1h",
+          "dataCompleta": "2026-02-13",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 9,
+          "jogadores": "Manutencao",
+          "jogadores_completo": "Manutencao",
+          "organizador": "ADRIANO GOMES FEITOSA",
+          "status": "confirmada",
+          "tipo": "manutencao"
         }
       },
       "Quadra 2 - Aberta": {
-        "2_10": {
+        "4_21": {
           "borda": "1h",
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
+          "dataCompleta": "2026-02-12",
+          "dia": 4,
           "duracao": 1,
-          "hora": 10,
+          "hora": 21,
           "jogadores": "Aula",
           "jogadores_completo": "Aula",
           "organizador": "ADRIANO GOMES FEITOSA",
           "status": "confirmada",
-          "timestamp": 1770726959859,
+          "timestamp": 1770941523084,
           "tipo": "aula_extra"
         },
-        "2_11": {
+        "4_22": {
           "borda": "1h",
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
+          "dataCompleta": "2026-02-12",
+          "dia": 4,
           "duracao": 1,
-          "hora": 11,
+          "hora": 22,
           "jogadores": "Aula",
           "jogadores_completo": "Aula",
           "organizador": "ADRIANO GOMES FEITOSA",
           "status": "confirmada",
-          "timestamp": 1770726961055,
-          "tipo": "aula_extra"
-        },
-        "2_12": {
-          "borda": "1h",
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 12,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "ADRIANO GOMES FEITOSA",
-          "status": "confirmada",
-          "timestamp": 1770726962661,
-          "tipo": "aula_extra"
-        },
-        "2_9": {
-          "borda": "1h",
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
-          "duracao": 1,
-          "hora": 9,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "ADRIANO GOMES FEITOSA",
-          "status": "confirmada",
-          "timestamp": 1770726958563,
+          "timestamp": 1770941525596,
           "tipo": "aula_extra"
         }
       },
       "Quadra 3 - Coberta": {
-        "2_12": {
-          "borda": "2h",
-          "confirmacoes": {
-            "An Alice": true,
-            "Ana Francisca": true,
-            "Ana Julia": true,
-            "Ana Maria Marinho": true
-          },
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 12,
-          "jogadores": "Ana Julia, An Alice",
-          "jogadores_completo": "Ana Julia, Ana Francisca, An Alice, Ana Maria Marinho",
-          "organizador": "Ana Julia",
-          "status": "confirmada"
+        "4_21": {
+          "borda": "1h",
+          "dataCompleta": "2026-02-12",
+          "dia": 4,
+          "duracao": 1,
+          "hora": 21,
+          "jogadores": "Manutencao",
+          "jogadores_completo": "Manutencao",
+          "organizador": "ADRIANO GOMES FEITOSA",
+          "status": "confirmada",
+          "tipo": "manutencao"
         },
-        "2_13": {
-          "confirmacoes": {
-            "An Alice": true,
-            "Ana Francisca": true,
-            "Ana Julia": true,
-            "Ana Maria Marinho": true
-          },
-          "dataCompleta": "2026-02-10",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 13,
-          "jogadores": "Ana Francisca, Ana Maria Marinho",
-          "jogadores_completo": "Ana Julia, Ana Francisca, An Alice, Ana Maria Marinho",
-          "organizador": "Ana Julia",
-          "status": "confirmada"
+        "4_22": {
+          "borda": "1h",
+          "dataCompleta": "2026-02-12",
+          "dia": 4,
+          "duracao": 1,
+          "hora": 22,
+          "jogadores": "Manutencao",
+          "jogadores_completo": "Manutencao",
+          "organizador": "ADRIANO GOMES FEITOSA",
+          "status": "confirmada",
+          "tipo": "manutencao"
         }
       }
     },
-    "version": "v2.1.1"
+    "version": "v2.1.5"
   }
 }
