@@ -1203,6 +1203,8 @@
               "2_21": true,
               "3_10": true,
               "3_11": true,
+              "3_12": true,
+              "3_13": true,
               "3_14": true,
               "3_15": true,
               "3_16": true,
@@ -1246,7 +1248,9 @@
           "Quadra2": {
             "Ativo": true,
             "Grade": {
-              "3_6": true
+              "3_7": true,
+              "3_8": true,
+              "3_9": true
             },
             "Professor": "Adriano feitosa"
           },
@@ -1376,6 +1380,29 @@
             "fim": "2026-01-11",
             "inicio": "2025-12-22",
             "titulo": "Recesso de Natal e Ano Novo"
+          },
+          "especial_1771033636818": {
+            "ativo": false,
+            "dias": {
+              "2026-02-16": {
+                "abertura": "08:00",
+                "fechamento": "11:00",
+                "status": "aberto"
+              },
+              "2026-02-17": {
+                "abertura": "08:00",
+                "fechamento": "12:00",
+                "status": "aberto"
+              },
+              "2026-02-18": {
+                "abertura": "08:00",
+                "fechamento": "12:00",
+                "status": "aberto"
+              }
+            },
+            "fim": "2026-02-18",
+            "inicio": "2026-02-16",
+            "titulo": "teste"
           }
         },
         "Padrao": [
@@ -1412,11 +1439,12 @@
           },
           {
             "abertura": "08:00",
-            "fechamento": "17:00",
+            "fechamento": "15:00",
             "status": "aberto"
           }
         ]
       },
+      "LimpezaMural": 3,
       "OrganizadorEdicao": true,
       "OtimizacaoHorarios": {
         "ativa": true,
@@ -1452,7 +1480,7 @@
           "cor": "#406687",
           "descricao": "Criado via Configurações",
           "permissoes": {
-            "acesso_config": false,
+            "acesso_config": true,
             "controle_quadras": false,
             "gerir_reservas": false,
             "gestao_jogadores": false,
@@ -1508,6 +1536,7 @@
         "fim": "01-12-2026",
         "inicio": "01-01-2026"
       },
+      "Professor": "Admin",
       "Quadras": {
         "Quadra1": "liberada",
         "Quadra2": "liberada",
@@ -1515,7 +1544,7 @@
       },
       "ReservasPorConfirmacao": true,
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "horasParaExpirar": 1
+      "horasParaExpirar": 3
     },
     "mensagens": {
       "-OlJKvjsPs0L_ar_iFpA": {
@@ -1537,70 +1566,6 @@
     },
     "reservas": {
       "Quadra 1 - Coberta": {
-        "3_12": {
-          "borda": "1h",
-          "dataCompleta": "2026-02-11",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 12,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "VANIA TABORDA",
-          "status": "confirmada",
-          "timestamp": 1770685132373,
-          "tipo": "aula_extra"
-        },
-        "3_13": {
-          "borda": "1h",
-          "dataCompleta": "2026-02-11",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 13,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "VANIA TABORDA",
-          "status": "confirmada",
-          "timestamp": 1770685133629,
-          "tipo": "aula_extra"
-        },
-        "4_12": {
-          "borda": "1h",
-          "dataCompleta": "2026-02-12",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 12,
-          "jogadores": "Manutencao",
-          "jogadores_completo": "Manutencao",
-          "organizador": "RONALDO TABORDA",
-          "status": "confirmada",
-          "tipo": "manutencao"
-        },
-        "4_13": {
-          "borda": "1h",
-          "dataCompleta": "2026-02-12",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 13,
-          "jogadores": "Manutencao",
-          "jogadores_completo": "Manutencao",
-          "organizador": "RONALDO TABORDA",
-          "status": "confirmada",
-          "tipo": "manutencao"
-        },
-        "4_22": {
-          "borda": "1h",
-          "confirmacoes": {
-            "Adriano Feitosa": true
-          },
-          "dataCompleta": "2026-02-12",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 22,
-          "jogadores": "Adriano Feitosa",
-          "jogadores_completo": "Adriano Feitosa",
-          "organizador": "Adriano Feitosa",
-          "status": "confirmada"
-        },
         "5_10": {
           "borda": "2h",
           "confirmacoes": {
@@ -1683,62 +1648,8 @@
           "status": "confirmada",
           "tipo": "manutencao"
         }
-      },
-      "Quadra 2 - Aberta": {
-        "4_21": {
-          "borda": "1h",
-          "dataCompleta": "2026-02-12",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 21,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "ADRIANO GOMES FEITOSA",
-          "status": "confirmada",
-          "timestamp": 1770941523084,
-          "tipo": "aula_extra"
-        },
-        "4_22": {
-          "borda": "1h",
-          "dataCompleta": "2026-02-12",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 22,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "ADRIANO GOMES FEITOSA",
-          "status": "confirmada",
-          "timestamp": 1770941525596,
-          "tipo": "aula_extra"
-        }
-      },
-      "Quadra 3 - Coberta": {
-        "4_21": {
-          "borda": "1h",
-          "dataCompleta": "2026-02-12",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 21,
-          "jogadores": "Manutencao",
-          "jogadores_completo": "Manutencao",
-          "organizador": "ADRIANO GOMES FEITOSA",
-          "status": "confirmada",
-          "tipo": "manutencao"
-        },
-        "4_22": {
-          "borda": "1h",
-          "dataCompleta": "2026-02-12",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 22,
-          "jogadores": "Manutencao",
-          "jogadores_completo": "Manutencao",
-          "organizador": "ADRIANO GOMES FEITOSA",
-          "status": "confirmada",
-          "tipo": "manutencao"
-        }
       }
     },
-    "version": "v2.1.5"
+    "version": "v2.1.6"
   }
 }
