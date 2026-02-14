@@ -3501,11 +3501,13 @@ function marcarComoAlterado() {
         if (btn) {
             btn.classList.add("botao-alterado"); 
 
-            // Lógica dos pontos progressivos ( . .. ... )
-            let contador = 1;
-            btn.innerText = "Salvar Alterações ."; // Inicia com 1
+            // Criamos uma estrutura onde o texto é fixo e os pontos ficam num "box" de tamanho fixo
+            // O estilo inline width: 20px garante que o espaço dos 3 pontos já esteja reservado
+            btn.innerHTML = `Salvar Alterações <span id="pontos-animados" style="display: inline-block; width: 20px; text-align: left;">.</span>`;
             
-            // Limpa qualquer intervalo anterior antes de começar um novo
+            let contador = 1;
+            const spanPontos = document.getElementById('pontos-animados');
+
             if (intervaloPontosBotao) clearInterval(intervaloPontosBotao);
 
             intervaloPontosBotao = setInterval(() => {
@@ -3513,8 +3515,8 @@ function marcarComoAlterado() {
                 if (contador > 3) contador = 1;
                 
                 let pontos = ".".repeat(contador);
-                btn.innerText = "Salvar Alterações " + pontos;
-            }, 500); // Muda a cada meio segundo para dar ritmo
+                if (spanPontos) spanPontos.innerText = pontos;
+            }, 500);
         }
 
         window.onbeforeunload = function() {
@@ -3548,28 +3550,21 @@ function marcarComoAlterado() {
 function resetarEstadoAlteracao() {
     existeAlteracaoPendente = false;
     
-    // Para a animação dos pontos
     if (intervaloPontosBotao) {
         clearInterval(intervaloPontosBotao);
         intervaloPontosBotao = null;
     }
 
-    // Limpa carrinhos...
-    carrinhoPermissoes = {}; 
-    carrinhoAulas = {};
-    carrinhoHorarioPadrao = {};
-    carrinhoHorarioEspecial = {}; 
-    
     const btn = document.getElementById('button-piramide');
     if (btn) {
         btn.classList.remove("botao-alterado"); 
         btn.style.background = ""; 
-        btn.innerText = "Salvar Configurações"; // Volta ao texto original estático
+        // Voltamos para texto puro para limpar o HTML da span
+        btn.innerText = "Salvar Configurações"; 
     }
     
     window.onbeforeunload = null;
 }
-
 
 
 
