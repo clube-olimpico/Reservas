@@ -2,14 +2,14 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Clube Olímpico - Sistema de Reservas</title>
+    <title>Clube Olímpico - Sistema de Reservas</title> 
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	
 	<link rel="manifest" href="manifest.json">
     
     <meta name="theme-color" content="#4CAF50">
-    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes"> 
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -7048,8 +7048,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******
 
-const VersaoSistema = 'v2.1.5'; // Versão atual do sistema     
-const DataVersaoSistema = '12/02/2026';     
+const VersaoSistema = 'v2.1.6'; // Versão atual do sistema     
+const DataVersaoSistema = '13/02/2026';     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -7940,7 +7940,7 @@ function carregarReservas(quadra) {
 
         // 2. PREPARA A TABELA
         limparTabela();
-        aplicarLimitesDeHorarioVisual();
+        // aplicarLimitesDeHorarioVisual();  <-- REMOVIDO DAQUI (Para não ser apagado)
         aplicarBloqueiosVisuais(quadra);
         
         if (typeof aplicarGradeDeAulas === 'function') {
@@ -8029,7 +8029,7 @@ function carregarReservas(quadra) {
                             
                             // Estilo BASE da Manutenção
                             cell.style.backgroundColor = isDark ? '#252525' : '#e9ecef';
-                            cell.style.color = isDark ? '#999' : '#555'; // <--- A COR "ACIZENTADA" É ESTA
+                            cell.style.color = isDark ? '#999' : '#555'; 
                             cell.style.border = isDark ? '2px solid #555' : '2px solid #666';
                             cell.style.boxSizing = "border-box";
                             cell.style.verticalAlign = 'middle'; 
@@ -8067,47 +8067,42 @@ function carregarReservas(quadra) {
                         cell.style.cursor = "default";
 
                         // ============================================================
-                        // --- AULA (AGORA COM A MESMA COR DA MANUTENÇÃO) ---
+                        // --- AULA ---
                         // ============================================================
                         if (nomeNormalizado === 'aula') {
-							if (mapaMesclagem[key] && mapaMesclagem[key].pular) {
-								cell.style.display = 'none';
-								continue; 
-							}
+                            if (mapaMesclagem[key] && mapaMesclagem[key].pular) {
+                                cell.style.display = 'none';
+                                continue; 
+                            }
 
-							const isDark = document.body.classList.contains('dark-mode');
-							cell.style.backgroundColor = 'lightcoral';
-							
-							// --- AJUSTE PARA CONSISTÊNCIA VISUAL ---
-							// Fixa a cor em preto e o negrito com prioridade máxima (!important)
-							// Isso impede que o modo escuro mude a cor para cinza/branco.
-							cell.style.setProperty('color', 'black', 'important');
-							cell.style.setProperty('font-weight', 'bold', 'important');
-							// ---------------------------------------
+                            const isDark = document.body.classList.contains('dark-mode');
+                            cell.style.backgroundColor = 'lightcoral';
+                            
+                            // Ajuste para consistência visual
+                            cell.style.setProperty('color', 'black', 'important');
+                            cell.style.setProperty('font-weight', 'bold', 'important');
 
-							cell.dataset.tipo = 'aula_extra';
-							cell.style.cursor = "default"; 
-							
-							cell.style.boxSizing = "border-box";
-							cell.style.verticalAlign = 'middle'; 
-							cell.style.textAlign = 'center';     
-							
-							// Mantém a borda variando conforme o tema, ou pode fixar se preferir
-							cell.style.border = isDark ? '2px solid #555' : '2px solid #666';
+                            cell.dataset.tipo = 'aula_extra';
+                            cell.style.cursor = "default"; 
+                            
+                            cell.style.boxSizing = "border-box";
+                            cell.style.verticalAlign = 'middle'; 
+                            cell.style.textAlign = 'center';      
+                            
+                            cell.style.border = isDark ? '2px solid #555' : '2px solid #666';
 
-							if (mapaMesclagem[key] && mapaMesclagem[key].rowSpan > 1) {
-								const horaFim = reserva.hora + mapaMesclagem[key].rowSpan;
-								cell.rowSpan = mapaMesclagem[key].rowSpan;
-								// O <b> aqui reforça o negrito no texto
-								cell.innerHTML = `<b>🏃 Aula</b><br><span style="font-size:0.85em; opacity:0.8;">${reserva.hora}:00 - ${horaFim}:00</span>`;
-							} else {
-								cell.innerHTML = "<b>🏃 Aula</b>"; 
-							}
-							continue; 
-						}
+                            if (mapaMesclagem[key] && mapaMesclagem[key].rowSpan > 1) {
+                                const horaFim = reserva.hora + mapaMesclagem[key].rowSpan;
+                                cell.rowSpan = mapaMesclagem[key].rowSpan;
+                                cell.innerHTML = `<b>🏃 Aula</b><br><span style="font-size:0.85em; opacity:0.8;">${reserva.hora}:00 - ${horaFim}:00</span>`;
+                            } else {
+                                cell.innerHTML = "<b>🏃 Aula</b>"; 
+                            }
+                            continue; 
+                        }
                         // ============================================================
                         
-                        // --- JOGOS (Código original mantido) ---
+                        // --- JOGOS ---
                         if (vReservasPorConfirmacao === true && (reserva.status === 'pendente' || reserva.status === 'confirmada')) {
                              const { confirmacoes } = reserva;
                             const isDarkMode = document.body.classList.contains('dark-mode');
@@ -8147,25 +8142,19 @@ function carregarReservas(quadra) {
                                     let styles = '';
                                     const status = reserva.confirmacoes ? reserva.confirmacoes[apelido.trim()] : true;
                                     
-                                    // Cores de status
                                     if (isConvidadoNomeado || isConvidadoGenerico) styles = `color: ${isDarkMode ? 'white' : 'black'};`;
                                     else if (status === true) styles = `color: ${isDarkMode ? 'white' : 'black'};`;
                                     else if (status === false) styles = `color: ${isDarkMode ? '#FFB74D' : '#EF6C00'};`;
                                     else if (status === 'recusado') styles = `color: red; text-decoration: line-through;`;
 
-                                    // --- NOVO: NEGRITO PARA ORGANIZADOR (REGRAS ATUALIZADAS) ---
                                     if (reserva.organizador && apelido.trim().toLowerCase() === reserva.organizador.trim().toLowerCase()) {
-                                        // Regra 1: Reservas de 2 Horas -> Sempre negrita
                                         if (reserva.duracao === 2) {
                                             styles += ' font-weight: 900;';
                                         }
-                                        // Regra 2: Reservas de 1 Hora -> Negrita APENAS se houver mais de 1 jogador
-                                        // (Se for 1h e jogar sozinho, não negrita)
                                         else if (reserva.duracao === 1 && jogadoresArray.length > 1) {
                                             styles += ' font-weight: 900;';
                                         }
                                     }
-                                    // -------------------------------------------------------
 
                                     nomesHtml.push(`<span style="${styles}">${nomeParaExibir}</span>`);
                                 });
@@ -8205,16 +8194,12 @@ function carregarReservas(quadra) {
                                 cell.innerHTML = '<span class="live-indicator"></span>' + cell.innerHTML;
                             }
                             
-                            //if (reserva.duracao === 2) configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
-                            //else if (reserva.duracao === 1) cell.style.border = '2px solid black';
-							// --- CORREÇÃO: Aplica borda grossa se for 2h OU Pirâmide (que é 3) ---
                             if (reserva.duracao === 2 || isPiramide) {
                                 configurarBordasDuracao2(cell, tabela, rowIndex, colIndex);
                             }
                             else if (reserva.duracao === 1) {
                                 cell.style.border = isDarkMode ? '2px solid #555' : '2px solid #666';
                             }
-                            // --------------------------------------------------------------------
                             
                             if (reserva.duracao > 1) {
                                 const cell2 = tabela.rows[rowIndex + 1]?.cells[colIndex];
@@ -8326,15 +8311,19 @@ function carregarReservas(quadra) {
             } catch (error) { console.error(error); return; }
         } 
         configurarEventosDaTabela();
-		
-		// --- AQUI ESTÁ A CORREÇÃO MÁGICA ---
+        
         // Toda vez que os dados do banco chegarem, recalculamos os horários
         // do dropdown se o formulário estiver aberto.
         if (typeof atualizarOpcoesHorario === 'function') {
             atualizarOpcoesHorario();
         }
-        // -----------------------------------
-		
+        
+        // =========================================================================
+        // --- CORREÇÃO FINAL: PINTAR OS BLOQUEIOS POR CIMA DE TUDO ---
+        // Aqui garantimos que o cinza vença qualquer botão branco criado anteriormente
+        aplicarLimitesDeHorarioVisual();
+        // =========================================================================
+        
     });
 }
 
@@ -19504,38 +19493,32 @@ function verificarMatchPoint() {
 // --- FUNÇÃO VISUAL: Bloqueia horários fechados na tabela ---
 function aplicarLimitesDeHorarioVisual() {
     const tabela = document.getElementById('tabelaCorpo');
-    const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0);
     
-    // Ajuste para o índice do sistema (0=Dom -> 7)
-    const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
+    // Verificações de segurança
+    if (!tabela || typeof obterRegrasDeHorario !== 'function') return;
 
-    // Itera sobre as colunas (dias) da tabela (de 1 a 7)
+    // Itera sobre as 7 colunas (Dias da semana)
     for (let diaCol = 1; diaCol <= 7; diaCol++) {
         
-        // --- 1. Descobre a Data Real desta coluna ---
-        // A lógica é: Tabela começa sempre "hoje" ou na ordem fixa? 
-        // Assumindo a lógica dinâmica do seu cabeçalho:
-        const headerCell = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${diaCol})`);
+        // 1. Busca a data no cabeçalho
+        const seletor = `#tabelaQuadra tr:nth-child(2) td:nth-child(${diaCol})`;
+        const headerCell = document.querySelector(seletor);
         
-        // Se não achou data no cabeçalho, pula
         if (!headerCell) continue;
         
-        // Lê a data escrita lá (ex: "22/12/25")
         const textoData = headerCell.textContent.trim();
-        const partes = textoData.split('/'); // ["22", "12", "25"]
+        const partes = textoData.split('/'); 
         if (partes.length < 3) continue;
 
-        // Cria o objeto Date (Mês no JS começa em 0)
-        // Assume ano 20xx
+        // Converte texto em Objeto Date
         const anoCompleto = partes[2].length === 2 ? "20" + partes[2] : partes[2];
         const dataColuna = new Date(anoCompleto, parseInt(partes[1]) - 1, parseInt(partes[0]));
 
-        // --- 2. Pergunta ao "Cérebro" (Passo 2) as regras deste dia ---
+        // 2. Pega as regras do Config
         const regras = obterRegrasDeHorario(dataColuna);
+        if (!regras) continue;
 
-        // --- 3. Aplica na Coluna ---
-        // Itera sobre as linhas (horários 06h a 22h)
+        // 3. Aplica o bloqueio visual na Coluna
         for (let i = 0; i < tabela.rows.length; i++) {
             const horaRow = i + 6; // Linha 0 = 06:00
             const cell = tabela.rows[i].cells[diaCol];
@@ -19544,24 +19527,20 @@ function aplicarLimitesDeHorarioVisual() {
 
             let bloquear = false;
 
+            // Verifica se está fechado ou fora do horário permitido
             if (regras.status === 'fechado') {
-                bloquear = true; // Dia todo fechado
-            } else {
-                // Bloqueia se for ANTES de abrir ou DEPOIS de fechar
-                // Ex: Se abre as 8, bloqueia 6 e 7.
-                if (horaRow < regras.inicio || horaRow >= regras.fim) {
-                    bloquear = true;
-                }
+                bloquear = true;
+            } else if (horaRow < regras.inicio || horaRow >= regras.fim) {
+                bloquear = true;
             }
 
             if (bloquear) {
-                // APLICA O ESTILO CINZA (BLOQUEADO)
-                cell.style.backgroundColor = '#f2f2f2'; 
-                cell.style.pointerEvents = 'none'; // Não deixa clicar
-                cell.style.cursor = 'not-allowed'; // Ícone de proibido
-                cell.innerHTML = ""; // Limpa visualmente se não tiver reserva
+                // APLICA O CINZA COM FORÇA (!important)
+                cell.style.setProperty('background-color', '#ededed', 'important');
+                cell.style.pointerEvents = 'none';
+                cell.style.cursor = 'not-allowed';
+                cell.innerHTML = ""; // Remove botões "Livre" que estejam por baixo
             } 
-            // Se estiver aberto, não fazemos nada (o carregarReservas pinta de branco ou verde depois)
         }
     }
 }
