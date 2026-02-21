@@ -19,6 +19,10 @@
 
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -728,6 +732,19 @@ button:disabled {
 
 /* --- ESTILOS DO MODAL DE AULAS (BLINDADO) --- */
 
+/* 1. Remove a borda e margem que estão "chumbadas" no HTML (style inline) */
+#modalHorarioAulas .cabecalho-modal-aulas {
+    border-bottom: none !important;  /* Apaga a linha cinza */
+    margin-bottom: 0 !important;     /* Remove o espaço extra */
+    padding-bottom: 0 !important;    /* Cola nos botões */
+}
+
+/* 2. Ajusta o container dos botões para subir e encostar no título */
+#modalHorarioAulas .quadras-tabs-container {
+    margin-top: 0 !important;
+    padding-top: 5px !important;     /* Pequeno respiro visual */
+}
+
 /* 1. Botões de Quadra (Estilo App Principal - Pílula e Tela Cheia) */
 .quadras-tabs-container {
     display: flex;
@@ -756,12 +773,6 @@ button:disabled {
     text-overflow: ellipsis;
 }
 
-.quadra-tab.active {
-    background-color: #228B22; 
-    color: white;
-    border-color: #1A6418;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
 
 .quadra-tab .mobile-text { display: none; }
 .quadra-tab .desktop-text { display: inline; }
@@ -1163,17 +1174,18 @@ button:disabled {
     /* 1. CONTAINER GERAL (Sem cores, fundo branco) */
     .modal-content.maximizado {
         width: 100vw !important;
-        height: 100vh !important;
+        height: 100dvh !important;      /* CORRIGIDO: dvh respeita a barra do navegador */
         max-width: none !important;
-        max-height: none !important;
+        max-height: 100dvh !important;  /* CORRIGIDO: max-height também com dvh */
         top: 0 !important; left: 0 !important;
-        margin: 0 !important; padding: 5px !important;
+        margin: 0 !important; 
+        padding: 10px !important;       /* AUMENTADO: de 5px para 10px para descolar do teto */
         border-radius: 0 !important;
         display: flex !important;
         flex-direction: column !important;
         background-color: white !important;
         z-index: 9999 !important;
-        overflow: hidden !important; /* Evita rolagens duplas */
+        overflow: hidden !important; 
     }
 
     /* 2. ESCONDER O DESNECESSÁRIO */
@@ -1184,24 +1196,24 @@ button:disabled {
     }
 
     /* 3. BOTÕES SUPERIORES (A Caixa Vermelha) - VERSÃO FORÇA BRUTA */
+    /* 3. BOTÕES SUPERIORES (Aulas Maximizado) - CORRIGIDO */
     .modal-content.maximizado .quadras-tabs-container {
-        /* Trava o comportamento Flex */
         flex: 0 0 auto !important; 
         
-        /* O SEGREDO: Força uma altura máxima física */
-        max-height: 40px !important;    /* Ajuste aqui se cortar os botões */
-        height: 55px !important;        /* Força a altura exata */
-        overflow: hidden !important;    /* Corta qualquer sobra invisível */
+        /* AQUI ESTAVA O ERRO: Removemos as travas de altura e o corte (hidden) */
+        height: auto !important;        
+        max-height: none !important;    
+        overflow: visible !important;   
         
-        /* Posicionamento */
-        margin-top: 35px !important;
-        margin-bottom: 0px !important;  
-        padding: 0 !important;
+        /* Ajuste de Posicionamento para não cortar no topo */
+        margin-top: 10px !important;    /* Espaço seguro do teto */
+        margin-bottom: 5px !important;  
+        padding: 5px 0 !important;      /* Respiro interno */
         
         border: none !important;
         width: 100% !important;
         display: flex !important;       
-        align-items: flex-end !important; /* Alinha os botões na parte de baixo da caixa */
+        align-items: center !important; 
     }
 
     /* ADICIONAL DE SEGURANÇA: Garante que os botões dentro não tenham margem */
@@ -2237,11 +2249,7 @@ body.dark-mode .quadra-tab {
     border-color: #555;
     color: #ccc;
 }
-body.dark-mode .quadra-tab.active {
-    background-color: #2e7d32; /* Verde escuro */
-    color: white;
-    border-color: #1b5e20;
-}
+
 body.dark-mode .painel-controle-aulas {
     background-color: #252525 !important;
     border-color: #444 !important;
@@ -2510,90 +2518,87 @@ body.dark-mode .ranking-off, body.dark-mode .ranking-off:focus {
 
 
 /* --- CORREÇÃO TELA CHEIA (PC) - GRADE DE AULAS --- */
+/* ESTE BLOCO SÓ RODA NO COMPUTADOR AGORA */
+@media (min-width: 601px) {
 
-/* 1. O MODAL: Ocupa tudo e zera espaços */
-#modalHorarioAulas .modal-content.maximizado {
-    width: 100vw !important;
-    height: 100vh !important;
-    max-width: none !important;
-    max-height: none !important;
-    
-    top: 0 !important;
-    left: 0 !important;
-    margin: 0 !important;
-    border: none !important;
-    border-radius: 0 !important;
-    
-    padding: 0 !important; 
-    padding-bottom: 0 !important;
-    
-    background-color: #fff !important;
-    
-    display: flex !important;
-    flex-direction: column !important;
-    z-index: 2147483647 !important;
-}
+    /* 1. O MODAL: Ocupa tudo e zera espaços */
+    #modalHorarioAulas .modal-content.maximizado {
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: none !important;
+        max-height: none !important;
+        
+        top: 0 !important;
+        left: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        
+        padding: 0 !important; 
+        padding-bottom: 0 !important;
+        
+        background-color: #fff !important;
+        
+        display: flex !important;
+        flex-direction: column !important;
+        z-index: 2147483647 !important;
+    }
 
-/* 2. O TÍTULO: Branco, Sem Linha e Colado em Cima */
-#modalHorarioAulas .modal-content.maximizado #tituloAulaQuadra {
-    flex: 0 0 auto !important;
-    margin: 0 !important;        
-    padding: 5px 0 10px 0 !important; 
-    text-align: center;
-    
-    background-color: #fff !important; 
-    color: #333 !important;
-    font-size: 18px !important;
-    font-weight: bold !important;
-    
-    /* AQUI ESTÁ A MUDANÇA: SEM BORDA NENHUMA */
-    border: none !important; 
-    border-bottom: none !important;
-}
+    /* 2. O TÍTULO: Branco, Sem Linha e Colado em Cima */
+    #modalHorarioAulas .modal-content.maximizado #tituloAulaQuadra {
+        flex: 0 0 auto !important;
+        margin: 0 !important;        
+        padding: 5px 0 10px 0 !important; 
+        text-align: center;
+        
+        background-color: #fff !important; 
+        color: #333 !important;
+        font-size: 18px !important;
+        font-weight: bold !important;
+        
+        border: none !important; 
+        border-bottom: none !important;
+    }
 
-/* 3. A ÁREA DE ROLAGEM: Ocupa o resto */
-#modalHorarioAulas .modal-content.maximizado .tabela-horarios-scroll {
-    flex: 1 1 auto !important;
-    height: auto !important;
-    max-height: none !important;
-    overflow-y: auto !important;
-    
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    background-color: #fff !important;
-}
+    /* 3. A ÁREA DE ROLAGEM: Ocupa o resto */
+    #modalHorarioAulas .modal-content.maximizado .tabela-horarios-scroll {
+        flex: 1 1 auto !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow-y: auto !important;
+        
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        background-color: #fff !important;
+    }
 
-/* 4. A TABELA */
-#modalHorarioAulas .modal-content.maximizado .tabela-aulas {
-    width: 100% !important;
-    margin-bottom: 0 !important;
-    border-bottom: none !important;
-}
+    /* 4. A TABELA */
+    #modalHorarioAulas .modal-content.maximizado .tabela-aulas {
+        width: 100% !important;
+        margin-bottom: 0 !important;
+        border-bottom: none !important;
+    }
 
-/* 5. CABEÇALHO DAS ABAS (Mantido o ajuste anterior) */
-#modalHorarioAulas .modal-content.maximizado .quadras-tabs-container {
-    flex: 0 0 auto !important;
-    width: 100%;
-    
-    /* Padding inferior zerado para colar no título */
-    padding: 5px 5px 0 5px !important; 
-    
-    /* Fundo branco para se fundir com o título */
-    background-color: #fff !important; 
-    
-    margin-bottom: 0 !important;
-    border: none !important;
-}
+    /* 5. CABEÇALHO DAS ABAS (Mantido o ajuste anterior) */
+    #modalHorarioAulas .modal-content.maximizado .quadras-tabs-container {
+        flex: 0 0 auto !important;
+        width: 100%;
+        padding: 5px 5px 0 5px !important; 
+        background-color: #fff !important; 
+        margin-bottom: 0 !important;
+        border: none !important;
+    }
 
-/* 6. ESCONDER ITENS DESNECESSÁRIOS */
-.modal-content.maximizado .painel-controle-aulas,
-.modal-content.maximizado .modal-buttons,
-.modal-content.maximizado .cabecalho-modal-aulas,
-.modal-content.maximizado .modal-footer {
-    display: none !important;
-}
+    /* 6. ESCONDER ITENS DESNECESSÁRIOS */
+    .modal-content.maximizado .painel-controle-aulas,
+    .modal-content.maximizado .modal-buttons,
+    .modal-content.maximizado .cabecalho-modal-aulas,
+    .modal-content.maximizado .modal-footer {
+        display: none !important;
+    }
 
+} /* FIM DO @MEDIA PC */
 /* --- FIM DE CORREÇÃO TELA CHEIA (PC) - GRADE DE AULAS --- */
 
 
@@ -2620,6 +2625,801 @@ body.dark-mode #modalHorarioAulas .modal-buttons {
     animation: pulse-alert 1.5s infinite;
 }
 /* --- fim de ANIMAÇÃO DE ALERTA PARA O BOTÃO SALVAR --- */
+
+/* Classe para os slots de duplas selecionados na grade */
+.dupla-cell-marcada {
+    background-color: #ff3b30 !important;
+    color: white !important;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+
+/* Força a cor VERDE para os botões de Duplas quando ativos */
+    #btn-duplas-q1.active,
+    #btn-duplas-q2.active,
+    #btn-duplas-q3.active {
+        background-color: #4CAF50 !important;
+        color: white !important;
+        border-color: #4CAF50 !important;
+    }
+
+    /* Força a cor VERDE para os botões de Aulas quando ativos */
+    #btn-aula-q1.active,
+    #btn-aula-q2.active,
+    #btn-aula-q3.active {
+        background-color: #4CAF50 !important;
+        color: white !important;
+        border-color: #4CAF50 !important;
+    }
+/* Força a cor VERDE para os botões de Duplas quando ativos */
+
+
+
+/* Painel de controle de duplas com o mesmo visual de aulas */
+/* 6. CORREÇÃO DO PAINEL (AGORA CINZA IGUAL AULAS) */
+/* --- CORREÇÃO FINAL: PAINEL DE DUPLAS IDÊNTICO A AULAS --- */
+/* --- CORREÇÃO FINAL: ALINHAMENTO E CENTRALIZAÇÃO --- */
+
+/* 1. A Caixa Cinza (Container Principal) */
+.painel-controle-duplas {
+    background-color: #f8f9fa !important;
+    border: 1px solid #eee !important;
+    border-radius: 8px !important;
+    
+    /* DEFINIÇÃO DE ALTURA SEGURA */
+    /* Em vez de height fixa, usamos padding vertical para centralizar */
+    padding: 6px 10px !important;  
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin-bottom: 10px !important;
+
+    /* FLEXBOX CENTRALIZADOR */
+    display: flex !important;
+    align-items: center !important;       /* Centraliza Verticalmente */
+    justify-content: flex-end !important; /* Alinha à Direita */
+}
+
+/* 2. O Container Interno (Removemos margens que empurravam para baixo) */
+.painel-controle-duplas .linha-unica-flex {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    width: 100% !important;
+    margin: 0 !important;  /* Zera margem para não vazar */
+    padding: 0 !important; /* Zera padding */
+}
+
+/* 3. O Grupo de Botões */
+.painel-controle-duplas .grupo-botoes {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin: 0 !important; /* Garante que o grupo não tenha margem */
+}
+
+/* 4. Estilo dos Botões */
+.painel-controle-duplas .btn-mini {
+    /* O COMANDO IMPORTANTE: Remove a trava de largura mínima */
+    min-width: auto !important;  
+    width: auto !important;
+    
+    height: 30px !important;
+    padding: 0 15px !important;  /* Ajuste aqui a largura: 10px é padrão, 5px é bem justo */
+    font-size: 13px !important;
+    
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    font-weight: normal !important;
+    margin: 0 !important;
+    
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* 5. Cores dos Botões */
+.painel-controle-duplas .grupo-botoes button:first-child {
+    background-color: #007bff !important; /* Azul */
+    color: white !important;
+    border: none !important;
+}
+
+.painel-controle-duplas .grupo-botoes button:last-child {
+    background-color: white !important;
+    color: #333 !important;
+    border: 1px solid #ccc !important; /* Borda cinza */
+}
+/* fim de Painel de controle de duplas com o mesmo visual de aulas */
+
+
+
+/* ================================================================= */
+/* ===         BLOCO EXCLUSIVO DE ESTILOS: HORÁRIO DE DUPLAS      === */
+/* ================================================================= */
+
+/* --- 1. ESTRUTURA GERAL --- */
+#modalHorarioDuplas .modal-content {
+    display: flex !important;
+    flex-direction: column !important;
+    max-height: 90vh !important;
+    overflow: hidden !important;
+    padding-bottom: 0 !important;
+}
+
+/* --- AJUSTE DE SCROLL INTELIGENTE (RESPONSIVO) --- */
+#modalHorarioDuplas .tabela-horarios-scroll {
+    display: block !important;
+    flex: 1 1 auto !important;    /* O SEGREDO: Faz a tabela ocupar apenas o espaço que sobra */
+    overflow-y: auto !important;   /* Scroll vertical interno */
+    overflow-x: auto !important;   /* Scroll horizontal para o celular */
+    -webkit-overflow-scrolling: touch; /* Suaviza o scroll no iPhone */
+    
+    height: auto !important;       /* Libera a altura fixa */
+    max-height: none !important;   /* Remove travas de pixels */
+    min-height: 0 !important;      /* Essencial para o Flexbox encolher no celular */
+    
+    border-bottom: none !important;
+}
+
+/* --- 2. HIERARQUIA DE CAMADAS (FIX PARA O MENU FICAR POR CIMA) --- */
+
+/* O Cabeçalho precisa estar NUMA CAMADA ACIMA (20) para o menu cobrir os botões */
+.cabecalho-modal-duplas {
+    flex-shrink: 0 !important;
+    width: 100% !important;
+    z-index: 20 !important; /* Mais alto que o resto */
+}
+
+/* Os outros itens fixos ficam na camada base (10) */
+#modalHorarioDuplas .quadras-tabs-container,
+.painel-controle-duplas,
+#tituloDuplasQuadra, 
+#modalHorarioDuplas .modal-buttons {
+    flex-shrink: 0 !important; 
+    width: 100% !important;
+    z-index: 10 !important;
+}
+
+/* --- 3. CORES E REMOÇÃO DE LINHAS --- */
+
+/* Elementos Brancos */
+.cabecalho-modal-duplas,
+#modalHorarioDuplas .quadras-tabs-container,
+#modalHorarioDuplas .modal-buttons,
+#tituloDuplasQuadra {
+    background-color: white !important;
+}
+
+/* Painel de Controle (Cinza) */
+.painel-controle-duplas { 
+    background-color: #f8f9fa !important; 
+}
+
+/* Cabeçalho: Ajuste de altura e remoção de bordas */
+.cabecalho-modal-duplas {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 55px !important;
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding: 0 !important; 
+}
+
+/* Título: Alinhamento preciso */
+.cabecalho-modal-duplas h2 {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important; 
+    display: inline-block !important;
+}
+
+/* Container das Quadras: Sem borda superior (Remove a linha cinza) */
+#modalHorarioDuplas .quadras-tabs-container {
+    border: none !important;        
+    border-top: none !important;
+    box-shadow: none !important;    
+    margin-top: 0 !important;
+    padding-top: 5px !important;    
+}
+
+/* Título Secundário (Quadra X - Coberta) */
+#tituloDuplasQuadra {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 30px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;        /* Remove TODAS as bordas */
+    border-bottom: none !important; /* Garante que a linha de baixo suma */
+    background-color: white !important;
+}
+
+/* --- 4. BOTÃO KEBAB (ALINHAMENTO À DIREITA) --- */
+.kebab-menu-container {
+    position: absolute !important;
+    right: 0px !important; /* Colado na margem direita */
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 1010 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 40px !important; 
+    display: flex !important;
+    align-items: center !important;
+}
+
+.btn-kebab {
+    background: transparent !important;
+    border: none !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Ícone ⋮ */
+.btn-kebab::before {
+    content: "\22EE" !important;
+    font-size: 26px !important;
+    color: #888 !important;
+    line-height: 1 !important;
+}
+
+/* --- 5. MENU DROPDOWN (ESTILO SÚMULA - CORRIGIDO FINAL) --- */
+.menu-dropdown-sumula {
+    display: none; 
+    position: absolute !important;
+    right: 0px !important;
+    top: 45px !important;
+    background-color: white !important;
+    min-width: 210px !important;
+    box-shadow: 0px 8px 24px rgba(0,0,0,0.15) !important;
+    border-radius: 12px !important;
+    border: 1px solid #eee !important;
+    z-index: 1100 !important;
+    padding: 8px 0 !important; 
+}
+
+.menu-item-sumula {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 12px 20px !important;
+    /* Removemos fontes daqui para definir apenas no span e evitar confusão */
+}
+
+/* AQUI ESTAVA O ERRO: AGORA CORRIGIDO PARA ROBOTO E NEGRITO */
+.menu-item-sumula span {
+    font-family: 'Roboto', sans-serif !important; /* MUDADO: Agora sim usa a fonte certa */
+    font-weight: 700 !important;                  /* MUDADO: 700 é o Negrito da imagem */
+    font-size: 15px !important;
+    color: #333 !important;
+    letter-spacing: normal !important;
+}
+
+/* --- 6. SWITCHES --- */
+.switch-sumula {
+    position: relative !important;
+    display: inline-block !important;
+    width: 38px !important;
+    height: 20px !important;
+}
+
+.switch-sumula input { opacity: 0; width: 0; height: 0; }
+
+.slider-sumula {
+    position: absolute !important;
+    cursor: pointer !important;
+    top: 0; left: 0; right: 0; bottom: 0 !important;
+    background-color: #ccc !important;
+    transition: .3s !important;
+    border-radius: 20px !important;
+}
+
+.slider-sumula:before {
+    position: absolute !important;
+    content: "" !important;
+    height: 14px !important;
+    width: 14px !important;
+    left: 3px !important;
+    bottom: 3px !important;
+    background-color: white !important;
+    transition: .3s !important;
+    border-radius: 50% !important;
+}
+
+input:checked + .slider-sumula { background-color: #4CAF50 !important; }
+input:checked + .slider-sumula:before { transform: translateX(18px) !important; }
+
+/* --- 7. TELA CHEIA (MAXIMIZADO) --- */
+#modalHorarioDuplas .modal-content.maximizado {
+    width: 100vw !important; 
+    height: 100dvh !important; /* dVH corrigido */
+    max-height: 100dvh !important; 
+    border-radius: 0 !important;
+    padding: 10px !important; 
+    top: 0 !important; 
+    left: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+#modalHorarioDuplas .modal-content.maximizado .cabecalho-modal-duplas,
+#modalHorarioDuplas .modal-content.maximizado .painel-controle-duplas,
+#modalHorarioDuplas .modal-content.maximizado .modal-buttons {
+    display: none !important;
+}
+
+#modalHorarioDuplas .modal-content.maximizado .quadras-tabs-container {
+    padding-top: 10px !important;
+    background-color: white !important;
+}
+
+/* --- EFEITO FANTASMA E BLOQUEIO (QUANDO DESATIVADO) --- */
+.duplas-desativadas {
+    opacity: 0.5 !important;
+    filter: grayscale(100%) !important;
+    transition: all 0.3s ease !important;
+    
+    /* AQUI ESTÁ O SEGREDO: */
+    /* Isso impede qualquer clique na tabela. O mouse não interage mais. */
+    pointer-events: none !important; 
+}
+
+
+/* --- BOTÃO DESATIVADO (FOCO EM SELECIONAR E LIMPAR) --- */
+.btn-acao-desativado {
+    background-color: #f9f9f9 !important; /* Branco "sujo" quase cinza */
+    color: #cccccc !important;            /* Texto muito claro, difícil de ler */
+    border: 1px solid #eeeeee !important; /* Borda quase invisível */
+    opacity: 0.6 !important;              /* Efeito de transparência */
+    cursor: not-allowed !important;       /* Ícone de 'proibido' no mouse */
+    pointer-events: none !important;      /* Impede qualquer clique ou hover */
+    box-shadow: none !important;          /* Remove qualquer sombra de botão ativo */
+    transform: none !important;           /* Impede efeitos de clique/pressão */
+}
+
+/* --- AJUSTES PARA CELULAR E MODO MAXIMIZADO (RESPONSIVIDADE) --- */
+@media (max-width: 768px) {
+    /* Ajusta o Modal para não vazar da tela no celular */
+    #modalHorarioDuplas .modal-content {
+        padding: 5px !important;
+        height: 98dvh !important; /* dVH ignora a barra do navegador */
+        max-height: 98dvh !important;
+    }
+
+    /* Diminui o cabeçalho para ganhar espaço vertical */
+    .cabecalho-modal-duplas {
+        height: 40px !important; /* Menor que os 55px originais */
+    }
+
+    .cabecalho-modal-duplas h2 {
+        font-size: 1.1rem !important;
+    }
+
+    /* Ajusta os botões Quadra 1, 2, 3 para caberem sem apertar o resto */
+    #modalHorarioDuplas .quadras-tabs-container {
+        display: flex !important;
+        gap: 4px !important;
+        padding: 5px 2px !important;
+    }
+
+    #modalHorarioDuplas .quadras-tabs-container button {
+        flex: 1 !important;
+        padding: 8px 2px !important;
+        font-size: 13px !important; /* Fonte menor para não quebrar linha */
+        white-space: nowrap !important;
+    }
+
+    /* Painel de controle (Selecionar/Limpar) mais compacto */
+    .painel-controle-duplas {
+        padding: 5px !important;
+        gap: 5px !important;
+    }
+}
+/* --- AJUSTES PARA CELULAR E MODO MAXIMIZADO (RESPONSIVIDADE) --- */
+
+
+/* ================================================================= */
+/* ===  fim de BLOCO EXCLUSIVO DE ESTILOS: HORÁRIO DE DUPLAS  === */
+/* ================================================================= */
+
+
+
+/* ================================================================= */
+/* ===       BLOCO EXCLUSIVO DE ESTILOS: HORÁRIO DE PIRÂMIDE     === */
+/* ================================================================= */
+
+#modalHorarioPiramide .modal-content {
+    display: flex !important;
+    flex-direction: column !important;
+    max-height: 90vh !important;
+    width: 95% !important;
+    max-width: 900px !important;
+    overflow: hidden !important;
+    /* AJUSTE AQUI: Reduzi o último valor (bottom) para 10px para aproximar da borda */
+    padding: 15px 20px 0px 20px !important; 
+    background-color: #ffffff !important;
+}
+
+/* --- CABEÇALHO (Título e Pontinhos ) --- */
+#modalHorarioPiramide .cabecalho-modal-duplas {
+    display: flex !important;
+    align-items: center !important;     
+    justify-content: center !important; 
+    position: relative !important;
+    
+    /* ALTERAÇÃO 1: Força a altura da barra para 35px */
+    min-height: 35px !important;
+    height: 35px !important;
+    
+    /* ALTERAÇÃO 2: Diminui o espaço até a tabela */
+    margin-bottom: 10px !important;
+    
+    border: none !important;            
+    padding: 0 !important;              
+}
+
+#modalHorarioPiramide .cabecalho-modal-duplas h2 {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    color: #333 !important;
+    font-size: 1.25rem !important;
+    display: inline-block !important;
+    border-bottom: none !important; /* REMOVE A LINHA INFERIOR MISTERIOSA */
+}
+
+/* ALTERAÇÃO 3: A caixa do botão DEVE ter a mesma altura da barra (35px) para não esticar */
+#modalHorarioPiramide .kebab-menu-container {
+    position: absolute !important;
+    right: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important; 
+    z-index: 10 !important;
+    
+    /* Força a caixa do botão a caber no espaço reduzido */
+    height: 35px !important; 
+    width: 35px !important; 
+}
+/* -------------------------------------------------- */
+
+/* PLANILHA: Fonte 14px, SEM negrito e AGORA DESBLOQUEADA */
+#modalHorarioPiramide .tabela-horarios-scroll {
+    display: block !important;
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    border: none !important;
+    border-radius: 4px !important;
+
+    /* --- CORREÇÃO: FORÇA A PLANILHA A INICIAR DESBLOQUEADA --- */
+    opacity: 1 !important;           /* Garante opacidade total */
+    filter: none !important;         /* Remove filtro cinza/grayscale */
+    pointer-events: auto !important; /* Garante que o clique funcione */
+}
+
+/* COLUNAS LATERAIS (HORÁRIOS): AGORA COM FUNDO BRANCO */
+#modalHorarioPiramide .tabela-config-horarios td.sem-selecao {
+    background-color: #ffffff !important; /* MUDADO: De cinza (#f2f2f2) para BRANCO (#ffffff) */
+    color: #666 !important;              
+    font-weight: normal !important;      
+    font-size: 14px !important;
+    padding: 8px 5px !important;
+    border: 1px solid #ddd !important;
+}
+
+/* TÍTULO DA QUADRA */
+#tituloPiramideQuadra {
+    text-align: center !important;
+    color: #333 !important; 
+    margin: 2px 0 !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+}
+
+/* BOTÕES DE AÇÃO - AJUSTADOS */
+#modalHorarioPiramide .modal-buttons {
+    display: flex !important;
+    gap: 15px !important;
+    margin-top: 15px !important; /* Reduzi levemente o topo também */
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+#modalHorarioPiramide .modal-buttons button {
+    flex: 1 !important;
+    /* AJUSTE AQUI: Altura reduzida para ficar igual ao Duplas */
+    height: 36px !important; 
+    border-radius: 8px !important;
+    font-size: 16px !important;
+    font-weight: normal !important;
+    margin: 0 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+/* ABAS DE QUADRAS */
+#modalHorarioPiramide .quadras-tabs-container {
+    margin-bottom: -10px !important;
+}
+
+/* ================================================================= */
+/* === fim de BLOCO EXCLUSIVO DE ESTILOS: HORÁRIO DE PIRÂMIDE    === */
+/* ================================================================= */
+
+
+
+/* ================================================================= */
+/* --- TELA CHEIA (MAXIMIZADO) - PIRÂMIDE                        --- */
+/* ================================================================= */
+#modalHorarioPiramide .modal-content.maximizado {
+    width: 100vw !important; 
+    height: 100vh !important; /* Usar vh puro garante a altura no PC */
+    max-width: 100vw !important;
+    max-height: 100vh !important; 
+    margin: 0 !important;
+    border-radius: 0 !important;
+    padding: 2px 15px 15px 15px !important;
+    top: 0 !important; 
+    left: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important; /* O SEGREDO 1: Impede que o padding vaze a tela */
+    background-color: #fff !important;
+}
+
+/* Esconde o cabeçalho, os botões Selecionar/Limpar e o rodapé */
+#modalHorarioPiramide .modal-content.maximizado .cabecalho-modal-duplas,
+#modalHorarioPiramide .modal-content.maximizado .painel-controle-duplas,
+#modalHorarioPiramide .modal-content.maximizado .modal-buttons {
+    display: none !important;
+}
+
+/* Garante que as abas fiquem visíveis no topo */
+/* Garante que as abas fiquem visíveis no topo */
+#modalHorarioPiramide .modal-content.maximizado .quadras-tabs-container {
+    flex-shrink: 0 !important;
+    padding-top: 5px !important;
+    background-color: white !important;
+    
+    /* O SEGREDO 1: Margem negativa para PUXAR o título para mais perto dos botões */
+    margin-bottom: -12px !important; 
+}
+
+/* O título (ex: Quadra 1 - Coberta) */
+#modalHorarioPiramide .modal-content.maximizado #tituloPiramideQuadra {
+    flex-shrink: 0 !important;
+    
+    /* O SEGREDO 2: Zera em cima e coloca margem embaixo para AFASTAR a planilha */
+    margin-top: 0 !important; 
+    margin-bottom: 10px !important; 
+    
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* O SEGREDO 2: FORÇA A PLANILHA A ESTICAR E ELIMINA O ESPAÇO ACIMA DELA */
+#modalHorarioPiramide .modal-content.maximizado .tabela-horarios-scroll {
+    flex: 1 1 auto !important;   /* Faz crescer e comer o espaço vazio */
+    height: auto !important;
+    max-height: none !important; /* Tira qualquer trava antiga */
+    min-height: 0 !important;    /* Permite o scroll perfeito no flexbox */
+    overflow-y: auto !important;
+    border: none !important;     /* Retira a linha também na tela cheia */
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* A MORTE DO VERDADEIRO VILÃO VERDE: Tira a margem da própria tabela lá dentro */
+#modalHorarioPiramide .modal-content.maximizado .tabela-horarios-scroll table {
+    margin-top: 0 !important;
+}
+
+/* ================================================================= */
+/* --- fim de TELA CHEIA (MAXIMIZADO) - PIRÂMIDE                 --- */
+/* ================================================================= */
+
+
+
+
+/* ================================================================= */
+/* --- AJUSTES MOBILE: JANELA E TELA CHEIA - PIRÂMIDE            --- */
+/* ================================================================= */
+@media (max-width: 600px) {
+    
+    /* 1. EXPANSÃO LATERAL GLOBAL (Mata o "fantasma" nas duas telas) */
+    /* Remove a margem grossa tanto na janela normal quanto na maximizada */
+    #modalHorarioPiramide .modal-content {
+        width: 100% !important; 
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+    }
+
+    /* 2. Mantém o respiro do topo apenas quando estiver Maximizado */
+    #modalHorarioPiramide .modal-content.maximizado {
+        padding-top: 25px !important; 
+    }
+
+    /* 3. Zera a margem negativa, parando de puxar o título para cima dos botões */
+    #modalHorarioPiramide .modal-content.maximizado .quadras-tabs-container {
+        margin-bottom: 5px !important; 
+    }
+
+    /* 4. Reajusta as margens do título para o centro do novo espaço */
+    #modalHorarioPiramide .modal-content.maximizado #tituloPiramideQuadra {
+        margin-top: 5px !important; 
+        margin-bottom: 10px !important; 
+    }
+
+    /* 5. RESPIRO DOS HORÁRIOS: Descola o "06:00 - 07:00" das linhas */
+    /* Atacamos diretamente a regra travada para dar espaço ao texto */
+    #modalHorarioPiramide .tabela-aulas th:first-child, 
+    #modalHorarioPiramide .tabela-aulas td:first-child,
+    #modalHorarioPiramide .tabela-aulas th:last-child, 
+    #modalHorarioPiramide .tabela-aulas td:last-child {
+        padding-left: 4px !important;
+        padding-right: 4px !important;
+        font-size: 13px !important; /* Leve redução para caber o respiro */
+        width: 88px !important;     /* Um tiquinho mais largo para compensar */
+        min-width: 88px !important;
+        max-width: 88px !important;
+    }
+}
+/* ================================================================= */
+/* ---  fim de AJUSTES MOBILE: JANELA E TELA CHEIA - PIRÂMIDE    --- */
+/* ================================================================= */
+
+/* ================================================================= */
+/* --- BARRA DE ROLAGEM: TELA CHEIA (MAXIMIZADO) - PIRÂMIDE      --- */
+/* ================================================================= */
+
+/* Garante que o contêiner permita a rolagem se não couber no ecrã */
+#modalHorarioPiramide .modal-content.maximizado .tabela-horarios-scroll {
+    overflow-y: auto !important; 
+}
+
+/* Força o desenho visual da barra de rolagem customizada */
+#modalHorarioPiramide .modal-content.maximizado .tabela-horarios-scroll::-webkit-scrollbar {
+    width: 6px !important; /* Espessura da barra */
+    display: block !important;
+}
+
+#modalHorarioPiramide .modal-content.maximizado .tabela-horarios-scroll::-webkit-scrollbar-track {
+    background-color: #f1f1f1 !important; /* Cor do fundo da barra (trilho) */
+    border-radius: 10px !important;
+}
+
+#modalHorarioPiramide .modal-content.maximizado .tabela-horarios-scroll::-webkit-scrollbar-thumb {
+    background-color: #bbbbbb !important; /* Cor da barrinha que desce */
+    border-radius: 10px !important;
+}
+/* ================================================================= */
+/* --- FIM DA BARRA DE ROLAGEM: TELA CHEIA - PIRÂMIDE            --- */
+/* ================================================================= */
+
+
+/* ================================================================== */
+/* ---   CORREÇÕES DO MODO ESCURO - ABA PIRÂMIDE E MENUS         --- */
+/* ================================================================== */
+/* ================================================================== */
+/* --- CORREÇÕES DO MODO ESCURO - ABA PIRÂMIDE E MENUS (DEFINITIVO) - */
+/* ================================================================== */
+
+/* 1. Fundo do Modal da Pirâmide e Título */
+body.dark-mode #modalHorarioPiramide .modal-content {
+    background-color: #1e1e1e !important;
+}
+body.dark-mode #modalHorarioPiramide .cabecalho-modal-duplas {
+    background-color: transparent !important;
+}
+body.dark-mode #modalHorarioPiramide h2 {
+    color: #eee !important;
+}
+body.dark-mode #tituloPiramideQuadra {
+    color: #eee !important;
+}
+
+/* 2. Container das Abas das Quadras */
+body.dark-mode #modalHorarioPiramide .quadras-tabs-container {
+    background-color: #1e1e1e !important;
+}
+body.dark-mode #modalHorarioPiramide .quadra-tab:not(.active) {
+    background-color: #333 !important;
+    color: #ccc !important;
+    border-color: #555 !important;
+}
+
+/* 3. A Barra Cinza de Controle (Ativar / Botões) */
+body.dark-mode #modalHorarioPiramide .painel-controle-duplas {
+    background-color: #2c2c2c !important;
+    border-color: #444 !important;
+}
+body.dark-mode #checkboxAtivarQuadraPiramide:disabled + span {
+    color: #777 !important; /* Texto "Ativar" quando bloqueado */
+}
+
+/* 4. A Planilha de Horários */
+/* Cabeçalhos (Dias da semana) */
+body.dark-mode #modalHorarioPiramide .tabela-aulas th {
+    background-color: #2c2c2c !important;
+    color: #eee !important;
+    border-color: #444 !important;
+}
+/* Colunas laterais fixas (Horários 06:00 - 07:00) */
+body.dark-mode #modalHorarioPiramide .tabela-config-horarios td.sem-selecao {
+    background-color: #252525 !important;
+    color: #ccc !important;
+    border-color: #444 !important;
+}
+/* Células livres (Fundo Escuro) */
+body.dark-mode #modalHorarioPiramide .aula-cell-livre {
+    background-color: #1e1e1e !important;
+    border-color: #333 !important;
+}
+/* Células Bloqueadas (Cinza Escuro) */
+body.dark-mode #modalHorarioPiramide .aula-cell-bloqueada {
+    background-color: #2a2a2a !important;
+    border-color: #333 !important;
+}
+/* Células Marcadas (Vermelho Pirâmide Adaptado para Escuro) */
+body.dark-mode #modalHorarioPiramide .aula-cell-marcada {
+    background-color: #b71c1c !important; 
+    color: #fff !important;
+    border-color: #ff5252 !important;
+}
+
+/* 5. Botões Desativados (A "Capa Cinza" sobre Selecionar/Limpar) */
+body.dark-mode #modalHorarioPiramide .btn-acao-desativado {
+    background-color: #333 !important;
+    color: #777 !important;
+    border-color: #444 !important;
+}
+
+/* 6. Menu de 3 Pontinhos (Kebab) da Pirâmide */
+body.dark-mode #menuDropdownPiramide {
+    background-color: #2c2c2c !important;
+    border-color: #444 !important;
+}
+body.dark-mode #menuDropdownPiramide .menu-item-sumula span,
+body.dark-mode #menuDropdownPiramide .menu-item-sumula div {
+    color: #eee !important;
+}
+body.dark-mode #menuDropdownPiramide hr {
+    border-top-color: #555 !important;
+}
+body.dark-mode #btnDataPiramideKebab {
+    color: #66bb6a !important; /* Força um verde claro legível no fundo escuro */
+}
+
+/* 7. Caixinha Flutuante de Datas */
+body.dark-mode #modalDataPiramide .modal-content {
+    background-color: #1e1e1e !important;
+    color: #eee !important;
+    border-color: #444 !important;
+}
+body.dark-mode #modalDataPiramide h2,
+body.dark-mode #modalDataPiramide label {
+    color: #eee !important;
+}
+body.dark-mode #modalDataPiramide input[type="date"] {
+    background-color: #2d2d2d !important;
+    color: #fff !important;
+    border: 1px solid #555 !important;
+    color-scheme: dark;
+}
+/* ================================================================== */
+/* --- fim de CORREÇÕES DO MODO ESCURO - ABA PIRÂMIDE E MENUS     --- */
+/* ================================================================== */
 
 </style>
 
@@ -2696,9 +3496,7 @@ body.dark-mode #modalHorarioAulas .modal-buttons {
     <div id="main-content">
         <div class="tabs">
             <div class="tab active" onclick="showTab('reservas')">Reservas</div>
-            <div class="tab" onclick="showTab('duplas')">Duplas</div>
-			<div class="tab" onclick="showTab('convidados')">Convidados</div>
-            <div class="tab" onclick="showTab('piramide')">Pirâmide</div>
+ 			<div class="tab" onclick="showTab('convidados')">Convidados</div>
         </div>
 		
 		
@@ -2713,6 +3511,8 @@ body.dark-mode #modalHorarioAulas .modal-buttons {
 						<option value="padrao">Padrão</option>
 						<option value="especial">Especiais</option>
 						<option value="aulas">Aulas</option>
+						<option value="duplas">Duplas</option>
+						<option value="piramide">Pirâmide</option>
 					</select>
 				</div>
 
@@ -2793,239 +3593,11 @@ body.dark-mode #modalHorarioAulas .modal-buttons {
 			</div>
 		</div>
 
-        <div id="piramide" class="tab-content">
-            <div class="container piramide-ativa-container">
-				<label for="piramideAtiva">Ativa:</label>
-				<select id="piramideAtiva" onchange="handlePiramideChange(); marcarComoAlterado()">
-					<option value="ON">ON</option><option value="OFF">OFF</option>
-				</select>
-				<span id="piramideInicio" style="display: none; font-weight: bold; margin-left: 10px;"></span>
-				<span id="piramideSeparador" style="display: none; margin: 0 5px;">à</span>
-				<span id="piramideFim" style="display: none; font-weight: bold;"></span>
-			</div>
-
-            <div class="container piramide-botoes-container">
-                <button class="piramide-botao" onclick="mostrarQuadra('quadra1')">Quadra - 1</button>
-                <button class="piramide-botao" onclick="mostrarQuadra('quadra2')">Quadra - 2</button>
-                <button class="piramide-botao" onclick="mostrarQuadra('quadra3')">Quadra - 3</button>
-            </div>
-
-            <div id="piramideQuadra1Container" class="piramide-quadra-container">
-                <div class="container piramide-quadras">
-				<div class="piramde-options centraliza-checkbox">
-					<input type="checkbox" id="piramideQuadra1" onchange="marcarComoAlterado()"><span>Quadra 1 - Coberta</span>
-				</div>
-			</div>
-                <div class="container piramide-dias">
-                    <label class="dias-label" style="font-weight: bold;" id="PiramideDiasQuadra1">Dias:</label>
-                    <div class="piramde-options">
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="1-piramideSemana" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Dias de Semana
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="1-piramideExceto17_19" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 17:00 - 19:00
-						</label>
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="1-piramideSabado" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Sábado
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="1-piramideExceto7_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 07:00 - 12:00
-						</label>
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="1-piramideDomingo" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Domingo
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="1-piramideExceto8_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 08:00 - 12:00
-						</label>
-					</div>
-                </div>
-            </div>
-            <div id="piramideQuadra2Container" class="piramide-quadra-container" style="display: none;">
-				<div class="container piramide-quadras">
-					<div class="piramde-options centraliza-checkbox">
-						<input type="checkbox" id="piramideQuadra2" onchange="marcarComoAlterado()"><span>Quadra 2 - Aberta</span>
-					</div>
-				</div>
-				<div class="container piramide-dias">
-					<label class="dias-label" style="font-weight: bold;" id="PiramideDiasQuadra2">Dias:</label>
-					<div class="piramde-options">
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="2-piramideSemana" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Dias de Semana
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="2-piramideExceto17_19" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 17:00 - 19:00
-						</label>
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="2-piramideSabado" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Sábado
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="2-piramideExceto7_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 07:00 - 12:00
-						</label>
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="2-piramideDomingo" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Domingo
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="2-piramideExceto8_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 08:00 - 12:00
-						</label>
-					</div>
-				</div>
-			</div>
-            <div id="piramideQuadra3Container" class="piramide-quadra-container" style="display: none;">
-				<div class="container piramide-quadras">
-					<div class="piramde-options centraliza-checkbox">
-						<input type="checkbox" id="piramideQuadra3" onchange="marcarComoAlterado()"><span>Quadra 3 - Coberta</span>
-					</div>
-				</div>
-				<div class="container piramide-dias">
-					<label class="dias-label" style="font-weight: bold;" id="PiramideDiasQuadra3">Dias:</label>
-					<div class="piramde-options">
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="3-piramideSemana" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Dias de Semana
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="3-piramideExceto17_19" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 17:00 - 19:00
-						</label>
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="3-piramideSabado" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Sábado
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="3-piramideExceto7_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 07:00 - 12:00
-						</label>
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="3-piramideDomingo" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Domingo
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="3-piramideExceto8_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 08:00 - 12:00
-						</label>
-					</div>
-				</div>
-			</div>
-        </div>
+        		
 		
-		<div id="duplas" class="tab-content">
-            <div class="container duplas-ativa-container">
-				<label for="duplasAtiva">Ativa:</label>
-				<select id="duplasAtiva" onchange="atualizarEstadoDuplas(); marcarComoAlterado()">
-					<option value="ON">ON</option>
-					<option value="OFF">OFF</option>
-				</select>
-				
-				<label id="labelDuplasRanking" for="duplasRanking" style="margin-left: 15px;" title="Com o Ranking em OFF, dê um triplo clique aqui para zerar os dados do ranking.">Ranking:</label>
-				<select id="duplasRanking" onchange="atualizarEstadoDuplasRanking(); marcarComoAlterado()">
-					<option value="ON">ON</option>
-					<option value="OFF">OFF</option>
-				</select>
-			</div>
-            <div class="container duplas-botoes-container">
-                <button class="duplas-botao" onclick="mostrarDuplasQuadra('quadra1')">Quadra - 1</button>
-                <button class="duplas-botao" onclick="mostrarDuplasQuadra('quadra2')">Quadra - 2</button>
-                <button class="duplas-botao" onclick="mostrarDuplasQuadra('quadra3')">Quadra - 3</button>
-            </div>
-            <div id="duplasQuadra1Container" class="duplas-container">
-			<div class="centraliza-checkbox">
-				<input type="checkbox" id="duplasQuadra1Ativa" onchange="marcarComoAlterado()"><span>Quadra 1 - Coberta</span>
-			</div>
-			<div class="container">
-				<label class="dias-label" style="font-weight: bold;" id="DuplasDiasQuadra1">Dias:</label>
-				<div class="duplas-options">
-					<div class="duplas-day-container">
-						<div style="display: flex; align-items: center;"> 
-							<input type="checkbox" id="1-duplasSemana" onchange="marcarComoAlterado()">
-							<span class="dias-semana-label-clickable" style="margin-left: 5px; user-select: none;">Dias de Semana</span>
-						</div>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="1-duplasSemanaInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="1-duplasSemanaFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-					<div class="duplas-day-container">
-						<label><input type="checkbox" id="1-duplasSabado" onchange="marcarComoAlterado()"> Sábado</label>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="1-duplasSabadoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="1-duplasSabadoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-					<div class="duplas-day-container">
-						<label><input type="checkbox" id="1-duplasDomingo" onchange="marcarComoAlterado()"> Domingo</label>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="1-duplasDomingoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="1-duplasDomingoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 
-		<div id="duplasQuadra2Container" class="duplas-container" style="display: none;">
-			 <div class="centraliza-checkbox">
-				<input type="checkbox" id="duplasQuadra2Ativa" onchange="marcarComoAlterado()"><span>Quadra 2 - Aberta</span>
-			</div>
-			<div class="container">
-				<label class="dias-label" style="font-weight: bold;" id="DuplasDiasQuadra2">Dias:</label>
-				<div class="duplas-options">
-					<div class="duplas-day-container">
-						<div style="display: flex; align-items: center;"> 
-							<input type="checkbox" id="2-duplasSemana" onchange="marcarComoAlterado()">
-							<span class="dias-semana-label-clickable" style="margin-left: 5px; user-select: none;">Dias de Semana</span>
-						</div>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="2-duplasSemanaInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="2-duplasSemanaFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-					<div class="duplas-day-container">
-						<label><input type="checkbox" id="2-duplasSabado" onchange="marcarComoAlterado()"> Sábado</label>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="2-duplasSabadoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="2-duplasSabadoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-					<div class="duplas-day-container">
-						<label><input type="checkbox" id="2-duplasDomingo" onchange="marcarComoAlterado()"> Domingo</label>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="2-duplasDomingoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="2-duplasDomingoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div id="duplasQuadra3Container" class="duplas-container" style="display: none;">
-			 <div class="centraliza-checkbox">
-				<input type="checkbox" id="duplasQuadra3Ativa" onchange="marcarComoAlterado()"><span>Quadra 3 - Coberta</span>
-			</div>
-			<div class="container">
-				<label class="dias-label" style="font-weight: bold;" id="DuplasDiasQuadra3">Dias:</label>
-				<div class="duplas-options">
-					<div class="duplas-day-container">
-						<div style="display: flex; align-items: center;"> 
-							<input type="checkbox" id="3-duplasSemana" onchange="marcarComoAlterado()">
-							<span class="dias-semana-label-clickable" style="margin-left: 5px; user-select: none;">Dias de Semana</span>
-						</div>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="3-duplasSemanaInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="3-duplasSemanaFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-					<div class="duplas-day-container">
-						<label><input type="checkbox" id="3-duplasSabado" onchange="marcarComoAlterado()"> Sábado</label>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="3-duplasSabadoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="3-duplasSabadoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-					<div class="duplas-day-container">
-						<label><input type="checkbox" id="3-duplasDomingo" onchange="marcarComoAlterado()"> Domingo</label>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="3-duplasDomingoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="3-duplasDomingoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-        </div>
+		
     </div>  
 	
     <div class="container botao-salvar">
@@ -3033,9 +3605,8 @@ body.dark-mode #modalHorarioAulas .modal-buttons {
     </div>
 </div>
 
-<div id="modalDatasEspeciais" class="modal-overlay"><div class="modal-content"><h2 id="modalTitulo">Exceções</h2><div class="container"><label>Desc:</label><input id="excecaoDescricao"></div><div class="container"><label>Data:</label><input id="excecaoData" oninput="formatarDataInput(event)"></div><div class="container"><label>Horário:</label><input type="time" id="excecaoInicio"><input type="time" id="excecaoFim"></div><div class="modal-buttons"><button class="btn-fechar" onclick="fecharModalExcecao()">Fechar</button><button class="btn-adicionar" onclick="adicionarExcecao()">Add</button></div><div id="listaExcecoes"></div></div></div>
 <div id="modalBloqueioQuadra" class="modal-overlay"><div class="modal-content"><h2 id="modalBloqueioTitulo">Bloqueio</h2><div class="container"><label>Desc:</label><input id="bloqueioDescricao"></div><div class="container"><label>Data:</label><input id="bloqueioData" oninput="formatarDataInput(event)"></div><div class="container"><label>Horário:</label><input type="time" id="bloqueioInicio"><input type="time" id="bloqueioFim"></div><div class="modal-buttons"><button class="btn-fechar" onclick="fecharModalBloqueio()">Fechar</button><button class="btn-adicionar" onclick="adicionarBloqueio()">Add</button></div><div id="listaBloqueios"></div></div></div>
-<div id="modalDiasSemanaDuplas" class="modal-overlay"><div class="modal-content"><h2 id="modalDiasSemanaTitulo">Dias Semana</h2><div id="diasSemanaCheckboxContainer"><label><input type="checkbox" id="duplas-segunda">Seg</label><label><input type="checkbox" id="duplas-terca">Ter</label><label><input type="checkbox" id="duplas-quarta">Qua</label><label><input type="checkbox" id="duplas-quinta">Qui</label><label><input type="checkbox" id="duplas-sexta">Sex</label></div><div class="modal-buttons"><button class="btn-fechar" onclick="fecharModalDiasSemana()">Fechar</button><button class="btn-adicionar" onclick="salvarModalDiasSemana()">Salvar</button></div></div></div>
+
 <div id="modalQuebraHorarioQuadras" class="modal-overlay">
     <div class="modal-content">
         <h2 id="modalQuebraHorarioTitulo" style="margin-bottom: 20px;">Otimização de Horários</h2>
@@ -3194,19 +3765,19 @@ body.dark-mode #modalHorarioAulas .modal-buttons {
 		</div>
 
         <div class="quadras-tabs-container">
-            <button class="quadra-tab active" id="btn-aula-q1" onclick="selecionarQuadraAula('Quadra1')">
-                <span class="desktop-text">Quadra 1 - Coberta</span>
-                <span class="mobile-text">Quadra 1<br>Coberta</span>
-            </button>
-            <button class="quadra-tab" id="btn-aula-q2" onclick="selecionarQuadraAula('Quadra2')">
-                <span class="desktop-text">Quadra 2 - Aberta</span>
-                <span class="mobile-text">Quadra 2<br>Aberta</span>
-            </button>
-            <button class="quadra-tab" id="btn-aula-q3" onclick="selecionarQuadraAula('Quadra3')">
-                <span class="desktop-text">Quadra 3 - Coberta</span>
-                <span class="mobile-text">Quadra 3<br>Coberta</span>
-            </button>
-        </div>
+			<button class="quadra-tab active" id="btn-aula-q1" onclick="selecionarQuadraAula('Quadra1')">
+				<span class="desktop-text">Quadra 1 - Coberta</span>
+				<span class="mobile-text">Quadra 1<br>Coberta</span>
+			</button>
+			<button class="quadra-tab" id="btn-aula-q2" onclick="selecionarQuadraAula('Quadra2')">
+				<span class="desktop-text">Quadra 2 - Aberta</span>
+				<span class="mobile-text">Quadra 2<br>Aberta</span>
+			</button>
+			<button class="quadra-tab" id="btn-aula-q3" onclick="selecionarQuadraAula('Quadra3')">
+				<span class="desktop-text">Quadra 3 - Coberta</span>
+				<span class="mobile-text">Quadra 3<br>Coberta</span>
+			</button>
+		</div>
 
         <div class="painel-controle-aulas">
 			<div class="linha-unica-flex">
@@ -3276,6 +3847,218 @@ body.dark-mode #modalHorarioAulas .modal-buttons {
         </div>
     </div>
 </div>
+
+
+<div id="modalHorarioDuplas" class="modal-overlay">
+    <div class="modal-content" style="max-width: 900px; width: 95%; padding-top: 5px;">
+        
+        <div class="cabecalho-modal-duplas" onclick="tratarCliqueHorarioDuplas(event)">
+			<h2 id="tituloPrincipalDuplas" style="margin: 0; padding: 0; line-height: 1; display: inline-block; transition: color 0.3s ease;">
+				Horário de Duplas
+			</h2>
+			
+			<div class="kebab-menu-container">
+				<button type="button" id="btnKebabDuplas" class="btn-kebab" onclick="toggleMenuDuplas(event)"></button>
+				
+				<div id="menuDropdownDuplas" class="menu-dropdown-sumula">
+					<div class="menu-item-sumula">
+						<span>Ativar</span>
+						<label class="switch-sumula" onclick="event.stopPropagation();">
+							<input type="checkbox" id="switchAtivarDuplas" onchange="toggleAtivarDuplas(this.checked)">
+							<span class="slider-sumula"></span>
+						</label>
+					</div>
+
+					<div class="menu-item-sumula">
+						<span>Ranking</span>
+						<label class="switch-sumula" onclick="event.stopPropagation();">
+							<input type="checkbox" id="switchRankingDuplas" onchange="toggleRankingDuplas(this.checked)">
+							<span class="slider-sumula"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+        <div class="quadras-tabs-container">
+            <button class="quadra-tab active" id="btn-duplas-q1" onclick="selecionarQuadraDuplas('Quadra1')">
+                <span class="desktop-text">Quadra 1 - Coberta</span>
+                <span class="mobile-text">Quadra 1<br>Coberta</span>
+            </button>
+            <button class="quadra-tab" id="btn-duplas-q2" onclick="selecionarQuadraDuplas('Quadra2')">
+                <span class="desktop-text">Quadra 2 - Aberta</span>
+                <span class="mobile-text">Quadra 2<br>Aberta</span>
+            </button>
+            <button class="quadra-tab" id="btn-duplas-q3" onclick="selecionarQuadraDuplas('Quadra3')">
+                <span class="desktop-text">Quadra 3 - Coberta</span>
+                <span class="mobile-text">Quadra 3<br>Coberta</span>
+            </button>
+        </div>
+
+        <div class="painel-controle-duplas">
+            <div class="linha-unica-flex" style="justify-content: space-between !important;">
+                
+                <label style="display: flex; align-items: center; cursor: pointer; margin: 0; white-space: nowrap;">
+                    <input type="checkbox" id="checkboxAtivarQuadraDuplas" onchange="toggleAtivarQuadraDuplas(this.checked)" style="width: 18px; height: 18px; margin: 0 5px 0 0; cursor: pointer; accent-color: #2e7d32;">
+                    <span style="font-weight: bold; color: #2e7d32; font-size: 15px;">Ativar</span>
+                </label>
+
+                <div class="grupo-botoes">
+                    <button type="button" id="btnSelecionarDuplas" class="btn-mini" onclick="acaoDuplas('selecionar')">Selecionar Tudo</button>
+                    <button type="button" id="btnLimparDuplas" class="btn-mini outline" onclick="acaoDuplas('limpar')">Limpar Tudo</button>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div id="tituloDuplasQuadra" style="text-align: center; font-weight: bold; margin: 5px 0;">
+            Quadra 1 - Coberta
+        </div>
+        
+        <div class="tabela-horarios-scroll" style="max-height: none; overflow: visible; border: none;">
+            <table class="tabela-config-horarios tabela-aulas">
+                <thead>
+					<tr>
+						<th onclick="tratarCliqueHorarioDuplas(event)" class="sem-selecao" title="Dê dois cliques para Tela Cheia" style="cursor: pointer;">
+							Horário
+						</th>
+						
+						<th>Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th><th>Sáb</th><th>Dom</th>
+						
+						<th onclick="tratarCliqueHorarioDuplas(event)" class="sem-selecao" title="Dê dois cliques para Tela Cheia" style="cursor: pointer;">
+							Horário
+						</th>
+					</tr>
+				</thead>
+                <tbody id="tbodyDuplas">
+                    </tbody>
+            </table>
+        </div>
+
+        <div class="container modal-buttons" style="margin-top: 15px;">
+			<button class="btn-fechar" onclick="fecharModalHorario('duplas')">Fechar</button>
+			<button class="btn-adicionar" onclick="salvarConfiguracaoDuplas()">Salvar</button>
+		</div>
+    </div>
+</div>
+
+
+
+<div id="modalHorarioPiramide" class="modal-overlay"> 
+    <div class="modal-content">
+
+        <div class="cabecalho-modal-duplas">
+            <h2 style="margin: 0; padding: 0; line-height: 1; display: inline-block;">
+                Horário de Pirâmide
+            </h2>
+            
+            <div class="kebab-menu-container">
+				<button type="button" id="btnKebabPiramide" class="btn-kebab" onclick="toggleMenuPiramide(event)"></button>
+				<div id="menuDropdownPiramide" class="menu-dropdown-sumula">
+					<div class="menu-item-sumula">
+						<span>Ativar</span>
+						<label class="switch-sumula" onclick="event.stopPropagation();">
+							<input type="checkbox" id="switchAtivarPiramide" onchange="toggleAtivarPiramide(this.checked)">
+							<span class="slider-sumula"></span>
+						</label>
+					</div>
+
+					<div class="menu-item-sumula">
+						<span>Ranking</span>
+						<label class="switch-sumula" onclick="event.stopPropagation();">
+							<input type="checkbox" id="switchRankingPiramide" onchange="toggleRankingPiramide(this.checked)">
+							<span class="slider-sumula"></span>
+						</label>
+					</div>
+					
+					<hr style="border: 0; border-top: 1px solid #eee; margin: 8px 0;">
+					
+					<div class="menu-item-sumula menu-item-data-piramide" id="btnDataPiramideKebab" onclick="abrirModalDataPiramide(event)" style="justify-content: center; cursor: pointer; color: #4CAF50; font-weight: 500; white-space: nowrap; font-size: 15px !important;">
+						📅 Definir datas...
+					</div>
+				</div>
+			</div>
+        </div>
+
+        <div class="quadras-tabs-container">
+            <button class="quadra-tab active" id="tabPiramideQ1" onclick="selecionarQuadraPiramide('Quadra1')">
+                <span class="desktop-text">Quadra 1 - Coberta</span>
+                <span class="mobile-text">Quadra 1<br>Coberta</span>
+            </button>
+            <button class="quadra-tab" id="tabPiramideQ2" onclick="selecionarQuadraPiramide('Quadra2')">
+                <span class="desktop-text">Quadra 2 - Aberta</span>
+                <span class="mobile-text">Quadra 2<br>Aberta</span>
+            </button>
+            <button class="quadra-tab" id="tabPiramideQ3" onclick="selecionarQuadraPiramide('Quadra3')">
+                <span class="desktop-text">Quadra 3 - Coberta</span>
+                <span class="mobile-text">Quadra 3<br>Coberta</span>
+            </button>
+        </div>
+
+        <div class="painel-controle-duplas">
+            <div class="linha-unica-flex" style="justify-content: space-between !important;">
+                
+                <label style="display: flex; align-items: center; cursor: pointer; margin: 0; white-space: nowrap;">
+                    <input type="checkbox" id="checkboxAtivarQuadraPiramide" onchange="toggleAtivarQuadraPiramide(this.checked)" style="width: 18px; height: 18px; margin: 0 5px 0 0; cursor: pointer; accent-color: #2e7d32;">
+                    <span style="font-weight: bold; color: #2e7d32; font-size: 15px;">Ativar</span>
+                </label>
+
+                <div class="grupo-botoes">
+                    <button type="button" class="btn-mini" onclick="selecionarTudoPiramide()">Selecionar Tudo</button>
+                    <button type="button" class="btn-mini outline" onclick="limparTudoPiramide()">Limpar Tudo</button>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div id="tituloPiramideQuadra" style="text-align: center; font-weight: bold; margin: 5px 0; color: #333;">
+            Quadra 1 - Coberta
+        </div>
+
+        <div class="tabela-horarios-scroll" style="border: none;">
+            <table class="tabela-config-horarios tabela-aulas">
+                <thead>
+					<tr>
+						<th class="sem-selecao" onclick="tratarCliqueHorarioPiramide(event)" title="Dê dois cliques para Tela Cheia" style="cursor: pointer;">Horário</th>
+						<th>Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th><th>Sáb</th><th>Dom</th>
+						<th class="sem-selecao" onclick="tratarCliqueHorarioPiramide(event)" title="Dê dois cliques para Tela Cheia" style="cursor: pointer;">Horário</th>
+					</tr>
+				</thead>
+                <tbody id="tabelaHorariosPiramide"></tbody>
+            </table>
+        </div>
+
+        <div class="container modal-buttons" style="margin-top: 15px;">
+            <button class="btn-fechar" onclick="document.getElementById('modalHorarioPiramide').style.display='none'">Fechar</button>
+            <button class="btn-adicionar" style="background-color: #4CAF50 !important;" onclick="salvarPiramide()">Salvar</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalDataPiramide" class="modal-overlay" style="z-index: 10001;">
+    <div class="modal-content" style="max-width: 350px;">
+        <h2 style="margin-bottom: 20px;">Datas do Torneio</h2>
+        
+        <div class="container" style="flex-direction: column; align-items: flex-start; gap: 5px;">
+            <label style="width: 100%; margin-bottom: 5px;">Data de Início:</label>
+            <input type="date" id="inputDataInicioPiramide" style="width: 100%; height: 40px; text-align: center;">
+        </div>
+        
+        <div class="container" style="flex-direction: column; align-items: flex-start; gap: 5px; margin-top: 15px;">
+            <label style="width: 100%; margin-bottom: 5px;">Data de Fim:</label>
+            <input type="date" id="inputDataFimPiramide" style="width: 100%; height: 40px; text-align: center;">
+        </div>
+        
+        <div class="modal-buttons" style="margin-top: 25px; display: flex; justify-content: space-between; gap: 10px;">
+            <button class="btn-fechar" onclick="fecharModalDataPiramide()" style="background-color: #6c757d; flex: 1; margin: 0;">Cancelar</button>
+            <button class="btn-adicionar" onclick="salvarDataPiramide()" style="flex: 1; margin: 0;">Confirmar</button>
+        </div>
+    </div>
+</div>
+
+
+
 
 <div id="modalNovoPerfil" class="modal-overlay"> 
     <div class="modal-content">
@@ -3442,8 +4225,7 @@ body.dark-mode #modalHorarioAulas .modal-buttons {
 
     // VARIÁVEIS GLOBAIS
     let bloqueiosQuadra = {};
-    let excecoesDuplas = {}; 
-    let diasSemanaDuplasConfig = {};
+    
     let quebraHorarioQuadrasConfig = {};
     let listaUsuariosOnline = [];
     let quadraAtualParaDiasSemana = null;
@@ -3463,9 +4245,28 @@ body.dark-mode #modalHorarioAulas .modal-buttons {
 	let configAulasGlobal = { Quadra1: {}, Quadra2: {}, Quadra3: {} };
 	let quadraAulaAtual = 'Quadra1';
 	
+	let configDuplasGlobal = { 
+    Quadra1: { Ativo: false, Ranking: false, Grade: {} }, 
+    Quadra2: { Ativo: false, Ranking: false, Grade: {} }, 
+    Quadra3: { Ativo: false, Ranking: false, Grade: {} } 
+	};
+	let quadraDuplasAtual = 'Quadra1';
+	let carrinhoDuplas = {}; // Rascunho para salvar no final
+	
 	let perfilEmEdicaoAtual = null; // Guarda quem está sendo editado agora
 	
 	var dadosOriginaisCache = {};
+	
+	// --- VARIÁVEIS GLOBAIS DA PIRÂMIDE ---
+	let configPiramideGlobal = { 
+    Ativo: false, 
+    Ranking: false, 
+    Quadra1: { Grade: {} }, 
+    Quadra2: { Grade: {} }, 
+    Quadra3: { Grade: {} } 
+	};
+	let quadraPiramideAtual = 'Quadra1';
+	let carrinhoPiramide = {}; // Carrinho para o salvamento final
 
 
 // ==========================================================
@@ -4108,72 +4909,9 @@ function aplicarDadosConfig(data) {
     document.getElementById('convidadosSemana').checked = conv.DiasDeSemana || false;
     document.getElementById('convidadosFimDeSemana').checked = conv.FimDeSemana || false;
 
-    // Piramide
-    const pir = data.Piramide || {};
-    document.getElementById('piramideAtiva').value = pir.ativa ? 'ON' : 'OFF';
-    window.piramideInicioData = pir.inicio || "";
-    window.piramideFimData = pir.fim || "";
+    
 
-    const q1P = pir["Quadra-1"] || {};
-    document.getElementById('piramideQuadra1').checked = q1P["Quadra-1-ativa"] || false;
-    document.getElementById('1-piramideSemana').checked = q1P["1-DiasDeSemana"] || false;
-    document.getElementById('1-piramideExceto17_19').checked = q1P["1-DiasDeSemana-exceto-17-19"] || false;
-    document.getElementById('1-piramideSabado').checked = q1P["1-Sabado"] || false;
-    document.getElementById('1-piramideExceto7_12').checked = q1P["1-Sabado-exceto-7-12"] || false;
-    document.getElementById('1-piramideDomingo').checked = q1P["1-Domingo"] || false;
-    document.getElementById('1-piramideExceto8_12').checked = q1P["1-Domingo-exceto-8-12"] || false;
-
-    const q2P = pir["Quadra-2"] || {};
-    document.getElementById('piramideQuadra2').checked = q2P["Quadra-2-ativa"] || false;
-    document.getElementById('2-piramideSemana').checked = q2P["2-DiasDeSemana"] || false;
-    document.getElementById('2-piramideExceto17_19').checked = q2P["2-DiasDeSemana-exceto-17-19"] || false;
-    document.getElementById('2-piramideSabado').checked = q2P["2-Sabado"] || false;
-    document.getElementById('2-piramideExceto7_12').checked = q2P["2-Sabado-exceto-7-12"] || false;
-    document.getElementById('2-piramideDomingo').checked = q2P["2-Domingo"] || false;
-    document.getElementById('2-piramideExceto8_12').checked = q2P["2-Domingo-exceto-8-12"] || false;
-
-    const q3P = pir["Quadra-3"] || {};
-    document.getElementById('piramideQuadra3').checked = q3P["Quadra-3-ativa"] || false;
-    document.getElementById('3-piramideSemana').checked = q3P["3-DiasDeSemana"] || false;
-    document.getElementById('3-piramideExceto17_19').checked = q3P["3-DiasDeSemana-exceto-17-19"] || false;
-    document.getElementById('3-piramideSabado').checked = q3P["3-Sabado"] || false;
-    document.getElementById('3-piramideExceto7_12').checked = q3P["3-Sabado-exceto-7-12"] || false;
-    document.getElementById('3-piramideDomingo').checked = q3P["3-Domingo"] || false;
-    document.getElementById('3-piramideExceto8_12').checked = q3P["3-Domingo-exceto-8-12"] || false;
-
-    atualizarEstadoPiramide();
-    atualizarCamposPiramideQuadra1();
-    atualizarCamposPiramideQuadra2();
-    atualizarCamposPiramideQuadra3();
-
-    // Duplas
-    const dup = data.Duplas || {};
-    excecoesDuplas = dup.DatasEspeciais || {};
-    document.getElementById('duplasAtiva').value = dup.ativa ? 'ON' : 'OFF';
-    document.getElementById('duplasRanking').value = dup.Ranking ? 'ON' : 'OFF';
-    atualizarEstadoDuplasRanking();
-
-    for (let i = 1; i <= 3; i++) {
-        const k = `Quadra-${i}`;
-        const qD = dup[k] || {};
-        if (dup[k] && dup[k].DiasDeSemanaConfig) diasSemanaDuplasConfig[k] = dup[k].DiasDeSemanaConfig;
-        else diasSemanaDuplasConfig[k] = { segunda: true, terca: true, quarta: true, quinta: true, sexta: true };
-
-        document.getElementById(`duplasQuadra${i}Ativa`).checked = qD[`Quadra-${i}-ativa`] || false;
-        document.getElementById(`${i}-duplasSemana`).checked = qD[`${i}-DiasDeSemana`] || false;
-        document.getElementById(`${i}-duplasSemanaInicio`).value = qD[`${i}-DiasDeSemana-Inicio`] || '';
-        document.getElementById(`${i}-duplasSemanaFim`).value = qD[`${i}-DiasDeSemana-Fim`] || '';
-        document.getElementById(`${i}-duplasSabado`).checked = qD[`${i}-Sabado`] || false;
-        document.getElementById(`${i}-duplasSabadoInicio`).value = qD[`${i}-Sabado-Inicio`] || '';
-        document.getElementById(`${i}-duplasSabadoFim`).value = qD[`${i}-Sabado-Fim`] || '';
-        document.getElementById(`${i}-duplasDomingo`).checked = qD[`${i}-Domingo`] || false;
-        document.getElementById(`${i}-duplasDomingoInicio`).value = qD[`${i}-Domingo-Inicio`] || '';
-        document.getElementById(`${i}-duplasDomingoFim`).value = qD[`${i}-Domingo-Fim`] || '';
-    }
-
-    atualizarEstadoDuplas();
-    for (let i = 1; i <= 3; i++) atualizarCamposDaQuadraDuplas(i);
-
+    
 
     // --- NOVA IMPLEMENTAÇÃO: LIMPEZA DO MURAL ---
     // 1. Recupera o valor salvo no Firebase ou usa 7 como padrão
@@ -4283,82 +5021,6 @@ function salvarConfiguracoes() {
             Quadra1: document.getElementById('convidadosQuadra1').checked,
             Quadra2: document.getElementById('convidadosQuadra2').checked,
             Quadra3: document.getElementById('convidadosQuadra3').checked
-        },
-        Piramide: {
-            ativa: document.getElementById('piramideAtiva').value === 'ON',
-            inicio: window.piramideInicioData || "",
-            fim: window.piramideFimData || "",
-            "Quadra-1": {
-                "Quadra-1-ativa": document.getElementById('piramideQuadra1').checked,
-                "1-DiasDeSemana": document.getElementById('1-piramideSemana').checked,
-                "1-DiasDeSemana-exceto-17-19": document.getElementById('1-piramideExceto17_19').checked,
-                "1-Sabado": document.getElementById('1-piramideSabado').checked,
-                "1-Sabado-exceto-7-12": document.getElementById('1-piramideExceto7_12').checked,
-                "1-Domingo": document.getElementById('1-piramideDomingo').checked,
-                "1-Domingo-exceto-8-12": document.getElementById('1-piramideExceto8_12').checked
-            },
-            "Quadra-2": {
-                "Quadra-2-ativa": document.getElementById('piramideQuadra2').checked,
-                "2-DiasDeSemana": document.getElementById('2-piramideSemana').checked,
-                "2-DiasDeSemana-exceto-17-19": document.getElementById('2-piramideExceto17_19').checked,
-                "2-Sabado": document.getElementById('2-piramideSabado').checked,
-                "2-Sabado-exceto-7-12": document.getElementById('2-piramideExceto7_12').checked,
-                "2-Domingo": document.getElementById('2-piramideDomingo').checked,
-                "2-Domingo-exceto-8-12": document.getElementById('2-piramideExceto8_12').checked
-            },
-            "Quadra-3": {
-                "Quadra-3-ativa": document.getElementById('piramideQuadra3').checked,
-                "3-DiasDeSemana": document.getElementById('3-piramideSemana').checked,
-                "3-DiasDeSemana-exceto-17-19": document.getElementById('3-piramideExceto17_19').checked,
-                "3-Sabado": document.getElementById('3-piramideSabado').checked,
-                "3-Sabado-exceto-7-12": document.getElementById('3-piramideExceto7_12').checked,
-                "3-Domingo": document.getElementById('3-piramideDomingo').checked,
-                "3-Domingo-exceto-8-12": document.getElementById('3-piramideExceto8_12').checked  
-            }
-        },
-        Duplas: {
-            ativa: document.getElementById('duplasAtiva').value === 'ON',
-            Ranking: document.getElementById('duplasRanking').value === 'ON',
-            "Quadra-1": {
-                "Quadra-1-ativa": document.getElementById('duplasQuadra1Ativa').checked,
-                "1-DiasDeSemana": document.getElementById('1-duplasSemana').checked,
-                "1-DiasDeSemana-Inicio": document.getElementById('1-duplasSemanaInicio').value,
-                "1-DiasDeSemana-Fim": document.getElementById('1-duplasSemanaFim').value,
-                "1-Sabado": document.getElementById('1-duplasSabado').checked,
-                "1-Sabado-Inicio": document.getElementById('1-duplasSabadoInicio').value,
-                "1-Sabado-Fim": document.getElementById('1-duplasSabadoFim').value,
-                "1-Domingo": document.getElementById('1-duplasDomingo').checked,
-                "1-Domingo-Inicio": document.getElementById('1-duplasDomingoInicio').value,
-                "1-Domingo-Fim": document.getElementById('1-duplasDomingoFim').value,
-                ...(document.getElementById('1-duplasSemana').checked && { "DiasDeSemanaConfig": diasSemanaDuplasConfig['Quadra-1'] || { segunda: true, terca: true, quarta: true, quinta: true, sexta: true } }) 
-            },
-            "Quadra-2": {
-                "Quadra-2-ativa": document.getElementById('duplasQuadra2Ativa').checked,
-                "2-DiasDeSemana": document.getElementById('2-duplasSemana').checked,
-                "2-DiasDeSemana-Inicio": document.getElementById('2-duplasSemanaInicio').value,
-                "2-DiasDeSemana-Fim": document.getElementById('2-duplasSemanaFim').value,
-                "2-Sabado": document.getElementById('2-duplasSabado').checked,
-                "2-Sabado-Inicio": document.getElementById('2-duplasSabadoInicio').value,
-                "2-Sabado-Fim": document.getElementById('2-duplasSabadoFim').value,
-                "2-Domingo": document.getElementById('2-duplasDomingo').checked,
-                "2-Domingo-Inicio": document.getElementById('2-duplasDomingoInicio').value,
-                "2-Domingo-Fim": document.getElementById('2-duplasDomingoFim').value,
-                ...(document.getElementById('2-duplasSemana').checked && { "DiasDeSemanaConfig": diasSemanaDuplasConfig['Quadra-2'] || { segunda: true, terca: true, quarta: true, quinta: true, sexta: true } }) 
-            },
-            "Quadra-3": {
-                "Quadra-3-ativa": document.getElementById('duplasQuadra3Ativa').checked,
-                "3-DiasDeSemana": document.getElementById('3-duplasSemana').checked,
-                "3-DiasDeSemana-Inicio": document.getElementById('3-duplasSemanaInicio').value,
-                "3-DiasDeSemana-Fim": document.getElementById('3-duplasSemanaFim').value,
-                "3-Sabado": document.getElementById('3-duplasSabado').checked,
-                "3-Sabado-Inicio": document.getElementById('3-duplasSabadoInicio').value,
-                "3-Sabado-Fim": document.getElementById('3-duplasSabadoFim').value,
-                "3-Domingo": document.getElementById('3-duplasDomingo').checked,
-                "3-Domingo-Inicio": document.getElementById('3-duplasDomingoInicio').value,
-                "3-Domingo-Fim": document.getElementById('3-duplasDomingoFim').value,
-                ...(document.getElementById('3-duplasSemana').checked && { "DiasDeSemanaConfig": diasSemanaDuplasConfig['Quadra-3'] || { segunda: true, terca: true, quarta: true, quinta: true, sexta: true } }) 
-            },
-            DatasEspeciais: excecoesDuplas 
         }
     };
 
@@ -4375,6 +5037,18 @@ function salvarConfiguracoes() {
         Object.keys(carrinhoAulas).forEach(quadraKey => {
             updates[`Horarios/Aulas/${quadraKey}`] = carrinhoAulas[quadraKey];
         });
+    }
+    
+    // Injeta Grade de Duplas
+    if (Object.keys(carrinhoDuplas).length > 0) {
+        Object.keys(carrinhoDuplas).forEach(quadraKey => {
+            updates[`Horarios/Duplas/${quadraKey}`] = carrinhoDuplas[quadraKey];
+        });
+    }
+
+    // --- ADICIONADO: Injeta Nova Grade da Pirâmide ---
+    if (Object.keys(carrinhoPiramide).length > 0) {
+        updates['Horarios/Piramide'] = carrinhoPiramide;
     }
 
     // Injeta Horário Padrão (Abre/Fecha)
@@ -4430,6 +5104,14 @@ function salvarConfiguracoes() {
     if (Object.keys(carrinhoAulas).length > 0) {
         listaAlteracoes.push(`<li><b>Grade de Aulas:</b> Atualizada.</li>`);
     }
+    if (Object.keys(carrinhoDuplas).length > 0) {
+        listaAlteracoes.push(`<li><b>Grade de Duplas:</b> Atualizada.</li>`);
+    }
+    // --- ADICIONADO: Mensagem da Nova Grade da Pirâmide ---
+    if (Object.keys(carrinhoPiramide).length > 0) {
+        listaAlteracoes.push(`<li><b>Grade da Pirâmide:</b> Atualizada.</li>`);
+    }
+    
     if (Object.keys(carrinhoHorarioPadrao).length > 0) {
         listaAlteracoes.push(`<li><b>Horários Padrão (Abre/Fecha):</b> Atualizados.</li>`);
     }
@@ -4451,11 +5133,8 @@ function salvarConfiguracoes() {
     if (domOtimizacao !== otimVelho) {
         listaAlteracoes.push(`<li><b>Otimização:</b> ${otimVelho ? 'ON' : 'OFF'} ➝ <b>${domOtimizacao ? 'ON' : 'OFF'}</b></li>`);
     }
-    const pirVelho = memoria.Piramide?.ativa ? true : false;
-    if (updates.Piramide.ativa !== pirVelho) listaAlteracoes.push(`<li><b>Pirâmide:</b> ${pirVelho ? 'ON' : 'OFF'} ➝ <b>${updates.Piramide.ativa ? 'ON' : 'OFF'}</b></li>`);
-    const dupVelho = memoria.Duplas?.ativa ? true : false;
-    if (updates.Duplas.ativa !== dupVelho) listaAlteracoes.push(`<li><b>Duplas:</b> ${dupVelho ? 'ON' : 'OFF'} ➝ <b>${updates.Duplas.ativa ? 'ON' : 'OFF'}</b></li>`);
-
+    
+	
     // --- 5. ENVIO FINAL ---
     db.ref("sistemas/config").update(updates)
         .then(() => {
@@ -4480,73 +5159,113 @@ function salvarConfiguracoes() {
             }
         })
         .catch(error => { 
-            console.error(error); 
+            console.error(error);  
             mostrarNotificacao("Erro ao salvar.", 'error'); 
         });
 }
 
+
 	
 
     // --- FUNÇÕES DE HORÁRIO ---
+// --- FUNÇÕES DE HORÁRIO (ATUALIZADA COM PIRÂMIDE) ---
 function abrirGerenciadorHorarios(tipo) {
-        const select = document.getElementById('tipoConfiguracaoHorario');
-        
-        if (tipo === 'padrao') {
-            renderizarTabelaPadrao();
-            document.getElementById('modalHorarioPadrao').style.display = 'flex';
-        } 
-        else if (tipo === 'especial') {
-            // === RESET COMPLETO DA TELA ESPECIAL ===
-            
-            // 1. Limpa variáveis de controle
-            periodoEmEdicaoID = null;
-
-            // 2. Reseta o Dropdown Principal
-            atualizarDropdownPeriodos();
-            document.getElementById('selectPeriodoEspecial').value = ""; 
-
-            // 3. Limpa todos os Inputs de texto e datas
-            document.getElementById('nomePeriodo').value = '';
-            document.getElementById('dataInicioPeriodo').value = '';
-            document.getElementById('dataFimPeriodo').value = '';
-            
-            // 4. Reseta os Inputs de Horário do Painel Amarelo para o padrão
-            document.getElementById('regraMestraInicio').value = '08:00';
-            document.getElementById('regraMestraFim').value = '17:00';
-            
-            // 5. Limpa a Lista de Dias (Remove os dias gerados anteriormente)
-            const containerDias = document.getElementById('containerListaDiasEspeciais');
-            containerDias.innerHTML = '<p style="text-align: center; color: #999; margin-top: 30px; font-style: italic;">Defina as datas acima e clique em <b>"Gerar / Atualizar Dias"</b>.</p>';
-            
-            // 6. Reseta o botão de Tela Cheia (Esconde e volta ao normal se estiver expandido)
-            atualizarVisibilidadeBotaoExpandir();
-            const modalEspecial = document.getElementById('modalHorarioEspecial');
-            if(modalEspecial.classList.contains('modo-foco')) {
-                alternarTelaCheiaEspecial(); // Sai do modo tela cheia se estiver nele
-            }
-
-            // 7. Trava o formulário (Estado Inicial: Cinza e Bloqueado)
-            alternarEstadoFormulario(false);
-
-            // 8. Finalmente, abre a janela
-            modalEspecial.style.display = 'flex';
-        }
-        else if (tipo === 'aulas') {
-            // Carrega os dados do banco para a memória local
-            if (horariosGlobal && horariosGlobal.Aulas) {
-                configAulasGlobal = horariosGlobal.Aulas;
-            }
-            ['Quadra1', 'Quadra2', 'Quadra3'].forEach(q => {
-                if (!configAulasGlobal[q]) configAulasGlobal[q] = { Ativo: false, Professor: '', Grade: {} };
-            });
-			
-			
-            document.getElementById('modalHorarioAulas').style.display = 'flex';
-            selecionarQuadraAula('Quadra1', true);
+    const select = document.getElementById('tipoConfiguracaoHorario');
+    
+    if (tipo === 'padrao') {
+        renderizarTabelaPadrao();
+        document.getElementById('modalHorarioPadrao').style.display = 'flex';
+    } 
+    else if (tipo === 'especial') {
+        if (horariosGlobal && horariosGlobal.Especiais) {
+            carrinhoHorarioEspecial = JSON.parse(JSON.stringify(horariosGlobal.Especiais));
         }
         
-        select.value = ""; // Reseta o dropdown principal da página
+        // Reset da Tela Especial
+        periodoEmEdicaoID = null;
+        atualizarDropdownPeriodos();
+        document.getElementById('selectPeriodoEspecial').value = ""; 
+        document.getElementById('nomePeriodo').value = '';
+        document.getElementById('dataInicioPeriodo').value = '';
+        document.getElementById('dataFimPeriodo').value = '';
+        document.getElementById('regraMestraInicio').value = '08:00';
+        document.getElementById('regraMestraFim').value = '17:00';
+        
+        const containerDias = document.getElementById('containerListaDiasEspeciais');
+        containerDias.innerHTML = '<p style="text-align: center; color: #999; margin-top: 30px; font-style: italic;">Defina as datas acima e clique em <b>"Gerar / Atualizar Dias"</b>.</p>';
+        
+        atualizarVisibilidadeBotaoExpandir();
+        const modalEspecial = document.getElementById('modalHorarioEspecial');
+        if(modalEspecial.classList.contains('modo-foco')) {
+            alternarTelaCheiaEspecial();  
+        }
+
+        alternarEstadoFormulario(false);
+        // A linha "renderizarTabelaEspecial();" que quebrava tudo foi APAGADA DAQUI!
+        modalEspecial.style.display = 'flex';
     }
+    else if (tipo === 'aulas') {
+        if (horariosGlobal && horariosGlobal.Aulas) {
+            configAulasGlobal = JSON.parse(JSON.stringify(horariosGlobal.Aulas));
+        }
+        ['Quadra1', 'Quadra2', 'Quadra3'].forEach(q => {
+            if (!configAulasGlobal[q]) configAulasGlobal[q] = { Ativo: false, Professor: '', Grade: {} };
+        });
+        document.getElementById('modalHorarioAulas').style.display = 'flex';
+        selecionarQuadraAula('Quadra1', true);
+    }
+    else if (tipo === 'duplas') {
+        if (horariosGlobal && horariosGlobal.Duplas) {
+            configDuplasGlobal = JSON.parse(JSON.stringify(horariosGlobal.Duplas));
+        }
+        ['Quadra1', 'Quadra2', 'Quadra3'].forEach(q => {
+            if (!configDuplasGlobal[q]) configDuplasGlobal[q] = { Ativo: false, Ranking: false, Grade: {} };
+            if (!configDuplasGlobal[q].Grade) configDuplasGlobal[q].Grade = {};
+        });
+
+        document.getElementById('modalHorarioDuplas').style.display = 'flex';
+        selecionarQuadraDuplas('Quadra1', true);
+    }
+    // === BLOCO ATUALIZADO: PIRÂMIDE ===
+    else if (tipo === 'piramide') {
+        // Carrega os dados do nó Horarios/Piramide
+        if (horariosGlobal && horariosGlobal.Piramide) {
+            configPiramideGlobal = JSON.parse(JSON.stringify(horariosGlobal.Piramide));
+        } else {
+            // Estado inicial caso não exista nada no banco
+            configPiramideGlobal = { 
+                Ativo: false, 
+                Ranking: false, 
+                Quadra1: { Grade: {} }, 
+                Quadra2: { Grade: {} }, 
+                Quadra3: { Grade: {} } 
+            };
+        }
+        
+        // Garante que a estrutura das quadras e das grades exista
+        ['Quadra1', 'Quadra2', 'Quadra3'].forEach(q => {
+            if (!configPiramideGlobal[q]) configPiramideGlobal[q] = { Grade: {} };
+            if (!configPiramideGlobal[q].Grade) configPiramideGlobal[q].Grade = {};
+        });
+
+        // Sincroniza os Switches do Menu Kebab com o estado atual (Global)
+        const swAtivo = document.getElementById('switchAtivarPiramide');
+        const swRanking = document.getElementById('switchRankingPiramide');
+        if (swAtivo) swAtivo.checked = configPiramideGlobal.Ativo || false;
+        if (swRanking) swRanking.checked = configPiramideGlobal.Ranking || false;
+
+        // ---> LINHA ADICIONADA AQUI <---
+        atualizarTextoDataPiramide();
+
+        document.getElementById('modalHorarioPiramide').style.display = 'flex';
+        
+        // Inicia na Quadra 1 e já aplica o bloqueio visual se Ativo for false
+        selecionarQuadraPiramide('Quadra1'); 
+    }
+
+    if (select) select.value = ""; 
+}
+
 
 
 
@@ -4709,9 +5428,15 @@ function carregarPeriodoEspecial(id) {
 
 
 function fecharModalHorario(tipo) {
-    if (tipo === 'padrao') document.getElementById('modalHorarioPadrao').style.display = 'none';
-    else if (tipo === 'especial') document.getElementById('modalHorarioEspecial').style.display = 'none';
-    else if (tipo === 'aulas') document.getElementById('modalHorarioAulas').style.display = 'none';
+    if (tipo === 'padrao') {
+        document.getElementById('modalHorarioPadrao').style.display = 'none';
+    } else if (tipo === 'especial') {
+        document.getElementById('modalHorarioEspecial').style.display = 'none';
+    } else if (tipo === 'aulas') {
+        document.getElementById('modalHorarioAulas').style.display = 'none';
+    } else if (tipo === 'duplas') {
+        document.getElementById('modalHorarioDuplas').style.display = 'none';
+    }
 }
 
 
@@ -4983,180 +5708,15 @@ function excluirPeriodoSelecionado() {
         document.getElementById(id).classList.add('tab-content-active');
         const tabBtns = document.querySelectorAll('.tab');
         if(id==='reservas') tabBtns[0].classList.add('active');
-        if(id==='duplas') tabBtns[1].classList.add('active');
-        if(id==='convidados') tabBtns[2].classList.add('active');
-        if(id==='piramide') tabBtns[3].classList.add('active');
-        if(id==='piramide') mostrarQuadra('quadra1');
-        if(id==='duplas') mostrarDuplasQuadra('quadra1');
+        if(id==='convidados') tabBtns[1].classList.add('active'); // CORRIGIDO AQUI!
         if(id==='reservas') { atualizarEstadoConfirmacao(); atualizarEstadoEdicaoOrganizador(); atualizarVisualOtimizacao(); }
     }
     
     function atualizarEstadoSistema() { const s = document.getElementById('sistema'); s.className = s.value === 'ON' ? 'on' : 'off'; }
-    function atualizarEstadoPiramide() {
-        const sel = document.getElementById('piramideAtiva');
-        sel.className = sel.value === 'ON' ? 'piramide-on' : 'piramide-off';
-        const els = document.querySelectorAll('#piramide input, #piramide button');
-        els.forEach(el => el.disabled = sel.value !== 'ON');
-        document.getElementById('piramideInicio').style.display = sel.value==='ON'?'inline':'none';
-        document.getElementById('piramideFim').style.display = sel.value==='ON'?'inline':'none';
-        document.getElementById('piramideSeparador').style.display = sel.value==='ON'?'inline':'none';
-        if(sel.value==='ON') { 
-            document.getElementById('piramideInicio').textContent = formatarData(window.piramideInicioData);
-            document.getElementById('piramideFim').textContent = formatarData(window.piramideFimData);
-            atualizarCamposPiramideQuadra1(); atualizarCamposPiramideQuadra2(); atualizarCamposPiramideQuadra3();
-        }
-        sel.disabled = false;
-    }
+    
     
 
 
-// --- NOVA LÓGICA PIRÂMIDE (MODERNA) ---
-
-function handlePiramideChange() {
-    const val = document.getElementById("piramideAtiva").value;
-    
-    if(val === 'ON') {
-        // Consulta o banco para ver se já existem datas salvas
-        db.ref('sistemas/config/Piramide').once('value', s => {
-            const c = s.val() || {};
-            
-            if(c.inicio && c.fim) {
-                // Se existirem, pergunta se quer usar elas
-                mostrarConfirmacao(`Datas salvas encontradas: <b>${c.inicio} a ${c.fim}</b>.<br>Deseja mantê-las?`, 
-                    () => { 
-                        // SIM: Usa as datas do banco
-                        window.piramideInicioData = c.inicio; 
-                        window.piramideFimData = c.fim; 
-                        atualizarEstadoPiramide();
-                    },
-                    () => { 
-                        // NÃO: Pergunta novas datas
-                        // (Aqui usamos um pequeno delay para não sobrepor janelas)
-                        setTimeout(() => iniciarFluxoDatasPiramide(), 200);
-                    }
-                );
-            } else {
-                // Se não existirem datas, pede para digitar
-                iniciarFluxoDatasPiramide();
-            }
-        });
-    } else {
-        // Se desligou (OFF)
-        if(window.piramideInicioData) {
-            mostrarConfirmacao("Deseja apagar as datas salvas da memória temporária?", () => {
-                window.piramideInicioData = ""; 
-                window.piramideFimData = "";
-                atualizarEstadoPiramide();
-            });
-        }
-        atualizarEstadoPiramide();
-    }
-}
-
-// Função auxiliar que pede as datas (Substitui os Prompts antigos)
-function iniciarFluxoDatasPiramide() {
-    // 1. Pede a Data Inicial
-    mostrarInput("Configurar Pirâmide", "Digite a <b>Data de Início</b> (dd-mm-aaaa):", "Ex: 01-01-2024", (inicio) => {
-        
-        // Validação da Data Inicial
-        if(!/^\d{2}-\d{2}-\d{4}$/.test(inicio)) {
-            mostrarNotificacao("Formato de data inválido. Use dia-mês-ano (ex: 01-01-2024).", 'error');
-            document.getElementById("piramideAtiva").value = "OFF";
-            return;
-        }
-        
-        // 2. Pede a Data Final (dentro do "OK" da primeira)
-        setTimeout(() => {
-            mostrarInput("Configurar Pirâmide", "Digite a <b>Data de Fim</b> (dd-mm-aaaa):", "Ex: 30-06-2024", (fim) => {
-                
-                // Validação da Data Final
-                if(!/^\d{2}-\d{2}-\d{4}$/.test(fim)) {
-                    mostrarNotificacao("Formato de data inválido.", 'error');
-                    document.getElementById("piramideAtiva").value = "OFF";
-                    return;
-                }
-                
-                // Sucesso! Salva na memória e atualiza a tela
-                window.piramideInicioData = inicio;
-                window.piramideFimData = fim;
-                atualizarEstadoPiramide();
-                mostrarNotificacao("Datas da Pirâmide definidas com sucesso!", 'success');
-            });
-        }, 300); // Delay para transição suave entre janelas
-    });
-}
-
-	
-	
-    
-    function atualizarCamposPiramideQuadra1() { updatePiramideQ('1'); }
-    function atualizarCamposPiramideQuadra2() { updatePiramideQ('2'); }
-    function atualizarCamposPiramideQuadra3() { updatePiramideQ('3'); }
-    function updatePiramideQ(n) {
-        const isOn = document.getElementById('piramideAtiva').value === 'ON';
-        const qOn = document.getElementById(`piramideQuadra${n}`).checked;
-        const ctr = document.getElementById(`piramideQuadra${n}Container`);
-        ctr.querySelectorAll('input').forEach(i => i.disabled = !isOn || !qOn);
-        document.getElementById(`piramideQuadra${n}`).disabled = !isOn;
-        // Logic for checkboxes dependency
-        const sem = document.getElementById(`${n}-piramideSemana`); const excSem = document.getElementById(`${n}-piramideExceto17_19`);
-        if(sem && excSem) excSem.disabled = !isOn || !qOn || !sem.checked;
-        const sab = document.getElementById(`${n}-piramideSabado`); const excSab = document.getElementById(`${n}-piramideExceto7_12`);
-        if(sab && excSab) excSab.disabled = !isOn || !qOn || !sab.checked;
-        const dom = document.getElementById(`${n}-piramideDomingo`); const excDom = document.getElementById(`${n}-piramideExceto8_12`);
-        if(dom && excDom) excDom.disabled = !isOn || !qOn || !dom.checked;
-    }
-
-    function atualizarEstadoDuplas() {
-        const sel = document.getElementById('duplasAtiva');
-        sel.className = sel.value === 'ON' ? 'duplas-on' : 'duplas-off';
-        const tab = document.getElementById('duplas');
-        tab.querySelectorAll('input, button').forEach(e => e.disabled = sel.value !== 'ON');
-        for(let i=1;i<=3;i++) {
-            const l = document.getElementById(`DuplasDiasQuadra${i}`);
-            if(l) l.classList.toggle('disabled', sel.value !== 'ON');
-        }
-        sel.disabled = false;
-        atualizarCamposDaQuadraDuplas(1); atualizarCamposDaQuadraDuplas(2); atualizarCamposDaQuadraDuplas(3);
-    }
-    function atualizarCamposDaQuadraDuplas(n) {
-        const on = document.getElementById('duplasAtiva').value === 'ON';
-        const qOn = document.getElementById(`duplasQuadra${n}Ativa`).checked;
-        const lbl = document.getElementById(`DuplasDiasQuadra${n}`);
-        if(lbl) lbl.classList.toggle('disabled', !on || !qOn);
-        ['Semana','Sabado','Domingo'].forEach(d => {
-            const cb = document.getElementById(`${n}-duplas${d}`);
-            if(cb) {
-                cb.disabled = !on || !qOn;
-                const ctr = cb.closest('.duplas-day-container');
-                ctr.querySelectorAll('.horario-input').forEach(i => i.disabled = !on || !qOn || !cb.checked);
-            }
-        });
-        const semLbl = document.querySelector(`#duplasQuadra${n}Container .dias-semana-label-clickable`);
-        if(semLbl) semLbl.style.cursor = (on && qOn && document.getElementById(`${n}-duplasSemana`).checked) ? 'pointer' : 'default';
-    }
-    function abrirModalDiasSemana(n) {
-        quadraAtualParaDiasSemana = n;
-        document.getElementById('modalDiasSemanaTitulo').innerText = document.querySelector(`#duplasQuadra${n}Container span`).innerText;
-        const c = diasSemanaDuplasConfig[`Quadra-${n}`] || { segunda: true, terca: true, quarta: true, quinta: true, sexta: true };
-        document.getElementById('duplas-segunda').checked = c.segunda; document.getElementById('duplas-terca').checked = c.terca;
-        document.getElementById('duplas-quarta').checked = c.quarta; document.getElementById('duplas-quinta').checked = c.quinta;
-        document.getElementById('duplas-sexta').checked = c.sexta;
-        document.getElementById('modalDiasSemanaDuplas').style.display = 'flex';
-    }
-    function fecharModalDiasSemana() { document.getElementById('modalDiasSemanaDuplas').style.display = 'none'; }
- 
-
-function salvarModalDiasSemana() {
-    if(!quadraAtualParaDiasSemana) return;
-    diasSemanaDuplasConfig[`Quadra-${quadraAtualParaDiasSemana}`] = {
-        segunda: document.getElementById('duplas-segunda').checked, terca: document.getElementById('duplas-terca').checked,
-        quarta: document.getElementById('duplas-quarta').checked, quinta: document.getElementById('duplas-quinta').checked,
-        sexta: document.getElementById('duplas-sexta').checked
-    };
-    mostrarNotificacao('Dias da semana atualizados! Clique em Salvar Configurações no final.', 'success');
-    fecharModalDiasSemana();
-}
 
 	
     db.ref("sistemas/usuariosOnline").on("value", s => {
@@ -5169,70 +5729,18 @@ function salvarModalDiasSemana() {
         mostrarNotificacao(msg, 'info');
     });
 
-    function mostrarQuadra(q) {
-        ['1','2','3'].forEach(n => document.getElementById(`piramideQuadra${n}Container`).style.display = `quadra${n}`===q ? 'block' : 'none');
-        document.querySelectorAll('.piramide-botao').forEach(b => b.classList.remove('ativo'));
-        document.querySelector(`.piramide-botao[onclick="mostrarQuadra('${q}')"]`).classList.add('ativo');
-    }
-    function mostrarDuplasQuadra(q) {
-        ['1','2','3'].forEach(n => document.getElementById(`duplasQuadra${n}Container`).style.display = `quadra${n}`===q ? 'block' : 'none');
-        document.querySelectorAll('.duplas-botao').forEach(b => b.classList.remove('ativo'));
-        document.querySelector(`.duplas-botao[onclick="mostrarDuplasQuadra('${q}')"]`).classList.add('ativo');
-    }
+    
+    
 
     // Exceções e Bloqueios
-    async function abrirModalExcecao(n) {
-        if(!document.getElementById('duplasAtiva').value==='ON' || !document.getElementById(`duplasQuadra${n}Ativa`).checked) return;
-        if(!vlimparExcecoesAntigas) { await limparExcecoesAntigas(); vlimparExcecoesAntigas=true; }
-        quadraAtualParaExcecao = n;
-        renderizarExcecoes(n);
-        document.getElementById('modalDatasEspeciais').style.display = 'flex';
-    }
-    function fecharModalExcecao() { document.getElementById('modalDatasEspeciais').style.display = 'none'; }
-    function renderizarExcecoes(n) {
-        const div = document.getElementById('listaExcecoes'); div.innerHTML='';
-        const k = `Quadra-${n}`; const ex = excecoesDuplas[k] || {};
-        if(Object.keys(ex).length===0) { div.innerHTML='<p>Nenhuma exceção.</p>'; return; }
-        const ul = document.createElement('ul');
-        Object.keys(ex).sort().forEach(d => {
-            const li = document.createElement('li');
-            li.innerHTML = `<div><div><strong>${formatarData(d)}</strong></div><div style="font-size:0.9em;color:#666">${ex[d].descricao||''}</div><div>${ex[d].regras.inicio}-${ex[d].regras.fim}</div></div><button class="btn-remover" onclick="removerExcecao('${k}','${d}')">X</button>`;
-            ul.appendChild(li);
-        });
-        div.appendChild(ul);
-    }
+    
+    
 	
 	
-function adicionarExcecao() {
-    const desc=document.getElementById('excecaoDescricao').value;
-    const d=document.getElementById('excecaoData').value;
-    const i=document.getElementById('excecaoInicio').value;
-    const f=document.getElementById('excecaoFim').value;
-    
-    if(!d||!i||!f) return mostrarNotificacao("Preencha Data, Início e Fim.", 'warning');
-    
-    const dp = d.replace(/-/g,'/'); 
-    if(!/^\d{2}\/\d{2}\/\d{4}$/.test(dp)) return mostrarNotificacao("Data inválida.", 'error');
-    
-    const p = dp.split('/'); const dbDate = `${p[2]}-${p[1]}-${p[0]}`;
-    const k = `Quadra-${quadraAtualParaExcecao}`;
-    
-    db.ref().update({
-        [`sistemas/config/Duplas/DatasEspeciais/${k}/${dbDate}`]: { descricao:desc, regras:{inicio:i,fim:f} },
-        [`sistemas/config/Duplas/${k}/${k}-ativa`]: true
-    }).then(()=>{ 
-        mostrarNotificacao("Exceção adicionada!", 'success');
-        renderizarExcecoes(quadraAtualParaExcecao); 
-    });
-}
+
 	
 	
-function removerExcecao(k, d) { 
-    mostrarConfirmacao("Deseja remover esta exceção?", () => {
-        db.ref(`sistemas/config/Duplas/DatasEspeciais/${k}/${d}`).remove();
-        mostrarNotificacao("Exceção removida.", 'success');
-    });
-}
+
     
     async function abrirModalBloqueio(n) {
         if(!vlimparBloqueiosAntigos) { await limparBloqueiosAntigos(); vlimparBloqueiosAntigos=true; }
@@ -5287,7 +5795,7 @@ function removerBloqueio(k, d) {
     });
 }
     
-    function limparExcecoesAntigas() { return limparAntigos(excecoesDuplas, 'Duplas/DatasEspeciais'); }
+    
     function limparBloqueiosAntigos() { return limparAntigos(bloqueiosQuadra, 'Quadras/Bloqueios'); }
     function limparAntigos(obj, pathMid) {
         const d7 = new Date(); d7.setDate(d7.getDate()-7); d7.setHours(0,0,0,0);
@@ -5328,16 +5836,7 @@ function handleEstadoQuadraChange(el, n) {
     document.addEventListener("DOMContentLoaded", function() { 
         showTab('reservas');
         
-        for(let i=1; i<=3; i++) {
-            const cb = document.getElementById(`${i}-duplasSemana`);
-            const lbl = document.querySelector(`#duplasQuadra${i}Container .dias-semana-label-clickable`);
-            if(cb) cb.addEventListener('change', () => atualizarCamposDaQuadraDuplas(i));
-            if(lbl) lbl.addEventListener('click', () => { if(document.getElementById(`duplasQuadra${i}Ativa`).checked && cb.checked) abrirModalDiasSemana(i); });
-            document.getElementById(`${i}-duplasSabado`).addEventListener('change', () => atualizarCamposDaQuadraDuplas(i));
-            document.getElementById(`${i}-duplasDomingo`).addEventListener('change', () => atualizarCamposDaQuadraDuplas(i));
-            const ld = document.getElementById(`DuplasDiasQuadra${i}`);
-            if(ld) ld.addEventListener('dblclick', () => abrirModalExcecao(i));
-        }
+        
 
         const inputs = document.querySelectorAll('.horario-input'); 
         inputs.forEach(i => {
@@ -6193,6 +6692,843 @@ function aplicarOpcaoCustomizada(dias) {
     selectMural.value = dias;
 }
 
+
+/**
+ * Controla a troca de abas (quadras) e sincroniza os checkboxes de Duplas
+ */
+/**
+ * Controla a troca de abas (quadras) e sincroniza os checkboxes de Duplas
+ * Versão Final: Blindada e Limpa
+ */
+/**
+ * Controla a troca de abas (quadras) e sincroniza os checkboxes de Duplas
+ * Versão Corrigida: Usa os novos Switches do Menu Kebab
+ */
+/**
+ * Controla a troca de abas (quadras), sincroniza os switches e aplica o efeito visual (OFF)
+ */
+function selecionarQuadraDuplas(quadraKey, pularSincronia = false) {
+    quadraDuplasAtual = quadraKey;
+
+    // 1. Atualiza visual das abas
+    ['Quadra1', 'Quadra2', 'Quadra3'].forEach((q, idx) => {
+        const btn = document.getElementById(`btn-duplas-q${idx+1}`);
+        if (btn) {
+            if (q === quadraKey) btn.classList.add('active');
+            else btn.classList.remove('active');
+        }
+    });
+
+    // 2. Título
+    const nomes = { 'Quadra1': 'Quadra 1 - Coberta', 'Quadra2': 'Quadra 2 - Aberta', 'Quadra3': 'Quadra 3 - Coberta' };
+    const tituloElemento = document.getElementById('tituloDuplasQuadra');
+    if (tituloElemento) {
+        tituloElemento.innerHTML = nomes[quadraKey];
+    }
+
+    // 3. Garante estrutura da quadra na memória
+    if (!configDuplasGlobal[quadraKey]) {
+        configDuplasGlobal[quadraKey] = { Ativo: false, Grade: {} };
+    }
+
+    // 4. Sincroniza Kebab Global (O Chefe)
+    const switchAtivar = document.getElementById('switchAtivarDuplas');
+    const switchRanking = document.getElementById('switchRankingDuplas');
+    if (switchAtivar) switchAtivar.checked = configDuplasGlobal.Ativo === true;
+    if (switchRanking) switchRanking.checked = configDuplasGlobal.Ranking === true;
+
+    // 5. Sincroniza o Checkbox da Quadra e aplica a Regra do Chefe
+    const chkAtivarQuadra = document.getElementById('checkboxAtivarQuadraDuplas');
+    if (chkAtivarQuadra) {
+        // Verifica se a quadra está marcada como ativa
+        const isAtiva = configDuplasGlobal[quadraKey].Ativo === true;
+        chkAtivarQuadra.checked = isAtiva;
+        
+        // Regra do Chefe: Bloqueia e deixa cinza se o Torneio Geral estiver OFF
+        const chefeAtivo = configDuplasGlobal.Ativo === true;
+        chkAtivarQuadra.disabled = !chefeAtivo;
+        
+        const labelSpan = chkAtivarQuadra.nextElementSibling;
+        if (labelSpan) {
+            labelSpan.style.color = chefeAtivo ? '#2e7d32' : '#999';
+        }
+    }
+
+    atualizarVisualDuplas();
+    renderizarTabelaDuplas();
+}
+
+
+
+/**
+ * Gera a grade visual de horários para as Duplas (A planilha que estava faltando)
+ */
+function renderizarTabelaDuplas() {
+    const tbody = document.getElementById('tbodyDuplas');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    const dadosQuadra = configDuplasGlobal[quadraDuplasAtual] || {};
+    const gradeRascunho = dadosQuadra.Grade || {};
+
+    for (let hora = 6; hora <= 22; hora++) {
+        const tr = document.createElement('tr');
+        const txtHora = `${String(hora).padStart(2,'0')}:00 - ${String(hora + 1).padStart(2,'0')}:00`;
+        
+        // Coluna Hora Esquerda
+        let html = `<td ondblclick="alternarTelaCheiaDuplas()" style="cursor: pointer; user-select: none;" title="Duplo clique para Tela Cheia">${txtHora}</td>`;
+
+        for (let dia = 1; dia <= 7; dia++) {
+            const key = `${dia}_${hora}`;
+            
+            // --- NOVA LÓGICA: Verifica se o clube está aberto neste horário ---
+            // Reutiliza as funções que já existem no seu sistema (usadas em Aulas)
+            const regrasPadrao = obterRegrasPadrao(dia);
+            const estaAberto = verificarSeAbertoNoPadrao(regrasPadrao, hora);
+
+            if (!estaAberto) {
+                // Se fechado: Célula Cinza e Bloqueada (Igual Aulas)
+                html += `<td class="aula-cell-bloqueada"></td>`;
+            } else {
+                // Se aberto: Lógica normal de marcar/desmarcar
+                const marcado = gradeRascunho[key] === true;
+                const classe = marcado ? 'dupla-cell-marcada' : 'aula-cell-livre';
+                const texto = marcado ? 'Duplas' : ''; // Voltando para "Duplas"
+                
+                html += `<td class="${classe}" id="cell-dupla-${key}" onclick="alternarSlotDupla('${key}')">${texto}</td>`;
+            }
+        }
+
+        // Coluna Hora Direita
+        html += `<td ondblclick="alternarTelaCheiaDuplas()" style="cursor: pointer; user-select: none;" title="Duplo clique para Tela Cheia">${txtHora}</td>`;
+        
+        tr.innerHTML = html;
+        tbody.appendChild(tr);
+    }
+}
+
+
+
+/**
+ * Marca ou desmarca um horário específico na grade (fica Vermelho ao clicar)
+ */
+function alternarSlotDupla(key) {
+    const isQuadraAtiva = configDuplasGlobal[quadraDuplasAtual] && configDuplasGlobal[quadraDuplasAtual].Ativo === true;
+    if (!configDuplasGlobal.Ativo || !isQuadraAtiva) return;
+
+    if (!configDuplasGlobal[quadraDuplasAtual].Grade) configDuplasGlobal[quadraDuplasAtual].Grade = {};
+    const grade = configDuplasGlobal[quadraDuplasAtual].Grade;
+    const cell = document.getElementById(`cell-dupla-${key}`);
+
+    if (grade[key]) {
+        delete grade[key];
+        cell.className = 'aula-cell-livre';
+        cell.textContent = '';
+    } else {
+        grade[key] = true;
+        cell.className = 'dupla-cell-marcada';
+        cell.textContent = 'Duplas'; // Voltando para "Duplas"
+    }
+    marcarComoAlterado();
+}
+
+function acaoDuplas(tipo) {
+    const isQuadraAtiva = configDuplasGlobal[quadraDuplasAtual] && configDuplasGlobal[quadraDuplasAtual].Ativo === true;
+    if (!configDuplasGlobal.Ativo || !isQuadraAtiva) return;
+
+    if (!configDuplasGlobal[quadraDuplasAtual].Grade) configDuplasGlobal[quadraDuplasAtual].Grade = {};
+    const grade = configDuplasGlobal[quadraDuplasAtual].Grade;
+    
+    for (let hora = 6; hora <= 22; hora++) {
+        for (let dia = 1; dia <= 7; dia++) {
+            const key = `${dia}_${hora}`;
+            const regrasPadrao = obterRegrasPadrao(dia);
+            if (verificarSeAbertoNoPadrao(regrasPadrao, hora)) {
+                if (tipo === 'selecionar') grade[key] = true;
+                else delete grade[key];
+            }
+        }
+    }
+    renderizarTabelaDuplas();
+    marcarComoAlterado();
+}
+
+
+
+/**
+ * Aplica o rascunho de Duplas ao objeto principal de horários antes do salvamento final
+ */
+function salvarConfiguracaoDuplas() {
+    // Sincroniza os switches globais antes de salvar
+    configDuplasGlobal.Ativo = document.getElementById('switchAtivarDuplas').checked;
+    configDuplasGlobal.Ranking = document.getElementById('switchRankingDuplas').checked;
+
+    // --- REMOVE O 'RANKING' INTRUSO DAS QUADRAS (Limpeza do banco) ---
+    ['Quadra1', 'Quadra2', 'Quadra3'].forEach(q => {
+        if (configDuplasGlobal[q] && configDuplasGlobal[q].Ranking !== undefined) {
+            delete configDuplasGlobal[q].Ranking;
+        }
+    });
+
+    carrinhoDuplas = JSON.parse(JSON.stringify(configDuplasGlobal));
+    
+    if (!horariosGlobal) horariosGlobal = {};
+    horariosGlobal.Duplas = carrinhoDuplas;
+
+    fecharModalHorario('duplas');
+    marcarComoAlterado();
+    mostrarNotificacao("Configurações de Duplas prontas para salvar!", "info");
+}
+
+function toggleAtivarDuplas(checked) {
+    configDuplasGlobal.Ativo = checked; 
+    
+    const chkAtivarQuadra = document.getElementById('checkboxAtivarQuadraDuplas');
+    if (chkAtivarQuadra) {
+        chkAtivarQuadra.disabled = !checked;
+        const labelSpan = chkAtivarQuadra.nextElementSibling;
+        if (labelSpan) {
+            labelSpan.style.color = checked ? '#2e7d32' : '#999';
+        }
+    }
+
+    atualizarVisualDuplas();
+    renderizarTabelaDuplas();
+    marcarComoAlterado();
+}
+
+function toggleRankingDuplas(checked) {
+    configDuplasGlobal.Ranking = checked;
+    marcarComoAlterado();
+}
+
+function toggleAtivarQuadraDuplas(isAtivo) {
+    if (!configDuplasGlobal.Ativo) {
+        document.getElementById('checkboxAtivarQuadraDuplas').checked = false;
+        return;
+    }
+    if (!configDuplasGlobal[quadraDuplasAtual]) {
+        configDuplasGlobal[quadraDuplasAtual] = { Ativo: false, Grade: {} };
+    }
+    configDuplasGlobal[quadraDuplasAtual].Ativo = isAtivo;
+    
+    atualizarVisualDuplas();
+    marcarComoAlterado();
+}
+
+// Variável de controle para o duplo clique (pode ficar junto com as outras globais ou aqui mesmo)
+let ultimoTempoCliqueDuplas = 0;
+
+// Função que detecta o duplo clique no cabeçalho
+function tratarCliqueHorarioDuplas(event) {
+    if (window.getSelection) {
+        window.getSelection().removeAllRanges(); // Evita selecionar o texto
+    }
+
+    const tempoAtual = new Date().getTime();
+    const diferenca = tempoAtual - ultimoTempoCliqueDuplas;
+    
+    // Se o segundo clique for rápido (< 300ms), ativa a tela cheia
+    if (diferenca < 300 && diferenca > 0) {
+        alternarTelaCheiaDuplas();
+        ultimoTempoCliqueDuplas = 0;
+    } else {
+        ultimoTempoCliqueDuplas = tempoAtual;
+    }
+}
+
+// Função que alterna o CSS para maximizar
+function alternarTelaCheiaDuplas() {
+    if (window.getSelection) {
+        window.getSelection().removeAllRanges();
+    }
+    
+    const modalContent = document.querySelector('#modalHorarioDuplas .modal-content');
+    
+    if (modalContent) {
+        if (modalContent.classList.contains('maximizado')) {
+            modalContent.classList.remove('maximizado');
+        } else {
+            modalContent.classList.add('maximizado');
+        }
+    }
+}
+
+
+/* ================================================================= */
+/* ===           LÓGICA DO MENU DE DUPLAS (KEBAB MENU)           === */
+/* ================================================================= */
+
+function toggleMenuDuplas(event) {
+    // Passo crucial: Impede que o clique no botão se propague para o cabeçalho.
+    // Sem isso, o sistema acharia que você quer maximizar a janela (duplo clique).
+    event.stopPropagation();
+
+    const menu = document.getElementById('menuDropdownDuplas');
+    
+    // Alterna entre mostrar e esconder
+    if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+    } else {
+        menu.style.display = 'block';
+    }
+}
+
+// Evento global para fechar o menu ao clicar fora dele
+// Evento global para fechar os menus ao clicar fora deles
+window.addEventListener('click', function(e) {
+    
+    // 1. Vigia o menu de Duplas
+    const menuDuplas = document.getElementById('menuDropdownDuplas');
+    const btnDuplas = document.getElementById('btnKebabDuplas');
+    if (menuDuplas && menuDuplas.style.display === 'block') {
+        if (!menuDuplas.contains(e.target) && (!btnDuplas || !btnDuplas.contains(e.target))) {
+            menuDuplas.style.display = 'none'; 
+        }
+    }
+
+    // 2. Vigia o menu de Pirâmide
+    const menuPiramide = document.getElementById('menuDropdownPiramide');
+    const btnPiramide = document.getElementById('btnKebabPiramide');
+    if (menuPiramide && menuPiramide.style.display === 'block') {
+        // Se não clicou dentro do menu e não clicou no botão dos 3 pontinhos...
+        if (!menuPiramide.contains(e.target) && (!btnPiramide || !btnPiramide.contains(e.target))) {
+            menuPiramide.style.display = 'none'; // ...então fecha o menu.
+        }
+    }
+});
+
+
+/* --- FUNÇÃO AUXILIAR PARA O EFEITO VISUAL --- */
+/* --- FUNÇÃO AUXILIAR PARA O EFEITO VISUAL E BLOQUEIO --- */
+/* --- ATUALIZAÇÃO VISUAL: FOCO EXCLUSIVO EM SELECIONAR E LIMPAR --- */
+// --- NOVA FUNÇÃO: Controle Visual da Capa Cinza nas Duplas ---
+function atualizarVisualDuplas() {
+    const titulo = document.getElementById('tituloPrincipalDuplas');
+    const containerTabela = document.querySelector('#modalHorarioDuplas .tabela-horarios-scroll');
+    const btnSelecionar = document.getElementById('btnSelecionarDuplas');
+    const btnLimpar = document.getElementById('btnLimparDuplas');
+    const tituloQuadra = document.getElementById('tituloDuplasQuadra');
+
+    // Regras de liberação (O Chefe E a Quadra precisam estar ON)
+    const chefeAtivo = configDuplasGlobal.Ativo === true;
+    const quadraAtiva = configDuplasGlobal[quadraDuplasAtual] && configDuplasGlobal[quadraDuplasAtual].Ativo === true;
+    const telaLiberada = chefeAtivo && quadraAtiva;
+
+    if (telaLiberada) {
+        if (containerTabela) {
+            containerTabela.classList.remove('duplas-desativadas');
+            containerTabela.style.pointerEvents = 'auto';
+            containerTabela.style.opacity = '1';
+            containerTabela.style.filter = 'none';
+        }
+        if (btnSelecionar) {
+            btnSelecionar.classList.remove('btn-acao-desativado');
+            btnSelecionar.style.setProperty('background-color', '#007bff', 'important');
+            btnSelecionar.style.setProperty('color', '#ffffff', 'important');
+            btnSelecionar.style.setProperty('opacity', '1', 'important');
+            btnSelecionar.style.cursor = 'pointer';
+            btnSelecionar.style.pointerEvents = 'auto';
+        }
+        if (btnLimpar) {
+            btnLimpar.classList.remove('btn-acao-desativado');
+            btnLimpar.style.setProperty('background-color', '#ffffff', 'important');
+            btnLimpar.style.setProperty('color', '#333333', 'important');
+            btnLimpar.style.setProperty('opacity', '1', 'important');
+            btnLimpar.style.cursor = 'pointer';
+            btnLimpar.style.pointerEvents = 'auto';
+        }
+    } else {
+        if (containerTabela) {
+            containerTabela.classList.add('duplas-desativadas');
+            containerTabela.style.pointerEvents = 'none';
+            containerTabela.style.opacity = '0.5';
+            containerTabela.style.filter = 'grayscale(100%)';
+        }
+        [btnSelecionar, btnLimpar].forEach(btn => {
+            if (btn) {
+                btn.classList.add('btn-acao-desativado');
+                btn.style.setProperty('background-color', '#e0e0e0', 'important');
+                btn.style.setProperty('color', '#999999', 'important');
+                btn.style.setProperty('border', '1px solid #d0d0d0', 'important');
+                btn.style.setProperty('opacity', '0.6', 'important');
+                btn.style.setProperty('cursor', 'not-allowed', 'important');
+                btn.style.pointerEvents = 'none';
+            }
+        });
+    }
+
+    if (tituloQuadra) tituloQuadra.style.removeProperty('color');
+    if (chefeAtivo) {
+        if (titulo) titulo.style.removeProperty('color');
+    } else {
+        if (titulo) titulo.style.setProperty('color', '#ff4444', 'important');
+    }
+}
+
+
+
+// Adiciona um "ouvinte" ao switch para mudar o visual em tempo real
+document.addEventListener('DOMContentLoaded', function() {
+    const switchAtivar = document.getElementById('switchAtivarDuplas');
+    if (switchAtivar) {
+        switchAtivar.addEventListener('change', function() {
+            atualizarVisualDuplas(this.checked);
+        });
+    }
+});
+
+
+
+/* ================================================================= */
+/* ===           MÓDULO DE LÓGICA: HORÁRIO DE PIRÂMIDE           === */
+/* ================================================================= */
+
+function selecionarQuadraPiramide(quadraKey) {
+    quadraPiramideAtual = quadraKey;
+
+    // 1. GERENCIAMENTO VISUAL DAS ABAS (Seu padrão mantido)
+    for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById(`tabPiramideQ${i}`);
+        if (btn) {
+            if (`Quadra${i}` === quadraKey) {
+                btn.classList.add('active');
+                btn.style.setProperty('background-color', '#4CAF50', 'important');
+                btn.style.setProperty('color', 'white', 'important');
+            } else {
+                btn.classList.remove('active');
+                btn.style.backgroundColor = '#f1f1f1';
+                btn.style.color = '#555';
+            }
+        }
+    }
+
+    // 2. SINCRONIA DOS NOMES
+    const nomesFieis = { 
+        'Quadra1': 'Quadra 1 - Coberta', 
+        'Quadra2': 'Quadra 2 - Aberta', 
+        'Quadra3': 'Quadra 3 - Coberta' 
+    };
+    
+    const elTitulo = document.getElementById('tituloPiramideQuadra');
+    if (elTitulo) elTitulo.innerText = nomesFieis[quadraKey];
+
+    // 3. ATUALIZAÇÃO DA TABELA E CHECKBOX (Lógica Global)
+    if (!configPiramideGlobal[quadraKey]) configPiramideGlobal[quadraKey] = { Grade: {} };
+
+    // Sincroniza o Switch do Menu Kebab com a chave Global
+    const switchAtivar = document.getElementById('switchAtivarPiramide');
+    if (switchAtivar) switchAtivar.checked = configPiramideGlobal.Ativo || false;
+
+    // --- NOVO: Sincroniza o Checkbox da Quadra e aplica a Regra do Chefe ---
+    const chkAtivarQuadra = document.getElementById('checkboxAtivarQuadraPiramide');
+    if (chkAtivarQuadra) {
+        // Verifica se esta quadra está marcada como ativa no banco
+        const isAtiva = configPiramideGlobal[quadraKey].Ativa === true;
+        chkAtivarQuadra.checked = isAtiva;
+        
+        // REGRA DO CHEFE: Bloqueia e deixa cinza se o Torneio Geral estiver OFF
+        const chefeAtivo = configPiramideGlobal.Ativo;
+        chkAtivarQuadra.disabled = !chefeAtivo;
+        
+        const labelSpan = chkAtivarQuadra.nextElementSibling; // Pega o <span>Ativar</span>
+        if (labelSpan) {
+            labelSpan.style.color = chefeAtivo ? '#2e7d32' : '#999'; // Verde se chefe ON, Cinza se chefe OFF
+        }
+    }
+
+    // Aplica o bloqueio visual usando o Ativo Global
+    atualizarVisualPiramide();
+    renderizarTabelaPiramide();
+}
+
+
+function renderizarTabelaPiramide() {
+    const tbody = document.getElementById('tabelaHorariosPiramide');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    // Pegamos a grade da quadra atual
+    const dadosQuadra = configPiramideGlobal[quadraPiramideAtual] || { Grade: {} };
+    const grade = dadosQuadra.Grade || {};
+
+    // Loop de horários (6h às 22h)
+    for (let h = 6; h <= 22; h++) {
+        const tr = document.createElement('tr');
+        const txtHora = `${String(h).padStart(2, '0')}:00 - ${String(h + 1).padStart(2, '0')}:00`;
+
+        // Coluna Horário (Esquerda)
+        let tdEsq = document.createElement('td');
+        tdEsq.className = "sem-selecao";
+        tdEsq.textContent = txtHora;
+        // Mantém a funcionalidade de tela cheia no duplo clique
+        tdEsq.ondblclick = () => alternarTelaCheiaPiramide(); 
+        tr.appendChild(tdEsq);
+
+        // Dias da Semana (1 a 7)
+        for (let dia = 1; dia <= 7; dia++) {
+            const td = document.createElement('td');
+            
+            // --- NOVA CHAVE NUMÉRICA (Ex: "1_6") ---
+            const key = `${dia}_${h}`; 
+
+            // Verifica se o horário está aberto no Horário Padrão
+            const regrasPadrao = obterRegrasPadrao(dia);
+            const estaAberto = verificarSeAbertoNoPadrao(regrasPadrao, h);
+
+            if (!estaAberto) {
+                // Se a quadra está fechada no padrão, fica bloqueada
+                td.className = 'aula-cell-bloqueada';
+            } else {
+                // Se está marcado na Pirâmide: Vermelho + "exceto"
+                if (grade[key]) {
+                    td.className = "aula-cell-marcada"; 
+                    td.textContent = "exceto";
+                } else {
+                    td.className = "aula-cell-livre";
+                    td.textContent = "";
+                }
+
+                // Ação do Clique
+                td.onclick = () => {
+                    // Só permite alteração se o Ativo Global E a Quadra estiverem ON
+                    const isQuadraAtiva = configPiramideGlobal[quadraPiramideAtual] && configPiramideGlobal[quadraPiramideAtual].Ativa === true;
+                    if (!configPiramideGlobal.Ativo || !isQuadraAtiva) return;
+
+                    if (grade[key]) {
+                        delete grade[key];
+                        td.className = "aula-cell-livre";
+                        td.textContent = "";
+                    } else {
+                        grade[key] = true;
+                        td.className = "aula-cell-marcada";
+                        td.textContent = "exceto";
+                    }
+                    marcarComoAlterado();
+                };
+            }
+            tr.appendChild(td);
+        }
+
+        // Coluna Horário (Direita)
+        let tdDir = document.createElement('td');
+        tdDir.className = "sem-selecao";
+        tdDir.textContent = txtHora;
+        tdDir.ondblclick = () => alternarTelaCheiaPiramide();
+        tr.appendChild(tdDir);
+
+        tbody.appendChild(tr);
+    }
+}
+
+
+// ==========================================================
+// NOVAS FUNÇÕES TELA CHEIA - PIRÂMIDE (Adicione logo abaixo)
+// ==========================================================
+
+let ultimoTempoCliquePiramide = 0;
+
+function tratarCliqueHorarioPiramide(event) {
+    if (window.getSelection) {
+        window.getSelection().removeAllRanges(); // Evita selecionar o texto de azul
+    }
+
+    const tempoAtual = new Date().getTime();
+    const diferenca = tempoAtual - ultimoTempoCliquePiramide;
+    
+    // Se o segundo clique for rápido (< 300ms), ativa a tela cheia
+    if (diferenca < 300 && diferenca > 0) {
+        alternarTelaCheiaPiramide();
+        ultimoTempoCliquePiramide = 0;
+    } else {
+        ultimoTempoCliquePiramide = tempoAtual;
+    }
+}
+
+function alternarTelaCheiaPiramide() {
+    if (window.getSelection) {
+        window.getSelection().removeAllRanges();
+    }
+    
+    const modalContent = document.querySelector('#modalHorarioPiramide .modal-content');
+    
+    if (modalContent) {
+        if (modalContent.classList.contains('maximizado')) {
+            modalContent.classList.remove('maximizado');
+        } else {
+            modalContent.classList.add('maximizado');
+        }
+    }
+}
+
+
+
+// Funções Auxiliares (Menu, Ativar, Salvar)
+function toggleMenuPiramide(e) {
+    if(e) e.stopPropagation();
+    const menu = document.getElementById('menuDropdownPiramide');
+    if(menu) menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+}
+
+
+// --- 3. SWITCHES DO MENU KEBAB (Ativo e Ranking) ---
+function toggleAtivarPiramide(checked) {
+    configPiramideGlobal.Ativo = checked; // Salva na raiz (Global)
+    
+    // --- NOVO: Atualiza o visual do checkbox da quadra na mesma hora ---
+    const chkAtivarQuadra = document.getElementById('checkboxAtivarQuadraPiramide');
+    if (chkAtivarQuadra) {
+        chkAtivarQuadra.disabled = !checked;
+        const labelSpan = chkAtivarQuadra.nextElementSibling;
+        if (labelSpan) {
+            labelSpan.style.color = checked ? '#2e7d32' : '#999';
+        }
+    }
+
+    atualizarVisualPiramide();
+    renderizarTabelaPiramide();
+    marcarComoAlterado();
+}
+
+
+function toggleAtivarQuadraPiramide(isAtivo) {
+    // Regra do Chefe (Segurança Extra): se o torneio todo estiver OFF, ignora o clique
+    if (!configPiramideGlobal.Ativo) {
+        document.getElementById('checkboxAtivarQuadraPiramide').checked = false;
+        return;
+    }
+
+    // Garante que a quadra atual existe no objeto global e salva a nova configuração
+    if (!configPiramideGlobal[quadraPiramideAtual]) {
+        configPiramideGlobal[quadraPiramideAtual] = { Grade: {} };
+    }
+    
+    configPiramideGlobal[quadraPiramideAtual].Ativa = isAtivo;
+
+    // ---> A MÁGICA QUE FALTOU AQUI <---
+    // Atualiza a tela (tira ou coloca a capa cinza e trava/destrava os botões) na mesma hora
+    atualizarVisualPiramide();
+
+    // Avisa o botão "Salvar Configurações" que houve mudança
+    marcarComoAlterado();
+}
+
+
+
+function toggleRankingPiramide(checked) {
+    configPiramideGlobal.Ranking = checked; // Salva na raiz (Global)
+    marcarComoAlterado();
+}
+
+
+function atualizarVisualPiramide() {
+    // 1. Encontra os elementos
+    const tabela = document.querySelector('#modalHorarioPiramide .tabela-horarios-scroll');
+    const tituloQuadra = document.getElementById('tituloPiramideQuadra');
+    const tituloPrincipal = document.querySelector('#modalHorarioPiramide h2');
+    const btnSelecionar = document.querySelector('#modalHorarioPiramide .btn-mini:not(.outline)');
+    const btnLimpar = document.querySelector('#modalHorarioPiramide .btn-mini.outline');
+
+    // 2. Define as regras de liberação
+    const chefeAtivo = configPiramideGlobal.Ativo === true;
+    const quadraAtiva = configPiramideGlobal[quadraPiramideAtual] && configPiramideGlobal[quadraPiramideAtual].Ativa === true;
+    const telaLiberada = chefeAtivo && quadraAtiva; // Só libera se o torneio E a quadra estiverem ON
+
+    // 3. Aplica o visual da Planilha e Botões (Depende dos dois)
+    if (telaLiberada) {
+        if (tabela) { 
+            tabela.style.setProperty('opacity', '1', 'important'); 
+            tabela.style.setProperty('pointer-events', 'auto', 'important'); 
+            tabela.style.setProperty('filter', 'none', 'important'); 
+        }
+        
+        if (btnSelecionar) {
+            btnSelecionar.classList.remove('btn-acao-desativado');
+            btnSelecionar.style.removeProperty('background-color');
+            btnSelecionar.style.removeProperty('color');
+            btnSelecionar.style.removeProperty('cursor');
+            btnSelecionar.style.removeProperty('pointer-events');
+            btnSelecionar.style.removeProperty('opacity');
+        }
+        if (btnLimpar) {
+            btnLimpar.classList.remove('btn-acao-desativado');
+            btnLimpar.style.removeProperty('background-color');
+            btnLimpar.style.removeProperty('color');
+            btnLimpar.style.removeProperty('cursor');
+            btnLimpar.style.removeProperty('pointer-events');
+            btnLimpar.style.removeProperty('opacity');
+        }
+    } else {
+        if (tabela) { 
+            tabela.style.setProperty('opacity', '0.5', 'important'); 
+            tabela.style.setProperty('pointer-events', 'none', 'important'); 
+            tabela.style.setProperty('filter', 'grayscale(100%)', 'important'); 
+        }
+        
+        if (btnSelecionar) {
+            btnSelecionar.classList.add('btn-acao-desativado');
+            btnSelecionar.style.setProperty('background-color', '#e0e0e0', 'important');
+            btnSelecionar.style.setProperty('color', '#999999', 'important');
+            btnSelecionar.style.setProperty('cursor', 'not-allowed', 'important');
+            btnSelecionar.style.setProperty('pointer-events', 'none', 'important');
+            btnSelecionar.style.setProperty('opacity', '0.6', 'important');
+        }
+        if (btnLimpar) {
+            btnLimpar.classList.add('btn-acao-desativado');
+            btnLimpar.style.setProperty('background-color', '#e0e0e0', 'important');
+            btnLimpar.style.setProperty('color', '#999999', 'important');
+            btnLimpar.style.setProperty('cursor', 'not-allowed', 'important');
+            btnLimpar.style.setProperty('pointer-events', 'none', 'important');
+            btnLimpar.style.setProperty('opacity', '0.6', 'important'); 
+        }
+    }
+
+    // 4. Aplica o visual dos Títulos (O Título Principal depende SÓ do Chefe)
+    if (tituloQuadra) tituloQuadra.style.removeProperty('color');
+    
+    if (chefeAtivo) {
+        if (tituloPrincipal) tituloPrincipal.style.removeProperty('color'); // Deixa o CSS assumir (Branco no escuro, Preto no claro)
+    } else {
+        if (tituloPrincipal) tituloPrincipal.style.setProperty('color', '#ff4444', 'important'); // Mantém vermelho se estiver desligado
+    }
+}
+
+
+
+
+function selecionarTudoPiramide() {
+    // Bloqueio de segurança: Exige Chefe ON e Quadra ON
+    const isQuadraAtiva = configPiramideGlobal[quadraPiramideAtual] && configPiramideGlobal[quadraPiramideAtual].Ativa === true;
+    if (!configPiramideGlobal.Ativo || !isQuadraAtiva) return;
+
+    const grade = configPiramideGlobal[quadraPiramideAtual].Grade;
+    
+    // Percorre dias (1-7) e horas (6-22)
+    for (let d = 1; d <= 7; d++) {
+        for (let h = 6; h <= 22; h++) {
+            const regrasPadrao = obterRegrasPadrao(d);
+            if (verificarSeAbertoNoPadrao(regrasPadrao, h)) {
+                grade[`${d}_${h}`] = true;
+            }
+        }
+    }
+    renderizarTabelaPiramide();
+    marcarComoAlterado();
+}
+
+
+
+function limparTudoPiramide() {
+    // Bloqueio de segurança: Exige Chefe ON e Quadra ON
+    const isQuadraAtiva = configPiramideGlobal[quadraPiramideAtual] && configPiramideGlobal[quadraPiramideAtual].Ativa === true;
+    if (!configPiramideGlobal.Ativo || !isQuadraAtiva) return;
+
+    configPiramideGlobal[quadraPiramideAtual].Grade = {};
+    renderizarTabelaPiramide();
+    marcarComoAlterado();
+}
+
+
+
+// --- 4. BOTÃO SALVAR (Prepara o rascunho para o banco) ---
+function salvarPiramide() {
+    // Sincroniza os switches com o objeto global por garantia
+    configPiramideGlobal.Ativo = document.getElementById('switchAtivarPiramide').checked;
+    configPiramideGlobal.Ranking = document.getElementById('switchRankingPiramide').checked;
+
+    // Alimenta o carrinho que será enviado ao Firebase no salvamento geral da página
+    carrinhoPiramide = JSON.parse(JSON.stringify(configPiramideGlobal));
+    
+    // Sincroniza com a variável de memória que o sistema usa para carregar as telas
+    if (!horariosGlobal) horariosGlobal = {};
+    horariosGlobal.Piramide = carrinhoPiramide;
+
+    fecharModalHorarioPiramide();
+    marcarComoAlterado();
+    mostrarNotificacao("Configurações da Pirâmide prontas para salvar!", "info");
+}
+
+function fecharModalHorarioPiramide() {
+    document.getElementById('modalHorarioPiramide').style.display = 'none';
+    // Remove o modo maximizado caso tenha sido fechado nele
+    const content = document.querySelector('#modalHorarioPiramide .modal-content');
+    if (content) content.classList.remove('maximizado');
+}
+
+
+
+// ==========================================
+// CONTROLE DE DATAS DO TORNEIO DA PIRÂMIDE
+// ==========================================
+
+function formatarDataBR(dataISO) {
+    if (!dataISO) return "";
+    const partes = dataISO.split('-');
+    if (partes.length !== 3) return dataISO;
+    // Retorna no formato DD/MM/AA para economizar espaço
+    return `${partes[2]}/${partes[1]}/${partes[0].substring(2)}`;
+}
+
+function atualizarTextoDataPiramide() {
+    const btnTexto = document.getElementById('btnDataPiramideKebab');
+    if (!btnTexto) return;
+
+    const inicio = configPiramideGlobal.Inicio;
+    const fim = configPiramideGlobal.Fim;
+
+    if (inicio && fim) {
+        btnTexto.innerHTML = `📅 ${formatarDataBR(inicio)} à ${formatarDataBR(fim)}`;
+        btnTexto.style.color = "#333"; // Cor normal se já tem data
+    } else {
+        btnTexto.innerHTML = `📅 Definir datas...`;
+        btnTexto.style.color = "#4CAF50"; // Verde se precisar definir
+    }
+}
+
+function abrirModalDataPiramide(event) {
+    // 1. Fecha o menu Kebab para não atrapalhar
+    if (event) event.stopPropagation();
+    document.getElementById('menuDropdownPiramide').style.display = 'none';
+
+    // 2. Preenche os inputs com os valores atuais do objeto global
+    document.getElementById('inputDataInicioPiramide').value = configPiramideGlobal.Inicio || "";
+    document.getElementById('inputDataFimPiramide').value = configPiramideGlobal.Fim || "";
+
+    // 3. Abre a caixinha
+    document.getElementById('modalDataPiramide').style.display = 'flex';
+}
+
+function fecharModalDataPiramide() {
+    document.getElementById('modalDataPiramide').style.display = 'none';
+}
+
+function salvarDataPiramide() {
+    const inicioStr = document.getElementById('inputDataInicioPiramide').value;
+    const fimStr = document.getElementById('inputDataFimPiramide').value;
+
+    // Validação básica
+    if (!inicioStr || !fimStr) {
+        alert("Por favor, preencha a data de início e a data de fim.");
+        return;
+    }
+    if (inicioStr > fimStr) {
+        alert("A data de fim não pode ser menor que a data de início.");
+        return;
+    }
+
+    // Salva no objeto global
+    configPiramideGlobal.Inicio = inicioStr;
+    configPiramideGlobal.Fim = fimStr;
+
+    // Atualiza o texto lá no menu dos 3 pontinhos
+    atualizarTextoDataPiramide();
+
+    // Fecha a janelinha
+    fecharModalDataPiramide();
+
+    // Acorda o botão "Salvar Configurações" avisando que teve alteração
+    marcarComoAlterado();
+}
 
 
 </script>
