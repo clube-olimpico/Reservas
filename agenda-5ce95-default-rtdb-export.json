@@ -250,7 +250,7 @@
           "classe": "",
           "jogosDeDuplasJogados": 6,
           "niver": "01/01/2001",
-          "piramide": "81",
+          "piramide": "82",
           "socio": "titular",
           "vitoriasEmDuplas": 6
         },
@@ -271,7 +271,7 @@
           "perfis": {
             "Árbitro": true
           },
-          "piramide": "82",
+          "piramide": "81",
           "socio": "titular",
           "vitoriasEmDuplas": 2
         },
@@ -1457,7 +1457,7 @@
                 "status": "aberto"
               },
               "2026-02-20": {
-                "abertura": "08:00",
+                "abertura": "06:00",
                 "fechamento": "23:00",
                 "status": "aberto"
               },
@@ -1512,13 +1512,20 @@
         ],
         "Piramide": {
           "Ativo": true,
+          "Fim": "2026-02-27",
+          "Inicio": "2026-02-20",
           "Quadra1": {
+            "Ativa": true,
             "Grade": {
-              "6_10": true,
-              "6_11": true,
-              "6_7": true,
-              "6_8": true,
-              "6_9": true
+              "1_17": true,
+              "1_18": true
+            }
+          },
+          "Quadra3": {
+            "Ativa": true,
+            "Grade": {
+              "1_17": true,
+              "1_18": true
             }
           },
           "Ranking": false
@@ -1719,6 +1726,66 @@
             "vencedor": ""
           },
           "status": "em_andamento"
+        },
+        "6_8": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Ana Julia": true,
+            "Ana Maria Marinho": true
+          },
+          "dataCompleta": "2026-02-21",
+          "dia": 6,
+          "duracao": 3,
+          "hora": 8,
+          "jogadores": "Ana Maria Marinho",
+          "jogadores_completo": "Ana Maria Marinho, Ana Julia",
+          "organizador": "Ana Maria Marinho",
+          "resultado": {
+            "dataInformado": "2026-02-20T18:41:41.386Z",
+            "informadoPor": ": Ana Maria Marinho",
+            "perdedor": "Ana Julia",
+            "set1": {
+              "placar": "6x0",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "6x0",
+              "tiebreak": ""
+            },
+            "set3": "",
+            "tipo": "Placar Normal",
+            "vencedor": "Ana Maria Marinho"
+          },
+          "status": "finalizada"
+        },
+        "6_9": {
+          "confirmacoes": {
+            "Ana Julia": true,
+            "Ana Maria Marinho": true
+          },
+          "dataCompleta": "2026-02-21",
+          "dia": 6,
+          "hora": 9,
+          "jogadores": "Ana Julia",
+          "jogadores_completo": "Ana Maria Marinho, Ana Julia",
+          "organizador": "Ana Maria Marinho",
+          "resultado": {
+            "dataInformado": "2026-02-20T18:41:41.386Z",
+            "informadoPor": ": Ana Maria Marinho",
+            "perdedor": "Ana Julia",
+            "set1": {
+              "placar": "6x0",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "6x0",
+              "tiebreak": ""
+            },
+            "set3": "",
+            "tipo": "Placar Normal",
+            "vencedor": "Ana Maria Marinho"
+          },
+          "status": "finalizada"
         }
       }
     },
