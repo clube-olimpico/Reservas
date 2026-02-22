@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=430, user-scalable=no">
     
     <title>Configurações do Sistema</title> 
 
@@ -217,9 +217,11 @@ body.convidados-ativo, body.piramde-ativo { overflow-x: hidden !important; }
     /* NOVO: Ajuste do gerenciador no mobile */
     #tipoConfiguracaoHorario { max-width: 100% !important; margin-left: 0 !important; }
 
+    #convidados .container > label { font-size: 21px !important; }
+	
     .convidados-options { margin-left: -20px; white-space: nowrap; }
 	
-    .convidados-options label { max-width: 100%; white-space: nowrap; font-size: 15px; }
+    .convidados-options label { max-width: 100%; white-space: nowrap; font-size: 22px; }
     .piramde-options label { 
         max-width: 100%; 
         white-space: nowrap !important; /* FORÇA O TEXTO A FICAR EM UMA LINHA SÓ */
@@ -260,7 +262,7 @@ body.convidados-ativo, body.piramde-ativo { overflow-x: hidden !important; }
 input[id$="Exceto17_19"] { margin-left: 20px; }
 input[id$="Exceto7_12"] { margin-left: 20px; }
 input[id$="Exceto8_12"] { margin-left: 20px; }
-#convidados { overflow-x: hidden !important; max-width: 100% !important; width: 100%; margin-top: 30px; }
+#convidados { overflow-x: hidden !important; max-width: 100% !important; width: 100%; margin-top: 30px; padding-left: 20px !important; box-sizing: border-box !important; }
 input:disabled, select:disabled, button:disabled { cursor: not-allowed; opacity: 0.7; }
 .piramide-botao { background-color: #4CAF50; color: white; }
 
@@ -408,7 +410,7 @@ input:disabled, select:disabled, button:disabled { cursor: not-allowed; opacity:
         flex: 1 !important;        /* Ocupa o espaço que sobrar */
         width: auto !important;    /* Largura automática */
         margin-right: 5px !important;
-        font-size: 18px !important; /* Leve ajuste de segurança se precisar */
+        font-size: 21px !important; /* Leve ajuste de segurança se precisar */
     }
 
     /* Campo no celular: Trava em 80px para caber na linha */
@@ -932,6 +934,7 @@ button:disabled {
 /* === AJUSTES EXCLUSIVOS PARA CELULAR (Max-Width 600px) === */
 /* ============================================================ */
 @media (max-width: 600px) {
+    
 
     /* --- CORREÇÃO DO TÍTULO NO CELULAR (MODO NORMAL) --- */
     #tituloAulaQuadra {
@@ -1312,21 +1315,22 @@ button:disabled {
 /* --- CORREÇÃO MOBILE: JANELA HORÁRIOS ESPECIAIS (VERTICAL) --- */
 @media (max-width: 600px) {
     
-    /* 1. Solta a janela do centro e cola no topo */
+    /* 1. Solta a janela do centro e cola no topo (Padding zerado) */
     #modalHorarioEspecial.modal-overlay {
         align-items: flex-start !important; 
-        padding-top: 10px !important;       
+        padding-top: 0 !important;       
         overflow: hidden !important;       
     }
 
-    /* 2. Ajusta o tamanho da caixa branca */
+    /* 2. Ajusta o tamanho da caixa branca para TELA CHEIA MÁXIMA */
     #modalHorarioEspecial .modal-content {
-        width: 96% !important;        
-        height: 88vh !important;      
-        max-height: 88vh !important;  
-        padding: 8px 5px 5px 5px !important; 
-        border-radius: 8px !important;
-        margin: 0 auto !important;    
+        width: 100vw !important;        
+        height: 100dvh !important;      
+        max-height: 100dvh !important;  
+        padding: 8px 5px 15px 5px !important; /* Aumentado o espaço no fundo para 15px */
+        border-radius: 0 !important;
+        margin: 0 !important;    
+        box-sizing: border-box !important; /* A MÁGICA: Impede que a tela vaze e corte os botões */
     }
 
     /* 3. Título Principal */
@@ -2097,9 +2101,9 @@ textarea:focus {
     right: 5px;
     
     /* --- ALTERE AQUI PARA DIMINUIR --- */
-    width: 40px;        /* Era 50px */
-    height: 40px;       /* Era 50px (Mantenha igual à largura para ser redondo) */
-    font-size: 20px;    /* Era 24px (Diminua o ícone proporcionalmente) */
+    width: 50px;       
+    height: 50px;       /* (Mantenha igual à largura para ser redondo) */
+    font-size: 24px;    /* (Diminua o ícone proporcionalmente) */
     /* -------------------------------- */
     
     border-radius: 50%;
@@ -2815,6 +2819,7 @@ body.dark-mode #modalHorarioAulas .modal-buttons {
     padding: 0 !important;
     line-height: 1 !important; 
     display: inline-block !important;
+	border-bottom: none !important; /* Barreira contra a linha indesejada */
 }
 
 /* Container das Quadras: Sem borda superior (Remove a linha cinza) */
@@ -3308,100 +3313,112 @@ input:checked + .slider-sumula:before { transform: translateX(18px) !important; 
 /* ================================================================= */
 
 
+
 /* ================================================================== */
-/* ---   CORREÇÕES DO MODO ESCURO - ABA PIRÂMIDE E MENUS         --- */
-/* ================================================================== */
-/* ================================================================== */
-/* --- CORREÇÕES DO MODO ESCURO - ABA PIRÂMIDE E MENUS (DEFINITIVO) - */
+/* --- CORREÇÕES DO MODO ESCURO - PIRÂMIDE E DUPLAS (UNIFICADO)   --- */
 /* ================================================================== */
 
-/* 1. Fundo do Modal da Pirâmide e Título */
-body.dark-mode #modalHorarioPiramide .modal-content {
+/* 1. Fundo dos Modais e Títulos */
+body.dark-mode #modalHorarioPiramide .modal-content,
+body.dark-mode #modalHorarioDuplas .modal-content {
     background-color: #1e1e1e !important;
 }
-body.dark-mode #modalHorarioPiramide .cabecalho-modal-duplas {
+body.dark-mode #modalHorarioPiramide .cabecalho-modal-duplas,
+body.dark-mode #modalHorarioDuplas .cabecalho-modal-duplas {
     background-color: transparent !important;
 }
-body.dark-mode #modalHorarioPiramide h2 {
+body.dark-mode #modalHorarioPiramide h2,
+body.dark-mode #modalHorarioDuplas h2 {
     color: #eee !important;
 }
-body.dark-mode #tituloPiramideQuadra {
+body.dark-mode #tituloPiramideQuadra,
+body.dark-mode #tituloDuplasQuadra {
     color: #eee !important;
 }
 
 /* 2. Container das Abas das Quadras */
-body.dark-mode #modalHorarioPiramide .quadras-tabs-container {
+body.dark-mode #modalHorarioPiramide .quadras-tabs-container,
+body.dark-mode #modalHorarioDuplas .quadras-tabs-container {
     background-color: #1e1e1e !important;
 }
-body.dark-mode #modalHorarioPiramide .quadra-tab:not(.active) {
+body.dark-mode #modalHorarioPiramide .quadra-tab:not(.active),
+body.dark-mode #modalHorarioDuplas .quadra-tab:not(.active) {
     background-color: #333 !important;
     color: #ccc !important;
     border-color: #555 !important;
 }
 
 /* 3. A Barra Cinza de Controle (Ativar / Botões) */
-body.dark-mode #modalHorarioPiramide .painel-controle-duplas {
+body.dark-mode #modalHorarioPiramide .painel-controle-duplas,
+body.dark-mode #modalHorarioDuplas .painel-controle-duplas {
     background-color: #2c2c2c !important;
     border-color: #444 !important;
 }
-body.dark-mode #checkboxAtivarQuadraPiramide:disabled + span {
-    color: #777 !important; /* Texto "Ativar" quando bloqueado */
+body.dark-mode #checkboxAtivarQuadraPiramide:disabled + span,
+body.dark-mode #checkboxAtivarQuadraDuplas:disabled + span {
+    color: #777 !important;
 }
 
 /* 4. A Planilha de Horários */
-/* Cabeçalhos (Dias da semana) */
-body.dark-mode #modalHorarioPiramide .tabela-aulas th {
+body.dark-mode #modalHorarioPiramide .tabela-aulas th,
+body.dark-mode #modalHorarioDuplas .tabela-aulas th {
     background-color: #2c2c2c !important;
     color: #eee !important;
     border-color: #444 !important;
 }
-/* Colunas laterais fixas (Horários 06:00 - 07:00) */
-body.dark-mode #modalHorarioPiramide .tabela-config-horarios td.sem-selecao {
+body.dark-mode #modalHorarioPiramide .tabela-config-horarios td.sem-selecao,
+body.dark-mode #modalHorarioDuplas .tabela-config-horarios td.sem-selecao {
     background-color: #252525 !important;
     color: #ccc !important;
     border-color: #444 !important;
 }
-/* Células livres (Fundo Escuro) */
-body.dark-mode #modalHorarioPiramide .aula-cell-livre {
+body.dark-mode #modalHorarioPiramide .aula-cell-livre,
+body.dark-mode #modalHorarioDuplas .aula-cell-livre {
     background-color: #1e1e1e !important;
     border-color: #333 !important;
 }
-/* Células Bloqueadas (Cinza Escuro) */
-body.dark-mode #modalHorarioPiramide .aula-cell-bloqueada {
+body.dark-mode #modalHorarioPiramide .aula-cell-bloqueada,
+body.dark-mode #modalHorarioDuplas .aula-cell-bloqueada {
     background-color: #2a2a2a !important;
     border-color: #333 !important;
 }
-/* Células Marcadas (Vermelho Pirâmide Adaptado para Escuro) */
-body.dark-mode #modalHorarioPiramide .aula-cell-marcada {
+/* Células Marcadas (Vermelho Adaptado para Escuro) */
+body.dark-mode #modalHorarioPiramide .aula-cell-marcada,
+body.dark-mode #modalHorarioDuplas .dupla-cell-marcada {
     background-color: #b71c1c !important; 
     color: #fff !important;
     border-color: #ff5252 !important;
 }
 
-/* 5. Botões Desativados (A "Capa Cinza" sobre Selecionar/Limpar) */
-body.dark-mode #modalHorarioPiramide .btn-acao-desativado {
+/* 5. Botões Desativados (A "Capa Cinza") */
+body.dark-mode #modalHorarioPiramide .btn-acao-desativado,
+body.dark-mode #modalHorarioDuplas .btn-acao-desativado {
     background-color: #333 !important;
     color: #777 !important;
     border-color: #444 !important;
 }
 
-/* 6. Menu de 3 Pontinhos (Kebab) da Pirâmide */
-body.dark-mode #menuDropdownPiramide {
+/* 6. Menus de 3 Pontinhos (Kebab) */
+body.dark-mode #menuDropdownPiramide,
+body.dark-mode #menuDropdownDuplas {
     background-color: #2c2c2c !important;
     border-color: #444 !important;
 }
 body.dark-mode #menuDropdownPiramide .menu-item-sumula span,
-body.dark-mode #menuDropdownPiramide .menu-item-sumula div {
+body.dark-mode #menuDropdownPiramide .menu-item-sumula div,
+body.dark-mode #menuDropdownDuplas .menu-item-sumula span,
+body.dark-mode #menuDropdownDuplas .menu-item-sumula div {
     color: #eee !important;
 }
-body.dark-mode #menuDropdownPiramide hr {
+body.dark-mode #menuDropdownPiramide hr,
+body.dark-mode #menuDropdownDuplas hr {
     border-top-color: #555 !important;
 }
 body.dark-mode #btnDataPiramideKebab {
-    color: #66bb6a !important; /* Força um verde claro legível no fundo escuro */
+    color: #66bb6a !important; 
 }
 
-/* 7. Caixinha Flutuante de Datas */
+/* 7. Caixinha Flutuante de Datas (Apenas Pirâmide) */
 body.dark-mode #modalDataPiramide .modal-content {
     background-color: #1e1e1e !important;
     color: #eee !important;
@@ -3414,12 +3431,229 @@ body.dark-mode #modalDataPiramide label {
 body.dark-mode #modalDataPiramide input[type="date"] {
     background-color: #2d2d2d !important;
     color: #fff !important;
-    border: 1px solid #555 !important;
+    border: 1px solid #555 !important; 
     color-scheme: dark;
 }
+/* 1. Remove o fundo branco do Título da Quadra e do Rodapé (Botões) */
+body.dark-mode #tituloDuplasQuadra,
+body.dark-mode #modalHorarioDuplas .modal-buttons {
+    background-color: transparent !important; 
+}
+
+/* 2. Prevenção: Garante que as abas não fiquem brancas caso você use a Tela Cheia */
+body.dark-mode #modalHorarioDuplas .modal-content.maximizado .quadras-tabs-container {
+    background-color: transparent !important;
+}
 /* ================================================================== */
-/* --- fim de CORREÇÕES DO MODO ESCURO - ABA PIRÂMIDE E MENUS     --- */
+/* --- FIM DE CORREÇÕES DO MODO ESCURO - PIRÂMIDE E DUPLAS        --- */
 /* ================================================================== */
+
+
+
+/* ================================================================== */
+/* === TELA CHEIA NATIVA: AULAS, DUPLAS E PIRÂMIDE (MÁXIMA MOBILE)=== */
+/* ================================================================== */
+@media (max-width: 600px) {
+
+    /* 1. Cola a janela no teto do ecrã */
+    #modalHorarioAulas.modal-overlay,
+    #modalHorarioDuplas.modal-overlay,
+    #modalHorarioPiramide.modal-overlay {
+        align-items: flex-start !important; 
+        padding: 0 !important;       
+    }
+
+    /* 2. Força a caixa branca a esticar 100% até ao chão */
+    #modalHorarioAulas .modal-content,
+    #modalHorarioDuplas .modal-content,
+    #modalHorarioPiramide .modal-content {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        
+        /* Garantia tripla de altura máxima */
+        height: 100% !important;        
+        height: 100vh !important;       
+        height: 100dvh !important;      
+        max-height: none !important; 
+        
+        margin: 0 !important;
+        border-radius: 0 !important;
+        box-sizing: border-box !important;
+
+        /* ATIVA O SISTEMA FLEX PARA PODER EMPURRAR OS BOTÕES */
+        display: flex !important;
+        flex-direction: column !important;
+        
+        /* O seu espaço de 10px no fundo mantido! */
+        padding: 10px 5px 10px 5px !important;
+    }
+
+    /* 3. Remove margens invisíveis do rodapé e EMPURRA PRO CHÃO */
+    #modalHorarioAulas .modal-buttons,
+    #modalHorarioDuplas .modal-buttons,
+    #modalHorarioPiramide .modal-buttons {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important; 
+        
+        /* A MÁGICA: Empurra os botões para o espaço vazio lá embaixo */
+        margin-top: auto !important; 
+    }
+}
+/* ================================================================== */
+/* === fim de TELA CHEIA NATIVA: AULAS, DUPLAS E PIRÂMIDE (FORÇA MÁXIMA) === */
+/* ================================================================== */
+
+
+
+
+/* ================================================================== */
+/* === A SUA IDEIA: ENGANAR O CELULAR COM A LARGURA DAS 2 ABAS    === */
+/* ================================================================== */
+/* ================================================================== */
+/* === AJUSTES EXCLUSIVOS PARA CELULAR (TELA ATÉ 768px)           === */
+/* ================================================================== */
+@media (max-width: 768px) {
+
+    /* === A SUA IDEIA: ENGANAR O CELULAR COM A LARGURA DAS 2 ABAS === */
+    .tabs {
+        min-width: 430px !important; 
+        display: flex !important;
+        margin: 0 auto !important;
+    }
+
+    .tabs .tab {
+        width: 215px !important; 
+        flex: 0 0 215px !important;
+        justify-content: center !important;
+        text-align: center !important;
+		font-size: 22px !important;
+    }
+
+    /* === ALINHAMENTO CIRÚRGICO À DIREITA E DESCOLA DAS BORDAS === */
+
+    /* 1. DESCOLA DAS BORDAS: Aplica a todos os painéis (Cima e Baixo) */
+    .form-container, 
+    #reservas .form-container {
+        width: 400px !important; 
+        margin: 10px auto !important; 
+        box-sizing: border-box !important;
+    }
+
+    /* 2. AUMENTA A LARGURA DAS CAIXINHAS DO PAINEL INFERIOR */
+    #reservas .form-container .container select {
+        flex: 0 0 130px !important; 
+        width: 130px !important;
+        min-width: 130px !important;
+        max-width: 130px !important;
+    }
+
+    /* 3. Força a linha a ter os elementos separados (Painel superior) */
+    #content > .form-container .container {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+    }
+
+    /* 4. O Label vira uma "mola" que preenche a esquerda */
+    #content > .form-container .container > label {
+        flex: 1 1 auto !important;
+        font-size: 20px !important; 
+        margin-right: 5px !important;
+        white-space: nowrap !important;
+        text-align: left !important;
+        width: auto !important;
+    }
+
+    /* ================================================== */
+    /* 5. A RÉGUA MESTRE: COLUNA FIXA DE 190px NA DIREITA */
+    /* ================================================== */
+
+    /* A. Quadras (A Régua base de 190px) */
+    #estadoQuadra1, #estadoQuadra2, #estadoQuadra3 {
+        flex: 0 0 190px !important;
+        width: 190px !important;
+        max-width: 190px !important;
+        margin-left: auto !important; 
+    }
+
+    /* B. Sistema (100px ON + 10px espaço + 70px zeros = 180px) */
+    label[for="sistema"] {
+        margin-right: auto !important; 
+    }
+    #sistema {
+        flex: 0 0 100px !important;
+        width: 100px !important;
+        margin-left: 0 !important; 
+        box-sizing: border-box !important;
+    }
+    #usuariosOnline {
+        flex: 0 0 70px !important;
+        width: 70px !important;
+        margin-left: 10px !important;
+        text-align: center !important;
+        padding: 0 !important;
+        height: 30px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* C. Perfil e Permissões */
+    #content > .form-container .input-group {
+        flex: 0 0 190px !important;
+        width: 190px !important;
+        max-width: 190px !important;
+        margin-left: auto !important;
+        margin-right: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+    }
+
+    #permissoesSelect:disabled + #btnEditarPermissoes {
+        position: static !important; 
+        margin: 0 !important;
+    }
+
+    #content > .form-container .input-group select {
+        flex: 0 0 145px !important;
+        width: 145px !important;
+        margin: 0 !important;
+        padding-left: 5px !important;
+        padding-right: 0 !important; 
+    }
+
+    #content > .form-container .input-group button {
+        flex: 0 0 35px !important;
+        width: 35px !important;
+        margin-left: 10px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+	
+    /* 6. AJUSTE FINO: BOTÃO SALVAR (RODAPÉ FIXO) */
+    .botao-salvar button {
+        height: 55px !important;       /* Aumenta a altura (antes estava travado em 40px) */
+        font-size: 20px !important;    /* Aumenta a letra (antes estava travado em 16px) */
+        font-weight: bold !important;  /* Deixa o texto imponente */
+        border-radius: 12px !important;/* Arredonda mais os cantos para ficar elegante */
+    }
+	
+	/* 7. AJUSTE FINO: FONTE DENTRO DOS CAMPOS DE ENTRADA (CAIXINHAS)     */
+    .form-container select,
+    .form-container input {
+        font-size: 17px !important; 
+    }
+	
+	/* 8. AJUSTE FINO: TÍTULO PRINCIPAL "CONFIGURAÇÕES"                   */
+    .title-container span {
+        font-size: 30px !important; 
+    }
+		
+} 
+/* ========================================================================= */
+/* === fim de A SUA IDEIA: ENGANAR O CELULAR COM A LARGURA DAS 2 ABAS    === */
+/* ========================================================================= */
 
 </style>
 
@@ -3496,7 +3730,9 @@ body.dark-mode #modalDataPiramide input[type="date"] {
     <div id="main-content">
         <div class="tabs">
             <div class="tab active" onclick="showTab('reservas')">Reservas</div>
- 			<div class="tab" onclick="showTab('convidados')">Convidados</div>
+            
+			<div class="tab" onclick="showTab('convidados')">Convidados</div>
+            
         </div>
 		
 		
@@ -3593,11 +3829,239 @@ body.dark-mode #modalDataPiramide input[type="date"] {
 			</div>
 		</div>
 
-        		
-		
-		
+        <div id="piramide" class="tab-content">
+            <div class="container piramide-ativa-container">
+				<label for="piramideAtiva">Ativa:</label>
+				<select id="piramideAtiva" onchange="handlePiramideChange(); marcarComoAlterado()">
+					<option value="ON">ON</option><option value="OFF">OFF</option>
+				</select>
+				<span id="piramideInicio" style="display: none; font-weight: bold; margin-left: 10px;"></span>
+				<span id="piramideSeparador" style="display: none; margin: 0 5px;">à</span>
+				<span id="piramideFim" style="display: none; font-weight: bold;"></span>
+			</div>
 
+            <div class="container piramide-botoes-container">
+                <button class="piramide-botao" onclick="mostrarQuadra('quadra1')">Quadra - 1</button>
+                <button class="piramide-botao" onclick="mostrarQuadra('quadra2')">Quadra - 2</button>
+                <button class="piramide-botao" onclick="mostrarQuadra('quadra3')">Quadra - 3</button>
+            </div>
+
+            <div id="piramideQuadra1Container" class="piramide-quadra-container">
+                <div class="container piramide-quadras">
+				<div class="piramde-options centraliza-checkbox">
+					<input type="checkbox" id="piramideQuadra1" onchange="marcarComoAlterado()"><span>Quadra 1 - Coberta</span>
+				</div>
+			</div>
+                <div class="container piramide-dias">
+                    <label class="dias-label" style="font-weight: bold;" id="PiramideDiasQuadra1">Dias:</label>
+                    <div class="piramde-options">
+						<label style="font-weight: normal;">
+							<input type="checkbox" id="1-piramideSemana" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Dias de Semana
+						</label>
+						<label style="font-weight: normal; color: red;">
+							<input type="checkbox" id="1-piramideExceto17_19" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 17:00 - 19:00
+						</label>
+						<label style="font-weight: normal;">
+							<input type="checkbox" id="1-piramideSabado" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Sábado
+						</label>
+						<label style="font-weight: normal; color: red;">
+							<input type="checkbox" id="1-piramideExceto7_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 07:00 - 12:00
+						</label>
+						<label style="font-weight: normal;">
+							<input type="checkbox" id="1-piramideDomingo" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Domingo
+						</label>
+						<label style="font-weight: normal; color: red;">
+							<input type="checkbox" id="1-piramideExceto8_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 08:00 - 12:00
+						</label>
+					</div>
+                </div>
+            </div>
+            <div id="piramideQuadra2Container" class="piramide-quadra-container" style="display: none;">
+				<div class="container piramide-quadras">
+					<div class="piramde-options centraliza-checkbox">
+						<input type="checkbox" id="piramideQuadra2" onchange="marcarComoAlterado()"><span>Quadra 2 - Aberta</span>
+					</div>
+				</div>
+				<div class="container piramide-dias">
+					<label class="dias-label" style="font-weight: bold;" id="PiramideDiasQuadra2">Dias:</label>
+					<div class="piramde-options">
+						<label style="font-weight: normal;">
+							<input type="checkbox" id="2-piramideSemana" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Dias de Semana
+						</label>
+						<label style="font-weight: normal; color: red;">
+							<input type="checkbox" id="2-piramideExceto17_19" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 17:00 - 19:00
+						</label>
+						<label style="font-weight: normal;">
+							<input type="checkbox" id="2-piramideSabado" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Sábado
+						</label>
+						<label style="font-weight: normal; color: red;">
+							<input type="checkbox" id="2-piramideExceto7_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 07:00 - 12:00
+						</label>
+						<label style="font-weight: normal;">
+							<input type="checkbox" id="2-piramideDomingo" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Domingo
+						</label>
+						<label style="font-weight: normal; color: red;">
+							<input type="checkbox" id="2-piramideExceto8_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 08:00 - 12:00
+						</label>
+					</div>
+				</div>
+			</div>
+            <div id="piramideQuadra3Container" class="piramide-quadra-container" style="display: none;">
+				<div class="container piramide-quadras">
+					<div class="piramde-options centraliza-checkbox">
+						<input type="checkbox" id="piramideQuadra3" onchange="marcarComoAlterado()"><span>Quadra 3 - Coberta</span>
+					</div>
+				</div>
+				<div class="container piramide-dias">
+					<label class="dias-label" style="font-weight: bold;" id="PiramideDiasQuadra3">Dias:</label>
+					<div class="piramde-options">
+						<label style="font-weight: normal;">
+							<input type="checkbox" id="3-piramideSemana" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Dias de Semana
+						</label>
+						<label style="font-weight: normal; color: red;">
+							<input type="checkbox" id="3-piramideExceto17_19" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 17:00 - 19:00
+						</label>
+						<label style="font-weight: normal;">
+							<input type="checkbox" id="3-piramideSabado" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Sábado
+						</label>
+						<label style="font-weight: normal; color: red;">
+							<input type="checkbox" id="3-piramideExceto7_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 07:00 - 12:00
+						</label>
+						<label style="font-weight: normal;">
+							<input type="checkbox" id="3-piramideDomingo" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Domingo
+						</label>
+						<label style="font-weight: normal; color: red;">
+							<input type="checkbox" id="3-piramideExceto8_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 08:00 - 12:00
+						</label>
+					</div>
+				</div>
+			</div>
+        </div>
 		
+		<div id="duplas" class="tab-content">
+            <div class="container duplas-ativa-container">
+				<label for="duplasAtiva">Ativa:</label>
+				<select id="duplasAtiva" onchange="atualizarEstadoDuplas(); marcarComoAlterado()">
+					<option value="ON">ON</option>
+					<option value="OFF">OFF</option>
+				</select>
+				
+				<label id="labelDuplasRanking" for="duplasRanking" style="margin-left: 15px;" title="Com o Ranking em OFF, dê um triplo clique aqui para zerar os dados do ranking.">Ranking:</label>
+				<select id="duplasRanking" onchange="atualizarEstadoDuplasRanking(); marcarComoAlterado()">
+					<option value="ON">ON</option>
+					<option value="OFF">OFF</option>
+				</select>
+			</div>
+            <div class="container duplas-botoes-container">
+                <button class="duplas-botao" onclick="mostrarDuplasQuadra('quadra1')">Quadra - 1</button>
+                <button class="duplas-botao" onclick="mostrarDuplasQuadra('quadra2')">Quadra - 2</button>
+                <button class="duplas-botao" onclick="mostrarDuplasQuadra('quadra3')">Quadra - 3</button>
+            </div>
+            <div id="duplasQuadra1Container" class="duplas-container">
+			<div class="centraliza-checkbox">
+				<input type="checkbox" id="duplasQuadra1Ativa" onchange="marcarComoAlterado()"><span>Quadra 1 - Coberta</span>
+			</div>
+			<div class="container">
+				<label class="dias-label" style="font-weight: bold;" id="DuplasDiasQuadra1">Dias:</label>
+				<div class="duplas-options">
+					<div class="duplas-day-container">
+						<div style="display: flex; align-items: center;"> 
+							<input type="checkbox" id="1-duplasSemana" onchange="marcarComoAlterado()">
+							<span class="dias-semana-label-clickable" style="margin-left: 5px; user-select: none;">Dias de Semana</span>
+						</div>
+						<div class="duplas-time-wrapper">
+							<input type="text" id="1-duplasSemanaInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
+							<input type="text" id="1-duplasSemanaFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
+						</div>
+					</div>
+					<div class="duplas-day-container">
+						<label><input type="checkbox" id="1-duplasSabado" onchange="marcarComoAlterado()"> Sábado</label>
+						<div class="duplas-time-wrapper">
+							<input type="text" id="1-duplasSabadoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
+							<input type="text" id="1-duplasSabadoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
+						</div>
+					</div>
+					<div class="duplas-day-container">
+						<label><input type="checkbox" id="1-duplasDomingo" onchange="marcarComoAlterado()"> Domingo</label>
+						<div class="duplas-time-wrapper">
+							<input type="text" id="1-duplasDomingoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
+							<input type="text" id="1-duplasDomingoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="duplasQuadra2Container" class="duplas-container" style="display: none;">
+			 <div class="centraliza-checkbox">
+				<input type="checkbox" id="duplasQuadra2Ativa" onchange="marcarComoAlterado()"><span>Quadra 2 - Aberta</span>
+			</div>
+			<div class="container">
+				<label class="dias-label" style="font-weight: bold;" id="DuplasDiasQuadra2">Dias:</label>
+				<div class="duplas-options">
+					<div class="duplas-day-container">
+						<div style="display: flex; align-items: center;"> 
+							<input type="checkbox" id="2-duplasSemana" onchange="marcarComoAlterado()">
+							<span class="dias-semana-label-clickable" style="margin-left: 5px; user-select: none;">Dias de Semana</span>
+						</div>
+						<div class="duplas-time-wrapper">
+							<input type="text" id="2-duplasSemanaInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
+							<input type="text" id="2-duplasSemanaFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
+						</div>
+					</div>
+					<div class="duplas-day-container">
+						<label><input type="checkbox" id="2-duplasSabado" onchange="marcarComoAlterado()"> Sábado</label>
+						<div class="duplas-time-wrapper">
+							<input type="text" id="2-duplasSabadoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
+							<input type="text" id="2-duplasSabadoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
+						</div>
+					</div>
+					<div class="duplas-day-container">
+						<label><input type="checkbox" id="2-duplasDomingo" onchange="marcarComoAlterado()"> Domingo</label>
+						<div class="duplas-time-wrapper">
+							<input type="text" id="2-duplasDomingoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
+							<input type="text" id="2-duplasDomingoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="duplasQuadra3Container" class="duplas-container" style="display: none;">
+			 <div class="centraliza-checkbox">
+				<input type="checkbox" id="duplasQuadra3Ativa" onchange="marcarComoAlterado()"><span>Quadra 3 - Coberta</span>
+			</div>
+			<div class="container">
+				<label class="dias-label" style="font-weight: bold;" id="DuplasDiasQuadra3">Dias:</label>
+				<div class="duplas-options">
+					<div class="duplas-day-container">
+						<div style="display: flex; align-items: center;"> 
+							<input type="checkbox" id="3-duplasSemana" onchange="marcarComoAlterado()">
+							<span class="dias-semana-label-clickable" style="margin-left: 5px; user-select: none;">Dias de Semana</span>
+						</div>
+						<div class="duplas-time-wrapper">
+							<input type="text" id="3-duplasSemanaInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
+							<input type="text" id="3-duplasSemanaFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
+						</div>
+					</div>
+					<div class="duplas-day-container">
+						<label><input type="checkbox" id="3-duplasSabado" onchange="marcarComoAlterado()"> Sábado</label>
+						<div class="duplas-time-wrapper">
+							<input type="text" id="3-duplasSabadoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
+							<input type="text" id="3-duplasSabadoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
+						</div>
+					</div>
+					<div class="duplas-day-container">
+						<label><input type="checkbox" id="3-duplasDomingo" onchange="marcarComoAlterado()"> Domingo</label>
+						<div class="duplas-time-wrapper">
+							<input type="text" id="3-duplasDomingoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
+							<input type="text" id="3-duplasDomingoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        </div>
     </div>  
 	
     <div class="container botao-salvar">
@@ -3605,8 +4069,9 @@ body.dark-mode #modalDataPiramide input[type="date"] {
     </div>
 </div>
 
+<div id="modalDatasEspeciais" class="modal-overlay"><div class="modal-content"><h2 id="modalTitulo">Exceções</h2><div class="container"><label>Desc:</label><input id="excecaoDescricao"></div><div class="container"><label>Data:</label><input id="excecaoData" oninput="formatarDataInput(event)"></div><div class="container"><label>Horário:</label><input type="time" id="excecaoInicio"><input type="time" id="excecaoFim"></div><div class="modal-buttons"><button class="btn-fechar" onclick="fecharModalExcecao()">Fechar</button><button class="btn-adicionar" onclick="adicionarExcecao()">Add</button></div><div id="listaExcecoes"></div></div></div>
 <div id="modalBloqueioQuadra" class="modal-overlay"><div class="modal-content"><h2 id="modalBloqueioTitulo">Bloqueio</h2><div class="container"><label>Desc:</label><input id="bloqueioDescricao"></div><div class="container"><label>Data:</label><input id="bloqueioData" oninput="formatarDataInput(event)"></div><div class="container"><label>Horário:</label><input type="time" id="bloqueioInicio"><input type="time" id="bloqueioFim"></div><div class="modal-buttons"><button class="btn-fechar" onclick="fecharModalBloqueio()">Fechar</button><button class="btn-adicionar" onclick="adicionarBloqueio()">Add</button></div><div id="listaBloqueios"></div></div></div>
-
+<div id="modalDiasSemanaDuplas" class="modal-overlay"><div class="modal-content"><h2 id="modalDiasSemanaTitulo">Dias Semana</h2><div id="diasSemanaCheckboxContainer"><label><input type="checkbox" id="duplas-segunda">Seg</label><label><input type="checkbox" id="duplas-terca">Ter</label><label><input type="checkbox" id="duplas-quarta">Qua</label><label><input type="checkbox" id="duplas-quinta">Qui</label><label><input type="checkbox" id="duplas-sexta">Sex</label></div><div class="modal-buttons"><button class="btn-fechar" onclick="fecharModalDiasSemana()">Fechar</button><button class="btn-adicionar" onclick="salvarModalDiasSemana()">Salvar</button></div></div></div>
 <div id="modalQuebraHorarioQuadras" class="modal-overlay">
     <div class="modal-content">
         <h2 id="modalQuebraHorarioTitulo" style="margin-bottom: 20px;">Otimização de Horários</h2>
@@ -4225,7 +4690,8 @@ body.dark-mode #modalDataPiramide input[type="date"] {
 
     // VARIÁVEIS GLOBAIS
     let bloqueiosQuadra = {};
-    
+    let excecoesDuplas = {}; 
+    let diasSemanaDuplasConfig = {};
     let quebraHorarioQuadrasConfig = {};
     let listaUsuariosOnline = [];
     let quadraAtualParaDiasSemana = null;
@@ -4909,9 +5375,72 @@ function aplicarDadosConfig(data) {
     document.getElementById('convidadosSemana').checked = conv.DiasDeSemana || false;
     document.getElementById('convidadosFimDeSemana').checked = conv.FimDeSemana || false;
 
-    
+    // Piramide
+    const pir = data.Piramide || {};
+    document.getElementById('piramideAtiva').value = pir.ativa ? 'ON' : 'OFF';
+    window.piramideInicioData = pir.inicio || "";
+    window.piramideFimData = pir.fim || "";
 
-    
+    const q1P = pir["Quadra-1"] || {};
+    document.getElementById('piramideQuadra1').checked = q1P["Quadra-1-ativa"] || false;
+    document.getElementById('1-piramideSemana').checked = q1P["1-DiasDeSemana"] || false;
+    document.getElementById('1-piramideExceto17_19').checked = q1P["1-DiasDeSemana-exceto-17-19"] || false;
+    document.getElementById('1-piramideSabado').checked = q1P["1-Sabado"] || false;
+    document.getElementById('1-piramideExceto7_12').checked = q1P["1-Sabado-exceto-7-12"] || false;
+    document.getElementById('1-piramideDomingo').checked = q1P["1-Domingo"] || false;
+    document.getElementById('1-piramideExceto8_12').checked = q1P["1-Domingo-exceto-8-12"] || false;
+
+    const q2P = pir["Quadra-2"] || {};
+    document.getElementById('piramideQuadra2').checked = q2P["Quadra-2-ativa"] || false;
+    document.getElementById('2-piramideSemana').checked = q2P["2-DiasDeSemana"] || false;
+    document.getElementById('2-piramideExceto17_19').checked = q2P["2-DiasDeSemana-exceto-17-19"] || false;
+    document.getElementById('2-piramideSabado').checked = q2P["2-Sabado"] || false;
+    document.getElementById('2-piramideExceto7_12').checked = q2P["2-Sabado-exceto-7-12"] || false;
+    document.getElementById('2-piramideDomingo').checked = q2P["2-Domingo"] || false;
+    document.getElementById('2-piramideExceto8_12').checked = q2P["2-Domingo-exceto-8-12"] || false;
+
+    const q3P = pir["Quadra-3"] || {};
+    document.getElementById('piramideQuadra3').checked = q3P["Quadra-3-ativa"] || false;
+    document.getElementById('3-piramideSemana').checked = q3P["3-DiasDeSemana"] || false;
+    document.getElementById('3-piramideExceto17_19').checked = q3P["3-DiasDeSemana-exceto-17-19"] || false;
+    document.getElementById('3-piramideSabado').checked = q3P["3-Sabado"] || false;
+    document.getElementById('3-piramideExceto7_12').checked = q3P["3-Sabado-exceto-7-12"] || false;
+    document.getElementById('3-piramideDomingo').checked = q3P["3-Domingo"] || false;
+    document.getElementById('3-piramideExceto8_12').checked = q3P["3-Domingo-exceto-8-12"] || false;
+
+    atualizarEstadoPiramide();
+    atualizarCamposPiramideQuadra1();
+    atualizarCamposPiramideQuadra2();
+    atualizarCamposPiramideQuadra3();
+
+    // Duplas
+    const dup = data.Duplas || {};
+    excecoesDuplas = dup.DatasEspeciais || {};
+    document.getElementById('duplasAtiva').value = dup.ativa ? 'ON' : 'OFF';
+    document.getElementById('duplasRanking').value = dup.Ranking ? 'ON' : 'OFF';
+    atualizarEstadoDuplasRanking();
+
+    for (let i = 1; i <= 3; i++) {
+        const k = `Quadra-${i}`;
+        const qD = dup[k] || {};
+        if (dup[k] && dup[k].DiasDeSemanaConfig) diasSemanaDuplasConfig[k] = dup[k].DiasDeSemanaConfig;
+        else diasSemanaDuplasConfig[k] = { segunda: true, terca: true, quarta: true, quinta: true, sexta: true };
+
+        document.getElementById(`duplasQuadra${i}Ativa`).checked = qD[`Quadra-${i}-ativa`] || false;
+        document.getElementById(`${i}-duplasSemana`).checked = qD[`${i}-DiasDeSemana`] || false;
+        document.getElementById(`${i}-duplasSemanaInicio`).value = qD[`${i}-DiasDeSemana-Inicio`] || '';
+        document.getElementById(`${i}-duplasSemanaFim`).value = qD[`${i}-DiasDeSemana-Fim`] || '';
+        document.getElementById(`${i}-duplasSabado`).checked = qD[`${i}-Sabado`] || false;
+        document.getElementById(`${i}-duplasSabadoInicio`).value = qD[`${i}-Sabado-Inicio`] || '';
+        document.getElementById(`${i}-duplasSabadoFim`).value = qD[`${i}-Sabado-Fim`] || '';
+        document.getElementById(`${i}-duplasDomingo`).checked = qD[`${i}-Domingo`] || false;
+        document.getElementById(`${i}-duplasDomingoInicio`).value = qD[`${i}-Domingo-Inicio`] || '';
+        document.getElementById(`${i}-duplasDomingoFim`).value = qD[`${i}-Domingo-Fim`] || '';
+    }
+
+    atualizarEstadoDuplas();
+    for (let i = 1; i <= 3; i++) atualizarCamposDaQuadraDuplas(i);
+
 
     // --- NOVA IMPLEMENTAÇÃO: LIMPEZA DO MURAL ---
     // 1. Recupera o valor salvo no Firebase ou usa 7 como padrão
@@ -5021,6 +5550,82 @@ function salvarConfiguracoes() {
             Quadra1: document.getElementById('convidadosQuadra1').checked,
             Quadra2: document.getElementById('convidadosQuadra2').checked,
             Quadra3: document.getElementById('convidadosQuadra3').checked
+        },
+        Piramide: {
+            ativa: document.getElementById('piramideAtiva').value === 'ON',
+            inicio: window.piramideInicioData || "",
+            fim: window.piramideFimData || "",
+            "Quadra-1": {
+                "Quadra-1-ativa": document.getElementById('piramideQuadra1').checked,
+                "1-DiasDeSemana": document.getElementById('1-piramideSemana').checked,
+                "1-DiasDeSemana-exceto-17-19": document.getElementById('1-piramideExceto17_19').checked,
+                "1-Sabado": document.getElementById('1-piramideSabado').checked,
+                "1-Sabado-exceto-7-12": document.getElementById('1-piramideExceto7_12').checked,
+                "1-Domingo": document.getElementById('1-piramideDomingo').checked,
+                "1-Domingo-exceto-8-12": document.getElementById('1-piramideExceto8_12').checked
+            },
+            "Quadra-2": {
+                "Quadra-2-ativa": document.getElementById('piramideQuadra2').checked,
+                "2-DiasDeSemana": document.getElementById('2-piramideSemana').checked,
+                "2-DiasDeSemana-exceto-17-19": document.getElementById('2-piramideExceto17_19').checked,
+                "2-Sabado": document.getElementById('2-piramideSabado').checked,
+                "2-Sabado-exceto-7-12": document.getElementById('2-piramideExceto7_12').checked,
+                "2-Domingo": document.getElementById('2-piramideDomingo').checked,
+                "2-Domingo-exceto-8-12": document.getElementById('2-piramideExceto8_12').checked
+            },
+            "Quadra-3": {
+                "Quadra-3-ativa": document.getElementById('piramideQuadra3').checked,
+                "3-DiasDeSemana": document.getElementById('3-piramideSemana').checked,
+                "3-DiasDeSemana-exceto-17-19": document.getElementById('3-piramideExceto17_19').checked,
+                "3-Sabado": document.getElementById('3-piramideSabado').checked,
+                "3-Sabado-exceto-7-12": document.getElementById('3-piramideExceto7_12').checked,
+                "3-Domingo": document.getElementById('3-piramideDomingo').checked,
+                "3-Domingo-exceto-8-12": document.getElementById('3-piramideExceto8_12').checked  
+            }
+        },
+        Duplas: {
+            ativa: document.getElementById('duplasAtiva').value === 'ON',
+            Ranking: document.getElementById('duplasRanking').value === 'ON',
+            "Quadra-1": {
+                "Quadra-1-ativa": document.getElementById('duplasQuadra1Ativa').checked,
+                "1-DiasDeSemana": document.getElementById('1-duplasSemana').checked,
+                "1-DiasDeSemana-Inicio": document.getElementById('1-duplasSemanaInicio').value,
+                "1-DiasDeSemana-Fim": document.getElementById('1-duplasSemanaFim').value,
+                "1-Sabado": document.getElementById('1-duplasSabado').checked,
+                "1-Sabado-Inicio": document.getElementById('1-duplasSabadoInicio').value,
+                "1-Sabado-Fim": document.getElementById('1-duplasSabadoFim').value,
+                "1-Domingo": document.getElementById('1-duplasDomingo').checked,
+                "1-Domingo-Inicio": document.getElementById('1-duplasDomingoInicio').value,
+                "1-Domingo-Fim": document.getElementById('1-duplasDomingoFim').value,
+                ...(document.getElementById('1-duplasSemana').checked && { "DiasDeSemanaConfig": diasSemanaDuplasConfig['Quadra-1'] || { segunda: true, terca: true, quarta: true, quinta: true, sexta: true } }) 
+            },
+            "Quadra-2": {
+                "Quadra-2-ativa": document.getElementById('duplasQuadra2Ativa').checked,
+                "2-DiasDeSemana": document.getElementById('2-duplasSemana').checked,
+                "2-DiasDeSemana-Inicio": document.getElementById('2-duplasSemanaInicio').value,
+                "2-DiasDeSemana-Fim": document.getElementById('2-duplasSemanaFim').value,
+                "2-Sabado": document.getElementById('2-duplasSabado').checked,
+                "2-Sabado-Inicio": document.getElementById('2-duplasSabadoInicio').value,
+                "2-Sabado-Fim": document.getElementById('2-duplasSabadoFim').value,
+                "2-Domingo": document.getElementById('2-duplasDomingo').checked,
+                "2-Domingo-Inicio": document.getElementById('2-duplasDomingoInicio').value,
+                "2-Domingo-Fim": document.getElementById('2-duplasDomingoFim').value,
+                ...(document.getElementById('2-duplasSemana').checked && { "DiasDeSemanaConfig": diasSemanaDuplasConfig['Quadra-2'] || { segunda: true, terca: true, quarta: true, quinta: true, sexta: true } }) 
+            },
+            "Quadra-3": {
+                "Quadra-3-ativa": document.getElementById('duplasQuadra3Ativa').checked,
+                "3-DiasDeSemana": document.getElementById('3-duplasSemana').checked,
+                "3-DiasDeSemana-Inicio": document.getElementById('3-duplasSemanaInicio').value,
+                "3-DiasDeSemana-Fim": document.getElementById('3-duplasSemanaFim').value,
+                "3-Sabado": document.getElementById('3-duplasSabado').checked,
+                "3-Sabado-Inicio": document.getElementById('3-duplasSabadoInicio').value,
+                "3-Sabado-Fim": document.getElementById('3-duplasSabadoFim').value,
+                "3-Domingo": document.getElementById('3-duplasDomingo').checked,
+                "3-Domingo-Inicio": document.getElementById('3-duplasDomingoInicio').value,
+                "3-Domingo-Fim": document.getElementById('3-duplasDomingoFim').value,
+                ...(document.getElementById('3-duplasSemana').checked && { "DiasDeSemanaConfig": diasSemanaDuplasConfig['Quadra-3'] || { segunda: true, terca: true, quarta: true, quinta: true, sexta: true } }) 
+            },
+            DatasEspeciais: excecoesDuplas 
         }
     };
 
@@ -5133,8 +5738,11 @@ function salvarConfiguracoes() {
     if (domOtimizacao !== otimVelho) {
         listaAlteracoes.push(`<li><b>Otimização:</b> ${otimVelho ? 'ON' : 'OFF'} ➝ <b>${domOtimizacao ? 'ON' : 'OFF'}</b></li>`);
     }
-    
-	
+    const pirVelho = memoria.Piramide?.ativa ? true : false;
+    if (updates.Piramide.ativa !== pirVelho) listaAlteracoes.push(`<li><b>Pirâmide:</b> ${pirVelho ? 'ON' : 'OFF'} ➝ <b>${updates.Piramide.ativa ? 'ON' : 'OFF'}</b></li>`);
+    const dupVelho = memoria.Duplas?.ativa ? true : false;
+    if (updates.Duplas.ativa !== dupVelho) listaAlteracoes.push(`<li><b>Duplas:</b> ${dupVelho ? 'ON' : 'OFF'} ➝ <b>${updates.Duplas.ativa ? 'ON' : 'OFF'}</b></li>`);
+
     // --- 5. ENVIO FINAL ---
     db.ref("sistemas/config").update(updates)
         .then(() => {
@@ -5702,21 +6310,194 @@ function excluirPeriodoSelecionado() {
     function formatarData(d) { if(!d) return ""; return d.split('-').reverse().join('/'); }
 
     // Helpers Gerais
+    // Helpers Gerais
     function showTab(id) {
+        // Esconde todos os conteúdos e tira o traço azul de todos
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('tab-content-active'));
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        
+        // Mostra o conteúdo da aba clicada
         document.getElementById(id).classList.add('tab-content-active');
+        
+        // Coloca o traço azul na aba correta (agora só existem 2)
         const tabBtns = document.querySelectorAll('.tab');
-        if(id==='reservas') tabBtns[0].classList.add('active');
-        if(id==='convidados') tabBtns[1].classList.add('active'); // CORRIGIDO AQUI!
-        if(id==='reservas') { atualizarEstadoConfirmacao(); atualizarEstadoEdicaoOrganizador(); atualizarVisualOtimizacao(); }
+        if (id === 'reservas') tabBtns[0].classList.add('active');
+        if (id === 'convidados') tabBtns[1].classList.add('active');
+        
+        // Atualiza os seletores caso volte para a aba reservas
+        if (id === 'reservas') { 
+            atualizarEstadoConfirmacao(); 
+            atualizarEstadoEdicaoOrganizador(); 
+            atualizarVisualOtimizacao(); 
+        }
     }
     
     function atualizarEstadoSistema() { const s = document.getElementById('sistema'); s.className = s.value === 'ON' ? 'on' : 'off'; }
-    
+    function atualizarEstadoPiramide() {
+        const sel = document.getElementById('piramideAtiva');
+        sel.className = sel.value === 'ON' ? 'piramide-on' : 'piramide-off';
+        const els = document.querySelectorAll('#piramide input, #piramide button');
+        els.forEach(el => el.disabled = sel.value !== 'ON');
+        document.getElementById('piramideInicio').style.display = sel.value==='ON'?'inline':'none';
+        document.getElementById('piramideFim').style.display = sel.value==='ON'?'inline':'none';
+        document.getElementById('piramideSeparador').style.display = sel.value==='ON'?'inline':'none';
+        if(sel.value==='ON') { 
+            document.getElementById('piramideInicio').textContent = formatarData(window.piramideInicioData);
+            document.getElementById('piramideFim').textContent = formatarData(window.piramideFimData);
+            atualizarCamposPiramideQuadra1(); atualizarCamposPiramideQuadra2(); atualizarCamposPiramideQuadra3();
+        }
+        sel.disabled = false;
+    }
     
 
 
+// --- NOVA LÓGICA PIRÂMIDE (MODERNA) ---
+
+function handlePiramideChange() {
+    const val = document.getElementById("piramideAtiva").value;
+    
+    if(val === 'ON') {
+        // Consulta o banco para ver se já existem datas salvas
+        db.ref('sistemas/config/Piramide').once('value', s => {
+            const c = s.val() || {};
+            
+            if(c.inicio && c.fim) {
+                // Se existirem, pergunta se quer usar elas
+                mostrarConfirmacao(`Datas salvas encontradas: <b>${c.inicio} a ${c.fim}</b>.<br>Deseja mantê-las?`, 
+                    () => { 
+                        // SIM: Usa as datas do banco
+                        window.piramideInicioData = c.inicio; 
+                        window.piramideFimData = c.fim; 
+                        atualizarEstadoPiramide();
+                    },
+                    () => { 
+                        // NÃO: Pergunta novas datas
+                        // (Aqui usamos um pequeno delay para não sobrepor janelas)
+                        setTimeout(() => iniciarFluxoDatasPiramide(), 200);
+                    }
+                );
+            } else {
+                // Se não existirem datas, pede para digitar
+                iniciarFluxoDatasPiramide();
+            }
+        });
+    } else {
+        // Se desligou (OFF)
+        if(window.piramideInicioData) {
+            mostrarConfirmacao("Deseja apagar as datas salvas da memória temporária?", () => {
+                window.piramideInicioData = ""; 
+                window.piramideFimData = "";
+                atualizarEstadoPiramide();
+            });
+        }
+        atualizarEstadoPiramide();
+    }
+}
+
+// Função auxiliar que pede as datas (Substitui os Prompts antigos)
+function iniciarFluxoDatasPiramide() {
+    // 1. Pede a Data Inicial
+    mostrarInput("Configurar Pirâmide", "Digite a <b>Data de Início</b> (dd-mm-aaaa):", "Ex: 01-01-2024", (inicio) => {
+        
+        // Validação da Data Inicial
+        if(!/^\d{2}-\d{2}-\d{4}$/.test(inicio)) {
+            mostrarNotificacao("Formato de data inválido. Use dia-mês-ano (ex: 01-01-2024).", 'error');
+            document.getElementById("piramideAtiva").value = "OFF";
+            return;
+        }
+        
+        // 2. Pede a Data Final (dentro do "OK" da primeira)
+        setTimeout(() => {
+            mostrarInput("Configurar Pirâmide", "Digite a <b>Data de Fim</b> (dd-mm-aaaa):", "Ex: 30-06-2024", (fim) => {
+                
+                // Validação da Data Final
+                if(!/^\d{2}-\d{2}-\d{4}$/.test(fim)) {
+                    mostrarNotificacao("Formato de data inválido.", 'error');
+                    document.getElementById("piramideAtiva").value = "OFF";
+                    return;
+                }
+                
+                // Sucesso! Salva na memória e atualiza a tela
+                window.piramideInicioData = inicio;
+                window.piramideFimData = fim;
+                atualizarEstadoPiramide();
+                mostrarNotificacao("Datas da Pirâmide definidas com sucesso!", 'success');
+            });
+        }, 300); // Delay para transição suave entre janelas
+    });
+}
+
+	
+	
+    
+    function atualizarCamposPiramideQuadra1() { updatePiramideQ('1'); }
+    function atualizarCamposPiramideQuadra2() { updatePiramideQ('2'); }
+    function atualizarCamposPiramideQuadra3() { updatePiramideQ('3'); }
+    function updatePiramideQ(n) {
+        const isOn = document.getElementById('piramideAtiva').value === 'ON';
+        const qOn = document.getElementById(`piramideQuadra${n}`).checked;
+        const ctr = document.getElementById(`piramideQuadra${n}Container`);
+        ctr.querySelectorAll('input').forEach(i => i.disabled = !isOn || !qOn);
+        document.getElementById(`piramideQuadra${n}`).disabled = !isOn;
+        // Logic for checkboxes dependency
+        const sem = document.getElementById(`${n}-piramideSemana`); const excSem = document.getElementById(`${n}-piramideExceto17_19`);
+        if(sem && excSem) excSem.disabled = !isOn || !qOn || !sem.checked;
+        const sab = document.getElementById(`${n}-piramideSabado`); const excSab = document.getElementById(`${n}-piramideExceto7_12`);
+        if(sab && excSab) excSab.disabled = !isOn || !qOn || !sab.checked;
+        const dom = document.getElementById(`${n}-piramideDomingo`); const excDom = document.getElementById(`${n}-piramideExceto8_12`);
+        if(dom && excDom) excDom.disabled = !isOn || !qOn || !dom.checked;
+    }
+
+    function atualizarEstadoDuplas() {
+        const sel = document.getElementById('duplasAtiva');
+        sel.className = sel.value === 'ON' ? 'duplas-on' : 'duplas-off';
+        const tab = document.getElementById('duplas');
+        tab.querySelectorAll('input, button').forEach(e => e.disabled = sel.value !== 'ON');
+        for(let i=1;i<=3;i++) {
+            const l = document.getElementById(`DuplasDiasQuadra${i}`);
+            if(l) l.classList.toggle('disabled', sel.value !== 'ON');
+        }
+        sel.disabled = false;
+        atualizarCamposDaQuadraDuplas(1); atualizarCamposDaQuadraDuplas(2); atualizarCamposDaQuadraDuplas(3);
+    }
+    function atualizarCamposDaQuadraDuplas(n) {
+        const on = document.getElementById('duplasAtiva').value === 'ON';
+        const qOn = document.getElementById(`duplasQuadra${n}Ativa`).checked;
+        const lbl = document.getElementById(`DuplasDiasQuadra${n}`);
+        if(lbl) lbl.classList.toggle('disabled', !on || !qOn);
+        ['Semana','Sabado','Domingo'].forEach(d => {
+            const cb = document.getElementById(`${n}-duplas${d}`);
+            if(cb) {
+                cb.disabled = !on || !qOn;
+                const ctr = cb.closest('.duplas-day-container');
+                ctr.querySelectorAll('.horario-input').forEach(i => i.disabled = !on || !qOn || !cb.checked);
+            }
+        });
+        const semLbl = document.querySelector(`#duplasQuadra${n}Container .dias-semana-label-clickable`);
+        if(semLbl) semLbl.style.cursor = (on && qOn && document.getElementById(`${n}-duplasSemana`).checked) ? 'pointer' : 'default';
+    }
+    function abrirModalDiasSemana(n) {
+        quadraAtualParaDiasSemana = n;
+        document.getElementById('modalDiasSemanaTitulo').innerText = document.querySelector(`#duplasQuadra${n}Container span`).innerText;
+        const c = diasSemanaDuplasConfig[`Quadra-${n}`] || { segunda: true, terca: true, quarta: true, quinta: true, sexta: true };
+        document.getElementById('duplas-segunda').checked = c.segunda; document.getElementById('duplas-terca').checked = c.terca;
+        document.getElementById('duplas-quarta').checked = c.quarta; document.getElementById('duplas-quinta').checked = c.quinta;
+        document.getElementById('duplas-sexta').checked = c.sexta;
+        document.getElementById('modalDiasSemanaDuplas').style.display = 'flex';
+    }
+    function fecharModalDiasSemana() { document.getElementById('modalDiasSemanaDuplas').style.display = 'none'; }
+ 
+
+function salvarModalDiasSemana() {
+    if(!quadraAtualParaDiasSemana) return;
+    diasSemanaDuplasConfig[`Quadra-${quadraAtualParaDiasSemana}`] = {
+        segunda: document.getElementById('duplas-segunda').checked, terca: document.getElementById('duplas-terca').checked,
+        quarta: document.getElementById('duplas-quarta').checked, quinta: document.getElementById('duplas-quinta').checked,
+        sexta: document.getElementById('duplas-sexta').checked
+    };
+    mostrarNotificacao('Dias da semana atualizados! Clique em Salvar Configurações no final.', 'success');
+    fecharModalDiasSemana();
+}
 
 	
     db.ref("sistemas/usuariosOnline").on("value", s => {
@@ -5729,18 +6510,70 @@ function excluirPeriodoSelecionado() {
         mostrarNotificacao(msg, 'info');
     });
 
-    
-    
+    function mostrarQuadra(q) {
+        ['1','2','3'].forEach(n => document.getElementById(`piramideQuadra${n}Container`).style.display = `quadra${n}`===q ? 'block' : 'none');
+        document.querySelectorAll('.piramide-botao').forEach(b => b.classList.remove('ativo'));
+        document.querySelector(`.piramide-botao[onclick="mostrarQuadra('${q}')"]`).classList.add('ativo');
+    }
+    function mostrarDuplasQuadra(q) {
+        ['1','2','3'].forEach(n => document.getElementById(`duplasQuadra${n}Container`).style.display = `quadra${n}`===q ? 'block' : 'none');
+        document.querySelectorAll('.duplas-botao').forEach(b => b.classList.remove('ativo'));
+        document.querySelector(`.duplas-botao[onclick="mostrarDuplasQuadra('${q}')"]`).classList.add('ativo');
+    }
 
     // Exceções e Bloqueios
+    async function abrirModalExcecao(n) {
+        if(!document.getElementById('duplasAtiva').value==='ON' || !document.getElementById(`duplasQuadra${n}Ativa`).checked) return;
+        if(!vlimparExcecoesAntigas) { await limparExcecoesAntigas(); vlimparExcecoesAntigas=true; }
+        quadraAtualParaExcecao = n;
+        renderizarExcecoes(n);
+        document.getElementById('modalDatasEspeciais').style.display = 'flex';
+    }
+    function fecharModalExcecao() { document.getElementById('modalDatasEspeciais').style.display = 'none'; }
+    function renderizarExcecoes(n) {
+        const div = document.getElementById('listaExcecoes'); div.innerHTML='';
+        const k = `Quadra-${n}`; const ex = excecoesDuplas[k] || {};
+        if(Object.keys(ex).length===0) { div.innerHTML='<p>Nenhuma exceção.</p>'; return; }
+        const ul = document.createElement('ul');
+        Object.keys(ex).sort().forEach(d => {
+            const li = document.createElement('li');
+            li.innerHTML = `<div><div><strong>${formatarData(d)}</strong></div><div style="font-size:0.9em;color:#666">${ex[d].descricao||''}</div><div>${ex[d].regras.inicio}-${ex[d].regras.fim}</div></div><button class="btn-remover" onclick="removerExcecao('${k}','${d}')">X</button>`;
+            ul.appendChild(li);
+        });
+        div.appendChild(ul);
+    }
+	
+	
+function adicionarExcecao() {
+    const desc=document.getElementById('excecaoDescricao').value;
+    const d=document.getElementById('excecaoData').value;
+    const i=document.getElementById('excecaoInicio').value;
+    const f=document.getElementById('excecaoFim').value;
     
+    if(!d||!i||!f) return mostrarNotificacao("Preencha Data, Início e Fim.", 'warning');
     
+    const dp = d.replace(/-/g,'/'); 
+    if(!/^\d{2}\/\d{2}\/\d{4}$/.test(dp)) return mostrarNotificacao("Data inválida.", 'error');
+    
+    const p = dp.split('/'); const dbDate = `${p[2]}-${p[1]}-${p[0]}`;
+    const k = `Quadra-${quadraAtualParaExcecao}`;
+    
+    db.ref().update({
+        [`sistemas/config/Duplas/DatasEspeciais/${k}/${dbDate}`]: { descricao:desc, regras:{inicio:i,fim:f} },
+        [`sistemas/config/Duplas/${k}/${k}-ativa`]: true
+    }).then(()=>{ 
+        mostrarNotificacao("Exceção adicionada!", 'success');
+        renderizarExcecoes(quadraAtualParaExcecao); 
+    });
+}
 	
 	
-
-	
-	
-
+function removerExcecao(k, d) { 
+    mostrarConfirmacao("Deseja remover esta exceção?", () => {
+        db.ref(`sistemas/config/Duplas/DatasEspeciais/${k}/${d}`).remove();
+        mostrarNotificacao("Exceção removida.", 'success');
+    });
+}
     
     async function abrirModalBloqueio(n) {
         if(!vlimparBloqueiosAntigos) { await limparBloqueiosAntigos(); vlimparBloqueiosAntigos=true; }
@@ -5795,7 +6628,7 @@ function removerBloqueio(k, d) {
     });
 }
     
-    
+    function limparExcecoesAntigas() { return limparAntigos(excecoesDuplas, 'Duplas/DatasEspeciais'); }
     function limparBloqueiosAntigos() { return limparAntigos(bloqueiosQuadra, 'Quadras/Bloqueios'); }
     function limparAntigos(obj, pathMid) {
         const d7 = new Date(); d7.setDate(d7.getDate()-7); d7.setHours(0,0,0,0);
@@ -5836,7 +6669,16 @@ function handleEstadoQuadraChange(el, n) {
     document.addEventListener("DOMContentLoaded", function() { 
         showTab('reservas');
         
-        
+        for(let i=1; i<=3; i++) {
+            const cb = document.getElementById(`${i}-duplasSemana`);
+            const lbl = document.querySelector(`#duplasQuadra${i}Container .dias-semana-label-clickable`);
+            if(cb) cb.addEventListener('change', () => atualizarCamposDaQuadraDuplas(i));
+            if(lbl) lbl.addEventListener('click', () => { if(document.getElementById(`duplasQuadra${i}Ativa`).checked && cb.checked) abrirModalDiasSemana(i); });
+            document.getElementById(`${i}-duplasSabado`).addEventListener('change', () => atualizarCamposDaQuadraDuplas(i));
+            document.getElementById(`${i}-duplasDomingo`).addEventListener('change', () => atualizarCamposDaQuadraDuplas(i));
+            const ld = document.getElementById(`DuplasDiasQuadra${i}`);
+            if(ld) ld.addEventListener('dblclick', () => abrirModalExcecao(i));
+        }
 
         const inputs = document.querySelectorAll('.horario-input'); 
         inputs.forEach(i => {
@@ -6758,8 +7600,6 @@ function selecionarQuadraDuplas(quadraKey, pularSincronia = false) {
     renderizarTabelaDuplas();
 }
 
-
-
 /**
  * Gera a grade visual de horários para as Duplas (A planilha que estava faltando)
  */
@@ -6793,7 +7633,7 @@ function renderizarTabelaDuplas() {
                 // Se aberto: Lógica normal de marcar/desmarcar
                 const marcado = gradeRascunho[key] === true;
                 const classe = marcado ? 'dupla-cell-marcada' : 'aula-cell-livre';
-                const texto = marcado ? 'Duplas' : ''; // Voltando para "Duplas"
+                const texto = marcado ? 'Duplas' : ''; // Texto corrigido para "Duplas" 
                 
                 html += `<td class="${classe}" id="cell-dupla-${key}" onclick="alternarSlotDupla('${key}')">${texto}</td>`;
             }
@@ -6827,7 +7667,7 @@ function alternarSlotDupla(key) {
     } else {
         grade[key] = true;
         cell.className = 'dupla-cell-marcada';
-        cell.textContent = 'Duplas'; // Voltando para "Duplas"
+        cell.textContent = 'Duplas';
     }
     marcarComoAlterado();
 }
@@ -6853,32 +7693,6 @@ function acaoDuplas(tipo) {
     marcarComoAlterado();
 }
 
-
-
-/**
- * Aplica o rascunho de Duplas ao objeto principal de horários antes do salvamento final
- */
-function salvarConfiguracaoDuplas() {
-    // Sincroniza os switches globais antes de salvar
-    configDuplasGlobal.Ativo = document.getElementById('switchAtivarDuplas').checked;
-    configDuplasGlobal.Ranking = document.getElementById('switchRankingDuplas').checked;
-
-    // --- REMOVE O 'RANKING' INTRUSO DAS QUADRAS (Limpeza do banco) ---
-    ['Quadra1', 'Quadra2', 'Quadra3'].forEach(q => {
-        if (configDuplasGlobal[q] && configDuplasGlobal[q].Ranking !== undefined) {
-            delete configDuplasGlobal[q].Ranking;
-        }
-    });
-
-    carrinhoDuplas = JSON.parse(JSON.stringify(configDuplasGlobal));
-    
-    if (!horariosGlobal) horariosGlobal = {};
-    horariosGlobal.Duplas = carrinhoDuplas;
-
-    fecharModalHorario('duplas');
-    marcarComoAlterado();
-    mostrarNotificacao("Configurações de Duplas prontas para salvar!", "info");
-}
 
 function toggleAtivarDuplas(checked) {
     configDuplasGlobal.Ativo = checked; 
@@ -6915,6 +7729,33 @@ function toggleAtivarQuadraDuplas(isAtivo) {
     atualizarVisualDuplas();
     marcarComoAlterado();
 }
+
+
+/**
+ * Aplica o rascunho de Duplas ao objeto principal de horários antes do salvamento final
+ */
+function salvarConfiguracaoDuplas() {
+    // Sincroniza os switches globais antes de salvar
+    configDuplasGlobal.Ativo = document.getElementById('switchAtivarDuplas').checked;
+    configDuplasGlobal.Ranking = document.getElementById('switchRankingDuplas').checked;
+
+    // --- REMOVE O 'RANKING' INTRUSO DAS QUADRAS (Limpeza do banco) ---
+    ['Quadra1', 'Quadra2', 'Quadra3'].forEach(q => {
+        if (configDuplasGlobal[q] && configDuplasGlobal[q].Ranking !== undefined) {
+            delete configDuplasGlobal[q].Ranking;
+        }
+    });
+
+    carrinhoDuplas = JSON.parse(JSON.stringify(configDuplasGlobal));
+    
+    if (!horariosGlobal) horariosGlobal = {};
+    horariosGlobal.Duplas = carrinhoDuplas;
+
+    fecharModalHorario('duplas');
+    marcarComoAlterado();
+    mostrarNotificacao("Configurações de Duplas prontas para salvar!", "info");
+}
+
 
 // Variável de controle para o duplo clique (pode ficar junto com as outras globais ou aqui mesmo)
 let ultimoTempoCliqueDuplas = 0;
@@ -7067,16 +7908,6 @@ function atualizarVisualDuplas() {
 }
 
 
-
-// Adiciona um "ouvinte" ao switch para mudar o visual em tempo real
-document.addEventListener('DOMContentLoaded', function() {
-    const switchAtivar = document.getElementById('switchAtivarDuplas');
-    if (switchAtivar) {
-        switchAtivar.addEventListener('change', function() {
-            atualizarVisualDuplas(this.checked);
-        });
-    }
-});
 
 
 
