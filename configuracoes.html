@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=430, user-scalable=no">
+
     
     <title>Configurações do Sistema</title> 
 
@@ -449,6 +450,35 @@ input:disabled, select:disabled, button:disabled { cursor: not-allowed; opacity:
 /* --- Regras APENAS para Celular Vertical (Telas até 600px) --- */
 @media (max-width: 600px) {
 
+    /* Ajuste de Tamanho dos Botões Principais no Mobile */
+    
+    /* 1. Botão SALVAR / ADICIONAR (Verde) */
+    .modal-buttons .btn-adicionar, 
+    #btn-salvar-container button,
+    .form-container > button {
+        height: 45px !important;    /* Altura maior para o polegar */
+        font-size: 18px !important;  /* Fonte bem legível */
+        font-weight: bold !important;
+        border-radius: 8px !important;
+        width: 100% !important;
+    }
+
+    /* 2. Botões FECHAR, CANCELAR e EXCLUIR */
+    .modal-buttons .btn-fechar,
+    #btnExcluirPeriodo {
+        height: 45px !important;     /* Agora todos terão a mesma altura */
+        font-size: 18px !important;  /* Todos com a mesma fonte */
+        font-weight: bold !important;
+        border-radius: 8px !important;
+        width: 100% !important;
+    }
+
+    /* Ajuste para o container dos botões não ficarem apertados */
+    .modal-buttons {
+        gap: 15px !important;
+        margin-top: 20px !important;
+    } 
+
     /* 1. Troca os textos do cabeçalho */
     .texto-desktop { display: none; }
     .texto-mobile { display: inline; }
@@ -496,35 +526,35 @@ input:disabled, select:disabled, button:disabled { cursor: not-allowed; opacity:
 
     /* 6. CORREÇÃO DA FONTE DO DIA */
     .tabela-config-horarios td:first-child {
-        font-size: 14px !important; /* Fonte maior conforme pedido */
+        font-size: 16px !important; /* Fonte maior conforme pedido */
         font-weight: bold;
         text-align: left;
         padding-left: 2px !important;
         white-space: nowrap;
     }
 
-    /* 7. SOLUÇÃO DOS CAMPOS QUE ESTOURAVAM (Inputs e Selects) */
-    .tabela-config-horarios select,
-    .tabela-config-horarios input[type="time"] {
-        width: 100% !important;      /* Ignora o width:100px/85px do PC */
-        min-width: 0 !important;     /* Remove travas mínimas */
-        max-width: 100% !important;
-        
-        height: 34px !important;     /* Altura padronizada */
-        padding: 0 !important;       /* Remove bordas internas */
-        margin: 0 !important;
-        
-        font-size: 13px !important;  /* Fonte legível e igual para todos */
-        text-align: center;
-        border-radius: 4px;
-        box-sizing: border-box !important; /* Garante que borda não aumente tamanho */
+    /* 7. AJUSTE DOS CAMPOS (Selects 100% e Horários com largura reduzida) */
+    .tabela-config-horarios select {
+        width: 100% !important;
+        height: 34px !important;
+        font-size: 15px !important;
+        text-align: center !important;
     }
 
-    /* Ajuste específico para o Select (Status) centralizar texto */
-    .tabela-config-horarios select {
-        text-align-last: center;
-        padding-left: 0 !important;
+    .tabela-config-horarios input[type="time"] {
+        /* Diminuímos a largura para o conteúdo "abraçar" a borda */
+        width: 85px !important; 
+        display: block;
+        margin: 0 auto !important; /* Centraliza a própria caixinha na coluna */
+        
+        height: 34px !important;
+        font-size: 15px !important;
+        padding: 0 2px !important;
+        border-radius: 4px;
+        box-sizing: border-box !important;
     }
+	
+	
 }
 /* ---  FIM DE REGRAS APENAS PARA CELULAR VERTICAL (Telas até 600px) --- */
 
@@ -559,6 +589,7 @@ button:disabled {
         white-space: nowrap; 
         margin-right: 5px !important;
         margin-bottom: 0 !important;
+		font-size: 18px !important;
     }
     
     /* Input do Nome */
@@ -582,7 +613,7 @@ button:disabled {
         width: auto !important;
         flex: 0 0 auto !important;      /* Ocupa só o espaço do texto */
         margin-right: 2px !important;
-        font-size: 17px !important;
+        font-size: 18px !important;
     }
 
     /* 3. Ajusta o container interno das datas */
@@ -610,8 +641,8 @@ button:disabled {
 
     /* Texto "até" */
     #formPeriodoEspecial span {
-        font-size: 11px !important; 
-        margin: 0 1px !important;
+        font-size: 15px !important; 
+        margin: 0 10px !important;
     }
 
     /* Checkbox */
@@ -625,7 +656,7 @@ button:disabled {
     .painel-regra-mestra {
         padding: 8px !important;
         margin-bottom: 10px !important;
-        margin-top: 2px !important;
+        margin-top: 10px !important;
     }
 
     .painel-regra-mestra .container {
@@ -633,7 +664,7 @@ button:disabled {
         flex-direction: row !important; 
         flex-wrap: wrap !important;
         justify-content: space-between !important;
-        align-items: center !important;
+        align-items: center !important; 
         gap: 5px !important;
     }
     
@@ -644,6 +675,9 @@ button:disabled {
         max-width: 110px !important;
         margin: 0 !important;
         height: 30px !important;
+		font-size: 16px !important; 
+        text-align: center !important; 
+        text-align-last: center !important;
     }
 
     /* Container dos horários */
@@ -660,7 +694,7 @@ button:disabled {
         padding: 0 !important;
         text-align: center;
         height: 30px !important;
-        font-size: 14px !important;
+        font-size: 16px !important;
     }
 
     /* 3. BOTÃO CENTRALIZADO */
@@ -692,7 +726,7 @@ button:disabled {
         margin-bottom: 0 !important;
         font-weight: bold;
         color: #007bff;
-        font-size: 15px !important;     /* Fonte Grande solicitada */
+        font-size: 16px !important;     /* Fonte Grande solicitada */
         white-space: nowrap !important;
         overflow: visible !important;   /* Garante que o (Seg) apareça */
         padding-left: 2px !important;
@@ -707,11 +741,13 @@ button:disabled {
 
     /* SELECT (Status): Meio termo (66px) */
     .linha-dia-especial select.status-dia {
-        width: 66px !important;         /* Ajuste fino */
-        min-width: 66px !important;
+        width: 90px !important;         /* Alargamos para a palavra "Fechado" caber */
+        min-width: 90px !important;
         height: 32px !important;
-        padding: 0 0 0 1px !important;
-        font-size: 12px !important;
+        padding: 0 !important;
+        text-align: center !important;  
+        text-align-last: center !important; 
+        font-size: 15px !important;     /*  AGORA SIM A FONTE VAI OBEDECER! */
         margin: 0 !important;
     }
 
@@ -883,28 +919,28 @@ button:disabled {
 }
 
 /* Botões Mini */
-.painel-controle-aulas .btn-mini {
-    padding: 0 10px !important;
-    height: 28px !important;      
-    line-height: 26px !important; 
-    background: #007bff !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 4px !important;
-    cursor: pointer !important;
-    font-size: 13px !important;
-    white-space: nowrap !important;
-    width: auto !important;
-    min-width: 0 !important;
-    margin: 0 !important;
-    display: inline-block !important;
-}
-.painel-controle-aulas .btn-mini.outline {
-    background: transparent !important;
-    border: 1px solid #999 !important;
-    color: #555 !important;
-    line-height: 26px !important; 
-}
+    .painel-controle-aulas .btn-mini {
+        padding: 0 15px !important;    /*  AUMENTAMOS o espaço interno (largura) */
+        height: 36px !important;       /*  AUMENTAMOS a altura de 28px para 36px */
+        line-height: 34px !important;  /*  Acompanha a nova altura */
+        background: #007bff !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 4px !important;
+        cursor: pointer !important;
+        font-size: 15px !important;    /*  AUMENTAMOS a fonte de 13px para 15px */
+        white-space: nowrap !important;
+        width: auto !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        display: inline-block !important;
+    }
+    .painel-controle-aulas .btn-mini.outline {
+        background: transparent !important;
+        border: 1px solid #999 !important;
+        color: #555 !important;
+        line-height: 34px !important;  /*  Acompanha a nova altura */
+    }
 .painel-controle-aulas .btn-mini:hover { opacity: 0.9; }
 
 
@@ -937,22 +973,17 @@ button:disabled {
     
 
     /* --- CORREÇÃO DO TÍTULO NO CELULAR (MODO NORMAL) --- */
-    #tituloAulaQuadra {
-        /* Aumentamos a altura (no PC é 15px, aqui colocamos 40px para caber o texto) */
-        height: 20px !important;       
-        
-        /* Adicionamos margem para dar o "espaço em branco" que você quer */
+    #tituloAulaQuadra,
+    #tituloDuplasQuadra,           /*  ADICIONAMOS AQUI (Para Duplas) */
+    #tituloPiramideQuadra {        /*  E AQUI (Para Pirâmide) */
+        height: 26px !important;       
         margin-top: 5px !important;   
         margin-bottom: 5px !important; 
-        
-        /* Garante que o texto fique bem no meio dessa altura de 40px */
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        
-        /* Garante tamanho da fonte */
-        font-size: 18px !important;
-    } 
+        font-size: 21px !important;    
+    }
 
     /* 0. Reduz o espaço entre os botões de quadra e o painel cinza */
     .quadras-tabs-container {
@@ -962,7 +993,7 @@ button:disabled {
     /* 1. Botões de Quadra: Texto quebrado para caber */
     .quadra-tab { 
         padding: 8px 2px; 
-        font-size: 13px; 
+        font-size: 15px !important; /*  AUMENTAMOS DE 13px PARA 15px AQUI */ 
         height: auto;
     }
     .quadra-tab .desktop-text { display: none; }
@@ -983,7 +1014,7 @@ button:disabled {
     }
     /* Ajuste leve de fonte para garantir que caiba */
     .painel-controle-aulas .label-ativar span {
-        font-size: 14px !important;
+        font-size: 16px !important; /*  AUMENTAMOS AQUI DE 14px PARA 16px */
     }
 
     /* ITEM 2: Grupo Professor (Fica na direita da linha 1) */
@@ -996,19 +1027,18 @@ button:disabled {
     
     /* Label "Professor:" */
     .painel-controle-aulas .grupo-professor-compacto label {
-        font-size: 14px !important;
+        font-size: 16px !important; /*  AUMENTAMOS AQUI DE 14px PARA 16px */
     }
 
-    /* Input do Professor (Pequeno para caber na linha) */
-    /* Input e Select do Professor (Pequeno para caber na linha) */
+    /* Input e Select do Professor (Aumentado para melhor leitura) */
     .painel-controle-aulas .grupo-professor-compacto input,
-    .painel-controle-aulas .grupo-professor-compacto select {  /* ADICIONADO O SELECT AQUI */
-        width: 120px !important;    /* Reduzi levemente para garantir que caiba em telas pequenas */
+    .painel-controle-aulas .grupo-professor-compacto select {  
+        width: 145px !important;    /*  LARGURA: Aumentamos de 120px para 145px */
         min-width: 0 !important;
-        flex: 0 0 120px !important; /* Trava o tamanho para não estourar a linha */
-        height: 30px !important;    /* Altura para alinhar com o checkbox */
-        font-size: 13px !important;
-        padding: 0 2px !important; 
+        flex: 0 0 145px !important; /*  TRAVA DE LARGURA: Acompanha os 145px */
+        height: 32px !important;    /*  ALTURA: Um pouquinho maior para o toque */
+        font-size: 15px !important; /*  FONTE: Aumentamos de 13px para 15px */
+        padding: 0 5px !important;  /* Dá um respiro interno para o texto não colar na borda */
     }
 
     /* ITEM 3: Botões (Vão para a linha 2, alinhados à direita) */
@@ -1051,11 +1081,11 @@ button:disabled {
     .tabela-aulas td:first-child,
     .tabela-aulas th:last-child, 
     .tabela-aulas td:last-child {
-        width: 85px !important;      /* Largura que você quer */
-        min-width:85px !important;  /* Garante que não encolha */
-        max-width: 85px !important;  /* Trava para não passar disso */
+        width: 95px !important;       /*  LARGURA: Aumentamos de 85px para 95px para o texto não cortar */
+        min-width: 95px !important;   /*  LARGURA: Aumentamos aqui também */
+        max-width: 95px !important;   
         
-        font-size: 13px !important;  
+        font-size: 15px !important;   /*  FONTE: Aumentamos de 13px para 15px! */  
         white-space: nowrap !important;
     }
 	/* 4. Ajuste dos DIAS (Seg a Dom) - O "Miolo" da tabela */
@@ -1064,6 +1094,14 @@ button:disabled {
         width: 60px !important;      /* AJUSTE AQUI A LARGURA DOS DIAS */
         min-width: 60px !important;  /* Mantenha igual ao width */
         max-width:60px !important;  /* Trava para ficar uniforme */
+    }
+	/* 5. AUMENTAR FONTE DOS CABEÇALHOS (Horário, Seg, Ter...) */
+    .tabela-aulas th,
+    .tabela-aulas th:first-child,
+    .tabela-aulas th:last-child {
+        font-size: 15px !important;  /*  Aumentamos a fonte dos títulos! */
+        padding-top: 4px !important; /* Dá um leve respiro em cima */
+        padding-bottom: 4px !important; /* E embaixo, para não colar nas bordas */
     }
 	
 }
@@ -1228,22 +1266,21 @@ button:disabled {
         justify-content: center;
     }
 
-    /* 4. TÍTULO "QUADRA X" (O Ponto de Equilíbrio: 28px) */
+    /* 4. TÍTULO "QUADRA X" (O Ponto de Equilíbrio: 28px) -> MODO GIGANTE */
     .modal-content.maximizado #tituloAulaQuadra {
         display: flex !important;
-        align-items: center !important;     /* Centro Vertical Perfeito */
-        justify-content: center !important; /* Centro Horizontal Perfeito */
+        align-items: center !important;     
+        justify-content: center !important; 
         
         width: 100% !important;
         
-        /* 28px: O tamanho ideal (nem 20px esmagado, nem 35px gordo) */
-        height: 28px !important;            
-        min-height: 28px !important;
+        height: 38px !important;            /*  AUMENTAMOS a altura para o texto caber */
+        min-height: 38px !important;        /*  Acompanha a altura */
         
-        margin: 0 !important;               /* Zero margem externa */
+        margin: 5px 0 15px 0 !important;    /*  Damos mais respiro em cima e embaixo para preencher a tela */
         padding: 0 !important;
         
-        font-size: 16px !important;
+        font-size: 24px !important;         /*  FONTE GIGANTE: De 16px para 24px! */
         font-weight: bold !important;
         color: #333 !important;
         background: transparent !important;
@@ -1262,6 +1299,23 @@ button:disabled {
     
     .modal-content.maximizado .tabela-aulas {
         margin-top: 0 !important;
+    }
+	
+	/* 5. CABEÇALHOS DA TABELA (Dias e Horário) -> MODO GIGANTE */
+    .modal-content.maximizado .tabela-aulas th,
+    .modal-content.maximizado .tabela-aulas th:first-child,
+    .modal-content.maximizado .tabela-aulas th:last-child {
+        font-size: 18px !important;    /*  AUMENTAMOS a fonte de 15px para 18px */
+        padding-top: 10px !important;  /*  Mais respiro em cima */
+        padding-bottom: 10px !important; /*  Mais respiro em baixo */
+    }
+	
+	/* 6. CÉLULAS MAIS ALTAS NO MODO MAXIMIZADO (Melhor área de toque) */
+    .modal-content.maximizado .tabela-aulas td,
+    .modal-content.maximizado .tabela-aulas th {
+        height: 35px !important;       /*  Deixa as linhas um pouco mais altas */
+        padding-top: 5px !important;   /*  Mais respiro interno em cima */
+        padding-bottom: 5px !important;/*  Mais respiro interno em baixo */
     }
 }
 /* ================================================================= */
@@ -1340,12 +1394,36 @@ button:disabled {
         margin-top: 0 !important;
     }
     #modalHorarioEspecial h2 {
-        font-size: 1.3rem !important; 
+        font-size: 1.6rem !important; 
         margin: 0 !important;
         line-height: 1 !important;
     }
 
     /* 4. REMOVE ESPAÇOS DO PAINEL SUPERIOR */
+	/* 1. Mantém texto e campo na mesma linha (lado a lado) */
+    .painel-destaque .container {
+        display: flex !important;
+        flex-direction: row !important; /* Força ficar na mesma linha */
+        align-items: center !important; /* Alinha os dois pelo meio */
+        gap: 10px !important; /* Dá um pequeno espaço entre o texto e o campo */
+    }
+
+    /* 2. Ajusta o texto "Gerenciar Período:" */
+    label[for="selectPeriodoEspecial"] {
+        font-size: 18px !important; 
+        white-space: nowrap !important; /* Impede o texto de ser esmagado/quebrar de linha */
+        width: auto !important; 
+        margin: 0 !important;
+    }
+
+    /* 3. Faz o campo esticar e preencher todo o resto da linha */
+    #selectPeriodoEspecial {
+        font-size: 14.3px !important; 
+        height: 45px !important; 
+        flex: 1 !important; /* O SEGREDO: Manda o campo ocupar todo o espaço vazio à direita */
+        width: 100% !important;
+        margin: 0 !important;
+    }
     #areaSuperiorEspecial {
         margin-bottom: 0 !important;
     }
@@ -1363,12 +1441,7 @@ button:disabled {
         align-items: center !important; 
     }
     
-    /* 6. Texto "Ajuste Fino" */
-    #areaSuperiorEspecial + div h3 {
-        font-size: 1.0rem !important;
-        line-height: 1 !important;
-    }
-
+    
     
 
     /* 8. Botões do rodapé */
@@ -1418,32 +1491,27 @@ button:disabled {
 
     /* A. DATA */
     .linha-dia-especial .dia-label {
-        width: 95px !important;       
-        min-width: 95px !important;
-        font-size: 0.80rem !important; 
+        width: 110px !important;       /*  AUMENTAMOS AQUI para o texto não cortar */
+        min-width: 110px !important;   /*  AUMENTAMOS AQUI também */
+        font-size: 16px !important;    /*  TROCAMOS de 0.80rem (12px) para 16px! */
         white-space: nowrap !important;
         overflow: hidden !important;
     }
 
-    /* B. SELECT (Aberto/Fechado) */
-    .linha-dia-especial select {
-        width: 90px !important;       
-        min-width: 90px !important;
-        padding: 0 !important;
-        text-align: center !important;
-        text-align-last: center !important;
-        font-size: 0.85rem !important;
-        height: 30px !important;
-    }
-
     /* C. INPUTS (Hora) */
-    .linha-dia-especial input[type="time"] {
-        width: 68px !important;       
-        min-width: 68px !important;
+    .linha-dia-especial input[type="time"],
+    .linha-dia-especial input.inicio-dia,
+    .linha-dia-especial input.fim-dia {
+        flex: 0 0 66px !important;    /* O ANTÍDOTO: Proíbe o campo de esticar como um elástico! */
+        width: 66px !important;       
+        min-width: 66px !important;   
+        max-width: 66px !important;   /* TRAVA ABSOLUTA para ele não crescer 1 milímetro sequer */
         padding: 0 !important;
         text-align: center !important;
-        font-size: 0.85rem !important;
-        height: 30px !important;
+        font-size: 15px !important;   
+        height: 32px !important;      
+        border-radius: 4px !important;
+        margin: 0 !important;
     }
 }
 /* --- FIM DE CORREÇÃO MOBILE: JANELA HORÁRIOS ESPECIAIS --- */
@@ -1484,7 +1552,7 @@ button:disabled {
 
     /* 4. O Título em si */
     #modalHorarioEspecial h2 {
-        font-size: 1.2rem !important; /* Fonte legível */
+        font-size: 1.6rem !important; /* Fonte legível */
         margin: 0 !important;
         line-height: 1 !important;
     }
@@ -1539,7 +1607,7 @@ button:disabled {
 
     /* 5. Ajusta a Data para não roubar espaço demais */
     #modalHorarioEspecial.modo-foco .linha-dia-especial .dia-label {
-        font-size: 14px !important; /* Leve redução se necessário */
+        font-size: 16px !important; /* Leve redução se necessário */
         margin-right: 2px !important;
     }
 }
@@ -1595,13 +1663,13 @@ button:disabled {
 
     /* 1. Garante que o ícone fique grande e visível */
     .btn-expandir svg {
-        width: 28px !important;
-        height: 28px !important;
+        width: 35px !important;  /*  AUMENTAMOS de 28px para 35px */
+        height: 35px !important; /*  AUMENTAMOS de 28px para 35px */
     }
 
     /* 2. Área de toque maior e alinhamento rígido */
     .btn-expandir {
-        width: 44px !important;       /* Largura fixa para não empurrar o texto */
+        width: 50px !important;       /* Largura fixa para não empurrar o texto */
         height: 40px !important;      /* Altura igual à da linha do título */
         padding: 0 !important;        /* Remove bordas internas */
         margin-left: auto !important; /* Joga para a direita */
@@ -1612,7 +1680,7 @@ button:disabled {
 
     /* 3. Ajuste do texto "Ajuste Fino" para não brigar por espaço */
     #areaSuperiorEspecial + div h3 {
-        font-size: 16px !important;   /* Tamanho legível */
+        font-size: 18px !important;   /* Tamanho legível */
         line-height: 40px !important; /* Centraliza verticalmente com o botão */
         margin: 0 !important;
         white-space: nowrap;          /* Impede que o texto quebre linha */
@@ -2206,16 +2274,24 @@ body.dark-mode .title-container span {
 }
 
 /* 10. Linhas Especiais e Detalhes */
-body.dark-mode .linha-dia-especial {
-    background-color: #1e1e1e !important;
-    border-bottom: 1px solid #444 !important;
-}
-body.dark-mode .linha-dia-especial:hover {
-    background-color: #2a2a2a !important;
-}
-body.dark-mode .linha-dia-especial .dia-label {
-    color: #4dabf7 !important;
-}
+    body.dark-mode .linha-dia-especial {
+        background-color: #1e1e1e !important;
+        border-bottom: 1px solid #444 !important;
+    }
+    body.dark-mode .linha-dia-especial:hover {
+        background-color: #2a2a2a !important;
+    }
+    body.dark-mode .linha-dia-especial .dia-label {
+        color: #4dabf7 !important;
+    }
+    
+    /* CORREÇÃO: Linha Fechada no Modo Escuro (Fundo avermelhado elegante) */
+    body.dark-mode .linha-dia-especial.fechado {
+        background-color: #3d1a1a !important; 
+    }
+    body.dark-mode .linha-dia-especial.fechado:hover {
+        background-color: #4a2222 !important; 
+    }
 
 /* 11. Painéis de Destaque (Amarelo/Azul) */
 body.dark-mode .painel-regra-mestra {
@@ -2708,9 +2784,9 @@ body.dark-mode #modalHorarioAulas .modal-buttons {
     min-width: auto !important;  
     width: auto !important;
     
-    height: 30px !important;
+    height: 36px !important;
     padding: 0 15px !important;  /* Ajuste aqui a largura: 10px é padrão, 5px é bem justo */
-    font-size: 13px !important;
+    font-size: 15px !important;
     
     border-radius: 4px !important;
     cursor: pointer !important;
@@ -3003,33 +3079,42 @@ input:checked + .slider-sumula:before { transform: translateX(18px) !important; 
         max-height: 98dvh !important;
     }
 
-    /* Diminui o cabeçalho para ganhar espaço vertical */
+    /* Diminui o cabeçalho para ganhar espaço vertical, mas acomoda a fonte maior */
     .cabecalho-modal-duplas {
-        height: 40px !important; /* Menor que os 55px originais */
+        height: 45px !important; /*  AUMENTAMOS de 40px para 45px para o texto respirar */
     }
 
     .cabecalho-modal-duplas h2 {
-        font-size: 1.1rem !important;
+        font-size: 1.5rem !important; /*  AUMENTAMOS A FONTE DE 1.1rem para 1.5rem (cerca de 24px) */
     }
 
     /* Ajusta os botões Quadra 1, 2, 3 para caberem sem apertar o resto */
-    #modalHorarioDuplas .quadras-tabs-container {
+    #modalHorarioDuplas .quadras-tabs-container,
+    #modalHorarioPiramide .quadras-tabs-container { /* Já protegemos a Pirâmide também! */
         display: flex !important;
-        gap: 4px !important;
+        gap: 5px !important;
         padding: 5px 2px !important;
+		margin-top: -8px !important;
     }
 
-    #modalHorarioDuplas .quadras-tabs-container button {
+    #modalHorarioDuplas .quadras-tabs-container button,
+    #modalHorarioPiramide .quadras-tabs-container button {
         flex: 1 !important;
         padding: 8px 2px !important;
-        font-size: 13px !important; /* Fonte menor para não quebrar linha */
-        white-space: nowrap !important;
+        font-size: 15px !important;     /*  AUMENTAMOS A FONTE PARA 15px! */
+        white-space: normal !important; /*  PERMITE A QUEBRA DE LINHA (Igual à tela de Aulas) */
+        height: auto !important;
     }
 
     /* Painel de controle (Selecionar/Limpar) mais compacto */
     .painel-controle-duplas {
         padding: 5px !important;
         gap: 5px !important;
+    }
+
+    /* Aumenta a fonte do "Ativar" nas telas de Duplas e Pirâmide */
+    .painel-controle-duplas label span {
+        font-size: 16px !important; /*  AUMENTAMOS AQUI PARA 16px (Padrão Aulas) */
     }
 }
 /* --- AJUSTES PARA CELULAR E MODO MAXIMIZADO (RESPONSIVIDADE) --- */
@@ -3065,8 +3150,8 @@ input:checked + .slider-sumula:before { transform: translateX(18px) !important; 
     position: relative !important;
     
     /* ALTERAÇÃO 1: Força a altura da barra para 35px */
-    min-height: 35px !important;
-    height: 35px !important;
+    min-height: 45px !important;
+    height: 45px !important;
     
     /* ALTERAÇÃO 2: Diminui o espaço até a tabela */
     margin-bottom: 10px !important;
@@ -3080,7 +3165,7 @@ input:checked + .slider-sumula:before { transform: translateX(18px) !important; 
     padding: 0 !important;
     line-height: 1 !important;
     color: #333 !important;
-    font-size: 1.25rem !important;
+    font-size: 1.5rem !important;
     display: inline-block !important;
     border-bottom: none !important; /* REMOVE A LINHA INFERIOR MISTERIOSA */
 }
@@ -3111,6 +3196,7 @@ input:checked + .slider-sumula:before { transform: translateX(18px) !important; 
     opacity: 1 !important;           /* Garante opacidade total */
     filter: none !important;         /* Remove filtro cinza/grayscale */
     pointer-events: auto !important; /* Garante que o clique funcione */
+	max-height: none !important;
 }
 
 /* COLUNAS LATERAIS (HORÁRIOS): AGORA COM FUNDO BRANCO */
@@ -3129,7 +3215,7 @@ input:checked + .slider-sumula:before { transform: translateX(18px) !important; 
     color: #333 !important; 
     margin: 2px 0 !important;
     font-weight: bold !important;
-    font-size: 16px !important;
+    font-size: 21px !important; /* MUDADO DE 16px PARA 21px */
 }
 
 /* BOTÕES DE AÇÃO - AJUSTADOS */
@@ -3141,16 +3227,7 @@ input:checked + .slider-sumula:before { transform: translateX(18px) !important; 
     width: 100% !important;
 }
 
-#modalHorarioPiramide .modal-buttons button {
-    flex: 1 !important;
-    /* AJUSTE AQUI: Altura reduzida para ficar igual ao Duplas */
-    height: 36px !important; 
-    border-radius: 8px !important;
-    font-size: 16px !important;
-    font-weight: normal !important;
-    margin: 0 !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-}
+
 
 /* ABAS DE QUADRAS */
 #modalHorarioPiramide .quadras-tabs-container {
@@ -3248,6 +3325,7 @@ input:checked + .slider-sumula:before { transform: translateX(18px) !important; 
         width: 100% !important; 
         padding-left: 2px !important;
         padding-right: 2px !important;
+		padding-top: 2px !important;
     }
 
     /* 2. Mantém o respiro do topo apenas quando estiver Maximizado */
@@ -3268,16 +3346,20 @@ input:checked + .slider-sumula:before { transform: translateX(18px) !important; 
 
     /* 5. RESPIRO DOS HORÁRIOS: Descola o "06:00 - 07:00" das linhas */
     /* Atacamos diretamente a regra travada para dar espaço ao texto */
+    /* 5. RESPIRO DOS HORÁRIOS: Descola o "06:00 - 07:00" das linhas */
+    /* Atacamos diretamente a regra travada para dar espaço ao texto */
     #modalHorarioPiramide .tabela-aulas th:first-child, 
     #modalHorarioPiramide .tabela-aulas td:first-child,
     #modalHorarioPiramide .tabela-aulas th:last-child, 
     #modalHorarioPiramide .tabela-aulas td:last-child {
         padding-left: 4px !important;
         padding-right: 4px !important;
-        font-size: 13px !important; /* Leve redução para caber o respiro */
-        width: 88px !important;     /* Um tiquinho mais largo para compensar */
-        min-width: 88px !important;
-        max-width: 88px !important;
+        
+        /* MUDE ESTES 4 VALORES ABAIXO: */
+        font-size: 15px !important;   /* Era 13px */
+        width: 95px !important;       /* Era 88px */
+        min-width: 95px !important;   /* Era 88px */
+        max-width: 95px !important;   /* Era 88px */
     }
 }
 /* ================================================================= */
@@ -3654,6 +3736,8 @@ body.dark-mode #modalHorarioDuplas .modal-content.maximizado .quadras-tabs-conta
 /* ========================================================================= */
 /* === fim de A SUA IDEIA: ENGANAR O CELULAR COM A LARGURA DAS 2 ABAS    === */
 /* ========================================================================= */
+
+
 
 </style>
 
@@ -4495,7 +4579,7 @@ body.dark-mode #modalHorarioDuplas .modal-content.maximizado .quadras-tabs-conta
 
         <div class="container modal-buttons" style="margin-top: 15px;">
             <button class="btn-fechar" onclick="document.getElementById('modalHorarioPiramide').style.display='none'">Fechar</button>
-            <button class="btn-adicionar" style="background-color: #4CAF50 !important;" onclick="salvarPiramide()">Salvar</button>
+            <button class="btn-adicionar" onclick="salvarPiramide()">Salvar</button>
         </div>
     </div>
 </div>
@@ -6031,6 +6115,16 @@ function carregarPeriodoEspecial(id) {
 
     // Inicia o monitoramento: Qualquer alteração a partir de agora acenderá o botão Salvar
     monitorarAlteracoesParaSalvar();
+	// --- TRUQUE DO DROPDOWN LIMPO ---
+        const select = document.getElementById('selectPeriodoEspecial');
+        if(select) {
+            Array.from(select.options).forEach(opt => {
+                if(opt.value && opt.value !== 'novo' && opt.dataset.titulo) {
+                    // O item selecionado mostra só o título. Os outros mostram completo!
+                    opt.textContent = opt.selected ? opt.dataset.titulo : opt.dataset.completo;
+                }
+            });
+        }
 }
 
 
@@ -6136,19 +6230,25 @@ function salvarHorarioPadrao() {
     }
 
 function atualizarDropdownPeriodos() {
-    const select = document.getElementById('selectPeriodoEspecial');
-    // Adiciona a opção neutra (placeholder) no início
-    select.innerHTML = '<option value="" disabled selected hidden>Selecione uma ação...</option><option value="novo">+ Criar Novo Período...</option>';
-    
-    const especiais = horariosGlobal.Especiais || {};
-    Object.keys(especiais).forEach(id => {
-        const p = especiais[id];
-        const option = document.createElement('option');
-        option.value = id;
-        option.textContent = `${p.titulo} (${formatarData(p.inicio)} - ${formatarData(p.fim)})`;
-        select.appendChild(option);
-    });
-}
+        const select = document.getElementById('selectPeriodoEspecial');
+        // Adiciona a opção neutra (placeholder) no início
+        select.innerHTML = '<option value="" disabled selected hidden>Selecione uma ação...</option><option value="novo">+ Criar Novo Período...</option>';
+        
+        const especiais = horariosGlobal.Especiais || {};
+        Object.keys(especiais).forEach(id => {
+            const p = especiais[id];
+            const option = document.createElement('option');
+            option.value = id;
+            
+            // GUARDA AS DUAS VERSÕES DO TEXTO NA PRÓPRIA OPÇÃO
+            option.dataset.titulo = p.titulo;
+            option.dataset.completo = `${p.titulo} (${formatarData(p.inicio)} - ${formatarData(p.fim)})`;
+            
+            // Define o texto inicial como completo
+            option.textContent = option.dataset.completo;
+            select.appendChild(option);
+        });
+    }
 
 
 function gerarListaDias() {
