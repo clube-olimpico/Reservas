@@ -239,41 +239,41 @@
         "ANA FRANCISCA SANTOS": {
           "apelido": "Ana Francisca",
           "classe": "",
-          "jogosDeDuplasJogados": 6,
+          "jogosDeDuplasJogados": 0,
           "niver": "01/01/2001",
           "piramide": "84",
           "socio": "titular",
-          "vitoriasEmDuplas": 2
+          "vitoriasEmDuplas": 0
         },
         "ANA JULIA MARTINS": {
           "apelido": "Ana Julia",
           "classe": "",
-          "jogosDeDuplasJogados": 6,
+          "jogosDeDuplasJogados": 0,
           "niver": "01/01/2001",
           "piramide": "82",
           "socio": "titular",
-          "vitoriasEmDuplas": 6
+          "vitoriasEmDuplas": 0
         },
         "ANA LICE DOURADO": {
           "apelido": "An Alice",
           "classe": "",
-          "jogosDeDuplasJogados": 6,
+          "jogosDeDuplasJogados": 0,
           "niver": "01/01/2001",
           "piramide": "83",
           "socio": "titular",
-          "vitoriasEmDuplas": 2
+          "vitoriasEmDuplas": 0
         },
         "ANA MARIA MARINHO GOMES": {
           "apelido": "Ana Maria Marinho",
           "classe": "C",
-          "jogosDeDuplasJogados": 6,
+          "jogosDeDuplasJogados": 0,
           "niver": "01/01/2001",
           "perfis": {
             "Árbitro": true
           },
           "piramide": "81",
           "socio": "titular",
-          "vitoriasEmDuplas": 2
+          "vitoriasEmDuplas": 0
         },
         "ANA PAULA KESSLER PEREIRA": {
           "apelido": "Ana Paula Pereira",
@@ -532,20 +532,20 @@
         "FLAVIO FERRAZ": {
           "apelido": "Flavio Ferraz",
           "classe": "A",
-          "jogosDeDuplasJogados": 6,
+          "jogosDeDuplasJogados": 0,
           "niver": "27/03/1972",
           "piramide": "",
           "socio": "titular",
-          "vitoriasEmDuplas": 3
+          "vitoriasEmDuplas": 0
         },
         "FRANK FAST": {
           "apelido": "Frank Fast",
           "classe": "A",
-          "jogosDeDuplasJogados": 3,
+          "jogosDeDuplasJogados": 0,
           "niver": "01/01/2001",
           "piramide": "",
           "socio": "titular",
-          "vitoriasEmDuplas": 1
+          "vitoriasEmDuplas": 0
         },
         "FRANK HEINRICHS": {
           "apelido": "Frank Heinrichs",
@@ -704,14 +704,14 @@
         "LEONARDO CARRARA": {
           "apelido": "Leo Carrara",
           "classe": "A",
-          "jogosDeDuplasJogados": 3,
+          "jogosDeDuplasJogados": 0,
           "niver": "13/04/1975",
           "perfis": {
             "Árbitro": true
           },
           "piramide": "14",
           "socio": "titular",
-          "vitoriasEmDuplas": 2
+          "vitoriasEmDuplas": 0
         },
         "LEONARDO ZAMPROGNA": {
           "apelido": "Leonardo Zamprogna",
@@ -723,11 +723,11 @@
         "LUCAS SETIM TITON": {
           "apelido": "Lucas Titon",
           "classe": "B",
-          "jogosDeDuplasJogados": 6,
+          "jogosDeDuplasJogados": 0,
           "niver": "07/07/1996",
           "piramide": "29",
           "socio": "titular",
-          "vitoriasEmDuplas": 1
+          "vitoriasEmDuplas": 0
         },
         "LUCIANE VIEIRA": {
           "apelido": "Luciane Vieira",
@@ -832,11 +832,11 @@
         "NIVALDO PEREIRA": {
           "apelido": "Nivaldo",
           "classe": "A",
-          "jogosDeDuplasJogados": 3,
+          "jogosDeDuplasJogados": 0,
           "niver": "27/10/1970",
           "piramide": "15",
           "socio": "titular",
-          "vitoriasEmDuplas": 3
+          "vitoriasEmDuplas": 0
         },
         "PAMELA BALBOA": {
           "apelido": "Pamela Balboa",
@@ -962,14 +962,14 @@
             "operador": false,
             "professor": false
           },
-          "jogosDeDuplasJogados": 3,
+          "jogosDeDuplasJogados": 0,
           "niver": "26/05/1973",
           "perfis": {
             "Admin": true
           },
           "piramide": "1",
           "socio": "titular",
-          "vitoriasEmDuplas": 2
+          "vitoriasEmDuplas": 0
         },
         "RONY WILMAR DUCK": {
           "apelido": "Rony Duck",
@@ -1119,7 +1119,7 @@
     "config": {
       "Abrir": true,
       "Convidados": {
-        "DiasDeSemana": true,
+        "DiasDeSemana": false,
         "FimDeSemana": true,
         "Quadra1": true,
         "Quadra2": true,
@@ -1265,6 +1265,31 @@
               "5_6": true
             },
             "Professor": "Rildo"
+          }
+        },
+        "Convidados": {
+          "Ativo": true,
+          "Quadra1": {
+            "Ativa": true,
+            "Grade": {
+              "6_10": true,
+              "6_11": true,
+              "6_12": true,
+              "6_7": true,
+              "6_8": true,
+              "6_9": true,
+              "7_10": true,
+              "7_11": true,
+              "7_12": true,
+              "7_8": true,
+              "7_9": true
+            }
+          },
+          "Quadra2": {
+            "Ativa": false
+          },
+          "Quadra3": {
+            "Ativa": false
           }
         },
         "Duplas": {
@@ -1498,7 +1523,7 @@
           },
           {
             "abertura": "08:00",
-            "fechamento": "15:00",
+            "fechamento": "17:00",
             "status": "aberto"
           }
         ],
@@ -1528,7 +1553,7 @@
           "Ranking": false
         }
       },
-      "LimpezaMural": 7,
+      "LimpezaMural": 3,
       "OrganizadorEdicao": true,
       "OtimizacaoHorarios": {
         "ativa": true,
