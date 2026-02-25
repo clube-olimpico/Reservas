@@ -110,20 +110,12 @@ body {
 }
 /* --- FIM ESTILOS HORÁRIOS --- */
 
-.container label[for="Sistema"] {
-    width: auto; margin-right: 10px; font-weight: bold; display: inline-block; text-align: left; min-width: 100px;
-}
+
 
 #sistema { font-weight: bold; }
 
-/* Pirâmide */
-#piramide .piramide-ativa-container { justify-content: center; width: auto; }
-#piramide .piramide-ativa-container label { width: auto; margin-right: 10px; font-weight: bold; }
-#piramide .piramide-ativa-container select { width: 80px; border: 1px solid #ccc; border-radius: 5px; max-width: 4px; }
-#piramide .piramide-botoes-container { display: flex; justify-content: space-between; max-width: 400px; width: 90%; margin: 0 auto; }
-#piramide .piramide-botao { flex: 1; margin: 0 5px; padding: 10px; box-sizing: border-box; }
-#piramide .piramide-botao:first-child { margin-left: 0; }
-#piramide .piramide-botao:last-child { margin-right: 0; }
+
+
 
 .quadra-container { margin-bottom: 5px; gap: 10px; }
 
@@ -146,64 +138,23 @@ button:hover { background-color: #45a049; }
 
 #sistema.on { color: white; background-color: green; }
 #sistema.off { color: white; background-color: red; }
-#piramideAtiva { font-weight: bold; margin-top: 0; }
-.piramide-on { color: green; }
-.piramide-off { color: red; }
 
 #loading { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem; text-align: center; z-index: 1000; }
 #content { display: none; }
 .hr-line { border: 0; height: 6px; background: linear-gradient(to bottom, #cccccc, #dddddd, #eeeeee, #ffffff); width: 90%; max-width: 99%; margin: 10px auto; }
 
-/* Abas */
-.convidados-container, .piramde-container, .duplas-container { margin-top: 20px; }
-.convidados-container, .convidados-quadras, .convidados-dias, .convidados-options,
-.piramde-container, .piramde-quadras, .piramde-dias, .piramde-options,
-.duplas-options { width: 100%; max-width: 100%; overflow-x: hidden; box-sizing: border-box; padding: 0 10px; }
 
-.convidados-options label, .piramde-options label { display: flex; align-items: center; white-space: nowrap; width: 100%; }
-#convidados, #piramde { overflow-x: hidden !important; max-width: 100% !important; width: 100%; }
-body.convidados-ativo, body.piramde-ativo { overflow-x: hidden !important; }
+
+/* Abas */
+.outros-container { margin-top: 20px; }
+.outros-container { width: 100%; max-width: 100%; overflow-x: hidden; box-sizing: border-box; padding: 0 10px; }
+#outros { overflow-x: hidden !important; max-width: 100% !important; width: 100%; }
 
 .centraliza-checkbox { display: flex; justify-content: center; align-items: center; width: 100%; margin-top: 10px; }
-#piramideQuadra1, #piramideQuadra2, #piramideQuadra3 { margin-right: 7px; }
-#PiramideDiasQuadra1, #PiramideDiasQuadra2, #PiramideDiasQuadra3 { margin-left: 7px; }
-
-/* Duplas */
-#DuplasDiasQuadra1.disabled, #DuplasDiasQuadra2.disabled, #DuplasDiasQuadra3.disabled { cursor: not-allowed; color: #999; }
-#duplas .duplas-ativa-container { display: flex; align-items: center; justify-content: center; width: 100%; margin-top: 5px; }
-#duplas .duplas-ativa-container label { width: auto; margin-right: 10px; font-weight: bold; }
-#duplas .duplas-ativa-container select { width: 80px; border: 1px solid #ccc; border-radius: 5px; max-width: 4px; font-weight: bold; }
-#duplas .duplas-botoes-container { display: flex; justify-content: space-between; max-width: 400px; width: 90%; margin: 0 auto; margin-bottom: 0px; }
-#duplas .centraliza-checkbox { margin-top: -10px; margin-bottom: 10px; }
-#duplas .duplas-botao { flex: 1; margin: 0 5px; padding: 10px; box-sizing: border-box; background-color: #4CAF50; color: white; }
-
-/* --- CORREÇÃO DO BOTÃO ATIVO DE DUPLAS --- */
-.duplas-botao.ativo,
-.duplas-botao.ativo:focus,
-.duplas-botao.ativo:hover { 
-    background-color: #2E7D32 !important; /* Verde Escuro Forçado */
-    color: white !important;              /* Texto Branco */
-    font-weight: bold !important; 
-    box-shadow: 0 0 5px rgba(0,0,0,0.3) !important;
-    border: 1px solid #1b5e20 !important; /* Borda escura para definição */
-    outline: none !important;             /* Remove qualquer borda azul/preta de foco */
-}
 
 
-#duplas .duplas-day-container { margin-bottom: 5px; }
-.duplas-day-container > label { font-weight: normal; display: flex; align-items: center; width: auto; }
-.duplas-time-wrapper { padding-left: 25px; margin-top: 4px; }
-#duplas .duplas-time-wrapper { padding-left: 5px; margin-top: 0px; }
-.horario-input { width: 60px; margin: 0 5px; text-align: center; }
-#duplasQuadra1Ativa, #duplasQuadra2Ativa, #duplasQuadra3Ativa { margin-right: 7px; }
-#DuplasDiasQuadra1, #DuplasDiasQuadra2, #DuplasDiasQuadra3 { margin-left: 7px; cursor: pointer; -webkit-user-select: none; -ms-user-select: none; user-select: none; }
-#duplas .duplas-day-container > label { font-size: 15px; }
-#duplas .horario-input { font-size: 15px; }
-#duplasAtiva.duplas-on { color: green; font-weight: bold; }
-#duplasAtiva.duplas-off { color: red; font-weight: bold; }
-#duplasRanking.ranking-on { color: green; font-weight: bold; }
-#duplasRanking.ranking-off { color: red; font-weight: bold; }
-#labelDuplasRanking.clickable-reset { cursor: pointer; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
+
+
 
 /* Responsivo */
 @media (max-width: 768px) {
@@ -223,23 +174,7 @@ body.convidados-ativo, body.piramde-ativo { overflow-x: hidden !important; }
     .convidados-options { margin-left: -20px; white-space: nowrap; }
 	
     .convidados-options label { max-width: 100%; white-space: nowrap; font-size: 22px; }
-    .piramde-options label { 
-        max-width: 100%; 
-        white-space: nowrap !important; /* FORÇA O TEXTO A FICAR EM UMA LINHA SÓ */
-        font-size: 14px !important;     /* Diminui 1px para garantir que caiba na tela */
-        overflow: visible;
-    }
     
-	
-	#piramideInicio, #piramideFim, #piramideSeparador { font-size: 0.8em !important; }
-    #piramideInicio { margin-left: 4px !important; }
-    #piramideSeparador { margin: 0 2px !important; }
-    .duplas-day-container > label { font-size: 15px; }
-    .horario-input { font-size: 14px; }
-    #piramide .piramide-botoes-container, #duplas .duplas-botoes-container { width: 100%; }
-    #piramide .piramide-botao, #duplas .duplas-botao { flex: 1; margin: 5px; margin-top: 0px; padding: 10px; height: 35px; line-height: 15px; box-sizing: border-box; font-size: 16px; white-space: nowrap; align-items: center; justify-content: center; }
-    .centraliza-checkbox { margin-top: 7px; }
-    #duplas .centraliza-checkbox { display: flex; justify-content: center; align-items: center; width: 100%; margin-top: -12px; margin-bottom: 0; }
     
 
 	
@@ -260,24 +195,10 @@ body.convidados-ativo, body.piramde-ativo { overflow-x: hidden !important; }
 
 
 
-input[id$="Exceto17_19"] { margin-left: 20px; }
-input[id$="Exceto7_12"] { margin-left: 20px; }
-input[id$="Exceto8_12"] { margin-left: 20px; }
+
 #convidados { overflow-x: hidden !important; max-width: 100% !important; width: 100%; margin-top: 30px; padding-left: 20px !important; box-sizing: border-box !important; }
 input:disabled, select:disabled, button:disabled { cursor: not-allowed; opacity: 0.7; }
-.piramide-botao { background-color: #4CAF50; color: white; }
 
-/* --- CORREÇÃO DO BOTÃO ATIVO DA PIRÂMIDE --- */
-.piramide-botao.ativo,
-.piramide-botao.ativo:focus,
-.piramide-botao.ativo:hover { 
-    background-color: #2E7D32 !important; /* Verde Escuro Forçado */
-    color: white !important;              /* Texto Branco */
-    font-weight: bold !important; 
-    box-shadow: 0 0 5px rgba(0,0,0,0.3) !important;
-    border: 1px solid #1b5e20 !important; /* Borda escura para definição */
-    outline: none !important;             /* Remove qualquer borda azul/preta de foco */
-}
 
 /* Modais Gerais */
 
@@ -325,7 +246,8 @@ input:disabled, select:disabled, button:disabled { cursor: not-allowed; opacity:
 #otimizacaoHorarios.quebra-on { color: green; font-weight: normal; }
 #otimizacaoHorarios.quebra-off { color: red; font-weight: normal; }
 
-#otimizacaoHorarios, #edicaoOrganizador, #reservasPorConfirmacao, #sistema, #piramideAtiva, #duplasAtiva { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+#otimizacaoHorarios, #edicaoOrganizador, #reservasPorConfirmacao, #sistema { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+
 .input-group { display: flex; align-items: center; flex: 1; }
 .input-group select { width: 100%; }
 .add-button { width: auto; max-width: none; margin: 0; padding: 0; background: none; border: none; color: #007bff; cursor: pointer; font-size: 28px; font-weight: 400; line-height: 1; margin-left: 8px; }
@@ -2462,25 +2384,19 @@ body.dark-mode #permissoesSelect:disabled {
 /* Lista completa de classes ON (Verde) */
 .confirmacao-on, .confirmacao-on:focus,
 .edicao-on, .edicao-on:focus,
-.quebra-on, .quebra-on:focus,
-.piramide-on, .piramide-on:focus,
-.duplas-on, .duplas-on:focus,
-.ranking-on, .ranking-on:focus {
+.quebra-on, .quebra-on:focus {
     color: green !important; 
     font-weight: bold !important;
-    background-color: white !important; /* Garante fundo branco no modo claro */
+    background-color: white !important; 
 }
 
 /* Lista completa de classes OFF (Vermelho) */
 .confirmacao-off, .confirmacao-off:focus,
 .edicao-off, .edicao-off:focus,
-.quebra-off, .quebra-off:focus,
-.piramide-off, .piramide-off:focus,
-.duplas-off, .duplas-off:focus,
-.ranking-off, .ranking-off:focus {
+.quebra-off, .quebra-off:focus {
     color: red !important;
     font-weight: bold !important;
-    background-color: white !important; /* Garante fundo branco no modo claro */
+    background-color: white !important; 
 }
 
 /* --- 3. AJUSTES ESPECÍFICOS PARA MODO ESCURO --- */
@@ -2501,22 +2417,17 @@ body.dark-mode #sistema.off:focus {
 /* Outros Campos no Escuro (Texto Neon + Fundo Cinza) */
 body.dark-mode .confirmacao-on, body.dark-mode .confirmacao-on:focus,
 body.dark-mode .edicao-on, body.dark-mode .edicao-on:focus,
-body.dark-mode .quebra-on, body.dark-mode .quebra-on:focus,
-body.dark-mode .piramide-on, body.dark-mode .piramide-on:focus,
-body.dark-mode .duplas-on, body.dark-mode .duplas-on:focus,
-body.dark-mode .ranking-on, body.dark-mode .ranking-on:focus {
-    color: #69f0ae !important;            /* Verde Neon */
-    background-color: #2d2d2d !important; /* Fundo do tema escuro */
+body.dark-mode .quebra-on, body.dark-mode .quebra-on:focus {
+    color: #69f0ae !important;            
+    background-color: #2d2d2d !important; 
 }
 
 body.dark-mode .confirmacao-off, body.dark-mode .confirmacao-off:focus,
 body.dark-mode .edicao-off, body.dark-mode .edicao-off:focus,
-body.dark-mode .quebra-off, body.dark-mode .quebra-off:focus,
-body.dark-mode .piramide-off, body.dark-mode .piramide-off:focus,
-body.dark-mode .duplas-off, body.dark-mode .duplas-off:focus,
-body.dark-mode .ranking-off, body.dark-mode .ranking-off:focus {
-    color: #ff5252 !important;            /* Vermelho Neon */
-    background-color: #2d2d2d !important; /* Fundo do tema escuro */
+body.dark-mode .quebra-off, body.dark-mode .quebra-off:focus {
+    color: #ff5252 !important;            
+    background-color: #2d2d2d !important; 
+}
 }
 /* ============================================================ */
 /* === FIM DE CORREÇÃO SUPREMA: CORES ON/OFF (INÍCIO E CLIQUE) === */
@@ -2698,7 +2609,7 @@ body.dark-mode #modalHorarioAulas .modal-buttons {
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 69, 58, 0); }
 }
 
-#button-piramide.botao-alterado {
+#btnSalvarGlobal.botao-alterado {
     background-color: #ff3b30 !important; 
     color: white !important;
     border: 2px solid #ffcccc !important;
@@ -3739,806 +3650,1166 @@ body.dark-mode #modalHorarioDuplas .modal-content.maximizado .quadras-tabs-conta
 
 
 
+/* ================================================================= */
+/* ===       BLOCO EXCLUSIVO DE ESTILOS: HORÁRIO CONVIDADOS      === */
+/* ================================================================= */
+
+#modalHorarioConvidados .modal-content {
+    display: flex !important;
+    flex-direction: column !important;
+    max-height: 90vh !important;
+    width: 95% !important;
+    max-width: 900px !important;
+    overflow: hidden !important;
+    padding: 15px 20px 0px 20px !important; 
+    background-color: #ffffff !important;
+}
+
+/* Cabeçalho e Título */
+#modalHorarioConvidados .cabecalho-modal-duplas {
+    display: flex !important;
+    align-items: center !important;     
+    justify-content: center !important; 
+    position: relative !important;
+    min-height: 45px !important;
+    height: 45px !important;
+    margin-bottom: 10px !important;
+    border: none !important;            
+    padding: 0 !important;              
+}
+
+#modalHorarioConvidados .cabecalho-modal-duplas h2 {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    color: #333 !important;
+    font-size: 1.5rem !important;
+    border-bottom: none !important; 
+}
+
+#modalHorarioConvidados .kebab-menu-container {
+    position: absolute !important;
+    right: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important; 
+    z-index: 10 !important;
+    height: 35px !important; 
+    width: 35px !important; 
+}
+
+/* Abas das Quadras e Painel */
+#modalHorarioConvidados .quadras-tabs-container {
+    margin-bottom: -10px !important;
+}
+#tituloConvidadosQuadra {
+    text-align: center !important;
+    color: #333 !important; 
+    margin: 2px 0 !important;
+    font-weight: bold !important;
+    font-size: 21px !important; 
+}
+
+/* Tabela e Rolagem */
+#modalHorarioConvidados .tabela-horarios-scroll {
+    display: block !important;
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    border: none !important;
+    border-radius: 4px !important;
+    max-height: none !important;
+}
+
+#modalHorarioConvidados .tabela-config-horarios td.sem-selecao {
+    background-color: #ffffff !important; 
+    color: #666 !important;              
+    font-weight: normal !important;      
+    font-size: 14px !important;
+    padding: 8px 5px !important;
+    border: 1px solid #ddd !important;
+}
+
+/* Rodapé (Botões Salvar/Fechar) */
+#modalHorarioConvidados .modal-buttons {
+    display: flex !important;
+    gap: 15px !important;
+    margin-top: 15px !important; 
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+/* Ajustes Mobile (Iguais à Pirâmide) */
+@media (max-width: 600px) {
+    #modalHorarioConvidados .modal-content {
+        width: 100% !important; 
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+        padding-top: 2px !important;
+    }
+    #modalHorarioConvidados .tabela-aulas th:first-child, 
+    #modalHorarioConvidados .tabela-aulas td:first-child,
+    #modalHorarioConvidados .tabela-aulas th:last-child, 
+    #modalHorarioConvidados .tabela-aulas td:last-child {
+        padding-left: 4px !important;
+        padding-right: 4px !important;
+        font-size: 15px !important;   
+        width: 95px !important;       
+        min-width: 95px !important;   
+        max-width: 95px !important;   
+    }
+}
+/* ================================================================= */
+/* ===  fim de BLOCO EXCLUSIVO DE ESTILOS: HORÁRIO CONVIDADOS    === */
+/* ================================================================= */
+
+/* ================================================================= */
+/* --- TELA CHEIA (MAXIMIZADO) - CONVIDADOS                      --- */
+/* ================================================================= */
+#modalHorarioConvidados .modal-content.maximizado {
+    width: 100vw !important; 
+    height: 100vh !important; 
+    max-width: 100vw !important;
+    max-height: 100vh !important; 
+    margin: 0 !important;
+    border-radius: 0 !important;
+    padding: 2px 15px 15px 15px !important;
+    top: 0 !important; 
+    left: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important; 
+    background-color: #fff !important;
+}
+
+/* 1. Esconde o cabeçalho, os botões Selecionar/Limpar e o rodapé */
+#modalHorarioConvidados .modal-content.maximizado .cabecalho-modal-duplas,
+#modalHorarioConvidados .modal-content.maximizado .painel-controle-duplas,
+#modalHorarioConvidados .modal-content.maximizado .modal-buttons {
+    display: none !important;
+}
+
+/* 2. Garante que as abas fiquem visíveis no topo e ajusta as margens */
+#modalHorarioConvidados .modal-content.maximizado .quadras-tabs-container {
+    flex-shrink: 0 !important;
+    padding-top: 5px !important;
+    background-color: white !important;
+    margin-bottom: -12px !important; 
+}
+
+/* 3. Ajusta o título (ex: Quadra 1 - Coberta) */
+#modalHorarioConvidados .modal-content.maximizado #tituloConvidadosQuadra {
+    flex-shrink: 0 !important;
+    margin-top: 0 !important; 
+    margin-bottom: 10px !important; 
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* 4. Força a planilha a esticar e tira espaços extras */
+#modalHorarioConvidados .modal-content.maximizado .tabela-horarios-scroll {
+    flex: 1 1 auto !important;   
+    height: auto !important;
+    max-height: none !important; 
+    min-height: 0 !important;    
+    overflow-y: auto !important;
+    border: none !important;     
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+#modalHorarioConvidados .modal-content.maximizado .tabela-horarios-scroll table {
+    margin-top: 0 !important;
+}
+
+/* --- AJUSTES MOBILE PARA TELA CHEIA DOS CONVIDADOS --- */
+@media (max-width: 600px) {
+    #modalHorarioConvidados .modal-content.maximizado {
+        padding-top: 45px !important; /* Aumentado para fugir da bateria/relógio do celular */
+    }
+    #modalHorarioConvidados .modal-content.maximizado .quadras-tabs-container {
+        margin-top: 10px !important; /* Dá um fôlego extra pros botões */
+        margin-bottom: 5px !important; 
+    }
+    #modalHorarioConvidados .modal-content.maximizado #tituloConvidadosQuadra {
+        margin-top: 5px !important; 
+        margin-bottom: 10px !important; 
+    }
+}
+/* ================================================================= */
+/* ================================================================= */
+/* --- fim de TELA CHEIA (MAXIMIZADO) - CONVIDADOS               --- */
+/* ================================================================= */
+
+
+/* ================================================================= */
+/* --- MENU FINANCEIRO DOS CONVIDADOS (3 PONTINHOS)              --- */
+/* ================================================================= */
+
+/* A Zona Financeira e o Efeito Fantasma (Bloqueado) */
+.zona-financeira {
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+.zona-financeira.bloqueada {
+    opacity: 0.4;
+    pointer-events: none; /* Impede cliques quando desativado */
+    filter: grayscale(100%);
+}
+
+/* Design dos Campos */
+.campo-financeiro {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.campo-financeiro label {
+    font-size: 13px;
+    color: #666;
+    font-weight: 600;
+}
+.icone-financeiro {
+    font-size: 13px;
+    margin-right: 3px;
+}
+
+/* Input de R$ Moderno */
+.input-com-moeda {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f7;
+    border: 1px solid #e0e0e0 !important; /* Força a borda limpa */
+    border-radius: 6px;
+    overflow: hidden;
+    height: 38px !important; /* Força a altura contra o Android */
+    box-sizing: border-box;
+}
+
+.prefixo-moeda {
+    background-color: #ededed;
+    color: #555;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 0 10px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #e0e0e0;
+}
+
+.input-com-moeda input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 0 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    outline: none;
+    width: 100%;
+}
+
+/* Select do Recebedor */
+/* Select do Recebedor - Rigorosamente alinhado para Android/S24 */
+#recebedorConvidado {
+    background-color: #f5f5f7 !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 6px !important;
+    
+    /* A MAGIA PARA O ANDROID NÃO ACHATAR: */
+    height: 38px !important; 
+    min-height: 38px !important;
+    line-height: normal !important;
+    padding: 0 8px !important; /* Espaçamento rigoroso apenas nas laterais */
+    box-sizing: border-box !important;
+    
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #333 !important;
+    width: 100% !important;
+    outline: none !important;
+    cursor: pointer !important;
+    
+    /* Garante que o texto não empurre a caixa para fora dos 38px */
+    display: block !important;
+    vertical-align: middle !important;
+}
+
+#recebedorConvidado:focus {
+    border-color: #4CAF50 !important;
+    background-color: #fff !important;
+}
+/* Input do WhatsApp - Rigorosamente alinhado */
+#whatsappConvidado {
+    background-color: #f5f5f7 !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 6px !important;
+    
+    height: 38px !important; 
+    min-height: 38px !important;
+    line-height: normal !important;
+    padding: 0 8px !important; 
+    box-sizing: border-box !important;
+    
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #333 !important;
+    width: 100% !important;
+    outline: none !important;
+}
+
+#whatsappConvidado:focus {
+    border-color: #4CAF50 !important;
+    background-color: #fff !important;
+}
+
+/* ================================================================= */
+/* --- fim de MENU FINANCEIRO DOS CONVIDADOS (3 PONTINHOS)       --- */
+/* ================================================================= */
+
+/* ================================================================== */
+/* --- MODO ESCURO: JANELA DE CONVIDADOS E MENU FINANCEIRO        --- */
+/* ================================================================== */
+
+/* 1. Fundo do Modal, Cabeçalho e Título */
+body.dark-mode #modalHorarioConvidados .modal-content {
+    background-color: #1e1e1e !important;
+}
+body.dark-mode #modalHorarioConvidados .cabecalho-modal-duplas {
+    background-color: transparent !important;
+}
+body.dark-mode #modalHorarioConvidados h2 {
+    color: #eee !important;
+}
+body.dark-mode #tituloConvidadosQuadra {
+    color: #eee !important;
+    background-color: transparent !important;
+}
+
+/* 2. Container das Abas das Quadras */
+body.dark-mode #modalHorarioConvidados .quadras-tabs-container {
+    background-color: #1e1e1e !important;
+}
+body.dark-mode #modalHorarioConvidados .quadra-tab:not(.active) {
+    background-color: #333 !important;
+    color: #ccc !important;
+    border-color: #555 !important;
+}
+
+/* 3. A Barra Cinza de Controle (Ativar / Botões) */
+body.dark-mode #modalHorarioConvidados .painel-controle-duplas {
+    background-color: #2c2c2c !important;
+    border-color: #444 !important;
+}
+body.dark-mode #checkboxAtivarQuadraConvidados:disabled + span {
+    color: #777 !important;
+}
+
+/* 4. A Planilha de Horários */
+body.dark-mode #modalHorarioConvidados .tabela-aulas th {
+    background-color: #2c2c2c !important;
+    color: #eee !important;
+    border-color: #444 !important;
+}
+body.dark-mode #modalHorarioConvidados .tabela-config-horarios td.sem-selecao {
+    background-color: #252525 !important;
+    color: #ccc !important;
+    border-color: #444 !important;
+}
+body.dark-mode #modalHorarioConvidados .aula-cell-livre {
+    background-color: #1e1e1e !important;
+    border-color: #333 !important;
+}
+body.dark-mode #modalHorarioConvidados .aula-cell-bloqueada {
+    background-color: #2a2a2a !important;
+    border-color: #333 !important;
+}
+body.dark-mode #modalHorarioConvidados .aula-cell-marcada {
+    border-color: #ff5252 !important;
+}
+
+/* 5. Botões Desativados (A "Capa Cinza") e Rodapé */
+body.dark-mode #modalHorarioConvidados .btn-acao-desativado {
+    background-color: #333 !important;
+    color: #777 !important;
+    border-color: #444 !important;
+}
+body.dark-mode #modalHorarioConvidados .modal-buttons {
+    background-color: transparent !important; 
+}
+
+/* 6. Menu de 3 Pontinhos (Kebab) */
+body.dark-mode #menuDropdownConvidados {
+    background-color: #2c2c2c !important;
+    border-color: #444 !important;
+}
+body.dark-mode #menuDropdownConvidados .menu-item-sumula span {
+    color: #eee !important;
+}
+body.dark-mode #menuDropdownConvidados hr {
+    border-top-color: #555 !important;
+}
+
+/* 7. O NOVO PAINEL FINANCEIRO NO MODO ESCURO */
+body.dark-mode .campo-financeiro label {
+    color: #bbb !important;
+}
+body.dark-mode .input-com-moeda,
+body.dark-mode #recebedorConvidado,
+body.dark-mode #whatsappConvidado {
+    background-color: #2d2d2d !important;
+    border-color: #555 !important;
+    color: #fff !important;
+}
+body.dark-mode .prefixo-moeda {
+    background-color: #1e1e1e !important;
+    color: #aaa !important;
+    border-right-color: #555 !important;
+}
+body.dark-mode .input-com-moeda input {
+    color: #fff !important;
+}
+body.dark-mode .input-com-moeda input::placeholder,
+body.dark-mode #whatsappConvidado::placeholder {
+    color: #777 !important;
+}
+
+/* Efeito ao clicar no campo (Foco) */
+body.dark-mode #recebedorConvidado:focus, 
+body.dark-mode .input-com-moeda:focus-within,
+body.dark-mode #whatsappConvidado:focus {
+    border-color: #4CAF50 !important; /* Mantém o Verde Suave */
+    background-color: #333 !important;
+}
+
+/* ================================================================== */
+/* --- fim de MODO ESCURO: JANELA DE CONVIDADOS E MENU FINANCEIRO --- */
+/* ================================================================== */
+
+/* ================================================================== */
+/* --- CORREÇÃO SUPREMA: TÍTULOS DAS QUADRAS NO MODO ESCURO       --- */
+/* ================================================================== */
+body.dark-mode #tituloAulaQuadra,
+body.dark-mode #tituloDuplasQuadra,
+body.dark-mode #tituloPiramideQuadra,
+body.dark-mode #tituloConvidadosQuadra {
+    color: #eeeeee !important;
+}
+body.dark-mode #modalHorarioAulas .modal-content.maximizado .quadras-tabs-container,
+body.dark-mode #modalHorarioDuplas .modal-content.maximizado .quadras-tabs-container,
+body.dark-mode #modalHorarioPiramide .modal-content.maximizado .quadras-tabs-container,
+body.dark-mode #modalHorarioConvidados .modal-content.maximizado .quadras-tabs-container {
+    background-color: transparent !important;
+}
+/* ================================================================== */
+/* --- fim de CORREÇÃO SUPREMA: TÍTULOS DAS QUADRAS NO MODO ESCURO -- */
+/* ================================================================== */
+
+
 </style>
 
 </head>
 <body>
 
-<div id="loading">Carregando... Aguarde.</div>
-
+<div id="loading">
+    Carregando... Aguarde.
+</div>
 <div id="content">
     <div class="form-container">
         <div class="title-container">
-           <span>Configurações</span>
+            <span>
+                Configurações
+            </span>
         </div>
         <hr class="hr-line">
-
         <div class="container">
-            <label for="sistema">Sistema:</label>
+            <label for="sistema">
+                Sistema:
+            </label>
             <select id="sistema" onchange="atualizarEstadoSistema(); marcarComoAlterado()">
-                <option value="ON">ON</option>
-                <option value="OFF">OFF</option>
+                <option value="ON">
+                    ON
+                </option>
+                <option value="OFF">
+                    OFF
+                </option>
             </select>
             <input type="text" id="usuariosOnline" placeholder="000" readonly maxlength="3" style="width: 40px; height: 15px; text-align: center;" title="Número de usuários online (3 dígitos)">
             <script>
-				document.getElementById('usuariosOnline').addEventListener('mousedown', function(event) {
-					event.preventDefault();
-					this.blur();
-					window.getSelection().removeAllRanges();
-				});
-			</script>
-		</div>
-		
-		<div class="container container-fixo">
-            <label for="perfilSelect">Perfil:</label>
+                document.getElementById('usuariosOnline').addEventListener('mousedown', function(event) {
+                event.preventDefault();
+                this.blur();
+                window.getSelection().removeAllRanges();
+                });
+            </script>
+        </div>
+        <div class="container container-fixo">
+            <label for="perfilSelect">
+                Perfil:
+            </label>
             <div class="input-group">
                 <select id="perfilSelect" class="select-padrao">
-                    <option value="Admin">Admin</option>
-                    <option value="Visitante">Visitante</option>
+                    <option value="Admin">
+                        Admin
+                    </option>
+                    <option value="Visitante">
+                        Visitante
+                    </option>
                 </select>
-                <button type="button" class="btn-extra add-button" onclick="abrirModalAdicionarPerfil()" title="Adicionar Perfil">+</button>
+                <button type="button" class="btn-extra add-button" onclick="abrirModalAdicionarPerfil()" title="Adicionar Perfil">
+                    +
+                </button>
             </div>
         </div>
-        
         <div class="container container-fixo">
-            <label for="permissoesSelect">Permissões:</label>
+            <label for="permissoesSelect">
+                Permissões:
+            </label>
             <div class="input-group">
                 <select id="permissoesSelect" class="select-padrao">
-                    <option selected>Acesso Total</option>
+                    <option selected>
+                        Acesso Total
+                    </option>
                 </select>
-                
-                <button id="btnEditarPermissoes" type="button" class="btn-extra btn-lapis" onclick="abrirModalPermissoes()" title="Editar Permissões">✏️</button>
+                <button id="btnEditarPermissoes" type="button" class="btn-extra btn-lapis" onclick="abrirModalPermissoes()" title="Editar Permissões">
+                    ✏️
+                </button>
             </div>
         </div>
-
         <div class="container quadra-container">
-            <label for="estadoQuadra1">Quadra 1 - Coberta:</label>
+            <label for="estadoQuadra1">
+                Quadra 1 - Coberta:
+            </label>
             <select id="estadoQuadra1" class="no-select" onfocus="this.oldValue = this.value;" onchange="handleEstadoQuadraChange(this, 1); marcarComoAlterado()" ondblclick="handleEstadoQuadraChange(this, 1)">
-                <option value="liberada">Liberada</option><option value="interditada">Interditada</option><option value="bloqueada">Bloqueada</option>
+                <option value="liberada">
+                    Liberada
+                </option>
+                <option value="interditada">
+                    Interditada
+                </option>
+                <option value="bloqueada">
+                    Bloqueada
+                </option>
             </select>
         </div>
         <div class="container quadra-container">
-            <label for="estadoQuadra2">Quadra 2 - Aberta:</label>
+            <label for="estadoQuadra2">
+                Quadra 2 - Aberta:
+            </label>
             <select id="estadoQuadra2" class="no-select" onfocus="this.oldValue = this.value;" onchange="handleEstadoQuadraChange(this, 2); marcarComoAlterado()" ondblclick="handleEstadoQuadraChange(this, 2)">
-                <option value="liberada">Liberada</option><option value="interditada">Interditada</option><option value="bloqueada">Bloqueada</option>
+                <option value="liberada">
+                    Liberada
+                </option>
+                <option value="interditada">
+                    Interditada
+                </option>
+                <option value="bloqueada">
+                    Bloqueada
+                </option>
             </select>
         </div>
         <div class="container quadra-container">
-            <label for="estadoQuadra3">Quadra 3 - Coberta:</label>
+            <label for="estadoQuadra3">
+                Quadra 3 - Coberta:
+            </label>
             <select id="estadoQuadra3" class="no-select" onfocus="this.oldValue = this.value;" onchange="handleEstadoQuadraChange(this, 3); marcarComoAlterado()" ondblclick="handleEstadoQuadraChange(this, 3)">
-                <option value="liberada">Liberada</option><option value="interditada">Interditada</option><option value="bloqueada">Bloqueada</option>
+                <option value="liberada">
+                    Liberada
+                </option>
+                <option value="interditada">
+                    Interditada
+                </option>
+                <option value="bloqueada">
+                    Bloqueada
+                </option>
             </select>
         </div>
     </div>
-
     <div id="main-content">
         <div class="tabs">
-            <div class="tab active" onclick="showTab('reservas')">Reservas</div>
-            
-			<div class="tab" onclick="showTab('convidados')">Convidados</div>
-            
-        </div>
-		
-		
-        <div id="reservas" class="tab-content tab-content-active">
-			<div class="form-container">
-				
-				<div class="container">
-					<label for="tipoConfiguracaoHorario">Gerenciador Horários:</label>
-					
-					<select id="tipoConfiguracaoHorario" onchange="abrirGerenciadorHorarios(this.value)">
-						<option value="" disabled selected hidden>Config</option>
-						<option value="padrao">Padrão</option>
-						<option value="especial">Especiais</option>
-						<option value="aulas">Aulas</option>
-						<option value="duplas">Duplas</option>
-						<option value="piramide">Pirâmide</option>
-					</select>
-				</div>
-
-				<div class="container">
-					<label for="diasParaAgendar">Dias para Agendar:</label>
-					<select id="diasParaAgendar" onchange="marcarComoAlterado()">
-						<option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
-					</select>
-				</div> 
-				
-				<div class="container">
-					<label for="reservasPorConfirmacao" class="label-help" title="ON: Reservas com múltiplos sócios exigem que cada um confirme sua presença.&#10;──────────&#10;OFF: Todas as reservas são confirmadas instantaneamente.">Confirmação Reservas:</label>
-					<select id="reservasPorConfirmacao" onchange="atualizarEstadoConfirmacao(); marcarComoAlterado()">
-						<option value="ON">ON</option><option value="OFF">OFF</option>
-					</select>
-				</div>
-
-				<div class="container">
-					<label for="horasParaExpirar" class="label-help" title="Define o tempo máximo que os jogadores têm para aceitar ou recusar um convite.&#10;──────────&#10;Se o prazo expirar, a reserva é cancelada automaticamente.">Prazo para Confirmação:</label>
-					<select id="horasParaExpirar" onchange="marcarComoAlterado()">
-						<option value="1">1 hora</option><option value="2">2 horas</option><option value="3">3 horas</option><option value="4">4 horas</option><option value="6">6 horas</option><option value="12">12 horas</option> 
-					</select>
-				</div>
-
-				<div class="container">
-					<label for="edicaoOrganizador" class="label-help" title="ON: Permite que o organizador de uma reserva pendente possa adicionar ou remover jogadores.&#10;──────────&#10;OFF: O organizador pode apenas excluir a reserva.">Edição pelo Organizador:</label>
-					<select id="edicaoOrganizador" onchange="atualizarEstadoEdicaoOrganizador(); marcarComoAlterado()">
-						<option value="ON">ON</option><option value="OFF">OFF</option>
-					</select>
-				</div>
-
-				<div class="container">
-					<label for="otimizacaoHorarios" class="label-help" title="ON: O sistema ativa a otimização para dias curtos (4h ou menos), bloqueando horários quebrados para maximizar o uso da quadra. Dê duplo clique para escolher as quadras.&#10;──────────&#10;OFF: A otimização é desligada e os horários ficam livres.">Otimização de Horários:</label>
-					<select id="otimizacaoHorarios" onchange="mudarOtimizacao(); marcarComoAlterado()" ondblclick="if(this.value === 'ON') { abrirModalQuebraHorario(); }">						<option value="ON">ON</option><option value="OFF">OFF</option>
-					</select>
-				</div>
-				<div class="container">
-					<label for="selectLimpezaMural" class="label-help" title="Define quanto tempo as mensagens ficam no mural antes de sumirem.">Mensagens do Mural:</label>
-					<select id="selectLimpezaMural" onchange="verificarOpcaoMural(this); marcarComoAlterado()">
-						<option value="0" disabled selected>Carregando...</option>
-						<option value="1">1 dia</option>
-						<option value="2">2 dias</option>
-						<option value="3">3 dias</option>
-						<option value="7">1 semana</option>
-						<option value="30">1 mês</option>
-						<option value="custom">Outros...</option>
-					</select>
-				</div>
-			</div>
-		</div>
-
-
-        <div id="convidados" class="tab-content">
-			<div class="container convidados-quadras">
-				<label style="font-weight: bold;">Quadras:</label>
-				<div class="convidados-options">
-					<label style="font-weight: normal;">
-						<input type="checkbox" id="convidadosQuadra1" style="margin-top: 5px;" onchange="marcarComoAlterado()"> Quadra 1 - Coberta
-					</label>
-					<label style="font-weight: normal;">
-						<input type="checkbox" id="convidadosQuadra2" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Quadra 2 - Aberta
-					</label>
-					<label style="font-weight: normal;">
-						<input type="checkbox" id="convidadosQuadra3" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Quadra 3 - Coberta
-					</label>
-				</div>
-			</div>
-			<div class="container convidados-dias">
-				<label style="font-weight: bold;">Dias:</label>
-				<div class="convidados-options">
-					<label style="font-weight: normal;">
-						<input type="checkbox" id="convidadosSemana" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Durante a Semana
-					</label>
-					<label style="font-weight: normal;">
-						<input type="checkbox" id="convidadosFimDeSemana" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Fim de Semana
-					</label>
-				</div>
-			</div>
-		</div>
-
-        <div id="piramide" class="tab-content">
-            <div class="container piramide-ativa-container">
-				<label for="piramideAtiva">Ativa:</label>
-				<select id="piramideAtiva" onchange="handlePiramideChange(); marcarComoAlterado()">
-					<option value="ON">ON</option><option value="OFF">OFF</option>
-				</select>
-				<span id="piramideInicio" style="display: none; font-weight: bold; margin-left: 10px;"></span>
-				<span id="piramideSeparador" style="display: none; margin: 0 5px;">à</span>
-				<span id="piramideFim" style="display: none; font-weight: bold;"></span>
-			</div>
-
-            <div class="container piramide-botoes-container">
-                <button class="piramide-botao" onclick="mostrarQuadra('quadra1')">Quadra - 1</button>
-                <button class="piramide-botao" onclick="mostrarQuadra('quadra2')">Quadra - 2</button>
-                <button class="piramide-botao" onclick="mostrarQuadra('quadra3')">Quadra - 3</button>
+            <div class="tab active" onclick="showTab('reservas')">
+                Reservas
             </div>
-
-            <div id="piramideQuadra1Container" class="piramide-quadra-container">
-                <div class="container piramide-quadras">
-				<div class="piramde-options centraliza-checkbox">
-					<input type="checkbox" id="piramideQuadra1" onchange="marcarComoAlterado()"><span>Quadra 1 - Coberta</span>
-				</div>
-			</div>
-                <div class="container piramide-dias">
-                    <label class="dias-label" style="font-weight: bold;" id="PiramideDiasQuadra1">Dias:</label>
-                    <div class="piramde-options">
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="1-piramideSemana" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Dias de Semana
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="1-piramideExceto17_19" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 17:00 - 19:00
-						</label>
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="1-piramideSabado" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Sábado
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="1-piramideExceto7_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 07:00 - 12:00
-						</label>
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="1-piramideDomingo" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Domingo
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="1-piramideExceto8_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 08:00 - 12:00
-						</label>
-					</div>
+            <div class="tab" onclick="showTab('outros')">
+                Outros
+            </div>
+        </div>
+        <div id="reservas" class="tab-content tab-content-active">
+            <div class="form-container">
+                <div class="container">
+                    <label for="tipoConfiguracaoHorario">
+                        Gerenciador Horários:
+                    </label>
+                    <select id="tipoConfiguracaoHorario" onchange="abrirGerenciadorHorarios(this.value)">
+                        <option value="" disabled selected hidden>
+                            Config
+                        </option>
+                        <option value="padrao">
+                            Padrão
+                        </option>
+                        <option value="especial">
+                            Especiais
+                        </option>
+                        <option value="aulas">
+                            Aulas
+                        </option>
+                        <option value="duplas">
+                            Duplas
+                        </option>
+                        <option value="piramide">
+                            Pirâmide
+                        </option>
+						<option value="convidados">
+                            Convidados
+                        </option> 
+                    </select>
+                </div>
+                <div class="container">
+                    <label for="diasParaAgendar">
+                        Dias para Agendar:
+                    </label>
+                    <select id="diasParaAgendar" onchange="marcarComoAlterado()">
+                        <option value="0">
+                            0
+                        </option>
+                        <option value="1">
+                            1
+                        </option>
+                        <option value="2">
+                            2
+                        </option>
+                        <option value="3">
+                            3
+                        </option>
+                        <option value="4">
+                            4
+                        </option>
+                    </select>
+                </div>
+                <div class="container">
+                    <label for="reservasPorConfirmacao" class="label-help" title="ON: Reservas com múltiplos sócios exigem que cada um confirme sua presença.&#10;──────────&#10;OFF: Todas as reservas são confirmadas instantaneamente.">
+                        Confirmação Reservas:
+                    </label>
+                    <select id="reservasPorConfirmacao" onchange="atualizarEstadoConfirmacao(); marcarComoAlterado()">
+                        <option value="ON">
+                            ON
+                        </option>
+                        <option value="OFF">
+                            OFF
+                        </option>
+                    </select>
+                </div>
+                <div class="container">
+                    <label for="horasParaExpirar" class="label-help" title="Define o tempo máximo que os jogadores têm para aceitar ou recusar um convite.&#10;──────────&#10;Se o prazo expirar, a reserva é cancelada automaticamente.">
+                        Prazo para Confirmação:
+                    </label>
+                    <select id="horasParaExpirar" onchange="marcarComoAlterado()">
+                        <option value="1">
+                            1 hora
+                        </option>
+                        <option value="2">
+                            2 horas
+                        </option>
+                        <option value="3">
+                            3 horas
+                        </option>
+                        <option value="4">
+                            4 horas
+                        </option>
+                        <option value="6">
+                            6 horas
+                        </option>
+                        <option value="12">
+                            12 horas
+                        </option>
+                    </select>
+                </div>
+                <div class="container">
+                    <label for="edicaoOrganizador" class="label-help" title="ON: Permite que o organizador de uma reserva pendente possa adicionar ou remover jogadores.&#10;──────────&#10;OFF: O organizador pode apenas excluir a reserva.">
+                        Edição pelo Organizador:
+                    </label>
+                    <select id="edicaoOrganizador" onchange="atualizarEstadoEdicaoOrganizador(); marcarComoAlterado()">
+                        <option value="ON">
+                            ON
+                        </option>
+                        <option value="OFF">
+                            OFF
+                        </option>
+                    </select>
+                </div>
+                <div class="container">
+                    <label for="otimizacaoHorarios" class="label-help" title="ON: O sistema ativa a otimização para dias curtos (4h ou menos), bloqueando horários quebrados para maximizar o uso da quadra. Dê duplo clique para escolher as quadras.&#10;──────────&#10;OFF: A otimização é desligada e os horários ficam livres.">
+                        Otimização de Horários:
+                    </label>
+                    <select id="otimizacaoHorarios" onchange="mudarOtimizacao(); marcarComoAlterado()" ondblclick="if(this.value === 'ON') { abrirModalQuebraHorario(); }">
+                        <option value="ON">
+                            ON
+                        </option>
+                        <option value="OFF">
+                            OFF
+                        </option>
+                    </select>
+                </div>
+                <div class="container">
+                    <label for="selectLimpezaMural" class="label-help" title="Define quanto tempo as mensagens ficam no mural antes de sumirem.">
+                        Mensagens do Mural:
+                    </label>
+                    <select id="selectLimpezaMural" onchange="verificarOpcaoMural(this); marcarComoAlterado()">
+                        <option value="0" disabled selected>
+                            Carregando...
+                        </option>
+                        <option value="1">
+                            1 dia
+                        </option>
+                        <option value="2">
+                            2 dias
+                        </option>
+                        <option value="3">
+                            3 dias
+                        </option>
+                        <option value="7">
+                            1 semana
+                        </option>
+                        <option value="30">
+                            1 mês
+                        </option>
+                        <option value="custom">
+                            Outros...
+                        </option>
+                    </select>
                 </div>
             </div>
-            <div id="piramideQuadra2Container" class="piramide-quadra-container" style="display: none;">
-				<div class="container piramide-quadras">
-					<div class="piramde-options centraliza-checkbox">
-						<input type="checkbox" id="piramideQuadra2" onchange="marcarComoAlterado()"><span>Quadra 2 - Aberta</span>
-					</div>
-				</div>
-				<div class="container piramide-dias">
-					<label class="dias-label" style="font-weight: bold;" id="PiramideDiasQuadra2">Dias:</label>
-					<div class="piramde-options">
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="2-piramideSemana" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Dias de Semana
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="2-piramideExceto17_19" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 17:00 - 19:00
-						</label>
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="2-piramideSabado" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Sábado
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="2-piramideExceto7_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 07:00 - 12:00
-						</label>
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="2-piramideDomingo" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Domingo
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="2-piramideExceto8_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 08:00 - 12:00
-						</label>
-					</div>
-				</div>
-			</div>
-            <div id="piramideQuadra3Container" class="piramide-quadra-container" style="display: none;">
-				<div class="container piramide-quadras">
-					<div class="piramde-options centraliza-checkbox">
-						<input type="checkbox" id="piramideQuadra3" onchange="marcarComoAlterado()"><span>Quadra 3 - Coberta</span>
-					</div>
-				</div>
-				<div class="container piramide-dias">
-					<label class="dias-label" style="font-weight: bold;" id="PiramideDiasQuadra3">Dias:</label>
-					<div class="piramde-options">
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="3-piramideSemana" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Dias de Semana
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="3-piramideExceto17_19" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 17:00 - 19:00
-						</label>
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="3-piramideSabado" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Sábado
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="3-piramideExceto7_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 07:00 - 12:00
-						</label>
-						<label style="font-weight: normal;">
-							<input type="checkbox" id="3-piramideDomingo" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Domingo
-						</label>
-						<label style="font-weight: normal; color: red;">
-							<input type="checkbox" id="3-piramideExceto8_12" style="margin-right: 5px;" onchange="marcarComoAlterado()"> Exceto 08:00 - 12:00
-						</label>
-					</div>
-				</div>
-			</div>
         </div>
-		
-		<div id="duplas" class="tab-content">
-            <div class="container duplas-ativa-container">
-				<label for="duplasAtiva">Ativa:</label>
-				<select id="duplasAtiva" onchange="atualizarEstadoDuplas(); marcarComoAlterado()">
-					<option value="ON">ON</option>
-					<option value="OFF">OFF</option>
-				</select>
-				
-				<label id="labelDuplasRanking" for="duplasRanking" style="margin-left: 15px;" title="Com o Ranking em OFF, dê um triplo clique aqui para zerar os dados do ranking.">Ranking:</label>
-				<select id="duplasRanking" onchange="atualizarEstadoDuplasRanking(); marcarComoAlterado()">
-					<option value="ON">ON</option>
-					<option value="OFF">OFF</option>
-				</select>
-			</div>
-            <div class="container duplas-botoes-container">
-                <button class="duplas-botao" onclick="mostrarDuplasQuadra('quadra1')">Quadra - 1</button>
-                <button class="duplas-botao" onclick="mostrarDuplasQuadra('quadra2')">Quadra - 2</button>
-                <button class="duplas-botao" onclick="mostrarDuplasQuadra('quadra3')">Quadra - 3</button>
-            </div>
-            <div id="duplasQuadra1Container" class="duplas-container">
-			<div class="centraliza-checkbox">
-				<input type="checkbox" id="duplasQuadra1Ativa" onchange="marcarComoAlterado()"><span>Quadra 1 - Coberta</span>
-			</div>
-			<div class="container">
-				<label class="dias-label" style="font-weight: bold;" id="DuplasDiasQuadra1">Dias:</label>
-				<div class="duplas-options">
-					<div class="duplas-day-container">
-						<div style="display: flex; align-items: center;"> 
-							<input type="checkbox" id="1-duplasSemana" onchange="marcarComoAlterado()">
-							<span class="dias-semana-label-clickable" style="margin-left: 5px; user-select: none;">Dias de Semana</span>
-						</div>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="1-duplasSemanaInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="1-duplasSemanaFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-					<div class="duplas-day-container">
-						<label><input type="checkbox" id="1-duplasSabado" onchange="marcarComoAlterado()"> Sábado</label>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="1-duplasSabadoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="1-duplasSabadoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-					<div class="duplas-day-container">
-						<label><input type="checkbox" id="1-duplasDomingo" onchange="marcarComoAlterado()"> Domingo</label>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="1-duplasDomingoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="1-duplasDomingoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-				</div>
+        <div id="outros" class="tab-content">
+			<div class="container" style="text-align: center; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; width: 100%; box-sizing: border-box;">
+				<h3 style="color: #666; margin-bottom: 5px;">Configurações Adicionais</h3>
+				<p style="color: #999; font-size: 15px; margin-top: 0; line-height: 1.4;">
+					Novas opções e configurações gerais do sistema serão adicionadas aqui futuramente.
+				</p>
 			</div>
 		</div>
-
-		<div id="duplasQuadra2Container" class="duplas-container" style="display: none;">
-			 <div class="centraliza-checkbox">
-				<input type="checkbox" id="duplasQuadra2Ativa" onchange="marcarComoAlterado()"><span>Quadra 2 - Aberta</span>
-			</div>
-			<div class="container">
-				<label class="dias-label" style="font-weight: bold;" id="DuplasDiasQuadra2">Dias:</label>
-				<div class="duplas-options">
-					<div class="duplas-day-container">
-						<div style="display: flex; align-items: center;"> 
-							<input type="checkbox" id="2-duplasSemana" onchange="marcarComoAlterado()">
-							<span class="dias-semana-label-clickable" style="margin-left: 5px; user-select: none;">Dias de Semana</span>
-						</div>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="2-duplasSemanaInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="2-duplasSemanaFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-					<div class="duplas-day-container">
-						<label><input type="checkbox" id="2-duplasSabado" onchange="marcarComoAlterado()"> Sábado</label>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="2-duplasSabadoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="2-duplasSabadoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-					<div class="duplas-day-container">
-						<label><input type="checkbox" id="2-duplasDomingo" onchange="marcarComoAlterado()"> Domingo</label>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="2-duplasDomingoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="2-duplasDomingoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div id="duplasQuadra3Container" class="duplas-container" style="display: none;">
-			 <div class="centraliza-checkbox">
-				<input type="checkbox" id="duplasQuadra3Ativa" onchange="marcarComoAlterado()"><span>Quadra 3 - Coberta</span>
-			</div>
-			<div class="container">
-				<label class="dias-label" style="font-weight: bold;" id="DuplasDiasQuadra3">Dias:</label>
-				<div class="duplas-options">
-					<div class="duplas-day-container">
-						<div style="display: flex; align-items: center;"> 
-							<input type="checkbox" id="3-duplasSemana" onchange="marcarComoAlterado()">
-							<span class="dias-semana-label-clickable" style="margin-left: 5px; user-select: none;">Dias de Semana</span>
-						</div>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="3-duplasSemanaInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="3-duplasSemanaFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-					<div class="duplas-day-container">
-						<label><input type="checkbox" id="3-duplasSabado" onchange="marcarComoAlterado()"> Sábado</label>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="3-duplasSabadoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="3-duplasSabadoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-					<div class="duplas-day-container">
-						<label><input type="checkbox" id="3-duplasDomingo" onchange="marcarComoAlterado()"> Domingo</label>
-						<div class="duplas-time-wrapper">
-							<input type="text" id="3-duplasDomingoInicio" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()"> : 
-							<input type="text" id="3-duplasDomingoFim" class="horario-input" placeholder="HH:MM" onchange="marcarComoAlterado()">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-        </div>
-    </div>  
-	
+        
+    </div>
     <div class="container botao-salvar">
-        <button onclick="salvarConfiguracoes()" id="button-piramide">Salvar Configurações</button> 
+        <button onclick="salvarConfiguracoes()" id="btnSalvarGlobal">
+            Salvar Configurações
+        </button>
     </div>
 </div>
-
-<div id="modalDatasEspeciais" class="modal-overlay"><div class="modal-content"><h2 id="modalTitulo">Exceções</h2><div class="container"><label>Desc:</label><input id="excecaoDescricao"></div><div class="container"><label>Data:</label><input id="excecaoData" oninput="formatarDataInput(event)"></div><div class="container"><label>Horário:</label><input type="time" id="excecaoInicio"><input type="time" id="excecaoFim"></div><div class="modal-buttons"><button class="btn-fechar" onclick="fecharModalExcecao()">Fechar</button><button class="btn-adicionar" onclick="adicionarExcecao()">Add</button></div><div id="listaExcecoes"></div></div></div>
-<div id="modalBloqueioQuadra" class="modal-overlay"><div class="modal-content"><h2 id="modalBloqueioTitulo">Bloqueio</h2><div class="container"><label>Desc:</label><input id="bloqueioDescricao"></div><div class="container"><label>Data:</label><input id="bloqueioData" oninput="formatarDataInput(event)"></div><div class="container"><label>Horário:</label><input type="time" id="bloqueioInicio"><input type="time" id="bloqueioFim"></div><div class="modal-buttons"><button class="btn-fechar" onclick="fecharModalBloqueio()">Fechar</button><button class="btn-adicionar" onclick="adicionarBloqueio()">Add</button></div><div id="listaBloqueios"></div></div></div>
-<div id="modalDiasSemanaDuplas" class="modal-overlay"><div class="modal-content"><h2 id="modalDiasSemanaTitulo">Dias Semana</h2><div id="diasSemanaCheckboxContainer"><label><input type="checkbox" id="duplas-segunda">Seg</label><label><input type="checkbox" id="duplas-terca">Ter</label><label><input type="checkbox" id="duplas-quarta">Qua</label><label><input type="checkbox" id="duplas-quinta">Qui</label><label><input type="checkbox" id="duplas-sexta">Sex</label></div><div class="modal-buttons"><button class="btn-fechar" onclick="fecharModalDiasSemana()">Fechar</button><button class="btn-adicionar" onclick="salvarModalDiasSemana()">Salvar</button></div></div></div>
+<div id="modalBloqueioQuadra" class="modal-overlay">
+    <div class="modal-content">
+        <h2 id="modalBloqueioTitulo">
+            Bloqueio
+        </h2>
+        <div class="container">
+            <label>
+                Desc:
+            </label>
+            <input id="bloqueioDescricao">
+        </div>
+        <div class="container">
+            <label>
+                Data:
+            </label>
+            <input id="bloqueioData" oninput="formatarDataInput(event)">
+        </div>
+        <div class="container">
+            <label>
+                Horário:
+            </label>
+            <input type="time" id="bloqueioInicio">
+            <input type="time" id="bloqueioFim">
+        </div>
+        <div class="modal-buttons">
+            <button class="btn-fechar" onclick="fecharModalBloqueio()">
+                Fechar
+            </button>
+            <button class="btn-adicionar" onclick="adicionarBloqueio()">
+                Add
+            </button>
+        </div>
+        <div id="listaBloqueios">
+        </div>
+    </div>
+</div>
 <div id="modalQuebraHorarioQuadras" class="modal-overlay">
     <div class="modal-content">
-        <h2 id="modalQuebraHorarioTitulo" style="margin-bottom: 20px;">Otimização de Horários</h2>
-        
+        <h2 id="modalQuebraHorarioTitulo" style="margin-bottom: 20px;">
+            Otimização de Horários
+        </h2>
         <div style="display: flex; flex-direction: column; gap: 15px; align-items: flex-start; margin-left: 20px;">
             <label style="font-weight: normal; cursor: pointer; font-size: 16px;">
-                <input type="checkbox" id="quebraHorarioQuadra1" style="margin-right: 8px;"> Quadra 1 - Coberta
+                <input type="checkbox" id="quebraHorarioQuadra1" style="margin-right: 8px;">
+                Quadra 1 - Coberta
             </label>
             <label style="font-weight: normal; cursor: pointer; font-size: 16px;">
-                <input type="checkbox" id="quebraHorarioQuadra2" style="margin-right: 8px;"> Quadra 2 - Aberta
+                <input type="checkbox" id="quebraHorarioQuadra2" style="margin-right: 8px;">
+                Quadra 2 - Aberta
             </label>
             <label style="font-weight: normal; cursor: pointer; font-size: 16px;">
-                <input type="checkbox" id="quebraHorarioQuadra3" style="margin-right: 8px;"> Quadra 3 - Coberta
+                <input type="checkbox" id="quebraHorarioQuadra3" style="margin-right: 8px;">
+                Quadra 3 - Coberta
             </label>
         </div>
-
         <div class="modal-buttons" style="margin-top: 25px;">
-            <button class="btn-fechar" onclick="fecharModalQuebraHorario()">Fechar</button>
-            <button class="btn-adicionar" onclick="salvarModalQuebraHorario()">Confirmar</button>
+            <button class="btn-fechar" onclick="fecharModalQuebraHorario()">
+                Fechar
+            </button>
+            <button class="btn-adicionar" onclick="salvarModalQuebraHorario()">
+                Confirmar
+            </button>
         </div>
     </div>
 </div>
-</div>
-
-
-
 <div id="modalHorarioPadrao" class="modal-overlay">
-    <div class="modal-content" style="max-width: 800px; width: 90%;"> 
-        
-        <h2>Horários Padrão</h2>
-        
+    <div class="modal-content" style="max-width: 800px; width: 90%;">
+        <h2>
+            Horários Padrão
+        </h2>
         <div class="tabela-horarios-scroll" style="max-height: none; overflow: visible;">
             <table class="tabela-config-horarios">
                 <thead>
-					<tr>
-						<th>Dia</th>
-						<th>Status</th>
-						<th class="col-horario">
-							<span class="texto-desktop">Abertura</span>
-							<span class="texto-mobile">Abre</span>
-						</th>
-						<th class="col-horario">
-							<span class="texto-desktop">Fechamento</span>
-							<span class="texto-mobile">Fecha</span>
-						</th>
-					</tr>
-				</thead>
-                <tbody id="tbodyHorarioPadrao"></tbody> 
+                    <tr>
+                        <th>
+                            Dia
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th class="col-horario">
+                            <span class="texto-desktop">
+                                Abertura
+                            </span>
+                            <span class="texto-mobile">
+                                Abre
+                            </span>
+                        </th>
+                        <th class="col-horario">
+                            <span class="texto-desktop">
+                                Fechamento
+                            </span>
+                            <span class="texto-mobile">
+                                Fecha
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyHorarioPadrao">
+                </tbody>
             </table>
         </div>
-
         <div class="container modal-buttons">
-            <button class="btn-fechar" onclick="fecharModalHorario('padrao')">Fechar</button>
-            <button class="btn-adicionar" onclick="salvarHorarioPadrao()">Salvar</button>
+            <button class="btn-fechar" onclick="fecharModalHorario('padrao')">
+                Fechar
+            </button>
+            <button class="btn-adicionar" onclick="salvarHorarioPadrao()">
+                Salvar
+            </button>
         </div>
     </div>
 </div>
-
-
-
 <div id="modalHorarioEspecial" class="modal-overlay">
     <div class="modal-content" style="max-width: 700px; padding: 15px; display: flex; flex-direction: column; max-height: 95vh; overflow: hidden;">
-        
         <div style="
-            border: none;             
-            margin: 0 0 10px 0;       
-            padding: 0;               
-            display: flex;            
-            align-items: center;      
-            justify-content: center;  
+            border: none;
+            margin: 0 0 10px 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             min-height: 25px;
             flex-shrink: 0; /* Não deixa esmagar */
-        ">
-            <h2 style="margin: 0; padding: 0; font-size: 1.5rem; line-height: 1;">Horários Especiais</h2>
+            ">
+            <h2 style="margin: 0; padding: 0; font-size: 1.5rem; line-height: 1;">
+                Horários Especiais
+            </h2>
         </div>
-
         <div id="corpoModalScroll" style="overflow-y: auto; flex: 1; padding-right: 5px; display: flex; flex-direction: column;">
-
             <div id="areaSuperiorEspecial">
                 <div class="painel-destaque" style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #bbdefb;">
                     <div class="container" style="margin: 0; display: flex; align-items: center;">
-                        <label for="selectPeriodoEspecial" style="width: auto; margin-right: 10px; font-size: 1rem;">Gerenciar Período:</label>
+                        <label for="selectPeriodoEspecial" style="width: auto; margin-right: 10px; font-size: 1rem;">
+                            Gerenciar Período:
+                        </label>
                         <select id="selectPeriodoEspecial" onchange="carregarPeriodoEspecial(this.value)" style="font-weight: bold; padding: 8px;">
-                            <option value="novo">+ Criar Novo Período...</option>
+                            <option value="novo">
+                                + Criar Novo Período...
+                            </option>
                         </select>
                     </div>
                 </div>
-                
                 <div id="formPeriodoEspecial">
                     <div class="container" style="margin-bottom: 5px;">
-                        <label style="width: 140px;">Nome do Período:</label>
+                        <label style="width: 140px;">
+                            Nome do Período:
+                        </label>
                         <input type="text" id="nomePeriodo" placeholder="Ex: Recesso Fim de Ano" style="height: 30px; padding: 4px 8px;">
                     </div>
                     <div class="container" style="margin-bottom: 5px;">
-                        <label>Vigência:</label>
+                        <label>
+                            Vigência:
+                        </label>
                         <div style="display: flex; gap: 10px; flex: 1; align-items: center;">
-                            <input type="date" id="dataInicioPeriodo" style="height: 30px; padding: 4px 8px;"><span style="font-weight: bold;">até</span><input type="date" id="dataFimPeriodo" style="height: 30px; padding: 4px 8px;">
+                            <input type="date" id="dataInicioPeriodo" style="height: 30px; padding: 4px 8px;">
+                            <span style="font-weight: bold;">
+                                até
+                            </span>
+                            <input type="date" id="dataFimPeriodo" style="height: 30px; padding: 4px 8px;">
                         </div>
                     </div>
                     <div class="container" style="justify-content: flex-start; margin: 2px 0; padding: 0; align-items: center; min-height: 30px;">
                         <label class="dias-semana-label" style="width: auto !important; max-width: none !important; cursor: pointer; display: flex !important; align-items: center !important; justify-content: flex-start !important; margin: 0; gap: 5px;">
-    
-							<input type="checkbox" id="periodoAtivo" checked onchange="atualizarCorPeriodoAtivo()" style="width: 20px; height: 20px; margin: 0; flex-shrink: 0;">
-							
-							<span id="textoPeriodoAtivo" style="font-weight: bold; line-height: 1;">Ativar este período especial</span>
-						</label>
+                            <input type="checkbox" id="periodoAtivo" checked onchange="atualizarCorPeriodoAtivo()" style="width: 20px; height: 20px; margin: 0; flex-shrink: 0;">
+                            <span id="textoPeriodoAtivo" style="font-weight: bold; line-height: 1;">
+                                Ativar este período especial
+                            </span>
+                        </label>
                     </div>
-                    
                     <div class="painel-regra-mestra" style="background: #fff3cd; padding: 5px 10px; border: 1px solid #ffeeba; border-radius: 8px;">
-                        <p style="margin: 0 0 2px 0; font-weight: bold; color: #856404; font-size: 0.95em;">⚡ Preenchimento Rápido:</p>
-                        
+                        <p style="margin: 0 0 2px 0; font-weight: bold; color: #856404; font-size: 0.95em;">
+                            ⚡ Preenchimento Rápido:
+                        </p>
                         <div class="container" style="margin: 0; flex-wrap: wrap; gap: 5px; align-items: center;">
-                            <select id="regraMestraStatus" style="max-width: 100px;"><option value="aberto">Aberto</option><option value="fechado">Fechado</option></select>
-                            
+                            <select id="regraMestraStatus" style="max-width: 100px;">
+                                <option value="aberto">
+                                    Aberto
+                                </option>
+                                <option value="fechado">
+                                    Fechado
+                                </option>
+                            </select>
                             <div style="display: flex; align-items: center; gap: 5px;">
-                                <input type="time" id="regraMestraInicio" value="08:00"><span>às</span><input type="time" id="regraMestraFim" value="17:00">
+                                <input type="time" id="regraMestraInicio" value="08:00">
+                                <span>
+                                    às
+                                </span>
+                                <input type="time" id="regraMestraFim" value="17:00">
                             </div>
-                            
-                            <button id="btnGerarDias" class="btn-adicionar" onclick="gerarListaDias()" style="margin-left: auto; width: auto; font-size: 0.9em; background-color: #ffc107; color: #000;">Gerar / Atualizar Dias</button>
+                            <button id="btnGerarDias" class="btn-adicionar" onclick="gerarListaDias()" style="margin-left: auto; width: auto; font-size: 0.9em; background-color: #ffc107; color: #000;">
+                                Gerar / Atualizar Dias
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
             <div style="display: flex; width: 100%; align-items: center; justify-content: space-between; margin: 5px 0 5px 0; padding-bottom: 5px; box-sizing: border-box; height: 40px; flex-shrink: 0;">
-                <h3 style="font-size: 1.1em; margin: 0; color: #333;">Ajuste Fino (Dia a Dia):</h3>
-                
+                <h3 style="font-size: 1.1em; margin: 0; color: #333;">
+                    Ajuste Fino (Dia a Dia):
+                </h3>
                 <button id="btnTelaCheiaEspecial" class="btn-expandir" onclick="alternarTelaCheiaEspecial()" title="Expandir / Minimizar">
-					<svg viewBox="0 0 24 24" id="icon-fullscreen">
-						<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
-					</svg>
-				</button>
+                    <svg viewBox="0 0 24 24" id="icon-fullscreen">
+                        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                    </svg>
+                </button>
             </div>
-
             <div class="lista-dias-scroll" id="containerListaDiasEspeciais">
-                <p style="text-align: center; color: #999; margin-top: 30px; font-style: italic;">Defina as datas acima e clique em <b>"Gerar / Atualizar Dias"</b>.</p>
+                <p style="text-align: center; color: #999; margin-top: 30px; font-style: italic;">
+                    Defina as datas acima e clique em
+                    <b>
+                        "Gerar / Atualizar Dias"
+                    </b>
+                    .
+                </p>
             </div>
-        
-        </div> <div class="container modal-buttons" style="margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px; flex-shrink: 0;">
-            <button id="btnExcluirPeriodo" class="btn-remover" onclick="excluirPeriodoSelecionado()" style="background-color: #dc3545; color: white; display: none;">Excluir</button>
-            
-            <button class="btn-fechar" onclick="fecharModalHorario('especial')" style="background-color: #6c757d;">Cancelar</button>
-            
-            <button id="btnSalvarEspecial" class="btn-adicionar" onclick="salvarPeriodoEspecial()" disabled style="background-color: #cccccc; color: white; cursor: not-allowed;">Salvar</button>
+        </div>
+        <div class="container modal-buttons" style="margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px; flex-shrink: 0;">
+            <button id="btnExcluirPeriodo" class="btn-remover" onclick="excluirPeriodoSelecionado()" style="background-color: #dc3545; color: white; display: none;">
+                Excluir
+            </button>
+            <button class="btn-fechar" onclick="fecharModalHorario('especial')" style="background-color: #6c757d;">
+                Cancelar
+            </button>
+            <button id="btnSalvarEspecial" class="btn-adicionar" onclick="salvarPeriodoEspecial()" disabled style="background-color: #cccccc; color: white; cursor: not-allowed;">
+                Salvar
+            </button>
         </div>
     </div>
 </div>
-
-
-
-
 <div id="modalHorarioAulas" class="modal-overlay">
-	<div class="modal-content" style="max-width: 900px; width: 95%; padding-top: 5px;">
-        
+    <div class="modal-content" style="max-width: 900px; width: 95%; padding-top: 5px;">
         <div class="cabecalho-modal-aulas" style="text-align: center; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 5px;">
-			<h2 style="margin: 0; border: none; padding: 0;">Grade de Aulas</h2>
-		</div>
-
+            <h2 style="margin: 0; border: none; padding: 0;">
+                Grade de Aulas
+            </h2>
+        </div>
         <div class="quadras-tabs-container">
-			<button class="quadra-tab active" id="btn-aula-q1" onclick="selecionarQuadraAula('Quadra1')">
-				<span class="desktop-text">Quadra 1 - Coberta</span>
-				<span class="mobile-text">Quadra 1<br>Coberta</span>
-			</button>
-			<button class="quadra-tab" id="btn-aula-q2" onclick="selecionarQuadraAula('Quadra2')">
-				<span class="desktop-text">Quadra 2 - Aberta</span>
-				<span class="mobile-text">Quadra 2<br>Aberta</span>
-			</button>
-			<button class="quadra-tab" id="btn-aula-q3" onclick="selecionarQuadraAula('Quadra3')">
-				<span class="desktop-text">Quadra 3 - Coberta</span>
-				<span class="mobile-text">Quadra 3<br>Coberta</span>
-			</button>
-		</div>
-
+            <button class="quadra-tab active" id="btn-aula-q1" onclick="selecionarQuadraAula('Quadra1')">
+                <span class="desktop-text">
+                    Quadra 1 - Coberta
+                </span>
+                <span class="mobile-text">
+                    Quadra 1
+                    <br>
+                    Coberta
+                </span>
+            </button>
+            <button class="quadra-tab" id="btn-aula-q2" onclick="selecionarQuadraAula('Quadra2')">
+                <span class="desktop-text">
+                    Quadra 2 - Aberta
+                </span>
+                <span class="mobile-text">
+                    Quadra 2
+                    <br>
+                    Aberta
+                </span>
+            </button>
+            <button class="quadra-tab" id="btn-aula-q3" onclick="selecionarQuadraAula('Quadra3')">
+                <span class="desktop-text">
+                    Quadra 3 - Coberta
+                </span>
+                <span class="mobile-text">
+                    Quadra 3
+                    <br>
+                    Coberta
+                </span>
+            </button>
+        </div>
         <div class="painel-controle-aulas">
-			<div class="linha-unica-flex">
-				
-				<label class="label-ativar">
-					<input type="checkbox" id="aula-ativo">
-					<span>Ativar Aulas</span>
-				</label>
-				
-				<div class="grupo-professor-compacto"> 
-					<label>Professor:</label>
-					<select id="aula-professor">
-						<option value="">Selecione...</option>
-					</select>
-				</div>
-				
-				<div class="grupo-botoes">
-					<button class="btn-mini" onclick="acaoAula('selecionar')">Selecionar Tudo</button>
-					<button class="btn-mini outline" onclick="acaoAula('limpar')">Limpar Tudo</button>
-				</div>
-
-			</div>
-		</div>
-		
-		<div id="tituloAulaQuadra">
-			Quadra 1 - Coberta
-		</div>
-		
-		<div class="tabela-horarios-scroll" style="max-height: none; overflow: visible; border: none;">
-			<table class="tabela-config-horarios tabela-aulas">
+            <div class="linha-unica-flex">
+                <label class="label-ativar">
+                    <input type="checkbox" id="aula-ativo">
+                    <span>
+                        Ativar Aulas
+                    </span>
+                </label>
+                <div class="grupo-professor-compacto">
+                    <label>
+                        Professor:
+                    </label>
+                    <select id="aula-professor">
+                        <option value="">
+                            Selecione...
+                        </option>
+                    </select>
+                </div>
+                <div class="grupo-botoes">
+                    <button class="btn-mini" onclick="acaoAula('selecionar')">
+                        Selecionar Tudo
+                    </button>
+                    <button class="btn-mini outline" onclick="acaoAula('limpar')">
+                        Limpar Tudo
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="tituloAulaQuadra">
+            Quadra 1 - Coberta
+        </div>
+        <div class="tabela-horarios-scroll" style="max-height: none; overflow: visible; border: none;">
+            <table class="tabela-config-horarios tabela-aulas">
                 <thead>
                     <tr>
-                        <th 
+                        <th
                             onclick="tratarCliqueHorario(event)"
                             class="sem-selecao"
-                            title="Dê dois cliques para Tela Cheia" 
+                            title="Dê dois cliques para Tela Cheia"
                             style="cursor: pointer;">
                             Horário
                         </th>
-                        
-                        <th>Seg</th>
-                        <th>Ter</th>
-                        <th>Qua</th>
-                        <th>Qui</th>
-                        <th>Sex</th>
-                        <th>Sáb</th>
-                        <th>Dom</th>
-                        
-                        <th 
+                        <th>
+                            Seg
+                        </th>
+                        <th>
+                            Ter
+                        </th>
+                        <th>
+                            Qua
+                        </th>
+                        <th>
+                            Qui
+                        </th>
+                        <th>
+                            Sex
+                        </th>
+                        <th>
+                            Sáb
+                        </th>
+                        <th>
+                            Dom
+                        </th>
+                        <th
                             onclick="tratarCliqueHorario(event)"
                             class="sem-selecao"
-                            title="Dê dois cliques para Tela Cheia" 
+                            title="Dê dois cliques para Tela Cheia"
                             style="cursor: pointer;">
                             Horário
                         </th>
                     </tr>
                 </thead>
                 <tbody id="tbodyAulas">
-                    <tr><td colspan="8" style="padding: 20px;">Carregando...</td></tr>
+                    <tr>
+                        <td colspan="8" style="padding: 20px;">
+                            Carregando...
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
-
         <div class="container modal-buttons" style="margin-top: 15px;">
-            <button class="btn-fechar" onclick="fecharModalHorario('aulas')">Fechar</button>
-            <button class="btn-adicionar" onclick="salvarConfiguracaoAulas()">Salvar</button>
+            <button class="btn-fechar" onclick="fecharModalHorario('aulas')">
+                Fechar
+            </button>
+            <button class="btn-adicionar" onclick="salvarConfiguracaoAulas()">
+                Salvar
+            </button>
         </div>
     </div>
 </div>
 
-
-<div id="modalHorarioDuplas" class="modal-overlay">
-    <div class="modal-content" style="max-width: 900px; width: 95%; padding-top: 5px;">
-        
-        <div class="cabecalho-modal-duplas" onclick="tratarCliqueHorarioDuplas(event)">
-			<h2 id="tituloPrincipalDuplas" style="margin: 0; padding: 0; line-height: 1; display: inline-block; transition: color 0.3s ease;">
-				Horário de Duplas
-			</h2>
-			
-			<div class="kebab-menu-container">
-				<button type="button" id="btnKebabDuplas" class="btn-kebab" onclick="toggleMenuDuplas(event)"></button>
-				
-				<div id="menuDropdownDuplas" class="menu-dropdown-sumula">
-					<div class="menu-item-sumula">
-						<span>Ativar</span>
-						<label class="switch-sumula" onclick="event.stopPropagation();">
-							<input type="checkbox" id="switchAtivarDuplas" onchange="toggleAtivarDuplas(this.checked)">
-							<span class="slider-sumula"></span>
-						</label>
-					</div>
-
-					<div class="menu-item-sumula">
-						<span>Ranking</span>
-						<label class="switch-sumula" onclick="event.stopPropagation();">
-							<input type="checkbox" id="switchRankingDuplas" onchange="toggleRankingDuplas(this.checked)">
-							<span class="slider-sumula"></span>
-						</label>
-					</div>
-				</div>
-			</div>
-		</div>
-
-        <div class="quadras-tabs-container">
-            <button class="quadra-tab active" id="btn-duplas-q1" onclick="selecionarQuadraDuplas('Quadra1')">
-                <span class="desktop-text">Quadra 1 - Coberta</span>
-                <span class="mobile-text">Quadra 1<br>Coberta</span>
-            </button>
-            <button class="quadra-tab" id="btn-duplas-q2" onclick="selecionarQuadraDuplas('Quadra2')">
-                <span class="desktop-text">Quadra 2 - Aberta</span>
-                <span class="mobile-text">Quadra 2<br>Aberta</span>
-            </button>
-            <button class="quadra-tab" id="btn-duplas-q3" onclick="selecionarQuadraDuplas('Quadra3')">
-                <span class="desktop-text">Quadra 3 - Coberta</span>
-                <span class="mobile-text">Quadra 3<br>Coberta</span>
-            </button>
-        </div>
-
-        <div class="painel-controle-duplas">
-            <div class="linha-unica-flex" style="justify-content: space-between !important;">
-                
-                <label style="display: flex; align-items: center; cursor: pointer; margin: 0; white-space: nowrap;">
-                    <input type="checkbox" id="checkboxAtivarQuadraDuplas" onchange="toggleAtivarQuadraDuplas(this.checked)" style="width: 18px; height: 18px; margin: 0 5px 0 0; cursor: pointer; accent-color: #2e7d32;">
-                    <span style="font-weight: bold; color: #2e7d32; font-size: 15px;">Ativar</span>
-                </label>
-
-                <div class="grupo-botoes">
-                    <button type="button" id="btnSelecionarDuplas" class="btn-mini" onclick="acaoDuplas('selecionar')">Selecionar Tudo</button>
-                    <button type="button" id="btnLimparDuplas" class="btn-mini outline" onclick="acaoDuplas('limpar')">Limpar Tudo</button>
-                </div>
-                
-            </div>
-        </div>
-        
-        <div id="tituloDuplasQuadra" style="text-align: center; font-weight: bold; margin: 5px 0;">
-            Quadra 1 - Coberta
-        </div>
-        
-        <div class="tabela-horarios-scroll" style="max-height: none; overflow: visible; border: none;">
-            <table class="tabela-config-horarios tabela-aulas">
-                <thead>
-					<tr>
-						<th onclick="tratarCliqueHorarioDuplas(event)" class="sem-selecao" title="Dê dois cliques para Tela Cheia" style="cursor: pointer;">
-							Horário
-						</th>
-						
-						<th>Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th><th>Sáb</th><th>Dom</th>
-						
-						<th onclick="tratarCliqueHorarioDuplas(event)" class="sem-selecao" title="Dê dois cliques para Tela Cheia" style="cursor: pointer;">
-							Horário
-						</th>
-					</tr>
-				</thead>
-                <tbody id="tbodyDuplas">
-                    </tbody>
-            </table>
-        </div>
-
-        <div class="container modal-buttons" style="margin-top: 15px;">
-			<button class="btn-fechar" onclick="fecharModalHorario('duplas')">Fechar</button>
-			<button class="btn-adicionar" onclick="salvarConfiguracaoDuplas()">Salvar</button>
-		</div>
-    </div>
-</div>
-
-
-
-<div id="modalHorarioPiramide" class="modal-overlay"> 
+<div id="modalHorarioConvidados" class="modal-overlay">
     <div class="modal-content">
-
-        <div class="cabecalho-modal-duplas">
+        <div class="cabecalho-modal-duplas" onclick="tratarCliqueHorarioConvidados(event)">
             <h2 style="margin: 0; padding: 0; line-height: 1; display: inline-block;">
-                Horário de Pirâmide
+                Horário de Convidados
             </h2>
-            
             <div class="kebab-menu-container">
-				<button type="button" id="btnKebabPiramide" class="btn-kebab" onclick="toggleMenuPiramide(event)"></button>
-				<div id="menuDropdownPiramide" class="menu-dropdown-sumula">
-					<div class="menu-item-sumula">
-						<span>Ativar</span>
-						<label class="switch-sumula" onclick="event.stopPropagation();">
-							<input type="checkbox" id="switchAtivarPiramide" onchange="toggleAtivarPiramide(this.checked)">
-							<span class="slider-sumula"></span>
-						</label>
-					</div>
-
-					<div class="menu-item-sumula">
-						<span>Ranking</span>
-						<label class="switch-sumula" onclick="event.stopPropagation();">
-							<input type="checkbox" id="switchRankingPiramide" onchange="toggleRankingPiramide(this.checked)">
-							<span class="slider-sumula"></span>
-						</label>
-					</div>
-					
-					<hr style="border: 0; border-top: 1px solid #eee; margin: 8px 0;">
-					
-					<div class="menu-item-sumula menu-item-data-piramide" id="btnDataPiramideKebab" onclick="abrirModalDataPiramide(event)" style="justify-content: center; cursor: pointer; color: #4CAF50; font-weight: 500; white-space: nowrap; font-size: 15px !important;">
-						📅 Definir datas...
-					</div>
-				</div>
-			</div>
+                <button type="button" id="btnKebabConvidados" class="btn-kebab" onclick="toggleMenuConvidados(event)"></button>
+                <div id="menuDropdownConvidados" class="menu-dropdown-sumula">
+                    <div class="menu-item-sumula">
+                        <span>Ativar</span>
+                        <label class="switch-sumula" onclick="event.stopPropagation();">
+                            <input type="checkbox" id="switchAtivarConvidados" onchange="toggleAtivarConvidados(this.checked)">
+                            <span class="slider-sumula"></span>
+                        </label>
+                    </div>
+    
+                    <hr style="border: 0; border-top: 1px solid #eee; margin: 8px 0;">
+    
+                    <div id="zonaFinanceiraConvidados" class="zona-financeira" onclick="event.stopPropagation();" style="padding: 0 15px 10px 15px;">
+                        
+                        <div class="campo-financeiro">
+                            <label for="taxaConvidado"><span class="icone-financeiro">💰</span> Taxa por Convidado</label>
+                            <div class="input-com-moeda">
+                                <span class="prefixo-moeda">R$</span>
+                                <input type="text" id="taxaConvidado" placeholder="0,00" inputmode="numeric" oninput="aplicarMascaraReal(this)">
+                            </div>
+                        </div>
+    
+                        <div class="campo-financeiro" style="margin-top: 10px;">
+                            <label for="recebedorConvidado"><span class="icone-financeiro">👤</span> Recebedor (Financeiro)</label>
+                            <select id="recebedorConvidado">
+                                <option value="">Selecione...</option>
+                                </select>
+                        </div>
+						<div class="campo-financeiro" style="margin-top: 10px;">
+                            <label for="whatsappConvidado"><span class="icone-financeiro">📱</span> WhatsApp</label>
+                            <input type="tel" id="whatsappConvidado" placeholder="(00) 00000-0000" maxlength="15" oninput="aplicarMascaraTelefone(this)">
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="quadras-tabs-container">
-            <button class="quadra-tab active" id="tabPiramideQ1" onclick="selecionarQuadraPiramide('Quadra1')">
+            <button class="quadra-tab active" id="tabConvidadosQ1" onclick="selecionarQuadraConvidados('Quadra1')">
                 <span class="desktop-text">Quadra 1 - Coberta</span>
                 <span class="mobile-text">Quadra 1<br>Coberta</span>
             </button>
-            <button class="quadra-tab" id="tabPiramideQ2" onclick="selecionarQuadraPiramide('Quadra2')">
+            <button class="quadra-tab" id="tabConvidadosQ2" onclick="selecionarQuadraConvidados('Quadra2')">
                 <span class="desktop-text">Quadra 2 - Aberta</span>
                 <span class="mobile-text">Quadra 2<br>Aberta</span>
             </button>
-            <button class="quadra-tab" id="tabPiramideQ3" onclick="selecionarQuadraPiramide('Quadra3')">
+            <button class="quadra-tab" id="tabConvidadosQ3" onclick="selecionarQuadraConvidados('Quadra3')">
                 <span class="desktop-text">Quadra 3 - Coberta</span>
                 <span class="mobile-text">Quadra 3<br>Coberta</span>
             </button>
@@ -4546,215 +4817,503 @@ body.dark-mode #modalHorarioDuplas .modal-content.maximizado .quadras-tabs-conta
 
         <div class="painel-controle-duplas">
             <div class="linha-unica-flex" style="justify-content: space-between !important;">
-                
                 <label style="display: flex; align-items: center; cursor: pointer; margin: 0; white-space: nowrap;">
-                    <input type="checkbox" id="checkboxAtivarQuadraPiramide" onchange="toggleAtivarQuadraPiramide(this.checked)" style="width: 18px; height: 18px; margin: 0 5px 0 0; cursor: pointer; accent-color: #2e7d32;">
-                    <span style="font-weight: bold; color: #2e7d32; font-size: 15px;">Ativar</span>
+                    <input type="checkbox" id="checkboxAtivarQuadraConvidados" onchange="toggleAtivarQuadraConvidados(this.checked)" style="width: 18px; height: 18px; margin: 0 5px 0 0; cursor: pointer; accent-color: #2e7d32;">
+                    <span style="font-weight: bold; color: #2e7d32; font-size: 15px;">
+                        Liberar
+                    </span>
                 </label>
-
                 <div class="grupo-botoes">
-                    <button type="button" class="btn-mini" onclick="selecionarTudoPiramide()">Selecionar Tudo</button>
-                    <button type="button" class="btn-mini outline" onclick="limparTudoPiramide()">Limpar Tudo</button>
+                    <button type="button" class="btn-mini" onclick="selecionarTudoConvidados()">Selecionar Tudo</button>
+                    <button type="button" class="btn-mini outline" onclick="limparTudoConvidados()">Limpar Tudo</button>
                 </div>
-                
             </div>
         </div>
-        
-        <div id="tituloPiramideQuadra" style="text-align: center; font-weight: bold; margin: 5px 0; color: #333;">
+
+        <div id="tituloConvidadosQuadra" style="text-align: center; font-weight: bold; margin: 5px 0; color: #333;">
             Quadra 1 - Coberta
         </div>
 
         <div class="tabela-horarios-scroll" style="border: none;">
             <table class="tabela-config-horarios tabela-aulas">
                 <thead>
-					<tr>
-						<th class="sem-selecao" onclick="tratarCliqueHorarioPiramide(event)" title="Dê dois cliques para Tela Cheia" style="cursor: pointer;">Horário</th>
-						<th>Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th><th>Sáb</th><th>Dom</th>
-						<th class="sem-selecao" onclick="tratarCliqueHorarioPiramide(event)" title="Dê dois cliques para Tela Cheia" style="cursor: pointer;">Horário</th>
-					</tr>
-				</thead>
-                <tbody id="tabelaHorariosPiramide"></tbody>
+                    <tr>
+                        <th class="sem-selecao" onclick="tratarCliqueHorarioConvidados(event)" title="Dê dois cliques para Tela Cheia" style="cursor: pointer;">Horário</th>
+                        <th>Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th><th>Sáb</th><th>Dom</th>
+                        <th class="sem-selecao" onclick="tratarCliqueHorarioConvidados(event)" title="Dê dois cliques para Tela Cheia" style="cursor: pointer;">Horário</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaHorariosConvidados">
+                    </tbody>
             </table>
         </div>
 
         <div class="container modal-buttons" style="margin-top: 15px;">
-            <button class="btn-fechar" onclick="document.getElementById('modalHorarioPiramide').style.display='none'">Fechar</button>
-            <button class="btn-adicionar" onclick="salvarPiramide()">Salvar</button>
+            <button class="btn-fechar" onclick="fecharModalHorarioConvidados()">Fechar</button>
+            <button class="btn-adicionar" onclick="salvarConvidados()">Salvar</button>
         </div>
     </div>
 </div>
 
-
+<div id="modalHorarioDuplas" class="modal-overlay">
+    <div class="modal-content" style="max-width: 900px; width: 95%; padding-top: 5px;">
+        <div class="cabecalho-modal-duplas" onclick="tratarCliqueHorarioDuplas(event)">
+            <h2 id="tituloPrincipalDuplas" style="margin: 0; padding: 0; line-height: 1; display: inline-block; transition: color 0.3s ease;">
+                Horário de Duplas
+            </h2>
+            <div class="kebab-menu-container">
+                <button type="button" id="btnKebabDuplas" class="btn-kebab" onclick="toggleMenuDuplas(event)">
+                </button>
+                <div id="menuDropdownDuplas" class="menu-dropdown-sumula">
+					<div class="menu-item-sumula">
+						<span>
+							Ativar
+						</span>
+						<label class="switch-sumula" onclick="event.stopPropagation();">
+							<input type="checkbox" id="switchAtivarDuplas" onchange="toggleAtivarDuplas(this.checked)">
+							<span class="slider-sumula">
+							</span>
+						</label>
+					</div>
+					<div class="menu-item-sumula">
+						<span>
+							Ranking
+						</span>
+						<label class="switch-sumula" onclick="event.stopPropagation();">
+							<input type="checkbox" id="switchRankingDuplas" onchange="toggleRankingDuplas(this.checked)">
+							<span class="slider-sumula">
+							</span>
+						</label>
+					</div>
+					
+					<div style="width: 100%; height: 1px; background-color: #ccc; margin: 10px 0;"></div>
+					
+					<div style="display: flex; justify-content: center; width: 100%;">
+						<button onclick="acionarZerarRanking()" style="width: 100%; padding: 8px; background-color: #ff3b30; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 5px;">
+							Zerar Ranking
+						</button>
+					</div>
+				</div>
+            </div>
+        </div>
+        <div class="quadras-tabs-container">
+            <button class="quadra-tab active" id="btn-duplas-q1" onclick="selecionarQuadraDuplas('Quadra1')">
+                <span class="desktop-text">
+                    Quadra 1 - Coberta
+                </span>
+                <span class="mobile-text">
+                    Quadra 1
+                    <br>
+                    Coberta
+                </span>
+            </button>
+            <button class="quadra-tab" id="btn-duplas-q2" onclick="selecionarQuadraDuplas('Quadra2')">
+                <span class="desktop-text">
+                    Quadra 2 - Aberta
+                </span>
+                <span class="mobile-text">
+                    Quadra 2
+                    <br>
+                    Aberta
+                </span>
+            </button>
+            <button class="quadra-tab" id="btn-duplas-q3" onclick="selecionarQuadraDuplas('Quadra3')">
+                <span class="desktop-text">
+                    Quadra 3 - Coberta
+                </span>
+                <span class="mobile-text">
+                    Quadra 3
+                    <br>
+                    Coberta
+                </span>
+            </button>
+        </div>
+        <div class="painel-controle-duplas">
+            <div class="linha-unica-flex" style="justify-content: space-between !important;">
+                <label style="display: flex; align-items: center; cursor: pointer; margin: 0; white-space: nowrap;">
+                    <input type="checkbox" id="checkboxAtivarQuadraDuplas" onchange="toggleAtivarQuadraDuplas(this.checked)" style="width: 18px; height: 18px; margin: 0 5px 0 0; cursor: pointer; accent-color: #2e7d32;">
+                    <span style="font-weight: bold; color: #2e7d32; font-size: 15px;">
+                        Ativar
+                    </span>
+                </label>
+                <div class="grupo-botoes">
+                    <button type="button" id="btnSelecionarDuplas" class="btn-mini" onclick="acaoDuplas('selecionar')">
+                        Selecionar Tudo
+                    </button>
+                    <button type="button" id="btnLimparDuplas" class="btn-mini outline" onclick="acaoDuplas('limpar')">
+                        Limpar Tudo
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="tituloDuplasQuadra" style="text-align: center; font-weight: bold; margin: 5px 0;">
+            Quadra 1 - Coberta
+        </div>
+        <div class="tabela-horarios-scroll" style="max-height: none; overflow: visible; border: none;">
+            <table class="tabela-config-horarios tabela-aulas">
+                <thead>
+                    <tr>
+                        <th onclick="tratarCliqueHorarioDuplas(event)" class="sem-selecao" title="Dê dois cliques para Tela Cheia" style="cursor: pointer;">
+                            Horário
+                        </th>
+                        <th>
+                            Seg
+                        </th>
+                        <th>
+                            Ter
+                        </th>
+                        <th>
+                            Qua
+                        </th>
+                        <th>
+                            Qui
+                        </th>
+                        <th>
+                            Sex
+                        </th>
+                        <th>
+                            Sáb
+                        </th>
+                        <th>
+                            Dom
+                        </th>
+                        <th onclick="tratarCliqueHorarioDuplas(event)" class="sem-selecao" title="Dê dois cliques para Tela Cheia" style="cursor: pointer;">
+                            Horário
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyDuplas">
+                </tbody>
+            </table>
+        </div>
+        <div class="container modal-buttons" style="margin-top: 15px;">
+            <button class="btn-fechar" onclick="fecharModalHorario('duplas')">
+                Fechar
+            </button>
+            <button class="btn-adicionar" onclick="salvarConfiguracaoDuplas()">
+                Salvar
+            </button>
+        </div>
+    </div>
+</div>
+<div id="modalHorarioPiramide" class="modal-overlay">
+    <div class="modal-content">
+        <div class="cabecalho-modal-duplas">
+            <h2 style="margin: 0; padding: 0; line-height: 1; display: inline-block;">
+                Horário de Pirâmide
+            </h2>
+            <div class="kebab-menu-container">
+                <button type="button" id="btnKebabPiramide" class="btn-kebab" onclick="toggleMenuPiramide(event)">
+                </button>
+                <div id="menuDropdownPiramide" class="menu-dropdown-sumula">
+                    <div class="menu-item-sumula">
+                        <span>
+                            Ativar
+                        </span>
+                        <label class="switch-sumula" onclick="event.stopPropagation();">
+                            <input type="checkbox" id="switchAtivarPiramide" onchange="toggleAtivarPiramide(this.checked)">
+                            <span class="slider-sumula">
+                            </span>
+                        </label>
+                    </div>
+                    <div class="menu-item-sumula">
+                        <span>
+                            Ranking
+                        </span>
+                        <label class="switch-sumula" onclick="event.stopPropagation();">
+                            <input type="checkbox" id="switchRankingPiramide" onchange="toggleRankingPiramide(this.checked)">
+                            <span class="slider-sumula">
+                            </span>
+                        </label>
+                    </div>
+                    <hr style="border: 0; border-top: 1px solid #eee; margin: 8px 0;">
+                    <div class="menu-item-sumula menu-item-data-piramide" id="btnDataPiramideKebab" onclick="abrirModalDataPiramide(event)" style="justify-content: center; cursor: pointer; color: #4CAF50; font-weight: 500; white-space: nowrap; font-size: 15px !important;">
+                        📅 Definir datas...
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="quadras-tabs-container">
+            <button class="quadra-tab active" id="tabPiramideQ1" onclick="selecionarQuadraPiramide('Quadra1')">
+                <span class="desktop-text">
+                    Quadra 1 - Coberta
+                </span>
+                <span class="mobile-text">
+                    Quadra 1
+                    <br>
+                    Coberta
+                </span>
+            </button>
+            <button class="quadra-tab" id="tabPiramideQ2" onclick="selecionarQuadraPiramide('Quadra2')">
+                <span class="desktop-text">
+                    Quadra 2 - Aberta
+                </span>
+                <span class="mobile-text">
+                    Quadra 2
+                    <br>
+                    Aberta
+                </span>
+            </button>
+            <button class="quadra-tab" id="tabPiramideQ3" onclick="selecionarQuadraPiramide('Quadra3')">
+                <span class="desktop-text">
+                    Quadra 3 - Coberta
+                </span>
+                <span class="mobile-text">
+                    Quadra 3
+                    <br>
+                    Coberta
+                </span>
+            </button>
+        </div>
+        <div class="painel-controle-duplas">
+            <div class="linha-unica-flex" style="justify-content: space-between !important;">
+                <label style="display: flex; align-items: center; cursor: pointer; margin: 0; white-space: nowrap;">
+                    <input type="checkbox" id="checkboxAtivarQuadraPiramide" onchange="toggleAtivarQuadraPiramide(this.checked)" style="width: 18px; height: 18px; margin: 0 5px 0 0; cursor: pointer; accent-color: #2e7d32;">
+                    <span style="font-weight: bold; color: #2e7d32; font-size: 15px;">
+                        Ativar
+                    </span>
+                </label>
+                <div class="grupo-botoes">
+                    <button type="button" class="btn-mini" onclick="selecionarTudoPiramide()">
+                        Selecionar Tudo
+                    </button>
+                    <button type="button" class="btn-mini outline" onclick="limparTudoPiramide()">
+                        Limpar Tudo
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="tituloPiramideQuadra" style="text-align: center; font-weight: bold; margin: 5px 0; color: #333;">
+            Quadra 1 - Coberta
+        </div>
+        <div class="tabela-horarios-scroll" style="border: none;">
+            <table class="tabela-config-horarios tabela-aulas">
+                <thead>
+                    <tr>
+                        <th class="sem-selecao" onclick="tratarCliqueHorarioPiramide(event)" title="Dê dois cliques para Tela Cheia" style="cursor: pointer;">
+                            Horário
+                        </th>
+                        <th>
+                            Seg
+                        </th>
+                        <th>
+                            Ter
+                        </th>
+                        <th>
+                            Qua
+                        </th>
+                        <th>
+                            Qui
+                        </th>
+                        <th>
+                            Sex
+                        </th>
+                        <th>
+                            Sáb
+                        </th>
+                        <th>
+                            Dom
+                        </th>
+                        <th class="sem-selecao" onclick="tratarCliqueHorarioPiramide(event)" title="Dê dois cliques para Tela Cheia" style="cursor: pointer;">
+                            Horário
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaHorariosPiramide">
+                </tbody>
+            </table>
+        </div>
+        <div class="container modal-buttons" style="margin-top: 15px;">
+            <button class="btn-fechar" onclick="document.getElementById('modalHorarioPiramide').style.display='none'">
+                Fechar
+            </button>
+            <button class="btn-adicionar" onclick="salvarPiramide()">
+                Salvar
+            </button>
+        </div>
+    </div>
+</div>
 <div id="modalDataPiramide" class="modal-overlay" style="z-index: 10001;">
     <div class="modal-content" style="max-width: 350px;">
-        <h2 style="margin-bottom: 20px;">Datas do Torneio</h2>
-        
+        <h2 style="margin-bottom: 20px;">
+            Datas do Torneio
+        </h2>
         <div class="container" style="flex-direction: column; align-items: flex-start; gap: 5px;">
-            <label style="width: 100%; margin-bottom: 5px;">Data de Início:</label>
+            <label style="width: 100%; margin-bottom: 5px;">
+                Data de Início:
+            </label>
             <input type="date" id="inputDataInicioPiramide" style="width: 100%; height: 40px; text-align: center;">
         </div>
-        
         <div class="container" style="flex-direction: column; align-items: flex-start; gap: 5px; margin-top: 15px;">
-            <label style="width: 100%; margin-bottom: 5px;">Data de Fim:</label>
+            <label style="width: 100%; margin-bottom: 5px;">
+                Data de Fim:
+            </label>
             <input type="date" id="inputDataFimPiramide" style="width: 100%; height: 40px; text-align: center;">
         </div>
-        
         <div class="modal-buttons" style="margin-top: 25px; display: flex; justify-content: space-between; gap: 10px;">
-            <button class="btn-fechar" onclick="fecharModalDataPiramide()" style="background-color: #6c757d; flex: 1; margin: 0;">Cancelar</button>
-            <button class="btn-adicionar" onclick="salvarDataPiramide()" style="flex: 1; margin: 0;">Confirmar</button>
+            <button class="btn-fechar" onclick="fecharModalDataPiramide()" style="background-color: #6c757d; flex: 1; margin: 0;">
+                Cancelar
+            </button>
+            <button class="btn-adicionar" onclick="salvarDataPiramide()" style="flex: 1; margin: 0;">
+                Confirmar
+            </button>
         </div>
     </div>
 </div>
-
-
-
-
-<div id="modalNovoPerfil" class="modal-overlay"> 
+<div id="modalNovoPerfil" class="modal-overlay">
     <div class="modal-content">
-        <h2>Criar Novo Perfil</h2>
-        
+        <h2>
+            Criar Novo Perfil
+        </h2>
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; margin-bottom: 20px;">
-            
             <div style="display: flex; align-items: center; gap: 5px; flex: 1; min-width: 0;">
-                <label style="width: auto !important; min-width: 0 !important; margin: 0; font-weight: bold; font-size: 14px;">Nome:</label>
+                <label style="width: auto !important; min-width: 0 !important; margin: 0; font-weight: bold; font-size: 14px;">
+                    Nome:
+                </label>
                 <input type="text" id="nomeNovoPerfil" placeholder="Ex: Professor" style="flex: 1; min-width: 50px; padding: 6px; border: 1px solid #ccc; border-radius: 4px;">
             </div>
-
             <div style="display: flex; align-items: center; gap: 5px; flex: 0 0 auto;">
-                <label style="width: auto !important; min-width: 0 !important; margin: 0; font-weight: bold; font-size: 14px;">Abrev:</label>
+                <label style="width: auto !important; min-width: 0 !important; margin: 0; font-weight: bold; font-size: 14px;">
+                    Abrev:
+                </label>
                 <input type="text" id="abreviacaoNovoPerfil" placeholder="Ex:Prof" maxlength="8" style="width: 75px !important; text-align: center; padding: 6px 2px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
             </div>
-            
-            <div id="btnVisualCorNovo" class="botao-cor-custom" onclick="abrirSeletorInteligente('novo')" title="Escolher cor" style="margin: 0; flex-shrink: 0;"></div>
-            
+            <div id="btnVisualCorNovo" class="botao-cor-custom" onclick="abrirSeletorInteligente('novo')" title="Escolher cor" style="margin: 0; flex-shrink: 0;">
+            </div>
             <input type="hidden" id="corNovoPerfil" value="#007bff">
             <input type="color" id="nativeCorNovo" style="visibility:hidden; position:absolute; left:-9999px;" onchange="atualizarCorInteligente('novo', this.value)">
-
         </div>
-
         <div class="modal-buttons">
-            <button class="btn-fechar" onclick="fecharModalNovoPerfil()">Cancelar</button>
-            <button class="btn-adicionar" onclick="salvarNovoPerfilBanco()">Criar</button>
+            <button class="btn-fechar" onclick="fecharModalNovoPerfil()">
+                Cancelar
+            </button>
+            <button class="btn-adicionar" onclick="salvarNovoPerfilBanco()">
+                Criar
+            </button>
         </div>
     </div>
 </div>
-
-
-
 <div id="modalPermissoes" class="modal-overlay">
     <div class="modal-content" style="max-width: 450px;">
         <div class="header-flex-smart">
-            
-            <span class="titulo-smart">Permissões:</span>
-            
+            <span class="titulo-smart">
+                Permissões:
+            </span>
             <div class="grupo-nome-lixo-smart">
-				<span id="textoNomePerfil">Carregando...</span>
-				
-				<div id="btnVisualCorEdicao" class="botao-cor-custom" onclick="abrirSeletorInteligente('edicao')" style="width: 30px; height: 30px; margin-right: 10px;"></div>
-
-				<input type="hidden" id="corPerfilEdicao">
-
-				<input type="color" id="nativeCorEdicao" style="visibility:hidden; position:absolute; left:-9999px;" onchange="atualizarCorInteligente('edicao', this.value)">
-				
-				<button id="btnExcluirPerfil" onclick="excluirPerfilAtual()" class="btn-lixo-smart" title="Excluir" style="display: none;">
-					🗑️
-				</button>
-			</div>
-            
+                <span id="textoNomePerfil">
+                    Carregando...
+                </span>
+                <div id="btnVisualCorEdicao" class="botao-cor-custom" onclick="abrirSeletorInteligente('edicao')" style="width: 30px; height: 30px; margin-right: 10px;">
+                </div>
+                <input type="hidden" id="corPerfilEdicao">
+                <input type="color" id="nativeCorEdicao" style="visibility:hidden; position:absolute; left:-9999px;" onchange="atualizarCorInteligente('edicao', this.value)">
+                <button id="btnExcluirPerfil" onclick="excluirPerfilAtual()" class="btn-lixo-smart" title="Excluir" style="display: none;">
+                    🗑️
+                </button>
+            </div>
         </div>
-        
         <div style="text-align: left; margin: 10px 0;">
-		    <p class="texto-instrucao" style="font-size: 14px; color: #666; margin-bottom: 15px;">Marque o que este perfil pode fazer:</p>
- 
-            
+            <p class="texto-instrucao" style="font-size: 14px; color: #666; margin-bottom: 15px;">
+                Marque o que este perfil pode fazer:
+            </p>
             <div class="lista-permissoes" style="display: flex; flex-direction: column; gap: 12px;">
-                
                 <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center; background: #e3f2fd; padding: 8px; border-radius: 4px; border: 1px solid #bbdefb; width: 100%; box-sizing: border-box;">
-                    <input type="checkbox" id="perm_super_admin" onchange="gerenciarPermissoesInterativas('MASTER')" style="width: auto; margin-right: 10px; transform: scale(1.2);"> 
-                    ⚡ <strong>Acesso Total (Super Admin)</strong>
+                    <input type="checkbox" id="perm_super_admin" onchange="gerenciarPermissoesInterativas('MASTER')" style="width: auto; margin-right: 10px; transform: scale(1.2);">
+                    ⚡
+                    <strong>
+                        Acesso Total (Super Admin)
+                    </strong>
                 </label>
-                
                 <hr style="width: 100%; border-top: 1px dashed #ccc; margin: 5px 0;">
-                
                 <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center;">
-                    <input type="checkbox" id="perm_acesso_config" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;"> 
+                    <input type="checkbox" id="perm_acesso_config" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;">
                     Acessar Configurações (Esta tela)
                 </label>
-                
                 <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center;">
-                    <input type="checkbox" id="perm_gestao_jogadores" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;"> 
+                    <input type="checkbox" id="perm_gestao_jogadores" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;">
                     Gestão de Jogadores (Cadastro)
                 </label>
-
                 <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center;">
-                    <input type="checkbox" id="perm_gerir_reservas" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;"> 
+                    <input type="checkbox" id="perm_gerir_reservas" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;">
                     Gerenciar Reservas (Editar/Cancelar terceiros)
                 </label>
-                
                 <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center;">
-                    <input type="checkbox" id="perm_controle_quadras" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;"> 
+                    <input type="checkbox" id="perm_controle_quadras" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;">
                     Controle de Quadras (Bloqueios)
                 </label>
-
                 <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center;">
-                    <input type="checkbox" id="perm_gestor_aulas" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;"> 
+                    <input type="checkbox" id="perm_gestor_aulas" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;">
                     Gestor de Aulas (Grade/Professor)
                 </label>
-
                 <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center;">
-                    <input type="checkbox" id="perm_gestor_torneios" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;"> 
+                    <input type="checkbox" id="perm_gestor_torneios" onchange="gerenciarPermissoesInterativas('CHILD')" style="width: auto; margin-right: 10px;">
                     Gestor de Torneios (Ranking/Pirâmide)
                 </label>
-
             </div>
         </div>
-
         <div class="modal-buttons">
-            <button class="btn-fechar" onclick="fecharModalPermissoes()">Cancelar</button>
-            <button class="btn-adicionar" onclick="salvarPermissoesBanco()">Salvar Alterações</button>
+            <button class="btn-fechar" onclick="fecharModalPermissoes()">
+                Cancelar
+            </button>
+            <button class="btn-adicionar" onclick="salvarPermissoesBanco()">
+                Salvar Alterações
+            </button>
         </div>
     </div>
 </div>
-
-
-<button id="theme-toggle-button" onclick="toggleTheme()" title="Alternar Tema">🌙</button>
-
-<div id="toastContainer" class="toast-container"></div>
-
+<button id="theme-toggle-button" onclick="toggleTheme()" title="Alternar Tema">
+    🌙
+</button>
+<div id="toastContainer" class="toast-container">
+</div>
 <div id="modalConfirmacaoGlobal" class="modal-overlay" style="z-index: 10000;">
     <div class="modal-content">
-        <h3 id="tituloConf">Confirmação</h3>
-        <p id="textoConf">Tem certeza que deseja realizar esta ação?</p>
-        
+        <h3 id="tituloConf">
+            Confirmação
+        </h3>
+        <p id="textoConf">
+            Tem certeza que deseja realizar esta ação?
+        </p>
         <div class="modal-buttons" style="justify-content: center; gap: 15px;">
-            <button class="btn-fechar" id="btnCancelarConf" style="background-color: #6c757d; width: 100px;">Não</button>
-            <button class="btn-adicionar" id="btnConfirmarConf" style="width: 100px;">Sim</button>
+            <button class="btn-fechar" id="btnCancelarConf" style="background-color: #6c757d; width: 100px;">
+                Não
+            </button>
+            <button class="btn-adicionar" id="btnConfirmarConf" style="width: 100px;">
+                Sim
+            </button>
         </div>
     </div>
 </div>
-
 <div id="modalInputGlobal" class="modal-overlay" style="z-index: 10001;">
     <div class="modal-content">
-        <h3 id="tituloInput">Entrada de Dados</h3>
-        <p id="textoInput">Por favor, digite abaixo:</p>
-        
+        <h3 id="tituloInput">
+            Entrada de Dados
+        </h3>
+        <p id="textoInput">
+            Por favor, digite abaixo:
+        </p>
         <input type="text" id="campoInputGlobal" class="select-padrao" style="width: 100%; margin: 10px 0; border: 1px solid #ccc; padding: 8px;">
-        
         <div class="modal-buttons" style="justify-content: center; gap: 15px;">
-            <button class="btn-fechar" id="btnCancelarInput" style="background-color: #6c757d; width: 100px;">Cancelar</button>
-            <button class="btn-adicionar" id="btnConfirmarInput" style="width: 100px;">OK</button>
+            <button class="btn-fechar" id="btnCancelarInput" style="background-color: #6c757d; width: 100px;">
+                Cancelar
+            </button>
+            <button class="btn-adicionar" id="btnConfirmarInput" style="width: 100px;">
+                OK
+            </button>
         </div>
     </div>
 </div>
-
-
 <div id="modalSeletorPC" class="modal-overlay" style="z-index: 10002;">
     <div class="modal-content">
-        <h3>Escolha uma Cor</h3>
+        <h3>
+            Escolha uma Cor
+        </h3>
         <div id="gridCoresPC" class="grid-cores-pc">
-            </div>
+        </div>
         <div class="modal-buttons" style="justify-content: center; margin-top: 20px;">
-            <button class="btn-fechar" onclick="document.getElementById('modalSeletorPC').style.display='none'">Cancelar</button>
+            <button class="btn-fechar" onclick="document.getElementById('modalSeletorPC').style.display='none'">
+                Cancelar
+            </button>
         </div>
     </div>
 </div>
@@ -4774,18 +5333,10 @@ body.dark-mode #modalHorarioDuplas .modal-content.maximizado .quadras-tabs-conta
 
     // VARIÁVEIS GLOBAIS
     let bloqueiosQuadra = {};
-    let excecoesDuplas = {}; 
-    let diasSemanaDuplasConfig = {};
     let quebraHorarioQuadrasConfig = {};
     let listaUsuariosOnline = [];
-    let quadraAtualParaDiasSemana = null;
-    let quadraAtualParaExcecao = null;
     let quadraAtualParaBloqueio = null;
-    let vlimparExcecoesAntigas = false;
     let vlimparBloqueiosAntigos = false;
-    let carregamentoInicialConcluido = false;
-    let listaJogadoresDisponiveis = [];
-    let listaJogadoresParaArbitro = [];
 
     // NOVAS GLOBAIS DE HORÁRIO
     let horariosGlobal = { Padrao: {}, Especiais: {} };
@@ -4817,6 +5368,16 @@ body.dark-mode #modalHorarioDuplas .modal-content.maximizado .quadras-tabs-conta
 	};
 	let quadraPiramideAtual = 'Quadra1';
 	let carrinhoPiramide = {}; // Carrinho para o salvamento final
+	
+	// --- VARIÁVEIS GLOBAIS DE CONVIDADOS ---
+	let configConvidadosGlobal = { 
+        Ativo: false, 
+        Quadra1: { Ativa: false, Grade: {} }, 
+        Quadra2: { Ativa: false, Grade: {} }, 
+        Quadra3: { Ativa: false, Grade: {} } 
+	};
+	let quadraConvidadosAtual = 'Quadra1';
+	let carrinhoConvidados = {};
 
 
 // ==========================================================
@@ -4848,7 +5409,7 @@ function marcarComoAlterado() {
     if (!existeAlteracaoPendente) {
         existeAlteracaoPendente = true;
         
-        const btn = document.getElementById('button-piramide'); 
+        const btn = document.getElementById('btnSalvarGlobal'); 
         if (btn) {
             btn.classList.add("botao-alterado"); 
 
@@ -4906,7 +5467,7 @@ function resetarEstadoAlteracao() {
         intervaloPontosBotao = null;
     }
 
-    const btn = document.getElementById('button-piramide');
+    const btn = document.getElementById('btnSalvarGlobal');
     if (btn) {
         btn.classList.remove("botao-alterado"); 
         btn.style.background = ""; 
@@ -5366,6 +5927,7 @@ function salvarPermissoesBanco() {
             atualizarEstadoSistema(); 
 			// --- ADICIONE AQUI ---
 			carregarListaProfessores(); 
+			carregarListaFinanceiro();
 			// ---------------------
         }).catch(console.error);
     };
@@ -5451,80 +6013,7 @@ function aplicarDadosConfig(data) {
     document.getElementById('estadoQuadra3').value = data.Quadras?.Quadra3 || "liberada";
 
 
-    // Convidados
-    const conv = data.Convidados || {};
-    document.getElementById('convidadosQuadra1').checked = conv.Quadra1 || false;
-    document.getElementById('convidadosQuadra2').checked = conv.Quadra2 || false;
-    document.getElementById('convidadosQuadra3').checked = conv.Quadra3 || false;
-    document.getElementById('convidadosSemana').checked = conv.DiasDeSemana || false;
-    document.getElementById('convidadosFimDeSemana').checked = conv.FimDeSemana || false;
-
-    // Piramide
-    const pir = data.Piramide || {};
-    document.getElementById('piramideAtiva').value = pir.ativa ? 'ON' : 'OFF';
-    window.piramideInicioData = pir.inicio || "";
-    window.piramideFimData = pir.fim || "";
-
-    const q1P = pir["Quadra-1"] || {};
-    document.getElementById('piramideQuadra1').checked = q1P["Quadra-1-ativa"] || false;
-    document.getElementById('1-piramideSemana').checked = q1P["1-DiasDeSemana"] || false;
-    document.getElementById('1-piramideExceto17_19').checked = q1P["1-DiasDeSemana-exceto-17-19"] || false;
-    document.getElementById('1-piramideSabado').checked = q1P["1-Sabado"] || false;
-    document.getElementById('1-piramideExceto7_12').checked = q1P["1-Sabado-exceto-7-12"] || false;
-    document.getElementById('1-piramideDomingo').checked = q1P["1-Domingo"] || false;
-    document.getElementById('1-piramideExceto8_12').checked = q1P["1-Domingo-exceto-8-12"] || false;
-
-    const q2P = pir["Quadra-2"] || {};
-    document.getElementById('piramideQuadra2').checked = q2P["Quadra-2-ativa"] || false;
-    document.getElementById('2-piramideSemana').checked = q2P["2-DiasDeSemana"] || false;
-    document.getElementById('2-piramideExceto17_19').checked = q2P["2-DiasDeSemana-exceto-17-19"] || false;
-    document.getElementById('2-piramideSabado').checked = q2P["2-Sabado"] || false;
-    document.getElementById('2-piramideExceto7_12').checked = q2P["2-Sabado-exceto-7-12"] || false;
-    document.getElementById('2-piramideDomingo').checked = q2P["2-Domingo"] || false;
-    document.getElementById('2-piramideExceto8_12').checked = q2P["2-Domingo-exceto-8-12"] || false;
-
-    const q3P = pir["Quadra-3"] || {};
-    document.getElementById('piramideQuadra3').checked = q3P["Quadra-3-ativa"] || false;
-    document.getElementById('3-piramideSemana').checked = q3P["3-DiasDeSemana"] || false;
-    document.getElementById('3-piramideExceto17_19').checked = q3P["3-DiasDeSemana-exceto-17-19"] || false;
-    document.getElementById('3-piramideSabado').checked = q3P["3-Sabado"] || false;
-    document.getElementById('3-piramideExceto7_12').checked = q3P["3-Sabado-exceto-7-12"] || false;
-    document.getElementById('3-piramideDomingo').checked = q3P["3-Domingo"] || false;
-    document.getElementById('3-piramideExceto8_12').checked = q3P["3-Domingo-exceto-8-12"] || false;
-
-    atualizarEstadoPiramide();
-    atualizarCamposPiramideQuadra1();
-    atualizarCamposPiramideQuadra2();
-    atualizarCamposPiramideQuadra3();
-
-    // Duplas
-    const dup = data.Duplas || {};
-    excecoesDuplas = dup.DatasEspeciais || {};
-    document.getElementById('duplasAtiva').value = dup.ativa ? 'ON' : 'OFF';
-    document.getElementById('duplasRanking').value = dup.Ranking ? 'ON' : 'OFF';
-    atualizarEstadoDuplasRanking();
-
-    for (let i = 1; i <= 3; i++) {
-        const k = `Quadra-${i}`;
-        const qD = dup[k] || {};
-        if (dup[k] && dup[k].DiasDeSemanaConfig) diasSemanaDuplasConfig[k] = dup[k].DiasDeSemanaConfig;
-        else diasSemanaDuplasConfig[k] = { segunda: true, terca: true, quarta: true, quinta: true, sexta: true };
-
-        document.getElementById(`duplasQuadra${i}Ativa`).checked = qD[`Quadra-${i}-ativa`] || false;
-        document.getElementById(`${i}-duplasSemana`).checked = qD[`${i}-DiasDeSemana`] || false;
-        document.getElementById(`${i}-duplasSemanaInicio`).value = qD[`${i}-DiasDeSemana-Inicio`] || '';
-        document.getElementById(`${i}-duplasSemanaFim`).value = qD[`${i}-DiasDeSemana-Fim`] || '';
-        document.getElementById(`${i}-duplasSabado`).checked = qD[`${i}-Sabado`] || false;
-        document.getElementById(`${i}-duplasSabadoInicio`).value = qD[`${i}-Sabado-Inicio`] || '';
-        document.getElementById(`${i}-duplasSabadoFim`).value = qD[`${i}-Sabado-Fim`] || '';
-        document.getElementById(`${i}-duplasDomingo`).checked = qD[`${i}-Domingo`] || false;
-        document.getElementById(`${i}-duplasDomingoInicio`).value = qD[`${i}-Domingo-Inicio`] || '';
-        document.getElementById(`${i}-duplasDomingoFim`).value = qD[`${i}-Domingo-Fim`] || '';
-    }
-
-    atualizarEstadoDuplas();
-    for (let i = 1; i <= 3; i++) atualizarCamposDaQuadraDuplas(i);
-
+       
 
     // --- NOVA IMPLEMENTAÇÃO: LIMPEZA DO MURAL ---
     // 1. Recupera o valor salvo no Firebase ou usa 7 como padrão
@@ -5627,89 +6116,6 @@ function salvarConfiguracoes() {
             Quadra2: document.getElementById('estadoQuadra2').value,
             Quadra3: document.getElementById('estadoQuadra3').value,
             Bloqueios: bloqueiosQuadra
-        },
-        Convidados: {
-            DiasDeSemana: document.getElementById('convidadosSemana').checked,
-            FimDeSemana: document.getElementById('convidadosFimDeSemana').checked,
-            Quadra1: document.getElementById('convidadosQuadra1').checked,
-            Quadra2: document.getElementById('convidadosQuadra2').checked,
-            Quadra3: document.getElementById('convidadosQuadra3').checked
-        },
-        Piramide: {
-            ativa: document.getElementById('piramideAtiva').value === 'ON',
-            inicio: window.piramideInicioData || "",
-            fim: window.piramideFimData || "",
-            "Quadra-1": {
-                "Quadra-1-ativa": document.getElementById('piramideQuadra1').checked,
-                "1-DiasDeSemana": document.getElementById('1-piramideSemana').checked,
-                "1-DiasDeSemana-exceto-17-19": document.getElementById('1-piramideExceto17_19').checked,
-                "1-Sabado": document.getElementById('1-piramideSabado').checked,
-                "1-Sabado-exceto-7-12": document.getElementById('1-piramideExceto7_12').checked,
-                "1-Domingo": document.getElementById('1-piramideDomingo').checked,
-                "1-Domingo-exceto-8-12": document.getElementById('1-piramideExceto8_12').checked
-            },
-            "Quadra-2": {
-                "Quadra-2-ativa": document.getElementById('piramideQuadra2').checked,
-                "2-DiasDeSemana": document.getElementById('2-piramideSemana').checked,
-                "2-DiasDeSemana-exceto-17-19": document.getElementById('2-piramideExceto17_19').checked,
-                "2-Sabado": document.getElementById('2-piramideSabado').checked,
-                "2-Sabado-exceto-7-12": document.getElementById('2-piramideExceto7_12').checked,
-                "2-Domingo": document.getElementById('2-piramideDomingo').checked,
-                "2-Domingo-exceto-8-12": document.getElementById('2-piramideExceto8_12').checked
-            },
-            "Quadra-3": {
-                "Quadra-3-ativa": document.getElementById('piramideQuadra3').checked,
-                "3-DiasDeSemana": document.getElementById('3-piramideSemana').checked,
-                "3-DiasDeSemana-exceto-17-19": document.getElementById('3-piramideExceto17_19').checked,
-                "3-Sabado": document.getElementById('3-piramideSabado').checked,
-                "3-Sabado-exceto-7-12": document.getElementById('3-piramideExceto7_12').checked,
-                "3-Domingo": document.getElementById('3-piramideDomingo').checked,
-                "3-Domingo-exceto-8-12": document.getElementById('3-piramideExceto8_12').checked  
-            }
-        },
-        Duplas: {
-            ativa: document.getElementById('duplasAtiva').value === 'ON',
-            Ranking: document.getElementById('duplasRanking').value === 'ON',
-            "Quadra-1": {
-                "Quadra-1-ativa": document.getElementById('duplasQuadra1Ativa').checked,
-                "1-DiasDeSemana": document.getElementById('1-duplasSemana').checked,
-                "1-DiasDeSemana-Inicio": document.getElementById('1-duplasSemanaInicio').value,
-                "1-DiasDeSemana-Fim": document.getElementById('1-duplasSemanaFim').value,
-                "1-Sabado": document.getElementById('1-duplasSabado').checked,
-                "1-Sabado-Inicio": document.getElementById('1-duplasSabadoInicio').value,
-                "1-Sabado-Fim": document.getElementById('1-duplasSabadoFim').value,
-                "1-Domingo": document.getElementById('1-duplasDomingo').checked,
-                "1-Domingo-Inicio": document.getElementById('1-duplasDomingoInicio').value,
-                "1-Domingo-Fim": document.getElementById('1-duplasDomingoFim').value,
-                ...(document.getElementById('1-duplasSemana').checked && { "DiasDeSemanaConfig": diasSemanaDuplasConfig['Quadra-1'] || { segunda: true, terca: true, quarta: true, quinta: true, sexta: true } }) 
-            },
-            "Quadra-2": {
-                "Quadra-2-ativa": document.getElementById('duplasQuadra2Ativa').checked,
-                "2-DiasDeSemana": document.getElementById('2-duplasSemana').checked,
-                "2-DiasDeSemana-Inicio": document.getElementById('2-duplasSemanaInicio').value,
-                "2-DiasDeSemana-Fim": document.getElementById('2-duplasSemanaFim').value,
-                "2-Sabado": document.getElementById('2-duplasSabado').checked,
-                "2-Sabado-Inicio": document.getElementById('2-duplasSabadoInicio').value,
-                "2-Sabado-Fim": document.getElementById('2-duplasSabadoFim').value,
-                "2-Domingo": document.getElementById('2-duplasDomingo').checked,
-                "2-Domingo-Inicio": document.getElementById('2-duplasDomingoInicio').value,
-                "2-Domingo-Fim": document.getElementById('2-duplasDomingoFim').value,
-                ...(document.getElementById('2-duplasSemana').checked && { "DiasDeSemanaConfig": diasSemanaDuplasConfig['Quadra-2'] || { segunda: true, terca: true, quarta: true, quinta: true, sexta: true } }) 
-            },
-            "Quadra-3": {
-                "Quadra-3-ativa": document.getElementById('duplasQuadra3Ativa').checked,
-                "3-DiasDeSemana": document.getElementById('3-duplasSemana').checked,
-                "3-DiasDeSemana-Inicio": document.getElementById('3-duplasSemanaInicio').value,
-                "3-DiasDeSemana-Fim": document.getElementById('3-duplasSemanaFim').value,
-                "3-Sabado": document.getElementById('3-duplasSabado').checked,
-                "3-Sabado-Inicio": document.getElementById('3-duplasSabadoInicio').value,
-                "3-Sabado-Fim": document.getElementById('3-duplasSabadoFim').value,
-                "3-Domingo": document.getElementById('3-duplasDomingo').checked,
-                "3-Domingo-Inicio": document.getElementById('3-duplasDomingoInicio').value,
-                "3-Domingo-Fim": document.getElementById('3-duplasDomingoFim').value,
-                ...(document.getElementById('3-duplasSemana').checked && { "DiasDeSemanaConfig": diasSemanaDuplasConfig['Quadra-3'] || { segunda: true, terca: true, quarta: true, quinta: true, sexta: true } }) 
-            },
-            DatasEspeciais: excecoesDuplas 
         }
     };
 
@@ -5721,7 +6127,6 @@ function salvarConfiguracoes() {
     }
 
     // Injeta Grade de Aulas
-    // (USANDO FOR-EACH PARA NÃO SOBRESCREVER OUTRAS QUADRAS)
     if (Object.keys(carrinhoAulas).length > 0) {
         Object.keys(carrinhoAulas).forEach(quadraKey => {
             updates[`Horarios/Aulas/${quadraKey}`] = carrinhoAulas[quadraKey];
@@ -5735,9 +6140,14 @@ function salvarConfiguracoes() {
         });
     }
 
-    // --- ADICIONADO: Injeta Nova Grade da Pirâmide ---
+    // Injeta Nova Grade da Pirâmide
     if (Object.keys(carrinhoPiramide).length > 0) {
         updates['Horarios/Piramide'] = carrinhoPiramide;
+    }
+
+    // --- NOVO: Injeta Nova Grade de Convidados ---
+    if (Object.keys(carrinhoConvidados).length > 0) {
+        updates['Horarios/Convidados'] = carrinhoConvidados;
     }
 
     // Injeta Horário Padrão (Abre/Fecha)
@@ -5796,9 +6206,12 @@ function salvarConfiguracoes() {
     if (Object.keys(carrinhoDuplas).length > 0) {
         listaAlteracoes.push(`<li><b>Grade de Duplas:</b> Atualizada.</li>`);
     }
-    // --- ADICIONADO: Mensagem da Nova Grade da Pirâmide ---
     if (Object.keys(carrinhoPiramide).length > 0) {
         listaAlteracoes.push(`<li><b>Grade da Pirâmide:</b> Atualizada.</li>`);
+    }
+    // --- NOVO: Mensagem da Nova Grade de Convidados ---
+    if (Object.keys(carrinhoConvidados).length > 0) {
+        listaAlteracoes.push(`<li><b>Grade de Convidados:</b> Atualizada.</li>`);
     }
     
     if (Object.keys(carrinhoHorarioPadrao).length > 0) {
@@ -5822,10 +6235,7 @@ function salvarConfiguracoes() {
     if (domOtimizacao !== otimVelho) {
         listaAlteracoes.push(`<li><b>Otimização:</b> ${otimVelho ? 'ON' : 'OFF'} ➝ <b>${domOtimizacao ? 'ON' : 'OFF'}</b></li>`);
     }
-    const pirVelho = memoria.Piramide?.ativa ? true : false;
-    if (updates.Piramide.ativa !== pirVelho) listaAlteracoes.push(`<li><b>Pirâmide:</b> ${pirVelho ? 'ON' : 'OFF'} ➝ <b>${updates.Piramide.ativa ? 'ON' : 'OFF'}</b></li>`);
-    const dupVelho = memoria.Duplas?.ativa ? true : false;
-    if (updates.Duplas.ativa !== dupVelho) listaAlteracoes.push(`<li><b>Duplas:</b> ${dupVelho ? 'ON' : 'OFF'} ➝ <b>${updates.Duplas.ativa ? 'ON' : 'OFF'}</b></li>`);
+        
 
     // --- 5. ENVIO FINAL ---
     db.ref("sistemas/config").update(updates)
@@ -5847,7 +6257,7 @@ function salvarConfiguracoes() {
             // --- LIMPEZA E RESET ---
             dadosOriginaisCache = JSON.parse(JSON.stringify(updates));
             if (typeof resetarEstadoAlteracao === 'function') {
-                resetarEstadoAlteracao();
+                resetarEstadoAlteracao(); 
             }
         })
         .catch(error => { 
@@ -5953,6 +6363,34 @@ function abrirGerenciadorHorarios(tipo) {
         
         // Inicia na Quadra 1 e já aplica o bloqueio visual se Ativo for false
         selecionarQuadraPiramide('Quadra1'); 
+    }
+	else if (tipo === 'convidados') {
+        // 1. Carrega os dados salvos no banco ou cria um novo limpo
+        if (horariosGlobal && horariosGlobal.Convidados) {
+            configConvidadosGlobal = JSON.parse(JSON.stringify(horariosGlobal.Convidados));
+        } else {
+            configConvidadosGlobal = { Ativo: false, Quadra1: { Ativa: false, Grade: {} }, Quadra2: { Ativa: false, Grade: {} }, Quadra3: { Ativa: false, Grade: {} } };
+        }
+        
+        // 2. Garante que a estrutura existe para não dar erro
+        ['Quadra1', 'Quadra2', 'Quadra3'].forEach(q => {
+            if (!configConvidadosGlobal[q]) configConvidadosGlobal[q] = { Ativa: false, Grade: {} };
+            if (!configConvidadosGlobal[q].Grade) configConvidadosGlobal[q].Grade = {};
+        });
+
+        // --- NOVO: Preenche os campos financeiros com o que veio do banco ---
+        document.getElementById('taxaConvidado').value = configConvidadosGlobal.Taxa || "";
+        const selRecebedor = document.getElementById('recebedorConvidado');
+        if (selRecebedor) selRecebedor.value = configConvidadosGlobal.Recebedor || "";
+        // --------------------------------------------------------------------
+		
+		document.getElementById('whatsappConvidado').value = configConvidadosGlobal.Whatsapp || "";
+
+        // 3. Mostra a janela
+        document.getElementById('modalHorarioConvidados').style.display = 'flex';
+        
+        // 4. A MÁGICA: Pede para desenhar a tabela da Quadra 1!
+        selecionarQuadraConvidados('Quadra1'); 
     }
 
     if (select) select.value = ""; 
@@ -6428,176 +6866,19 @@ function excluirPeriodoSelecionado() {
         if (id === 'reservas') { 
             atualizarEstadoConfirmacao(); 
             atualizarEstadoEdicaoOrganizador(); 
-            atualizarVisualOtimizacao(); 
+            atualizarVisualOtimizacao();  
         }
     }
     
-    function atualizarEstadoSistema() { const s = document.getElementById('sistema'); s.className = s.value === 'ON' ? 'on' : 'off'; }
-    function atualizarEstadoPiramide() {
-        const sel = document.getElementById('piramideAtiva');
-        sel.className = sel.value === 'ON' ? 'piramide-on' : 'piramide-off';
-        const els = document.querySelectorAll('#piramide input, #piramide button');
-        els.forEach(el => el.disabled = sel.value !== 'ON');
-        document.getElementById('piramideInicio').style.display = sel.value==='ON'?'inline':'none';
-        document.getElementById('piramideFim').style.display = sel.value==='ON'?'inline':'none';
-        document.getElementById('piramideSeparador').style.display = sel.value==='ON'?'inline':'none';
-        if(sel.value==='ON') { 
-            document.getElementById('piramideInicio').textContent = formatarData(window.piramideInicioData);
-            document.getElementById('piramideFim').textContent = formatarData(window.piramideFimData);
-            atualizarCamposPiramideQuadra1(); atualizarCamposPiramideQuadra2(); atualizarCamposPiramideQuadra3();
-        }
-        sel.disabled = false;
-    }
+    function atualizarEstadoSistema() { 
+		const s = document.getElementById('sistema'); 
+		s.className = s.value === 'ON' ? 'on' : 'off'; 
+	}
     
 
 
 // --- NOVA LÓGICA PIRÂMIDE (MODERNA) ---
 
-function handlePiramideChange() {
-    const val = document.getElementById("piramideAtiva").value;
-    
-    if(val === 'ON') {
-        // Consulta o banco para ver se já existem datas salvas
-        db.ref('sistemas/config/Piramide').once('value', s => {
-            const c = s.val() || {};
-            
-            if(c.inicio && c.fim) {
-                // Se existirem, pergunta se quer usar elas
-                mostrarConfirmacao(`Datas salvas encontradas: <b>${c.inicio} a ${c.fim}</b>.<br>Deseja mantê-las?`, 
-                    () => { 
-                        // SIM: Usa as datas do banco
-                        window.piramideInicioData = c.inicio; 
-                        window.piramideFimData = c.fim; 
-                        atualizarEstadoPiramide();
-                    },
-                    () => { 
-                        // NÃO: Pergunta novas datas
-                        // (Aqui usamos um pequeno delay para não sobrepor janelas)
-                        setTimeout(() => iniciarFluxoDatasPiramide(), 200);
-                    }
-                );
-            } else {
-                // Se não existirem datas, pede para digitar
-                iniciarFluxoDatasPiramide();
-            }
-        });
-    } else {
-        // Se desligou (OFF)
-        if(window.piramideInicioData) {
-            mostrarConfirmacao("Deseja apagar as datas salvas da memória temporária?", () => {
-                window.piramideInicioData = ""; 
-                window.piramideFimData = "";
-                atualizarEstadoPiramide();
-            });
-        }
-        atualizarEstadoPiramide();
-    }
-}
-
-// Função auxiliar que pede as datas (Substitui os Prompts antigos)
-function iniciarFluxoDatasPiramide() {
-    // 1. Pede a Data Inicial
-    mostrarInput("Configurar Pirâmide", "Digite a <b>Data de Início</b> (dd-mm-aaaa):", "Ex: 01-01-2024", (inicio) => {
-        
-        // Validação da Data Inicial
-        if(!/^\d{2}-\d{2}-\d{4}$/.test(inicio)) {
-            mostrarNotificacao("Formato de data inválido. Use dia-mês-ano (ex: 01-01-2024).", 'error');
-            document.getElementById("piramideAtiva").value = "OFF";
-            return;
-        }
-        
-        // 2. Pede a Data Final (dentro do "OK" da primeira)
-        setTimeout(() => {
-            mostrarInput("Configurar Pirâmide", "Digite a <b>Data de Fim</b> (dd-mm-aaaa):", "Ex: 30-06-2024", (fim) => {
-                
-                // Validação da Data Final
-                if(!/^\d{2}-\d{2}-\d{4}$/.test(fim)) {
-                    mostrarNotificacao("Formato de data inválido.", 'error');
-                    document.getElementById("piramideAtiva").value = "OFF";
-                    return;
-                }
-                
-                // Sucesso! Salva na memória e atualiza a tela
-                window.piramideInicioData = inicio;
-                window.piramideFimData = fim;
-                atualizarEstadoPiramide();
-                mostrarNotificacao("Datas da Pirâmide definidas com sucesso!", 'success');
-            });
-        }, 300); // Delay para transição suave entre janelas
-    });
-}
-
-	
-	
-    
-    function atualizarCamposPiramideQuadra1() { updatePiramideQ('1'); }
-    function atualizarCamposPiramideQuadra2() { updatePiramideQ('2'); }
-    function atualizarCamposPiramideQuadra3() { updatePiramideQ('3'); }
-    function updatePiramideQ(n) {
-        const isOn = document.getElementById('piramideAtiva').value === 'ON';
-        const qOn = document.getElementById(`piramideQuadra${n}`).checked;
-        const ctr = document.getElementById(`piramideQuadra${n}Container`);
-        ctr.querySelectorAll('input').forEach(i => i.disabled = !isOn || !qOn);
-        document.getElementById(`piramideQuadra${n}`).disabled = !isOn;
-        // Logic for checkboxes dependency
-        const sem = document.getElementById(`${n}-piramideSemana`); const excSem = document.getElementById(`${n}-piramideExceto17_19`);
-        if(sem && excSem) excSem.disabled = !isOn || !qOn || !sem.checked;
-        const sab = document.getElementById(`${n}-piramideSabado`); const excSab = document.getElementById(`${n}-piramideExceto7_12`);
-        if(sab && excSab) excSab.disabled = !isOn || !qOn || !sab.checked;
-        const dom = document.getElementById(`${n}-piramideDomingo`); const excDom = document.getElementById(`${n}-piramideExceto8_12`);
-        if(dom && excDom) excDom.disabled = !isOn || !qOn || !dom.checked;
-    }
-
-    function atualizarEstadoDuplas() {
-        const sel = document.getElementById('duplasAtiva');
-        sel.className = sel.value === 'ON' ? 'duplas-on' : 'duplas-off';
-        const tab = document.getElementById('duplas');
-        tab.querySelectorAll('input, button').forEach(e => e.disabled = sel.value !== 'ON');
-        for(let i=1;i<=3;i++) {
-            const l = document.getElementById(`DuplasDiasQuadra${i}`);
-            if(l) l.classList.toggle('disabled', sel.value !== 'ON');
-        }
-        sel.disabled = false;
-        atualizarCamposDaQuadraDuplas(1); atualizarCamposDaQuadraDuplas(2); atualizarCamposDaQuadraDuplas(3);
-    }
-    function atualizarCamposDaQuadraDuplas(n) {
-        const on = document.getElementById('duplasAtiva').value === 'ON';
-        const qOn = document.getElementById(`duplasQuadra${n}Ativa`).checked;
-        const lbl = document.getElementById(`DuplasDiasQuadra${n}`);
-        if(lbl) lbl.classList.toggle('disabled', !on || !qOn);
-        ['Semana','Sabado','Domingo'].forEach(d => {
-            const cb = document.getElementById(`${n}-duplas${d}`);
-            if(cb) {
-                cb.disabled = !on || !qOn;
-                const ctr = cb.closest('.duplas-day-container');
-                ctr.querySelectorAll('.horario-input').forEach(i => i.disabled = !on || !qOn || !cb.checked);
-            }
-        });
-        const semLbl = document.querySelector(`#duplasQuadra${n}Container .dias-semana-label-clickable`);
-        if(semLbl) semLbl.style.cursor = (on && qOn && document.getElementById(`${n}-duplasSemana`).checked) ? 'pointer' : 'default';
-    }
-    function abrirModalDiasSemana(n) {
-        quadraAtualParaDiasSemana = n;
-        document.getElementById('modalDiasSemanaTitulo').innerText = document.querySelector(`#duplasQuadra${n}Container span`).innerText;
-        const c = diasSemanaDuplasConfig[`Quadra-${n}`] || { segunda: true, terca: true, quarta: true, quinta: true, sexta: true };
-        document.getElementById('duplas-segunda').checked = c.segunda; document.getElementById('duplas-terca').checked = c.terca;
-        document.getElementById('duplas-quarta').checked = c.quarta; document.getElementById('duplas-quinta').checked = c.quinta;
-        document.getElementById('duplas-sexta').checked = c.sexta;
-        document.getElementById('modalDiasSemanaDuplas').style.display = 'flex';
-    }
-    function fecharModalDiasSemana() { document.getElementById('modalDiasSemanaDuplas').style.display = 'none'; }
- 
-
-function salvarModalDiasSemana() {
-    if(!quadraAtualParaDiasSemana) return;
-    diasSemanaDuplasConfig[`Quadra-${quadraAtualParaDiasSemana}`] = {
-        segunda: document.getElementById('duplas-segunda').checked, terca: document.getElementById('duplas-terca').checked,
-        quarta: document.getElementById('duplas-quarta').checked, quinta: document.getElementById('duplas-quinta').checked,
-        sexta: document.getElementById('duplas-sexta').checked
-    };
-    mostrarNotificacao('Dias da semana atualizados! Clique em Salvar Configurações no final.', 'success');
-    fecharModalDiasSemana();
-}
 
 	
     db.ref("sistemas/usuariosOnline").on("value", s => {
@@ -6610,70 +6891,19 @@ function salvarModalDiasSemana() {
         mostrarNotificacao(msg, 'info');
     });
 
-    function mostrarQuadra(q) {
-        ['1','2','3'].forEach(n => document.getElementById(`piramideQuadra${n}Container`).style.display = `quadra${n}`===q ? 'block' : 'none');
-        document.querySelectorAll('.piramide-botao').forEach(b => b.classList.remove('ativo'));
-        document.querySelector(`.piramide-botao[onclick="mostrarQuadra('${q}')"]`).classList.add('ativo');
-    }
-    function mostrarDuplasQuadra(q) {
-        ['1','2','3'].forEach(n => document.getElementById(`duplasQuadra${n}Container`).style.display = `quadra${n}`===q ? 'block' : 'none');
-        document.querySelectorAll('.duplas-botao').forEach(b => b.classList.remove('ativo'));
-        document.querySelector(`.duplas-botao[onclick="mostrarDuplasQuadra('${q}')"]`).classList.add('ativo');
-    }
+   
+    
 
     // Exceções e Bloqueios
-    async function abrirModalExcecao(n) {
-        if(!document.getElementById('duplasAtiva').value==='ON' || !document.getElementById(`duplasQuadra${n}Ativa`).checked) return;
-        if(!vlimparExcecoesAntigas) { await limparExcecoesAntigas(); vlimparExcecoesAntigas=true; }
-        quadraAtualParaExcecao = n;
-        renderizarExcecoes(n);
-        document.getElementById('modalDatasEspeciais').style.display = 'flex';
-    }
-    function fecharModalExcecao() { document.getElementById('modalDatasEspeciais').style.display = 'none'; }
-    function renderizarExcecoes(n) {
-        const div = document.getElementById('listaExcecoes'); div.innerHTML='';
-        const k = `Quadra-${n}`; const ex = excecoesDuplas[k] || {};
-        if(Object.keys(ex).length===0) { div.innerHTML='<p>Nenhuma exceção.</p>'; return; }
-        const ul = document.createElement('ul');
-        Object.keys(ex).sort().forEach(d => {
-            const li = document.createElement('li');
-            li.innerHTML = `<div><div><strong>${formatarData(d)}</strong></div><div style="font-size:0.9em;color:#666">${ex[d].descricao||''}</div><div>${ex[d].regras.inicio}-${ex[d].regras.fim}</div></div><button class="btn-remover" onclick="removerExcecao('${k}','${d}')">X</button>`;
-            ul.appendChild(li);
-        });
-        div.appendChild(ul);
-    }
+    
+    
+    
 	
 	
-function adicionarExcecao() {
-    const desc=document.getElementById('excecaoDescricao').value;
-    const d=document.getElementById('excecaoData').value;
-    const i=document.getElementById('excecaoInicio').value;
-    const f=document.getElementById('excecaoFim').value;
-    
-    if(!d||!i||!f) return mostrarNotificacao("Preencha Data, Início e Fim.", 'warning');
-    
-    const dp = d.replace(/-/g,'/'); 
-    if(!/^\d{2}\/\d{2}\/\d{4}$/.test(dp)) return mostrarNotificacao("Data inválida.", 'error');
-    
-    const p = dp.split('/'); const dbDate = `${p[2]}-${p[1]}-${p[0]}`;
-    const k = `Quadra-${quadraAtualParaExcecao}`;
-    
-    db.ref().update({
-        [`sistemas/config/Duplas/DatasEspeciais/${k}/${dbDate}`]: { descricao:desc, regras:{inicio:i,fim:f} },
-        [`sistemas/config/Duplas/${k}/${k}-ativa`]: true
-    }).then(()=>{ 
-        mostrarNotificacao("Exceção adicionada!", 'success');
-        renderizarExcecoes(quadraAtualParaExcecao); 
-    });
-}
+
 	
 	
-function removerExcecao(k, d) { 
-    mostrarConfirmacao("Deseja remover esta exceção?", () => {
-        db.ref(`sistemas/config/Duplas/DatasEspeciais/${k}/${d}`).remove();
-        mostrarNotificacao("Exceção removida.", 'success');
-    });
-}
+
     
     async function abrirModalBloqueio(n) {
         if(!vlimparBloqueiosAntigos) { await limparBloqueiosAntigos(); vlimparBloqueiosAntigos=true; }
@@ -6728,7 +6958,7 @@ function removerBloqueio(k, d) {
     });
 }
     
-    function limparExcecoesAntigas() { return limparAntigos(excecoesDuplas, 'Duplas/DatasEspeciais'); }
+    
     function limparBloqueiosAntigos() { return limparAntigos(bloqueiosQuadra, 'Quadras/Bloqueios'); }
     function limparAntigos(obj, pathMid) {
         const d7 = new Date(); d7.setDate(d7.getDate()-7); d7.setHours(0,0,0,0);
@@ -6769,36 +6999,16 @@ function handleEstadoQuadraChange(el, n) {
     document.addEventListener("DOMContentLoaded", function() { 
         showTab('reservas');
         
-        for(let i=1; i<=3; i++) {
-            const cb = document.getElementById(`${i}-duplasSemana`);
-            const lbl = document.querySelector(`#duplasQuadra${i}Container .dias-semana-label-clickable`);
-            if(cb) cb.addEventListener('change', () => atualizarCamposDaQuadraDuplas(i));
-            if(lbl) lbl.addEventListener('click', () => { if(document.getElementById(`duplasQuadra${i}Ativa`).checked && cb.checked) abrirModalDiasSemana(i); });
-            document.getElementById(`${i}-duplasSabado`).addEventListener('change', () => atualizarCamposDaQuadraDuplas(i));
-            document.getElementById(`${i}-duplasDomingo`).addEventListener('change', () => atualizarCamposDaQuadraDuplas(i));
-            const ld = document.getElementById(`DuplasDiasQuadra${i}`);
-            if(ld) ld.addEventListener('dblclick', () => abrirModalExcecao(i));
-        }
+        
 
-        const inputs = document.querySelectorAll('.horario-input'); 
-        inputs.forEach(i => {
-            i.addEventListener('input', formatarHorario);
-            i.setAttribute('inputmode', 'numeric');
-            i.setAttribute('maxlength', '5');
-        });
+        
 
         // Configurar Hold Events
         setupHoldEvent(document.getElementById('estadoQuadra1'), () => handleEstadoQuadraChange(document.getElementById('estadoQuadra1'), 1));
         setupHoldEvent(document.getElementById('estadoQuadra2'), () => handleEstadoQuadraChange(document.getElementById('estadoQuadra2'), 2));
         setupHoldEvent(document.getElementById('estadoQuadra3'), () => handleEstadoQuadraChange(document.getElementById('estadoQuadra3'), 3));
-        //setupHoldEvent(document.getElementById('quebraHorarioDomingoAtiva'), handleQuebraHorarioChange);
 		setupHoldEvent(document.getElementById('otimizacaoHorarios'), mudarOtimizacao);
         
-		/*
-		// CORREÇÃO: Aponta para o novo ID
-		const elPerfil = document.getElementById('perfilSelect');
-		if(elPerfil) setupHoldEvent(elPerfil, excluirAdministrador);
-		*/
 
         // Tooltips
         const addTip = (id) => {
@@ -6811,7 +7021,7 @@ function handleEstadoQuadraChange(el, n) {
 			}
 		};
         addTip('reservasPorConfirmacao'); addTip('horasParaExpirar'); addTip('edicaoOrganizador'); addTip('otimizacaoHorarios');
-        addTip('labelDuplasRanking');
+
     });
 
     // Helpers UI
@@ -6822,12 +7032,7 @@ function handleEstadoQuadraChange(el, n) {
         if(v.length>5) v=v.substring(0,5)+'/'+v.substring(5);
         e.target.value = v;
     }
-    function formatarHorario(e) {
-        let v = e.target.value.replace(/\D/g, '');
-        if(v.length>4) v=v.substring(0,4);
-        if(v.length>2) v=v.slice(0,-2)+':'+v.slice(-2);
-        e.target.value = v;
-    }
+    
     function atualizarEstadoConfirmacao() {
         const s = document.getElementById('reservasPorConfirmacao');
         document.getElementById('horasParaExpirar').disabled = s.value !== 'ON';
@@ -6874,29 +7079,24 @@ function salvarModalQuebraHorario() {
     mostrarNotificacao("Seleção confirmada! Não esqueça de clicar em 'Salvar Configurações' no final.", 'success');
 }
 	
-    function atualizarEstadoDuplasRanking() {
-        const s = document.getElementById('duplasRanking'); const l = document.getElementById('labelDuplasRanking');
-        s.className = s.value==='ON'?'ranking-on':'ranking-off';
-        if(l) l.classList.toggle('clickable-reset', s.value!=='ON');
-    }
+    
     function setupHoldEvent(el, cb) {
         let t;
         el.addEventListener('touchstart', () => t=setTimeout(cb,700));
         el.addEventListener('touchend', () => clearTimeout(t));
         el.addEventListener('touchmove', () => clearTimeout(t));
     }
-    // Ranking Reset Logic
-    document.addEventListener('DOMContentLoaded', () => {
-        const lbl = document.getElementById('labelDuplasRanking');
-        if(!lbl) return;
-        let c=0; let t=null;
-        lbl.addEventListener('click', () => {
-            c++;
-            if(c===1) t=setTimeout(()=>c=0,600);
-            if(c===3) { clearTimeout(t); c=0; if(document.getElementById('duplasRanking').value==='OFF' && confirm("Zerar Ranking?") && confirm("Certeza?")) zerarRankingDuplas(); }
-        });
-    });
-	
+    
+
+
+function acionarZerarRanking() {
+    // Fecha o menu de 3 pontinhos
+    const menu = document.getElementById('menuDropdownDuplas');
+    if (menu) menu.style.display = 'none';
+    
+    // Chama a função original que zera tudo
+    zerarRankingDuplas();
+}	
 	
 async function zerarRankingDuplas() {
     const snap = await db.ref('sistemas/cadastro/jogadores').once('value'); const j=snap.val();
@@ -6907,10 +7107,7 @@ async function zerarRankingDuplas() {
     
     if(!count) return mostrarNotificacao("Nada a zerar.", 'info');
     
-    mostrarConfirmacao("Deseja ZERAR o ranking de duplas?", async () => {
-        // Segunda confirmação de segurança (opcional, mas recomendada para ações destrutivas)
-        // Como nosso modal é simples, vamos confiar em uma só ou usar um toast forte antes.
-        // Vamos direto para a ação:
+    mostrarConfirmacao("⚠️ ATENÇÃO: Tem certeza absoluta que deseja ZERAR todo o Ranking de Duplas? Todos os pontos e vitórias de todos os jogadores serão apagados permanentemente.", async () => {
         await db.ref().update(up); 
         mostrarNotificacao("Ranking Zerado!", 'success');
     });
@@ -7937,6 +8134,16 @@ window.addEventListener('click', function(e) {
             menuPiramide.style.display = 'none'; // ...então fecha o menu.
         }
     }
+	
+	// 3. Vigia o menu de Convidados
+    const menuConvidados = document.getElementById('menuDropdownConvidados');
+    const btnConvidados = document.getElementById('btnKebabConvidados');
+    if (menuConvidados && menuConvidados.style.display === 'block') {
+        if (!menuConvidados.contains(e.target) && (!btnConvidados || !btnConvidados.contains(e.target))) {
+            menuConvidados.style.display = 'none'; 
+        }
+    }
+	
 });
 
 
@@ -8388,6 +8595,8 @@ function fecharModalHorarioPiramide() {
 
 
 
+
+
 // ==========================================
 // CONTROLE DE DATAS DO TORNEIO DA PIRÂMIDE
 // ==========================================
@@ -8461,6 +8670,376 @@ function salvarDataPiramide() {
     marcarComoAlterado();
 }
 
+
+/* ================================================================= */
+/* ===           MÓDULO DE LÓGICA: HORÁRIO DE CONVIDADOS         === */
+/* ================================================================= */
+
+function selecionarQuadraConvidados(quadraKey) {
+    quadraConvidadosAtual = quadraKey;
+
+    // 1. GERENCIAMENTO VISUAL DAS ABAS
+    for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById(`tabConvidadosQ${i}`);
+        if (btn) {
+            if (`Quadra${i}` === quadraKey) {
+                btn.classList.add('active');
+                btn.style.setProperty('background-color', '#4CAF50', 'important'); 
+                btn.style.setProperty('color', 'white', 'important');
+            } else {
+                btn.classList.remove('active');
+                btn.style.backgroundColor = '#f1f1f1';
+                btn.style.color = '#555';
+            }
+        }
+    }
+
+    // 2. TÍTULO
+    const nomes = { 'Quadra1': 'Quadra 1 - Coberta', 'Quadra2': 'Quadra 2 - Aberta', 'Quadra3': 'Quadra 3 - Coberta' };
+    const elTitulo = document.getElementById('tituloConvidadosQuadra');
+    if (elTitulo) elTitulo.innerText = nomes[quadraKey];
+
+    // 3. GARANTE EXISTÊNCIA
+    if (!configConvidadosGlobal[quadraKey]) configConvidadosGlobal[quadraKey] = { Ativa: false, Grade: {} };
+
+    // 4. SINCRONIZA MENU E CHECKBOX
+    const switchAtivar = document.getElementById('switchAtivarConvidados');
+    if (switchAtivar) switchAtivar.checked = configConvidadosGlobal.Ativo || false;
+
+    const chkAtivarQuadra = document.getElementById('checkboxAtivarQuadraConvidados');
+    if (chkAtivarQuadra) {
+        chkAtivarQuadra.checked = configConvidadosGlobal[quadraKey].Ativa === true;
+        chkAtivarQuadra.disabled = !configConvidadosGlobal.Ativo;
+        const labelSpan = chkAtivarQuadra.nextElementSibling;
+        if (labelSpan) labelSpan.style.color = configConvidadosGlobal.Ativo ? '#2e7d32' : '#999';
+    }
+
+    atualizarVisualConvidados();
+    renderizarTabelaConvidados();
+}
+
+function renderizarTabelaConvidados() {
+    const tbody = document.getElementById('tabelaHorariosConvidados');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    const dadosQuadra = configConvidadosGlobal[quadraConvidadosAtual] || { Grade: {} };
+    const grade = dadosQuadra.Grade || {};
+
+    for (let h = 6; h <= 22; h++) {
+        const tr = document.createElement('tr');
+        const txtHora = `${String(h).padStart(2, '0')}:00 - ${String(h + 1).padStart(2, '0')}:00`;
+
+        let tdEsq = document.createElement('td');
+        tdEsq.className = "sem-selecao";
+        tdEsq.textContent = txtHora;
+        tdEsq.ondblclick = () => alternarTelaCheiaConvidados();
+        tr.appendChild(tdEsq);
+
+        for (let dia = 1; dia <= 7; dia++) {
+            const td = document.createElement('td');
+            const key = `${dia}_${h}`; 
+
+            const regrasPadrao = obterRegrasPadrao(dia);
+            const estaAberto = verificarSeAbertoNoPadrao(regrasPadrao, h);
+
+            if (!estaAberto) {
+                td.className = 'aula-cell-bloqueada';
+            } else {
+                // NOVA LÓGICA DE CORES: Vazia (Padrão) ou Vermelha (exceto)
+                if (grade[key]) {
+                    td.className = "aula-cell-marcada";
+                    td.style.backgroundColor = "#ff3b30"; // Vermelho
+                    td.style.color = "white";
+                    td.textContent = "exceto";
+                } else {
+                    td.className = "aula-cell-livre";
+                    td.style.backgroundColor = ""; // Deixa sem cor
+                    td.style.color = ""; // Deixa sem cor de texto
+                    td.textContent = ""; // Fica totalmente vazia
+                }
+                td.style.cursor = "pointer";
+
+                // CLIQUE NA CÉLULA
+                td.onclick = () => {
+                    const isQuadraAtiva = configConvidadosGlobal[quadraConvidadosAtual] && configConvidadosGlobal[quadraConvidadosAtual].Ativa === true;
+                    if (!configConvidadosGlobal.Ativo || !isQuadraAtiva) return;
+
+                    if (grade[key]) {
+                        delete grade[key];
+                        td.className = "aula-cell-livre";
+                        td.style.backgroundColor = "";
+                        td.style.color = ""; 
+                        td.textContent = ""; // Volta a ficar vazia
+                    } else {
+                        grade[key] = true;
+                        td.className = "aula-cell-marcada";
+                        td.style.backgroundColor = "#ff3b30"; // Vermelho
+                        td.style.color = "white"; 
+                        td.textContent = "exceto"; // Fica marcada com 'exceto'
+                    }
+                    marcarComoAlterado();
+                };
+            }
+            tr.appendChild(td);
+        }
+
+        let tdDir = document.createElement('td');
+        tdDir.className = "sem-selecao";
+        tdDir.textContent = txtHora;
+        tdDir.ondblclick = () => alternarTelaCheiaConvidados();
+        tr.appendChild(tdDir);
+
+        tbody.appendChild(tr);
+    }
+}
+
+
+// === FUNÇÕES DE CONTROLE (Ativar, Menu, Limpar) ===
+
+function toggleMenuConvidados(e) {
+    if(e) e.stopPropagation();
+    const menu = document.getElementById('menuDropdownConvidados');
+    if(menu) menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+}
+
+function toggleAtivarConvidados(checked) {
+    configConvidadosGlobal.Ativo = checked;
+    const chkAtivarQuadra = document.getElementById('checkboxAtivarQuadraConvidados');
+    if (chkAtivarQuadra) {
+        chkAtivarQuadra.disabled = !checked;
+        const labelSpan = chkAtivarQuadra.nextElementSibling;
+        if (labelSpan) labelSpan.style.color = checked ? '#2e7d32' : '#999';
+    }
+    atualizarVisualConvidados();
+    renderizarTabelaConvidados();
+    marcarComoAlterado();
+}
+
+function toggleAtivarQuadraConvidados(isAtivo) {
+    if (!configConvidadosGlobal.Ativo) {
+        document.getElementById('checkboxAtivarQuadraConvidados').checked = false;
+        return;
+    }
+    if (!configConvidadosGlobal[quadraConvidadosAtual]) configConvidadosGlobal[quadraConvidadosAtual] = { Grade: {} };
+    
+    configConvidadosGlobal[quadraConvidadosAtual].Ativa = isAtivo;
+    atualizarVisualConvidados();
+    marcarComoAlterado();
+}
+
+function atualizarVisualConvidados() {
+    const tabela = document.querySelector('#modalHorarioConvidados .tabela-horarios-scroll');
+    const btnSelecionar = document.querySelector('#modalHorarioConvidados .btn-mini:not(.outline)');
+    const btnLimpar = document.querySelector('#modalHorarioConvidados .btn-mini.outline');
+    
+    const chefeAtivo = configConvidadosGlobal.Ativo === true;
+    const quadraAtiva = configConvidadosGlobal[quadraConvidadosAtual] && configConvidadosGlobal[quadraConvidadosAtual].Ativa === true;
+    const telaLiberada = chefeAtivo && quadraAtiva;
+
+    if (telaLiberada) {
+        if (tabela) { 
+            tabela.style.setProperty('opacity', '1', 'important'); 
+            tabela.style.setProperty('pointer-events', 'auto', 'important'); 
+            tabela.style.setProperty('filter', 'none', 'important'); 
+        }
+        if (btnSelecionar) {
+            btnSelecionar.classList.remove('btn-acao-desativado');
+            btnSelecionar.style.removeProperty('background-color');
+            btnSelecionar.style.removeProperty('color');
+            btnSelecionar.style.removeProperty('cursor');
+            btnSelecionar.style.removeProperty('pointer-events');
+            btnSelecionar.style.removeProperty('opacity');
+        }
+        if (btnLimpar) {
+            btnLimpar.classList.remove('btn-acao-desativado');
+            btnLimpar.style.removeProperty('background-color');
+            btnLimpar.style.removeProperty('color');
+            btnLimpar.style.removeProperty('cursor');
+            btnLimpar.style.removeProperty('pointer-events');
+            btnLimpar.style.removeProperty('opacity');
+        }
+    } else {
+        if (tabela) { 
+            tabela.style.setProperty('opacity', '0.5', 'important'); 
+            tabela.style.setProperty('pointer-events', 'none', 'important'); 
+            tabela.style.setProperty('filter', 'grayscale(100%)', 'important'); 
+        }
+        if (btnSelecionar) {
+            btnSelecionar.classList.add('btn-acao-desativado');
+            btnSelecionar.style.setProperty('background-color', '#e0e0e0', 'important');
+            btnSelecionar.style.setProperty('color', '#999999', 'important');
+            btnSelecionar.style.setProperty('cursor', 'not-allowed', 'important');
+            btnSelecionar.style.setProperty('pointer-events', 'none', 'important');
+            btnSelecionar.style.setProperty('opacity', '0.6', 'important');
+        }
+        if (btnLimpar) {
+            btnLimpar.classList.add('btn-acao-desativado');
+            btnLimpar.style.setProperty('background-color', '#e0e0e0', 'important');
+            btnLimpar.style.setProperty('color', '#999999', 'important');
+            btnLimpar.style.setProperty('cursor', 'not-allowed', 'important');
+            btnLimpar.style.setProperty('pointer-events', 'none', 'important');
+            btnLimpar.style.setProperty('opacity', '0.6', 'important'); 
+        }
+    }
+}
+
+
+function selecionarTudoConvidados() {
+    const isQuadraAtiva = configConvidadosGlobal[quadraConvidadosAtual] && configConvidadosGlobal[quadraConvidadosAtual].Ativa === true;
+    if (!configConvidadosGlobal.Ativo || !isQuadraAtiva) return;
+
+    const grade = configConvidadosGlobal[quadraConvidadosAtual].Grade;
+    for (let d = 1; d <= 7; d++) {
+        for (let h = 6; h <= 22; h++) {
+            if (verificarSeAbertoNoPadrao(obterRegrasPadrao(d), h)) {
+                grade[`${d}_${h}`] = true;
+            }
+        }
+    }
+    renderizarTabelaConvidados();
+    marcarComoAlterado();
+}
+
+function limparTudoConvidados() {
+    const isQuadraAtiva = configConvidadosGlobal[quadraConvidadosAtual] && configConvidadosGlobal[quadraConvidadosAtual].Ativa === true;
+    if (!configConvidadosGlobal.Ativo || !isQuadraAtiva) return;
+
+    configConvidadosGlobal[quadraConvidadosAtual].Grade = {};
+    renderizarTabelaConvidados();
+    marcarComoAlterado();
+}
+
+function salvarConvidados() {
+    configConvidadosGlobal.Ativo = document.getElementById('switchAtivarConvidados').checked;
+    
+    // --- NOVO: Captura os valores financeiros digitados ---
+    configConvidadosGlobal.Taxa = document.getElementById('taxaConvidado').value;
+    configConvidadosGlobal.Recebedor = document.getElementById('recebedorConvidado').value;
+	configConvidadosGlobal.Whatsapp = document.getElementById('whatsappConvidado').value;
+
+    carrinhoConvidados = JSON.parse(JSON.stringify(configConvidadosGlobal));
+    
+    if (!horariosGlobal) horariosGlobal = {};
+    horariosGlobal.Convidados = carrinhoConvidados;
+
+    fecharModalHorarioConvidados();
+    marcarComoAlterado();
+    mostrarNotificacao("Horários de Convidados no carrinho!", "info");
+}
+
+let ultimoTempoCliqueConvidados = 0;
+function tratarCliqueHorarioConvidados(event) {
+    if (window.getSelection) window.getSelection().removeAllRanges();
+    const tempoAtual = new Date().getTime();
+    if (tempoAtual - ultimoTempoCliqueConvidados < 300 && tempoAtual - ultimoTempoCliqueConvidados > 0) {
+        alternarTelaCheiaConvidados();
+        ultimoTempoCliqueConvidados = 0;
+    } else {
+        ultimoTempoCliqueConvidados = tempoAtual;
+    }
+}
+
+function alternarTelaCheiaConvidados() {
+    if (window.getSelection) window.getSelection().removeAllRanges();
+    const modalContent = document.querySelector('#modalHorarioConvidados .modal-content');
+    if (modalContent) modalContent.classList.toggle('maximizado');
+}
+
+function fecharModalHorarioConvidados() {
+    document.getElementById('modalHorarioConvidados').style.display = 'none';
+}
+
+
+function carregarListaFinanceiro() {
+    db.ref('sistemas/cadastro/jogadores').on('value', snapshot => {
+        const select = document.getElementById('recebedorConvidado');
+        if (!select) return;
+        
+        // Guarda o valor que estava selecionado para não apagar quando atualizar
+        const valorAntes = select.value; 
+
+        const jogadores = snapshot.val() || {};
+        
+        // Limpa e recria a opção padrão
+        select.innerHTML = '<option value="">Selecione...</option>';
+        
+        const listaNomesValidos = []; 
+
+        Object.keys(jogadores).forEach(key => {
+            const dados = jogadores[key];
+            
+            // Verifica se o jogador tem o perfil "Financeiro" ativado
+            const ehFinanceiro = dados.perfis && dados.perfis['Financeiro'] === true;
+
+            if (ehFinanceiro) {
+                const nomeExibicao = dados.apelido ? dados.apelido : key;
+                // Separa o nome por espaços, põe a primeira letra de cada palavra em maiúscula e volta a juntar
+				const nomeFormatado = nomeExibicao.split(' ').map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase()).join(' ');
+                listaNomesValidos.push(nomeFormatado);
+            }
+        });
+
+        // Ordena por ordem alfabética
+        listaNomesValidos.sort();
+
+        // Adiciona as opções no menu
+        listaNomesValidos.forEach(nome => {
+            const option = document.createElement('option');
+            option.value = nome;
+            option.textContent = nome;
+            select.appendChild(option);
+        });
+
+        // Tenta manter selecionado o que já estava ou o que veio do banco de dados
+        if (valorAntes && listaNomesValidos.includes(valorAntes)) {
+            select.value = valorAntes;
+        } else if (configConvidadosGlobal && configConvidadosGlobal.Recebedor && listaNomesValidos.includes(configConvidadosGlobal.Recebedor)) {
+            select.value = configConvidadosGlobal.Recebedor;
+        } else {
+            select.value = ""; 
+        }
+    });
+}
+
+function aplicarMascaraReal(elemento) {
+    // Remove tudo que não for número
+    let valor = elemento.value.replace(/\D/g, ''); 
+    
+    if (valor === '') {
+        elemento.value = '';
+        return;
+    }
+    
+    // Divide por 100 para ter os centavos
+    valor = (parseInt(valor, 10) / 100).toFixed(2);
+    
+    // Troca o ponto pela vírgula e coloca os pontos de milhar
+    valor = valor.replace('.', ',');
+    valor = valor.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+    
+    // Devolve o valor formatado para o campo
+    elemento.value = valor;
+}
+
+function aplicarMascaraTelefone(elemento) {
+    // Remove tudo que não for número
+    let valor = elemento.value.replace(/\D/g, ''); 
+    
+    // Limita a 11 dígitos no máximo (DDD + 9 números)
+    if (valor.length > 11) valor = valor.slice(0, 11); 
+    
+    // Aplica a formatação (XX) XXXXX-XXXX
+    if (valor.length > 2) {
+        valor = '(' + valor.substring(0, 2) + ') ' + valor.substring(2);
+    }
+    if (valor.length > 9) {
+        valor = valor.substring(0, 10) + '-' + valor.substring(10);
+    }
+    
+    // Devolve formatado para o campo
+    elemento.value = valor;
+}
 
 </script>
 </body>
