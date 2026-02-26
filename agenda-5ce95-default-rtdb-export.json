@@ -147,6 +147,7 @@
           "niver": "01/01/2001",
           "perfis": {
             "Admin": true,
+            "Financeiro": true,
             "Professor": true
           },
           "piramide": "38",
@@ -269,6 +270,7 @@
           "jogosDeDuplasJogados": 0,
           "niver": "01/01/2001",
           "perfis": {
+            "Financeiro": true,
             "Árbitro": true
           },
           "piramide": "81",
@@ -1126,60 +1128,6 @@
         "Quadra3": false
       },
       "DiasParaLimpar": 3,
-      "Duplas": {
-        "Quadra-1": {
-          "1-DiasDeSemana": false,
-          "1-DiasDeSemana-Fim": "",
-          "1-DiasDeSemana-Inicio": "",
-          "1-Domingo": false,
-          "1-Domingo-Fim": "",
-          "1-Domingo-Inicio": "",
-          "1-Sabado": false,
-          "1-Sabado-Fim": "",
-          "1-Sabado-Inicio": "",
-          "Quadra-1-ativa": false
-        },
-        "Quadra-2": {
-          "2-DiasDeSemana": true,
-          "2-DiasDeSemana-Fim": "",
-          "2-DiasDeSemana-Inicio": "",
-          "2-Domingo": false,
-          "2-Domingo-Fim": "",
-          "2-Domingo-Inicio": "",
-          "2-Sabado": false,
-          "2-Sabado-Fim": "",
-          "2-Sabado-Inicio": "",
-          "DiasDeSemanaConfig": {
-            "quarta": true,
-            "quinta": true,
-            "segunda": true,
-            "sexta": true,
-            "terca": true
-          },
-          "Quadra-2-ativa": false
-        },
-        "Quadra-3": {
-          "3-DiasDeSemana": true,
-          "3-DiasDeSemana-Fim": "19:00",
-          "3-DiasDeSemana-Inicio": "17:00",
-          "3-Domingo": false,
-          "3-Domingo-Fim": "",
-          "3-Domingo-Inicio": "",
-          "3-Sabado": false,
-          "3-Sabado-Fim": "",
-          "3-Sabado-Inicio": "",
-          "DiasDeSemanaConfig": {
-            "quarta": true,
-            "quinta": false,
-            "segunda": true,
-            "sexta": false,
-            "terca": false
-          },
-          "Quadra-3-ativa": true
-        },
-        "Ranking": true,
-        "ativa": true
-      },
       "Horarios": {
         "Aulas": {
           "Quadra1": {
@@ -1290,21 +1238,29 @@
           },
           "Quadra3": {
             "Ativa": false
-          }
+          },
+          "Recebedor": "Ana Maria Marinho",
+          "Taxa": "15,00",
+          "Whatsapp": "(41) 99917-6972"
         },
         "Duplas": {
           "Ativo": true,
           "Quadra1": {
             "Ativo": true,
             "Grade": {
-              "1_6": true
+              "1_8": true,
+              "1_9": true,
+              "3_8": true,
+              "3_9": true,
+              "5_8": true,
+              "5_9": true
             }
           },
           "Quadra2": {
             "Ativo": false
           },
           "Quadra3": {
-            "Ativo": false
+            "Ativo": true
           },
           "Ranking": true
         },
@@ -1540,7 +1496,8 @@
               "2_6": true,
               "3_6": true,
               "4_6": true,
-              "5_6": true
+              "5_6": true,
+              "5_7": true
             }
           },
           "Quadra3": {
@@ -1570,6 +1527,20 @@
             "super_admin": true
           }
         },
+        "Financeiro": {
+          "abreviacao": "Financ",
+          "cor": "#007bff",
+          "descricao": "Criado via Configurações",
+          "permissoes": {
+            "acesso_config": true,
+            "controle_quadras": false,
+            "gerir_reservas": false,
+            "gestao_jogadores": false,
+            "gestor_aulas": false,
+            "gestor_torneios": false,
+            "super_admin": false
+          }
+        },
         "Manutenção": {
           "abreviacao": "Manut",
           "cor": "#6f42c1",
@@ -1578,6 +1549,20 @@
             "acesso_config": false,
             "controle_quadras": true,
             "gerir_reservas": false,
+            "gestao_jogadores": false,
+            "gestor_aulas": false,
+            "gestor_torneios": false,
+            "super_admin": false
+          }
+        },
+        "Operador": {
+          "abreviacao": "Oper",
+          "cor": "#007bff",
+          "descricao": "Criado via Configurações",
+          "permissoes": {
+            "acesso_config": false,
+            "controle_quadras": true,
+            "gerir_reservas": true,
             "gestao_jogadores": false,
             "gestor_aulas": false,
             "gestor_torneios": false,
