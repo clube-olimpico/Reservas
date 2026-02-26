@@ -33,7 +33,7 @@
 
 /* Estilos globais */ 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif; 
     margin: 0;
     padding: 0;
     /* Adicionado para dar espaço para o Cabeçalho Novo + Abas */
@@ -7048,8 +7048,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ****** 
 
-const VersaoSistema = 'v2.1.7'; // Versão atual do sistema     
-const DataVersaoSistema = '14/02/2026';     
+const VersaoSistema = 'v2.1.8'; // Versão atual do sistema     
+const DataVersaoSistema = '26/02/2026';     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -7057,8 +7057,8 @@ let vPermitirExclusaoAposJogo = false; // Mude para true para permitir que usuá
 
 //******************************************************** 
 
-let piramideInicioTorneio = null;    
-let piramideFimTorneio = null;
+//let piramideInicioTorneio = null;    
+//let piramideFimTorneio = null;
 let piramideAtivaGlobal = false; 
 
 let vatualizarOpcoesHorario = true; // inicialmente atualizar o campo Horário 
@@ -7077,8 +7077,12 @@ const jogadoresRestritos = ["YURI HARDER", "EDUARDO BERGMAN","BIANCA KROKER","MA
 let quadrasInativas = new Set();
 let reservasPorQuadra = {};
 let quadraSelecionada = 'Quadra 1 - Coberta'; 
+
 let duplasConfigGlobais = {}; 
-let convidadoConfigGlobais = {};
+let piramideConfigGlobais = {};
+let convidadosConfigGlobais = {};
+
+
 let bloqueiosQuadra = {};
 let horasParaExpirarConfig = 2; // Define um padrão de 2 horas
 let vReservasPorConfirmacao = false; // Padrão: desligado
@@ -7089,8 +7093,7 @@ let otimizacaoGlobal = { ativa: false, quadras: {} };
 
 let exclusaoEmAndamento = false;
 let agendamentoEmAndamento = false;
-//let administradores = [];
-let rankingDuplasAtivo = false;
+
 let delegacaoEmAndamento = null; // Variável para guardar o contexto da delegação
 let listenerJogadoresOnline = null; // Variável para controlar o monitoramento em tempo real
 
@@ -7389,12 +7392,11 @@ function InicializarSistema() {
 		        
 				
 
-                // Verifica se a pirâmide está ativa (em tempo real)
-                const piramideAtiva = config?.Piramide?.ativa || false; // Valor padrão: false
+                // Verifica se a pirâmide está ativa (em tempo real) usando a NOVA MATRIZ
+                const piramideAtiva = config?.Horarios?.Piramide?.Ativo === true; 
 				piramideAtivaGlobal = piramideAtiva;
-				piramideInicioTorneio = config?.Piramide?.inicio || null;
-				piramideFimTorneio = config?.Piramide?.fim || null;
-                const duracaoSelect = document.getElementById('duracao');
+				
+				const duracaoSelect = document.getElementById('duracao');
                 const piramideOption = duracaoSelect?.querySelector('option[value="3-piramide"]');
 
                 if (piramideOption) {
@@ -7403,18 +7405,10 @@ function InicializarSistema() {
                 
                 // Atualiza a legenda com base no estado da Pirâmide
                 atualizarLegenda(piramideAtiva);
-                
-                if (piramideAtiva) {
-                    window.config = window.config || {};
-                    window.config.Piramide = config.Piramide;
-                }
 
                 if (config) {
                     window.DiasParaLimpar = config.DiasParaLimpar || 4;
-                    //window.vDomingo = config.vDomingo || "fechado";
-                    //window.vDomingoAte = config.vDomingoAte || "23:00"; // Valor padrão caso não esteja definido
-					//window.vDomingo = config.vDomingo || "fechado";
-					//window.vDomingoAte = config.vDomingoAte || "23:00";
+                    
 
 					// --- NOVA LÓGICA DE DETECÇÃO UNIVERSAL ---
                     // Converte toda a configuração recebida em texto para comparar
@@ -7433,22 +7427,22 @@ function InicializarSistema() {
                     stringConfiguracaoAnterior = stringConfiguracaoAtual;
                     // ------------------------------------------
 					
-					duplasConfigGlobais = config.Duplas || {}; // Carrega a config de Duplas na variável global
 					
-				    convidadoConfigGlobais = config.Convidados || {}; // Carrega a config de Convidados
+					// Puxa as novas matrizes de horários
+					duplasConfigGlobais = (config.Horarios && config.Horarios.Duplas) ? config.Horarios.Duplas : {};
+					piramideConfigGlobais = (config.Horarios && config.Horarios.Piramide) ? config.Horarios.Piramide : {};
+					convidadosConfigGlobais = (config.Horarios && config.Horarios.Convidados) ? config.Horarios.Convidados : {};
 					
-					rankingDuplasAtivo = config.Duplas?.Ranking || false;
-					
+				
 					bloqueiosQuadra = config.Quadras?.Bloqueios || {};  // Carrega a config de Bloqueios
 					
                     quadrasInativas.clear();
                     const quadras = config.Quadras || {};
-                    if (quadras.Quadra1 === "interditada") quadrasInativas.add("Quadra 1 - Coberta");
+                    if (quadras.Quadra1 === "interditada") quadrasInativas.add("Quadra 1 - Coberta"); 
                     if (quadras.Quadra2 === "interditada") quadrasInativas.add("Quadra 2 - Aberta");
                     if (quadras.Quadra3 === "interditada") quadrasInativas.add("Quadra 3 - Coberta");
 
-                    // 2. AGORA CHAMAMOS A FUNÇÃO (LOCAL CORRETO)
-                    //atualizarDatas();
+                  
 					
 					// --- TRAVA DE SEGURANÇA ---
                     // Verifica se o formulário está ABERTO. Se estiver, NÃO atualiza as datas
@@ -8352,144 +8346,7 @@ function validarDiaReserva(jogadores) {
     const horaSelecionada = parseInt(document.getElementById('hora').value);
     console.log("Dia selecionado:", diaSelecionado, "Hora selecionada:", horaSelecionada);
 
-    if (duracao === "3-piramide") {
-        console.log("Modo Pirâmide detectado. Aplicando regras especiais.");
-		
-		// --- INÍCIO DA NOVA VALIDAÇÃO DE DATAS DO TORNEIO ---
-        if (!piramideInicioTorneio || !piramideFimTorneio) {
-            //alert("Não é possível agendar jogos da Pirâmide, pois as datas do torneio ainda não foram configuradas.");
-			mostrarNotificacao("Não é possível agendar jogos da Pirâmide, pois as datas do torneio ainda não foram configuradas.", 'error');
-            return false;
-        }
-
-        const hoje = new Date();
-        hoje.setHours(0, 0, 0, 0);
-        const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
-        let diff = diaSelecionado - diaDaSemanaHoje;
-        if (diff < 0) diff += 7;
-        const dataDaReserva = new Date(hoje);
-        dataDaReserva.setDate(hoje.getDate() + diff);
-
-        const dataInicioObj = parseDateDDMMYYYY(piramideInicioTorneio);
-        const dataFimObj = parseDateDDMMYYYY(piramideFimTorneio);
-
-        if (!dataInicioObj || !dataFimObj) {
-            //alert("Erro nas datas do torneio da Pirâmide. Contate o administrador.");
-			mostrarNotificacao("Erro nas datas do torneio da Pirâmide. Contate o administrador.", 'error');
-            return false;
-        }
-        
-        dataFimObj.setHours(23, 59, 59, 999); // Garante que o dia final seja incluído na verificação
-
-        if (dataDaReserva < dataInicioObj) {
-            //alert(`O torneio da Pirâmide só começa em ${piramideInicioTorneio.replace(/-/g, '/')}.`);
-			mostrarNotificacao(`O torneio da Pirâmide só começa em ${piramideInicioTorneio.replace(/-/g, '/')}.`, 'error');
-            return false;
-        }
-
-        if (dataDaReserva > dataFimObj) {
-            //alert(`O torneio da Pirâmide terminou em ${piramideFimTorneio.replace(/-/g, '/')}.`);
-			mostrarNotificacao(`O torneio da Pirâmide terminou em ${piramideFimTorneio.replace(/-/g, '/')}.`, 'error');
-            return false;
-        }
-        // --- FIM DA NOVA VALIDAÇÃO DE DATAS DO TORNEIO --- 
-
-        if (jogadores.length !== 2) {
-            //alert("Reservas da Pirâmide devem ter exatamente 2 jogadores.");
-			mostrarNotificacao("Reservas da Pirâmide devem ter exatamente 2 jogadores.", 'error');
-			limparCampos();
-            return false;
-        }
-		
-		const configPiramide = window.config?.Piramide; 
-        if (!configPiramide || !configPiramide.ativa) {
-            //alert("Configuração da Pirâmide não foi encontrada ou está desativada. Atualize a página.");
-			mostrarNotificacao("Configuração da Pirâmide não foi encontrada ou está desativada. Atualize a página.", 'error');
-            return false;
-        }
-
-        const quadraSelecionada = document.getElementById('quadra').value;
-        let quadraConfig;
-        let prefixoQuadra;
-
-        if (quadraSelecionada.includes("1")) {
-            quadraConfig = configPiramide["Quadra-1"];
-            prefixoQuadra = "1-";
-            if (!quadraConfig || !quadraConfig["Quadra-1-ativa"]) {
-                //alert("Quadra 1 - Coberta está interditada para jogos da Pirâmide.");
-				mostrarNotificacao("Quadra 1 - Coberta está interditada para jogos da Pirâmide.", 'error');
-                return false;
-            }
-        } else if (quadraSelecionada.includes("2")) {
-            quadraConfig = configPiramide["Quadra-2"];
-            prefixoQuadra = "2-";
-            if (!quadraConfig || !quadraConfig["Quadra-2-ativa"]) {
-                //alert("Quadra 2 - Aberta está interditada para jogos da Pirâmide.");
-				mostrarNotificacao("Quadra 2 - Aberta está interditada para jogos da Pirâmide.", 'error');
-                return false;
-            }
-        } else if (quadraSelecionada.includes("3")) {
-            quadraConfig = configPiramide["Quadra-3"];
-            prefixoQuadra = "3-";
-            if (!quadraConfig || !quadraConfig["Quadra-3-ativa"]) {
-                //alert("Quadra 3 - Coberta está interditada para jogos da Pirâmide.");
-				mostrarNotificacao("Quadra 3 - Coberta está interditada para jogos da Pirâmide.", 'error');
-                return false; 
-            }
-        }
-
-        if (!quadraConfig) {
-            //alert("Configuração da quadra não encontrada.");
-			mostrarNotificacao("Configuração da quadra não encontrada.", 'error');
-            return false;
-        }
-
-        const diasSemana = [1, 2, 3, 4, 5];
-        if (diasSemana.includes(diaSelecionado)) {
-            if (!quadraConfig[prefixoQuadra + "DiasDeSemana"]) {
-                //alert(`Reservas para jogos da Pirâmide na ${quadraSelecionada} não são permitidas durante a semana.`);
-				mostrarNotificacao(`Reservas para jogos da Pirâmide na ${quadraSelecionada} não são permitidas durante a semana.`, 'error');
-                return false;
-            }
-            if (quadraConfig[prefixoQuadra + "DiasDeSemana-exceto-17-19"]) {
-                const horaFim = horaSelecionada + 2;
-                if (horaSelecionada < 19 && horaFim > 17) {
-                    //alert(`Reservas da Pirâmide na ${quadraSelecionada} são proibidas de segunda a sexta entre 17:00 e 19:00 (horário exclusivo para todos os sócios).`);
-					mostrarNotificacao(`Reservas da Pirâmide na ${quadraSelecionada} são proibidas de segunda a sexta entre 17:00 e 19:00 (horário exclusivo para todos os sócios).`, 'error');
-                    return false;
-                }
-            }
-        }
-
-        if (diaSelecionado === 6) {
-            if (!quadraConfig[prefixoQuadra + "Sabado"]) {
-                //alert(`Reservas para jogos da Pirâmide na ${quadraSelecionada} não são permitidas aos sábados.`);
-				mostrarNotificacao(`Reservas para jogos da Pirâmide na ${quadraSelecionada} não são permitidas aos sábados.`, 'error');
-                return false;
-            }
-            if (quadraConfig[prefixoQuadra + "Sabado-exceto-7-12"] && horaSelecionada >= 7 && horaSelecionada < 12) {
-                //alert(`Reservas da Pirâmide na ${quadraSelecionada} são proibidas aos sábados entre 07:00 e 12:00 (horário exclusivo para todos os sócios).`);
-				mostrarNotificacao(`Reservas da Pirâmide na ${quadraSelecionada} são proibidas aos sábados entre 07:00 e 12:00 (horário exclusivo para todos os sócios).`, 'error');
-                return false;
-            }
-        }
-
-        if (diaSelecionado === 7) {
-            if (!quadraConfig[prefixoQuadra + "Domingo"]) {
-                //alert(`Reservas para jogos da Pirâmide na ${quadraSelecionada} não são permitidas aos domingos.`);
-				mostrarNotificacao(`Reservas para jogos da Pirâmide na ${quadraSelecionada} não são permitidas aos domingos.`, 'error');
-                return false;
-            }
-            if (quadraConfig[prefixoQuadra + "Domingo-exceto-8-12"] && horaSelecionada >= 8 && horaSelecionada < 12) {
-                //alert(`Reservas da Pirâmide na ${quadraSelecionada} são proibidas aos domingos entre 08:00 e 12:00 (horário exclusivo para todos os sócios).`);
-				mostrarNotificacao(`Reservas da Pirâmide na ${quadraSelecionada} são proibidas aos domingos entre 08:00 e 12:00 (horário exclusivo para todos os sócios).`, 'error');
-                return false;
-            }
-        }
-
-        console.log("Todas as regras da Pirâmide foram validadas com sucesso.");
-    } 
-	
+    
         console.log("Modo padrão detectado. Aplicando regras normais de reserva.");
 	
 	//alert('entrei na validaçao');
@@ -9152,113 +9009,64 @@ async function atualizarTabela() {
     const duracao = parseInt(document.getElementById('duracao').value);
 	
 	
-	//const isApenasConvidado = jogadores.length === 1 && jogadores[0] === "Convidado";
-	const isApenasConvidado = jogadores.length > 0 && jogadores.every(j => j.startsWith("Convidado"));
-    if (isApenasConvidado) {
-        mostrarNotificacao("Reservas não podem conter apenas Convidados. É necessário um sócio acompanhando.", 'error');
-        limparCampos();
-        return;
-    }
-
-    //const isConvidado = jogadores.includes("Convidado");
-	const isConvidado = jogadores.some(j => j.startsWith("Convidado"));
-	if (isConvidado) {
-		// Agora, em vez de buscar no banco, usamos a variável global.
-		const convidadoConfig = convidadoConfigGlobais;
-
-		if (!convidadoConfig) {
-			//alert("Configurações do convidado não encontradas.");
-			mostrarNotificacao("Configurações do convidado não encontradas.", 'error');
-			return;
-		}
-
-		// Verifica se todas as quadras estão desativadas OU todos os dias estão desativados
-		if (
-			(!convidadoConfig.Quadra1 && !convidadoConfig.Quadra2 && !convidadoConfig.Quadra3) || // Todas as quadras desativadas
-			(!convidadoConfig.DiasDeSemana && !convidadoConfig.FimDeSemana) // Todos os dias desativados
-		) {
-			//alert("Convidados não podem jogar, pois todas as quadras ou todos os dias estão desativados para não sócios.");
-			mostrarNotificacao("Convidados não podem jogar, pois todas as quadras ou todos os dias estão desativados para não sócios.", 'error');
-			return;
-		}
-
-		// Verifica se a quadra selecionada é permitida para o convidado
-		const quadraPermitida = convidadoConfig[`Quadra${quadra.split(' ')[1]}`];
-		if (!quadraPermitida) {
-			// Monta a mensagem informando quais quadras são permitidas
-			const quadrasPermitidas = [];
-			if (convidadoConfig.Quadra1) quadrasPermitidas.push("Quadra 1 - Coberta");
-			if (convidadoConfig.Quadra2) quadrasPermitidas.push("Quadra 2 - Aberta");
-			if (convidadoConfig.Quadra3) quadrasPermitidas.push("Quadra 3 - Coberta");
-
-			const mensagemQuadras = quadrasPermitidas.length > 0
-				? `Convidados só podem utilizar as seguintes quadras: ${quadrasPermitidas.join(", ")}.`
-				: "Convidados não podem utilizar nenhuma quadra.";
-			limparCampos();
-			//alert(mensagemQuadras);
-			mostrarNotificacao(mensagemQuadras, 'error');
-			return;
-		}
-
-		// Verifica os dias permitidos para o convidado
-		const diaDaSemana = dia >= 1 && dia <= 5; // Segunda a sexta
-		const fimDeSemana = dia === 6 || dia === 7; // Sábado e domingo
-
-		if (!convidadoConfig.DiasDeSemana && !convidadoConfig.FimDeSemana) {
-			//alert("Convidados não podem fazer reservas em nenhum dia.");
-			mostrarNotificacao("Convidados não podem fazer reservas em nenhum dia.", 'error');
-			limparCampos();
-			return;
-		}
-
-		if (!convidadoConfig.DiasDeSemana && diaDaSemana) {
-			//alert("Convidados só podem fazer reservas no fim de semana (sábado e domingo).");
-			mostrarNotificacao("Convidados só podem fazer reservas no fim de semana (sábado e domingo).", 'error');
-			limparCampos();
-			return;
-		}
-
-		if (!convidadoConfig.FimDeSemana && fimDeSemana) {
-			//alert("Convidados só podem fazer reservas durante a semana (segunda a sexta).");
-			mostrarNotificacao("Convidados só podem fazer reservas durante a semana (segunda a sexta).", 'error');
-			limparCampos();
-			return;
-		}
-	}
-
+	
     
-    //const duracao = parseInt(document.getElementById('duracao').value);
-	//if (duracao === 2 && (jogadores.length < 2 || jogadores.length > 4)) { alert('Reservas de 2 horas precisam ter no mínimo 2 e no máximo 4 jogadores.'); return; }
+    
 	if (duracao === 2 && (jogadores.length < 2 || jogadores.length > 4)) {
 		mostrarNotificacao('Reservas de 2h devem ter no mínimo 2 e no máximo 4 jogadores.', 'error');
 		return;
 	}
-    //const quadra = document.getElementById('quadra').value;
-	//if (quadrasInativas.has(quadra)) { alert(`A ${quadra} está interditada provisoriamente.`); limparCampos(); return; }
+    
 		if (quadrasInativas.has(quadra)) {
 		mostrarNotificacao(`A ${quadra} está interditada provisoriamente.`, 'error');
 		limparCampos();
 		return;
 	}
-    //const dia = parseInt(document.getElementById('dia').value, 10);
-    //const horaSelecionada = parseInt(document.getElementById('hora').value, 10);
+    
     if (!validarDiaReserva(jogadores)) { limparCampos(); return; }
     const reservaValida = await validarSeTemReserva(jogadores);
     if (!reservaValida) { return; }
-	//const isRegraDuplasOk = await validarRegraDeDuplas(jogadores, quadra, dia, horaSelecionada, duracao);
-    //if (!isRegraDuplasOk) { limparCampos(); return; }
+	
 	const resultadoDuplasOk = await validarRegraDeDuplas(jogadores, quadra, dia, horaSelecionada, duracao);
 	if (resultadoDuplasOk !== true) { 
 		mostrarNotificacao(resultadoDuplasOk, 'warning'); 
-		//limparCampos();
 		return;
 	}
+	
+	// --- NOVA VALIDAÇÃO DA PIRÂMIDE ---
+	const resultadoPiramideOk = await validarRegraDePiramide(jogadores, quadra, dia, horaSelecionada, duracao);
+	if (resultadoPiramideOk !== true) { 
+		mostrarNotificacao(resultadoPiramideOk, 'warning'); 
+		return;
+	}
+	
+	// --- NOVA VALIDAÇÃO DE CONVIDADOS ---
+	const resultadoConvidadosOk = await validarRegraDeConvidados(jogadores, quadra, dia, horaSelecionada, duracao);
+	if (resultadoConvidadosOk !== true) { 
+		mostrarNotificacao(resultadoConvidadosOk, 'warning'); 
+		return;
+	}
+	
+	// ==================================================================
+    // NOVO: O CONCIERGE (POPUP DE COBRANÇA ANTES DE GUARDAR)
+    // ==================================================================
+    const listaConvidadosPopup = jogadores.filter(j => j.trim().startsWith("Convidado"));
+    if (listaConvidadosPopup.length > 0) {
+        // Pausa o código e exibe o popup, enviando a quantidade de convidados
+        // Pausa o código e exibe o popup, enviando a LISTA com os nomes dos convidados
+        const aceitouTaxa = await exibirAvisoConvidado(convidadosConfigGlobais, listaConvidadosPopup);
+        
+        // Se o utilizador clicou em "Cancelar", a função morre aqui e não guarda nada.
+        if (!aceitouTaxa) {
+            return; 
+        }
+    }
+    // ==================================================================
     
 
 	const resultadoOtimizacao = validarOtimizacaoHorario(dia, horaSelecionada, duracao, quadra);
     if (resultadoOtimizacao !== true) {
         mostrarNotificacao(resultadoOtimizacao, 'warning');
-        //limparCampos();
         return;
     }
     
@@ -9558,32 +9366,8 @@ async function atualizarTabela() {
             tipoFinal = 'success'; // VERDE para sucesso direto
         }
 
-        // 2. Adiciona informações extras à mensagem principal, se necessário
-        // 2. Notificação de Cobrança por Nome (Melhorada)
-        // 2. Notificação de Cobrança por Nome (Com Soma Total)
-        if (temConvidado) {
-            const tituloFinanceiro = qtdConvidados > 1 ? 'Convidados' : 'Convidado';
-            let listaNomesHtml = "";
-            let valorTotal = qtdConvidados * 50; // Faz o cálculo automático
-            
-            listaConvidados.forEach(nomeBruto => {
-                // Limpa o prefixo para exibir apenas o nome
-                const nomeLimpo = nomeBruto.replace(/^Convidado[:\s-]{1,}/i, '').trim();
-                listaNomesHtml += `• ${nomeLimpo}: R$ 50,00<br>`;
-            });
 
-            mensagemFinal += `<br><br><b>${tituloFinanceiro}:</b><br>${listaNomesHtml}`;
-            
-            // Adiciona a soma total se houver mais de um convidado
-            if (qtdConvidados > 1) {
-                mensagemFinal += `<b>Total a pagar: R$ ${valorTotal},00</b><br>`;
-            } else {
-                mensagemFinal += `<b>Total a pagar: R$ 50,00</b><br>`; 
-            }
-
-            mensagemFinal += `<span style="font-size: 0.85em; color: #666;">Pagar diretamente ao Toni</span><br>`;
-            mensagemFinal += `<br><span style="font-size: 0.85em; opacity: 0.8;"><i>Sujeito a cancelamento em até 4h antes se um sócio solicitar.</i></span>`;
-        }
+        
         
         if (isPiramide) {
             mensagemFinal += "<br><br><b>Lembretes (Pirâmide):</b><br>• Informar no grupo sobre o jogo.<br>• Taxa de R$ 5,00 por jogador (PIX para Edemar).";
@@ -9596,7 +9380,7 @@ async function atualizarTabela() {
     }
     
     limparCampos();
-    selecionarQuadra(quadra);
+    selecionarQuadra(quadra); 
 	
 	// Fecha o painel do formulário e o fundo escuro após o agendamento
     const fabToggleBtn = document.getElementById('fab-toggle-form');
@@ -11333,136 +11117,207 @@ function atualizarPrimeiroAcesso(jogadorLogado) {
 }
 
 // Substitua a sua função pela versão original e funcional
+// VERSÃO NOVA: VALIDAÇÃO DE DUPLAS VIA MATRIZ
+// VERSÃO NOVA: VALIDAÇÃO DE DUPLAS VIA MATRIZ (COM HORÁRIO ESPECÍFICO)
+// VERSÃO NOVA: VALIDAÇÃO DE DUPLAS VIA MATRIZ (COM HORÁRIO ESPECÍFICO)
 async function validarRegraDeDuplas(jogadores, quadraSelecionada, dia, hora, duracao) {
-    console.clear();
-    console.log("--- INICIANDO VALIDAÇÃO DE DUPLAS ---");
-    console.log(`Dados recebidos: Quadra=${quadraSelecionada}, DiaSemana=${dia}, HoraInício=${hora}, Duração=${duracao}h`);
+    console.log("--- INICIANDO VALIDAÇÃO DE DUPLAS (NOVA LÓGICA) ---");
 
-    const duplasConfig = duplasConfigGlobais;
-
-    if (!duplasConfig || !duplasConfig.ativa) {
-        return true; // Regra global desativada
+    // NOVO: Verifica se a regra de Duplas está ativa GLOBALMENTE
+    if (duplasConfigGlobais.Ativo !== true) {
+        return true; // Chave mestre desligada, libera geral!
     }
+
+    // 1. Ignora Aulas
     if (jogadores.some(j => j.toLowerCase() === 'aula')) {
-        return true; // Regra não se aplica a aulas
-    }
-
-    const quadraKey = `Quadra-${quadraSelecionada.split(' ')[1]}`;
-    const configDaQuadra = duplasConfig[quadraKey];
-
-    if (!configDaQuadra || !configDaQuadra[`${quadraKey}-ativa`]) {
-        return true; // Regra desativada para esta quadra
-    }
-
-    // Lógica de data para flexibilização
-    const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0); 
-    const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
-    let diff = dia - diaDaSemanaHoje;
-    if (diff < 0) {
-        diff += 7;
-    }
-    const dataDaReserva = new Date(hoje);
-    dataDaReserva.setDate(hoje.getDate() + diff);
-    const dataFormatadaParaChave = `${dataDaReserva.getFullYear()}-${String(dataDaReserva.getMonth() + 1).padStart(2, '0')}-${String(dataDaReserva.getDate()).padStart(2, '0')}`;
-    
-    // Lógica de Exceções (Datas Especiais) - tem prioridade
-    const excecao = duplasConfig.DatasEspeciais?.[quadraKey]?.[dataFormatadaParaChave];
-	
-    if (excecao && excecao.regras) {
-        const horarioInicioRegra = parseInt((excecao.regras.inicio || "0:00").split(':')[0]);
-        const horarioFimRegra = parseInt((excecao.regras.fim || "0:00").split(':')[0]);
-        const horarioFimReserva = hora + duracao;
-
-        
-        if (hora < horarioFimRegra && horarioFimReserva > horarioInicioRegra) {
-		    
-            if (jogadores.includes("Convidado")) {
-				const mensagem = `<b>Regra de Exceção para Duplas</b><br><br>Na data ${dataFormatadaParaChave.split('-').reverse().join('/')} (${excecao.descricao || 'Data Especial'}), o horário das ${excecao.regras.inicio} às ${excecao.regras.fim} na ${quadraSelecionada} é exclusivo para jogos entre sócios.<br><br><b>Regras para este horário:</b><br>• Apenas jogos de duplas (4 jogadores).<br>• Não é permitida a inclusão de convidados.<br><br><i>Para agendar com menos de 4 sócios, tente novamente no dia da reserva, caso o horário ainda esteja disponível.</i>`;
-				return mensagem;
-			}
-			
-			
-            
-            if (dataDaReserva > hoje) {
-                if (jogadores.length !== 4) {
-                    const mensagem = `<b>Regra de Exceção para Duplas</b><br><br>Na data ${dataFormatadaParaChave.split('-').reverse().join('/')} (${excecao.descricao || 'Data Especial'}), o horário das ${excecao.regras.inicio} às ${excecao.regras.fim} na ${quadraSelecionada} é exclusivo para jogos entre sócios.<br><br><b>Regras para este horário:</b><br>• Apenas jogos de duplas (4 jogadores).<br>• Não é permitida a inclusão de convidados.<br><br><i>Para agendar com menos de 4 sócios, tente novamente no dia da reserva, caso o horário ainda esteja disponível.</i>`;
-					return mensagem;
-                }
-            }
-        }
         return true;
     }
 
-    // Lógica para Regras Semanais
-    const diaDaSemana = dia >= 1 && dia <= 5;
-    const sabado = dia === 6;
-    const domingo = dia === 7;
-    let diaConfigKey, nomeDoPeriodo, inicioKey, fimKey;
+    // 2. Formata a chave da quadra (ex: "Quadra 1 - Coberta" -> "Quadra1")
+    const quadraNumero = quadraSelecionada.match(/\d+/);
+    if (!quadraNumero) return true;
+    const quadraKey = `Quadra${quadraNumero[0]}`;
 
-    if (diaDaSemana) {
-        diaConfigKey = `${quadraKey.split('-')[1]}-DiasDeSemana`;
+    // 3. Puxa a configuração nova da quadra
+    const configQuadra = duplasConfigGlobais[quadraKey];
 
-        const configDiasEspecificos = configDaQuadra.DiasDeSemanaConfig;
-        if (!configDaQuadra[diaConfigKey] || !configDiasEspecificos) {
-            return true;
-        }
-        const diaSemanaMap = { 1: 'segunda', 2: 'terca', 3: 'quarta', 4: 'quinta', 5: 'sexta' };
-        if (!configDiasEspecificos[diaSemanaMap[dia]]) {
-            return true; 
-        }
-        
-        const diasAtivosNomes = [];
-        if (configDiasEspecificos.segunda) diasAtivosNomes.push("Segunda-feira");
-        if (configDiasEspecificos.terca) diasAtivosNomes.push("Terça-feira");
-        if (configDiasEspecificos.quarta) diasAtivosNomes.push("Quarta-feira");
-        if (configDiasEspecificos.quinta) diasAtivosNomes.push("Quinta-feira");
-        if (configDiasEspecificos.sexta) diasAtivosNomes.push("Sexta-feira");
-        
-        if (diasAtivosNomes.length < 5) {
-            nomeDoPeriodo = `nos seguintes dias: ${diasAtivosNomes.join(', ')}`;
-        } else {
-            nomeDoPeriodo = "durante a semana";
-        }
-
-    } else if (sabado) {
-        diaConfigKey = `${quadraKey.split('-')[1]}-Sabado`;
-        nomeDoPeriodo = "aos Sábados";
-    } else if (domingo) {
-        diaConfigKey = `${quadraKey.split('-')[1]}-Domingo`;
-        nomeDoPeriodo = "aos Domingos";
-    } else {
+    // Se a quadra não tem configuração nova, ou está desativada, passa direto.
+    if (!configQuadra || configQuadra.Ativo !== true || !configQuadra.Grade) {
         return true;
     }
 
-    if (!configDaQuadra[diaConfigKey]) {
-        return true;
+    // 4. Calcula duração real (em horas)
+    const duracaoReal = (duracao === '3-piramide' || duracao === 3) ? 2 : parseInt(duracao);
+
+    // 5. O CÉREBRO: Verifica na Matriz se bate e GUARDA quais horas deram conflito
+    let horasConflito = [];
+    for (let h = 0; h < duracaoReal; h++) {
+        const horaVerificada = hora + h;
+        const chaveGrade = `${dia}_${horaVerificada}`; 
+
+        if (configQuadra.Grade[chaveGrade] === true) {
+            horasConflito.push(horaVerificada);
+        }
     }
 
-    inicioKey = `${diaConfigKey}-Inicio`;
-    fimKey = `${diaConfigKey}-Fim`;
-    const horarioInicioRegra = parseInt((configDaQuadra[inicioKey] || "0:00").split(':')[0]);
-    const horarioFimRegra = parseInt((configDaQuadra[fimKey] || "0:00").split(':')[0]);
-    const horarioFimReserva = hora + duracao;
+    // 6. Aplica a Regra e as Punições se houver conflito
+    if (horasConflito.length > 0) {
+        
+        const trechosConflito = horasConflito.map(h => `${String(h).padStart(2, '0')}:00 às ${String(h+1).padStart(2, '0')}:00`).join(" e ");
 
-    if (hora < horarioFimRegra && horarioFimReserva > horarioInicioRegra) {
-	
-        if (jogadores.includes("Convidado")) {
-			const mensagem = `**Horário Prioritário para Duplas**<br><br>No horário das ${configDaQuadra[inicioKey]} às ${configDaQuadra[fimKey]} ${nomeDoPeriodo}, a quadra é exclusiva para jogos entre sócios.<br><br><b>Regras:</b><br>• Apenas jogos de duplas (4 jogadores).<br>• Não é permitida a inclusão de convidados.<br><br><i>Para agendar com menos sócios, tente no dia da reserva.</i>`;
-			return mensagem;
-		}
-	
-        if (dataDaReserva > hoje) {
-			if (jogadores.length !== 4) {
-				const mensagem = `**Horário Prioritário para Duplas**<br><br>No horário das ${configDaQuadra[inicioKey]} às ${configDaQuadra[fimKey]} ${nomeDoPeriodo}, a quadra é exclusiva para jogos entre sócios.<br><br><b>Regras:</b><br>• Apenas jogos de duplas (4 jogadores).<br>• Não é permitida a inclusão de convidados.<br><br><i>Para agendar com menos sócios, tente no dia da reserva.</i>`;
-			    return mensagem;
-			}
-		}
+        // Punição A: Sem convidados
+        const temConvidado = jogadores.some(j => j.trim().startsWith("Convidado"));
+        if (temConvidado) {
+            return `<b>Horário Exclusivo para Duplas</b><br><br>Atenção: O período das <b>${trechosConflito}</b> na ${quadraSelecionada} é reservado para jogos entre sócios.<br><br><b>Regras:</b><br>• Apenas jogos de duplas (4 jogadores).<br>• Não é permitida a inclusão de convidados neste trecho.`;
+        }
+
+        // Punição B: Exige 4 jogadores (Apenas se for agendamento para o futuro)
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+        const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
+        let diff = dia - diaDaSemanaHoje;
+        if (diff < 0) diff += 7;
+        const dataDaReserva = new Date(hoje);
+        dataDaReserva.setDate(hoje.getDate() + diff);
+
+        if (dataDaReserva > hoje && jogadores.length !== 4) {
+            return `<b>Horário Exclusivo para Duplas</b><br><br>Atenção: O período das <b>${trechosConflito}</b> na ${quadraSelecionada} é prioritário para duplas.<br><br><b>Regras:</b><br>• Obrigatório 4 jogadores para agendar antecipadamente.<br>• Sem convidados.<br><br><i>Dica: Agendamentos com menos de 4 sócios só são liberados no próprio dia.</i>`;
+        }
     }
 
-    console.log("VALIDAÇÃO OK: A reserva passou por todas as regras de Duplas.");
+    console.log("VALIDAÇÃO OK: A reserva passou pelas regras de Duplas.");
     return true; 
 }
+
+
+
+
+// ============================================================================
+// NOVA VALIDAÇÃO DE PIRÂMIDE (BASEADA NA MATRIZ DE HORÁRIOS)
+// ============================================================================
+// ============================================================================
+// NOVA VALIDAÇÃO DE PIRÂMIDE (BASEADA NA MATRIZ DE HORÁRIOS)
+// ============================================================================
+async function validarRegraDePiramide(jogadores, quadraSelecionada, dia, hora, duracao) {
+    // CORREÇÃO 1: A duração chega como número 3 (devido ao parseInt no atualizarTabela)
+    if (duracao !== '3-piramide' && duracao !== 3) {
+        return true; // Não é pirâmide, passa direto!
+    }
+
+    console.log("--- INICIANDO VALIDAÇÃO DE PIRÂMIDE (NOVA LÓGICA) ---");
+
+    // 1. Verifica se tem exatamente 2 jogadores (A Pirâmide é sempre 1x1)
+    if (jogadores.length !== 2) {
+        return `<b>Regra da Pirâmide</b><br><br>Os jogos de Pirâmide devem ter exatamente 2 jogadores selecionados.`;
+    }
+
+    // 2. Formata a chave da quadra (ex: "Quadra 1 - Coberta" -> "Quadra1")
+    const quadraNumero = quadraSelecionada.match(/\d+/);
+    if (!quadraNumero) return true;
+    const quadraKey = `Quadra${quadraNumero[0]}`;
+
+    // 3. Puxa a configuração nova do Firebase
+    const configQuadra = piramideConfigGlobais[quadraKey];
+
+    // CORREÇÃO 2: Na Pirâmide salvamos como "Ativa" (com 'a' no final)
+    if (!configQuadra || configQuadra.Ativa !== true) {
+        return `<b>Pirâmide Bloqueada</b><br><br>As reservas de Pirâmide não estão permitidas na ${quadraSelecionada} no momento.`;
+    }
+
+    // 4. A Pirâmide sempre dura 2 horas
+    const duracaoReal = 2;
+
+    // 5. O CÉREBRO: Verifica na Matriz se bate num horário "EXCETO" (Vermelho/true)
+    let horasBloqueadas = [];
+    for (let h = 0; h < duracaoReal; h++) {
+        const horaVerificada = hora + h;
+        const chaveGrade = `${dia}_${horaVerificada}`;
+
+        // Se estiver true na grade, significa que é um horário "EXCETO" (proibido para pirâmide)
+        if (configQuadra.Grade && configQuadra.Grade[chaveGrade] === true) {
+            horasBloqueadas.push(horaVerificada);
+        }
+    }
+
+    // 6. Se houver bloqueio, informa o usuário com precisão cirúrgica
+    if (horasBloqueadas.length > 0) {
+        const trechosBloqueados = horasBloqueadas.map(h => `${String(h).padStart(2, '0')}:00 às ${String(h+1).padStart(2, '0')}:00`).join(" e ");
+        
+        return `<b>Horário Restrito para Pirâmide</b><br><br>` +
+               `A ${quadraSelecionada} não permite jogos da Pirâmide no período das <b>${trechosBloqueados}</b>.<br><br>` +
+               `Por favor, escolha outro horário livre ou utilize outra quadra.`;
+    }
+
+    console.log("VALIDAÇÃO OK: Pirâmide permitida neste horário/quadra.");
+    return true; 
+}
+
+
+// ============================================================================
+// NOVA VALIDAÇÃO DE CONVIDADOS (BASEADA NA MATRIZ DE HORÁRIOS)
+// ============================================================================
+async function validarRegraDeConvidados(jogadores, quadraSelecionada, dia, hora, duracao) {
+    // 1. Verifica se tem algum "Convidado" na lista de jogadores
+    const temConvidado = jogadores.some(j => j.trim().startsWith("Convidado"));
+    
+    // Se não tem convidado nenhum, o Segurança nem levanta da cadeira. Passa direto!
+    if (!temConvidado) {
+        return true; 
+    }
+
+    console.log("--- INICIANDO VALIDAÇÃO DE CONVIDADOS (NOVA LÓGICA) ---");
+
+    // 2. REGRA DE OURO: Não pode ter reserva apenas com convidados
+    const isApenasConvidado = jogadores.every(j => j.trim().startsWith("Convidado"));
+    if (isApenasConvidado) {
+        return `<b>Regra de Convidados</b><br><br>Reservas não podem conter apenas Convidados. É obrigatória a presença de pelo menos um sócio acompanhando.`;
+    }
+
+    // 3. Verifica se a entrada de convidados está ativa GLOBALMENTE (Blindado: Ativo ou Ativa)
+    if (convidadosConfigGlobais.Ativo !== true && convidadosConfigGlobais.Ativa !== true) {
+        return `<b>Convidados Suspensos</b><br><br>O clube não está permitindo a inclusão de convidados nas reservas no momento.`;
+    }
+
+    // 4. Formata a chave da quadra (ex: "Quadra 1 - Coberta" -> "Quadra1")
+    const quadraNumero = quadraSelecionada.match(/\d+/);
+    if (!quadraNumero) return true;
+    const quadraKey = `Quadra${quadraNumero[0]}`;
+
+    // 5. Puxa a configuração nova da quadra
+    const configQuadra = convidadosConfigGlobais[quadraKey];
+
+    // Se a quadra estiver desativada para Convidados (Blindado: Ativo ou Ativa)
+    if (!configQuadra || (configQuadra.Ativo !== true && configQuadra.Ativa !== true)) {
+        return `<b>Convidados Bloqueados</b><br><br>Não é permitida a inclusão de convidados na ${quadraSelecionada}.`;
+    }
+
+    // 6. Calcula a duração real (trata o caso de vir 3 da pirâmide ou string)
+    const duracaoReal = (duracao === '3-piramide' || duracao === 3) ? 2 : parseInt(duracao);
+
+    // 7. O CÉREBRO: Verifica na Matriz se bate num horário "EXCETO" (Vermelho/true)
+    let horasBloqueadas = [];
+    for (let h = 0; h < duracaoReal; h++) {
+        const horaVerificada = hora + h;
+        const chaveGrade = `${dia}_${horaVerificada}`;
+
+        if (configQuadra.Grade && configQuadra.Grade[chaveGrade] === true) {
+            horasBloqueadas.push(horaVerificada);
+        }
+    }
+
+    // 8. Se houver bloqueio, informa o usuário com precisão
+    if (horasBloqueadas.length > 0) {
+        const trechosBloqueados = horasBloqueadas.map(h => `${String(h).padStart(2, '0')}:00 às ${String(h+1).padStart(2, '0')}:00`).join(" e ");
+        
+        return `<b>Horário Restrito para Convidados</b><br><br>` +
+               `A ${quadraSelecionada} não permite convidados no período das <b>${trechosBloqueados}</b>.<br><br>` +
+               `Por favor, escolha outro horário livre ou substitua o convidado por um sócio.`;
+    }
+
+    console.log("VALIDAÇÃO OK: Convidados permitidos neste horário/quadra.");
+    return true; 
+}
+
 
 
 function aplicarBloqueiosVisuais(quadra) {
@@ -11925,58 +11780,36 @@ async function recusarPresenca(reservaKey, quadra) {
  * Verifica se um determinado horário é obrigatório para duplas, sem mostrar alertas.
  * Retorna 'true' se for um horário de duplas, 'false' caso contrário.
  */
+// VERSÃO NOVA: VERIFICADOR SILENCIOSO DE DUPLAS VIA MATRIZ
+// VERSÃO NOVA: VERIFICADOR SILENCIOSO DE DUPLAS VIA MATRIZ
 function isHorarioDuplaObrigatoria(quadraSelecionada, dia, hora, duracao) {
-    const duplasConfig = duplasConfigGlobais;
-    if (!duplasConfig || !duplasConfig.ativa) return false;
-
-    const quadraKey = `Quadra-${quadraSelecionada.split(' ')[1]}`;
-    const configDaQuadra = duplasConfig[quadraKey];
-    if (!configDaQuadra || !configDaQuadra[`${quadraKey}-ativa`]) return false;
-
-    // Lógica para checar exceções e regras semanais (similar à validação, mas sem alertas)
-    const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0); 
-    const diaDaSemanaHoje = hoje.getDay() === 0 ? 7 : hoje.getDay();
-    let diff = dia - diaDaSemanaHoje;
-    if (diff < 0) diff += 7;
-    const dataDaReserva = new Date(hoje);
-    dataDaReserva.setDate(hoje.getDate() + diff);
-    const dataFormatadaParaChave = `${dataDaReserva.getFullYear()}-${String(dataDaReserva.getMonth() + 1).padStart(2, '0')}-${String(dataDaReserva.getDate()).padStart(2, '0')}`;
-    
-    const excecao = duplasConfig.DatasEspeciais?.[quadraKey]?.[dataFormatadaParaChave];
-    if (excecao && excecao.regras) {
-        const inicio = parseInt((excecao.regras.inicio || "0:00").split(':')[0]);
-        const fim = parseInt((excecao.regras.fim || "0:00").split(':')[0]);
-        if (hora >= inicio && (hora + duracao) <= fim) return true;
+    // NOVO: Verifica se a regra de Duplas está ativa GLOBALMENTE
+    if (duplasConfigGlobais.Ativo !== true) {
+        return false; // Se a regra geral tá desligada, não é obrigatório.
     }
 
-    const diaDaSemana = dia >= 1 && dia <= 5;
-    const sabado = dia === 6;
-    const domingo = dia === 7;
-    let diaConfigKey;
-    if (diaDaSemana) {
-        const configDiasEspecificos = configDaQuadra.DiasDeSemanaConfig;
-        if (!configDaQuadra[`Quadra-${quadraKey.split('-')[1]}-DiasDeSemana`] || !configDiasEspecificos) {
-            return false;
-        }
-        const diaSemanaMap = { 1: 'segunda', 2: 'terca', 3: 'quarta', 4: 'quinta', 5: 'sexta' };
-        if (!configDiasEspecificos[diaSemanaMap[dia]]) {
-            return false; 
-        }
-        diaConfigKey = `${quadraKey.split('-')[1]}-DiasDeSemana`;
+    const quadraNumero = quadraSelecionada.match(/\d+/);
+    if (!quadraNumero) return false;
+    const quadraKey = `Quadra${quadraNumero[0]}`;
+
+    const configQuadra = duplasConfigGlobais[quadraKey];
+    if (!configQuadra || configQuadra.Ativo !== true || !configQuadra.Grade) {
+        return false;
     }
-    else if (sabado) diaConfigKey = `${quadraKey.split('-')[1]}-Sabado`;
-    else if (domingo) diaConfigKey = `${quadraKey.split('-')[1]}-Domingo`;
-    else return false;
 
-    if (!configDaQuadra[diaConfigKey]) return false;
+    const duracaoReal = (duracao === '3-piramide' || duracao === 3) ? 2 : parseInt(duracao);
 
-    const inicio = parseInt((configDaQuadra[`${diaConfigKey}-Inicio`] || "0:00").split(':')[0]);
-    const fim = parseInt((configDaQuadra[`${diaConfigKey}-Fim`] || "0:00").split(':')[0]);
-    if (hora >= inicio && (hora + duracao) <= fim) return true;
+    for (let h = 0; h < duracaoReal; h++) {
+        const horaVerificada = hora + h;
+        const chaveGrade = `${dia}_${horaVerificada}`;
+        if (configQuadra.Grade[chaveGrade] === true) {
+            return true; 
+        }
+    }
 
     return false;
 }
+
 
 
 
@@ -13782,8 +13615,12 @@ function mostrarOpcoesPiramide(reserva, key, quadra, isParticipante, isDelegado)
 
         // Ação do botão
         btnResultado.onclick = async () => { 
-            await abrirModalResultado(reserva, key, quadra, !!reserva.resultado); 
-            fecharModalAcoes();
+            // Só ativa o modo Leitura (que chama o X) se o jogo estiver com status de finalizado.
+            // Se estiver 'em_andamento', passa 'false' para manter a Súmula normal com os 3 pontinhos.
+            const jogoAcabou = (reserva.status === 'finalizada' || reserva.status === 'resultado_pendente');
+            
+            await abrirModalResultado(reserva, key, quadra, jogoAcabou); 
+            fecharModalAcoes(); 
         };
 
         // Insere no DOM (Logo após o Ver Detalhes)
@@ -18511,13 +18348,25 @@ async function abrirModalResultado(reserva, key, quadra, modoVisualizacao) {
     const btnX = document.getElementById('btn-fechar-visualizacao');
     const header = document.querySelector('.modern-modal-header');
 
+    // 1. FAXINA PESADA: Removemos qualquer rastro de estilo inline anterior
+    if (btnMenu) btnMenu.removeAttribute('style');
+    if (btnX) btnX.removeAttribute('style');
+
     if (modoVisualizacao) {
-        if (btnMenu) btnMenu.style.setProperty('display', 'none', 'important');
+        // --- MODO VER RESULTADO (Somente Leitura) ---
+        // 1. Esconde o Menu de Opções com força bruta
+        if (btnMenu) {
+            btnMenu.style.setProperty('display', 'none', 'important');
+            btnMenu.style.setProperty('visibility', 'hidden', 'important');
+            btnMenu.style.setProperty('pointer-events', 'none', 'important');
+        }
+
         if (header) header.style.position = 'relative';
 
+        // 2. Mostra o Botão (X) e garante que ele fique no lugar certo
         if (btnX) {
-            btnX.removeAttribute('style');
             btnX.style.setProperty('display', 'flex', 'important');
+            btnX.style.setProperty('visibility', 'visible', 'important');
             btnX.style.setProperty('align-items', 'center', 'important');
             btnX.style.setProperty('justify-content', 'center', 'important');
             btnX.style.setProperty('position', 'absolute', 'important');
@@ -18536,14 +18385,28 @@ async function abrirModalResultado(reserva, key, quadra, modoVisualizacao) {
             btnX.onclick = fecharModalResultado;
         }
     } else {
-        if (btnMenu) {
-            btnMenu.style.display = 'flex';
-            btnMenu.style.right = '-10px';
+        // --- MODO SÚMULA / ARBITRAGEM (Edição) ---
+        // 1. Esconde o Botão (X) com força extrema e tira ele do fluxo
+        if (btnX) {
+            btnX.style.setProperty('display', 'none', 'important');
+            btnX.style.setProperty('visibility', 'hidden', 'important');
+            btnX.style.setProperty('pointer-events', 'none', 'important');
+            btnX.style.setProperty('z-index', '-1', 'important'); // Joga pro fundo do poço
         }
-        if (btnX) btnX.style.display = 'none';
+
+        // 2. Mostra o Menu de Opções (Três Pontinhos)
+        if (btnMenu) {
+            btnMenu.style.setProperty('display', 'flex', 'important');
+            btnMenu.style.setProperty('visibility', 'visible', 'important');
+            btnMenu.style.setProperty('pointer-events', 'auto', 'important');
+            btnMenu.style.setProperty('position', 'absolute', 'important');
+            btnMenu.style.setProperty('right', '-10px', 'important');
+            btnMenu.style.setProperty('top', '50%', 'important');
+            btnMenu.style.setProperty('transform', 'translateY(-50%)', 'important');
+            btnMenu.style.setProperty('z-index', '10000', 'important'); // Garante que fique por cima de tudo
+        }
     }
 }
-
 
 
 
@@ -21522,7 +21385,7 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
         // Atualiza a variável GLOBAL que está no topo do arquivo
         totalMensagensAtivas = mensagensArray.length;
 
-        mensagensArray.sort(function(a, b) {
+        mensagensArray.sort(function(a, b) { 
             return b.data_envio - a.data_envio;
         });
 
@@ -21538,16 +21401,20 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
 
                 var btnExcluir = '<span class="btn-excluir-msg" onclick="excluirMensagem(\'' + msg.id + '\')" title="Excluir este aviso">&times;</span>';
 
-                htmlMensagens += 
-                    '<div class="card-mensagem">' +
-                        btnExcluir + 
-                        '<h3>' + msg.titulo + tagNovo + '</h3>' +
-                        '<p>' + msg.texto + '</p>' +
-                        '<div class="card-info-autor">' +
-                            '<span>Por: ' + (msg.autor || 'Administração') + '</span>' +
-                            '<span>' + dataFormatada + '</span>' +
-                        '</div>' +
-                    '</div>';
+                // Limpamos o nome removendo "(Admin)" e espaços extras
+				var autorLimpo = msg.autor.replace(/\(Admin\)/gi, '').trim();
+
+				htmlMensagens += 
+					'<div class="card-mensagem">' +
+						btnExcluir + 
+						'<h3>' + msg.titulo + tagNovo + '</h3>' +
+						'<p>' + msg.texto + '</p>' +
+						'<div class="card-info-autor">' +
+							// AQUI A MUDANÇA: Usamos autorLimpo e tiramos o "Por:" (que você nem tinha no código, mais um delírio meu)
+							'<span>' + autorLimpo + '</span>' + 
+							'<span>' + dataFormatada + '</span>' +
+						'</div>' +
+					'</div>';
             });
         }
 
@@ -21562,6 +21429,114 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
             badge.style.display = 'none';
         }
     };
+	
+
+
+	
+// ============================================================================
+// CONCIERGE: POPUP DE AVISO DA TAXA DE CONVIDADO (ANTES DE SALVAR)
+// ============================================================================
+// ============================================================================
+// CONCIERGE: POPUP DE AVISO DA TAXA DE CONVIDADO (ANTES DE SALVAR)
+// ============================================================================
+function exibirAvisoConvidado(config, listaConvidados) {
+    return new Promise((resolve) => {
+        // Quantidade de convidados
+        const qtdConvidados = listaConvidados.length;
+
+        // Limpa os nomes (Tira o "Convidado -" da frente para ficar elegante)
+        const nomesLimpos = listaConvidados.map(nome => {
+            return nome.replace(/^Convidado[:\s-]{1,}/i, '').trim() || "Convidado sem nome";
+        });
+        // Monta a lista em HTML para o painel escondido
+        const listaHtml = nomesLimpos.map(n => `<div style="padding: 4px 0; border-bottom: 1px solid #e0e0e0;">• ${n}</div>`).join('');
+
+        // Cria o fundo escuro (overlay)
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0,0,0,0.7)';
+        overlay.style.zIndex = '99999';
+        overlay.style.display = 'flex';
+        overlay.style.justifyContent = 'center';
+        overlay.style.alignItems = 'center';
+
+        // Lendo do seu banco.json
+        const taxaConfig = config.Taxa || "0,00";
+        const taxaNumero = parseFloat(taxaConfig.replace(/[^0-9,]/g, '').replace(',', '.')) || 0;
+        const valorTotal = qtdConvidados * taxaNumero;
+        
+        const recebedor = config.Recebedor || "Não informado";
+        const whatsapp = config.Whatsapp || "Não informado";
+
+        // Cria a caixa do aviso (Modal)
+        const modal = document.createElement('div');
+        modal.style.backgroundColor = '#fff';
+        modal.style.padding = '25px 20px';
+        modal.style.borderRadius = '12px';
+        modal.style.maxWidth = '90%';
+        modal.style.width = '350px';
+        modal.style.textAlign = 'center';
+        modal.style.boxShadow = '0 4px 15px rgba(0,0,0,0.4)';
+        modal.style.fontFamily = 'Arial, sans-serif';
+
+        modal.innerHTML = `
+            <h3 style="color: #4CAF50; margin-top: 0; font-size: 20px;">Taxa de Convidado</h3>
+            
+            <p style="font-size: 15px; color: #333; margin-bottom: 5px;">Você está incluindo <span id="btnVerConvidados" style="color: #007BFF; cursor: pointer; font-weight: bold; text-decoration: underline;">${qtdConvidados} convidado(s)</span>.</p>
+            
+            <div id="painelNomesConvidados" style="display: none; background: #f4f6f8; padding: 10px; border-radius: 6px; text-align: left; border: 1px solid #ccc; margin: 10px 0; font-size: 14px; color: #444; max-height: 100px; overflow-y: auto;">
+                ${listaHtml}
+            </div>
+
+            <p style="font-size: 15px; color: #333; margin-bottom: 15px;">É necessário o pagamento da taxa para confirmar a reserva.</p>
+            
+            <div style="background: #f4f6f8; padding: 15px; border-radius: 8px; text-align: left; border: 1px solid #ddd; margin-bottom: 15px;">
+                <p style="margin: 5px 0; font-size: 14px;"><b>Valor Total:</b> R$ ${valorTotal.toFixed(2).replace('.', ',')}</p>
+                <hr style="border: 0; border-top: 1px solid #ccc; margin: 10px 0;">
+                <p style="margin: 5px 0; font-size: 14px;"><b>Enviar comprovante para:</b></p>
+                <p style="margin: 5px 0; font-size: 14px;">Financeiro: ${recebedor}</p>
+                <p style="margin: 5px 0; font-size: 14px;">WhatsApp: ${whatsapp} (pix)</p>
+            </div>
+            
+            <p style="font-size: 12px; color: #d9534f; margin-bottom: 20px;">O não envio do comprovante pode sujeitar o titular a penalidades.</p>
+            
+            <div style="display: flex; justify-content: space-between; gap: 10px;">
+                <button id="btnCancelarAviso" style="flex: 1; padding: 12px; background: #e0e0e0; color: #333; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">Cancelar</button>
+                <button id="btnAceitarAviso" style="flex: 1; padding: 12px; background: #4CAF50; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">Concordar e Reservar</button>
+            </div>
+        `;
+
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+
+        // Ação de abrir/fechar a lista de nomes (Sanfona) - AGORA SEM MUDAR O TEXTO
+        document.getElementById('btnVerConvidados').onclick = function() {
+            const painel = document.getElementById('painelNomesConvidados');
+            if (painel.style.display === 'none') {
+                painel.style.display = 'block';
+            } else {
+                painel.style.display = 'none';
+            }
+        };
+
+        // Ações dos botões principais
+        document.getElementById('btnCancelarAviso').onclick = function() {
+            document.body.removeChild(overlay);
+            resolve(false); 
+        };
+
+        document.getElementById('btnAceitarAviso').onclick = function() {
+            document.body.removeChild(overlay);
+            resolve(true); 
+        };
+    });
+}
+
+
 	
 	
 </script>
