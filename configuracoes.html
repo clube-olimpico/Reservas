@@ -3739,14 +3739,36 @@ body.dark-mode #modalHorarioDuplas .modal-content.maximizado .quadras-tabs-conta
     width: 100% !important;
 }
 
-/* Ajustes Mobile (Iguais à Pirâmide) */
+/* Ajustes Mobile (Iguais à Pirâmide) - CORRIGIDO PARA TELA CHEIA NATIVA */
 @media (max-width: 600px) {
-    #modalHorarioConvidados .modal-content {
-        width: 100% !important; 
-        padding-left: 2px !important;
-        padding-right: 2px !important;
-        padding-top: 2px !important;
+    /* 1. Cola a janela no teto */
+    #modalHorarioConvidados.modal-overlay {
+        align-items: flex-start !important; 
+        padding: 0 !important;       
     }
+
+    /* 2. Força a caixa a esticar até o chão (vence o 90vh anterior) */
+    #modalHorarioConvidados .modal-content {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        height: 100% !important;        
+        height: 100vh !important;       
+        height: 100dvh !important;      
+        max-height: none !important; 
+        margin: 0 !important;
+        border-radius: 0 !important;
+        padding: 10px 5px 10px 5px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 3. Empurra os botões para o espaço vazio lá embaixo */
+    #modalHorarioConvidados .modal-buttons {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important; 
+        margin-top: auto !important; 
+    }
+
+    /* 4. Respiro dos horários na tabela (Mantido) */
     #modalHorarioConvidados .tabela-aulas th:first-child, 
     #modalHorarioConvidados .tabela-aulas td:first-child,
     #modalHorarioConvidados .tabela-aulas th:last-child, 
