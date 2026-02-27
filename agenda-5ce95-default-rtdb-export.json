@@ -1120,13 +1120,6 @@
     },
     "config": {
       "Abrir": true,
-      "Convidados": {
-        "DiasDeSemana": false,
-        "FimDeSemana": true,
-        "Quadra1": true,
-        "Quadra2": true,
-        "Quadra3": false
-      },
       "DiasParaLimpar": 3,
       "Horarios": {
         "Aulas": {
@@ -1443,6 +1436,19 @@
             "fim": "2026-02-21",
             "inicio": "2026-02-15",
             "titulo": "Carnavak"
+          },
+          "especial_1772153485587": {
+            "ativo": false,
+            "dias": {
+              "2026-02-27": {
+                "abertura": "08:00",
+                "fechamento": "17:00",
+                "status": "fechado"
+              }
+            },
+            "fim": "2026-02-27",
+            "inicio": "2026-02-27",
+            "titulo": "encontro da piramide"
           }
         },
         "Padrao": [
@@ -1598,38 +1604,6 @@
           }
         }
       },
-      "Piramide": {
-        "Quadra-1": {
-          "1-DiasDeSemana": true,
-          "1-DiasDeSemana-exceto-17-19": false,
-          "1-Domingo": true,
-          "1-Domingo-exceto-8-12": false,
-          "1-Sabado": true,
-          "1-Sabado-exceto-7-12": false,
-          "Quadra-1-ativa": true
-        },
-        "Quadra-2": {
-          "2-DiasDeSemana": true,
-          "2-DiasDeSemana-exceto-17-19": false,
-          "2-Domingo": true,
-          "2-Domingo-exceto-8-12": false,
-          "2-Sabado": true,
-          "2-Sabado-exceto-7-12": false,
-          "Quadra-2-ativa": true
-        },
-        "Quadra-3": {
-          "3-DiasDeSemana": true,
-          "3-DiasDeSemana-exceto-17-19": false,
-          "3-Domingo": true,
-          "3-Domingo-exceto-8-12": false,
-          "3-Sabado": true,
-          "3-Sabado-exceto-7-12": false,
-          "Quadra-3-ativa": true
-        },
-        "ativa": true,
-        "fim": "01-12-2026",
-        "inicio": "01-01-2026"
-      },
       "Professor": "Admin",
       "Quadras": {
         "Quadra1": "liberada",
@@ -1658,6 +1632,131 @@
         "titulo": "Jantar de confraternização"
       }
     },
-    "version": "v2.1.7"
+    "reservas": {
+      "Quadra 1 - Coberta": {
+        "5_13": {
+          "borda": "1h",
+          "confirmacoes": {
+            "Ana Maria Marinho": true
+          },
+          "dataCompleta": "2026-02-27",
+          "dia": 5,
+          "duracao": 1,
+          "hora": 13,
+          "jogadores": "Ana Maria Marinho",
+          "jogadores_completo": "Ana Maria Marinho",
+          "organizador": "Ana Maria Marinho",
+          "status": "confirmada"
+        },
+        "5_15": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Ana Francisca": true,
+            "Convidado - Joa Lins": true,
+            "Convidado - Mariah Silva": true,
+            "Convidado - Vanessa Esperanca": true
+          },
+          "dataCompleta": "2026-02-27",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Ana Francisca, Convidado - Mariah Silva",
+          "jogadores_completo": "Ana Francisca, Convidado - Joa Lins, Convidado - Mariah Silva, Convidado - Vanessa Esperanca",
+          "organizador": "Ana Francisca",
+          "status": "confirmada"
+        },
+        "5_16": {
+          "confirmacoes": {
+            "Ana Francisca": true,
+            "Convidado - Joa Lins": true,
+            "Convidado - Mariah Silva": true,
+            "Convidado - Vanessa Esperanca": true
+          },
+          "dataCompleta": "2026-02-27",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 16,
+          "jogadores": "Convidado - Joa Lins, Convidado - Vanessa Esperanca",
+          "jogadores_completo": "Ana Francisca, Convidado - Joa Lins, Convidado - Mariah Silva, Convidado - Vanessa Esperanca",
+          "organizador": "Ana Francisca",
+          "status": "confirmada"
+        },
+        "5_20": {
+          "borda": "2h",
+          "confirmacoes": {
+            "An Alice": true,
+            "Joao Francisco": true
+          },
+          "dataCompleta": "2026-02-27",
+          "dia": 5,
+          "duracao": 3,
+          "hora": 20,
+          "jogadores": "An Alice",
+          "jogadores_completo": "An Alice, Joao Francisco",
+          "organizador": "An Alice",
+          "resultado": {
+            "dataInformado": "2026-02-27T02:06:40.129Z",
+            "informadoPor": ": An Alice",
+            "isMatchPoint": false,
+            "perdedor": "",
+            "pontos": {
+              "isTieBreak": false,
+              "j1": "0",
+              "j2": "0"
+            },
+            "sacador": "j2",
+            "set1": {
+              "placar": "1x0",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "0x0",
+              "tiebreak": ""
+            },
+            "set3": "",
+            "tipo": "Placar Normal",
+            "vencedor": ""
+          },
+          "status": "em_andamento"
+        },
+        "5_21": {
+          "confirmacoes": {
+            "An Alice": true,
+            "Joao Francisco": true
+          },
+          "dataCompleta": "2026-02-27",
+          "dia": 5,
+          "hora": 21,
+          "jogadores": "Joao Francisco",
+          "jogadores_completo": "An Alice, Joao Francisco",
+          "organizador": "An Alice",
+          "resultado": {
+            "dataInformado": "2026-02-27T02:06:40.129Z",
+            "informadoPor": ": An Alice",
+            "isMatchPoint": false,
+            "perdedor": "",
+            "pontos": {
+              "isTieBreak": false,
+              "j1": "0",
+              "j2": "0"
+            },
+            "sacador": "j2",
+            "set1": {
+              "placar": "1x0",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "0x0",
+              "tiebreak": ""
+            },
+            "set3": "",
+            "tipo": "Placar Normal",
+            "vencedor": ""
+          },
+          "status": "em_andamento"
+        }
+      }
+    },
+    "version": "v2.1.8"
   }
 }
