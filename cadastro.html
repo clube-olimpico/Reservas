@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Jogadores</title>
+
+    <link rel="manifest" href="manifest-cadastro.json">
+    <meta name="theme-color" content="#4CAF50">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Cadastro">
+    <link rel="apple-touch-icon" href="logo-cadastro.png">
+	
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
     <style>
@@ -319,6 +329,29 @@
         .linha-inativa td { opacity: 0.6; }
         .linha-inativa .nome-inativo { text-decoration: line-through; color: #dc3545; }
 		/* fim de --- ESTILOS DA FAIXA E STATUS (ATIVO/INATIVO) --- */
+		
+		
+		/* ========================================================== */
+        /* === AJUSTES PARA O MODO APLICATIVO (TELA CHEIA NATIVA) === */
+        /* ========================================================== */
+        @media (display-mode: standalone) {
+            /* 1. Levanta o rodapé para não encostar na barra de gestos do iPhone/Android */
+            .footer {
+                padding-bottom: env(safe-area-inset-bottom) !important;
+                height: calc(35px + env(safe-area-inset-bottom)) !important;
+            }
+
+            /* 2. Levanta os botões flutuantes (+) e (Lua) na mesma proporção */
+            .footer-btn {
+                margin-bottom: calc(30px + env(safe-area-inset-bottom)) !important;
+            }
+
+            /* 3. Dá um respiro extra na tabela para que a última linha não fique escondida atrás do rodapé */
+            body {
+                padding-bottom: calc(80px + env(safe-area-inset-bottom)) !important;
+            }
+        }
+        /* ========================================================== */
 		
     </style>
 </head>
@@ -841,7 +874,7 @@
                             </div>
                         </td>
                     `;
-                    let clickTimeout, isDoubleClick = false;
+                    let clickTimeout, isDoubleClick = false; 
                     row.addEventListener("click", () => {
                         clickTimeout = setTimeout(() => { if (!isDoubleClick) excluirJogador(jogadorNome, jogador.apelido); }, 300);
                     });
