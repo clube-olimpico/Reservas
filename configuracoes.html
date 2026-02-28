@@ -2289,6 +2289,10 @@ body.dark-mode #permissoesSelect:disabled {
     font-weight: bold !important;
 }
 
+/* --- NOVA REGRA: CORRIGE OS ITENS DO MENU NO PC --- */
+body.dark-mode #permissoesSelect option {
+    color: #ffffff !important;
+}
 
 /* ============================================================ */
 /* === FIM DE MODO ESCURO (DARK MODE) E BOTÃO DE TEMA === */
@@ -4127,6 +4131,56 @@ body.dark-mode #modalHorarioConvidados .modal-content.maximizado .quadras-tabs-c
 /* ================================================================== */
 /* --- fim de CORREÇÃO SUPREMA: TÍTULOS DAS QUADRAS NO MODO ESCURO -- */
 /* ================================================================== */
+
+
+
+/* ================================================================== */
+/* === DROPDOWN CUSTOMIZADO DE PERMISSÕES (ESTILO PC NO CELULAR)  === */
+/* ================================================================== */
+
+/* 1. O Container Principal (A Caixinha Branca) */
+.custom-dropdown-permissoes {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 9999;
+    padding: 5px 0;
+    margin-top: 2px;
+    
+    /* Tamanho e Scroll */
+    min-width: 150px;
+    max-height: 250px;
+    overflow-y: auto;
+    
+    display: none; /* Escondido por padrão */
+}
+
+/* 2. Os Itens da Lista (As Permissões) */
+.custom-dropdown-item {
+    padding: 8px 12px;
+    font-size: 15px;
+    color: #888888; /*  MUDANÇA: Cinza clássico de "Apenas Leitura" */
+    font-weight: bold;
+    text-align: left;
+    white-space: nowrap;
+    cursor: default; 
+}
+
+/* 3. Modo Escuro para a Caixinha */
+body.dark-mode .custom-dropdown-permissoes {
+    background-color: #2d2d2d;
+    border-color: #555;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+body.dark-mode .custom-dropdown-item {
+    color: #777777; /*  MUDANÇA: Cinza escuro para manter o efeito no Modo Escuro */
+}
+
+/* ========================================================================== */
+/* === fim de  DROPDOWN CUSTOMIZADO DE PERMISSÕES (ESTILO PC NO CELULAR)  === */
+/* ========================================================================== */
 
 
 </style>
@@ -9064,6 +9118,99 @@ function aplicarMascaraTelefone(elemento) {
     // Devolve formatado para o campo
     elemento.value = valor;
 }
+
+
+// ==================================================================
+// === DROPDOWN CUSTOMIZADO DE PERMISSÕES (ESTILO PC NO CELULAR)  ===
+// ==================================================================
+
+// 1. Cria a estrutura HTML da caixinha (fica vazia e escondida inicialmente)
+const divDropdownPermissoes = document.createElement('div');
+divDropdownPermissoes.id = 'menuCustomPermissoes';
+divDropdownPermissoes.className = 'custom-dropdown-permissoes';
+document.body.appendChild(divDropdownPermissoes);
+
+// 2. Sequestra o clique no campo "Permissões"
+const campoPermissoes = document.getElementById('permissoesSelect');
+
+if (campoPermissoes) {
+    // Para Mobile: Previne que o menu nativo abra ao tocar
+    campoPermissoes.addEventListener('mousedown', function(e) {
+        
+        // --- A GRANDE PROTEÇÃO PARA O COMPUTADOR ---
+        // Verifica se é um dispositivo móvel (Android, iOS, etc)
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        // Se NÃO for celular (ou seja, se for PC), não faz nada! Deixa o computador abrir o menu nativo dele.
+        if (!isMobile) return; 
+        // -------------------------------------------
+
+        // Se estiver bloqueado/desabilitado, não fazemos nada
+        if (this.disabled && this.options[0].text === "⚡Acesso Total") return;
+
+        // Se o campo for apenas as opções parciais
+        if (!this.disabled || (this.disabled && this.options[0].text === "Parciais...")) {
+            e.preventDefault(); // Impede o comportamento nativo (as bolinhas)
+            this.blur();        // Tira o foco do campo
+            
+            abrirMenuCustomizadoPermissoes(this);
+        }
+    });
+}
+
+// 3. A Função que desenha e posiciona o Menu
+function abrirMenuCustomizadoPermissoes(selectElement) {
+    const menu = document.getElementById('menuCustomPermissoes');
+    
+    // Se já estiver aberto, fecha
+    if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+        return;
+    }
+
+    // Limpa o menu atual
+    menu.innerHTML = '';
+
+    // Lê as opções do <select> nativo e cria a nossa lista limpa
+    // Começamos do i=1 para pular a palavra "Parciais..."
+    let temPermissao = false;
+    for (let i = 1; i < selectElement.options.length; i++) {
+        const opcaoNativa = selectElement.options[i];
+        
+        const item = document.createElement('div');
+        item.className = 'custom-dropdown-item';
+        item.textContent = opcaoNativa.text;
+        
+        menu.appendChild(item);
+        temPermissao = true;
+    }
+
+    // Se não houver opções reais, não abre
+    if (!temPermissao) return;
+
+    // Calcula a posição exata para colocar a caixinha bem debaixo do campo
+    const rect = selectElement.getBoundingClientRect();
+    
+    menu.style.top = (rect.bottom + window.scrollY) + 'px';
+    menu.style.left = (rect.left + window.scrollX) + 'px';
+    menu.style.width = rect.width + 'px'; // Fica com a largura igual à do campo
+    
+    // Mostra o menu
+    menu.style.display = 'block';
+}
+
+// 4. Fechar o menu ao clicar fora dele
+document.addEventListener('touchstart', function(e) {
+    // Usamos touchstart aqui para ser bem responsivo no celular
+    const menu = document.getElementById('menuCustomPermissoes');
+    const campo = document.getElementById('permissoesSelect');
+    
+    if (menu && menu.style.display === 'block') {
+        if (!menu.contains(e.target) && e.target !== campo) {
+            menu.style.display = 'none';
+        }
+    }
+});
 
 </script>
 </body>
