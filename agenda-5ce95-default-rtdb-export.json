@@ -137,6 +137,7 @@
       "jogadores": {
         "ADRIANO GOMES FEITOSA": {
           "apelido": "Adriano Feitosa",
+          "ativo": true,
           "classe": "B",
           "funcoes": {
             "admin": false,
@@ -248,6 +249,7 @@
         },
         "ANA JULIA MARTINS": {
           "apelido": "Ana Julia",
+          "ativo": false,
           "classe": "",
           "jogosDeDuplasJogados": 0,
           "niver": "01/01/2001",
@@ -257,6 +259,7 @@
         },
         "ANA LICE DOURADO": {
           "apelido": "An Alice",
+          "ativo": true,
           "classe": "",
           "jogosDeDuplasJogados": 0,
           "niver": "01/01/2001",
@@ -705,6 +708,7 @@
         },
         "LEONARDO CARRARA": {
           "apelido": "Leo Carrara",
+          "ativo": false,
           "classe": "A",
           "jogosDeDuplasJogados": 0,
           "niver": "13/04/1975",
@@ -1622,14 +1626,6 @@
         "id": "-OlJKvjsPs0L_ar_iFpA",
         "texto": "Nao percam!",
         "titulo": "Torneio da Amizade"
-      },
-      "-OlJLHNxGb9IGAzuqXaY": {
-        "ativo": true,
-        "autor": "RONALDO TABORDA (Admin)",
-        "data_envio": 1770941654810,
-        "id": "-OlJLHNxGb9IGAzuqXaY",
-        "texto": "Façam suas reservas.",
-        "titulo": "Jantar de confraternização"
       }
     },
     "reservas": {
@@ -1680,83 +1676,9 @@
           "jogadores_completo": "Ana Francisca, Convidado - Joa Lins, Convidado - Mariah Silva, Convidado - Vanessa Esperanca",
           "organizador": "Ana Francisca",
           "status": "confirmada"
-        },
-        "5_20": {
-          "borda": "2h",
-          "confirmacoes": {
-            "An Alice": true,
-            "Joao Francisco": true
-          },
-          "dataCompleta": "2026-02-27",
-          "dia": 5,
-          "duracao": 3,
-          "hora": 20,
-          "jogadores": "An Alice",
-          "jogadores_completo": "An Alice, Joao Francisco",
-          "organizador": "An Alice",
-          "resultado": {
-            "dataInformado": "2026-02-27T02:06:40.129Z",
-            "informadoPor": ": An Alice",
-            "isMatchPoint": false,
-            "perdedor": "",
-            "pontos": {
-              "isTieBreak": false,
-              "j1": "0",
-              "j2": "0"
-            },
-            "sacador": "j2",
-            "set1": {
-              "placar": "1x0",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "0x0",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": ""
-          },
-          "status": "em_andamento"
-        },
-        "5_21": {
-          "confirmacoes": {
-            "An Alice": true,
-            "Joao Francisco": true
-          },
-          "dataCompleta": "2026-02-27",
-          "dia": 5,
-          "hora": 21,
-          "jogadores": "Joao Francisco",
-          "jogadores_completo": "An Alice, Joao Francisco",
-          "organizador": "An Alice",
-          "resultado": {
-            "dataInformado": "2026-02-27T02:06:40.129Z",
-            "informadoPor": ": An Alice",
-            "isMatchPoint": false,
-            "perdedor": "",
-            "pontos": {
-              "isTieBreak": false,
-              "j1": "0",
-              "j2": "0"
-            },
-            "sacador": "j2",
-            "set1": {
-              "placar": "1x0",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "0x0",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": ""
-          },
-          "status": "em_andamento"
         }
       }
     },
-    "version": "v2.1.8"
+    "version": "v2.1.9"
   }
 }
