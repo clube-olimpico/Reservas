@@ -281,6 +281,45 @@
             .col-vinculo-mobile { flex-direction: column; gap: 2px; }
             .badges-container { justify-content: center; flex-wrap: wrap; }
         }
+		
+		/* --- ESTILOS DA FAIXA E STATUS (ATIVO/INATIVO) --- */
+        .faixa-status {
+            padding: 15px;
+            color: white;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin: -25px -20px 20px -20px; /* Subimos para -25px para cobrir todo o espaço branco */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: background-color 0.3s ease;
+        }
+        .faixa-verde { background-color: #28a745; }
+        .faixa-vermelha { background-color: #dc3545; }
+		.faixa-laranja { background-color: #fd7e14; } /* A cor da pirâmide */
+        .faixa-clicavel { cursor: pointer; user-select: none; } /* Transforma a faixa num botão */
+        
+        /* Checkbox no canto direito da faixa */
+        .checkbox-status {
+            position: absolute;
+            right: 16px;
+            width: 16px;
+            height: 15px;
+            cursor: pointer;
+            accent-color: #ffffff; /* Deixa o V branquinho */
+            outline: 2px solid rgba(255,255,255,0.5);
+            border-radius: 3px;
+        }
+        
+        /* Estilo para jogadores inativos na tabela */
+        .linha-inativa td { opacity: 0.6; }
+        .linha-inativa .nome-inativo { text-decoration: line-through; color: #dc3545; }
+		/* fim de --- ESTILOS DA FAIXA E STATUS (ATIVO/INATIVO) --- */
+		
     </style>
 </head>
 <body>
@@ -319,8 +358,10 @@
         
         <div id="formOverlay" class="form-overlay">
             <div class="form-container">
-                <button class="close-form-btn" onclick="toggleForm()">×</button>
-                <h2 id="titulo">Gestão de Usuários</h2>
+                <div id="faixaStatus" class="faixa-status faixa-verde">
+                    <span id="titulo">Cadastrar Jogador</span>
+                    <input type="checkbox" id="checkAtivo" class="checkbox-status" title="Desmarque para inativar o jogador" checked>
+                </div>
                 
                 <div class="form-group" id="grp-nome">
                     <label for="nome" id="lbl-nome">Nome:</label>
@@ -364,7 +405,10 @@
                     <input type="checkbox" id="filtrarPiramide" style="margin-left: 10px;"> 
                 </div>
                 
-                <button id="botaoAcao" onclick="acaoFormulario()">Cadastrar</button>
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <button type="button" onclick="toggleForm()" style="flex: 1; margin: 0; height: 40px; padding: 0; background-color: #6c757d; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 16px;">Fechar</button>
+                    <button type="button" id="botaoAcao" onclick="acaoFormulario()" style="flex: 1; margin: 0 !important; height: 40px; padding: 0; background-color: #4CAF50; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 16px;">Cadastrar</button>
+                </div>
             </div>
         </div>
 
@@ -432,6 +476,8 @@
 
         let listaPerfisGlobal = {}; 
         let listenerJogadoresAtivo = false;
+		
+		let filtroStatusAtual = "todos"; // Controla o ciclo da faixa de consulta
 
         // --- CARREGAR PERFIS E ATUALIZAR CORES AUTOMATICAMENTE ---
         database.ref('sistemas/config/Perfis').on('value', (snapshot) => {
@@ -560,7 +606,12 @@
             const containerPerfis = document.getElementById("containerPerfisDinamicos");
 
             if (modoConsulta) {
-                titulo.textContent = "Consultar Jogador";
+                // --- MODO CONSULTA (FAIXA DE 3 FASES) ---
+                filtroStatusAtual = "todos"; // Reseta sempre para "todos" ao abrir
+                titulo.textContent = "Consultar Jogador (Todos)";
+                document.getElementById("faixaStatus").className = "faixa-status faixa-laranja faixa-clicavel";
+                document.getElementById("checkAtivo").style.display = "none"; // Esconde o checkbox
+
                 btnAcao.textContent = "Consultar";
                 lblNome.textContent = "Nome ou Apelido:";
                 inputNome.placeholder = "Digite nome ou apelido para buscar...";
@@ -584,6 +635,12 @@
                 titulo.textContent = "Cadastrar Jogador";
                 btnAcao.textContent = "Cadastrar";
                 modoCadastro = true;
+                
+                // --- LÓGICA DA FAIXA (NOVO CADASTRO) ---
+                document.getElementById("checkAtivo").style.display = "none"; // Esconde o checkbox!
+                document.getElementById("checkAtivo").checked = true;         // Garante que nasce ativo
+                document.getElementById("faixaStatus").className = "faixa-status faixa-verde"; // Força a cor verde
+                
                 lblNome.textContent = "Nome:";
                 inputNome.placeholder = "Digite o nome";
                 if(grpApelido) grpApelido.style.display = "flex";
@@ -644,9 +701,10 @@
             const piramideAtivada = simboloPiramide ? simboloPiramide.classList.contains("piramide-clicada") : false;
             const perfisMarcados = Array.from(document.querySelectorAll('input[name="perfisDinamicos"]:checked')).map(cb => cb.value);
 
+            // Adicionamos a leitura do filtroStatusAtual
             if (textoBusca === "" && piramide === "" && !filtrarPiramide && !piramideAtivada && 
                 (socio === "" || socio === "todos") && (classe === "" || classe === "todos") &&
-                niverInput === "" && perfisMarcados.length === 0) {
+                niverInput === "" && perfisMarcados.length === 0 && filtroStatusAtual === "todos") {
                 
                 filtroAtivo = null; 
             } else {
@@ -658,7 +716,8 @@
                     piramide: piramide,
                     filtrarPiramide: filtrarPiramide,
                     piramideAtivada: piramideAtivada,
-                    perfis: perfisMarcados
+                    perfis: perfisMarcados,
+                    status: filtroStatusAtual // <-- GUARDA A COR DA FAIXA AQUI
                 };
             }
 
@@ -681,6 +740,9 @@
                 if (jogadorNome.toUpperCase() === "CONVIDADO") return;
 
                 let passarFiltro = true;
+                
+                // 1. CORREÇÃO DO ERRO: Movido para fora do if(filtroAtivo) para ser reconhecido em toda a função
+                const jogadorAtivo = (jogador.ativo !== false); // Inocente até que se prove o contrário
 
                 if (filtroAtivo) {
                     const jogadorApelido = jogador.apelido ? jogador.apelido.toUpperCase() : "";
@@ -688,6 +750,11 @@
                     const jogadorClasse = jogador.classe || "";
                     const jogadorNiver = jogador.niver || "";
                     const jogadorPiramide = jogador.piramide || "";
+                    
+                    if (passarFiltro && filtroAtivo.status && filtroAtivo.status !== "todos") {
+                        if (filtroAtivo.status === "ativos" && !jogadorAtivo) passarFiltro = false;
+                        if (filtroAtivo.status === "inativos" && jogadorAtivo) passarFiltro = false;
+                    }
 
                     if (filtroAtivo.texto !== "") {
                         if (!jogadorNome.includes(filtroAtivo.texto) && !jogadorApelido.includes(filtroAtivo.texto)) passarFiltro = false;
@@ -757,10 +824,14 @@
                     const nomeMobile = formatarNomeInteligente(jogadorNome, jogador.apelido);
 
                     const row = document.createElement("tr");
+                    
+                    // 2. ESTILO VISUAL: Apenas risca e pinta de vermelho se o jogador estiver inativo
+                    const estiloInativo = !jogadorAtivo ? 'text-decoration: line-through; color: #dc3545;' : '';
+
                     row.innerHTML = `
                         <td style="text-align: left;">
-                            <span class="view-desktop">${nomeCapitalizado}</span>
-                            <span class="view-mobile">${nomeMobile}</span>
+                            <span class="view-desktop" style="${estiloInativo}">${nomeCapitalizado}</span>
+                            <span class="view-mobile" style="${estiloInativo}">${nomeMobile}</span>
                         </td>
                         <td style="text-align: left;">${apelidoCapitalizado}</td>
                         <td>
@@ -824,6 +895,7 @@
                     jogadorRef.set({ 
                         apelido, socio, classe, niver, 
                         piramide: piramideValue, 
+						ativo: true,
                         perfis: perfisObj  
                     })
                     .then(() => apelidoRef.set(true).then(() => {
@@ -872,7 +944,7 @@
                     
                     document.querySelectorAll('input[name="perfisDinamicos"]').forEach(c => c.checked = false); 
 
-                    if (jogador.perfis) {
+                    if (jogador.perfis) { 
                         Object.keys(jogador.perfis).forEach(perfilNome => {
                             const chk = document.getElementById('chk_perfil_' + perfilNome);
                             if (chk) chk.checked = true; 
@@ -888,6 +960,23 @@
                     document.getElementById("botaoAcao").textContent = "Atualizar";
                     document.getElementById("titulo").textContent = "Editar Jogador";
                     modoCadastro = false;
+
+                    // --- MOSTRAR E CARREGAR STATUS NA EDIÇÃO ---
+                    const checkAtivo = document.getElementById("checkAtivo");
+                    const faixa = document.getElementById("faixaStatus");
+                    
+                    checkAtivo.style.display = "block"; // Mostra o checkbox
+                    
+                    // Lógica: Inocente até que se prove o contrário
+                    const isAtivo = (jogador.ativo !== false); 
+                    checkAtivo.checked = isAtivo;
+                    
+                    // Pinta a faixa de acordo com o que veio do banco
+                    if (isAtivo) {
+                        faixa.className = "faixa-status faixa-verde";
+                    } else {
+                        faixa.className = "faixa-status faixa-vermelha";
+                    }
                 }
             });
         }
@@ -922,7 +1011,8 @@
                 classe: classe || "", 
                 niver: niver, 
                 piramide: piramideValue, 
-                perfis: perfisObj 
+                perfis: perfisObj,
+                ativo: document.getElementById("checkAtivo").checked // <-- GRAVA O STATUS AQUI
             }).then(() => {
                 showToast("Jogador atualizado com sucesso!", "success");
                 toggleForm(); 
@@ -1041,6 +1131,49 @@
         
         document.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('theme') === 'dark') toggleTheme();
+			
+			// --- MÁGICA DA FAIXA (ATIVO/INATIVO) ---
+            const checkAtivo = document.getElementById("checkAtivo");
+            if (checkAtivo) {
+                checkAtivo.addEventListener("change", function() {
+                    const faixa = document.getElementById("faixaStatus");
+                    if (this.checked) {
+                        faixa.className = "faixa-status faixa-verde";
+                    } else {
+                        faixa.className = "faixa-status faixa-vermelha";
+                    }
+                });
+            }
+			
+			
+			// --- MÁGICA DA FAIXA INTEIRA (SÓ NA CONSULTA) ---
+            const faixaGeral = document.getElementById("faixaStatus");
+            if (faixaGeral) {
+                faixaGeral.addEventListener("click", function(e) {
+                    // Só funciona se estivermos no modo Consulta E se o usuário não tiver clicado exatamente em cima do checkbox
+                    if (modoConsulta && e.target.id !== "checkAtivo") {
+                        const tituloFaixa = document.getElementById("titulo");
+                        
+                        // O Ciclo: Todos -> Ativos -> Inativos -> Todos...
+                        if (filtroStatusAtual === "todos") {
+                            filtroStatusAtual = "ativos";
+                            faixaGeral.className = "faixa-status faixa-verde faixa-clicavel";
+                            tituloFaixa.textContent = "Consultar Jogador (Ativos)";
+                        } 
+                        else if (filtroStatusAtual === "ativos") {
+                            filtroStatusAtual = "inativos";
+                            faixaGeral.className = "faixa-status faixa-vermelha faixa-clicavel";
+                            tituloFaixa.textContent = "Consultar Jogador (Inativos)";
+                        } 
+                        else {
+                            filtroStatusAtual = "todos";
+                            faixaGeral.className = "faixa-status faixa-laranja faixa-clicavel";
+                            tituloFaixa.textContent = "Consultar Jogador (Todos)";
+                        }
+                    }
+                });
+            }
+			
             const selectedButton = document.querySelector('.tab-button.selected');
             mostrarAba({ target: selectedButton }, 'cadastro');
             nameSearch.addEventListener('input', renderBirthdayList);
