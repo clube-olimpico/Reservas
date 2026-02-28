@@ -7048,8 +7048,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ****** 
 
-const VersaoSistema = 'v2.1.8'; // Versão atual do sistema     
-const DataVersaoSistema = '26/02/2026';     
+const VersaoSistema = 'v2.1.9'; // Versão atual do sistema     
+const DataVersaoSistema = '27/02/2026';     
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -8128,7 +8128,8 @@ function carregarReservas(quadra) {
                                                 const piramidePos = parseInt(jogadorInfo.piramide, 10);
                                                 let displayRank = piramidePos;
                                                 if (piramidePos >= 61) { displayRank = piramidePos - 60; }
-                                                nomeParaExibir = `${displayRank} - ${apelido}`;
+                                                //nomeParaExibir = `${displayRank} - ${apelido}`;
+												nomeParaExibir = `<span style="font-size: 0.8em; opacity: 0.6; margin-right: 4px;">${displayRank}.</span>${apelido}`;
                                             }
                                         }
                                     } 
@@ -8152,7 +8153,8 @@ function carregarReservas(quadra) {
 
                                     nomesHtml.push(`<span style="${styles}">${nomeParaExibir}</span>`);
                                 });
-                                return nomesHtml.join(isPiramideGame ? '<br>' : ', ');
+                                //return nomesHtml.join(isPiramideGame ? '<br>' : ', ');
+								return nomesHtml.join(isPiramideGame ? '<br>' : ', ');
                             };
 
                             const isPiramide = reserva.duracao === 3;
@@ -8200,6 +8202,15 @@ function carregarReservas(quadra) {
                                 if(cell2) {
                                     cell2.style.backgroundColor = corFundo;
                                     cell2.innerHTML = getStyledNames(jogadoresParte2, isPiramide);
+                                    
+                                    if (isPiramide) {
+                                        cell2.style.position = 'relative';
+                                        cell2.style.overflow = 'visible';
+                                        //cell2.innerHTML = '<div style="position: absolute; top: -10px; left: 0; width: 100%; text-align: center; font-size: 0.75em; opacity: 0.5; font-weight: bold; z-index: 10; text-transform: uppercase; pointer-events: none;">vs</div>' + cell2.innerHTML;
+                                        //cell2.innerHTML = '<div style="position: absolute; top: 0; left: 0; width: 100%; transform: translateY(-50%); text-align: center; font-size: 0.75em; opacity: 0.5; font-weight: bold; z-index: 10; text-transform: uppercase; pointer-events: none;">vs</div>' + cell2.innerHTML;
+								        cell2.innerHTML = '<div style="position: absolute; top: 0; left: 0; width: 100%; transform: translateY(-50%); text-align: center; font-size: 0.75em; opacity: 0.5; font-weight: bold; z-index: 10; pointer-events: none;">vs</div>' + cell2.innerHTML;
+								   }
+                                    
                                     cell2.style.cursor = "default"; 
                                 }
                             }
@@ -8233,7 +8244,8 @@ function carregarReservas(quadra) {
                                         const piramidePos = parseInt(jogadorInfo.piramide, 10);
                                         let displayRank = piramidePos;
                                         if (piramidePos >= 61) { displayRank = piramidePos - 60; }
-                                        return `${displayRank} - ${apelido}`;
+                                        //return `${displayRank} - ${apelido}`;
+										return `<span style="font-size: 0.7em; opacity: 0.6; margin-right: 4px;">${displayRank}.</span>${apelido}`;
                                     }
                                     return apelido;
                                 });
@@ -8281,12 +8293,21 @@ function carregarReservas(quadra) {
                                                     const piramidePos = parseInt(jogadorInfo.piramide, 10);
                                                     let displayRank = piramidePos;
                                                     if (piramidePos >= 61) { displayRank = piramidePos - 60; }
-                                                    return `${displayRank} - ${apelido}`;
+                                                    //return `${displayRank} - ${apelido}`;
+													return `<span style="font-size: 0.7em; opacity: 0.6; margin-right: 4px;">${displayRank}.</span>${apelido}`;
                                                 }
-                                                return apelido;
+                                                return apelido; 
                                             });
-                                            cell2.innerHTML = jogadoresFormatados2.join('<br>');
-                                        } else {
+                                            //cell2.innerHTML = jogadoresFormatados2.join('<br>');
+											cell2.innerHTML = jogadoresFormatados2.join('<br>');
+                                            
+                                            // Adiciona o VS subindo da célula de baixo
+                                            cell2.style.position = 'relative';
+                                            cell2.style.overflow = 'visible';
+                                            //cell2.innerHTML = '<div style="position: absolute; top: -10px; left: 0; width: 100%; text-align: center; font-size: 0.75em; opacity: 0.5; font-weight: bold; z-index: 10; text-transform: uppercase; pointer-events: none;">vs</div>' + cell2.innerHTML;
+                                            //cell2.innerHTML = '<div style="position: absolute; top: 0; left: 0; width: 100%; transform: translateY(-50%); text-align: center; font-size: 0.75em; opacity: 0.5; font-weight: bold; z-index: 10; text-transform: uppercase; pointer-events: none;">vs</div>' + cell2.innerHTML;
+                                            cell2.innerHTML = '<div style="position: absolute; top: 0; left: 0; width: 100%; transform: translateY(-50%); text-align: center; font-size: 0.75em; opacity: 0.5; font-weight: bold; z-index: 10; pointer-events: none;">vs</div>' + cell2.innerHTML;
+										} else {
                                             const jogadoresFormatados2 = jogadoresVisiveisParte2.split(', ').map(j => {
                                                 if (j.startsWith("Convidado - ")) return "<strong><em>Convidado</em></strong>";
                                                 return j;
@@ -10347,7 +10368,8 @@ function processarEPreencherJogadores(todosJogadores) {
 			piramide: jogador.piramide || "0",
 			niver: jogador.niver || "",
 			perfis: jogador.perfis || {},
-            socio: jogador.socio || ""
+            socio: jogador.socio || "",
+            ativo: (jogador.ativo !== false) // <--- ADICIONADO AQUI
 		};
     });
 
@@ -10404,6 +10426,14 @@ function processarEPreencherJogadores(todosJogadores) {
         select.innerHTML = '<option value="">Selecione um jogador</option>';
         Object.keys(jogadoresParaExibir).forEach((nome) => {
             const jogador = jogadoresParaExibir[nome];
+
+            // --- PILAR 2: A INVISIBILIDADE ---
+            // Se NÃO for a tela de login E o jogador estiver inativo, pula ele!
+            if (select.id !== 'jogadorSelect' && jogador.ativo === false) {
+                return; 
+            }
+            // ---------------------------------
+
             const option = document.createElement('option');
             option.value = jogador.apelido;
             option.textContent = nome;
@@ -10528,6 +10558,10 @@ window.onload = function () {
                 contentElement.style.display = 'block';
                 // E checa se é seu aniversário
                 checarAniversario();
+				
+				// --- PILAR 1: O AVISO PRÉVIO ---
+                verificarBloqueioInativo(true);
+                // -------------------------------
             } else {
                 // Se o usuário não está logado, mostra a tela de login
                 document.getElementById('pageOverlay').style.display = 'block';
@@ -10819,6 +10853,9 @@ function fazerLogin() {
             
             atualizarPrimeiroAcesso(nomeCompleto); 
             checarAniversario();
+			// --- PILAR 1: O AVISO PRÉVIO ---
+            verificarBloqueioInativo(true);
+            // -------------------------------
         };
 		
 		
@@ -19686,6 +19723,10 @@ async function executarAgendamentoAulaExtra(dia, hora, quadra) {
  * 3. Decide se abre formulário, executa direto ou abre menu Admin.
  */
 function abrirAgendamentoPelaCelula(dia, hora) {
+    // --- PILAR 3: A FECHADURA ---
+    if (verificarBloqueioInativo()) return;
+    // ----------------------------
+	
     // 1. Contexto
     const quadra = quadraSelecionada; 
     const apelidoLogado = localStorage.getItem('jogadorLogado');
@@ -20649,6 +20690,10 @@ function obterMensagemDeConflito(dadosReserva, foiConcorrencia) {
  * CORREÇÃO: Agora verifica se o professor é dono da quadra atual antes de oferecer a opção "Aula".
  */
 function verificarPermissoesBotaoMais() {
+    // --- PILAR 3: A FECHADURA ---
+    if (verificarBloqueioInativo()) return false;
+    // ----------------------------
+	
     const apelidoLogado = localStorage.getItem('jogadorLogado');
     
     // --- CORREÇÃO: LÊ A VARIÁVEL GLOBAL ---
@@ -21254,21 +21299,7 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
         renderizarListaMensagens();
     };
 
-    // --- FECHAR MURAL ---
-    window.fecharMuralMensagens = function() {
-        document.getElementById('modal-mensagens').style.display = 'none';
-        window.ocultarFormularioMensagem();
-
-        // --- AGORA SIM: SALVAMOS A LEITURA ---
-        // Quando o usuário fecha a janela, entendemos que ele terminou de ler.
-        // Gravamos a hora atual. Na próxima vez que ele abrir, o (NOVO) terá sumido.
-        var nomeLogado = localStorage.getItem('jogadorLogado') || 'anonimo';
-        var storageKey = 'ultimo_acesso_msg_' + nomeLogado;
-        localStorage.setItem(storageKey, Date.now());
-        
-        // Atualiza a lista em background para limpar o status para a próxima vez
-        renderizarListaMensagens();
-    };
+    
 
     // --- FUNÇÕES DE ESCRITA (ADMIN) ---
 
@@ -21351,6 +21382,21 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
             if(modalConf) modalConf.style.zIndex = "99999";
         }, 50);
     };
+	
+	
+	// --- FECHAR MURAL ---
+    window.fecharMuralMensagens = function() {
+        document.getElementById('modal-mensagens').style.display = 'none';
+        window.ocultarFormularioMensagem();
+
+        var nomeLogado = localStorage.getItem('jogadorLogado') || 'anonimo';
+        var storageKey = 'ultimo_acesso_msg_' + nomeLogado;
+        localStorage.setItem(storageKey, Date.now());
+        
+        // (Removemos o sessionStorage daqui para que o aviso de débito nunca seja "esquecido")
+        
+        renderizarListaMensagens();
+    };
 
     // --- FUNÇÃO QUE DESENHA A LISTA NA TELA ---
     window.renderizarListaMensagens = function() {
@@ -21365,7 +21411,6 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
         var htmlMensagens = '';
         var contadorNaoLidas = 0;
         
-        // Pega data do último acesso (Que agora só atualiza no FECHAR)
         var nomeLogado = localStorage.getItem('jogadorLogado') || 'anonimo';
         var storageKey = 'ultimo_acesso_msg_' + nomeLogado;
         var ultimoAcesso = localStorage.getItem(storageKey) || 0;
@@ -21382,26 +21427,46 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
             }
         });
 
-        // Atualiza a variável GLOBAL que está no topo do arquivo
         totalMensagensAtivas = mensagensArray.length;
+        mensagensArray.sort(function(a, b) { return b.data_envio - a.data_envio; });
 
-        mensagensArray.sort(function(a, b) { 
-            return b.data_envio - a.data_envio;
-        });
+        // =========================================================
+        // --- INJEÇÃO DO CARTÃO DE DÉBITO NO TOPO DO MURAL ---
+        // =========================================================
+        var isInativo = false;
+        if (typeof verificarBloqueioInativo === 'function') {
+            isInativo = verificarBloqueioInativo(true); // Modo silencioso = true
+        }
 
-        if (mensagensArray.length === 0) {
+        if (isInativo) {
+            // MUDANÇA AQUI: Se estiver inativo, soma SEMPRE 1 no contador. O sininho nunca apaga!
+            contadorNaoLidas++; 
+
+            var isDark = document.body.classList.contains('dark-mode');
+            var bgCard = isDark ? '#4a1919' : '#ffebee';
+            var corTextoH3 = isDark ? '#ffcccc' : '#b71c1c';
+            var corTextoP = isDark ? '#ffb3b3' : '#c62828';
+
+            htmlMensagens += 
+                '<div class="card-mensagem" style="border-left-color: #dc3545; background-color: ' + bgCard + ';">' +
+                    '<h3 style="color: ' + corTextoH3 + '; margin-bottom: 8px;">Pendência no Cadastro</h3>' +
+                    '<p style="color: ' + corTextoP + '; font-weight: bold;">O seu cadastro possui pendências.<br>As reservas estão temporariamente bloqueadas.<br>Procure a secretaria.</p>' +
+                    '<div class="card-info-autor" style="border-top-color: rgba(220, 53, 69, 0.3); margin-top: 15px;">' +
+                        '<span style="color: ' + corTextoH3 + ';">Sistema Olímpico</span>' + 
+                        '<span style="color: ' + corTextoH3 + ';">Mensagem Fixada</span>' +
+                    '</div>' +
+                '</div>';
+        }
+        // =========================================================
+
+        if (mensagensArray.length === 0 && !isInativo) {
             htmlMensagens = '<p style="text-align:center; padding:20px; color:#999;">Nenhum aviso no momento.</p>';
         } else {
             mensagensArray.forEach(function(msg) {
                 var dataObj = new Date(msg.data_envio);
                 var dataFormatada = dataObj.toLocaleDateString('pt-BR') + ' às ' + dataObj.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
-                
-                // Enquanto a janela está aberta, o ultimoAcesso é antigo, então mostra o NOVO
                 var tagNovo = (msg.data_envio > ultimoAcesso) ? '<span style="color:#ff3b30; font-size:11px; font-weight:bold; margin-left:8px;">● NOVO</span>' : '';
-
                 var btnExcluir = '<span class="btn-excluir-msg" onclick="excluirMensagem(\'' + msg.id + '\')" title="Excluir este aviso">&times;</span>';
-
-                // Limpamos o nome removendo "(Admin)" e espaços extras
 				var autorLimpo = msg.autor.replace(/\(Admin\)/gi, '').trim();
 
 				htmlMensagens += 
@@ -21410,7 +21475,6 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
 						'<h3>' + msg.titulo + tagNovo + '</h3>' +
 						'<p>' + msg.texto + '</p>' +
 						'<div class="card-info-autor">' +
-							// AQUI A MUDANÇA: Usamos autorLimpo e tiramos o "Por:" (que você nem tinha no código, mais um delírio meu)
 							'<span>' + autorLimpo + '</span>' + 
 							'<span>' + dataFormatada + '</span>' +
 						'</div>' +
@@ -21422,7 +21486,8 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
 
         if (contadorNaoLidas > 0) {
             badge.style.display = 'flex';
-            badge.textContent = contadorNaoLidas > 9 ? '9+' : contadorNaoLidas;
+            // Se for SÓ o aviso de débito e não tiver msg oficial, mostra um "!" em vez de "1"
+            badge.textContent = (contadorNaoLidas === 1 && isInativo && mensagensArray.length === 0) ? "!" : (contadorNaoLidas > 9 ? '9+' : contadorNaoLidas);
             badge.style.transform = 'scale(1.2)';
             setTimeout(function(){ badge.style.transform = 'scale(1)'; }, 200);
         } else {
@@ -21439,8 +21504,23 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
 // ============================================================================
 // CONCIERGE: POPUP DE AVISO DA TAXA DE CONVIDADO (ANTES DE SALVAR)
 // ============================================================================
+// ============================================================================
+// CONCIERGE: POPUP DE AVISO DA TAXA DE CONVIDADO (ANTES DE SALVAR)
+// ============================================================================
 function exibirAvisoConvidado(config, listaConvidados) {
     return new Promise((resolve) => {
+        // --- DETECÇÃO DO MODO ESCURO ---
+        const isDark = document.body.classList.contains('dark-mode');
+        const bgModal = isDark ? '#2a2a2a' : '#fff';
+        const corTextoPrincipal = isDark ? '#f1f1f1' : '#333';
+        const bgCaixa = isDark ? '#333' : '#f4f6f8';
+        const corBorda = isDark ? '#555' : '#ddd';
+        const bgBotaoCancelar = isDark ? '#444' : '#e0e0e0';
+        const corTextoCancelar = isDark ? '#f1f1f1' : '#333';
+        const sombraModal = isDark ? '0 4px 15px rgba(0,0,0,0.8)' : '0 4px 15px rgba(0,0,0,0.4)';
+        const corBordaDivisoria = isDark ? '#555' : '#ccc';
+        // -------------------------------
+
         // Quantidade de convidados
         const qtdConvidados = listaConvidados.length;
 
@@ -21448,8 +21528,9 @@ function exibirAvisoConvidado(config, listaConvidados) {
         const nomesLimpos = listaConvidados.map(nome => {
             return nome.replace(/^Convidado[:\s-]{1,}/i, '').trim() || "Convidado sem nome";
         });
-        // Monta a lista em HTML para o painel escondido
-        const listaHtml = nomesLimpos.map(n => `<div style="padding: 4px 0; border-bottom: 1px solid #e0e0e0;">• ${n}</div>`).join('');
+        
+        // Monta a lista em HTML para o painel escondido (já usando a borda correta do tema)
+        const listaHtml = nomesLimpos.map(n => `<div style="padding: 4px 0; border-bottom: 1px solid ${corBordaDivisoria};">• ${n}</div>`).join('');
 
         // Cria o fundo escuro (overlay)
         const overlay = document.createElement('div');
@@ -21474,29 +21555,31 @@ function exibirAvisoConvidado(config, listaConvidados) {
 
         // Cria a caixa do aviso (Modal)
         const modal = document.createElement('div');
-        modal.style.backgroundColor = '#fff';
+        modal.style.backgroundColor = bgModal;
+        modal.style.color = corTextoPrincipal; // Aplica a cor do texto base
         modal.style.padding = '25px 20px';
         modal.style.borderRadius = '12px';
         modal.style.maxWidth = '90%';
         modal.style.width = '350px';
         modal.style.textAlign = 'center';
-        modal.style.boxShadow = '0 4px 15px rgba(0,0,0,0.4)';
+        modal.style.boxShadow = sombraModal;
+        if (isDark) modal.style.border = '1px solid #444';
         modal.style.fontFamily = 'Arial, sans-serif';
 
         modal.innerHTML = `
             <h3 style="color: #4CAF50; margin-top: 0; font-size: 20px;">Taxa de Convidado</h3>
             
-            <p style="font-size: 15px; color: #333; margin-bottom: 5px;">Você está incluindo <span id="btnVerConvidados" style="color: #007BFF; cursor: pointer; font-weight: bold; text-decoration: underline;">${qtdConvidados} convidado(s)</span>.</p>
+            <p style="font-size: 15px; margin-bottom: 5px;">Você está incluindo <span id="btnVerConvidados" style="color: #007BFF; cursor: pointer; font-weight: bold; text-decoration: underline;">${qtdConvidados} convidado(s)</span>.</p>
             
-            <div id="painelNomesConvidados" style="display: none; background: #f4f6f8; padding: 10px; border-radius: 6px; text-align: left; border: 1px solid #ccc; margin: 10px 0; font-size: 14px; color: #444; max-height: 100px; overflow-y: auto;">
+            <div id="painelNomesConvidados" style="display: none; background: ${bgCaixa}; padding: 10px; border-radius: 6px; text-align: left; border: 1px solid ${corBorda}; margin: 10px 0; font-size: 14px; max-height: 100px; overflow-y: auto;">
                 ${listaHtml}
             </div>
 
-            <p style="font-size: 15px; color: #333; margin-bottom: 15px;">É necessário o pagamento da taxa para confirmar a reserva.</p>
+            <p style="font-size: 15px; margin-bottom: 15px;">É necessário o pagamento da taxa para confirmar a reserva.</p>
             
-            <div style="background: #f4f6f8; padding: 15px; border-radius: 8px; text-align: left; border: 1px solid #ddd; margin-bottom: 15px;">
+            <div style="background: ${bgCaixa}; padding: 15px; border-radius: 8px; text-align: left; border: 1px solid ${corBorda}; margin-bottom: 15px;">
                 <p style="margin: 5px 0; font-size: 14px;"><b>Valor Total:</b> R$ ${valorTotal.toFixed(2).replace('.', ',')}</p>
-                <hr style="border: 0; border-top: 1px solid #ccc; margin: 10px 0;">
+                <hr style="border: 0; border-top: 1px solid ${corBordaDivisoria}; margin: 10px 0;">
                 <p style="margin: 5px 0; font-size: 14px;"><b>Enviar comprovante para:</b></p>
                 <p style="margin: 5px 0; font-size: 14px;">Financeiro: ${recebedor}</p>
                 <p style="margin: 5px 0; font-size: 14px;">WhatsApp: ${whatsapp} (pix)</p>
@@ -21505,7 +21588,7 @@ function exibirAvisoConvidado(config, listaConvidados) {
             <p style="font-size: 12px; color: #d9534f; margin-bottom: 20px;">O não envio do comprovante pode sujeitar o titular a penalidades.</p>
             
             <div style="display: flex; justify-content: space-between; gap: 10px;">
-                <button id="btnCancelarAviso" style="flex: 1; padding: 12px; background: #e0e0e0; color: #333; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">Cancelar</button>
+                <button id="btnCancelarAviso" style="flex: 1; padding: 12px; background: ${bgBotaoCancelar}; color: ${corTextoCancelar}; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">Cancelar</button>
                 <button id="btnAceitarAviso" style="flex: 1; padding: 12px; background: #4CAF50; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">Concordar e Reservar</button>
             </div>
         `;
@@ -21513,13 +21596,13 @@ function exibirAvisoConvidado(config, listaConvidados) {
         overlay.appendChild(modal);
         document.body.appendChild(overlay);
 
-        // Ação de abrir/fechar a lista de nomes (Sanfona) - AGORA SEM MUDAR O TEXTO
+        // Ação de abrir/fechar a lista de nomes (Sanfona)
         document.getElementById('btnVerConvidados').onclick = function() {
             const painel = document.getElementById('painelNomesConvidados');
             if (painel.style.display === 'none') {
                 painel.style.display = 'block';
             } else {
-                painel.style.display = 'none';
+                painel.style.display = 'none';  
             }
         };
 
@@ -21537,6 +21620,41 @@ function exibirAvisoConvidado(config, listaConvidados) {
 }
 
 
+/**
+ * PILAR 1 e 3: Verifica se o usuário está inativo.
+ * Mostra a notificação customizada e retorna true se estiver bloqueado.
+ */
+/**
+ * PILAR 1 e 3: Verifica se o usuário está inativo.
+ * Modo Silencioso = true -> Apenas coloca no sininho (Ao abrir o app)
+ * Modo Silencioso = false -> Mostra o pop-up vermelho na tela e bloqueia (Ao tentar reservar)
+ */
+function verificarBloqueioInativo(modoSilencioso = false) {
+    const nomeLogado = localStorage.getItem('jogadorLogado');
+    if (!nomeLogado) return false;
+
+    // Encontra o jogador na memória
+    const apelidoLogado = Object.keys(jogadoresData).find(a => jogadoresData[a].nomeCompleto.toUpperCase() === nomeLogado.toUpperCase());
+    
+    if (apelidoLogado && jogadoresData[apelidoLogado]) {
+        if (jogadoresData[apelidoLogado].ativo === false) {
+            
+            if (modoSilencioso) {
+                // --- MENSAGEM SILENCIOSA NO SININHO ---
+                // AQUI VOCÊ DEVE INSERIR A SUA FUNÇÃO QUE ADICIONA NOTIFICAÇÕES NO PAINEL.
+                // Exemplo: 
+                // adicionarNotificacaoPainel("⚠️ O seu cadastro possui pendências. Procure a secretaria.");
+                
+            } else {
+                // --- MENSAGEM INVASIVA (BLOQUEIO) ---
+                mostrarNotificacao("⚠️ <b>Aviso:</b><br>O seu cadastro possui pendências.<br>As reservas estão temporariamente bloqueadas.<br>Procure a secretaria.", 'error');
+            }
+            
+            return true; // Está bloqueado!
+        }
+    }
+    return false; // Está liberado!
+}
 	
 	
 </script>
