@@ -63,6 +63,7 @@
             transition: 0.3s; text-align: center; white-space: nowrap;
         }
         .tab-button.selected { background-color: #228B22; border: 2px solid #000; }
+		body.dark-mode .tab-button.selected { border: 2px solid #ffffff; }
 
         .tab-content { display: none; width: 100%; align-items: center; flex-direction: column; }
         .tab-content.active { display: flex; }
@@ -124,6 +125,14 @@
         th, td { border: 1px solid var(--border-color); padding: 10px; text-align: center; color: var(--text-color); }
         th { background-color: var(--table-head-bg); }
         tr:hover { background-color: var(--hover-row); cursor: pointer; }
+		
+		/* Impede o celular de selecionar o texto no duplo clique */
+        #tabela-jogadores tr {
+            -webkit-user-select: none; /* Safari / iPhone */
+            -moz-user-select: none;    /* Firefox */
+            -ms-user-select: none;     /* Internet Explorer/Edge */
+            user-select: none;         /* Padrão moderno (Android/Chrome) */
+        }
         
         .view-mobile { display: none; } 
         .view-desktop { display: inline; }
@@ -307,12 +316,25 @@
         .checkbox-status {
             position: absolute;
             right: 16px;
-            width: 16px;
-            height: 15px;
+            width: 22px; /* Ligeiramente maior para melhor toque no celular */
+            height: 22px;
             cursor: pointer;
-            accent-color: #ffffff; /* Deixa o V branquinho */
-            outline: 2px solid rgba(255,255,255,0.5);
-            border-radius: 3px;
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            border-radius: 4px;
+            margin: 0;
+            padding: 0;
+            outline: none;
+        }
+        .checkbox-status:checked {
+            background-color: #ffffff; /* Fundo branco */
+            /* Desenha o "V" preto perfeitamente centralizado usando SVG */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+            background-size: 14px; /* Tamanho do V */
+            background-position: center;
+            background-repeat: no-repeat;
         }
         
         /* Estilo para jogadores inativos na tabela */
@@ -986,24 +1008,87 @@
             let apelido = document.getElementById("apelido").value.trim();
             const socio = document.getElementById("socio").value;
             
-            // CORREÇÃO: Converte SEM_CLASSE para vazio antes de salvar
+            // Tratamento da classe vazia
             let classe = document.getElementById("classe").value;
             if (classe === "SEM_CLASSE") classe = "";
 
             let niver = document.getElementById("niver").value;
             const piramide = document.getElementById("piramide").value.trim();
+            const ativoNovo = document.getElementById("checkAtivo").checked;
             
             const perfisObj = {};
             document.querySelectorAll('input[name="perfisDinamicos"]:checked').forEach(chk => {
                 perfisObj[chk.value] = true;
             });
 
+            // Formatações antes de salvar/comparar
             if (niver) niver = niver.split("-").reverse().join("/");
             apelido = apelido.toLowerCase().replace(/\b\w/g, letra => letra.toUpperCase());
             const piramideValue = piramide.trim() === "" ? "" : piramide;
             
-            const confirmacao = await showCustomModal("Atualizar Jogador", "Confirma a atualização dos dados?");
+            // =========================================================
+            // === LÓGICA DO RELATÓRIO DE ALTERAÇÕES (TIPO CARRINHO) ===
+            // =========================================================
+            const jogadorAntigo = listaJogadoresGlobal[nome] || {};
+            let listaAlteracoes = [];
+
+            // 1. Apelido
+            const oldApelido = jogadorAntigo.apelido || "";
+            if (apelido !== oldApelido) listaAlteracoes.push(`<li><b>Apelido:</b> ${oldApelido || 'Vazio'} ➝ <b>${apelido || 'Vazio'}</b></li>`);
+
+            // 2. Vínculo (Sócio)
+            const oldSocio = jogadorAntigo.socio || "";
+            const socioFormatado = socio ? socio.charAt(0).toUpperCase() + socio.slice(1) : "Vazio";
+            const oldSocioFormatado = oldSocio ? oldSocio.charAt(0).toUpperCase() + oldSocio.slice(1) : "Vazio";
+            if (socio !== oldSocio) listaAlteracoes.push(`<li><b>Vínculo:</b> ${oldSocioFormatado} ➝ <b>${socioFormatado}</b></li>`);
+
+            // 3. Classe
+            const oldClasse = jogadorAntigo.classe || "";
+            if (classe !== oldClasse) listaAlteracoes.push(`<li><b>Classe:</b> ${oldClasse || '(Sem classe)'} ➝ <b>${classe || '(Sem classe)'}</b></li>`);
+
+            // 4. Data de Nascimento
+            const oldNiver = jogadorAntigo.niver || "";
+            if (niver !== oldNiver) listaAlteracoes.push(`<li><b>Nascimento:</b> ${oldNiver || 'Vazio'} ➝ <b>${niver || 'Vazio'}</b></li>`);
+
+            // 5. Ranking Pirâmide
+            const oldPiramide = jogadorAntigo.piramide || "";
+            if (piramideValue !== oldPiramide) listaAlteracoes.push(`<li><b>Pirâmide:</b> ${oldPiramide || 'Vazio'} ➝ <b>${piramideValue || 'Vazio'}</b></li>`);
+
+            // 6. Status (Ativo/Inativo)
+            const oldAtivo = jogadorAntigo.ativo !== false; // Padrão é true
+            if (ativoNovo !== oldAtivo) listaAlteracoes.push(`<li><b>Status:</b> ${oldAtivo ? 'Ativo' : 'Inativo'} ➝ <b>${ativoNovo ? 'Ativo' : 'Inativo'}</b></li>`);
+
+            // 7. Perfis/Funções
+            let oldPerfisVisual = "";
+            if (jogadorAntigo.perfis) {
+                 oldPerfisVisual = Object.keys(jogadorAntigo.perfis).sort().join(", ");
+            } else if (jogadorAntigo.funcoes) {
+                 // Adaptação caso o jogador ainda tenha o sistema antigo de funções
+                 const funcoesTraducoes = [];
+                 if(jogadorAntigo.funcoes.admin) funcoesTraducoes.push("Admin");
+                 if(jogadorAntigo.funcoes.professor) funcoesTraducoes.push("Professor");
+                 if(jogadorAntigo.funcoes.arbitro) funcoesTraducoes.push("Arbitro");
+                 if(jogadorAntigo.funcoes.operador) funcoesTraducoes.push("Operador");
+                 oldPerfisVisual = funcoesTraducoes.sort().join(", ");
+            }
+            const newPerfis = Object.keys(perfisObj).sort().join(", ");
+            
+            if (newPerfis !== oldPerfisVisual) {
+                 listaAlteracoes.push(`<li><b>Perfis:</b> ${oldPerfisVisual || 'Nenhum'} ➝ <b>${newPerfis || 'Nenhum'}</b></li>`);
+            }
+
+            // Se o usuário clicou em salvar sem mudar nada, cancela e avisa!
+            if (listaAlteracoes.length === 0) {
+                showToast("Nenhuma alteração foi detectada.", "info");
+                return;
+            }
+
+            // Monta a mensagem visual para a janela pop-up
+            const mensagemModal = `Confirma a atualização dos seguintes dados?<br><ul style="text-align: left; margin-top: 15px; margin-bottom: 0; padding-left: 20px; font-size: 15px; line-height: 1.6;">${listaAlteracoes.join('')}</ul>`;
+            
+            const confirmacao = await showCustomModal("Resumo da Atualização", mensagemModal);
             if (!confirmacao) return;
+            // =========================================================
 
             database.ref("sistemas/cadastro/jogadores/" + nome).update({
                 apelido: apelido || "", 
@@ -1012,7 +1097,7 @@
                 niver: niver, 
                 piramide: piramideValue, 
                 perfis: perfisObj,
-                ativo: document.getElementById("checkAtivo").checked // <-- GRAVA O STATUS AQUI
+                ativo: ativoNovo 
             }).then(() => {
                 showToast("Jogador atualizado com sucesso!", "success");
                 toggleForm(); 
