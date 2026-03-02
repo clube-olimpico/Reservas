@@ -1148,9 +1148,10 @@ body.dark-mode .tab-button:hover {
 
 /* Aba SELECIONADA no MODO ESCURO */
 body.dark-mode .tab-button.selected {
-    background-color: #4CAF50;
-    color: white;
-    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.5); /* Sombra verde mais intensa */
+    background-color: #4CAF50 !important;
+    color: white !important;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.5) !important;
+    border: 2px solid #ffffff !important; /* A MÁGICA AQUI: Borda branca no modo escuro */
 }
 
 body.dark-mode .header {
@@ -3328,11 +3329,26 @@ body.dark-mode .tab-button.live-game::after {
     pointer-events: none; /* Apenas visual */
 }
 
-/* Animação de Pulsar */
+/* Estado: BREAK POINT (Azul Vibrante) */
+.btn-status-breakpoint {
+    background-color: #00509d !important; 
+    color: white !important;
+    animation: pulse-blue 1.5s infinite !important; /* Agora chama a animação correta */
+    pointer-events: none; 
+}
+
+/* Animação de Pulsar (Laranja para Match Point) */
 @keyframes pulse-orange {
     0% { box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.7); }
     70% { box-shadow: 0 0 0 10px rgba(243, 156, 18, 0); }
     100% { box-shadow: 0 0 0 0 rgba(243, 156, 18, 0); }
+}
+
+/* Animação de Pulsar (Azul para Break Point) */
+@keyframes pulse-blue {
+    0% { box-shadow: 0 0 0 0 rgba(0, 80, 157, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 80, 157, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 80, 157, 0); }
 }
 
 /* 10. Estilos para os selects modernos (W.O./Desistência) */
@@ -4686,6 +4702,28 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
     0% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.7; transform: scale(1.05); }
     100% { opacity: 1; transform: scale(1); }
+}
+
+/* Aviso de Break Point no Placar ao Vivo */
+.placar-break-point-alert {
+    background-color: #00509d; /* Azul Vibrante */
+    color: white;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 5px 15px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    letter-spacing: 2px;
+    margin-left: 15px;
+    animation: pulse-blue-placar 1.5s infinite;
+    display: none; 
+    vertical-align: middle;
+}
+
+@keyframes pulse-blue-placar {
+    0% { box-shadow: 0 0 0 0 rgba(0, 80, 157, 0.8); }
+    70% { box-shadow: 0 0 0 12px rgba(0, 80, 157, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 80, 157, 0); }
 }
 
 /* ================================================== */
@@ -7069,8 +7107,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ****** 
 
-const VersaoSistema = 'v2.1.9'; // Versão atual do sistema     
-const DataVersaoSistema = '27/02/2026';     
+const VersaoSistema = 'v2.2.0'; // Versão atual do sistema     
+const DataVersaoSistema = '02/03/2026';      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -10877,6 +10915,9 @@ function fazerLogin() {
 			// --- PILAR 1: O AVISO PRÉVIO ---
             verificarBloqueioInativo(true);
             // -------------------------------
+            
+            // --- CORREÇÃO AQUI: Recalcula o sininho para quem acabou de entrar ---
+            renderizarListaMensagens();
         };
 		
 		
@@ -13586,6 +13627,7 @@ function checarAniversario() {
 
 // Variável global para guardar a referência da reserva em edição de resultado
 let reservaResultadoEmEdicao = null;
+let listenerModalResultado = null; // Controle do monitoramento anti-conflito
 
 function mostrarOpcoesPiramide(reserva, key, quadra, isParticipante, isDelegado) {
     // 1. FAXINA GERAL (Esta é a única novidade crítica)
@@ -13672,13 +13714,13 @@ function mostrarOpcoesPiramide(reserva, key, quadra, isParticipante, isDelegado)
         }
 
         // Ação do botão
-        btnResultado.onclick = async () => { 
-            // Só ativa o modo Leitura (que chama o X) se o jogo estiver com status de finalizado.
-            // Se estiver 'em_andamento', passa 'false' para manter a Súmula normal com os 3 pontinhos.
-            const jogoAcabou = (reserva.status === 'finalizada' || reserva.status === 'resultado_pendente');
+        btnResultado.onclick = () => { 
+            // CORREÇÃO: Apenas jogos com status 'finalizada' ativam o Modo de Visualização (tela travada).
+            // 'resultado_pendente' e 'em_andamento' abrem a tela liberada para edição.
+            const jogoAcabou = (reserva.status === 'finalizada');
             
-            await abrirModalResultado(reserva, key, quadra, jogoAcabou); 
-            fecharModalAcoes(); 
+            fecharModalAcoes(); // 1º PASSO: Fecha o menuzinho da pirâmide e tira o desfoque
+            abrirModalResultado(reserva, key, quadra, jogoAcabou); // 2º PASSO: Abre a Súmula limpa por cima
         };
 
         // Insere no DOM (Logo após o Ver Detalhes)
@@ -14115,6 +14157,7 @@ async function salvarResultadoPiramide() {
             const resultadoParcialData = {
                 tipo: 'Placar Normal', vencedor: '', perdedor: '', sacador: sacadorAtual,
                 isMatchPoint: verificarMatchPoint(),
+				isBreakPoint: verificarBreakPoint(),
                 pontos: { j1: document.getElementById('pontos-j1').textContent, j2: document.getElementById('pontos-j2').textContent, isTieBreak: estadoPontos.tiebreakMode },
                 set1: { placar: `${getVal('set1-j1')}x${getVal('set1-j2')}`, tiebreak: (isTb1) ? `${getVal('tb1-j1')}-${getVal('tb1-j2')}` : "" },
                 set2: { placar: `${getVal('set2-j1')}x${getVal('set2-j2')}`, tiebreak: (isTb2) ? `${getVal('tb2-j1')}-${getVal('tb2-j2')}` : "" },
@@ -14253,6 +14296,13 @@ async function salvarResultadoPiramide() {
  */
 async function executarSalvamentoResultado(resultadoData, forcarFinalizacao = false) {
     if (!reservaResultadoEmEdicao) return;
+	
+	// --- NOVO: Desliga o ouvinte antes de salvar para não se auto-interromper ---
+    if (listenerModalResultado) {
+        database.ref(listenerModalResultado.path).off('value', listenerModalResultado.callback);
+        listenerModalResultado = null;
+    }
+    // -----------------------------------------------------------------------------
 
     const jogadorLogadoCompleto = localStorage.getItem('jogadorLogado');
     const jogadorLogadoApelido = Object.keys(jogadoresData).find(
@@ -14298,18 +14348,26 @@ async function executarSalvamentoResultado(resultadoData, forcarFinalizacao = fa
         executarFinalizacaoDireta = true;
         mensagemSucesso = "Disputa resolvida! Resultado finalizado.";
     } 
-    // B. MODO ARBITRAGEM -> Finaliza direto!
+    // B. MODO ARBITRAGEM -> Verifica quem é o utilizador!
     else if (forcarFinalizacao) {
-        novoStatus = 'finalizada';
-        executarFinalizacaoDireta = true;
-        mensagemSucesso = "Jogo finalizado pelo Árbitro com sucesso!";
+        const ehAutoridade = isUsuarioAdmin() || isUsuarioArbitro() || (reserva.delegado === jogadorLogadoApelido);
+        
+        if (ehAutoridade) {
+            novoStatus = 'finalizada';
+            executarFinalizacaoDireta = true;
+            mensagemSucesso = "Jogo finalizado pelo Árbitro com sucesso!";
+        } else {
+            novoStatus = 'resultado_pendente';
+            executarFinalizacaoDireta = false;
+            mensagemSucesso = "Resultado salvo! Aguardando a confirmação do oponente.";
+        }
     }
     // C. MODO SÚMULA (Padrão) -> Fica Pendente
     else {
         novoStatus = 'resultado_pendente';
         executarFinalizacaoDireta = false;
-        mensagemSucesso = "Resultado salvo! Aguardando confirmação do oponente.";
-    }
+        mensagemSucesso = "Resultado salvo! Aguardando a confirmação do oponente.";
+    }executarSalvamentoSilencioso
 
     updates[`${path1}/status`] = novoStatus;
     updates[`${path1}/resultado`] = resultadoData;
@@ -14359,6 +14417,12 @@ async function executarSalvamentoResultado(resultadoData, forcarFinalizacao = fa
  */
 // Função que fecha o modal (LIMPA)
 function fecharModalResultado() {
+    // --- NOVO: Desliga o monitoramento anti-conflito ---
+    if (listenerModalResultado) {
+        database.ref(listenerModalResultado.path).off('value', listenerModalResultado.callback);
+        listenerModalResultado = null;
+    }
+    
     // Tenta sair da tela cheia apenas se estiver ativa
     if (document.fullscreenElement) {
         sairDaTelaCheia();
@@ -14408,9 +14472,19 @@ function formatarNomeCompleto(nome) {
 /**
  * Verifica se o jogador logado precisa confirmar algum resultado pendente e mostra o modal.
  */
+/**
+ * Verifica se o jogador logado precisa confirmar algum resultado pendente e mostra o modal.
+ */
 async function verificarConfirmacoesResultado(todasAsReservas) {
     const jogadorLogadoCompleto = localStorage.getItem('jogadorLogado');
     if (!jogadorLogadoCompleto) return;
+
+    // --- BLINDAGEM UX: NUNCA mostra popup de confirmação se o Placar/Súmula estiver aberto ---
+    const modalPlacar = document.getElementById('modalResultadoPiramide');
+    if (modalPlacar && modalPlacar.style.display === 'flex') {
+        return; // Interrompe silenciosamente. Quando ele fechar a tela, o sistema verifica novamente.
+    }
+    // ----------------------------------------------------------------------------------------
 
     const jogadorLogadoApelido = Object.keys(jogadoresData).find(
         apelido => jogadoresData[apelido].nomeCompleto.toUpperCase() === jogadorLogadoCompleto.toUpperCase()
@@ -14423,19 +14497,28 @@ async function verificarConfirmacoesResultado(todasAsReservas) {
     for (const quadra in todasAsReservas) {
         const reservasDaQuadra = todasAsReservas[quadra];
         for (const key in reservasDaQuadra) {
-            let reservaStale = reservasDaQuadra[key]; // Dados potencialmente desatualizados
+            let reservaStale = reservasDaQuadra[key]; 
 
-            if (reservaStale.status === 'resultado_pendente' && reservaStale.resultado && 
-                reservaStale.resultado.perdedor === jogadorLogadoApelido &&
-                reservaStale.resultado.informadoPor !== jogadorLogadoApelido) { // Garante que não é o próprio informante
+            // CORREÇÃO DO BUG DO "INFORMADO POR": 
+            // Usamos .includes() em vez de '!==' porque o nome salvo pode estar como ": Adriano" ou "Admin: Adriano"
+            const euFuiOInformante = reservaStale.resultado && reservaStale.resultado.informadoPor && reservaStale.resultado.informadoPor.includes(jogadorLogadoApelido);
+
+            // CORREÇÃO: Verifica se o usuário logado participou do jogo (como vencedor ou como perdedor)
+            const souJogadorDaPartida = reservaStale.resultado && 
+                                        (reservaStale.resultado.perdedor === jogadorLogadoApelido || 
+                                         reservaStale.resultado.vencedor === jogadorLogadoApelido);
+
+            // Mostra a confirmação se a partida está pendente, se eu joguei ela, e se NÃO fui eu que informei.
+            if (reservaStale.status === 'resultado_pendente' && 
+                souJogadorDaPartida &&
+                !euFuiOInformante) { 
                 
-                // --- INÍCIO DA CORREÇÃO ---
                 // Busca os dados mais recentes da reserva para evitar inconsistências
                 const reservaRef = database.ref(`sistemas/reservas/${quadra}/${key}`);
                 const snapshot = await reservaRef.once('value');
-                const reserva = snapshot.val(); // Usa os dados frescos do banco
+                const reserva = snapshot.val(); 
 
-                if (!reserva || !reserva.resultado) continue; // Pula se a reserva foi alterada/removida
+                if (!reserva || !reserva.resultado) continue; 
 
                 const resumoPartida = document.getElementById('resumo-partida-confirmacao');
                 const placarInformado = document.getElementById('placar-informado-confirmacao');
@@ -14446,29 +14529,24 @@ async function verificarConfirmacoesResultado(todasAsReservas) {
                     <strong>Vencedor:</strong> ${reserva.resultado.vencedor}
                 `;
                 
-                // LÓGICA PARA RECONSTRUIR A ORDEM ORIGINAL DOS JOGADORES
                 let jogador1Original, jogador2Original; 
                 if (reserva.jogadores_completo) {
                     const jogadoresDaPartida = reserva.jogadores_completo.split(',').map(j => j.trim());
                     jogador1Original = jogadoresDaPartida[0];
                     jogador2Original = jogadoresDaPartida[1];
                 } else {
-                    // Fallback para reservas mais antigas sem o campo 'jogadores_completo'
                     jogador1Original = reserva.jogadores.split(',').map(j => j.trim())[0];
                     const keySegundaHora = `${reserva.dia}_${reserva.hora + 1}`;
                     const reservaSegundaParte = reservasDaQuadra[keySegundaHora];
                      if (reservaSegundaParte && reservaSegundaParte.jogadores) {
                         jogador2Original = reservaSegundaParte.jogadores.split(',').map(j => j.trim())[0];
                     } else {
-                        // Se não for possível reconstruir, pula para evitar mais erros
-                        console.error("Não foi possível reconstruir a lista de jogadores para a confirmação de resultado.", reserva);
+                        console.error("Não foi possível reconstruir a lista de jogadores.", reserva);
                         continue; 
                     }
                 }
 
-                // CHAMADA CORRIGIDA: Usa a ordem original dos jogadores
                 placarInformado.innerHTML = gerarPlacarHtml(reserva.resultado, jogador1Original, jogador2Original);
-                // --- FIM DA CORREÇÃO ---
 
                 document.getElementById('btnAprovarResultado').onclick = () => aprovarResultado(key, quadra);
                 document.getElementById('btnRecusarResultado').onclick = () => recusarResultado(key, quadra);
@@ -16520,7 +16598,7 @@ async function confirmarDelegacao() {
     const selecionado = document.querySelector('input[name="delegado"]:checked');
 
     if (!selecionado) {
-        alert("Por favor, selecione um jogador para delegar.");
+        mostrarNotificacao("Por favor, selecione um jogador para delegar.", 'warning');
         return;
     }
 
@@ -16528,7 +16606,7 @@ async function confirmarDelegacao() {
 
     // --- CORREÇÃO PRINCIPAL: Usa a variável 'delegacaoEmAndamento' ---
     if (!delegacaoEmAndamento) {
-        alert("Erro: Não foi possível identificar a reserva. Tente novamente.");
+        mostrarNotificacao("Erro: Não foi possível identificar a reserva. Tente novamente.", 'error');
         return;
     }
 
@@ -16542,13 +16620,15 @@ async function confirmarDelegacao() {
         updates[path2] = apelidoDelegado;
 
         await database.ref().update(updates);
-        alert(`A anotação do placar foi delegada para ${apelidoDelegado} com sucesso!`);
+        
+        // Substituído o alert() antigo pela nossa notificação moderna
+        mostrarNotificacao(`A anotação do placar foi delegada para <b>${apelidoDelegado}</b> com sucesso!`, 'success');
 
         fecharModalDelegacao();
 
     } catch (error) {
         console.error("Erro ao salvar delegação:", error);
-        alert("Ocorreu um erro ao salvar a delegação.");
+        mostrarNotificacao("Ocorreu um erro ao salvar a delegação.", 'error');
     }
 }
 document.getElementById('btnConfirmarDelegacao').onclick = confirmarDelegacao;
@@ -16609,16 +16689,39 @@ function atualizarBotaoSalvarResultado(isResultadoConclusivo = false) {
     }
 
     // --- MODO ARBITRAGEM (Dinâmico e Automático) - SEM ALTERAÇÕES ---
+    // --- MODO ARBITRAGEM (Dinâmico e Automático) - SEM ALTERAÇÕES ---
     if (isResultadoConclusivo) {
         btnSalvar.textContent = 'Salvar'; 
         btnSalvar.style.backgroundColor = '#28a745';
         btnSalvar.disabled = false;
         btnSalvar.style.cursor = 'pointer';
         btnSalvar.style.opacity = '1';
+        
+        // --- CORREÇÃO 2: MENSAGEM NO BOTÃO SAIR DA ARBITRAGEM ---
+        btnCancelar.textContent = 'Sair';
+        btnCancelar.onclick = () => {
+            const jogadorLogadoCompleto = localStorage.getItem('jogadorLogado') || '';
+            const jogadorLogadoApelido = Object.keys(jogadoresData).find(
+                apelido => jogadoresData[apelido].nomeCompleto.toUpperCase() === jogadorLogadoCompleto.toUpperCase()
+            ) || jogadorLogadoCompleto;
+            
+            const ehAutoridade = isUsuarioAdmin() || isUsuarioArbitro() || (reservaResultadoEmEdicao && reservaResultadoEmEdicao.reserva.delegado === jogadorLogadoApelido);
+            
+            if (!ehAutoridade) {
+                mostrarNotificacao("Resultado salvo! Aguardando a confirmação do oponente.", 'success');
+            }
+            fecharModalResultado();
+        };
+        // --------------------------------------------------------
+        
     } else {
         if (verificarMatchPoint()) {
             btnSalvar.textContent = 'MATCH POINT';
             btnSalvar.className = 'btn-modern btn-status-matchpoint';
+            btnSalvar.onclick = null; 
+        } else if (verificarBreakPoint()) {
+            btnSalvar.textContent = 'BREAK POINT';
+            btnSalvar.className = 'btn-modern btn-status-breakpoint';
             btnSalvar.onclick = null; 
         } else {
             if (btnSalvar.textContent !== 'Salvando...') {
@@ -17059,8 +17162,20 @@ async function abrirPlacarAoVivo(key, quadra) {
             liveIndicatorElement.innerHTML = '<span class="live-indicator"></span> AO VIVO';
             liveIndicatorElement.style.color = '#ff4d4d';
             vencedorDeclaracao.style.display = 'none';
-            if (reserva.resultado.isMatchPoint) mpAlert.style.display = 'inline-block';
-            else mpAlert.style.display = 'none';
+			
+            // Hierarquia: Match Point > Break Point
+            if (reserva.resultado.isMatchPoint) {
+                mpAlert.textContent = "MATCH POINT";
+                mpAlert.className = "placar-match-point-alert";
+                mpAlert.style.display = 'inline-block';
+            } else if (reserva.resultado.isBreakPoint) {
+                mpAlert.textContent = "BREAK POINT";
+                mpAlert.className = "placar-break-point-alert";
+                mpAlert.style.display = 'inline-block';
+            } else {
+                mpAlert.style.display = 'none';
+            }
+			
             j1RetElement.innerHTML = ''; j2RetElement.innerHTML = '';
             motivoDesistenciaElement.style.display = 'none';
             j1NameElement.classList.remove('match-winner'); j2NameElement.classList.remove('match-winner');
@@ -17992,6 +18107,21 @@ function calcularVencedorPiramide() {
     const elResultadoVencedor = document.getElementById('resultado-vencedor');
     if(elResultadoVencedor) elResultadoVencedor.textContent = nomeVencedorFinal || '';
     
+    // --- CORREÇÃO 1: BLOQUEIA OS BOTÕES DE PONTOS SE O JOGO ACABOU ---
+    const pointButtons = document.querySelectorAll('.btn-point');
+    pointButtons.forEach(btn => {
+        if (nomeVencedorFinal) {
+            btn.disabled = true;
+            btn.style.opacity = '0.3';
+            btn.style.cursor = 'not-allowed';
+        } else {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            btn.style.cursor = 'pointer';
+        }
+    });
+    // -----------------------------------------------------------------
+    
     atualizarBotaoSalvarResultado(jogoConcluido);
 
     // =========================================================================
@@ -18095,36 +18225,30 @@ function carregarTieBreakParaEdicao(setNum) {
  * Atualiza os nomes (Arbitragem, Súmula e Selects) com lógica responsiva.
  * Horizontal = Nome Completo | Vertical = Apelido
  */
+/**
+ * Atualiza os nomes (Arbitragem, Súmula e Selects) com lógica responsiva.
+ * Horizontal = Nome Completo | Vertical = Apelido
+ */
 function atualizarNomesPainelControle() {
     const isHorizontal = window.innerWidth > window.innerHeight;
 
     // 1. ATUALIZA LABELS (SÚMULA E ARBITRAGEM)
     const idsLabels = ['apelido-j1', 'apelido-j2', 'simple-name-j1', 'simple-name-j2'];
     
-    const formatarLabel = (nomeCompleto, apelido) => {
-        if (!nomeCompleto || !apelido) return apelido || "";
-        if (!isHorizontal) return apelido; // Vertical: Só apelido
-
-        // Horizontal: Nome com apelido em negrito
-        const index = nomeCompleto.toLowerCase().indexOf(apelido.toLowerCase());
-        if (index !== -1) {
-            const regex = new RegExp(`(${apelido})`, 'gi');
-            return nomeCompleto.replace(regex, '<b>$1</b>');
-        } else {
-            return `${nomeCompleto} (<b>${apelido}</b>)`;
-        }
-    };
-
     idsLabels.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
             const nc = el.getAttribute('data-nome-completo');
             const ap = el.getAttribute('data-apelido');
-            if (nc && ap) el.innerHTML = formatarLabel(nc, ap);
+            
+            // CORREÇÃO: Chama a função global inteligente!
+            if (nc && ap) {
+                el.innerHTML = formatarNomeInteligente(nc, ap, isHorizontal);
+            }
         }
     });
 
-    // 2. ATUALIZA SELECTS (W.O. E DESISTÊNCIA) - NOVO!
+    // 2. ATUALIZA SELECTS (W.O. E DESISTÊNCIA)
     const idsSelects = ['select-vencedor-wo', 'select-desistente'];
     
     idsSelects.forEach(id => {
@@ -18134,7 +18258,7 @@ function atualizarNomesPainelControle() {
             Array.from(select.options).forEach(opt => {
                 if (opt.value === "") return; // Pula o "Selecione"
                 
-                const nc = opt.getAttribute('data-nome-completo');
+                const nc = opt.getAttribute('data-nome-completo'); 
                 const ap = opt.getAttribute('data-apelido');
                 
                 if (nc && ap) {
@@ -18174,6 +18298,42 @@ async function abrirModalResultado(reserva, key, quadra, modoVisualizacao) {
     setEmEdicao = null;
     estadoPontos = { j1: 0, j2: 0, tiebreakMode: false };
     atualizarDisplayPontos();
+
+    // --- NOVO: INICIA O MONITORAMENTO ANTI-CONFLITO EM TEMPO REAL ---
+    if (listenerModalResultado) {
+        database.ref(listenerModalResultado.path).off('value', listenerModalResultado.callback);
+        listenerModalResultado = null;
+    }
+
+    // Se a tela for aberta para EDIÇÃO de um resultado pendente
+    if (!modoVisualizacao && reserva.status === 'resultado_pendente') {
+        const path = `sistemas/reservas/${quadra}/${key}`;
+        const callback = (snapshot) => {
+            const dados = snapshot.val();
+            if (!dados) return;
+
+            // Se, enquanto estou a editar, o status mudar para finalizada ou recusada (pelo oponente)
+            // Se, enquanto estou a editar, o status mudar para finalizada ou recusada (pelo oponente)
+            if (dados.status === 'finalizada' || dados.status === 'resultado_recusado') {
+                fecharModalResultado(); // Interrompe tudo, bloqueia inputs e fecha a tela
+                
+                let mensagemAlerta = "";
+                
+                if (dados.status === 'finalizada') {
+                    mensagemAlerta = "⚠️ <b>Atenção!</b><br>O oponente acabou de <b>aprovar</b> o resultado.<br>A sua edição foi interrompida para evitar conflitos de dados.";
+                } else {
+                    mensagemAlerta = "⚠️ <b>Atenção!</b><br>O oponente acabou de <b>recusar</b> o resultado.<br>A sua edição foi interrompida e a partida foi encaminhada para a análise do árbitro da Pirâmide.<br><br><b>Aguarde!</b>";
+                }
+                
+                mostrarNotificacao(mensagemAlerta, 'warning');
+            }
+        };
+        database.ref(path).on('value', callback);
+        listenerModalResultado = { path, callback };
+    }
+    // ----------------------------------------------------------------
+
+    // --- LIMPEZA INICIAL ---
 
     // --- LIMPEZA INICIAL ---
     const markerJ1 = document.getElementById('server-marker-j1');
@@ -19152,7 +19312,9 @@ async function executarSalvamentoSilencioso() {
     let perdedorFinal = '';
 
     if (nomeVencedor && nomeVencedor !== '') {
-        novoStatus = 'finalizada'; 
+        // CORREÇÃO: Aplica a autoridade também no salvamento automático
+        const ehAutoridade = isUsuarioAdmin() || isUsuarioArbitro() || (reserva.delegado === jogadorLogadoApelido);
+        novoStatus = ehAutoridade ? 'finalizada' : 'resultado_pendente'; 
         vencedorFinal = nomeVencedor;
         
         const j1NomeTela = document.getElementById('apelido-j1').textContent;
@@ -19172,6 +19334,7 @@ async function executarSalvamentoSilencioso() {
         perdedor: perdedorFinal,
         sacador: sacadorAtual,
         isMatchPoint: verificarMatchPoint(),
+		isBreakPoint: verificarBreakPoint(),
         informadoPor: informante, // <-- Usa a nova variável formatada
         dataInformado: dataAgora,
         
@@ -19219,7 +19382,13 @@ async function executarSalvamentoSilencioso() {
         if (novoStatus === 'em_andamento') {
              atualizarStatusSalvamento("Salvo ✅");
         } else {
-             atualizarStatusSalvamento("Finalizado 🏆");
+             // Se for finalizado mesmo (Árbitro), mostra o troféu. 
+             // Se for sócio comum, deixa só o "Salvo" e desliga a luz de Ao Vivo.
+             if (novoStatus === 'finalizada') {
+                 atualizarStatusSalvamento("Finalizado 🏆");
+             } else {
+                 atualizarStatusSalvamento("Salvo ✅");
+             }
              atualizarIndicadorAba(quadra, false);
         }
         
@@ -19272,17 +19441,21 @@ function atualizarStatusSalvamento(texto) {
     // Só aplica o efeito visual se estiver na Arbitragem
     if (btnSalvar && !isModoSumula) {
         
-        // 1. BLINDAGEM DE MATCH POINT (AMARELO)
+        // 1. BLINDAGEM DE MATCH POINT E BREAK POINT
         // Se for Match Point, o botão deve permanecer Amarelo, a menos que estejamos finalizando
-        // (A verificação de vencedor abaixo cuida da finalização)
         if (verificarMatchPoint()) {
             if (btnSalvar.textContent !== 'MATCH POINT') {
                 btnSalvar.textContent = 'MATCH POINT';
                 btnSalvar.className = 'btn-modern btn-status-matchpoint';
                 btnSalvar.onclick = null;
             }
-            // Se o sistema estiver tentando escrever "Salvo", ignoramos para manter o alerta.
-            // Mas se estiver tentando escrever "Salvando...", permitimos para feedback.
+            if (texto !== "Salvando...") return; 
+        } else if (verificarBreakPoint()) {
+            if (btnSalvar.textContent !== 'BREAK POINT') {
+                btnSalvar.textContent = 'BREAK POINT';
+                btnSalvar.className = 'btn-modern btn-status-breakpoint';
+                btnSalvar.onclick = null;
+            }
             if (texto !== "Salvando...") return; 
         }
 
@@ -21678,6 +21851,49 @@ function verificarBloqueioInativo(modoSilencioso = false) {
         }
     }
     return false; // Está liberado!
+}
+
+
+/**
+ * Função Auxiliar para detectar Break Point.
+ * Respeita regras de No-Ad e desliga no Tie-Break.
+ */
+function verificarBreakPoint() {
+    // 1. Se o jogo já acabou, não é break point
+    const elVencedor = document.getElementById('resultado-vencedor');
+    if (elVencedor && elVencedor.textContent.trim() !== '') return false;
+
+    // 2. Se for tie-break, não existe break point
+    if (estadoPontos.tiebreakMode) return false;
+
+    // 3. Descobre quem está sacando agora
+    let sacadorAtual = null;
+    if (document.getElementById('server-marker-j1').innerHTML.trim() !== '') sacadorAtual = 'j1';
+    else if (document.getElementById('server-marker-j2').innerHTML.trim() !== '') sacadorAtual = 'j2';
+
+    if (!sacadorAtual) return false; // Se ninguém saca, não calcula
+
+    // 4. Lógica de Pontos
+    const recebedor = (sacadorAtual === 'j1') ? 'j2' : 'j1';
+    const ptsRecebedor = estadoPontos[recebedor];
+    const ptsSacador = estadoPontos[sacadorAtual];
+
+    // pts = 0(0), 1(15), 2(30), 3(40), 4(Ad)
+    const chkNoAd = document.getElementById('chk-modo-no-ad');
+    const isNoAd = chkNoAd ? chkNoAd.checked : false;
+
+    if (isNoAd) {
+        // Regra Ponto Decisivo (No-Ad): Se o recebedor tem 40 (valor 3), é break point
+        if (ptsRecebedor === 3) return true;
+    } else {
+        // Regra Clássica (Vantagens):
+        // A) Se o recebedor tem Vantagem (valor 4)
+        if (ptsRecebedor === 4) return true;
+        // B) Se o recebedor tem 40 (valor 3) e o sacador tem 30 ou menos (0, 1, 2)
+        if (ptsRecebedor === 3 && ptsSacador < 3) return true;
+    }
+
+    return false;
 }
 	
 	
