@@ -147,7 +147,6 @@
           },
           "niver": "01/01/2001",
           "perfis": {
-            "Admin": true,
             "Financeiro": true,
             "Professor": true
           },
@@ -156,6 +155,7 @@
         },
         "ALESSANDRO ROMERO XAVIER": {
           "apelido": "Alessandro Xavier",
+          "ativo": false,
           "classe": "C",
           "niver": "04/04/1975",
           "piramide": "",
@@ -163,8 +163,12 @@
         },
         "ALEXANDRA AVILA": {
           "apelido": "Alexa",
+          "ativo": true,
           "classe": "C",
           "niver": "11/03/1975",
+          "perfis": {
+            "Árbitro": true
+          },
           "piramide": "63",
           "socio": "dependente"
         },
@@ -177,8 +181,12 @@
         },
         "ALEXANDRE CAMARGO": {
           "apelido": "Alexandre Camargo",
+          "ativo": true,
           "classe": "C",
           "niver": "21/03/1995",
+          "perfis": {
+            "Árbitro": true
+          },
           "piramide": "",
           "socio": "titular"
         },
@@ -243,7 +251,7 @@
           "classe": "",
           "jogosDeDuplasJogados": 0,
           "niver": "01/01/2001",
-          "piramide": "84",
+          "piramide": "65",
           "socio": "titular",
           "vitoriasEmDuplas": 0
         },
@@ -269,12 +277,12 @@
         },
         "ANA MARIA MARINHO GOMES": {
           "apelido": "Ana Maria Marinho",
+          "ativo": true,
           "classe": "C",
           "jogosDeDuplasJogados": 0,
           "niver": "01/01/2001",
           "perfis": {
-            "Financeiro": true,
-            "Árbitro": true
+            "Financeiro": true
           },
           "piramide": "81",
           "socio": "titular",
@@ -354,7 +362,13 @@
           "apelido": "Caina Balboa",
           "classe": "B",
           "niver": "03/09/2003",
-          "piramide": "32",
+          "notificacoes": {
+            "-OmfzVtKveW21Ek-aH2W": {
+              "mensagem": "<h4 style=\"text-align:center; margin: 0 0 5px 0;\">Arbitragem Finalizada</h4><hr style=\"border: none; border-top: 1px solid #ddd; margin: 8px 0;\"><b>Data:</b> 02/03/2026<br><b>Decisão do Árbitro:</b> Finalizado<hr style=\"border: none; border-top: 1px solid #ddd; margin: 8px 0;\"><div class=\"placar-container\" style=\"font-size: 1em; line-height: 1.5;\"><div class=\"placar-row\"><span class=\"placar-posicao\">39</span><span class=\"placar-nome match-winner\">Amora</span><span class=\"placar-sets\"><span class=\"set-score winner\">6</span><span class=\"set-score winner\">6</span></span></div><div class=\"placar-row\"><span class=\"placar-posicao\">32</span><span class=\"placar-nome \">Caina Balboa</span><span class=\"placar-sets\"><span class=\"set-score \">4</span><span class=\"set-score \">0</span></span></div></div><p style=\"text-align: center; font-size: 0.8em; color: #888; margin-top: 15px;\">Informado por :<span class=\"break-mobile\"></span> Amora em 01/03/2026, 21:41.</p><br>O ranking foi atualizado.",
+              "tipo": "success"
+            }
+          },
+          "piramide": "39",
           "socio": "dependente"
         },
         "CAROLINE CHARNEI": {
@@ -443,6 +457,7 @@
         },
         "EDNILSON RIBEIRO": {
           "apelido": "Amora",
+          "ativo": true,
           "classe": "A",
           "funcoes": {
             "admin": false,
@@ -450,8 +465,8 @@
             "operador": false,
             "professor": false
           },
-          "niver": "01/01/2021",
-          "piramide": "39",
+          "niver": "01/01/2001",
+          "piramide": "32",
           "socio": "titular"
         },
         "EDUARDO BERGMAN": {
@@ -1075,7 +1090,7 @@
           "perfis": {
             "Professor": true
           },
-          "piramide": "65",
+          "piramide": "84",
           "socio": "titular"
         },
         "VERIDIANE BULLA VOJCIECHOVSKI": {
@@ -1626,6 +1641,14 @@
         "id": "-OlJKvjsPs0L_ar_iFpA",
         "texto": "Nao percam!",
         "titulo": "Torneio da Amizade"
+      },
+      "-Ome7Hrff7YvCUdlyzDO": {
+        "ativo": true,
+        "autor": "RONALDO TABORDA (Admin)",
+        "data_envio": 1772380827263,
+        "id": "-Ome7Hrff7YvCUdlyzDO",
+        "texto": "aguardem noticias!",
+        "titulo": "Jantar da amizade"
       }
     },
     "reservas": {
@@ -1643,7 +1666,23 @@
           "jogadores": "Ana Francisca",
           "jogadores_completo": "Ana Francisca, Vania",
           "organizador": "Ana Francisca",
-          "status": "confirmada"
+          "resultado": {
+            "dataInformado": "2026-03-01T15:38:25.028Z",
+            "informadoPor": "Árbitro: Ana Maria Marinho",
+            "perdedor": "Vania",
+            "set1": {
+              "placar": "6x1",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "1x6",
+              "tiebreak": ""
+            },
+            "set3": "13x11",
+            "tipo": "Placar Normal",
+            "vencedor": "Ana Francisca"
+          },
+          "status": "finalizada"
         },
         "7_11": {
           "confirmacoes": {
@@ -1656,34 +1695,65 @@
           "jogadores": "Vania",
           "jogadores_completo": "Ana Francisca, Vania",
           "organizador": "Ana Francisca",
+          "resultado": {
+            "dataInformado": "2026-03-01T15:38:25.028Z",
+            "informadoPor": "Árbitro: Ana Maria Marinho",
+            "perdedor": "Vania",
+            "set1": {
+              "placar": "6x1",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "1x6",
+              "tiebreak": ""
+            },
+            "set3": "13x11",
+            "tipo": "Placar Normal",
+            "vencedor": "Ana Francisca"
+          },
+          "status": "finalizada"
+        },
+        "7_12": {
+          "borda": "1h",
+          "confirmacoes": {
+            "Ana Maria Marinho": true
+          },
+          "dataCompleta": "2026-03-01",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 12,
+          "jogadores": "Ana Maria Marinho",
+          "jogadores_completo": "Ana Maria Marinho",
+          "organizador": "Ana Maria Marinho",
           "status": "confirmada"
         },
-        "7_8": {
+        "7_13": {
           "borda": "2h",
           "confirmacoes": {
-            "Adriano Feitosa": true,
-            "Amora": true
+            "An Alice": true,
+            "Ana Paula Pereira": true
           },
           "dataCompleta": "2026-03-01",
           "dia": 7,
-          "duracao": 3,
-          "hora": 8,
-          "jogadores": "Adriano Feitosa",
-          "jogadores_completo": "Adriano Feitosa, Amora",
-          "organizador": "Adriano Feitosa",
+          "duracao": 2,
+          "hora": 13,
+          "jogadores": "An Alice",
+          "jogadores_completo": "An Alice, Ana Paula Pereira",
+          "organizador": "An Alice",
           "status": "confirmada"
         },
-        "7_9": {
+        "7_14": {
           "confirmacoes": {
-            "Adriano Feitosa": true,
-            "Amora": true
+            "An Alice": true,
+            "Ana Paula Pereira": true
           },
           "dataCompleta": "2026-03-01",
           "dia": 7,
-          "hora": 9,
-          "jogadores": "Amora",
-          "jogadores_completo": "Adriano Feitosa, Amora",
-          "organizador": "Adriano Feitosa",
+          "duracao": 2,
+          "hora": 14,
+          "jogadores": "Ana Paula Pereira",
+          "jogadores_completo": "An Alice, Ana Paula Pereira",
+          "organizador": "An Alice",
           "status": "confirmada"
         }
       }
