@@ -544,7 +544,8 @@ body.dark-mode .motivo-resultado {
     
     /* 1. Garante que o container ocupe a largura exata da tela sem vazar */
     .tab-container {
-        padding: 0 5px !important;       
+        /* MUDANÇA AQUI: Mantém os 10px no topo (para o fundo sólido) e 5px nas laterais */
+        padding: 10px 5px 0px 5px !important;       
         box-sizing: border-box !important; 
         display: flex !important;        
         width: 100% !important;          
@@ -884,19 +885,22 @@ button:hover {
 /* Contêiner para as abas de navegação */
 /* Abas fixas no topo (Regra Mestra Consolidada) */
 /* Abas fixas no topo (Ajustado para ficar abaixo do Header) */
+/* Abas fixas no topo (Ajustado para grudar no Header sem frestas) */
 .tab-container {
     position: fixed;
-    top: 45px; /* Desce 60px para não ficar embaixo do novo header */
+    top: 35px; /* Toca perfeitamente no cabeçalho superior (que tem 35px) */
     left: 0;
     width: 100%;
-    height: 55px; 
+    height: 65px; /* Aumentamos a altura em 10px para compensar */
+    padding-top: 10px; /* Empurra os botões para baixo, fechando o buraco transparente com cor sólida */
     z-index: 1100;
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    padding: 0;
+    padding-left: 0;
+    padding-right: 0;
     box-sizing: border-box;
 }
 
@@ -2759,17 +2763,15 @@ body.dark-mode .motivo-resultado { color: #ccc; }
 
 /* === ESTILOS PARA LEGENDA RECOLHÍVEL === */
 .header-legenda-container {
-    padding: 0 10px;
-    margin-bottom: 10px;
+    padding: 10px 10px 10px 10px; /* Transforma as margens em preenchimento sólido */
+    margin-bottom: 0px; /* Zera margem transparente para não vazar a tabela */
+    margin-top: 0px;    /* Zera margem transparente para não vazar a tabela */
     
     position: sticky;
-    /* 60px (Header) + 55px (Abas) = 115px */
-    top: 100px; 
+    top: 100px; /* 35px (Header) + 65px (Abas Novas) = 100px exatos */
     z-index: 1090;
     background-color: white;
-    
-    margin-top: 10px; 
-    transition: margin-top 0.4s ease-out;
+    transition: padding 0.4s ease-out;
 }
 .header-legenda-linha {
     display: flex;
@@ -3049,12 +3051,12 @@ body.dark-mode .header-sub {
 	
 	
 	.header-legenda-container {
-		/* Controla a altura do espaço em branco */
-		padding-top: 5px !important;    /* Espaço acima do texto */
-		padding-bottom: 5px !important; /* Espaço abaixo da legenda */
+		/* Controla a altura do espaço em branco de forma sólida */
+		padding-top: 5px !important;    
+		padding-bottom: 7px !important; /* Absorve a margem de 2px para blindar a cor */
 		
-		/* Mantém a margem que colamos na tabela anteriormente */
-		margin-bottom: 2px !important;
+		margin-top: 0px !important;     /* Zera margem transparente */
+		margin-bottom: 0px !important;  /* Zera margem transparente */
 	}
 	
 		
@@ -7107,7 +7109,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ****** 
 
-const VersaoSistema = 'v2.2.0'; // Versão atual do sistema     
+const VersaoSistema = 'v2.2.1'; // Versão atual do sistema     
 const DataVersaoSistema = '02/03/2026';      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
@@ -10738,16 +10740,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // 3. Tabela com altura DINÂMICA (dvh)
-            tabelaContainer.style.top = '60px';
+            tabelaContainer.style.top = '65px'; // Igualou com a altura das Abas
             
             // Tenta usar 'dvh' (Dynamic Viewport Height) para celulares modernos
             // Se o navegador for antigo, o CSS fallback (se houver) ou o cálculo padrão assume.
             // O 'calc' garante que a tabela ocupe o espaço restante.
-            tabelaContainer.style.height = 'calc(100dvh - 60px)'; 
+            tabelaContainer.style.height = 'calc(100dvh - 65px)'; 
             
             // Fallback para navegadores que não entendem dvh (usa vh normal)
             if (!CSS.supports('height: 100dvh')) {
-                 tabelaContainer.style.height = 'calc(100vh - 60px)';
+                 tabelaContainer.style.height = 'calc(100vh - 65px)';
             }
 
             // 4. O "SUPER CALÇO": Aumentamos para 300px
@@ -10764,16 +10766,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (header) header.style.display = 'flex'; 
 
             if (tabContainer) {
-                tabContainer.style.top = '50px'; 
+                tabContainer.style.top = ''; // Limpa o estilo embutido e deixa o CSS (35px) assumir
                 tabContainer.style.zIndex = ''; 
             }
 
-            tabelaContainer.style.top = '105px';
-            tabelaContainer.style.height = 'calc(100vh - 105px)';
-            
-            // Remove o calço e configurações extras
-            tabelaContainer.style.paddingBottom = '0px';
+            // Remove todos os estilos inline forçados para deixar o CSS fluir naturalmente
+            tabelaContainer.style.top = '';
+            tabelaContainer.style.height = '';
+            tabelaContainer.style.paddingBottom = '';
             tabelaContainer.style.overflowY = ''; 
+            tabelaContainer.style.webkitOverflowScrolling = '';
         }
     });
 	
