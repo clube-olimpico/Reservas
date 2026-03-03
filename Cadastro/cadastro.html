@@ -2,10 +2,21 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    
     <title>Cadastro de Jogadores</title>
+
+    <link rel="manifest" href="./manifest-cadastro.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Cadastro">
+
+    <link rel="apple-touch-icon" href="logo-cadastro.png">
+    <link rel="icon" href="logo-cadastro.png" type="image/png">
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+
     <style>
         /* --- 1. VARIÁVEIS DE CORES --- */
         :root {
