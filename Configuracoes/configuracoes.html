@@ -24,10 +24,20 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+	
+	<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(() => console.log('SW Config registrado com sucesso!'))
+          .catch(err => console.log('Erro no SW Config', err));
+      });
+    }
+    </script>
 
 <style>
 
-/* --- TRUQUE: ESCONDE A OPÇÃO SELECIONADA DA LISTA --- */ 
+/* --- TRUQUE: ESCONDE A OPÇÃO SELECIONADA DA LISTA --- */  
 #perfilSelect option:checked {
     display: none;
 }
