@@ -12,7 +12,9 @@
     <meta name="mobile-web-app-capable" content="yes"> 
 
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+	
     <meta name="apple-mobile-web-app-title" content="Reservas">
 
     <link rel="apple-touch-icon" href="novo-logo-6.png">
@@ -5794,30 +5796,6 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
 /* --- --------------------------------------- */
 
 
-/* ================================================================= */
-/* === CORREÇÃO IPHONE: O "TELHADO" BLINDADO DO NOTCH            === */
-/* ================================================================= */
-
-/* Cria um bloco de cor sólida que sobe a partir do cabeçalho e cobre 
-   o buraco da área do relógio/bateria, bloqueando a planilha. */
-#app-header::before {
-    content: '';
-    position: absolute;
-    top: -100px; /* Sobe 100 pixels para FORA da tela, cobrindo o buraco */
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background-color: #ffffff; /* Branco puro para fundir com o seu degradê */
-    z-index: -1; /* Fica atrás do texto "Olá", mas na frente da tabela */
-}
-
-/* O telhado também muda de cor se o usuário ativar o modo escuro */
-body.dark-mode #app-header::before {
-    background-color: #333333; 
-}
-/* ======================================================================== */
-/* === fim de CORREÇÃO IPHONE: BLINDAGEM DO TOPO E SAFE AREA (NOTCH)    === */
-/* ======================================================================== */
 
 
 </style>
@@ -7135,7 +7113,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Ajuste manual da atualização de versão do Sistema ******  
 
 const VersaoSistema = 'v2.2.1'; // Versão atual do sistema     
-const DataVersaoSistema = '04/03/2026';      
+const DataVersaoSistema = '29/03/2026';      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
