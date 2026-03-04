@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Clube Olímpico - Sistema de Reservas</title> 
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 	
 	<link rel="manifest" href="manifest.json">
     
@@ -5827,29 +5827,29 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
         z-index: 1090;
     }
 
-    /* 3. O ELEVADOR (Agora consegue enxergar o tamanho total da planilha) */
+    /* 3. O ELEVADOR */
     .tabela-container,
     .tabela-container.fullscreen {
-        overflow-y: auto !important;    /* LIGADO para cima/baixo */
-        overflow-x: hidden !important;  /* TRANCADO para os lados */
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
         -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-y; /* CORREÇÃO: Resposta instantânea no toque vertical */
     }
 
-    /* 4. Altura exata da Guilhotina no modo normal */
+    /* 4. Altura da Guilhotina */
     .tabela-container:not(.fullscreen) {
-        margin-top: 0 !important; 
-        height: calc(100vh - 150px) !important;
         height: calc(100dvh - 150px) !important; 
-        padding-bottom: 120px !important;
+        overscroll-behavior-y: contain; /* CORREÇÃO: Mata o elástico cinza no topo/fundo */
     }
 
-    /* 5. A ESTEIRA (Corrigida: Rolagem horizontal livre, altura destrancada) */
+    /* 5. A ESTEIRA */
     .rolagem-horizontal-esteira {
-        overflow-x: auto !important;    /* LIGADO para os lados */
-        overflow-y: visible !important; /* CORREÇÃO: Deixa a tabela crescer para baixo */
-        -webkit-overflow-scrolling: touch !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        touch-action: pan-x; /* CORREÇÃO: Resposta instantânea no toque horizontal */
+        overscroll-behavior-x: contain; /* CORREÇÃO: Mata o elástico cinza nas laterais */
         width: 100%;
-        height: auto !important;        /* CORREÇÃO: Remove a trava que matava o scroll vertical */
+        height: auto !important;
     }
 
     /* 6. O RODAPÉ (Barra Sólida de Proteção no Fundo da Tela) */
@@ -7200,7 +7200,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******  
 
-const VersaoSistema = 'v2.2.1'; // Versão atual do sistema     
+const VersaoSistema = 'v2.2.0'; // Versão atual do sistema     
 const DataVersaoSistema = '04/03/2026';      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
