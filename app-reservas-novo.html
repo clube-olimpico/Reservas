@@ -5847,24 +5847,25 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
         bottom: 0 !important;
         left: 0 !important;
         width: 100% !important;
-        height: 35px !important; /* Altura da barra */
-        background-color: #f4f4f4 !important; /* Fundo sólido cinza para tapar a planilha */
+        height: 35px !important; 
+        background-color: #f4f4f4 !important; 
         z-index: 8000 !important; 
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        border-top: 1px solid #ddd !important; /* Linha sutil para dar acabamento */
+        border-top: 1px solid #ddd !important; 
     }
 
-    /* O fundo do rodapé acompanha o Modo Escuro perfeitamente */
     body.dark-mode footer {
         background-color: #121212 !important;
         border-top: 1px solid #333 !important;
     }
 
-    /* Centraliza a versão perfeitamente no meio da barra nova */
+    /* Centralização Absoluta: Fica no meio exato e ignora o texto fantasma */
     footer #VersaoSistema {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
         margin: 0 !important;
+        width: auto !important; /* Libera a largura para centralizar perfeitamente */
     }
 }
 /* ======================================================================== */
@@ -7188,7 +7189,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******  
 
-const VersaoSistema = 'v2.2.3'; // Versão atual do sistema     
+const VersaoSistema = 'v2.2.4'; // Versão atual do sistema     
 const DataVersaoSistema = '04/03/2026';      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
