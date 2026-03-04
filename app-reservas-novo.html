@@ -1044,6 +1044,14 @@ th {
     overflow: auto;
 }
 
+/* Devolve a rolagem horizontal para a Esteira na versão Web/PC */
+.fullscreen .rolagem-horizontal-esteira {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    height: 100%;
+}
+
 .fullscreen table {
     width: 100%;
     height: auto;
@@ -7189,7 +7197,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******  
 
-const VersaoSistema = 'v2.2.4'; // Versão atual do sistema     
+const VersaoSistema = 'v2.2.5'; // Versão atual do sistema     
 const DataVersaoSistema = '04/03/2026';      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
