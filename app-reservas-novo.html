@@ -5806,6 +5806,10 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
 /* === EFEITO GUILHOTINA COM TRAVA DE EIXO (ELEVADOR E ESTEIRA)  === */
 /* ================================================================= */
 
+/* ================================================================= */
+/* === EFEITO GUILHOTINA COM TRAVA DE EIXO (CORREÇÃO APP/PWA)    === */
+/* ================================================================= */
+
 @media screen and (max-width: 600px) and (display-mode: standalone) {
     
     /* 1. Trava o "chão" do aplicativo para a página não vazar */
@@ -5823,7 +5827,7 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
         z-index: 1090;
     }
 
-    /* 3. A REGRA DO ELEVADOR (Para a tabela normal E para a Tela Cheia) */
+    /* 3. O ELEVADOR (Agora consegue enxergar o tamanho total da planilha) */
     .tabela-container,
     .tabela-container.fullscreen {
         overflow-y: auto !important;    /* LIGADO para cima/baixo */
@@ -5831,7 +5835,7 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
         -webkit-overflow-scrolling: touch !important;
     }
 
-    /* 4. Altura da Guilhotina (Apenas quando NÃO está em tela cheia) */
+    /* 4. Altura exata da Guilhotina no modo normal */
     .tabela-container:not(.fullscreen) {
         margin-top: 0 !important; 
         height: calc(100vh - 150px) !important;
@@ -5839,15 +5843,16 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
         padding-bottom: 120px !important;
     }
 
-    /* 5. A ESTEIRA: Só rola na HORIZONTAL (Fica dentro do Elevador) */
+    /* 5. A ESTEIRA (Corrigida: Rolagem horizontal livre, altura destrancada) */
     .rolagem-horizontal-esteira {
         overflow-x: auto !important;    /* LIGADO para os lados */
-        overflow-y: hidden !important;  /* TRANCADO para cima/baixo */
+        overflow-y: visible !important; /* CORREÇÃO: Deixa a tabela crescer para baixo */
         -webkit-overflow-scrolling: touch !important;
         width: 100%;
-        height: 100%; /* Garante que a esteira cresce junto na Tela Cheia */
+        height: auto !important;        /* CORREÇÃO: Remove a trava que matava o scroll vertical */
     }
 }
+/* ================================================================= */
 /* ================================================================= */
 /* ======================================================================== */
 /* === fim de EFEITO GUILHOTINA: CAIXA DE ROLAGEM ISOLADA (IPHONE)      === */
@@ -7171,7 +7176,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Ajuste manual da atualização de versão do Sistema ******  
 
 const VersaoSistema = 'v2.2.1'; // Versão atual do sistema     
-const DataVersaoSistema = 'teste=31/03/2026';      
+const DataVersaoSistema = 'teste-2=31/03/2026';      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
