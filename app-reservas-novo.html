@@ -1040,24 +1040,27 @@ th {
     width: 100vw;
     height: 100vh;
     background-color: white;
-    z-index: 9000; /* ALTERADO DE 9999 PARA 9000 */
-    overflow: auto;
+    z-index: 9000;
+    
+    /* O ELEVADOR GLOBAL: Tranca a diagonal e força a rolagem reta para baixo */
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
 }
 
-/* Devolve a rolagem horizontal para a Esteira na versão Web/PC */
+/* A ESTEIRA GLOBAL: Tranca a diagonal e força a rolagem reta para os lados */
 .fullscreen .rolagem-horizontal-esteira {
     overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
+    overflow-y: hidden !important; /* CORREÇÃO FINAL: Trava a diagonal na Web */
     width: 100%;
-    height: 100%;
+    height: auto !important;
+    -webkit-overflow-scrolling: touch;
 }
 
 .fullscreen table {
     width: 100%;
     height: auto;
 }
-
-
 
 /*****************************************/
 /****** Estilos para o Modo Escuro *******/
@@ -7197,7 +7200,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******  
 
-const VersaoSistema = 'v2.2.6'; // Versão atual do sistema     
+const VersaoSistema = 'v2.2.1'; // Versão atual do sistema     
 const DataVersaoSistema = '04/03/2026';      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
