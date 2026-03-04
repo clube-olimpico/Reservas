@@ -5795,30 +5795,25 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
 
 
 /* ================================================================= */
-/* === CORREÇÃO IPHONE: BLINDAGEM DO TOPO E SAFE AREA (NOTCH)    === */
+/* === CORREÇÃO IPHONE: O "TELHADO" BLINDADO DO NOTCH            === */
 /* ================================================================= */
 
-/* 1. Força o Safari a selar os elementos fixos numa camada de hardware impenetrável */
-#app-header, .tab-container, .header-legenda-container {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
+/* Cria um bloco de cor sólida que sobe a partir do cabeçalho e cobre 
+   o buraco da área do relógio/bateria, bloqueando a planilha. */
+#app-header::before {
+    content: '';
+    position: absolute;
+    top: -100px; /* Sobe 100 pixels para FORA da tela, cobrindo o buraco */
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-color: #ffffff; /* Branco puro para fundir com o seu degradê */
+    z-index: -1; /* Fica atrás do texto "Olá", mas na frente da tabela */
 }
 
-/* 2. Expande o topo automaticamente para cobrir a Bateria/Relógio em iPhones */
-@supports (padding-top: env(safe-area-inset-top)) {
-    #app-header {
-        padding-top: env(safe-area-inset-top) !important;
-        height: calc(35px + env(safe-area-inset-top)) !important;
-    }
-    .tab-container {
-        top: calc(35px + env(safe-area-inset-top)) !important;
-    }
-    body {
-        padding-top: calc(100px + env(safe-area-inset-top)) !important;
-    }
-    .header-legenda-container {
-        top: calc(100px + env(safe-area-inset-top)) !important;
-    }
+/* O telhado também muda de cor se o usuário ativar o modo escuro */
+body.dark-mode #app-header::before {
+    background-color: #333333; 
 }
 /* ======================================================================== */
 /* === fim de CORREÇÃO IPHONE: BLINDAGEM DO TOPO E SAFE AREA (NOTCH)    === */
