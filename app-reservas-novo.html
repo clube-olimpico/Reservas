@@ -5794,6 +5794,36 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
 /* --- --------------------------------------- */
 
 
+/* ================================================================= */
+/* === CORREÇÃO IPHONE: BLINDAGEM DO TOPO E SAFE AREA (NOTCH)    === */
+/* ================================================================= */
+
+/* 1. Força o Safari a selar os elementos fixos numa camada de hardware impenetrável */
+#app-header, .tab-container, .header-legenda-container {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+/* 2. Expande o topo automaticamente para cobrir a Bateria/Relógio em iPhones */
+@supports (padding-top: env(safe-area-inset-top)) {
+    #app-header {
+        padding-top: env(safe-area-inset-top) !important;
+        height: calc(35px + env(safe-area-inset-top)) !important;
+    }
+    .tab-container {
+        top: calc(35px + env(safe-area-inset-top)) !important;
+    }
+    body {
+        padding-top: calc(100px + env(safe-area-inset-top)) !important;
+    }
+    .header-legenda-container {
+        top: calc(100px + env(safe-area-inset-top)) !important;
+    }
+}
+/* ======================================================================== */
+/* === fim de CORREÇÃO IPHONE: BLINDAGEM DO TOPO E SAFE AREA (NOTCH)    === */
+/* ======================================================================== */
+
 
 </style>
 
@@ -7107,7 +7137,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <script>
 	
 
-// Ajuste manual da atualização de versão do Sistema ****** 
+// Ajuste manual da atualização de versão do Sistema ******  
 
 const VersaoSistema = 'v2.2.1'; // Versão atual do sistema     
 const DataVersaoSistema = '02/03/2026';      
