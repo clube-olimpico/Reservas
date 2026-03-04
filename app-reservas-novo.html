@@ -5796,6 +5796,40 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
 /* --- --------------------------------------- */
 
 
+/* ================================================================= */
+/* === EFEITO GUILHOTINA: CAIXA DE ROLAGEM ISOLADA (IPHONE)      === */
+/* ================================================================= */
+
+/* 1. Trava o "fundo" do aplicativo. A página em si não rola mais, 
+      acabando com o efeito elástico do iPhone e o vazamento lá no topo. */
+html, body {
+    overflow: hidden !important;
+    height: 100vh !important;
+    position: relative !important;
+}
+
+/* 2. Transforma o container da tabela na "caixa de vidro". 
+      A rolagem passa a acontecer EXCLUSIVAMENTE aqui dentro. */
+.tabela-container {
+    /* Começa exatamente abaixo do cabeçalho e dos botões (100px de altura) */
+    margin-top: 100px !important; 
+    
+    /* A altura da caixa é o tamanho da ecrã MENOS os 100px do topo */
+    height: calc(100vh - 100px) !important; 
+    
+    /* Ativa a rolagem interna e corta (guilhotina) o que passar do limite */
+    overflow-y: auto !important;
+    overflow-x: auto !important;
+    
+    /* Devolve a rolagem suave "deslizante" nativa do iPhone */
+    -webkit-overflow-scrolling: touch !important; 
+    
+    /* Adiciona um espaço extra no fundo para a última linha não ficar escondida */
+    padding-bottom: 80px !important; 
+}
+/* ======================================================================== */
+/* === fim de EFEITO GUILHOTINA: CAIXA DE ROLAGEM ISOLADA (IPHONE)      === */
+/* ======================================================================== */
 
 
 </style>
@@ -7113,7 +7147,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Ajuste manual da atualização de versão do Sistema ******  
 
 const VersaoSistema = 'v2.2.1'; // Versão atual do sistema     
-const DataVersaoSistema = '29/03/2026';      
+const DataVersaoSistema = '04/03/2026';      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
