@@ -5807,20 +5807,41 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
 /* --- --------------------------------------- */
 
 
+
+
 /* ================================================================= */
-/* === EFEITO GUILHOTINA: CAIXA DE ROLAGEM ISOLADA (IPHONE)      === */
+/* === FÍSICA E ACELERAÇÃO: CORREÇÃO PARA IPHONE (APP E WEB)     === */
+/* ================================================================= */
+@media screen and (max-width: 600px) {
+    
+    /* 1. MATA O ELÁSTICO (Área Cinza) TANTO NA VERSÃO WEB QUANTO NO APP */
+    html, body {
+        overscroll-behavior: none !important;
+    }
+
+    /* 2. FIM DO DELAY DO TOQUE (Força o processador gráfico do iPhone) */
+    /* Isso faz a planilha colar no dedo instantaneamente sem congelar o scroll */
+    .tabela-container,
+    .tabela-container.fullscreen,
+    .rolagem-horizontal-esteira {
+        -webkit-transform: translateZ(0) !important;
+        transform: translateZ(0) !important;
+    }
+}
+
+/* ================================================================= */
+/* === EFEITO GUILHOTINA: CAIXA DE ROLAGEM ISOLADA (SÓ PWA/APP)  === */
 /* ================================================================= */
 @media screen and (max-width: 600px) and (display-mode: standalone) {
     
-    /* 1. Trava o "chão" do aplicativo para a página não vazar E MATA O ELÁSTICO GLOBAL */
+    /* Trava o "chão" do aplicativo para a página não vazar */
     html, body {
         overflow: hidden !important;
         height: 100vh !important;
         height: 100dvh !important;
-        overscroll-behavior: none !important; /* CORREÇÃO: Fundo cinza puxando do topo/fundo */
     }
 
-    /* 2. Fixa o título (Quadra 1) no lugar exato */
+    /* Fixa o título (Quadra 1) no lugar exato */
     .header-legenda-container {
         position: relative !important;
         top: 0 !important; 
@@ -5828,18 +5849,16 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
         z-index: 1090;
     }
 
-    /* 3. O ELEVADOR (Agora consegue enxergar o tamanho total da planilha) */
+    /* O ELEVADOR (Firmeza vertical c/ fim de curso seco) */
     .tabela-container,
     .tabela-container.fullscreen {
-        overflow-y: auto !important;    /* LIGADO para cima/baixo */
-        overflow-x: hidden !important;  /* TRANCADO para os lados */
+        overflow-y: auto !important;    
+        overflow-x: hidden !important;  
         -webkit-overflow-scrolling: touch !important;
-        
-        overscroll-behavior-y: none !important; /* CORREÇÃO: Bate na borda e para seco (vertical) */
-        touch-action: manipulation !important;  /* CORREÇÃO: Fim do delay do toque! */
+        overscroll-behavior-y: none !important; 
     }
 
-    /* 4. Altura exata da Guilhotina no modo normal */
+    /* Altura exata da Guilhotina no modo normal */
     .tabela-container:not(.fullscreen) {
         margin-top: 0 !important; 
         height: calc(100vh - 150px) !important;
@@ -5847,19 +5866,17 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
         padding-bottom: 120px !important;
     }
 
-    /* 5. A ESTEIRA (Corrigida: Rolagem horizontal livre, altura destrancada) */
+    /* A ESTEIRA (Firmeza horizontal c/ fim de curso seco) */
     .rolagem-horizontal-esteira {
-        overflow-x: auto !important;    /* LIGADO para os lados */
-        overflow-y: visible !important; /* CORREÇÃO: Deixa a tabela crescer para baixo */
+        overflow-x: auto !important;    
+        overflow-y: visible !important; 
         -webkit-overflow-scrolling: touch !important;
         width: 100%;
-        height: auto !important;        /* CORREÇÃO: Remove a trava que matava o scroll vertical */
-        
-        overscroll-behavior-x: none !important; /* CORREÇÃO: Bate na borda e para seco (horizontal) */
-        touch-action: manipulation !important;  /* CORREÇÃO: Fim do delay do toque! */
+        height: auto !important;        
+        overscroll-behavior-x: none !important; 
     }
 
-    /* 6. O RODAPÉ (Barra Sólida de Proteção no Fundo da Tela) */
+    /* O RODAPÉ (Barra Sólida de Proteção no Fundo da Tela) */
     footer {
         position: fixed !important;
         bottom: 0 !important;
@@ -5876,16 +5893,17 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
         border-top: 1px solid #333 !important;
     }
 
-    /* Centralização Absoluta: Fica no meio exato e ignora o texto fantasma */
+    /* Centralização Absoluta do texto da versão */
     footer #VersaoSistema {
         position: absolute !important;
         top: 50% !important;
         left: 50% !important;
         transform: translate(-50%, -50%) !important;
         margin: 0 !important;
-        width: auto !important; /* Libera a largura para centralizar perfeitamente */
+        width: auto !important; 
     }
 }
+/* ======================================================================== */
 /* ======================================================================== */
 /* === fim de EFEITO GUILHOTINA: CAIXA DE ROLAGEM ISOLADA (IPHONE)      === */
 /* ======================================================================== */
@@ -7207,7 +7225,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******  
 
-const VersaoSistema = 'v2.2.9'; // Versão atual do sistema     
+const VersaoSistema = 'v2.2.8'; // Versão atual do sistema     
 const DataVersaoSistema = '04/03/2026';      
 
 let vDesabilitarF12 = false; // deixar true para fazer o deploy    
