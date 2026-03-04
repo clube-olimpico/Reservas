@@ -7197,7 +7197,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******  
 
-const VersaoSistema = 'v2.2.5'; // Versão atual do sistema     
+const VersaoSistema = 'v2.2.6'; // Versão atual do sistema     
 const DataVersaoSistema = '04/03/2026';      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
@@ -10803,71 +10803,71 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==========================================================
     // --- FUNÇÃO DE DUPLO CLIQUE (VERSÃO FINAL: CORREÇÃO DE ROLAGEM) ---
     // ==========================================================
-    tabelaContainer.addEventListener('dblclick', (event) => {
-        const target = event.target;
-        // Verifica clique válido
-        if (!((target.tagName === 'TH' || target.tagName === 'TD') && target.innerText.includes('Horários'))) {
-            return;
-        }
+    // ==========================================================
+// --- FUNÇÃO DE DUPLO CLIQUE (VERSÃO FINAL: CORREÇÃO DE ROLAGEM) ---
+// ==========================================================
+tabelaContainer.addEventListener('dblclick', (event) => {
+    const target = event.target;
+    // Verifica clique válido
+    if (!((target.tagName === 'TH' || target.tagName === 'TD') && target.innerText.includes('Horários'))) {
+        return;
+    }
 
-        tabelaContainer.classList.toggle('fullscreen');
+    tabelaContainer.classList.toggle('fullscreen');
+    
+    const header = document.getElementById('app-header'); 
+    const tabContainer = document.querySelector('.tab-container'); 
+
+    if (tabelaContainer.classList.contains('fullscreen')) {
+        // --- MODO TELA CHEIA (ATIVADO) ---
         
-        const header = document.getElementById('app-header'); 
-        const tabContainer = document.querySelector('.tab-container'); 
+        // 1. Esconde a barra do topo
+        if (header) header.style.display = 'none'; 
 
-        if (tabelaContainer.classList.contains('fullscreen')) {
-            // --- MODO TELA CHEIA (ATIVADO) ---
-            
-            // 1. Esconde a barra do topo
-            if (header) header.style.display = 'none'; 
-
-            // 2. Botões colados no teto
-            if (tabContainer) {
-                tabContainer.style.top = '0px'; 
-                tabContainer.style.zIndex = '9001'; 
-            }
-
-            // 3. Tabela com altura DINÂMICA (dvh)
-            tabelaContainer.style.top = '65px'; // Igualou com a altura das Abas
-            
-            // Tenta usar 'dvh' (Dynamic Viewport Height) para celulares modernos
-            // Se o navegador for antigo, o CSS fallback (se houver) ou o cálculo padrão assume.
-            // O 'calc' garante que a tabela ocupe o espaço restante.
-            tabelaContainer.style.height = 'calc(100dvh - 65px)'; 
-            
-            // Fallback para navegadores que não entendem dvh (usa vh normal)
-            if (!CSS.supports('height: 100dvh')) {
-                 tabelaContainer.style.height = 'calc(100vh - 65px)';
-            }
-
-            // 4. O "SUPER CALÇO": Aumentamos para 300px
-            // Isso garante que 22h, 23h e Rodapé passem longe da barra do navegador
-            tabelaContainer.style.paddingBottom = '300px'; 
-            
-            // 5. O SEGREDO DA FIRMEZA: Força rolagem no Y e TRANCA o eixo X inline
-            tabelaContainer.style.overflowY = 'auto'; 
-            tabelaContainer.style.overflowX = 'hidden'; 
-            tabelaContainer.style.webkitOverflowScrolling = 'touch'; 
-
-        } else {
-            // --- MODO NORMAL (RESTAURADO) ---
-            
-            if (header) header.style.display = 'flex'; 
-
-            if (tabContainer) {
-                tabContainer.style.top = ''; 
-                tabContainer.style.zIndex = ''; 
-            }
-
-            // Remove todos os estilos inline forçados para deixar o CSS fluir naturalmente
-            tabelaContainer.style.top = '';
-            tabelaContainer.style.height = '';
-            tabelaContainer.style.paddingBottom = '';
-            tabelaContainer.style.overflowY = ''; 
-            tabelaContainer.style.overflowX = ''; 
-            tabelaContainer.style.webkitOverflowScrolling = '';
+        // 2. Botões colados no teto
+        if (tabContainer) {
+            tabContainer.style.top = '0px'; 
+            tabContainer.style.zIndex = '9001'; 
         }
-    });
+
+        // 3. Tabela com altura DINÂMICA
+        tabelaContainer.style.top = '65px'; 
+        tabelaContainer.style.height = 'calc(100dvh - 65px)'; 
+        if (!CSS.supports('height: 100dvh')) {
+             tabelaContainer.style.height = 'calc(100vh - 65px)';
+        }
+        tabelaContainer.style.paddingBottom = '300px'; 
+        
+        // 4. O SEGREDO DA FIRMEZA: Força rolagem no Y e TRANCA o eixo X
+        tabelaContainer.style.overflowY = 'auto'; 
+        tabelaContainer.style.overflowX = 'hidden'; 
+        tabelaContainer.style.webkitOverflowScrolling = 'touch'; 
+
+        // 5. A CORREÇÃO WEB: Tranca a página de fundo para o Safari não sambar
+        document.body.style.overflow = 'hidden';
+
+    } else {
+        // --- MODO NORMAL (RESTAURADO) ---
+        
+        if (header) header.style.display = 'flex'; 
+
+        if (tabContainer) {
+            tabContainer.style.top = ''; 
+            tabContainer.style.zIndex = ''; 
+        }
+
+        // Remove todos os estilos inline
+        tabelaContainer.style.top = '';
+        tabelaContainer.style.height = '';
+        tabelaContainer.style.paddingBottom = '';
+        tabelaContainer.style.overflowY = ''; 
+        tabelaContainer.style.overflowX = ''; 
+        tabelaContainer.style.webkitOverflowScrolling = '';
+
+        // DESTRAVA A PÁGINA DE FUNDO
+        document.body.style.overflow = '';
+    }
+});
 	
 	
 	const header = document.querySelector('.header'); // Seleciona o título da quadra
