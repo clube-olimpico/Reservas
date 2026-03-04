@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Clube Olímpico - Sistema de Reservas</title> 
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	
 	<link rel="manifest" href="manifest.json">
     
@@ -5812,11 +5812,12 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
 /* ================================================================= */
 @media screen and (max-width: 600px) and (display-mode: standalone) {
     
-    /* 1. Trava o "chão" do aplicativo para a página não vazar */
+    /* 1. Trava o "chão" do aplicativo para a página não vazar E MATA O ELÁSTICO GLOBAL */
     html, body {
         overflow: hidden !important;
         height: 100vh !important;
         height: 100dvh !important;
+        overscroll-behavior: none !important; /* CORREÇÃO: Fundo cinza puxando do topo/fundo */
     }
 
     /* 2. Fixa o título (Quadra 1) no lugar exato */
@@ -5827,29 +5828,35 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
         z-index: 1090;
     }
 
-    /* 3. O ELEVADOR */
+    /* 3. O ELEVADOR (Agora consegue enxergar o tamanho total da planilha) */
     .tabela-container,
     .tabela-container.fullscreen {
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
+        overflow-y: auto !important;    /* LIGADO para cima/baixo */
+        overflow-x: hidden !important;  /* TRANCADO para os lados */
         -webkit-overflow-scrolling: touch !important;
-        touch-action: pan-y; /* CORREÇÃO: Resposta instantânea no toque vertical */
+        
+        overscroll-behavior-y: none !important; /* CORREÇÃO: Bate na borda e para seco (vertical) */
+        touch-action: manipulation !important;  /* CORREÇÃO: Fim do delay do toque! */
     }
 
-    /* 4. Altura da Guilhotina */
+    /* 4. Altura exata da Guilhotina no modo normal */
     .tabela-container:not(.fullscreen) {
+        margin-top: 0 !important; 
+        height: calc(100vh - 150px) !important;
         height: calc(100dvh - 150px) !important; 
-        overscroll-behavior-y: contain; /* CORREÇÃO: Mata o elástico cinza no topo/fundo */
+        padding-bottom: 120px !important;
     }
 
-    /* 5. A ESTEIRA */
+    /* 5. A ESTEIRA (Corrigida: Rolagem horizontal livre, altura destrancada) */
     .rolagem-horizontal-esteira {
-        overflow-x: auto !important;
-        overflow-y: visible !important;
-        touch-action: pan-x; /* CORREÇÃO: Resposta instantânea no toque horizontal */
-        overscroll-behavior-x: contain; /* CORREÇÃO: Mata o elástico cinza nas laterais */
+        overflow-x: auto !important;    /* LIGADO para os lados */
+        overflow-y: visible !important; /* CORREÇÃO: Deixa a tabela crescer para baixo */
+        -webkit-overflow-scrolling: touch !important;
         width: 100%;
-        height: auto !important;
+        height: auto !important;        /* CORREÇÃO: Remove a trava que matava o scroll vertical */
+        
+        overscroll-behavior-x: none !important; /* CORREÇÃO: Bate na borda e para seco (horizontal) */
+        touch-action: manipulation !important;  /* CORREÇÃO: Fim do delay do toque! */
     }
 
     /* 6. O RODAPÉ (Barra Sólida de Proteção no Fundo da Tela) */
@@ -7200,12 +7207,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******  
 
-const VersaoSistema = 'v2.2.0'; // Versão atual do sistema     
+const VersaoSistema = 'v2.2.9'; // Versão atual do sistema     
 const DataVersaoSistema = '04/03/2026';      
 
-let vDesabilitarF12 = true; // deixar true para fazer o deploy    
-let vAbrirSistema = true; // deixar true para fazer o deploy
-let vPermitirExclusaoAposJogo = false; // Mude para true para permitir que usuários comuns excluam jogos passados durante os testes.
+let vDesabilitarF12 = false; // deixar true para fazer o deploy    
+let vAbrirSistema = false; // deixar true para fazer o deploy
+let vPermitirExclusaoAposJogo = true; // Mude para true para permitir que usuários comuns excluam jogos passados durante os testes.
 
 //******************************************************** 
 
