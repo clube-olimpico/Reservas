@@ -31,6 +31,23 @@
 
 <style> 
 
+/* ================================================================= */
+/* === CORREÇÃO DA ÁREA CINZA: CAMUFLAGEM DO ELÁSTICO NO iOS     === */
+/* ================================================================= */
+html {
+    /* Cor de fundo padrão (Modo Claro) para fundir com o App */
+    background-color: #f4f4f4; 
+    
+    /* Bloqueia o elástico em navegadores que aceitam esta regra */
+    overscroll-behavior: none; 
+}
+
+/* Camuflagem automática para quando o Modo Escuro estiver ativado */
+html:has(body.dark-mode) {
+    background-color: #121212;
+}
+/* ================================================================= */
+
 /* Estilos globais */ 
 body {
     font-family: 'Roboto', sans-serif; 
@@ -4757,8 +4774,7 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
         padding: 5px 30px 5px 30px !important; 
         
         overflow-y: auto !important;
-        
-		/* -webkit-overflow-scrolling: touch !important; */
+        -webkit-overflow-scrolling: touch;
         
         background-color: white !important;
         box-sizing: border-box !important;
@@ -5795,32 +5811,6 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
 /* --- --------------------------------------- */
 
 
-
-/* ================================================================= */
-/* === CORREÇÃO MÁXIMA: DESTRAVE ABSOLUTO DA ROLAGEM NO IPHONE   === */
-/* ================================================================= */
-.tabela-container,
-.tabela-container.fullscreen {
-    /* 1. Devolve o deslizamento suave e a inércia (Fim da sensação de "peso") */
-    -webkit-overflow-scrolling: touch !important; 
-    
-    /* 2. Impede o Safari de tentar voltar a página ao arrastar para o lado */
-    overscroll-behavior-x: contain !important;    
-    
-    /* 3. Força o uso da placa de vídeo permanentemente */
-    -webkit-transform: translate3d(0, 0, 0) !important;
-    transform: translate3d(0, 0, 0) !important;
-    will-change: transform, scroll-position !important;
-}
-
-.tabela-container table,
-.tabela-container th,
-.tabela-container td {
-    /* 4. Informa ao iOS que não é para pensar/esperar: o toque serve apenas para rolar! */
-    touch-action: pan-x pan-y !important;         
-    -webkit-tap-highlight-color: transparent !important;
-}
-/* ================================================================= */
 
 </style>
 
@@ -7136,8 +7126,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******  
 
-const VersaoSistema = 'v2.2.5'; // Versão atual do sistema     
-const DataVersaoSistema = '05/03/2026';      
+const VersaoSistema = 'v2.2.1'; // Versão atual do sistema     
+const DataVersaoSistema = '02/03/2026';      
 
 let vDesabilitarF12 = false; // deixar true para fazer o deploy    
 let vAbrirSistema = false; // deixar true para fazer o deploy
