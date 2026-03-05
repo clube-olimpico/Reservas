@@ -5795,6 +5795,18 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
 
 
 
+/* ================================================================= */
+/* === CORREÇÃO 1: ACELERAÇÃO DE HARDWARE (FIM DO DELAY NO iOS)  === */
+/* ================================================================= */
+.tabela-container,
+.tabela-container.fullscreen,
+.rolagem-horizontal-esteira {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+}
+/* ================================================================= */
+
 </style>
 
 
@@ -7109,8 +7121,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******  
 
-const VersaoSistema = 'v2.2.0'; // Versão atual do sistema     
-const DataVersaoSistema = '02/03/2026';      
+const VersaoSistema = 'v2.2.1'; // Versão atual do sistema     
+const DataVersaoSistema = '05/03/2026';      
 
 let vDesabilitarF12 = false; // deixar true para fazer o deploy    
 let vAbrirSistema = false; // deixar true para fazer o deploy
