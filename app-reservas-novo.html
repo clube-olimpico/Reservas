@@ -7136,7 +7136,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******  
 
-const VersaoSistema = 'v2.2.3'; // Versão atual do sistema     
+const VersaoSistema = 'v2.2.4'; // Versão atual do sistema     
 const DataVersaoSistema = '05/03/2026';      
 
 let vDesabilitarF12 = false; // deixar true para fazer o deploy    
@@ -21416,14 +21416,19 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
         if (campo) {
             function tentarAbrir(e) {
                 if (window.innerWidth < 768) {
-                    e.preventDefault(); // Impede teclado nativo
+                    // Apenas previne o padrão se o toque for EXATAMENTE no campo da senha
+                    if (e.type === 'touchstart' && e.target === campo) {
+                        e.preventDefault(); 
+                    }
                     campo.blur();       // Tira foco nativo
                     abrirTeclado();     // Chama nossa função que arruma a tela
                 }
             }
 
             campo.addEventListener('click', tentarAbrir);
-            campo.addEventListener('touchstart', tentarAbrir, { passive: false });
+            
+            // A MÁGICA ESTÁ AQUI: passive: true diz ao iPhone para nunca parar a rolagem!
+            campo.addEventListener('touchstart', tentarAbrir, { passive: true }); 
         }
 
         // Ajuste PC vs Celular
