@@ -4757,8 +4757,7 @@ body.dark-mode #modalResultadoPiramide.modo-cheio .sb-tb-display {
         padding: 5px 30px 5px 30px !important; 
         
         overflow-y: auto !important;
-        
-		/* -webkit-overflow-scrolling: touch !important; */
+        -webkit-overflow-scrolling: touch;
         
         background-color: white !important;
         box-sizing: border-box !important;
@@ -5795,18 +5794,6 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
 /* --- --------------------------------------- */
 
 
-
-/* ================================================================= */
-/* === CORREÇÃO 1: ACELERAÇÃO DE HARDWARE (FIM DO DELAY NO iOS)  === */
-/* ================================================================= */
-.tabela-container,
-.tabela-container.fullscreen,
-.rolagem-horizontal-esteira {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    will-change: transform;
-}
-/* ================================================================= */
 
 </style>
 
@@ -7123,7 +7110,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Ajuste manual da atualização de versão do Sistema ******  
 
 const VersaoSistema = 'v2.2.1'; // Versão atual do sistema     
-const DataVersaoSistema = '05/03/2026';      
+const DataVersaoSistema = '02/03/2026';      
 
 let vDesabilitarF12 = false; // deixar true para fazer o deploy    
 let vAbrirSistema = false; // deixar true para fazer o deploy
