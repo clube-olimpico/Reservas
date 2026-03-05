@@ -28,7 +28,7 @@
 
 <style>
 
-/* --- TRUQUE: ESCONDE A OPÇÃO SELECIONADA DA LISTA --- */  
+/* --- TRUQUE: ESCONDE A OPÇÃO SELECIONADA DA LISTA --- */     
 #perfilSelect option:checked {
     display: none;
 }
@@ -6960,20 +6960,108 @@ function excluirPeriodoSelecionado() {
 
 
 	
+    // ==========================================================
+    // --- LÓGICA DE USUÁRIOS ONLINE COM NOME INTELIGENTE (NEGRITO) ---
+    // ==========================================================
+    let cacheJogadoresParaNomes = {};
+    let listaUsuariosBruta = [];
+
+    // Função para deixar apenas as iniciais maiúsculas (Title Case)
+    function formatarTextoNome(texto) {
+        if (!texto) return "";
+        return texto.toLowerCase().trim().split(' ')
+            .filter(p => p !== "")
+            .map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1))
+            .join(' ');
+    }
+
+    // Função que faz a Mágica
+    function processarNomesOnline() {
+        listaUsuariosOnline = listaUsuariosBruta.map(nomeBruto => {
+            if (nomeBruto.toLowerCase() === "primeiro acesso") return "<i>Visitante (Não logado)</i>";
+
+            // Nome formatado para exibição (Ex: Adriano Gomes Feitosa)
+            const nomeExibicao = formatarTextoNome(nomeBruto);
+            
+            // Chave de busca em maiúsculas (para o Firebase não falhar a leitura)
+            const chaveBusca = nomeBruto.toUpperCase().trim();
+            let apelidoBruto = "";
+
+            // Busca no banco Firebase usando a chave exata
+            for (const nomeChave in cacheJogadoresParaNomes) {
+                if (nomeChave.toUpperCase().trim() === chaveBusca) {
+                    const dadosJogador = cacheJogadoresParaNomes[nomeChave];
+                    if (dadosJogador && dadosJogador.apelido) {
+                        apelidoBruto = dadosJogador.apelido;
+                    }
+                    break;
+                }
+            }
+
+            // Se não encontrou apelido, retorna o nome formatado normal
+            if (!apelidoBruto) return nomeExibicao;
+
+            // Apelido formatado para exibição (Ex: Adriano Feitosa ou Amora)
+            const apelidoExibicao = formatarTextoNome(apelidoBruto);
+
+            // A Mágica do Negrito Inteligente
+            const apelidoWords = apelidoExibicao.split(' ').filter(w => w !== "");
+            
+            // Verifica se o apelido faz parte do nome (ignorando maiúsculas/minúsculas)
+            const todasPresentes = apelidoWords.every(word =>
+                nomeExibicao.toLowerCase().includes(word.toLowerCase())
+            );
+
+            if (todasPresentes) {
+                // Caso A: O apelido está no nome (Ex: Adriano Feitosa)
+                let nomeFinal = nomeExibicao;
+                apelidoWords.forEach(word => {
+                    // 'gi' para ignorar maiúsculas/minúsculas na busca. $& mantém o formato original.
+                    const regex = new RegExp(`(^|\\s)(${word})(?=\\s|$)`, 'gi');
+                    nomeFinal = nomeFinal.replace(regex, '$1<b>$2</b>');
+                });
+                return nomeFinal;
+            } else {
+                // Caso B: O apelido é diferente (Ex: Amora)
+                return `${nomeExibicao} (<b>${apelidoExibicao}</b>)`;
+            }
+        });
+    }
+
+    // 1. Ouve a lista de jogadores (e refaz a lista se ela chegar depois)
+    db.ref('sistemas/cadastro/jogadores').on('value', snapshot => {
+        cacheJogadoresParaNomes = snapshot.val() || {};
+        processarNomesOnline(); // Atualiza a formatação!
+    });
+
+    // 2. Ouve os usuários online (e refaz a lista sempre que alguém entra/sai)
     db.ref("sistemas/usuariosOnline").on("value", s => {
-        const n = s.numChildren(); document.getElementById('usuariosOnline').value = n.toString().padStart(3,'0');
-        listaUsuariosOnline=[]; s.forEach(c => listaUsuariosOnline.push(c.val().usuario));
-    });
-	
-    document.getElementById('usuariosOnline').addEventListener('click', () => {
-        const msg = listaUsuariosOnline.length ? `<b>Usuários:</b><br>${listaUsuariosOnline.join("<br>")}` : "Ninguém online.";
-        mostrarNotificacao(msg, 'info');
+        const n = s.numChildren();
+        const inputOnline = document.getElementById('usuariosOnline');
+        if(inputOnline) inputOnline.value = n.toString().padStart(3,'0');
+
+        let listaBruta = [];
+        s.forEach(c => { listaBruta.push(c.val().usuario); });
+
+        // Tira duplicados (caso abra no PC e celular ao mesmo tempo)
+        listaUsuariosBruta = [...new Set(listaBruta)];
+        
+        processarNomesOnline(); // Atualiza a formatação!
     });
 
-   
-    
-
-    // Exceções e Bloqueios
+    // 3. Clique no botão
+    const btnOnline = document.getElementById('usuariosOnline');
+    if (btnOnline) {
+        // Renova o botão para não acumular cliques antigos
+        const novoBtnOnline = btnOnline.cloneNode(true);
+        btnOnline.parentNode.replaceChild(novoBtnOnline, btnOnline);
+        
+        novoBtnOnline.addEventListener('click', () => {
+            const msg = listaUsuariosOnline.length ? `<b>Usuários conectados:</b><br>${listaUsuariosOnline.join("<br>")}` : "Ninguém online.";
+            mostrarNotificacao(msg, 'info');
+        });
+    }
+    // ==========================================================
     
     
     
@@ -7607,8 +7695,11 @@ function mostrarNotificacao(mensagem, tipo = 'success') {
     let icone = '✅';
     if (tipo === 'error') icone = '❌';
     if (tipo === 'warning') icone = '⚠️';
+    if (tipo === 'info') icone = 'ℹ️';
 
-    toast.innerHTML = `<span style="margin-right: 10px; font-size: 1.2em;">${icone}</span> <div>${mensagem}</div>`;
+    // Força a caixinha a alinhar tudo pelo topo, colando o ícone na primeira linha
+    toast.style.alignItems = 'flex-start'; 
+    toast.innerHTML = `<span style="margin-right: 10px; font-size: 1.3em; line-height: 1.3;">${icone}</span> <div>${mensagem}</div>`;
     
     container.appendChild(toast);
 
