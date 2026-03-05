@@ -5797,27 +5797,27 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
 
 
 /* ================================================================= */
-/* === CORREÇÃO 1: ACELERAÇÃO DE HARDWARE (FIM DO DELAY NO iOS)  === */
+/* === CORREÇÃO MÁXIMA: DESTRAVE ABSOLUTO DA ROLAGEM NO IPHONE   === */
 /* ================================================================= */
 .tabela-container,
-.tabela-container.fullscreen,
-.rolagem-horizontal-esteira {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    will-change: transform;
+.tabela-container.fullscreen {
+    /* 1. Devolve o deslizamento suave e a inércia (Fim da sensação de "peso") */
+    -webkit-overflow-scrolling: touch !important; 
+    
+    /* 2. Impede o Safari de tentar voltar a página ao arrastar para o lado */
+    overscroll-behavior-x: contain !important;    
+    
+    /* 3. Força o uso da placa de vídeo permanentemente */
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+    will-change: transform, scroll-position !important;
 }
 
-/* ================================================================= */
-/* === CORREÇÃO 2: DESTRAVE DO TOQUE (FIM DO DELAY DE 300ms)     === */
-/* ================================================================= */
-.tabela-container,
 .tabela-container table,
 .tabela-container th,
 .tabela-container td {
-    /* Manda o iOS não esperar pelo duplo clique de zoom. Arrasto imediato! */
-    touch-action: manipulation !important;
-    
-    /* Remove o "piscar" cinza que o iOS dá ao tocar na célula, aliviando o processador */
+    /* 4. Informa ao iOS que não é para pensar/esperar: o toque serve apenas para rolar! */
+    touch-action: pan-x pan-y !important;         
     -webkit-tap-highlight-color: transparent !important;
 }
 /* ================================================================= */
@@ -7136,7 +7136,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******  
 
-const VersaoSistema = 'v2.2.4'; // Versão atual do sistema     
+const VersaoSistema = 'v2.2.5'; // Versão atual do sistema     
 const DataVersaoSistema = '05/03/2026';      
 
 let vDesabilitarF12 = false; // deixar true para fazer o deploy    
@@ -21416,19 +21416,14 @@ function calcularDataDoDiaSelecionado(diaSelecionado) {
         if (campo) {
             function tentarAbrir(e) {
                 if (window.innerWidth < 768) {
-                    // Apenas previne o padrão se o toque for EXATAMENTE no campo da senha
-                    if (e.type === 'touchstart' && e.target === campo) {
-                        e.preventDefault(); 
-                    }
+                    e.preventDefault(); // Impede teclado nativo
                     campo.blur();       // Tira foco nativo
                     abrirTeclado();     // Chama nossa função que arruma a tela
                 }
             }
 
             campo.addEventListener('click', tentarAbrir);
-            
-            // A MÁGICA ESTÁ AQUI: passive: true diz ao iPhone para nunca parar a rolagem!
-            campo.addEventListener('touchstart', tentarAbrir, { passive: true }); 
+            campo.addEventListener('touchstart', tentarAbrir, { passive: false });
         }
 
         // Ajuste PC vs Celular
