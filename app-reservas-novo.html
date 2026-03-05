@@ -5806,6 +5806,20 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
     transform: translate3d(0, 0, 0);
     will-change: transform;
 }
+
+/* ================================================================= */
+/* === CORREÇÃO 2: DESTRAVE DO TOQUE (FIM DO DELAY DE 300ms)     === */
+/* ================================================================= */
+.tabela-container,
+.tabela-container table,
+.tabela-container th,
+.tabela-container td {
+    /* Manda o iOS não esperar pelo duplo clique de zoom. Arrasto imediato! */
+    touch-action: manipulation !important;
+    
+    /* Remove o "piscar" cinza que o iOS dá ao tocar na célula, aliviando o processador */
+    -webkit-tap-highlight-color: transparent !important;
+}
 /* ================================================================= */
 
 </style>
@@ -7122,7 +7136,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******  
 
-const VersaoSistema = 'v2.2.2'; // Versão atual do sistema     
+const VersaoSistema = 'v2.2.3'; // Versão atual do sistema     
 const DataVersaoSistema = '05/03/2026';      
 
 let vDesabilitarF12 = false; // deixar true para fazer o deploy    
