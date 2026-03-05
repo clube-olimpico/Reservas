@@ -5812,31 +5812,33 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
 
 
 /* ================================================================= */
-/* === CORREÇÃO: PLANILHA TRAVADA NO TÍTULO (EFEITO APP NATIVO)  === */
+/* === ESTRATÉGIA FINAL: SEPARAÇÃO DE RESPONSABILIDADES NO ROLAR === */
 /* ================================================================= */
 
-/* 1. Trava a página inteira para impedir a tela de subir no iPhone */
-html, body {
-    overflow: hidden !important; 
+/* 1. A CAIXA (Container) - Cuida apenas do motor de rolagem e aceleração */
+.tabela-container,
+.tabela-container.fullscreen {
+    /* Devolve o deslizamento macio original da Apple */
+    -webkit-overflow-scrolling: touch !important; 
+    
+    /* Liga o motor 3D apenas para a caixa rolar suave */
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 }
 
-/* 2. Dá o poder de rolagem APENAS para a caixa da tabela */
-.tabela-container:not(.fullscreen) {
-    /* Altura da tela MENOS o Cabeçalho (100px) + Título/Rodapé (~90px) */
-    height: calc(100vh - 190px);
-    height: calc(100dvh - 190px); /* Para Safari Moderno */
+/* 2. O CONTEÚDO (A Tabela) - Cuida apenas de blindar o toque e os eixos */
+.tabela-container table {
+    /* MATA O DELAY DE 300ms DO CLIQUE DUPLO (faz o dedo "colar") */
+    touch-action: manipulation !important;
     
-    /* Ativa a rolagem vertical interna */
-    overflow-y: auto; 
+    /* MATA O ELASTICO LATERAL (impede de rolar a página para trás) */
+    overscroll-behavior-x: none !important;
     
-    /* Mantém o deslize suave do iPhone */
-    -webkit-overflow-scrolling: touch; 
+    /* MATA O ELASTICO VERTICAL (quando puxa do topo) */
+    overscroll-behavior-y: none !important;
     
-    /* Remove a margem antiga que a empurrava para trás do título */
-    margin-top: 0 !important; 
-    
-    /* Calço extra para a última linha (22h) não ficar colada no fundo */
-    padding-bottom: 20px;
+    /* Remove o piscar azul/cinza ao tocar na célula */
+    -webkit-tap-highlight-color: transparent !important;
 }
 /* ================================================================= */
 
@@ -7155,7 +7157,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******  
 
-const VersaoSistema = 'v2.2.2'; // Versão atual do sistema     
+const VersaoSistema = 'v2.2.3'; // Versão atual do sistema     
 const DataVersaoSistema = '05/03/2026';      
 
 let vDesabilitarF12 = false; // deixar true para fazer o deploy    
