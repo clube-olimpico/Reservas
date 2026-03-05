@@ -12,9 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes"> 
 
     <meta name="apple-mobile-web-app-capable" content="yes">
-	
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-	
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Reservas">
 
     <link rel="apple-touch-icon" href="novo-logo-6.png">
@@ -1040,27 +1038,16 @@ th {
     width: 100vw;
     height: 100vh;
     background-color: white;
-    z-index: 9000;
-    
-    /* O ELEVADOR GLOBAL: Tranca a diagonal e força a rolagem reta para baixo */
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch;
-}
-
-/* A ESTEIRA GLOBAL: Tranca a diagonal e força a rolagem reta para os lados */
-.fullscreen .rolagem-horizontal-esteira {
-    overflow-x: auto !important;
-    overflow-y: hidden !important; /* CORREÇÃO FINAL: Trava a diagonal na Web */
-    width: 100%;
-    height: auto !important;
-    -webkit-overflow-scrolling: touch;
+    z-index: 9000; /* ALTERADO DE 9999 PARA 9000 */
+    overflow: auto;
 }
 
 .fullscreen table {
     width: 100%;
     height: auto;
 }
+
+
 
 /*****************************************/
 /****** Estilos para o Modo Escuro *******/
@@ -5808,107 +5795,6 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
 
 
 
-
-/* ================================================================= */
-/* === FÍSICA E ACELERAÇÃO: CORREÇÃO PARA IPHONE (APP E WEB)     === */
-/* ================================================================= */
-@media screen and (max-width: 600px) {
-    
-    /* 1. MATA O ELÁSTICO (Área Cinza) TANTO NA VERSÃO WEB QUANTO NO APP */
-    html, body {
-        overscroll-behavior: none !important;
-    }
-
-    /* 2. FIM DO DELAY DO TOQUE (Força o processador gráfico do iPhone) */
-    /* Isso faz a planilha colar no dedo instantaneamente sem congelar o scroll */
-    .tabela-container,
-    .tabela-container.fullscreen,
-    .rolagem-horizontal-esteira {
-        -webkit-transform: translateZ(0) !important;
-        transform: translateZ(0) !important;
-    }
-}
-
-/* ================================================================= */
-/* === EFEITO GUILHOTINA: CAIXA DE ROLAGEM ISOLADA (SÓ PWA/APP)  === */
-/* ================================================================= */
-@media screen and (max-width: 600px) and (display-mode: standalone) {
-    
-    /* Trava o "chão" do aplicativo para a página não vazar */
-    html, body {
-        overflow: hidden !important;
-        height: 100vh !important;
-        height: 100dvh !important;
-    }
-
-    /* Fixa o título (Quadra 1) no lugar exato */
-    .header-legenda-container {
-        position: relative !important;
-        top: 0 !important; 
-        margin: 0 !important; 
-        z-index: 1090;
-    }
-
-    /* O ELEVADOR (Firmeza vertical c/ fim de curso seco) */
-    .tabela-container,
-    .tabela-container.fullscreen {
-        overflow-y: auto !important;    
-        overflow-x: hidden !important;  
-        -webkit-overflow-scrolling: touch !important;
-        overscroll-behavior-y: none !important; 
-    }
-
-    /* Altura exata da Guilhotina no modo normal */
-    .tabela-container:not(.fullscreen) {
-        margin-top: 0 !important; 
-        height: calc(100vh - 150px) !important;
-        height: calc(100dvh - 150px) !important; 
-        padding-bottom: 120px !important;
-    }
-
-    /* A ESTEIRA (Firmeza horizontal c/ fim de curso seco) */
-    .rolagem-horizontal-esteira {
-        overflow-x: auto !important;    
-        overflow-y: visible !important; 
-        -webkit-overflow-scrolling: touch !important;
-        width: 100%;
-        height: auto !important;        
-        overscroll-behavior-x: none !important; 
-    }
-
-    /* O RODAPÉ (Barra Sólida de Proteção no Fundo da Tela) */
-    footer {
-        position: fixed !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 35px !important; 
-        background-color: #f4f4f4 !important; 
-        z-index: 8000 !important; 
-        border-top: 1px solid #ddd !important; 
-    }
-
-    body.dark-mode footer {
-        background-color: #121212 !important;
-        border-top: 1px solid #333 !important;
-    }
-
-    /* Centralização Absoluta do texto da versão */
-    footer #VersaoSistema {
-        position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        margin: 0 !important;
-        width: auto !important; 
-    }
-}
-/* ======================================================================== */
-/* ======================================================================== */
-/* === fim de EFEITO GUILHOTINA: CAIXA DE ROLAGEM ISOLADA (IPHONE)      === */
-/* ======================================================================== */
-
-
 </style>
 
 
@@ -6602,7 +6488,6 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
 
 
 <div class="tabela-container">
-<div class="rolagem-horizontal-esteira">
 <table id="tabelaQuadra" style="width: 100%; margin-top: 10px;"> 
     <tr>
         <th rowspan="2" style="text-align: center;">Horários</th>
@@ -6730,7 +6615,6 @@ body.dark-mode .card-info-autor { border-top-color: #444; }
 </tbody>
 
 </table>
-</div>
 </div>
 </div>
 
@@ -7225,8 +7109,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******  
 
-const VersaoSistema = 'v2.2.8'; // Versão atual do sistema     
-const DataVersaoSistema = '04/03/2026';      
+const VersaoSistema = 'v2.2.0'; // Versão atual do sistema     
+const DataVersaoSistema = '02/03/2026';      
 
 let vDesabilitarF12 = false; // deixar true para fazer o deploy    
 let vAbrirSistema = false; // deixar true para fazer o deploy
@@ -10831,71 +10715,69 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==========================================================
     // --- FUNÇÃO DE DUPLO CLIQUE (VERSÃO FINAL: CORREÇÃO DE ROLAGEM) ---
     // ==========================================================
-    // ==========================================================
-// --- FUNÇÃO DE DUPLO CLIQUE (VERSÃO FINAL: CORREÇÃO DE ROLAGEM) ---
-// ==========================================================
-tabelaContainer.addEventListener('dblclick', (event) => {
-    const target = event.target;
-    // Verifica clique válido
-    if (!((target.tagName === 'TH' || target.tagName === 'TD') && target.innerText.includes('Horários'))) {
-        return;
-    }
-
-    tabelaContainer.classList.toggle('fullscreen');
-    
-    const header = document.getElementById('app-header'); 
-    const tabContainer = document.querySelector('.tab-container'); 
-
-    if (tabelaContainer.classList.contains('fullscreen')) {
-        // --- MODO TELA CHEIA (ATIVADO) ---
-        
-        // 1. Esconde a barra do topo
-        if (header) header.style.display = 'none'; 
-
-        // 2. Botões colados no teto
-        if (tabContainer) {
-            tabContainer.style.top = '0px'; 
-            tabContainer.style.zIndex = '9001'; 
+    tabelaContainer.addEventListener('dblclick', (event) => {
+        const target = event.target;
+        // Verifica clique válido
+        if (!((target.tagName === 'TH' || target.tagName === 'TD') && target.innerText.includes('Horários'))) {
+            return;
         }
 
-        // 3. Tabela com altura DINÂMICA
-        tabelaContainer.style.top = '65px'; 
-        tabelaContainer.style.height = 'calc(100dvh - 65px)'; 
-        if (!CSS.supports('height: 100dvh')) {
-             tabelaContainer.style.height = 'calc(100vh - 65px)';
-        }
-        tabelaContainer.style.paddingBottom = '300px'; 
+        tabelaContainer.classList.toggle('fullscreen');
         
-        // 4. O SEGREDO DA FIRMEZA: Força rolagem no Y e TRANCA o eixo X
-        tabelaContainer.style.overflowY = 'auto'; 
-        tabelaContainer.style.overflowX = 'hidden'; 
-        tabelaContainer.style.webkitOverflowScrolling = 'touch'; 
+        const header = document.getElementById('app-header'); 
+        const tabContainer = document.querySelector('.tab-container'); 
 
-        // 5. A CORREÇÃO WEB: Tranca a página de fundo para o Safari não sambar
-        document.body.style.overflow = 'hidden';
+        if (tabelaContainer.classList.contains('fullscreen')) {
+            // --- MODO TELA CHEIA (ATIVADO) ---
+            
+            // 1. Esconde a barra do topo
+            if (header) header.style.display = 'none'; 
 
-    } else {
-        // --- MODO NORMAL (RESTAURADO) ---
-        
-        if (header) header.style.display = 'flex'; 
+            // 2. Botões colados no teto
+            if (tabContainer) {
+                tabContainer.style.top = '0px'; 
+                tabContainer.style.zIndex = '9001'; 
+            }
 
-        if (tabContainer) {
-            tabContainer.style.top = ''; 
-            tabContainer.style.zIndex = ''; 
+            // 3. Tabela com altura DINÂMICA (dvh)
+            tabelaContainer.style.top = '65px'; // Igualou com a altura das Abas
+            
+            // Tenta usar 'dvh' (Dynamic Viewport Height) para celulares modernos
+            // Se o navegador for antigo, o CSS fallback (se houver) ou o cálculo padrão assume.
+            // O 'calc' garante que a tabela ocupe o espaço restante.
+            tabelaContainer.style.height = 'calc(100dvh - 65px)'; 
+            
+            // Fallback para navegadores que não entendem dvh (usa vh normal)
+            if (!CSS.supports('height: 100dvh')) {
+                 tabelaContainer.style.height = 'calc(100vh - 65px)';
+            }
+
+            // 4. O "SUPER CALÇO": Aumentamos para 300px
+            // Isso garante que 22h, 23h e Rodapé passem longe da barra do navegador
+            tabelaContainer.style.paddingBottom = '300px'; 
+            
+            // 5. Força a rolagem a funcionar
+            tabelaContainer.style.overflowY = 'scroll'; 
+            tabelaContainer.style.webkitOverflowScrolling = 'touch'; // Fluidez no iPhone
+
+        } else {
+            // --- MODO NORMAL (RESTAURADO) ---
+            
+            if (header) header.style.display = 'flex'; 
+
+            if (tabContainer) {
+                tabContainer.style.top = ''; // Limpa o estilo embutido e deixa o CSS (35px) assumir
+                tabContainer.style.zIndex = ''; 
+            }
+
+            // Remove todos os estilos inline forçados para deixar o CSS fluir naturalmente
+            tabelaContainer.style.top = '';
+            tabelaContainer.style.height = '';
+            tabelaContainer.style.paddingBottom = '';
+            tabelaContainer.style.overflowY = ''; 
+            tabelaContainer.style.webkitOverflowScrolling = '';
         }
-
-        // Remove todos os estilos inline
-        tabelaContainer.style.top = '';
-        tabelaContainer.style.height = '';
-        tabelaContainer.style.paddingBottom = '';
-        tabelaContainer.style.overflowY = ''; 
-        tabelaContainer.style.overflowX = ''; 
-        tabelaContainer.style.webkitOverflowScrolling = '';
-
-        // DESTRAVA A PÁGINA DE FUNDO
-        document.body.style.overflow = '';
-    }
-});
+    });
 	
 	
 	const header = document.querySelector('.header'); // Seleciona o título da quadra
