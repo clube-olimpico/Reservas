@@ -7109,7 +7109,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Ajuste manual da atualização de versão do Sistema ******  
 
-const VersaoSistema = 'v2.2.1'; // Versão atual do sistema     
+const VersaoSistema = 'v2.2.2'; // Versão atual do sistema     
 const DataVersaoSistema = '06/03/2026';      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
@@ -14221,12 +14221,20 @@ async function salvarResultadoPiramide() {
                 const isTb2 = (s2_1 === 6 && s2_2 === 6) || (s2_1 === 7 && s2_2 === 6) || (s2_1 === 6 && s2_2 === 7);
                 const valS3_1 = getVal('set3-j1'); const valS3_2 = getVal('set3-j2');
                 
-                const perdedorApelido = (vencedorApelido === reservaResultadoEmEdicao.jogador1 || vencedorNomeCompleto === jogadoresData[reservaResultadoEmEdicao.jogador1]?.nomeCompleto) 
-                                        ? reservaResultadoEmEdicao.jogador2 : reservaResultadoEmEdicao.jogador1;
+                // --- CORREÇÃO DE CASE SENSITIVE PARA IDENTIFICAR PERDEDOR ---
+                const j1Original = reservaResultadoEmEdicao.jogador1;
+                const j2Original = reservaResultadoEmEdicao.jogador2;
+                
+                const isVencedorJ1 = (vencedorApelido.toUpperCase() === j1Original.toUpperCase() || 
+                                      vencedorNomeCompleto.toUpperCase() === (jogadoresData[j1Original]?.nomeCompleto || "").toUpperCase());
+                
+                const perdedorApelido = isVencedorJ1 ? j2Original : j1Original;
+                const vencedorOriginal = isVencedorJ1 ? j1Original : j2Original;
+                // ------------------------------------------------------------
 
                 resultadoData = {
                     tipo: 'Placar Normal',
-                    vencedor: vencedorApelido, sacador: sacadorAtual, perdedor: perdedorApelido,
+                    vencedor: vencedorOriginal, sacador: sacadorAtual, perdedor: perdedorApelido,
                     set1: { placar: `${getVal('set1-j1')}x${getVal('set1-j2')}`, tiebreak: (isTb1) ? `${getVal('tb1-j1')}-${getVal('tb1-j2')}` : "" },
                     set2: { placar: `${getVal('set2-j1')}x${getVal('set2-j2')}`, tiebreak: (isTb2) ? `${getVal('tb2-j1')}-${getVal('tb2-j2')}` : "" },
                     set3: (valS3_1 !== "" && valS3_2 !== "") ? `${valS3_1}x${valS3_2}` : ""
@@ -14298,8 +14306,8 @@ async function salvarResultadoPiramide() {
  */
 async function executarSalvamentoResultado(resultadoData, forcarFinalizacao = false) {
     if (!reservaResultadoEmEdicao) return;
-	
-	// --- NOVO: Desliga o ouvinte antes de salvar para não se auto-interromper ---
+    
+    // --- NOVO: Desliga o ouvinte antes de salvar para não se auto-interromper ---
     if (listenerModalResultado) {
         database.ref(listenerModalResultado.path).off('value', listenerModalResultado.callback);
         listenerModalResultado = null;
@@ -14311,7 +14319,7 @@ async function executarSalvamentoResultado(resultadoData, forcarFinalizacao = fa
         apelido => jogadoresData[apelido].nomeCompleto.toUpperCase() === jogadorLogadoCompleto.toUpperCase()
     ) || jogadorLogadoCompleto;
     
-    // --- ASSINATURA DA AUTORIA INTELIGENTE (AJUSTE SOLICITADO) ---
+    // --- ASSINATURA DA AUTORIA INTELIGENTE ---
     const j1 = reservaResultadoEmEdicao.jogador1;
     const j2 = reservaResultadoEmEdicao.jogador2;
 
@@ -14325,7 +14333,7 @@ async function executarSalvamentoResultado(resultadoData, forcarFinalizacao = fa
         // Se for Admin: "Informado por Admin: Nome"
         informante = `Admin: ${jogadorLogadoApelido}`;
     } else if (ehJogadorDaPartida) {
-        // Se for Jogador: "Informado por: Nome" (Adicionei o ':' para ficar igual ao seu pedido)
+        // Se for Jogador: "Informado por: Nome"
         informante = `: ${jogadorLogadoApelido}`;
     } else {
         // Se não é Admin nem Jogador, é Delegado/Árbitro: "Informado por Árbitro: Nome"
@@ -14343,33 +14351,28 @@ async function executarSalvamentoResultado(resultadoData, forcarFinalizacao = fa
     let novoStatus;
     let executarFinalizacaoDireta = false;
     let mensagemSucesso = '';
+    
+    // Verifica a autoridade de quem está clicando em Salvar logo no início
+    const ehAutoridade = isUsuarioAdmin() || isUsuarioArbitro() || (reserva.delegado === jogadorLogadoApelido);
 
-    // A. Resolução de Disputa
+    // A. Resolução de Disputa (Quando um resultado foi recusado antes)
     if ((isUsuarioAdmin() || isUsuarioArbitro()) && reserva.status === 'resultado_recusado') {
         novoStatus = 'finalizada';
         executarFinalizacaoDireta = true;
         mensagemSucesso = "Disputa resolvida! Resultado finalizado.";
     } 
-    // B. MODO ARBITRAGEM -> Verifica quem é o utilizador!
-    else if (forcarFinalizacao) {
-        const ehAutoridade = isUsuarioAdmin() || isUsuarioArbitro() || (reserva.delegado === jogadorLogadoApelido);
-        
-        if (ehAutoridade) {
-            novoStatus = 'finalizada';
-            executarFinalizacaoDireta = true;
-            mensagemSucesso = "Jogo finalizado pelo Árbitro com sucesso!";
-        } else {
-            novoStatus = 'resultado_pendente';
-            executarFinalizacaoDireta = false;
-            mensagemSucesso = "Resultado salvo! Aguardando a confirmação do oponente.";
-        }
+    // B. AUTORIDADE SALVANDO -> Finaliza na hora, seja via Súmula ou via Arbitragem
+    else if (ehAutoridade) {
+        novoStatus = 'finalizada';
+        executarFinalizacaoDireta = true;
+        mensagemSucesso = forcarFinalizacao ? "Jogo finalizado pelo Árbitro com sucesso!" : "Resultado validado e finalizado com sucesso!";
     }
-    // C. MODO SÚMULA (Padrão) -> Fica Pendente
+    // C. JOGADOR COMUM SALVANDO -> Fica Pendente
     else {
         novoStatus = 'resultado_pendente';
         executarFinalizacaoDireta = false;
         mensagemSucesso = "Resultado salvo! Aguardando a confirmação do oponente.";
-    }executarSalvamentoSilencioso
+    }
 
     updates[`${path1}/status`] = novoStatus;
     updates[`${path1}/resultado`] = resultadoData;
@@ -14403,7 +14406,7 @@ async function executarSalvamentoResultado(resultadoData, forcarFinalizacao = fa
 
     try {
         await database.ref().update(updates);
-		atualizarIndicadorAba(quadra, false); 
+        atualizarIndicadorAba(quadra, false); 
         mostrarNotificacao(mensagemSucesso, 'success');
         fecharModalResultado();
     } catch (error) {
@@ -15854,27 +15857,24 @@ function gerarPlacarDuplasHtml(resultadoDuplas) {
 
 function enviarNotificacaoResultadoFinalizado(reserva, decisao) {
     const notificacaoUpdates = {};
-    if (!reserva || !reserva.resultado) return notificacaoUpdates;
+    if (!reserva || !reserva.resultado) {
+        return notificacaoUpdates;
+    }
 
     const { vencedor, perdedor } = reserva.resultado;
+
+    // Busca no dicionário de jogadores
     const vencedorInfo = jogadoresData[vencedor];
     const perdedorInfo = jogadoresData[perdedor];
 
     if (vencedorInfo && perdedorInfo) {
-        // --- INÍCIO DA CORREÇÃO DEFINITIVA ---
-        // Lógica robusta para encontrar a ordem original dos jogadores
         let jogador1Original, jogador2Original;
         if (reserva.jogadores_completo) {
-            // Se o campo existe, usamos ele, que é garantido
             [jogador1Original, jogador2Original] = reserva.jogadores_completo.split(',').map(j => j.trim());
         } else {
-            // Se não existe (reservas antigas), usamos a lógica de dedução
-            // O primeiro jogador da reserva é sempre o "jogador1"
             jogador1Original = reserva.jogadores.split(',').map(j => j.trim())[0];
-            // O segundo jogador é o outro participante (seja ele vencedor ou perdedor)
             jogador2Original = (jogador1Original === vencedor) ? perdedor : vencedor;
         }
-        // --- FIM DA CORREÇÃO DEFINITIVA ---
 
         const dataReserva = document.querySelector(`#tabelaQuadra tr:nth-child(2) td:nth-child(${reserva.dia})`).textContent;
         const hr = '<hr style="border: none; border-top: 1px solid #ddd; margin: 8px 0;">';
@@ -15885,7 +15885,6 @@ function enviarNotificacaoResultadoFinalizado(reserva, decisao) {
 
         const gerarPlacarArbitragemHtml = () => {
             const ehCancelado = decisao.includes("cancelad");
-            // AGORA passamos os jogadores na ordem correta para o placar
             let placarHtml = gerarPlacarHtml(reserva.resultado, jogador1Original, jogador2Original)
                 .replace('<div class="placar-container">', '<div class="placar-container" style="font-size: 1em; line-height: 1.5;">')
                 .replace('<b>Resultado do Jogo:</b>', ehCancelado ? '<b>Resultado Informado:</b>' : '<b>Resultado Final:</b>');
@@ -15896,29 +15895,27 @@ function enviarNotificacaoResultadoFinalizado(reserva, decisao) {
             return placarHtml;
         };
 
-        const construirMensagem = (jogadorPrincipal, oponente) => {
-            let mensagem = `<h4 style="text-align:center; margin: 0 0 5px 0;">Arbitragem Finalizada</h4>`;
+        const construirMensagem = () => {
+            const ehArbitragemReal = decisao.includes("cancelad") || decisao.includes("corrigid") || decisao.includes("informado");
+            let titulo = ehArbitragemReal ? "Arbitragem Finalizada" : "Resultado da Partida";
+            let mensagem = `<h4 style="text-align:center; margin: 0 0 5px 0;">${titulo}</h4>`;
             mensagem += hr;
             mensagem += `<b>Data:</b> ${dataReserva}<br>`;
-            //mensagem += `<b>Decisão do Árbitro:</b> ${capitalizarNome(decisao.replace(/pelo |pelo /g, "").trim())}`;
-			
-			// --- INÍCIO DA CORREÇÃO ---
-            const decisaoLimpa = decisao.split(' ')[0]; // Pega apenas a primeira palavra (ex: "cancelado")
-            mensagem += `<b>Decisão do Árbitro:</b> ${capitalizarNome(decisaoLimpa)}`;
-            // --- FIM DA CORREÇÃO ---
-			
-			
-            mensagem += hr;
+            
+            if (ehArbitragemReal) {
+                const decisaoLimpa = decisao.split(' ')[0]; 
+                mensagem += `<b>Decisão do Árbitro:</b> ${capitalizarNome(decisaoLimpa)}`;
+                mensagem += hr;
+            } else {
+                mensagem += hr;
+            }
 
             if (decisao.includes("cancelad")) {
-                mensagem += `${gerarPlacarArbitragemHtml()}<br>`;
-                mensagem += `O placar acima foi <b>invalidado</b>. A partida <b>não afetará</b> o ranking.`;
+                mensagem += `${gerarPlacarArbitragemHtml()}<br>O placar acima foi <b>invalidado</b>. A partida <b>não afetará</b> o ranking.`;
             } else if (decisao.includes("corrigid") || decisao.includes("informado")) {
-                mensagem += `${gerarPlacarArbitragemHtml()}<br>`;
-                mensagem += `O placar original foi alterado. O ranking foi atualizado.`;
-            } else { // Aprovado
-                mensagem += `${gerarPlacarArbitragemHtml()}<br>`;
-                mensagem += `O ranking foi atualizado.`;
+                mensagem += `${gerarPlacarArbitragemHtml()}<br>O placar original foi alterado. O ranking foi atualizado.`;
+            } else { 
+                mensagem += `${gerarPlacarArbitragemHtml()}<br>O ranking foi atualizado com sucesso.`;
             }
             return mensagem;
         };
@@ -15927,16 +15924,14 @@ function enviarNotificacaoResultadoFinalizado(reserva, decisao) {
         const notificacaoParaAmbos = { mensagem: mensagemFinal, tipo: tipoNotificacao };
 
         const notificacaoKeyVencedor = database.ref().push().key;
-        notificacaoUpdates[`sistemas/cadastro/jogadores/${vencedorInfo.nomeCompleto}/notificacoes/${notificacaoKeyVencedor}`] = notificacaoParaAmbos;
+        notificacaoUpdates[`sistemas/cadastro/jogadores/${vencedorInfo.nomeCompleto}/notificacoes/${notificacaoKeyVencedor}`] = { ...notificacaoParaAmbos };
         
         const notificacaoKeyPerdedor = database.ref().push().key;
-        notificacaoUpdates[`sistemas/cadastro/jogadores/${perdedorInfo.nomeCompleto}/notificacoes/${notificacaoKeyPerdedor}`] = notificacaoParaAmbos;
+        notificacaoUpdates[`sistemas/cadastro/jogadores/${perdedorInfo.nomeCompleto}/notificacoes/${notificacaoKeyPerdedor}`] = { ...notificacaoParaAmbos };
     }
     
     return notificacaoUpdates;
 }
-
-
 
 
 /**
