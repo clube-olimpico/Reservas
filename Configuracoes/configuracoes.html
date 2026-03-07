@@ -7031,7 +7031,7 @@ function excluirPeriodoSelecionado() {
     // 1. Ouve a lista de jogadores (e refaz a lista se ela chegar depois)
     db.ref('sistemas/cadastro/jogadores').on('value', snapshot => {
         cacheJogadoresParaNomes = snapshot.val() || {};
-        processarNomesOnline(); // Atualiza a formatação!
+        processarNomesOnline(); // Atualiza a formatação! 
     });
 
     // 2. Ouve os usuários online (e refaz a lista sempre que alguém entra/sai)
@@ -7050,6 +7050,7 @@ function excluirPeriodoSelecionado() {
     });
 
     // 3. Clique no botão
+    // 3. Clique no botão
     const btnOnline = document.getElementById('usuariosOnline');
     if (btnOnline) {
         // Renova o botão para não acumular cliques antigos
@@ -7058,6 +7059,28 @@ function excluirPeriodoSelecionado() {
         
         novoBtnOnline.addEventListener('click', () => {
             const msg = listaUsuariosOnline.length ? `<b>Usuários conectados:</b><br>${listaUsuariosOnline.join("<br>")}` : "Ninguém online.";
+            
+            // --- INÍCIO DA CORREÇÃO ANTI-SPAM ---
+            const container = document.getElementById('toastContainer');
+            if (container) {
+                // Verifica todos os toasts atualmente na tela
+                const toastsAtuais = container.querySelectorAll('.toast');
+                let jaEstaNaTela = false;
+                
+                toastsAtuais.forEach(toast => {
+                    // Compara o conteúdo HTML para ver se a mesma lista já está sendo mostrada
+                    if (toast.innerHTML.includes(msg)) {
+                        jaEstaNaTela = true;
+                    }
+                });
+                
+                // Se já estiver na tela, não faz nada e sai da função
+                if (jaEstaNaTela) {
+                    return; 
+                }
+            }
+            // --- FIM DA CORREÇÃO ANTI-SPAM ---
+
             mostrarNotificacao(msg, 'info');
         });
     }
