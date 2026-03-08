@@ -79,6 +79,7 @@
         "Josiane Kamiya": true,
         "Julia Voj": true,
         "Kaiser": true,
+        "Kauan": true,
         "Leo Carrara": true,
         "Leonardo Zamprogna": true,
         "Lucas Titon": true,
@@ -156,7 +157,7 @@
         },
         "ALESSANDRO ROMERO XAVIER": {
           "apelido": "Alessandro Xavier",
-          "ativo": false,
+          "ativo": true,
           "classe": "C",
           "niver": "04/04/1975",
           "piramide": "",
@@ -722,6 +723,14 @@
           "piramide": "",
           "socio": "dependente"
         },
+        "KAUAN": {
+          "apelido": "Kauan",
+          "ativo": true,
+          "classe": "C",
+          "niver": "07/03/1990",
+          "piramide": "",
+          "socio": "titular"
+        },
         "LEONARDO CARRARA": {
           "apelido": "Leo Carrara",
           "ativo": false,
@@ -899,7 +908,7 @@
           "apelido": "Nadal",
           "classe": "A",
           "niver": "01/01/2001",
-          "piramide": "92",
+          "piramide": "91",
           "socio": "titular"
         },
         "RAIANNE KAMIYA": {
@@ -965,7 +974,7 @@
           "apelido": "Federer",
           "classe": "A",
           "niver": "01/01/2001",
-          "piramide": "91",
+          "piramide": "92",
           "socio": "titular"
         },
         "RONALDO BITENCOURT": {
@@ -1146,7 +1155,7 @@
       "Horarios": {
         "Aulas": {
           "Quadra1": {
-            "Ativo": false,
+            "Ativo": true,
             "Grade": {
               "1_14": true,
               "1_15": true,
@@ -1166,8 +1175,6 @@
               "2_21": true,
               "3_10": true,
               "3_11": true,
-              "3_12": true,
-              "3_13": true,
               "3_14": true,
               "3_15": true,
               "3_16": true,
@@ -1192,6 +1199,8 @@
               "4_7": true,
               "4_8": true,
               "4_9": true,
+              "5_10": true,
+              "5_11": true,
               "5_14": true,
               "5_15": true,
               "5_16": true,
@@ -1200,6 +1209,9 @@
               "5_19": true,
               "5_20": true,
               "5_21": true,
+              "5_7": true,
+              "5_8": true,
+              "5_9": true,
               "6_10": true,
               "6_11": true,
               "6_7": true,
@@ -1635,7 +1647,7 @@
         "Quadra2": "liberada",
         "Quadra3": "liberada"
       },
-      "ReservasPorConfirmacao": true,
+      "ReservasPorConfirmacao": false,
       "githubToken": "***SEGREDO_REMOVIDO***",
       "horasParaExpirar": 3
     },
@@ -1675,160 +1687,99 @@
     },
     "reservas": {
       "Quadra 1 - Coberta": {
-        "4_6": {
+        "6_16": {
           "borda": "2h",
           "confirmacoes": {
-            "Adriano Feitosa": true,
-            "Ana Francisca": "recusado",
-            "Convidado - Jao Maria": true,
-            "Convidado - Jose Paiva": true
+            "Alice Pereira": true,
+            "Ana Francisca": true
           },
-          "dataCompleta": "2026-03-05",
-          "dia": 4,
+          "dataCompleta": "2026-03-07",
+          "dia": 6,
           "duracao": 2,
-          "expiraEm": 1772638514323,
-          "hora": 6,
-          "jogadores": "Adriano Feitosa, Ana Francisca",
-          "jogadores_completo": "Adriano Feitosa, Ana Francisca, Convidado - Jao Maria, Convidado - Jose Paiva",
-          "organizador": "Adriano Feitosa",
+          "hora": 16,
+          "jogadores": "Ana Francisca",
+          "jogadores_completo": "Ana Francisca, Alice Pereira",
+          "organizador": "Ana Francisca",
           "status": "confirmada"
         },
-        "4_7": {
+        "6_17": {
           "confirmacoes": {
-            "Adriano Feitosa": true,
-            "Ana Francisca": "recusado",
-            "Convidado - Jao Maria": true,
-            "Convidado - Jose Paiva": true
+            "Alice Pereira": true,
+            "Ana Francisca": true
           },
-          "dataCompleta": "2026-03-05",
-          "dia": 4,
+          "dataCompleta": "2026-03-07",
+          "dia": 6,
           "duracao": 2,
-          "expiraEm": 1772638514323,
-          "hora": 7,
-          "jogadores": "Convidado - Jao Maria, Convidado - Jose Paiva",
-          "jogadores_completo": "Adriano Feitosa, Ana Francisca, Convidado - Jao Maria, Convidado - Jose Paiva",
-          "organizador": "Adriano Feitosa",
+          "hora": 17,
+          "jogadores": "Alice Pereira",
+          "jogadores_completo": "Ana Francisca, Alice Pereira",
+          "organizador": "Ana Francisca",
           "status": "confirmada"
+        },
+        "7_10": {
+          "borda": "1h",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 10,
+          "jogadores": "Taborda, Alessandro Xavier",
+          "organizador": "Taborda"
+        },
+        "7_11": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 11,
+          "jogadores": "Ana Paula Pereira",
+          "organizador": "Taborda"
+        },
+        "7_12": {
+          "dia": 7,
+          "duracao": 2,
+          "hora": 12,
+          "jogadores": "Rodrigo Pereira",
+          "organizador": "Taborda"
+        },
+        "7_15": {
+          "borda": "1h",
+          "dataCompleta": "2026-03-08",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 15,
+          "jogadores": "Manutencao",
+          "jogadores_completo": "Manutencao",
+          "organizador": "RONALDO TABORDA",
+          "status": "confirmada",
+          "tipo": "manutencao"
+        },
+        "7_16": {
+          "borda": "1h",
+          "dataCompleta": "2026-03-08",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 16,
+          "jogadores": "Manutencao",
+          "jogadores_completo": "Manutencao",
+          "organizador": "RONALDO TABORDA",
+          "status": "confirmada",
+          "tipo": "manutencao"
+        },
+        "7_8": {
+          "borda": "2h",
+          "dia": 7,
+          "duracao": 2,
+          "hora": 8,
+          "jogadores": "Rafael Gregorio",
+          "organizador": "Taborda"
+        },
+        "7_9": {
+          "dia": 7,
+          "duracao": 2,
+          "hora": 9,
+          "jogadores": "Kauan",
+          "organizador": "Taborda"
         }
       },
       "Quadra 2 - Aberta": {
-        "4_17": {
-          "borda": "2h",
-          "confirmacoes": {
-            "Amora": true,
-            "Avila": true
-          },
-          "dataCompleta": "2026-03-05",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 17,
-          "jogadores": "Amora",
-          "jogadores_completo": "Amora, Avila",
-          "organizador": "Amora",
-          "status": "confirmada"
-        },
-        "4_18": {
-          "confirmacoes": {
-            "Amora": true,
-            "Avila": true
-          },
-          "dataCompleta": "2026-03-05",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 18,
-          "jogadores": "Avila",
-          "jogadores_completo": "Amora, Avila",
-          "organizador": "Amora",
-          "status": "confirmada"
-        },
-        "4_19": {
-          "borda": "2h",
-          "confirmacoes": {
-            "Federer": true,
-            "Nadal": true
-          },
-          "dataCompleta": "2026-03-05",
-          "dia": 4,
-          "duracao": 3,
-          "hora": 19,
-          "jogadores": "Federer",
-          "jogadores_completo": "Federer, Nadal",
-          "organizador": "Federer",
-          "resultado": {
-            "dataInformado": "2026-03-06T20:37:01.787Z",
-            "informadoPor": "Admin: Adriano Feitosa",
-            "perdedor": "Nadal",
-            "set1": {
-              "placar": "7x6",
-              "tiebreak": "10-8"
-            },
-            "set2": {
-              "placar": "6x7",
-              "tiebreak": "1-7"
-            },
-            "set3": "12x10",
-            "tipo": "Placar Normal",
-            "vencedor": "Federer"
-          },
-          "status": "finalizada"
-        },
-        "4_20": {
-          "confirmacoes": {
-            "Federer": true,
-            "Nadal": true
-          },
-          "dataCompleta": "2026-03-05",
-          "dia": 4,
-          "hora": 20,
-          "jogadores": "Nadal",
-          "jogadores_completo": "Federer, Nadal",
-          "organizador": "Federer",
-          "resultado": {
-            "dataInformado": "2026-03-06T20:37:01.787Z",
-            "informadoPor": "Admin: Adriano Feitosa",
-            "perdedor": "Nadal",
-            "set1": {
-              "placar": "7x6",
-              "tiebreak": "10-8"
-            },
-            "set2": {
-              "placar": "6x7",
-              "tiebreak": "1-7"
-            },
-            "set3": "12x10",
-            "tipo": "Placar Normal",
-            "vencedor": "Federer"
-          },
-          "status": "finalizada"
-        },
-        "4_21": {
-          "borda": "1h",
-          "dataCompleta": "2026-03-05",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 21,
-          "jogadores": "Manutencao",
-          "jogadores_completo": "Manutencao",
-          "organizador": "ERICK CLUBE",
-          "responsavel": "ERICK CLUBE",
-          "status": "confirmada",
-          "timestamp": 1772745820213,
-          "tipo": "manutencao"
-        },
-        "4_22": {
-          "borda": "1h",
-          "dataCompleta": "2026-03-05",
-          "dia": 4,
-          "duracao": 1,
-          "hora": 22,
-          "jogadores": "Manutencao",
-          "jogadores_completo": "Manutencao",
-          "organizador": "ERICK CLUBE",
-          "responsavel": "ERICK CLUBE",
-          "status": "confirmada",
-          "timestamp": 1772745824752,
-          "tipo": "manutencao"
-        },
         "5_10": {
           "borda": "1h",
           "confirmacoes": {
@@ -1941,6 +1892,66 @@
           },
           "status": "finalizada"
         },
+        "6_17": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Federer": true,
+            "Nadal": true
+          },
+          "dataCompleta": "2026-03-07",
+          "dia": 6,
+          "duracao": 3,
+          "hora": 17,
+          "jogadores": "Nadal",
+          "jogadores_completo": "Nadal, Federer",
+          "organizador": "Nadal",
+          "resultado": {
+            "dataInformado": "2026-03-07T20:05:08.602Z",
+            "informadoPor": "Admin: Adriano Feitosa",
+            "perdedor": "Federer",
+            "set1": {
+              "placar": "6x0",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "6x0",
+              "tiebreak": ""
+            },
+            "set3": "",
+            "tipo": "Placar Normal",
+            "vencedor": "Nadal"
+          },
+          "status": "finalizada"
+        },
+        "6_18": {
+          "confirmacoes": {
+            "Federer": true,
+            "Nadal": true
+          },
+          "dataCompleta": "2026-03-07",
+          "dia": 6,
+          "hora": 18,
+          "jogadores": "Federer",
+          "jogadores_completo": "Nadal, Federer",
+          "organizador": "Nadal",
+          "resultado": {
+            "dataInformado": "2026-03-07T20:05:08.602Z",
+            "informadoPor": "Admin: Adriano Feitosa",
+            "perdedor": "Federer",
+            "set1": {
+              "placar": "6x0",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "6x0",
+              "tiebreak": ""
+            },
+            "set3": "",
+            "tipo": "Placar Normal",
+            "vencedor": "Nadal"
+          },
+          "status": "finalizada"
+        },
         "6_7": {
           "borda": "1h",
           "dataCompleta": "2026-03-07",
@@ -1979,16 +1990,72 @@
           "status": "confirmada",
           "timestamp": 1772828651985,
           "tipo": "aula_extra"
+        },
+        "7_10": {
+          "borda": "1h",
+          "dataCompleta": "2026-03-08",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 10,
+          "jogadores": "Manutencao",
+          "jogadores_completo": "Manutencao",
+          "organizador": "ADRIANO GOMES FEITOSA",
+          "status": "confirmada",
+          "tipo": "manutencao"
+        },
+        "7_11": {
+          "borda": "1h",
+          "dataCompleta": "2026-03-08",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 11,
+          "jogadores": "Aula",
+          "jogadores_completo": "Aula",
+          "organizador": "ADRIANO GOMES FEITOSA",
+          "status": "confirmada",
+          "timestamp": 1772914172055,
+          "tipo": "aula_extra"
+        },
+        "7_12": {
+          "borda": "1h",
+          "dataCompleta": "2026-03-08",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 12,
+          "jogadores": "Aula",
+          "jogadores_completo": "Aula",
+          "organizador": "ADRIANO GOMES FEITOSA",
+          "status": "confirmada",
+          "timestamp": 1772914174713,
+          "tipo": "aula_extra"
+        },
+        "7_13": {
+          "borda": "1h",
+          "dataCompleta": "2026-03-08",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 13,
+          "jogadores": "Aula",
+          "jogadores_completo": "Aula",
+          "organizador": "ADRIANO GOMES FEITOSA",
+          "status": "confirmada",
+          "timestamp": 1772914178429,
+          "tipo": "aula_extra"
+        },
+        "7_9": {
+          "borda": "1h",
+          "dataCompleta": "2026-03-08",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 9,
+          "jogadores": "Manutencao",
+          "jogadores_completo": "Manutencao",
+          "organizador": "ADRIANO GOMES FEITOSA",
+          "status": "confirmada",
+          "tipo": "manutencao"
         }
       }
     },
-    "usuariosOnline": {
-      "xllafuafw": {
-        "sessionId": "xllafuafw",
-        "timestamp": 1772835640344,
-        "usuario": "ROGER FEDERER"
-      }
-    },
-    "version": "v2.2.2"
+    "version": "v2.2.3"
   }
 }
