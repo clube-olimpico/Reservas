@@ -1643,7 +1643,18 @@
       },
       "Professor": "Admin",
       "Quadras": {
-        "Quadra1": "liberada",
+        "Bloqueios": {
+          "Quadra-1": {
+            "2026-03-09": {
+              "descricao": "Teste",
+              "regras": {
+                "fim": "12:00",
+                "inicio": "06:00"
+              }
+            }
+          }
+        },
+        "Quadra1": "bloqueada",
         "Quadra2": "liberada",
         "Quadra3": "liberada"
       },
@@ -1780,118 +1791,6 @@
         }
       },
       "Quadra 2 - Aberta": {
-        "5_10": {
-          "borda": "1h",
-          "confirmacoes": {
-            "Adriano Feitosa": true
-          },
-          "dataCompleta": "2026-03-06",
-          "dia": 5,
-          "duracao": 1,
-          "hora": 10,
-          "jogadores": "Adriano Feitosa",
-          "jogadores_completo": "Adriano Feitosa",
-          "organizador": "Adriano Feitosa",
-          "status": "confirmada"
-        },
-        "5_13": {
-          "borda": "1h",
-          "confirmacoes": {
-            "Erick": true
-          },
-          "dataCompleta": "2026-03-06",
-          "dia": 5,
-          "duracao": 1,
-          "hora": 13,
-          "jogadores": "Erick",
-          "jogadores_completo": "Erick",
-          "organizador": "Erick",
-          "status": "confirmada"
-        },
-        "5_14": {
-          "borda": "1h",
-          "dataCompleta": "2026-03-06",
-          "dia": 5,
-          "duracao": 1,
-          "hora": 14,
-          "jogadores": "Manutencao",
-          "jogadores_completo": "Manutencao",
-          "organizador": "ERICK CLUBE",
-          "status": "confirmada",
-          "tipo": "manutencao"
-        },
-        "5_15": {
-          "borda": "1h",
-          "dataCompleta": "2026-03-06",
-          "dia": 5,
-          "duracao": 1,
-          "hora": 15,
-          "jogadores": "Manutencao",
-          "jogadores_completo": "Manutencao",
-          "organizador": "ERICK CLUBE",
-          "status": "confirmada",
-          "tipo": "manutencao"
-        },
-        "5_19": {
-          "borda": "2h",
-          "confirmacoes": {
-            "Federer": true,
-            "Nadal": true
-          },
-          "dataCompleta": "2026-03-06",
-          "dia": 5,
-          "duracao": 3,
-          "hora": 19,
-          "jogadores": "Federer",
-          "jogadores_completo": "Federer, Nadal",
-          "organizador": "Federer",
-          "resultado": {
-            "dataInformado": "2026-03-06T22:17:15.746Z",
-            "informadoPor": "Admin: Adriano Feitosa",
-            "perdedor": "Nadal",
-            "set1": {
-              "placar": "6x4",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "6x3",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": "Federer"
-          },
-          "status": "finalizada"
-        },
-        "5_20": {
-          "confirmacoes": {
-            "Federer": true,
-            "Nadal": true
-          },
-          "dataCompleta": "2026-03-06",
-          "dia": 5,
-          "hora": 20,
-          "jogadores": "Nadal",
-          "jogadores_completo": "Federer, Nadal",
-          "organizador": "Federer",
-          "resultado": {
-            "dataInformado": "2026-03-06T22:17:15.746Z",
-            "informadoPor": "Admin: Adriano Feitosa",
-            "perdedor": "Nadal",
-            "set1": {
-              "placar": "6x4",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "6x3",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": "Federer"
-          },
-          "status": "finalizada"
-        },
         "6_17": {
           "borda": "2h",
           "confirmacoes": {
