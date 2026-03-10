@@ -63,6 +63,7 @@
         "Geraldo Junior": true,
         "Gilson Oliveira": true,
         "Giovani Lima": true,
+        "Gustavo Carvalho": true,
         "Gustavo Ferraz": true,
         "Helio Oliveira": true,
         "Heloisa Silva": true,
@@ -602,6 +603,14 @@
           "classe": "B",
           "niver": "23/07/1991",
           "piramide": "33",
+          "socio": "titular"
+        },
+        "GUSTAVO CARVALHO": {
+          "apelido": "Gustavo Carvalho",
+          "ativo": true,
+          "classe": "A",
+          "niver": "01/01/2001",
+          "piramide": "",
           "socio": "titular"
         },
         "GUSTAVO FERRAZ": {
@@ -1151,7 +1160,7 @@
     },
     "config": {
       "Abrir": true,
-      "DiasParaLimpar": 3,
+      "DiasParaLimpar": 2,
       "Horarios": {
         "Aulas": {
           "Quadra1": {
@@ -1264,7 +1273,7 @@
             "Ativa": false
           },
           "Quadra3": {
-            "Ativa": false
+            "Ativa": true
           },
           "Recebedor": "Ana Maria Marinho",
           "Taxa": "15,00",
@@ -1698,34 +1707,20 @@
     },
     "reservas": {
       "Quadra 1 - Coberta": {
-        "6_16": {
+        "2_7": {
           "borda": "2h",
-          "confirmacoes": {
-            "Alice Pereira": true,
-            "Ana Francisca": true
-          },
-          "dataCompleta": "2026-03-07",
-          "dia": 6,
+          "dia": 2,
           "duracao": 2,
-          "hora": 16,
-          "jogadores": "Ana Francisca",
-          "jogadores_completo": "Ana Francisca, Alice Pereira",
-          "organizador": "Ana Francisca",
-          "status": "confirmada"
+          "hora": 7,
+          "jogadores": "Taborda",
+          "organizador": "Taborda"
         },
-        "6_17": {
-          "confirmacoes": {
-            "Alice Pereira": true,
-            "Ana Francisca": true
-          },
-          "dataCompleta": "2026-03-07",
-          "dia": 6,
+        "2_8": {
+          "dia": 2,
           "duracao": 2,
-          "hora": 17,
-          "jogadores": "Alice Pereira",
-          "jogadores_completo": "Ana Francisca, Alice Pereira",
-          "organizador": "Ana Francisca",
-          "status": "confirmada"
+          "hora": 8,
+          "jogadores": "Convidado - Marco Ribeiro",
+          "organizador": "Taborda"
         },
         "7_10": {
           "borda": "1h",
@@ -1791,105 +1786,6 @@
         }
       },
       "Quadra 2 - Aberta": {
-        "6_17": {
-          "borda": "2h",
-          "confirmacoes": {
-            "Federer": true,
-            "Nadal": true
-          },
-          "dataCompleta": "2026-03-07",
-          "dia": 6,
-          "duracao": 3,
-          "hora": 17,
-          "jogadores": "Nadal",
-          "jogadores_completo": "Nadal, Federer",
-          "organizador": "Nadal",
-          "resultado": {
-            "dataInformado": "2026-03-07T20:05:08.602Z",
-            "informadoPor": "Admin: Adriano Feitosa",
-            "perdedor": "Federer",
-            "set1": {
-              "placar": "6x0",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "6x0",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": "Nadal"
-          },
-          "status": "finalizada"
-        },
-        "6_18": {
-          "confirmacoes": {
-            "Federer": true,
-            "Nadal": true
-          },
-          "dataCompleta": "2026-03-07",
-          "dia": 6,
-          "hora": 18,
-          "jogadores": "Federer",
-          "jogadores_completo": "Nadal, Federer",
-          "organizador": "Nadal",
-          "resultado": {
-            "dataInformado": "2026-03-07T20:05:08.602Z",
-            "informadoPor": "Admin: Adriano Feitosa",
-            "perdedor": "Federer",
-            "set1": {
-              "placar": "6x0",
-              "tiebreak": ""
-            },
-            "set2": {
-              "placar": "6x0",
-              "tiebreak": ""
-            },
-            "set3": "",
-            "tipo": "Placar Normal",
-            "vencedor": "Nadal"
-          },
-          "status": "finalizada"
-        },
-        "6_7": {
-          "borda": "1h",
-          "dataCompleta": "2026-03-07",
-          "dia": 6,
-          "duracao": 1,
-          "hora": 7,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "ADRIANO GOMES FEITOSA",
-          "status": "confirmada",
-          "timestamp": 1772828621279,
-          "tipo": "aula_extra"
-        },
-        "6_8": {
-          "borda": "1h",
-          "dataCompleta": "2026-03-07",
-          "dia": 6,
-          "duracao": 1,
-          "hora": 8,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "ADRIANO GOMES FEITOSA",
-          "status": "confirmada",
-          "timestamp": 1772828624644,
-          "tipo": "aula_extra"
-        },
-        "6_9": {
-          "borda": "1h",
-          "dataCompleta": "2026-03-07",
-          "dia": 6,
-          "duracao": 1,
-          "hora": 9,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "ADRIANO GOMES FEITOSA",
-          "status": "confirmada",
-          "timestamp": 1772828651985,
-          "tipo": "aula_extra"
-        },
         "7_10": {
           "borda": "1h",
           "dataCompleta": "2026-03-08",
@@ -1952,6 +1848,61 @@
           "organizador": "ADRIANO GOMES FEITOSA",
           "status": "confirmada",
           "tipo": "manutencao"
+        }
+      },
+      "Quadra 3 - Coberta": {
+        "2_15": {
+          "borda": "2h",
+          "dia": 2,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Gustavo Ferraz",
+          "organizador": "Gustavo Ferraz"
+        },
+        "2_16": {
+          "dia": 2,
+          "duracao": 2,
+          "hora": 16,
+          "jogadores": "Convidado - Taborda",
+          "organizador": "Gustavo Ferraz"
+        },
+        "3_7": {
+          "borda": "1h",
+          "dia": 3,
+          "duracao": 1,
+          "hora": 7,
+          "jogadores": "Gustavo Carvalho, Convidado - Ronaldo Taborda",
+          "organizador": "Gustavo Carvalho"
+        },
+        "4_18": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 18,
+          "jogadores": "Edemar",
+          "organizador": "Edemar"
+        },
+        "4_19": {
+          "dia": 4,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Convidado - Ronaldo",
+          "organizador": "Edemar"
+        },
+        "5_15": {
+          "borda": "2h",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 15,
+          "jogadores": "Felipe Mikuska",
+          "organizador": "Felipe Mikuska"
+        },
+        "5_16": {
+          "dia": 5,
+          "duracao": 2,
+          "hora": 16,
+          "jogadores": "Convidado - Rone",
+          "organizador": "Felipe Mikuska"
         }
       }
     },
