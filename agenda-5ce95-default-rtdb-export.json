@@ -134,7 +134,8 @@
         "Vivianne Laverde": true,
         "Wilmar": true,
         "Xara": true,
-        "Yuri": true
+        "Yuri": true,
+        "Zoti": true
       },
       "jogadores": {
         "ADRIANO GOMES FEITOSA": {
@@ -830,6 +831,14 @@
           "classe": "A",
           "niver": "07/02/1975",
           "piramide": "2",
+          "socio": "titular"
+        },
+        "MARCELO ZOTI": {
+          "apelido": "Zoti",
+          "ativo": true,
+          "classe": "",
+          "niver": "01/01/2001",
+          "piramide": "",
           "socio": "titular"
         },
         "MARCO RIBEIRO": {
@@ -1650,20 +1659,9 @@
           }
         }
       },
-      "Professor": "Admin",
+      "Professor": "Professor",
       "Quadras": {
-        "Bloqueios": {
-          "Quadra-1": {
-            "2026-03-09": {
-              "descricao": "Teste",
-              "regras": {
-                "fim": "12:00",
-                "inicio": "06:00"
-              }
-            }
-          }
-        },
-        "Quadra1": "bloqueada",
+        "Quadra1": "interditada",
         "Quadra2": "liberada",
         "Quadra3": "liberada"
       },
@@ -1721,133 +1719,6 @@
           "hora": 8,
           "jogadores": "Convidado - Marco Ribeiro",
           "organizador": "Taborda"
-        },
-        "7_10": {
-          "borda": "1h",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 10,
-          "jogadores": "Taborda, Alessandro Xavier",
-          "organizador": "Taborda"
-        },
-        "7_11": {
-          "borda": "2h",
-          "dia": 7,
-          "duracao": 2,
-          "hora": 11,
-          "jogadores": "Ana Paula Pereira",
-          "organizador": "Taborda"
-        },
-        "7_12": {
-          "dia": 7,
-          "duracao": 2,
-          "hora": 12,
-          "jogadores": "Rodrigo Pereira",
-          "organizador": "Taborda"
-        },
-        "7_15": {
-          "borda": "1h",
-          "dataCompleta": "2026-03-08",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 15,
-          "jogadores": "Manutencao",
-          "jogadores_completo": "Manutencao",
-          "organizador": "RONALDO TABORDA",
-          "status": "confirmada",
-          "tipo": "manutencao"
-        },
-        "7_16": {
-          "borda": "1h",
-          "dataCompleta": "2026-03-08",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 16,
-          "jogadores": "Manutencao",
-          "jogadores_completo": "Manutencao",
-          "organizador": "RONALDO TABORDA",
-          "status": "confirmada",
-          "tipo": "manutencao"
-        },
-        "7_8": {
-          "borda": "2h",
-          "dia": 7,
-          "duracao": 2,
-          "hora": 8,
-          "jogadores": "Rafael Gregorio",
-          "organizador": "Taborda"
-        },
-        "7_9": {
-          "dia": 7,
-          "duracao": 2,
-          "hora": 9,
-          "jogadores": "Kauan",
-          "organizador": "Taborda"
-        }
-      },
-      "Quadra 2 - Aberta": {
-        "7_10": {
-          "borda": "1h",
-          "dataCompleta": "2026-03-08",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 10,
-          "jogadores": "Manutencao",
-          "jogadores_completo": "Manutencao",
-          "organizador": "ADRIANO GOMES FEITOSA",
-          "status": "confirmada",
-          "tipo": "manutencao"
-        },
-        "7_11": {
-          "borda": "1h",
-          "dataCompleta": "2026-03-08",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 11,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "ADRIANO GOMES FEITOSA",
-          "status": "confirmada",
-          "timestamp": 1772914172055,
-          "tipo": "aula_extra"
-        },
-        "7_12": {
-          "borda": "1h",
-          "dataCompleta": "2026-03-08",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 12,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "ADRIANO GOMES FEITOSA",
-          "status": "confirmada",
-          "timestamp": 1772914174713,
-          "tipo": "aula_extra"
-        },
-        "7_13": {
-          "borda": "1h",
-          "dataCompleta": "2026-03-08",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 13,
-          "jogadores": "Aula",
-          "jogadores_completo": "Aula",
-          "organizador": "ADRIANO GOMES FEITOSA",
-          "status": "confirmada",
-          "timestamp": 1772914178429,
-          "tipo": "aula_extra"
-        },
-        "7_9": {
-          "borda": "1h",
-          "dataCompleta": "2026-03-08",
-          "dia": 7,
-          "duracao": 1,
-          "hora": 9,
-          "jogadores": "Manutencao",
-          "jogadores_completo": "Manutencao",
-          "organizador": "ADRIANO GOMES FEITOSA",
-          "status": "confirmada",
-          "tipo": "manutencao"
         }
       },
       "Quadra 3 - Coberta": {
@@ -1888,6 +1759,21 @@
           "hora": 19,
           "jogadores": "Convidado - Ronaldo",
           "organizador": "Edemar"
+        },
+        "4_7": {
+          "borda": "2h",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 7,
+          "jogadores": "Zoti",
+          "organizador": "Zoti"
+        },
+        "4_8": {
+          "dia": 4,
+          "duracao": 2,
+          "hora": 8,
+          "jogadores": "Convidado - Rone Taborda",
+          "organizador": "Zoti"
         },
         "5_15": {
           "borda": "2h",
