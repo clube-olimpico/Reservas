@@ -1169,7 +1169,7 @@
     },
     "config": {
       "Abrir": true,
-      "DiasParaLimpar": 2,
+      "DiasParaLimpar": 3,
       "Horarios": {
         "Aulas": {
           "Quadra1": {
@@ -1255,7 +1255,8 @@
               "1_7": true,
               "1_8": true,
               "1_9": true,
-              "5_6": true
+              "5_6": true,
+              "5_7": true
             },
             "Professor": "Rildo"
           }
@@ -1659,13 +1660,13 @@
           }
         }
       },
-      "Professor": "Professor",
+      "Professor": "Admin",
       "Quadras": {
-        "Quadra1": "interditada",
+        "Quadra1": "liberada",
         "Quadra2": "liberada",
         "Quadra3": "liberada"
       },
-      "ReservasPorConfirmacao": false,
+      "ReservasPorConfirmacao": true,
       "githubToken": "***SEGREDO_REMOVIDO***",
       "horasParaExpirar": 3
     },
@@ -1705,50 +1706,68 @@
     },
     "reservas": {
       "Quadra 3 - Coberta": {
-        "4_18": {
+        "4_15": {
           "borda": "2h",
+          "dataCompleta": "2026-03-19",
           "dia": 4,
-          "duracao": 2,
-          "hora": 18,
-          "jogadores": "Edemar",
-          "organizador": "Edemar"
-        },
-        "4_19": {
-          "dia": 4,
-          "duracao": 2,
-          "hora": 19,
-          "jogadores": "Convidado - Ronaldo",
-          "organizador": "Edemar"
-        },
-        "4_7": {
-          "borda": "2h",
-          "dia": 4,
-          "duracao": 2,
-          "hora": 7,
-          "jogadores": "Zoti",
-          "organizador": "Zoti"
-        },
-        "4_8": {
-          "dia": 4,
-          "duracao": 2,
-          "hora": 8,
-          "jogadores": "Convidado - Rone Taborda",
-          "organizador": "Zoti"
-        },
-        "5_15": {
-          "borda": "2h",
-          "dia": 5,
           "duracao": 2,
           "hora": 15,
-          "jogadores": "Felipe Mikuska",
-          "organizador": "Felipe Mikuska"
+          "jogadores": "Edemar",
+          "organizador": "Adriano Feitosa"
         },
-        "5_16": {
-          "dia": 5,
+        "4_16": {
+          "dataCompleta": "2026-03-19",
+          "dia": 4,
           "duracao": 2,
           "hora": 16,
           "jogadores": "Convidado - Rone",
-          "organizador": "Felipe Mikuska"
+          "organizador": "Adriano Feitosa"
+        },
+        "4_18": {
+          "borda": "2h",
+          "confirmacoes": {
+            "Adriano Feitosa": true,
+            "Ana Maria Marinho": true
+          },
+          "dataCompleta": "2026-03-19",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 18,
+          "jogadores": "Adriano Feitosa",
+          "jogadores_completo": "Adriano Feitosa, Ana Maria Marinho",
+          "organizador": "Adriano Feitosa",
+          "status": "confirmada"
+        },
+        "4_19": {
+          "confirmacoes": {
+            "Adriano Feitosa": true,
+            "Ana Maria Marinho": true
+          },
+          "dataCompleta": "2026-03-19",
+          "dia": 4,
+          "duracao": 2,
+          "hora": 19,
+          "jogadores": "Ana Maria Marinho",
+          "jogadores_completo": "Adriano Feitosa, Ana Maria Marinho",
+          "organizador": "Adriano Feitosa",
+          "status": "confirmada"
+        },
+        "5_8": {
+          "borda": "2h",
+          "dataCompleta": "2026-03-20",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 8,
+          "jogadores": "Convidado - Ronaldo",
+          "organizador": "Adriano Feitosa"
+        },
+        "5_9": {
+          "dataCompleta": "2026-03-20",
+          "dia": 5,
+          "duracao": 2,
+          "hora": 9,
+          "jogadores": "Zoti",
+          "organizador": "Adriano Feitosa"
         }
       }
     },
