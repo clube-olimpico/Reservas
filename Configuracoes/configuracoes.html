@@ -4459,13 +4459,22 @@ body.dark-mode .custom-dropdown-item {
             </div>
         </div>
         <div id="outros" class="tab-content">
-			<div class="container" style="text-align: center; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; width: 100%; box-sizing: border-box;">
-				<h3 style="color: #666; margin-bottom: 5px;">Configurações Adicionais</h3>
-				<p style="color: #999; font-size: 15px; margin-top: 0; line-height: 1.4;">
-					Novas opções e configurações gerais do sistema serão adicionadas aqui futuramente.
-				</p>
-			</div>
-		</div>
+            <div class="form-container">
+                <div class="container">
+                    <label for="selectLimpezaLogs" class="label-help" title="Define por quantos dias os registros de reservas excluídas ficarão salvos no histórico (Log) antes de serem apagados.">
+                        Limpeza de Logs:
+                    </label>
+                    <select id="selectLimpezaLogs" onchange="marcarComoAlterado()">
+                        <option value="0">Desativada (Manter)</option>
+                        <option value="1">1 dia (Testes)</option>
+                        <option value="7">7 dias</option>
+                        <option value="15">15 dias</option>
+                        <option value="30">1 mês</option>
+                        <option value="60">2 meses</option>
+                    </select>
+                </div>
+            </div>
+        </div>
         
     </div>
     <div class="container botao-salvar">
@@ -6091,8 +6100,14 @@ function aplicarDadosConfig(data) {
     document.getElementById('estadoQuadra2').value = data.Quadras?.Quadra2 || "liberada";
     document.getElementById('estadoQuadra3').value = data.Quadras?.Quadra3 || "liberada";
 
-
-       
+    // --- NOVA IMPLEMENTAÇÃO: LIMPEZA DE LOGS EXCLUÍDOS ---
+    // Recupera o valor do banco ou usa 15 como padrão.
+    const diasLogs = data.DiasLimpezaLogs !== undefined ? data.DiasLimpezaLogs : 15;
+    const selectLogs = document.getElementById('selectLimpezaLogs');
+    if (selectLogs) {
+        selectLogs.value = diasLogs;
+    }
+    // -----------------------------------------------------
 
     // --- NOVA IMPLEMENTAÇÃO: LIMPEZA DO MURAL ---
     // 1. Recupera o valor salvo no Firebase ou usa 7 como padrão
@@ -6174,6 +6189,11 @@ function salvarConfiguracoes() {
     const selectMural = document.getElementById('selectLimpezaMural');
     const domMural = selectMural ? parseInt(selectMural.value) : 7;
 
+    // --- CAPTURA DA LIMPEZA DE LOGS (ABA OUTROS) ---
+    const selectLogs = document.getElementById('selectLimpezaLogs');
+    const domLimpezaLogs = selectLogs ? parseInt(selectLogs.value) : 15;
+    // -----------------------------------------------
+
     // Converte Dias Visuais para valor do Banco
     const diasBancoNovo = 6 - domDiasAgendar;
 
@@ -6183,6 +6203,7 @@ function salvarConfiguracoes() {
         Professor: domProfessor,
         DiasParaLimpar: diasBancoNovo, 
         LimpezaMural: domMural,
+        DiasLimpezaLogs: domLimpezaLogs, // <--- NOVA CHAVE NO BANCO
         ReservasPorConfirmacao: domConfirmacao,
         horasParaExpirar: domHoras,
         OrganizadorEdicao: domOrganizador,
@@ -6224,7 +6245,7 @@ function salvarConfiguracoes() {
         updates['Horarios/Piramide'] = carrinhoPiramide;
     }
 
-    // --- NOVO: Injeta Nova Grade de Convidados ---
+    // Injeta Nova Grade de Convidados
     if (Object.keys(carrinhoConvidados).length > 0) {
         updates['Horarios/Convidados'] = carrinhoConvidados;
     }
@@ -6258,6 +6279,16 @@ function salvarConfiguracoes() {
     if (domMural !== muralVelho) {
         listaAlteracoes.push(`<li><b>Mural:</b> ${traduzirDiasMural(muralVelho)} ➝ <b>${traduzirDiasMural(domMural)}</b></li>`);
     }
+
+    // --- COMPARAÇÃO DA LIMPEZA DE LOGS ---
+    const logsVelho = memoria.DiasLimpezaLogs !== undefined ? memoria.DiasLimpezaLogs : 15;
+    if (domLimpezaLogs !== logsVelho) {
+        const txtVelho = logsVelho === 0 ? "Desativada" : `${logsVelho} dias`;
+        const txtNovo = domLimpezaLogs === 0 ? "Desativada" : `${domLimpezaLogs} dias`;
+        listaAlteracoes.push(`<li><b>Limpeza de Logs:</b> ${txtVelho} ➝ <b>${txtNovo}</b></li>`);
+    }
+    // -------------------------------------
+
     const confVelho = memoria.ReservasPorConfirmacao ? true : false;
     if (domConfirmacao !== confVelho) {
         listaAlteracoes.push(`<li><b>Confirmação:</b> ${confVelho ? 'ON' : 'OFF'} ➝ <b>${domConfirmacao ? 'ON' : 'OFF'}</b></li>`);
@@ -6288,7 +6319,6 @@ function salvarConfiguracoes() {
     if (Object.keys(carrinhoPiramide).length > 0) {
         listaAlteracoes.push(`<li><b>Grade da Pirâmide:</b> Atualizada.</li>`);
     }
-    // --- NOVO: Mensagem da Nova Grade de Convidados ---
     if (Object.keys(carrinhoConvidados).length > 0) {
         listaAlteracoes.push(`<li><b>Grade de Convidados:</b> Atualizada.</li>`);
     }
@@ -6299,7 +6329,6 @@ function salvarConfiguracoes() {
     if (Object.keys(carrinhoHorarioEspecial).length > 0) {
         listaAlteracoes.push(`<li><b>Horários Especiais (Feriados/Exceções):</b> Atualizados.</li>`);
     }
-    // ----------------------------
 
     // -- QUADRAS --
     const q1Velho = memoria.Quadras?.Quadra1 || "liberada";
@@ -6314,7 +6343,6 @@ function salvarConfiguracoes() {
     if (domOtimizacao !== otimVelho) {
         listaAlteracoes.push(`<li><b>Otimização:</b> ${otimVelho ? 'ON' : 'OFF'} ➝ <b>${domOtimizacao ? 'ON' : 'OFF'}</b></li>`);
     }
-        
 
     // --- 5. ENVIO FINAL ---
     db.ref("sistemas/config").update(updates)
@@ -6701,7 +6729,7 @@ function renderizarTabelaPadrao() {
             <td><input type="time" id="padrao_inicio_${i}" value="${configDia.abertura}" ${isFechado ? 'disabled' : ''}></td>
             <td><input type="time" id="padrao_fim_${i}" value="${configDia.fechamento}" ${isFechado ? 'disabled' : ''}></td>
         `;
-        tbody.appendChild(tr); 
+        tbody.appendChild(tr);  
     }
 }
 
