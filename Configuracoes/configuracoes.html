@@ -6967,7 +6967,7 @@ function excluirPeriodoSelecionado() {
         // Coloca o traço azul na aba correta (agora só existem 2)
         const tabBtns = document.querySelectorAll('.tab');
         if (id === 'reservas') tabBtns[0].classList.add('active');
-        if (id === 'convidados') tabBtns[1].classList.add('active');
+        if (id === 'outros') tabBtns[1].classList.add('active'); // <--- CORREÇÃO: Estava 'convidados'
         
         // Atualiza os seletores caso volte para a aba reservas
         if (id === 'reservas') { 
