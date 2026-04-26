@@ -7,7 +7,7 @@
     <title>Reservas Excluídas</title>
     <style>
         body {
-            font-family: Arial, sans-serif;  
+            font-family: Arial, sans-serif;   
             margin: 0;
             padding: 10px;
             background-color: #f4f4f4;  
@@ -374,6 +374,11 @@ let ordemCrescente = true; // A ordem inicial é crescente
 let logsFiltrados = []; // Armazena os dados filtrados
 let githubToken = ''; // Variável global para armazenar o token
 
+
+// === NOVA VARIÁVEL GLOBAL TEMPORÁRIA ===
+let diasParaLimparLogs = 30; // Valor que será configurado no futuro
+// ========================================
+
 	
 function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -384,51 +389,86 @@ function isMobile() {
 // Substitua o seu bloco fetch original por este
 
 // --- CÓDIGO LIMPO E DEFINITIVO (MÉTODO PADRÃO) ---
-    showLoading();
+showLoading();
 
-    // Adiciona o timestamp para forçar o navegador a buscar a versão mais recente possível
-    const url = `https://clube-olimpico.github.io/Reservas/logs/reservas-excluidas.json?t=${new Date().getTime()}`;
+const url = `https://clube-olimpico.github.io/Reservas/logs/reservas-excluidas.json?t=${new Date().getTime()}`;
 
-    fetch(url)
-      .then(r => r.json())
-      .then(data => {
-        // Mapeia IDs para controle interno
-        const allLogsWithId = data.map((log, index) => ({ ...log, id: index }));
-        
-        // Filtra itens excluídos na sessão atual
-        const idsExcluidos = JSON.parse(sessionStorage.getItem('idsExcluidos')) || [];
-        logs = allLogsWithId.filter(log => !idsExcluidos.includes(log.id));
+fetch(url)
+  .then(r => r.json())
+  .then(data => {
+    // 1. Atribui IDs para controle de exclusão na sessão
+    const allLogsWithId = data.map((log, index) => ({ ...log, id: index }));
+    
+    // ==========================================================
+    // --- FAXINA AUTOMÁTICA (FILTRA E LIMPA O GITHUB) ---
+    // ==========================================================
+    const dataLimite = new Date();
+    dataLimite.setDate(dataLimite.getDate() - diasParaLimparLogs);
+    dataLimite.setHours(0, 0, 0, 0);
 
-        // Ordenação: Do mais recente para o mais antigo
-        logs.sort((a, b) => {
-          try {
-              const [dataStrA, horaStrA] = a.exclusao.split(' ');
-              const [dataStrB, horaStrB] = b.exclusao.split(' ');
-              // Converte para data comparável
-              const dataA = new Date(dataStrA.split('/').reverse().join('-') + 'T' + horaStrA);
-              const dataB = new Date(dataStrB.split('/').reverse().join('-') + 'T' + horaStrB);
-              return dataA - dataB; // Se quiser o mais novo em cima, inverta para: dataB - dataA
-          } catch (e) {
-              return 0;
-          }
-        });
+    let logsParaManter = [];
+    let houveLimpeza = false;
 
-        exibirLogs(logs);
-
-        const botao = document.getElementById("botaoOrdenacao");
-        if(botao) {
-            botao.innerHTML = isMobile() ? `<span class="icone-seta">↓</span>` : "↓ Decrescente";
+    allLogsWithId.forEach(log => {
+        try {
+            // Converte "26/04/2026 10:30" para objeto Date
+            const [dataStr, horaStr] = log.exclusao.split(' ');
+            const [dia, mes, ano] = dataStr.split('/');
+            const dataLog = new Date(`${ano}-${mes}-${dia}T${horaStr}`);
+            
+            if (dataLog >= dataLimite) {
+                logsParaManter.push(log); // Mantém o que está no prazo
+            } else {
+                houveLimpeza = true; // Identificou lixo antigo
+            }
+        } catch (e) {
+            logsParaManter.push(log); // Em caso de erro na data, mantém por segurança
         }
+    });
+
+    // Se houve limpeza, atualiza o arquivo no GitHub silenciosamente
+    if (houveLimpeza) {
+        console.log(`🧹 Limpeza automática: Removendo registros com mais de ${diasParaLimparLogs} dias.`);
         
-        hideLoading();
-      })
-      .catch(error => {
-        console.error('Erro ao carregar dados:', error);
-        hideLoading();
-        // Opcional: Avisar se falhar
-        // alert('Ainda processando atualização. Tente novamente em 1 minuto.');
-      });
-  
+        // CORREÇÃO: Espera o Firebase carregar o Token antes de tentar salvar
+        const checarToken = setInterval(() => {
+            if (githubToken !== '') {
+                clearInterval(checarToken); // Para o cronômetro
+                salvarLogsNoGithub(logsParaManter); // Salva com segurança
+            }
+        }, 500); // Checa a cada meio segundo
+    }
+    // ==========================================================
+
+    // 2. Filtra logs excluídos manualmente nesta sessão (botão X)
+    const idsExcluidos = JSON.parse(sessionStorage.getItem('idsExcluidos')) || [];
+    logs = logsParaManter.filter(log => !idsExcluidos.includes(log.id));
+
+    // 3. Ordenação inicial (Crescente)
+    logs.sort((a, b) => {
+      try {
+          const [dataStrA, horaStrA] = a.exclusao.split(' ');
+          const [dataStrB, horaStrB] = b.exclusao.split(' ');
+          const dataA = new Date(dataStrA.split('/').reverse().join('-') + 'T' + horaStrA);
+          const dataB = new Date(dataStrB.split('/').reverse().join('-') + 'T' + horaStrB);
+          return dataA - dataB;
+      } catch (e) { return 0; }
+    });
+
+    exibirLogs(logs);
+
+    // Atualiza visual do botão de ordenação
+    const botao = document.getElementById("botaoOrdenacao");
+    if (botao) {
+        botao.innerHTML = isMobile() ? `<span class="icone-seta">↓</span>` : "↓ Decrescente";
+    }
+
+    hideLoading();
+  })
+  .catch(error => {
+    console.error('Erro ao carregar dados:', error);
+    hideLoading();
+  });  
   
   
 // Substitua sua função inteira por esta
@@ -582,7 +622,7 @@ function exibirLogs(lista) {
                     statusTexto = 'Recusado'; 
                     statusCor = '#dc3545'; // Vermelho
                     icone = '✖';
-                }
+                } 
 
                 rows += `
                     <tr style="border-bottom: 1px solid #eee;">
@@ -975,22 +1015,30 @@ function gerarPDF() {
 
 
 
-// Adicione esta nova função ao seu script
-function carregarToken() {
-    db.ref('sistemas/config/githubToken').once('value', (snapshot) => {
-        if (snapshot.exists()) {
-            githubToken = snapshot.val();
-            console.log("✅ Token do GitHub carregado com sucesso.");
+// Função atualizada para carregar Token e Configurações de Limpeza
+function carregarConfiguracoesIniciais() {
+    db.ref('sistemas/config').once('value', (snapshot) => {
+        const config = snapshot.val();
+        if (config) {
+            // 1. Carrega o Token do GitHub
+            if (config.githubToken) {
+                githubToken = config.githubToken;
+                console.log("✅ Token do GitHub carregado.");
+            }
+            
+            // 2. Carrega os dias de limpeza de logs
+            diasParaLimparLogs = config.DiasLimpezaLogs !== undefined ? config.DiasLimpezaLogs : 15;
+            console.log(`✅ Configuração de limpeza: ${diasParaLimparLogs} dias.`);
         } else {
-            console.error("❌ Token do GitHub não encontrado no Firebase em /sistemas/config/githubToken");
+            console.error("❌ Configurações não encontradas no Firebase.");
         }
     });
 }
 
 // Chama a função para carregar o token quando a página carregar
 window.onload = function() {
-    carregarToken();
-	atualizarCorStatus(document.getElementById('status'));
+    carregarConfiguracoesIniciais();
+    atualizarCorStatus(document.getElementById('status'));
 };
 
 // Função auxiliar para codificar corretamente strings com caracteres especiais
