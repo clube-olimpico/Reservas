@@ -7107,10 +7107,10 @@ document.addEventListener('DOMContentLoaded', function () {
 <script>
 	
 
-// Ajuste manual da atualização de versão do Sistema ******  
+// Ajuste manual da atualização de versão do Sistema ******   
 
-const VersaoSistema = 'v2.2.3'; // Versão atual do sistema     
-const DataVersaoSistema = '07/03/2026';      
+const VersaoSistema = 'v2.2.4'; // Versão atual do sistema     
+const DataVersaoSistema = '26/04/2026';      
 
 let vDesabilitarF12 = true; // deixar true para fazer o deploy    
 let vAbrirSistema = true; // deixar true para fazer o deploy
@@ -7222,6 +7222,11 @@ let configAulasGlobal = {};
 
 // --- VARIÁVEIS GLOBAIS DE PERFIS ---
 let perfisConfigGlobal = {}; // Armazena as regras de cada perfil (o que pode fazer)
+
+
+// === NOVA VARIÁVEL GLOBAL (LIMPEZA DE LOGS) ===
+let diasParaLimparLogsExcluidos = 30; // Mude para 7, 15, 30. Futuramente virá do painel Configurações.
+// ==============================================
 
 
 //***********************************************************************************************************************************************************************
@@ -7426,6 +7431,11 @@ function InicializarSistema() {
 				horasParaExpirarConfig = config.horasParaExpirar || 2; // Lê o valor do banco ou usa 2 como padrão
 				edicaoOrganizadorAtiva = config.OrganizadorEdicao || false;
 				
+				
+				// --- NOVA LINHA: Lê a configuração de limpeza de logs do banco ---
+				diasParaLimparLogsExcluidos = config.DiasLimpezaLogs !== undefined ? config.DiasLimpezaLogs : 15;
+				// -----------------------------------------------------------------
+								
 				//quebraHorarioDomingoConfig = config.QuebraDeHorarioDomingo || { ativa: true, quadras: {} }; 
 				otimizacaoGlobal = config.OtimizacaoHorarios || { ativa: false, quadras: {} };
 				
@@ -9206,7 +9216,15 @@ async function atualizarTabela() {
         if (vReservasPorConfirmacao === false) {
             // Lógica para quando o sistema de confirmação está DESLIGADO
             if (duracao === 1) {
-                const reservaData = { jogadores: jogadores.join(', '), dia, hora: horaSelecionada, duracao, borda: '1h', organizador: organizadorApelido }; 
+                const reservaData = { 
+                    jogadores: jogadores.join(', '), 
+                    dia, 
+                    hora: horaSelecionada, 
+                    duracao, 
+                    borda: '1h', 
+                    organizador: organizadorApelido,
+                    dataCompleta: dataCompletaParaGravar // <--- CORREÇÃO AQUI
+                }; 
                 await runTransaction(reservasRef.child(key1), current => transactionUpdate(current, reservaData));
             } else if (duracao === 2 || duracao === 3) {
                 let jogadoresParte1 = "", jogadoresParte2 = "";
@@ -9220,12 +9238,33 @@ async function atualizarTabela() {
                     if (jogadores.length >= 4) parte2Array.push(jogadores[3]);
                     jogadoresParte1 = parte1Array.join(', '); jogadoresParte2 = parte2Array.join(', ');
                 }
-                const reservaData1 = { jogadores: jogadoresParte1, dia, hora: horaSelecionada, duracao, borda: '2h', organizador: organizadorApelido }; 
+                const reservaData1 = { 
+                    jogadores: jogadoresParte1, 
+                    dia, 
+                    hora: horaSelecionada, 
+                    duracao, 
+                    borda: '2h', 
+                    organizador: organizadorApelido,
+                    dataCompleta: dataCompletaParaGravar // <--- CORREÇÃO AQUI
+                }; 
                 let reservaData2;
                 if (duracao === 3) {
-                    reservaData2 = { jogadores: jogadoresParte2, dia, hora: horaSelecionada + 1, organizador: organizadorApelido }; 
+                    reservaData2 = { 
+                        jogadores: jogadoresParte2, 
+                        dia, 
+                        hora: horaSelecionada + 1, 
+                        organizador: organizadorApelido,
+                        dataCompleta: dataCompletaParaGravar // <--- CORREÇÃO AQUI
+                    }; 
                 } else {
-                    reservaData2 = { jogadores: jogadoresParte2, dia, hora: horaSelecionada + 1, duracao, organizador: organizadorApelido }; 
+                    reservaData2 = { 
+                        jogadores: jogadoresParte2, 
+                        dia, 
+                        hora: horaSelecionada + 1, 
+                        duracao, 
+                        organizador: organizadorApelido,
+                        dataCompleta: dataCompletaParaGravar // <--- CORREÇÃO AQUI
+                    }; 
                 }
                 
                 await runTransaction(reservasRef.child(key1), current => transactionUpdate(current, reservaData1));
@@ -10120,7 +10159,7 @@ function preencherCeldas(dataInicio, ajustes, linhaDatas) {
 // SUBSTITUA A SUA FUNÇÃO INTEIRA PELA VERSÃO FINAL ABAIXO
 // SUBSTITUA A SUA FUNÇÃO INTEIRA PELA VERSÃO FINAL ABAIXO
 async function LimparDiasAnteriores() {
-    console.log("🟢 Iniciando LimparDiasAnteriores com Verificação de Data Real...");
+    console.log("🟢 Iniciando LimparDiasAnteriores (Nova Lógica Baseada na Data Real)...");
     const reservasParaExcluir = [];
     const updates = {};
     let operacaoSucesso = true;
@@ -10128,9 +10167,27 @@ async function LimparDiasAnteriores() {
     try {
         const dataAtual = new Date();
         dataAtual.setHours(0, 0, 0, 0);
+        
+        // O Limite: Tudo estritamente MENOR que ONTEM (Ou seja, de Anteontem para trás)
+        const dataLimite = new Date(dataAtual);
+        dataLimite.setDate(dataAtual.getDate() - 1); 
+
+        // Calcula os dias permitidos no futuro para detectar as reservas "fantasmas" antigas
+        const diasConfig = window.DiasParaLimpar || 4;
+        let maxDiasPermitidos = 2;
+        switch (diasConfig) {
+            case 1: maxDiasPermitidos = 5; break;
+            case 2: maxDiasPermitidos = 4; break;
+            case 3: maxDiasPermitidos = 3; break;
+            case 4: maxDiasPermitidos = 2; break;
+            case 5: maxDiasPermitidos = 1; break;
+            case 6: maxDiasPermitidos = 0; break;
+        }
+        
+        const hojeIndex = dataAtual.getDay() === 0 ? 7 : dataAtual.getDay();
         const quadras = ["Quadra 1 - Coberta", "Quadra 2 - Aberta", "Quadra 3 - Coberta"];
 
-        // 1. CARREGAMENTO EM LOTE
+        // CARREGAMENTO EM LOTE
         const snapshots = await Promise.all(
             quadras.map(q => database.ref(`sistemas/reservas/${q}`).once('value'))
         );
@@ -10144,34 +10201,50 @@ async function LimparDiasAnteriores() {
             const reservasDaQuadra = dadosCompletos[quadra];
             const chavesIgnoradas = new Set(); 
 
-            // Varre do dia 0 (hoje) até o limite configurado
-            for (let dia = 2; dia <= DiasParaLimpar; dia++) {
-                const dataCalculadaLoop = new Date(dataAtual);
-                dataCalculadaLoop.setDate(dataAtual.getDate() - dia);
-                const diaIndex = dataCalculadaLoop.getDay() === 0 ? 7 : dataCalculadaLoop.getDay();
+            // NOVO LOOP: Varre TODAS as chaves existentes na quadra
+            for (const key in reservasDaQuadra) {
+                if (chavesIgnoradas.has(key)) continue;
 
-                for (let hora = 6; hora <= 22; hora++) {
-                    const key = `${diaIndex}_${hora}`;
+                const reserva = reservasDaQuadra[key];
+                if (!reserva) continue;
+
+                let dataRealDaReserva = null;
+                let dataRealDaReservaFormatada = "";
+
+                if (reserva.dataCompleta) {
+                    // Se a reserva tem data gravada, CONFIAMOS NELA.
+                    const partesData = reserva.dataCompleta.split('-');
+                    dataRealDaReserva = new Date(parseInt(partesData[0]), parseInt(partesData[1]) - 1, parseInt(partesData[2]));
+                    dataRealDaReserva.setHours(0, 0, 0, 0);
+                    dataRealDaReservaFormatada = `${partesData[2]}-${partesData[1]}-${partesData[0]}`; 
+                } else {
+                    // LEGADO: Não tem data. Calcula se ficou no passado (Deu a volta na semana).
+                    let diff = reserva.dia - hojeIndex;
+                    if (diff < 0) diff += 7;
                     
-                    if (chavesIgnoradas.has(key)) continue;
-
-                    const reserva = reservasDaQuadra[key];
-
-                    if (!reserva) continue;
-
-                    // --- LÓGICA DE DATA REAL (A CORREÇÃO) ---
-                    let dataRealDaReservaFormatada;
-                    
-                    if (reserva.dataCompleta) {
-                        // Se a reserva tem data gravada, CONFIAMOS NELA.
-                        // Formato esperado YYYY-MM-DD -> Convertendo para DD-MM-YYYY para o Log
-                        const partesData = reserva.dataCompleta.split('-');
-                        dataRealDaReservaFormatada = `${partesData[2]}-${partesData[1]}-${partesData[0]}`; 
+                    // Se a diferença for MAIOR que o máximo permitido para o futuro, 
+                    // significa que ela está no passado.
+                    if (diff > maxDiasPermitidos) {
+                        const diasAtras = 7 - diff;
+                        dataRealDaReserva = new Date(dataAtual);
+                        dataRealDaReserva.setDate(dataAtual.getDate() - diasAtras);
+                        dataRealDaReserva.setHours(0,0,0,0);
+                        
+                        const dd = String(dataRealDaReserva.getDate()).padStart(2, '0');
+                        const mm = String(dataRealDaReserva.getMonth() + 1).padStart(2, '0');
+                        const yyyy = dataRealDaReserva.getFullYear();
+                        dataRealDaReservaFormatada = `${dd}-${mm}-${yyyy}`;
                     } else {
-                        // Fallback para reservas antigas: Assume que é do passado calculado pelo loop
-                        dataRealDaReservaFormatada = dataCalculadaLoop.toLocaleDateString('pt-BR').replace(/\//g, '-');
+                        // É hoje ou está no futuro (DENTRO do permitido). Não apaga.
+                        continue;
                     }
-                    // ----------------------------------------
+                }
+
+                // A GRANDE REGRA: Se a data for MENOR que ONTEM (De Anteontem para trás)
+                if (dataRealDaReserva < dataLimite) {
+                    // É LIXO ANTIGO! Executa as regras de exclusão
+                    const diaIndex = reserva.dia || parseInt(key.split('_')[0]);
+                    const hora = reserva.hora || parseInt(key.split('_')[1]);
 
                     // CASO 1: PENDÊNCIA DA PIRÂMIDE
                     if (reserva.status === 'resultado_pendente' && reserva.duracao === 3 && reserva.resultado) {
@@ -10196,7 +10269,7 @@ async function LimparDiasAnteriores() {
                         let logData = {
                             exclusao: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(',', ''),
                             quadra: quadra, 
-                            data: dataRealDaReservaFormatada, // <--- USA A DATA CORRETA
+                            data: dataRealDaReservaFormatada,
                             horario: horarioFormatado, 
                             duracao: "2 Horas - Pirâmide",
                             jogadores: jogadoresComPosicao, 
@@ -10218,7 +10291,6 @@ async function LimparDiasAnteriores() {
                     
                     // CASO 2: LIMPEZA DE RESERVA NORMAL / AULA / MANUTENÇÃO
                     else if (reserva.borda) {
-                        
                         let jogadoresArray;
                         if (reserva.jogadores_completo) {
                             jogadoresArray = reserva.jogadores_completo.split(',').map(j => j.trim());
@@ -10272,21 +10344,21 @@ async function LimparDiasAnteriores() {
                         let motivoLog = "Limpeza automática de reserva antiga";
                         
                         if (isAula) {
-                            const professor = reserva.organizador || "Ronaldo";
+                            const professor = reserva.organizador || "Professor";
                             jogadoresComPosicao = [{ apelido: "Aula Extra - Prof. " + professor, posicao: "0" }];
                             motivoLog = "Aula Extra finalizada e limpa automaticamente pelo sistema";
                         }
 
                         if (isManutencao) {
-                            const responsavel = reserva.organizador || "Erick";
+                            const responsavel = reserva.organizador || "Responsável";
                             jogadoresComPosicao = [{ apelido: "Manutençao - Resp. " + responsavel, posicao: "0" }];
-                            motivoLog = "Manutenção excluida automaticamente pelo Sistema";
+                            motivoLog = "Manutenção excluída automaticamente pelo Sistema";
                         }
 
                         let logData = {
                             exclusao: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(',', ''),
                             quadra: quadra, 
-                            data: dataRealDaReservaFormatada, // <--- USA A DATA CORRETA
+                            data: dataRealDaReservaFormatada, 
                             horario: horarioFormatado, 
                             duracao: duracaoTexto,
                             jogadores: jogadoresComPosicao, 
@@ -11103,17 +11175,31 @@ async function registrarExclusao(logData) {
     let logs = [];
     if (fileData.content) {
       try {
-        //logs = JSON.parse(atob(fileData.content.replace(/\s/g, ''))) || [];
-		//logs = JSON.parse(atob(fileData.content)) || [];
-		logs = JSON.parse(b64_to_utf8(fileData.content)) || [];
+        logs = JSON.parse(b64_to_utf8(fileData.content)) || [];
       } catch (e) { console.warn('Falha ao decodificar logs existentes, iniciando novo', e); }
     }
 
-    // --- INÍCIO DA CORREÇÃO ---
+    // ==========================================================
+    // --- FAXINA ANTES DE SALVAR (A Peneira) ---
+    // ==========================================================
+    const dataLimite = new Date();
+    dataLimite.setDate(dataLimite.getDate() - diasParaLimparLogsExcluidos);
+    dataLimite.setHours(0, 0, 0, 0);
+
+    logs = logs.filter(log => {
+        try {
+            const [d, h] = log.exclusao.split(' ');
+            const dataLog = new Date(d.split('/').reverse().join('-') + 'T' + h);
+            // Retorna true (mantém na lista) se for mais NOVO ou igual ao limite
+            return dataLog >= dataLimite; 
+        } catch(e) { return true; } // Na dúvida se a data estiver corrompida, mantém.
+    });
+    // ==========================================================
+
     // Cria o novo registro de log com a data de exclusão e o resto dos dados
     const novoLog = {
       exclusao: new Date().toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(',', ''),
-      ...logData // Adiciona todos os dados do objeto que recebemos (quadra, horario, jogadores, status, etc.)
+      ...logData 
     };
     
     // Converte a duração para o formato de texto, se necessário
@@ -11122,23 +11208,21 @@ async function registrarExclusao(logData) {
     }
 
     logs.push(novoLog);
-    // --- FIM DA CORREÇÃO ---
 
     response = await fetch(url, {
       method: 'PUT',
       headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        message: `Exclusão registrada: ${logData.quadra} - ${logData.data} ${logData.horario}`,
+        message: `Exclusão registrada e limpeza de ${diasParaLimparLogsExcluidos} dias executada`,
         content: utf8_to_b64(JSON.stringify(logs, null, 2)),
         sha: fileData.sha
       })
     });
 
     if (!response.ok) throw new Error(`Falha no upload: ${response.status}`);
-    console.log('✅ Log registrado com sucesso');
+    console.log('✅ Log registrado e arquivo limpo com sucesso');
 
   } catch (erro) {
-    // Lógica de fallback para localStorage (preservada)
     console.error('❌ Erro ao salvar log:', erro);
     const logsFallback = JSON.parse(localStorage.getItem('logs_fallback') || '[]');
     const novoLogFallback = {
@@ -11152,6 +11236,7 @@ async function registrarExclusao(logData) {
 
 
 // Função adicional (NOVA) - não substitui nada, apenas complementa
+// Função adicional (NOVA) - não substitui nada, apenas complementa
 async function registrarExclusaoEmLote(logs) {
   const token = githubToken;
   const usuarioGit = 'clube-olimpico';
@@ -11160,7 +11245,6 @@ async function registrarExclusaoEmLote(logs) {
   const url = `https://api.github.com/repos/${usuarioGit}/${repo}/contents/${caminhoArquivo}`; 
 
   try {
-    // Obter versão atual do arquivo
     let response = await fetch(url, {
       headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
     });
@@ -11171,37 +11255,52 @@ async function registrarExclusaoEmLote(logs) {
     let logsExistentes = [];
     if (fileData.content) {
       try {
-        //logsExistentes = JSON.parse(atob(fileData.content)) || [];
-		logsExistentes = JSON.parse(b64_to_utf8(fileData.content)) || [];
+        logsExistentes = JSON.parse(b64_to_utf8(fileData.content)) || [];
       } catch (e) {
         console.warn('Falha ao decodificar logs existentes', e);
       }
     }
 
-    // Combinar com os novos logs
+    // ==========================================================
+    // --- FAXINA ANTES DE SALVAR O LOTE (A Peneira) ---
+    // ==========================================================
+    const dataLimite = new Date();
+    dataLimite.setDate(dataLimite.getDate() - diasParaLimparLogsExcluidos);
+    dataLimite.setHours(0, 0, 0, 0);
+
+    logsExistentes = logsExistentes.filter(log => {
+        try {
+            const [d, h] = log.exclusao.split(' ');
+            const dataLog = new Date(d.split('/').reverse().join('-') + 'T' + h);
+            return dataLog >= dataLimite; 
+        } catch(e) { return true; } 
+    });
+    // ==========================================================
+
+    // Combinar com os novos logs limpos
     const todosLogs = [...logsExistentes, ...logs];
 
-    // Enviar atualização
     response = await fetch(url, {
       method: 'PUT',
       headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        message: `Exclusões em lote: ${logs.length} reservas`,
+        message: `Exclusões em lote (${logs.length}) e limpeza de ${diasParaLimparLogsExcluidos} dias`,
         content: utf8_to_b64(JSON.stringify(todosLogs, null, 2)),
         sha: fileData.sha
       })
     });
 
     if (!response.ok) throw new Error(`Falha no upload: ${response.status}`);
-    console.log(`✅ ${logs.length} logs registrados em lote`);
+    console.log(`✅ ${logs.length} logs registrados em lote e arquivo limpo`);
   } catch (erro) {
     console.error('❌ Erro ao salvar logs em lote:', erro);
-    // Fallback para localStorage
     const logsFallback = JSON.parse(localStorage.getItem('logs_fallback') || '[]');
     logs.forEach(log => logsFallback.push(log));
     localStorage.setItem('logs_fallback', JSON.stringify(logsFallback));
   }
 }
+
+
 
 // Função para atualizar o valor "primeiro acesso"
 function atualizarPrimeiroAcesso(jogadorLogado) {
@@ -21955,7 +22054,7 @@ function verificarBreakPoint() {
 
     // pts = 0(0), 1(15), 2(30), 3(40), 4(Ad)
     const chkNoAd = document.getElementById('chk-modo-no-ad');
-    const isNoAd = chkNoAd ? chkNoAd.checked : false;
+    const isNoAd = chkNoAd ? chkNoAd.checked : false; 
 
     if (isNoAd) {
         // Regra Ponto Decisivo (No-Ad): Se o recebedor tem 40 (valor 3), é break point
@@ -21970,6 +22069,8 @@ function verificarBreakPoint() {
 
     return false;
 }
+
+
 	
 	
 </script>
