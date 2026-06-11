@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"> testando
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SetPoint Gestor - SaaS</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --cor-primaria: #2E8B57; /* Verde SetPoint */
+            --cor-escura: #34495e;    /* Cinza Gestor */
+            --bg-site: #f4f6f8;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0; padding: 0;
+            background-color: var(--bg-site); color: #333;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ======================================================== */
+        /* ESTRUTURA SPA E ACESSO                                   */
+        /* ======================================================== */
+        .tela-app { display: none; min-height: 100vh; width: 100vw; overflow-y: auto; justify-content: center; align-items: center; box-sizing: border-box; padding-bottom: 20px;}
+        .tela-app.ativa { display: flex; flex-direction: column; }
+        
+        .container-central {
+            margin: auto; padding: 30px; background: white; border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; width: 85%; max-width: 350px;
+        }
+
+        h1 { color: var(--cor-primaria); margin-top: 0; font-weight: 900; }
+        h2 { color: var(--cor-escura); margin-top: 0; }
+        
+        .btn-app {
+            width: 100%; padding: 15px; margin: 10px 0; border: none; border-radius: 8px;
+            font-size: 16px; font-weight: bold; cursor: pointer; transition: transform 0.1s;
+        }
+        .btn-app:active { transform: scale(0.97); }
+        .btn-gestor { background-color: var(--cor-escura); color: white; }
+        .btn-jogador { background-color: var(--cor-primaria); color: white; }
+        .btn-link { background: transparent; color: #007bff; text-decoration: underline; font-size: 14px; padding: 5px; border: none; cursor: pointer; }
+        .btn-sair { background-color: #e74c3c; color: white; margin-top: 30px; }
+        
+        .btn-google {
+            background-color: #ffffff; color: #757575; border: 2px solid #ddd;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+
+        input.input-app, select.input-app {
+            width: 100%; padding: 15px; margin: 10px 0; box-sizing: border-box;
+            border: 2px solid #ddd; border-radius: 8px; font-size: 16px; outline: none;
+        }
+        input.input-app:focus, select.input-app:focus { border-color: var(--cor-primaria); }
+
+        /* ======================================================== */
+        /* LAYOUT DA CENTRAL DE COMANDO (QG DO GESTOR)              */
+        /* ======================================================== */
+        .header-painel {
+            background: white; padding: 20px; border-bottom: 1px solid #e2e8f0;
+            display: flex; justify-content: space-between; align-items: center; width: 100%; box-sizing: border-box;
+            position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .header-painel h2 { margin: 0; font-size: 22px; color: #34495e; cursor: pointer; user-select: none; }
+        
+        .grid-dashboard {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 20px; padding: 20px; margin: auto;
+            width: 100%; max-width: 500px; box-sizing: border-box;
+        }
+        
+        .card-menu {
+            background: white; border-radius: 16px; padding: 25px 15px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04); border: 2px solid transparent;
+            cursor: pointer; transition: all 0.2s ease; text-align: center;
+        }
+        .card-menu:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+        .card-menu:active { transform: scale(0.95); }
+        .card-menu .material-icons { font-size: 42px; margin-bottom: 12px; }
+        .card-menu span.label-card { font-weight: bold; font-size: 15px; color: #2c3e50; }
+
+        .c-jogadores { color: #3498db; }
+        .c-horarios { color: #e67e22; }
+        .c-precos { color: #2ecc71; }
+        .c-quadras { color: var(--cor-primaria); }
+
+        /* ======================================================== */
+        /* MÓDULO DE JOGADORES (O NOVO CADASTRO)                    */
+        /* ======================================================== */
+        .pill-tabs { display: flex; gap: 10px; justify-content: center; margin: 20px 0; width: 100%; padding: 0 15px; box-sizing: border-box; overflow-x: auto; }
+        .pill-btn { padding: 10px 20px; border-radius: 30px; border: none; background: #e0e6ed; color: #555; cursor: pointer; font-weight: bold; font-size: 14px; white-space: nowrap; transition: 0.2s; }
+        .pill-btn.active { background: var(--cor-primaria); color: white; box-shadow: 0 4px 10px rgba(46,139,87,0.3); }
+
+        .area-conteudo-jogadores { width: 100%; max-width: 600px; padding: 0 15px; box-sizing: border-box; margin: 0 auto; display: none; }
+        .area-conteudo-jogadores.ativa { display: block; }
+
+        /* Estilo dos Cards de Jogadores */
+        .cards-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
+        .player-card { 
+            background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); 
+            display: flex; align-items: center; gap: 15px; cursor: pointer; transition: transform 0.1s, box-shadow 0.1s; border: 1px solid #f0f0f0;
+        }
+        .player-card:active { transform: scale(0.98); background-color: #f8f9fa; }
+        .player-avatar { 
+            width: 45px; height: 45px; border-radius: 50%; background: var(--cor-escura); color: white; 
+            display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;
+        }
+        .player-info { flex: 1; text-align: left; overflow: hidden; }
+        .player-name { font-size: 16px; font-weight: bold; color: #2c3e50; margin: 0 0 4px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .player-badges { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
+        .badge { font-size: 11px; padding: 3px 8px; border-radius: 12px; color: white; font-weight: bold; }
+        
+        .jogador-inativo { opacity: 0.6; }
+        .jogador-inativo .player-name { text-decoration: line-through; color: #dc3545; }
+
+        /* Formulário Gaveta (Bottom Sheet) */
+        .modal-form-overlay {
+            position: fixed; top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(3px);
+            z-index: 10000; display: none; justify-content: center; align-items: flex-end; 
+        }
+        .modal-form-content {
+            background: white; width: 100%; max-width: 500px;
+            border-radius: 20px 20px 0 0; padding: 25px; box-sizing: border-box;
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            max-height: 90vh; overflow-y: auto; text-align: left;
+        }
+        @media (min-width: 600px) {
+            .modal-form-overlay { align-items: center; }
+            .modal-form-content { border-radius: 12px; animation: popIn 0.3s; }
+        }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        @keyframes popIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* A Faixa Camaleão */
+        .faixa-status {
+            padding: 15px; color: white; text-align: center; font-size: 18px; font-weight: bold;
+            border-radius: 12px 12px 0 0; margin: -25px -25px 20px -25px;
+            display: flex; justify-content: center; align-items: center; position: relative;
+            transition: background-color 0.3s;
+        }
+        .faixa-verde { background-color: #28a745; }
+        .faixa-vermelha { background-color: #dc3545; }
+
+        .checkbox-status {
+            position: absolute; right: 15px; width: 24px; height: 24px; cursor: pointer;
+            -webkit-appearance: none; appearance: none; border: 2px solid white; border-radius: 4px; outline: none;
+        }
+        .checkbox-status:checked {
+            background-color: white;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2328a745' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+            background-size: 14px; background-position: center; background-repeat: no-repeat;
+        }
+
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-size: 14px; font-weight: bold; color: #555; margin-bottom: 5px; }
+        .input-group input, .input-group select {
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; box-sizing: border-box; background: #f9f9f9; outline: none;
+        }
+        .input-group input:focus, .input-group select:focus { border-color: var(--cor-primaria); background: white; }
+
+        .roles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #f4f6f8; padding: 12px; border-radius: 8px; border: 1px solid #eee; }
+        .roles-grid label { display: flex; align-items: center; font-size: 14px; font-weight: normal; margin: 0; cursor: pointer; }
+        .roles-grid input { margin-right: 8px; width: 18px; height: 18px; accent-color: var(--cor-primaria); }
+
+        /* Aniversários */
+        .niver-group { margin-top: 20px; }
+        .niver-mes-titulo { font-size: 18px; color: var(--cor-primaria); border-bottom: 2px solid #eee; padding-bottom: 5px; margin-bottom: 10px; font-weight: bold; }
+        .niver-item { display: flex; padding: 10px; background: white; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); align-items: center; border-left: 4px solid #3498db; }
+        .niver-hoje { border-left: 4px solid #e74c3c; background: #fff5f5; }
+        .niver-dia { font-weight: 900; font-size: 18px; color: #333; margin-right: 15px; width: 30px; text-align: center; }
+
+        /* Notificações e Confirmações Padrão */
+        .toast-container { position: fixed; top: 20px; right: 20px; z-index: 20000; display: flex; flex-direction: column; gap: 10px; }
+        .toast { padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.15); animation: slideIn 0.3s forwards; display: flex; align-items: center; gap: 10px; }
+        .toast.success { background-color: #28a745; } .toast.error { background-color: #dc3545; } .toast.warning { background-color: #f39c12; color: #000; } .toast.info { background-color: #17a2b8; }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+        .modal-prompt-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 15000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(3px); }
+        .modal-prompt-content { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 350px; text-align: center; }
+        .modal-prompt-buttons { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .btn-prompt { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 15px; flex: 1; transition: 0.1s; }
+        .btn-prompt:active { transform: scale(0.95); }
+        .btn-prompt-cancel { background-color: #6c757d; color: white; } .btn-prompt-confirm { background-color: #dc3545; color: white; }
+
+        /* Modais Placeholders */
+        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 10000; display: none; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 400px; box-sizing: border-box; text-align: center; }
+        .btn-floating-qg { position: fixed; bottom: 20px; right: 20px; width: 56px; height: 56px; border-radius: 50%; background-color: var(--cor-escura); color: white; border: none; cursor: pointer; display: none; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 9999; }
+    </style>
+</head>
+<body>
+
+    <div id="tela-loading" class="tela-app ativa">
+        <div class="container-central">
+            <h2 style="color: var(--cor-primaria);">SetPoint</h2>
+            <p style="color: #888;">Identificando ambiente...</p>
+        </div>
+    </div>
+
+    <div id="tela-boas-vindas" class="tela-app">
+        <div class="container-central">
+            <h1>SetPoint Gestor</h1>
+            <p style="color: #666; margin-bottom: 30px;">O novo padrão em gestão de arenas.</p>
+            <button class="btn-app btn-jogador" onclick="navegarApp('tela-jogador-codigo')">Sou Jogador</button>
+            <button class="btn-app btn-gestor" onclick="navegarApp('tela-gestor-login')">Sou Gestor / Dono</button>
+        </div>
+    </div>
+
+    <div id="tela-jogador-codigo" class="tela-app">
+        <div class="container-central">
+            <h2>Acessar Clube</h2>
+            <p style="color: #666; font-size: 14px;">Digite o código fornecido pelo clube.</p>
+            <div id="alerta-codigo" style="display:none; color:red; margin-bottom: 10px; font-weight: bold;"></div>
+            <input type="text" id="input-codigo-clube" class="input-app" placeholder="Ex: OLIMPICO" style="text-transform: uppercase; text-align: center;">
+            <button class="btn-app btn-jogador" onclick="verificarCodigoClube()">Procurar Clube</button>
+            <button class="btn-app btn-link" onclick="navegarApp('tela-boas-vindas')">Voltar</button>
+        </div>
+    </div>
+
+    <div id="tela-jogador-login" class="tela-app">
+        <div class="container-central">
+            <h2 id="nome-clube-encontrado">Carregando Clube...</h2>
+            <p style="color: #666; font-size: 14px;">Selecione seu nome e digite a senha.</p>
+            <select id="jogadorSelect" class="input-app"><option value="">Selecione seu nome...</option></select>
+            <input type="password" id="acesso_user" class="input-app" placeholder="Senha" style="text-align: center;">
+            <button class="btn-app btn-jogador" onclick="fazerLoginJogador()">Entrar</button>
+            <button class="btn-app btn-link" style="color: #888;" onclick="trocarDeClubeJogador()">Trocar de Clube</button>
+        </div>
+    </div>
+
+    <div id="tela-gestor-login" class="tela-app">
+        <div class="container-central">
+            <h2>Painel do Gestor</h2>
+            <div id="alerta-gestor-login" style="display:none; color:red; margin-bottom: 10px; font-weight: bold;"></div>
+            <button class="btn-app btn-google" onclick="loginGestorGoogle()">
+                <svg style="width:20px; height:20px" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5.04c1.64 0 3.12.56 4.28 1.67l3.2-3.2C17.52 1.58 14.96 1 12 1 7.35 1 3.39 3.65 1.5 7.5l3.86 3c.9-2.7 3.4-4.46 6.64-4.46z"/><path fill="#4285F4" d="M23.49 12.27c0-.8-.07-1.56-.2-2.3H12v4.51h6.46c-.29 1.48-1.14 2.73-2.4 3.58l3.7 2.88c2.16-2 3.73-4.92 3.73-8.67z"/><path fill="#FBBC05" d="M5.36 14.5c-.24-.72-.38-1.49-.38-2.3s.14-1.58.38-2.3L1.5 6.9C.54 8.82 0 10.95 0 13s.54 4.18 1.5 6.1l3.86-3.1z"/><path fill="#34A853" d="M12 23c3.24 0 5.97-1.08 7.96-2.91l-3.7-2.88c-1.03.69-2.35 1.11-4.26 1.11-3.24 0-5.74-1.76-6.64-4.46L1.5 16.9C3.39 20.35 7.35 23 12 23z"/></svg>
+                Entrar com o Google
+            </button>
+            <div style="margin: 15px 0; color: #aaa; font-size: 14px;">— OU —</div>
+            <input type="email" id="login-email" class="input-app" placeholder="E-mail profissional">
+            <input type="password" id="login-senha" class="input-app" placeholder="Senha">
+            <button class="btn-app btn-gestor" onclick="loginGestorAuth()">Acessar com E-mail</button>
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+            <button class="btn-app btn-link" onclick="navegarApp('tela-gestor-cadastro')">Cadastrar um Novo Clube</button>
+            <button class="btn-app btn-link" style="color: #888;" onclick="navegarApp('tela-boas-vindas')">Voltar</button>
+        </div>
+    </div>
+
+    <div id="tela-gestor-cadastro" class="tela-app">
+        <div class="container-central">
+            <h2>Novo Clube</h2>
+            <div id="alerta-gestor-cadastro" style="display:none; color:red; margin-bottom: 10px; font-weight: bold;"></div>
+            <input type="text" id="cad-nome-clube" class="input-app" placeholder="Nome do Clube (Ex: Arena Olímpica)">
+            <input type="text" id="cad-codigo-clube" class="input-app" placeholder="Crie um Código (Ex: OLIMPICO10)" style="text-transform: uppercase;">
+            <input type="email" id="cad-email" class="input-app" placeholder="Seu E-mail (Admin)">
+            <input type="password" id="cad-senha" class="input-app" placeholder="Crie uma Senha">
+            <button class="btn-app btn-gestor" onclick="cadastrarNovoClube()">Finalizar Cadastro</button>
+            <button class="btn-app btn-link" onclick="navegarApp('tela-gestor-login')">Já tenho conta</button>
+        </div>
+    </div>
+
+    <div id="tela-gestor-completar-google" class="tela-app">
+        <div class="container-central">
+            <h2>Criar Seu Clube</h2>
+            <p style="color: #666; font-size: 14px;">Vimos que é seu primeiro acesso! Defina os dados do seu clube para começar.</p>
+            <div id="alerta-gestor-completar" style="display:none; color:red; margin-bottom: 10px; font-weight: bold;"></div>
+            <input type="text" id="google-nome-clube" class="input-app" placeholder="Nome do Clube (Ex: Arena Point)">
+            <input type="text" id="google-codigo-clube" class="input-app" placeholder="Crie um Código (Ex: ARENAPOINT)" style="text-transform: uppercase;">
+            <button class="btn-app btn-gestor" onclick="salvarClubeUsuarioGoogle()">Criar e Acessar Painel</button>
+        </div>
+    </div>
+
+    <div id="tela-gestor-dashboard" class="tela-app" style="justify-content: flex-start;">
+        <div class="header-painel">
+            <div>
+                <h2 id="txt-nome-clube">Carregando...</h2>
+                <span style="font-size: 13px; color: #888;">Painel de Controle do Gestor</span>
+            </div>
+            <button class="material-icons" style="background:none; border:none; cursor:pointer; color:#e74c3c; font-size: 28px;" onclick="fazerLogout()" title="Sair do Sistema">logout</button>
+        </div>
+
+        <div class="grid-dashboard">
+            <div class="card-menu" onclick="abrirModuloJogadores()">
+                <i class="material-icons c-jogadores">people</i>
+                <span class="label-card">Jogadores</span>
+            </div>
+            <div class="card-menu" onclick="abrirModalConfig('modal-horarios')">
+                <i class="material-icons c-horarios">schedule</i>
+                <span class="label-card">Horários & Grades</span>
+            </div>
+            <div class="card-menu" onclick="abrirModalConfig('modal-precos')">
+                <i class="material-icons c-precos">settings</i>
+                <span class="label-card">Configurações Gerais</span>
+            </div>
+            <div class="card-menu" onclick="abrirVisaoQuadras()">
+                <i class="material-icons c-quadras">sports_tennis</i>
+                <span class="label-card">Ir para as Quadras</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="tela-sub-jogadores" class="tela-app" style="justify-content: flex-start;">
+        <div class="header-painel">
+            <div>
+                <h2 id="titulo-qg-jogadores" title="Gerenciamento de Atletas">👥 Jogadores</h2>
+                <span style="font-size: 13px; color: #888;" id="txt-qtd-jogadores">Buscando cadastros...</span>
+            </div>
+            <button class="material-icons" style="background:none; border:none; cursor:pointer; color:var(--cor-escura); font-size: 28px;" onclick="voltarAoQG()" title="Voltar">arrow_back</button>
+        </div>
+
+        <div class="pill-tabs">
+            <button id="btn-aba-consulta" class="pill-btn active" onclick="mudarAbaJogadores('consulta')">🔍 Consulta</button>
+            <button id="btn-aba-novo" class="pill-btn" onclick="abrirFormularioNovoJogador()">➕ Novo Cadastro</button>
+            <button id="btn-aba-aniversarios" class="pill-btn" onclick="mudarAbaJogadores('aniversarios')">🎂 Aniversários</button>
+        </div>
+
+        <div id="conteudo-consulta" class="area-conteudo-jogadores ativa">
+            <input type="text" id="busca-jogador" class="input-app" placeholder="Pesquisar por nome ou apelido..." oninput="filtrarCardsJogadores()" style="margin-top: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: none;">
+            
+            <div style="display: flex; gap: 10px; margin-top: 5px;">
+                <select id="filtro-status" class="input-app" style="padding: 10px; font-size: 14px;" onchange="filtrarCardsJogadores()">
+                    <option value="todos">Status: Todos</option>
+                    <option value="ativos" selected>Status: Ativos</option>
+                    <option value="inativos">Status: Inativos</option>
+                </select>
+            </div>
+
+            <div id="cards-jogadores" class="cards-grid">
+                <p style="color: #888; text-align: center; margin-top: 20px;">Carregando...</p>
+            </div>
+        </div>
+
+        <div id="conteudo-aniversarios" class="area-conteudo-jogadores">
+            <select id="filtro-mes-niver" class="input-app" style="padding: 10px; font-size: 14px;" onchange="renderizarAniversarios()">
+                <option value="0">Todos os meses</option>
+                <option value="1">Janeiro</option><option value="2">Fevereiro</option><option value="3">Março</option>
+                <option value="4">Abril</option><option value="5">Maio</option><option value="6">Junho</option>
+                <option value="7">Julho</option><option value="8">Agosto</option><option value="9">Setembro</option>
+                <option value="10">Outubro</option><option value="11">Novembro</option><option value="12">Dezembro</option>
+            </select>
+            <div id="lista-aniversarios" style="margin-top: 15px; text-align: left;"></div>
+        </div>
+    </div>
+
+    <div id="modal-form-jogador" class="modal-form-overlay">
+        <div class="modal-form-content">
+            <div id="faixa-status-jog" class="faixa-status faixa-verde">
+                <span id="titulo-form-jog">Novo Cadastro</span>
+                <input type="checkbox" id="check-ativo-jog" class="checkbox-status" title="Desmarque para inativar o jogador" checked onchange="atualizarFaixaStatus()">
+            </div>
+            
+            <input type="hidden" id="chave-edicao-jog" value="">
+
+            <div class="input-group">
+                <label>Nome Completo *</label>
+                <input type="text" id="inp-nome-jog" placeholder="Ex: Ronaldo Taborda" required>
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <div class="input-group" style="flex: 1;">
+                    <label>Apelido *</label>
+                    <input type="text" id="inp-apelido-jog" placeholder="Ex: Rone" required>
+                </div>
+                <div class="input-group" style="flex: 1;">
+                    <label>Nascimento (Data)</label>
+                    <input type="text" id="inp-niver-jog" placeholder="DD/MM/AAAA" maxlength="10">
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <div class="input-group" style="flex: 2;">
+                    <label>Vínculo</label>
+                    <select id="inp-socio-jog">
+                        <option value="titular">Titular</option>
+                        <option value="dependente">Dependente</option>
+                        <option value="visitante">Staff</option>
+                    </select>
+                </div>
+                <div class="input-group" style="flex: 1;">
+                    <label>Classe</label>
+                    <select id="inp-classe-jog">
+                        <option value="">Nenhuma</option>
+                        <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group" style="margin-top: 10px;">
+                <label>Acesso ao Aplicativo (Senha)</label>
+                <input type="text" id="inp-senha-jog" placeholder="Opcional. Ex: 123456" style="font-family: monospace; letter-spacing: 2px;">
+                <span style="font-size: 11px; color: #888;">Se vazio, o jogador não poderá logar no sistema.</span>
+            </div>
+
+            <div class="input-group" style="margin-top: 15px;">
+                <label>Perfis & Permissões Especiais</label>
+                <div id="roles-grid-container" class="roles-grid">
+                    <span style="font-size:12px; color:#888;">Carregando perfis do banco...</span>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button type="button" class="btn-app btn-cinza" style="margin: 0; padding: 12px;" onclick="fecharFormularioJogador()">Cancelar</button>
+                <button type="button" class="btn-app btn-jogador" style="margin: 0; padding: 12px; background-color: #28a745;" onclick="salvarJogador()">Salvar Jogador</button>
+            </div>
+        </div>
+    </div>
+    <div id="tela-visao-quadras" class="tela-app" style="justify-content: flex-start;">
+        <div class="header-painel">
+            <div>
+                <h2>🎾 Grade de Reservas</h2>
+                <span style="font-size: 13px; color: #888;">[ Aqui entrará o seu app-reservas-novo.html ]</span>
+            </div>
+            <button class="btn-app btn-cinza" style="width: auto; margin:0; padding: 8px 15px;" onclick="voltarAoQG()">Voltar ao QG</button>
+        </div>
+    </div>
+
+    <div id="modal-precos" class="modal-overlay">
+        <div class="modal-content">
+            <h3>⚙️ Configurações Gerais</h3>
+            <p style="color: #666; font-size: 14px;">[Aqui entrarão as regras financeiras e limites de tempo]</p>
+            <button class="btn-app" style="background-color: var(--cor-escura); color: white;" onclick="fecharModalConfig('modal-precos')">Fechar</button>
+        </div>
+    </div>
+
+    <div id="modal-horarios" class="modal-overlay">
+        <div class="modal-content">
+            <h3>⏱️ Horários & Grades</h3>
+            <p style="color: #666; font-size: 14px;">[Aqui entrarão as grades de aulas/duplas/pirâmide]</p>
+            <button class="btn-app" style="background-color: var(--cor-escura); color: white;" onclick="fecharModalConfig('modal-horarios')">Fechar</button>
+        </div>
+    </div>
+
+    <button id="btn-floating-back-qg" class="btn-floating-qg" onclick="voltarAoQG()" title="Voltar ao Painel do Gestor">
+        <i class="material-icons">dashboard</i>
+    </button>
+
+    <div id="toastContainer" class="toast-container"></div>
+    <div id="modalPrompt" class="modal-prompt-overlay">
+        <div class="modal-prompt-content">
+            <h3 id="promptTitle" style="margin: 0;">Título</h3>
+            <p id="promptMessage" style="color: #555; margin: 10px 0 20px 0; font-size: 15px; line-height: 1.5;"></p>
+            <div class="modal-prompt-buttons">
+                <button id="btnPromptCancel" class="btn-prompt btn-prompt-cancel">Cancelar</button>
+                <button id="btnPromptConfirm" class="btn-prompt btn-prompt-confirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // CONFIGURAÇÕES BASE (FIREBASE & VARS GLOBAIS)
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyARV9a_z2gzWHJ_I9hTxCM90ytvA_7qo0Y",
+            authDomain: "agenda-5ce95.firebaseapp.com",
+            databaseURL: "https://agenda-5ce95-default-rtdb.firebaseio.com/",
+            projectId: "agenda-5ce95",
+            storageBucket: "agenda-5ce95.firebasestorage.app",
+            messagingSenderId: "852007565195",
+            appId: "1:852007565195:web:d7bd789d140858f53f618e"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const auth = firebase.auth();
+
+        let clubeAtivoId = "";
+        let raizBanco = "";
+        let carregamentoInicial = true;
+        let isGestorLogado = false; 
+
+        // Vars do Módulo de Jogadores
+        let jogadoresGlobal = {};
+        let perfisConfigGlobal = {};
+        let listenersJogadoresAtivos = false;
+        let modoEdicao = false;
+
+        // ==========================================
+        // SENSOR INTELIGENTE (CHASSI - AUTO LOGIN)
+        // ==========================================
+        auth.onAuthStateChanged((user) => {
+            if (user && carregamentoInicial) {
+                carregamentoInicial = false;
+                database.ref('Clubes').once('value').then((snapshot) => {
+                    let codigoClubeEncontrado = null;
+                    let nomeClubeReal = "Clube"; 
+
+                    snapshot.forEach((childSnapshot) => {
+                        const dadosClube = childSnapshot.val();
+                        if (dadosClube.info_clube && dadosClube.info_clube.gestor_uid === user.uid) {
+                            codigoClubeEncontrado = childSnapshot.key;
+                            nomeClubeReal = dadosClube.info_clube.nome || codigoClubeEncontrado;
+                        }
+                    });
+
+                    if (codigoClubeEncontrado) {
+                        clubeAtivoId = codigoClubeEncontrado;
+                        raizBanco = `Clubes/${codigoClubeEncontrado}/sistemas`; // NÓ NOVO E LIMPO SaaS!
+                        isGestorLogado = true;
+                        
+                        document.getElementById('txt-nome-clube').textContent = nomeClubeReal;
+                        navegarApp('tela-gestor-dashboard'); 
+                    } else {
+                        navegarApp('tela-boas-vindas');
+                    }
+                });
+            } else if (carregamentoInicial) {
+                carregamentoInicial = false;
+                const clubeSalvoId = localStorage.getItem('setpoint_jogador_clube_id');
+                const clubeSalvoNome = localStorage.getItem('setpoint_jogador_clube_nome');
+
+                if (clubeSalvoId && clubeSalvoNome) {
+                    clubeAtivoId = clubeSalvoId;
+                    raizBanco = `Clubes/${clubeSalvoId}/sistemas`;
+                    document.getElementById('nome-clube-encontrado').textContent = clubeSalvoNome;
+                    
+                    // Busca lista de jogadores do SaaS para o dropdown de login
+                    database.ref(`${raizBanco}/jogadores`).once('value').then((snapshot) => {
+                        if (snapshot.exists()) {
+                            const jogs = snapshot.val();
+                            const select = document.getElementById('jogadorSelect');
+                            select.innerHTML = '<option value="">Selecione seu nome...</option>';
+                            // Ordena alfabeticamente pelo nome para o login
+                            Object.values(jogs).sort((a,b) => a.nomeCompleto.localeCompare(b.nomeCompleto)).forEach(j => {
+                                if(j.ativo !== false) {
+                                    select.innerHTML += `<option value="${j.apelido || j.nomeCompleto}">${j.nomeCompleto}</option>`;
+                                }
+                            });
+                        }
+                    });
+                    navegarApp('tela-jogador-login');
+                } else {
+                    navegarApp('tela-boas-vindas');
+                }
+            }
+        });
+
+        // ==========================================
+        // MOTOR DE JOGADORES (O NOVO CADASTRO)
+        // ==========================================
+
+        function abrirModuloJogadores() {
+            navegarApp('tela-sub-jogadores');
+            mudarAbaJogadores('consulta'); // Pousa direto na busca
+
+            if (!listenersJogadoresAtivos && raizBanco) {
+                listenersJogadoresAtivos = true;
+                
+                // 1. Escuta Perfis (Puxa os perfis padrões se não existirem)
+                database.ref(`${raizBanco}/config/Perfis`).on('value', (snap) => {
+                    perfisConfigGlobal = snap.val() || {
+                        'Admin': { cor: '#dc3545', abreviacao: 'Admin' },
+                        'Professor': { cor: '#198754', abreviacao: 'Prof' },
+                        'Financeiro': { cor: '#007bff', abreviacao: 'Fin' }
+                    };
+                    renderizarCheckboxesPerfis();
+                    renderizarCardsJogadores(); 
+                });
+
+                // 2. Escuta Jogadores (Nó novo SaaS)
+                database.ref(`${raizBanco}/jogadores`).on('value', (snap) => {
+                    jogadoresGlobal = snap.val() || {};
+                    document.getElementById('txt-qtd-jogadores').textContent = `${Object.keys(jogadoresGlobal).length} sócio(s) cadastrado(s)`;
+                    renderizarCardsJogadores();
+                    checarAniversariosDoDia();
+                });
+            }
+        }
+
+        function mudarAbaJogadores(abaId) {
+            document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.area-conteudo-jogadores').forEach(c => c.classList.remove('ativa'));
+            
+            if (abaId === 'consulta') {
+                document.getElementById('btn-aba-consulta').classList.add('active');
+                document.getElementById('conteudo-consulta').classList.add('ativa');
+                document.getElementById('busca-jogador').focus();
+            } else if (abaId === 'aniversarios') {
+                document.getElementById('btn-aba-aniversarios').classList.add('active');
+                document.getElementById('conteudo-aniversarios').classList.add('ativa');
+                renderizarAniversarios();
+            }
+        }
+
+        // --- RENDERIZAÇÃO DO FORMULÁRIO ---
+        function renderizarCheckboxesPerfis() {
+            const container = document.getElementById('roles-grid-container');
+            container.innerHTML = '';
+            const perfis = Object.keys(perfisConfigGlobal);
+
+            if (perfis.length === 0) {
+                container.innerHTML = '<span style="font-size:12px; color:#888;">Nenhum perfil configurado.</span>';
+                return;
+            }
+
+            perfis.forEach(nomePerfil => {
+                const label = document.createElement('label');
+                label.innerHTML = `<input type="checkbox" name="perfisDinamicos" value="${nomePerfil}"> ${nomePerfil}`;
+                container.appendChild(label);
+            });
+        }
+
+        // Helpers de Estética
+        function getCorDoPerfil(nomePerfil) {
+            if (nomePerfil === 'Admin') return '#dc3545';
+            if (perfisConfigGlobal[nomePerfil] && perfisConfigGlobal[nomePerfil].cor) return perfisConfigGlobal[nomePerfil].cor;
+            return '#6c757d';
+        }
+        function getAbrevPerfil(nomePerfil) {
+            if (perfisConfigGlobal[nomePerfil] && perfisConfigGlobal[nomePerfil].abreviacao) return perfisConfigGlobal[nomePerfil].abreviacao;
+            return nomePerfil.substring(0, 5);
+        }
+        function capitalizarNome(str) {
+            if (!str) return "";
+            return str.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+        }
+        function extrairIniciais(nome) {
+            const partes = nome.trim().split(' ');
+            if (partes.length === 1) return partes[0].substring(0, 2).toUpperCase();
+            return (partes[0].charAt(0) + partes[partes.length - 1].charAt(0)).toUpperCase();
+        }
+
+        // --- RENDERIZAÇÃO DOS CARDS (O VISUAL MODERNO) ---
+        function renderizarCardsJogadores() {
+            const container = document.getElementById('cards-jogadores');
+            container.innerHTML = '';
+            
+            const busca = document.getElementById('busca-jogador').value.toLowerCase().trim();
+            const filtroStatus = document.getElementById('filtro-status').value;
+
+            // Transforma o objeto num array para poder ordenar alfabeticamente pelo nome
+            let arrJogadores = Object.keys(jogadoresGlobal).map(id => {
+                return { id: id, dados: jogadoresGlobal[id] };
+            });
+
+            arrJogadores.sort((a, b) => (a.dados.nomeCompleto || "").localeCompare(b.dados.nomeCompleto || ""));
+
+            let exibidos = 0;
+
+            arrJogadores.forEach(jog => {
+                const dados = jog.dados;
+                const nomeReal = dados.nomeCompleto || "Sem Nome";
+                const apelido = dados.apelido ? dados.apelido.toLowerCase() : "";
+                const isAtivo = dados.ativo !== false; // Inocente até prova em contrário
+
+                // Filtros de Status
+                if (filtroStatus === 'ativos' && !isAtivo) return;
+                if (filtroStatus === 'inativos' && isAtivo) return;
+
+                // Filtro de Busca Expressa
+                if (busca !== "") {
+                    if (!nomeReal.toLowerCase().includes(busca) && !apelido.includes(busca)) return;
+                }
+
+                exibidos++;
+
+                // Montagem das Etiquetas (Badges)
+                let badgesHtml = '';
+                const corVinculo = dados.socio === 'visitante' ? '#f39c12' : '#3498db';
+                const txtVinculo = dados.socio === 'visitante' ? 'Staff' : (dados.socio ? capitalizarNome(dados.socio) : 'Sócio');
+                badgesHtml += `<span class="badge" style="background-color: ${corVinculo}">${txtVinculo}</span>`;
+
+                if (dados.perfis) {
+                    Object.keys(dados.perfis).forEach(p => {
+                        if (dados.perfis[p] === true) {
+                            badgesHtml += `<span class="badge" style="background-color: ${getCorDoPerfil(p)}">${getAbrevPerfil(p)}</span>`;
+                        }
+                    });
+                }
+
+                // Criação física do Card
+                const iniciais = extrairIniciais(nomeReal);
+                const classeInativo = isAtivo ? '' : 'jogador-inativo';
+                const card = document.createElement('div');
+                card.className = `player-card ${classeInativo}`;
+                
+                card.innerHTML = `
+                    <div class="player-avatar">${iniciais}</div>
+                    <div class="player-info">
+                        <h4 class="player-name">${capitalizarNome(nomeReal)}</h4>
+                        <div style="font-size: 13px; color: #7f8c8d; margin-bottom: 5px;">Aka: ${capitalizarNome(dados.apelido)}</div>
+                        <div class="player-badges">${badgesHtml}</div>
+                    </div>
+                `;
+
+                // Interações Preservadas
+                let clickTimeout = null;
+                let isDoubleClick = false;
+                
+                card.onclick = () => {
+                    clickTimeout = setTimeout(() => {
+                        if(!isDoubleClick) confirmarExclusaoJogador(jog.id, nomeReal);
+                    }, 300);
+                };
+                card.ondblclick = () => {
+                    isDoubleClick = true;
+                    clearTimeout(clickTimeout);
+                    abrirFormularioEdicao(jog.id, dados);
+                    setTimeout(() => isDoubleClick = false, 350);
+                };
+
+                container.appendChild(card);
+            });
+
+            if (exibidos === 0) {
+                container.innerHTML = '<p style="color: #888; text-align: center; margin-top: 20px;">Nenhum jogador encontrado.</p>';
+            }
+        }
+
+        function filtrarCardsJogadores() { renderizarCardsJogadores(); }
+
+        // --- GAVETA DE FORMULÁRIO (BOTTOM SHEET) ---
+        function abrirFormularioNovoJogador() {
+            modoEdicao = false;
+            document.getElementById('chave-edicao-jog').value = "";
+            document.getElementById('inp-nome-jog').value = "";
+            document.getElementById('inp-nome-jog').disabled = false;
+            document.getElementById('inp-apelido-jog').value = "";
+            document.getElementById('inp-niver-jog').value = "";
+            document.getElementById('inp-senha-jog').value = "";
+            document.getElementById('inp-socio-jog').value = "titular";
+            document.getElementById('inp-classe-jog').value = "";
+            
+            document.querySelectorAll('input[name="perfisDinamicos"]').forEach(c => c.checked = false);
+            
+            // Controle da Faixa e Ativo
+            document.getElementById('check-ativo-jog').checked = true;
+            document.getElementById('check-ativo-jog').style.display = 'none'; 
+            
+            atualizarFaixaStatus();
+            document.getElementById('titulo-form-jog').textContent = "Novo Cadastro";
+            document.querySelector('#modal-form-jogador .btn-jogador').textContent = "Salvar Jogador";
+
+            document.getElementById('modal-form-jogador').style.display = 'flex';
+        }
+
+        function abrirFormularioEdicao(idFirebase, dados) {
+            modoEdicao = true;
+            document.getElementById('chave-edicao-jog').value = idFirebase;
+            
+            document.getElementById('inp-nome-jog').value = dados.nomeCompleto || "";
+            document.getElementById('inp-nome-jog').disabled = false; // Permitimos a troca de nome na versão SaaS
+            
+            document.getElementById('inp-apelido-jog').value = dados.apelido || "";
+            document.getElementById('inp-niver-jog').value = dados.niver || "";
+            document.getElementById('inp-senha-jog').value = dados.senha || "";
+            document.getElementById('inp-socio-jog').value = dados.socio || "titular";
+            document.getElementById('inp-classe-jog').value = dados.classe || "";
+            
+            document.querySelectorAll('input[name="perfisDinamicos"]').forEach(c => c.checked = false);
+            if (dados.perfis) {
+                Object.keys(dados.perfis).forEach(p => {
+                    if (dados.perfis[p]) {
+                        const chk = document.querySelector(`input[name="perfisDinamicos"][value="${p}"]`);
+                        if (chk) chk.checked = true;
+                    }
+                });
+            }
+
+            document.getElementById('check-ativo-jog').style.display = 'block'; 
+            document.getElementById('check-ativo-jog').checked = dados.ativo !== false;
+            
+            atualizarFaixaStatus();
+            document.getElementById('titulo-form-jog').textContent = "Editar Jogador";
+            document.querySelector('#modal-form-jogador .btn-jogador').textContent = "Atualizar Cadastro";
+
+            document.getElementById('modal-form-jogador').style.display = 'flex';
+        }
+
+        function fecharFormularioJogador() {
+            document.getElementById('modal-form-jogador').style.display = 'none';
+        }
+
+        function atualizarFaixaStatus() {
+            const faixa = document.getElementById('faixa-status-jog');
+            const titulo = document.getElementById('titulo-form-jog');
+            const isAtivo = document.getElementById('check-ativo-jog').checked;
+
+            if (isAtivo) {
+                faixa.className = "faixa-status faixa-verde";
+                if (modoEdicao) titulo.textContent = "Editar Jogador (Ativo)";
+                else titulo.textContent = "Novo Cadastro";
+            } else {
+                faixa.className = "faixa-status faixa-vermelha";
+                titulo.textContent = "Editar Jogador (Inativo)";
+            }
+        }
+
+        // Máscara de Nascimento
+        document.getElementById('inp-niver-jog').addEventListener('input', function(e) {
+            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,2})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : x[1] + '/' + x[2] + (x[3] ? '/' + x[3] : '');
+        });
+
+        // Salvar (Grava usando ID Único e Campos limpos)
+        async function salvarJogador() {
+            const nomeRaw = document.getElementById('inp-nome-jog').value.trim().toUpperCase();
+            let apelidoRaw = document.getElementById('inp-apelido-jog').value.trim();
+            const niver = document.getElementById('inp-niver-jog').value.trim();
+            const senha = document.getElementById('inp-senha-jog').value.trim();
+            const socio = document.getElementById('inp-socio-jog').value;
+            const classe = document.getElementById('inp-classe-jog').value;
+            const isAtivo = document.getElementById('check-ativo-jog').checked;
+
+            if (!nomeRaw || !apelidoRaw) return showToast("Nome e Apelido são obrigatórios.", 'warning');
+            
+            apelidoRaw = apelidoRaw.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+
+            const perfisObj = {};
+            document.querySelectorAll('input[name="perfisDinamicos"]:checked').forEach(c => perfisObj[c.value] = true);
+
+            const dadosSalvar = {
+                nomeCompleto: nomeRaw,
+                apelido: apelidoRaw, 
+                socio: socio, 
+                classe: classe, 
+                niver: niver,
+                senha: senha,
+                ativo: isAtivo, 
+                perfis: perfisObj
+            };
+
+            const refJogadores = `${raizBanco}/jogadores`;
+
+            if (modoEdicao) {
+                const idEdicao = document.getElementById('chave-edicao-jog').value;
+                try {
+                    await database.ref(`${refJogadores}/${idEdicao}`).update(dadosSalvar);
+                    showToast("Cadastro atualizado com sucesso!", "success");
+                    fecharFormularioJogador();
+                } catch(e) { showToast("Erro ao atualizar.", "error"); }
+            } else {
+                // Criação: Firebase gera o ID protegido
+                try {
+                    const novoRef = database.ref(refJogadores).push();
+                    await novoRef.set(dadosSalvar);
+                    showToast("Jogador cadastrado com sucesso!", "success");
+                    fecharFormularioJogador();
+                    // Limpa barra de busca para focar no recém-criado
+                    document.getElementById('busca-jogador').value = "";
+                    renderizarCardsJogadores();
+                } catch(e) { showToast("Erro ao cadastrar.", "error"); }
+            }
+        }
+
+        function confirmarExclusaoJogador(idUnico, nomeReal) {
+            showPrompt("Excluir Cadastro", `Tem certeza que deseja excluir <b>${capitalizarNome(nomeReal)}</b> permanentemente?`, async () => {
+                try {
+                    await database.ref(`${raizBanco}/jogadores/${idUnico}`).remove();
+                    showToast("Jogador excluído com sucesso.", "success");
+                } catch(e) { showToast("Erro ao excluir.", "error"); }
+            });
+        }
+
+        // ==========================================
+        // MÓDULO FESTA (ANIVERSÁRIOS)
+        // ==========================================
+        function renderizarAniversarios() {
+            const container = document.getElementById('lista-aniversarios');
+            container.innerHTML = '';
+            
+            const mesFiltro = parseInt(document.getElementById('filtro-mes-niver').value);
+            const mesesStr = ["", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+            
+            let arrNivers = [];
+            
+            Object.values(jogadoresGlobal).forEach(j => {
+                if (j.ativo !== false && j.niver && j.niver.length === 10) {
+                    const [dia, mes] = j.niver.split('/');
+                    arrNivers.push({ nome: capitalizarNome(j.nomeCompleto), apelido: capitalizarNome(j.apelido), dia: parseInt(dia), mes: parseInt(mes) });
+                }
+            });
+
+            if (mesFiltro !== 0) arrNivers = arrNivers.filter(j => j.mes === mesFiltro);
+
+            if (arrNivers.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #888;">Nenhum aniversariante encontrado.</p>';
+                return;
+            }
+
+            const grupos = {};
+            arrNivers.forEach(j => {
+                if (!grupos[j.mes]) grupos[j.mes] = [];
+                grupos[j.mes].push(j);
+            });
+
+            const hoje = new Date();
+            const diaHoje = hoje.getDate();
+            const mesHoje = hoje.getMonth() + 1;
+
+            Object.keys(grupos).sort((a,b) => a - b).forEach(mes => {
+                const divMes = document.createElement('div');
+                divMes.className = 'niver-group';
+                divMes.innerHTML = `<div class="niver-mes-titulo">${mesesStr[mes]}</div>`;
+                
+                grupos[mes].sort((a,b) => a.dia - b.dia).forEach(j => {
+                    const ehHoje = (j.dia === diaHoje && parseInt(mes) === mesHoje);
+                    const classHoje = ehHoje ? 'niver-hoje' : '';
+                    const badgeHoje = ehHoje ? '<span class="badge" style="background:#e74c3c; margin-left: 10px;">🎉 Hoje!</span>' : '';
+                    
+                    divMes.innerHTML += `
+                        <div class="niver-item ${classHoje}">
+                            <div class="niver-dia">${String(j.dia).padStart(2,'0')}</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: bold; color: #333;">${j.nome} ${badgeHoje}</div>
+                                <div style="font-size: 13px; color: #888;">${j.apelido}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.appendChild(divMes);
+            });
+        }
+
+        let confeteJaDisparado = false;
+        function checarAniversariosDoDia() {
+            if (confeteJaDisparado) return;
+            const hoje = new Date();
+            const d = String(hoje.getDate()).padStart(2, '0');
+            const m = String(hoje.getMonth() + 1).padStart(2, '0');
+            const hjStr = `${d}/${m}`;
+            
+            const temNiverHoje = Object.values(jogadoresGlobal).some(j => j.ativo !== false && j.niver && j.niver.startsWith(hjStr));
+            
+            if (temNiverHoje) {
+                confeteJaDisparado = true;
+                dispararConfetes();
+                showToast("🎉 Temos aniversariantes hoje! Confira a aba de Aniversários.", "info");
+            }
+        }
+
+        function dispararConfetes() {
+            const duration = 3 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 20000 };
+
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
+                const particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        // ==========================================
+        // UTILITÁRIOS: TOASTS E MODAIS GLOBAIS
+        // ==========================================
+        function showToast(msg, tipo = 'info') {
+            const c = document.getElementById('toastContainer');
+            const t = document.createElement('div');
+            t.className = `toast ${tipo}`;
+            let icon = 'ℹ️'; if(tipo==='success') icon='✅'; if(tipo==='warning') icon='⚠️'; if(tipo==='error') icon='❌';
+            t.innerHTML = `<span style="font-size: 20px;">${icon}</span> <span style="font-weight: 500;">${msg}</span>`;
+            c.appendChild(t);
+            setTimeout(() => {
+                t.style.animation = 'slideIn 0.3s reverse forwards';
+                setTimeout(() => t.remove(), 300);
+            }, 3000);
+        }
+
+        function showPrompt(titulo, msg, callback) {
+            const m = document.getElementById('modalPrompt');
+            document.getElementById('promptTitle').textContent = titulo;
+            document.getElementById('promptMessage').innerHTML = msg;
+            
+            const btnSim = document.getElementById('btnPromptConfirm');
+            const btnNao = document.getElementById('btnPromptCancel');
+            
+            const novoSim = btnSim.cloneNode(true); btnSim.parentNode.replaceChild(novoSim, btnSim);
+            const novoNao = btnNao.cloneNode(true); btnNao.parentNode.replaceChild(novoNao, btnNao);
+            
+            novoSim.onclick = () => { m.style.display = 'none'; callback(); };
+            novoNao.onclick = () => { m.style.display = 'none'; };
+            
+            m.style.display = 'flex';
+        }
+
+        function navegarApp(idTelaDestino) {
+            document.querySelectorAll('.tela-app').forEach(tela => tela.classList.remove('ativa'));
+            document.getElementById(idTelaDestino).classList.add('ativa');
+            
+            const btnFloating = document.getElementById('btn-floating-back-qg');
+            if (btnFloating) {
+                if (idTelaDestino === 'tela-visao-quadras' && isGestorLogado) btnFloating.style.display = 'flex';
+                else btnFloating.style.display = 'none';
+            }
+        }
+
+        function voltarAoQG() { navegarApp('tela-gestor-dashboard'); }
+        function abrirVisaoQuadras() { navegarApp('tela-visao-quadras'); }
+        function abrirModalConfig(idModal) { document.getElementById(idModal).style.display = 'flex'; }
+        function fecharModalConfig(idModal) { document.getElementById(idModal).style.display = 'none'; }
+        
+        function fazerLogout() { auth.signOut().then(() => {
+            clubeAtivoId = ""; raizBanco = ""; usuarioLogadoTemporario = null; isGestorLogado = false;
+            location.reload(); 
+        }); }
+        function trocarDeClubeJogador() { localStorage.removeItem('setpoint_jogador_clube_id'); location.reload(); }
+        
+        // --- FUNÇÕES REAIS DO FIREBASE RESTAURADAS ---
+        function loginGestorGoogle() { 
+            const provider = new firebase.auth.GoogleAuthProvider(); 
+            auth.signInWithPopup(provider).then((result) => {
+                const user = result.user;
+                usuarioLogadoTemporario = user;
+                database.ref('Clubes').once('value').then((snapshot) => {
+                    let codigoClubeEncontrado = null;
+                    let nomeClubeReal = "Clube";
+                    snapshot.forEach((childSnapshot) => {
+                        const dadosClube = childSnapshot.val();
+                        if (dadosClube.info_clube && dadosClube.info_clube.gestor_uid === user.uid) {
+                            codigoClubeEncontrado = childSnapshot.key;
+                            nomeClubeReal = dadosClube.info_clube.nome || codigoClubeEncontrado;
+                        }
+                    });
+                    if (codigoClubeEncontrado) {
+                        clubeAtivoId = codigoClubeEncontrado;
+                        raizBanco = `Clubes/${codigoClubeEncontrado}/sistemas`;
+                        document.getElementById('txt-nome-clube').textContent = nomeClubeReal;
+                        isGestorLogado = true;
+                        navegarApp('tela-gestor-dashboard');
+                    } else {
+                        navegarApp('tela-gestor-completar-google');
+                    }
+                });
+            }).catch(e => showToast(e.message, 'error')); 
+        }
+
+        function loginGestorAuth() { 
+            const email = document.getElementById('login-email').value.trim();
+            const senha = document.getElementById('login-senha').value;
+            if (!email || !senha) return showToast('Preencha E-mail e Senha.', 'warning');
+            
+            auth.signInWithEmailAndPassword(email, senha).then((userCredential) => {
+                const user = userCredential.user;
+                database.ref('Clubes').once('value').then((snapshot) => {
+                    let codigoClubeEncontrado = null;
+                    let nomeClubeReal = "Clube";
+                    snapshot.forEach((childSnapshot) => {
+                        const dados = childSnapshot.val();
+                        if (dados.info_clube && dados.info_clube.gestor_uid === user.uid) {
+                            codigoClubeEncontrado = childSnapshot.key;
+                            nomeClubeReal = dados.info_clube.nome || codigoClubeEncontrado;
+                        }
+                    });
+                    if (codigoClubeEncontrado) {
+                        clubeAtivoId = codigoClubeEncontrado;
+                        raizBanco = `Clubes/${codigoClubeEncontrado}/sistemas`;
+                        document.getElementById('txt-nome-clube').textContent = nomeClubeReal;
+                        isGestorLogado = true;
+                        navegarApp('tela-gestor-dashboard');
+                    } else { showToast('Nenhum clube associado a este login.', 'error'); }
+                });
+            }).catch(() => showToast('Dados incorretos.', 'error'));
+        }
+
+        function salvarClubeUsuarioGoogle() { 
+            const nomeClube = document.getElementById('google-nome-clube').value.trim();
+            const codigoClube = document.getElementById('google-codigo-clube').value.trim().toUpperCase();
+            if (!nomeClube || !codigoClube) return showToast('Preencha o Nome e o Código.', 'warning');
+
+            database.ref(`Clubes/${codigoClube}`).once('value').then((snapshot) => {
+                if (snapshot.exists()) {
+                    showToast('Este código já está em uso.', 'error');
+                } else {
+                    const estruturaInicial = {
+                        info_clube: { nome: nomeClube, gestor_uid: usuarioLogadoTemporario.uid, email_contato: usuarioLogadoTemporario.email },
+                        sistemas: { config: { Abrir: true }, jogadores: {}, reservas: {} }
+                    };
+                    database.ref(`Clubes/${codigoClube}`).set(estruturaInicial).then(() => {
+                        clubeAtivoId = codigoClube;
+                        raizBanco = `Clubes/${codigoClube}/sistemas`;
+                        document.getElementById('txt-nome-clube').textContent = nomeClube;
+                        isGestorLogado = true;
+                        navegarApp('tela-gestor-dashboard');
+                        showToast('Clube criado com sucesso!', 'success');
+                    });
+                }
+            });
+        }
+
+        function cadastrarNovoClube() { 
+            const nomeClube = document.getElementById('cad-nome-clube').value.trim();
+            const codigoClube = document.getElementById('cad-codigo-clube').value.trim().toUpperCase();
+            const email = document.getElementById('cad-email').value.trim();
+            const senha = document.getElementById('cad-senha').value;
+
+            if (!nomeClube || !codigoClube || !email || !senha) return showToast('Preencha tudo.', 'warning');
+
+            database.ref(`Clubes/${codigoClube}`).once('value').then((snapshot) => {
+                if (snapshot.exists()) {
+                    showToast('Código em uso.', 'error');
+                } else {
+                    auth.createUserWithEmailAndPassword(email, senha).then((userCredential) => {
+                        const estruturaInicial = {
+                            info_clube: { nome: nomeClube, gestor_uid: userCredential.user.uid, email_contato: email },
+                            sistemas: { config: { Abrir: true }, jogadores: {}, reservas: {} }
+                        };
+                        database.ref(`Clubes/${codigoClube}`).set(estruturaInicial).then(() => {
+                            clubeAtivoId = codigoClube;
+                            raizBanco = `Clubes/${codigoClube}/sistemas`;
+                            document.getElementById('txt-nome-clube').textContent = nomeClube;
+                            isGestorLogado = true;
+                            navegarApp('tela-gestor-dashboard');
+                            showToast('Clube criado com sucesso!', 'success');
+                        });
+                    }).catch(err => showToast(err.message, 'error'));
+                }
+            });
+        }
+
+        function verificarCodigoClube() { 
+            const codigo = document.getElementById('input-codigo-clube').value.trim().toUpperCase();
+            if (codigo === "") return showToast('Digite o código do clube.', 'warning');
+
+            database.ref(`Clubes/${codigo}`).once('value').then((snapshot) => {
+                if (snapshot.exists()) {
+                    const dados = snapshot.val();
+                    clubeAtivoId = codigo;
+                    raizBanco = `Clubes/${codigo}/sistemas`;
+                    const nomeRealClube = (dados.info_clube && dados.info_clube.nome) || `Clube: ${codigo}`;
+                    
+                    localStorage.setItem('setpoint_jogador_clube_id', codigo);
+                    localStorage.setItem('setpoint_jogador_clube_nome', nomeRealClube);
+                    
+                    document.getElementById('nome-clube-encontrado').textContent = nomeRealClube;
+                    
+                    // Busca lista de jogadores para preencher o Dropdown
+                    const jogs = (dados.sistemas && dados.sistemas.jogadores) ? dados.sistemas.jogadores : {};
+                    const select = document.getElementById('jogadorSelect');
+                    select.innerHTML = '<option value="">Selecione seu nome...</option>';
+                    Object.values(jogs).sort((a,b) => (a.nomeCompleto||"").localeCompare(b.nomeCompleto||"")).forEach(j => {
+                        if(j.ativo !== false) select.innerHTML += `<option value="${j.apelido || j.nomeCompleto}">${j.nomeCompleto}</option>`;
+                    });
+                    
+                    navegarApp('tela-jogador-login');
+                } else {
+                    showToast('Clube não encontrado. Verifique o código.', 'error');
+                }
+            }).catch(err => {
+                showToast('Erro ao conectar. Tente novamente.', 'error');
+            });
+        }
+
+        function fazerLoginJogador() { 
+            navegarApp('tela-visao-quadras'); 
+        }
+
+    </script>
+</body>
+</html>
