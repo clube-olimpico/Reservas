@@ -9,6 +9,46 @@
       "sistemas": {
         "config": {
           "Abrir": true,
+          "Horarios": {
+            "Padrao": [
+              null,
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "fechado"
+              },
+              {
+                "abertura": "12:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "10:00",
+                "fechamento": "15:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "08:00",
+                "fechamento": "17:00",
+                "status": "aberto"
+              }
+            ]
+          },
           "Quadras": {
             "nomes": [
               null,
@@ -16,7 +56,7 @@
               "Quadra 2 - Aberta",
               "Quadra 3 - Coberta"
             ],
-            "quantidade": 15
+            "quantidade": 10
           }
         },
         "jogadores": {
@@ -38,11 +78,9 @@
             "niver": "01/01/2001",
             "nomeCompleto": "ADRIANO GOMES FEITOSA",
             "perfis": {
-              "Admin": true,
-              "Financeiro": true,
               "Professor": true
             },
-            "socio": "titular",
+            "socio": "dependente",
             "whatsapp": "(41) 99917-6972"
           },
           "-Ov1agI6PLaGT0Alyxe3": {
@@ -1171,17 +1209,17 @@
             "whatsapp": ""
           },
           "-Ov1akQajsv1Luk3n_mt": {
-            "apelido": "Taborda",
+            "apelido": "Rone",
             "ativo": true,
             "classe": "A",
-            "email": "",
+            "email": "ronaldo.taborda@gmail.com",
             "niver": "26/05/1973",
             "nomeCompleto": "RONALDO TABORDA",
             "perfis": {
               "Admin": true
             },
             "socio": "titular",
-            "whatsapp": ""
+            "whatsapp": "(41) 99917-6972"
           },
           "-Ov1akT0qrwnJZ73Me0D": {
             "apelido": "Rony Duck",
@@ -3108,13 +3146,6 @@
         "id": "-Omoo821Z0DXTQckXJ4R",
         "texto": "Teste",
         "titulo": "Novo"
-      }
-    },
-    "usuariosOnline": {
-      "xllafuafw": {
-        "sessionId": "xllafuafw",
-        "timestamp": 1781963713564,
-        "usuario": "ADRIANO GOMES FEITOSA"
       }
     },
     "version": "v2.2.4"
