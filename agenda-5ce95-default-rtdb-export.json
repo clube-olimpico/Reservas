@@ -10,15 +10,27 @@
         "config": {
           "Abrir": true,
           "Horarios": {
+            "Aulas": {
+              "Quadra1": {
+                "Ativo": true,
+                "Grade": {
+                  "2_11": "Adriano",
+                  "2_13": "Rildo",
+                  "2_14": "Rildo",
+                  "2_15": "Rildo",
+                  "2_16": "Rildo"
+                }
+              }
+            },
             "Padrao": [
               null,
               {
-                "abertura": "06:00",
+                "abertura": "07:00",
                 "fechamento": "23:00",
-                "status": "fechado"
+                "status": "aberto"
               },
               {
-                "abertura": "12:00",
+                "abertura": "10:00",
                 "fechamento": "23:00",
                 "status": "aberto"
               },
