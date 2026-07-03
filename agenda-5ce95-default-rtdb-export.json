@@ -14,61 +14,28 @@
               "Quadra1": {
                 "Ativo": true,
                 "Grade": {
-                  "1_13": "Rildo",
                   "1_14": "Rildo",
-                  "1_15": "Rildo"
-                }
-              },
-              "Quadra10": {
-                "Ativo": false
-              },
-              "Quadra2": {
-                "Ativo": true
-              },
-              "Quadra3": {
-                "Ativo": true
-              },
-              "Quadra4": {
-                "Ativo": false
-              },
-              "Quadra6": {
-                "Ativo": true,
-                "Grade": {
-                  "1_7": "Rildo",
-                  "1_8": "Rildo",
-                  "1_9": "Adriano"
+                  "1_15": "Rildo",
+                  "1_16": "Rildo",
+                  "1_17": "Rildo",
+                  "1_18": "Rildo",
+                  "1_19": "Rildo",
+                  "1_20": "Rildo",
+                  "1_21": "Rildo",
+                  "1_22": "Rildo"
                 }
               }
             },
-            "Convidados": {
-              "ChavePix": "",
-              "Quadra1": {
-                "Ativo": true,
-                "Grade": {
-                  "3_10": true,
-                  "3_11": true,
-                  "3_8": true,
-                  "3_9": true
-                }
-              },
-              "Recebedor": "Arena",
-              "Taxa": "",
-              "Whatsapp": ""
-            },
             "Duplas": {
               "Quadra1": {
+                "Ativo": false
+              },
+              "Quadra3": {
                 "Ativo": true,
                 "Grade": {
                   "1_17": true,
-                  "1_18": true,
-                  "3_13": true,
-                  "3_14": true,
-                  "3_15": true,
-                  "3_16": true
+                  "1_18": true
                 }
-              },
-              "Quadra2": {
-                "Ativo": true
               }
             },
             "Padrao": [
@@ -113,14 +80,42 @@
           "Quadras": {
             "nomes": [
               null,
-              "Quadra 1 - Soeki Maria Santos",
-              "Quadra 2 - Taborda",
-              "Quadra 3 - Coberta",
-              null,
-              null,
-              "Quadra 6 - teste"
+              {
+                "arquibancada": true,
+                "capacidade": "",
+                "esportes": {
+                  "tenis": true
+                },
+                "iluminacao": true,
+                "nome": "Quadra 1 - Coberta",
+                "piso": "Saibro",
+                "vip": true,
+                "visibilidadeTags": {
+                  "arqui": false,
+                  "luz": false,
+                  "piso": true,
+                  "vip": false
+                }
+              },
+              {
+                "arquibancada": false,
+                "capacidade": "",
+                "iluminacao": true,
+                "nome": "Quadra 2",
+                "piso": "Saibro",
+                "vip": false,
+                "visibilidadeTags": {
+                  "arqui": true,
+                  "luz": true,
+                  "piso": false,
+                  "vip": true
+                }
+              },
+              "Quadra 3",
+              "Quadra 4",
+              "Quadra 5"
             ],
-            "quantidade": 6
+            "quantidade": 5
           }
         },
         "jogadores": {
@@ -3190,8 +3185,19 @@
       },
       "Professor": "Admin",
       "Quadras": {
+        "Bloqueios": {
+          "Quadra-2": {
+            "2026-07-03": {
+              "descricao": "testes",
+              "regras": {
+                "fim": "12:00",
+                "inicio": "10:00"
+              }
+            }
+          }
+        },
         "Quadra1": "liberada",
-        "Quadra2": "liberada",
+        "Quadra2": "bloqueada",
         "Quadra3": "liberada"
       },
       "ReservasPorConfirmacao": true,
@@ -3247,72 +3253,6 @@
           "jogadores_completo": "Ana Francisca",
           "organizador": "Ana Francisca",
           "status": "confirmada"
-        }
-      },
-      "Quadra 3 - Coberta": {
-        "2_21": {
-          "borda": "2h",
-          "confirmacoes": {
-            "Alexandre Voj": true,
-            "Aline Garcia": true,
-            "Allana Barbosa": true,
-            "An Alice": true
-          },
-          "dataCompleta": "2026-06-30",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 21,
-          "jogadores": "An Alice, Aline Garcia",
-          "jogadores_completo": "An Alice, Alexandre Voj, Aline Garcia, Allana Barbosa",
-          "organizador": "An Alice",
-          "status": "confirmada"
-        },
-        "2_22": {
-          "confirmacoes": {
-            "Alexandre Voj": true,
-            "Aline Garcia": true,
-            "Allana Barbosa": true,
-            "An Alice": true
-          },
-          "dataCompleta": "2026-06-30",
-          "dia": 2,
-          "duracao": 2,
-          "hora": 22,
-          "jogadores": "Alexandre Voj, Allana Barbosa",
-          "jogadores_completo": "An Alice, Alexandre Voj, Aline Garcia, Allana Barbosa",
-          "organizador": "An Alice",
-          "status": "confirmada"
-        },
-        "3_6": {
-          "borda": "2h",
-          "confirmacoes": {
-            "Adriano Feitosa": true,
-            "Avila": false
-          },
-          "dataCompleta": "2026-07-01",
-          "dia": 3,
-          "duracao": 2,
-          "expiraEm": 1782849711778,
-          "hora": 6,
-          "jogadores": "Adriano Feitosa",
-          "jogadores_completo": "Adriano Feitosa, Avila",
-          "organizador": "Adriano Feitosa",
-          "status": "pendente"
-        },
-        "3_7": {
-          "confirmacoes": {
-            "Adriano Feitosa": true,
-            "Avila": false
-          },
-          "dataCompleta": "2026-07-01",
-          "dia": 3,
-          "duracao": 2,
-          "expiraEm": 1782849711778,
-          "hora": 7,
-          "jogadores": "Avila",
-          "jogadores_completo": "Adriano Feitosa, Avila",
-          "organizador": "Adriano Feitosa",
-          "status": "pendente"
         }
       }
     },
