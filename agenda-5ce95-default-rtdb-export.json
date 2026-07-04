@@ -78,9 +78,8 @@
             ]
           },
           "Quadras": {
-            "nomes": [
-              null,
-              {
+            "nomes": {
+              "1": {
                 "arquibancada": true,
                 "capacidade": "",
                 "esportes": {
@@ -97,7 +96,7 @@
                   "vip": false
                 }
               },
-              {
+              "2": {
                 "arquibancada": false,
                 "capacidade": "",
                 "iluminacao": true,
@@ -111,11 +110,30 @@
                   "vip": true
                 }
               },
-              "Quadra 3",
-              "Quadra 4",
-              "Quadra 5"
-            ],
-            "quantidade": 5
+              "3": "Quadra 3",
+              "4": "Quadra 4",
+              "5": "Quadra 5",
+              "6": {
+                "arquibancada": false,
+                "capacidade": "",
+                "esportes": {
+                  "tenis": true
+                },
+                "iluminacao": false,
+                "nome": "Quadra 6 - Espaço Kids",
+                "piso": "Saibro",
+                "vip": false
+              },
+              "status_3": "interditada",
+              "status_6": "liberada"
+            },
+            "quantidade": 6,
+            "visibilidadeGlobal": {
+              "arqui": false,
+              "luz": false,
+              "piso": true,
+              "vip": false
+            }
           }
         },
         "jogadores": {
@@ -3185,19 +3203,8 @@
       },
       "Professor": "Admin",
       "Quadras": {
-        "Bloqueios": {
-          "Quadra-2": {
-            "2026-07-03": {
-              "descricao": "testes",
-              "regras": {
-                "fim": "12:00",
-                "inicio": "10:00"
-              }
-            }
-          }
-        },
         "Quadra1": "liberada",
-        "Quadra2": "bloqueada",
+        "Quadra2": "interditada",
         "Quadra3": "liberada"
       },
       "ReservasPorConfirmacao": true,
@@ -3236,24 +3243,6 @@
         "id": "-Omoo821Z0DXTQckXJ4R",
         "texto": "Teste",
         "titulo": "Novo"
-      }
-    },
-    "reservas": {
-      "Quadra 1 - Coberta": {
-        "3_12": {
-          "borda": "1h",
-          "confirmacoes": {
-            "Ana Francisca": true
-          },
-          "dataCompleta": "2026-07-01",
-          "dia": 3,
-          "duracao": 1,
-          "hora": 12,
-          "jogadores": "Ana Francisca",
-          "jogadores_completo": "Ana Francisca",
-          "organizador": "Ana Francisca",
-          "status": "confirmada"
-        }
       }
     },
     "version": "v2.2.4"
