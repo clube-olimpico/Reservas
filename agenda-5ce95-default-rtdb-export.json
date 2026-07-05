@@ -14,6 +14,8 @@
               "Quadra1": {
                 "Ativo": true,
                 "Grade": {
+                  "1_12": "Rildo",
+                  "1_13": "Rildo",
                   "1_14": "Rildo",
                   "1_15": "Rildo",
                   "1_16": "Rildo",
@@ -28,7 +30,11 @@
             },
             "Duplas": {
               "Quadra1": {
-                "Ativo": false
+                "Ativo": true,
+                "Grade": {
+                  "2_15": true,
+                  "2_16": true
+                }
               },
               "Quadra3": {
                 "Ativo": true,
@@ -67,12 +73,12 @@
               },
               {
                 "abertura": "08:00",
-                "fechamento": "21:00",
+                "fechamento": "22:00",
                 "status": "aberto"
               },
               {
                 "abertura": "08:00",
-                "fechamento": "21:00",
+                "fechamento": "17:00",
                 "status": "aberto"
               }
             ]
@@ -100,15 +106,9 @@
                 "arquibancada": false,
                 "capacidade": "",
                 "iluminacao": true,
-                "nome": "Quadra 2",
+                "nome": "Quadra 2 - Aberta",
                 "piso": "Saibro",
-                "vip": false,
-                "visibilidadeTags": {
-                  "arqui": true,
-                  "luz": true,
-                  "piso": false,
-                  "vip": true
-                }
+                "vip": false
               },
               "3": "Quadra 3",
               "4": "Quadra 4",
@@ -1520,6 +1520,18 @@
             "nomeCompleto": "ALEX TESTE",
             "socio": "titular",
             "whatsapp": "(41) 99999-9888"
+          }
+        },
+        "reservas": {
+          "Quadra1": {
+            "jogo_7_8": {
+              "criado_por": "-Ov1agFjgte8H1EuHQ7l",
+              "data_criacao": 1783213775160,
+              "dia": 7,
+              "duracao": 1,
+              "hora": 8,
+              "jogadores": "ADRIANO GOMES FEITOSA"
+            }
           }
         }
       }
@@ -3243,6 +3255,24 @@
         "id": "-Omoo821Z0DXTQckXJ4R",
         "texto": "Teste",
         "titulo": "Novo"
+      }
+    },
+    "reservas": {
+      "Quadra 1 - Coberta": {
+        "7_8": {
+          "borda": "1h",
+          "confirmacoes": {
+            "An Alice": true
+          },
+          "dataCompleta": "2026-07-05",
+          "dia": 7,
+          "duracao": 1,
+          "hora": 8,
+          "jogadores": "An Alice",
+          "jogadores_completo": "An Alice",
+          "organizador": "An Alice",
+          "status": "confirmada"
+        }
       }
     },
     "version": "v2.2.4"
