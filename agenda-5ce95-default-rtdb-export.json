@@ -1,10 +1,10 @@
 {
   "Clubes": {
-    "ECO10": {
+    "ECO21": {
       "info_clube": {
         "email_contato": "ronaldo.taborda@gmail.com",
-        "gestor_uid": "L22EaqvMlCNGyizbkNO4KCUSJXN2",
-        "nome": "Clube ECO"
+        "gestor_uid": "ivXNVOYbYsPOzm2K8QIJpjW3mJ03",
+        "nome": "Clube Olimpico"
       },
       "sistemas": {
         "config": {
@@ -14,34 +14,17 @@
               "Quadra1": {
                 "Ativo": true,
                 "Grade": {
-                  "1_12": "Rildo",
-                  "1_13": "Rildo",
-                  "1_14": "Rildo",
-                  "1_15": "Rildo",
-                  "1_16": "Rildo",
-                  "1_17": "Rildo",
-                  "1_18": "Rildo",
-                  "1_19": "Rildo",
-                  "1_20": "Rildo",
-                  "1_21": "Rildo",
-                  "1_22": "Rildo"
+                  "1_20": "Adriano",
+                  "2_6": "Rildo",
+                  "2_7": "Rildo",
+                  "2_8": "Rildo",
+                  "2_9": "Rildo"
                 }
               }
             },
             "Duplas": {
               "Quadra1": {
-                "Ativo": true,
-                "Grade": {
-                  "2_15": true,
-                  "2_16": true
-                }
-              },
-              "Quadra3": {
-                "Ativo": true,
-                "Grade": {
-                  "1_17": true,
-                  "1_18": true
-                }
+                "Ativo": false
               }
             },
             "Padrao": [
@@ -72,8 +55,8 @@
                 "status": "aberto"
               },
               {
-                "abertura": "08:00",
-                "fechamento": "22:00",
+                "abertura": "07:00",
+                "fechamento": "21:00",
                 "status": "aberto"
               },
               {
@@ -86,48 +69,52 @@
           "Quadras": {
             "nomes": {
               "1": {
-                "arquibancada": true,
-                "capacidade": "",
-                "esportes": {
-                  "tenis": true
-                },
-                "iluminacao": true,
-                "nome": "Quadra 1 - Coberta",
-                "piso": "Saibro",
-                "vip": true,
-                "visibilidadeTags": {
-                  "arqui": false,
-                  "luz": false,
-                  "piso": true,
-                  "vip": false
-                }
-              },
-              "2": {
-                "arquibancada": false,
-                "capacidade": "",
-                "iluminacao": true,
-                "nome": "Quadra 2 - Aberta",
-                "piso": "Saibro",
-                "vip": false
-              },
-              "3": "Quadra 3",
-              "4": "Quadra 4",
-              "5": "Quadra 5",
-              "6": {
                 "arquibancada": false,
                 "capacidade": "",
                 "esportes": {
                   "tenis": true
                 },
                 "iluminacao": false,
-                "nome": "Quadra 6 - Espaço Kids",
+                "nome": "Quadra 1 - Coberta",
                 "piso": "Saibro",
                 "vip": false
               },
-              "status_3": "interditada",
-              "status_6": "liberada"
+              "2": {
+                "arquibancada": false,
+                "capacidade": "",
+                "esportes": {
+                  "tenis": true
+                },
+                "iluminacao": true,
+                "nome": "Quadra 2 - Aberta",
+                "piso": "Saibro",
+                "vip": false
+              },
+              "3": {
+                "arquibancada": false,
+                "capacidade": "",
+                "iluminacao": true,
+                "nome": "Quadra 3 - Coberta",
+                "piso": "Saibro",
+                "vip": false
+              },
+              "4": "Quadra 4",
+              "5": "Quadra 5",
+              "6": "Quadra 6",
+              "7": "Quadra 7",
+              "8": "Quadra 8",
+              "9": {
+                "arquibancada": false,
+                "capacidade": "",
+                "iluminacao": true,
+                "nome": "Quadra 9",
+                "piso": "Saibro",
+                "vip": false
+              },
+              "status_2": "interditada",
+              "status_9": "liberada"
             },
-            "quantidade": 6,
+            "quantidade": 9,
             "visibilidadeGlobal": {
               "arqui": false,
               "luz": false,
@@ -137,17 +124,7 @@
           }
         },
         "jogadores": {
-          "-Ov1_FeDNI3QJwQ5T1Pt": {
-            "apelido": "Testador",
-            "ativo": true,
-            "classe": "A",
-            "email": "jogador@gmail.com",
-            "niver": "01/01/2001",
-            "nomeCompleto": "TESTE DA COSTA",
-            "socio": "titular",
-            "whatsapp": "(41) 99917-6972"
-          },
-          "-Ov1agFjgte8H1EuHQ7l": {
+          "-OwsQrDpFbGx4981OGtl": {
             "apelido": "Adriano Feitosa",
             "ativo": true,
             "classe": "B",
@@ -155,12 +132,14 @@
             "niver": "01/01/2001",
             "nomeCompleto": "ADRIANO GOMES FEITOSA",
             "perfis": {
+              "Admin": true,
+              "Financeiro": true,
               "Professor": true
             },
-            "socio": "dependente",
-            "whatsapp": "(41) 99917-6972"
+            "socio": "titular",
+            "whatsapp": ""
           },
-          "-Ov1agI6PLaGT0Alyxe3": {
+          "-OwsQrGGmuPBaD-rCgIg": {
             "apelido": "Alessandro Xavier",
             "ativo": true,
             "classe": "C",
@@ -170,7 +149,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1agKTzUAywOOOr6XZ": {
+          "-OwsQrId7sCtuoC6ue3p": {
             "apelido": "Alexa",
             "ativo": true,
             "classe": "C",
@@ -183,7 +162,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1agMnlGIQc6qsdcs4": {
+          "-OwsQrL-ghAPMlhWJ5Vg": {
             "apelido": "Avila",
             "ativo": true,
             "classe": "C",
@@ -193,7 +172,20 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1agRTIoK9rNThR_mH": {
+          "-OwsQrNLH_WQE5_SCVCl": {
+            "apelido": "Alexandre Camargo",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "21/03/1995",
+            "nomeCompleto": "ALEXANDRE CAMARGO",
+            "perfis": {
+              "Árbitro": true
+            },
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsQrPgZKMJLDccbVRB": {
             "apelido": "Alexandre Voj",
             "ativo": true,
             "classe": "C",
@@ -203,7 +195,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1agTmJ0PQPi-Lx27_": {
+          "-OwsQrS3a_T8Pf8JQxLY": {
             "apelido": "Alice Pereira",
             "ativo": true,
             "classe": "C",
@@ -213,7 +205,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1agW5bTaVV6UXgp3c": {
+          "-OwsQrUPZ77I0Po1fo-K": {
             "apelido": "Alice Duck",
             "ativo": true,
             "classe": "B",
@@ -223,7 +215,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1agYOn7vhKXu-AV47": {
+          "-OwsQrWiFH9TaA7AHpdM": {
             "apelido": "Aline Garcia",
             "ativo": true,
             "classe": "C",
@@ -233,7 +225,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ag_hPGYqSJahvod6": {
+          "-OwsQrZ2Wzkuk9I4hj58": {
             "apelido": "Aline Sato",
             "ativo": true,
             "classe": "C",
@@ -243,7 +235,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1agc0WjsEFDvGnqov": {
+          "-OwsQraOOC9PXWAfCatL": {
             "apelido": "Aline Mazzant",
             "ativo": true,
             "classe": "C",
@@ -253,7 +245,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ageJc26tv7JmhwaS": {
+          "-OwsQrclHdgYxmxvZFna": {
             "apelido": "Allana Barbosa",
             "ativo": true,
             "classe": "B",
@@ -263,7 +255,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1aggcXHveohvdWazJ": {
+          "-OwsQrf9a9Xl8nyK-bdG": {
             "apelido": "Almir",
             "ativo": true,
             "classe": "A",
@@ -273,7 +265,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1agiwf-WyFgzK_YWv": {
+          "-OwsQrhU1OU0PeArJpdX": {
             "apelido": "Ana Francisca",
             "ativo": true,
             "classe": "",
@@ -283,7 +275,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aglF3dZsH5CPz1Yw": {
+          "-OwsQrjn7GfNwbVpBEIx": {
             "apelido": "Ana Julia",
             "ativo": true,
             "classe": "",
@@ -293,7 +285,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1agnZEcIsZgLGE1sy": {
+          "-OwsQrm7Bwu6dgj-KdTt": {
             "apelido": "An Alice",
             "ativo": true,
             "classe": "",
@@ -303,7 +295,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1agpu6chZC8g-FK6w": {
+          "-OwsQroTvdNBY94IW81q": {
             "apelido": "Ana Maria Marinho",
             "ativo": true,
             "classe": "C",
@@ -316,7 +308,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1agsCxfDwGYQFnVDC": {
+          "-OwsQrqqDAqb8ti_auhu": {
             "apelido": "Ana Paula Pereira",
             "ativo": true,
             "classe": "C",
@@ -326,7 +318,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1aguXJvB7Lt-C9Pv1": {
+          "-OwsQrtAxBP02LlgqTts": {
             "apelido": "Andre Guzik",
             "ativo": true,
             "classe": "C",
@@ -336,7 +328,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1agwtuoRQV8PHUT-F": {
+          "-OwsQrvVOeyxMqaP7XDL": {
             "apelido": "Andreia Almeida",
             "ativo": true,
             "classe": "C",
@@ -346,7 +338,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1agzE-jmvzb68ydpc": {
+          "-OwsQrxvr5QTD2D2mpFp": {
             "apelido": "Xara",
             "ativo": true,
             "classe": "B",
@@ -356,7 +348,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ah0Y2E0ZZIfDODET": {
+          "-OwsQs-Ff7nzkmNYdKL4": {
             "apelido": "Arnold",
             "ativo": true,
             "classe": "C",
@@ -366,7 +358,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ah2r423goM4kDqbk": {
+          "-OwsQs1ZnFrqnpZ5crBh": {
             "apelido": "Arthur Amorim",
             "ativo": true,
             "classe": "C",
@@ -376,7 +368,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ah59oDYLWc96EBeW": {
+          "-OwsQs3s6h6cFW7rATbV": {
             "apelido": "Arthur Warkentin",
             "ativo": true,
             "classe": "B",
@@ -386,7 +378,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ah7Th_3-pGNn9Gwt": {
+          "-OwsQs6C3KyBKc6ZmybR": {
             "apelido": "Ben August",
             "ativo": true,
             "classe": "C",
@@ -396,7 +388,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ah9mRx22dFGTLnY2": {
+          "-OwsQs8ZPlidEAclJd8w": {
             "apelido": "Bernardo",
             "ativo": true,
             "classe": "A",
@@ -406,7 +398,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ahC5ZqWh3slElLxr": {
+          "-OwsQsAusNoBRI0Fnvoq": {
             "apelido": "Bianca",
             "ativo": true,
             "classe": "C",
@@ -416,7 +408,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ahESQdaD7vgMBPVk": {
+          "-OwsQsDFXQda_AZvLGZL": {
             "apelido": "Caina Balboa",
             "ativo": true,
             "classe": "B",
@@ -426,7 +418,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ahGm4QHjcHDHuCir": {
+          "-OwsQsFbvz2sjbj3xot8": {
             "apelido": "Caroline Charnei",
             "ativo": true,
             "classe": "C",
@@ -436,7 +428,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ahJ7AQc4hom1hX_B": {
+          "-OwsQsHwCa-cN4S5Y5KC": {
             "apelido": "Claudio Warkentin",
             "ativo": true,
             "classe": "A",
@@ -446,7 +438,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ahLTPWE9tyBuPDEy": {
+          "-OwsQsKHuEF6EQwlg5cJ": {
             "apelido": "Clodoaldo",
             "ativo": true,
             "classe": "B",
@@ -456,7 +448,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ahNo-ks3B5HYgvj_": {
+          "-OwsQsMbR5Y4Z6uqE7Ji": {
             "apelido": "Convidado",
             "ativo": true,
             "classe": "",
@@ -466,7 +458,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ahQ8nxCQWOwZaEPg": {
+          "-OwsQsOyElCs3tU9DKnc": {
             "apelido": "Cristina Pirachovski",
             "ativo": true,
             "classe": "C",
@@ -476,7 +468,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ahSWD_Ex2q558bn5": {
+          "-OwsQsRIjlymmhYc1brl": {
             "apelido": "Danielle Pereira",
             "ativo": true,
             "classe": "C",
@@ -486,7 +478,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ahUpq_5N24Lo5zhE": {
+          "-OwsQsTc5krghfmdVJZ5": {
             "apelido": "Davi Voj",
             "ativo": true,
             "classe": "C",
@@ -496,7 +488,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ahXAhBiekmfglCAq": {
+          "-OwsQsW-zbAfjA5kFLt7": {
             "apelido": "Diego Paraiso",
             "ativo": true,
             "classe": "A",
@@ -506,7 +498,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ahZWXB57isf9PRo3": {
+          "-OwsQsYO0oHEqNtcnmKv": {
             "apelido": "Diosnei",
             "ativo": true,
             "classe": "C",
@@ -516,7 +508,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ahapGPG8GaUqtlTC": {
+          "-OwsQs_j31PZHIZW3q5c": {
             "apelido": "Doug",
             "ativo": true,
             "classe": "B",
@@ -526,7 +518,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ahd86ivG8FV3bwDL": {
+          "-OwsQsc3721BBkcIdPs8": {
             "apelido": "Edemar",
             "ativo": true,
             "classe": "A",
@@ -536,7 +528,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ahfU1RYD-L02Hrkt": {
+          "-OwsQseOh-WySvapWoLX": {
             "apelido": "Edna Bittencourt",
             "ativo": true,
             "classe": "C",
@@ -546,7 +538,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ahhqHwlL-26ofwGn": {
+          "-OwsQsghqpvmafYi8UIh": {
             "apelido": "Amora",
             "ativo": true,
             "classe": "A",
@@ -556,7 +548,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ahkCyf2fjUuAHID2": {
+          "-OwsQsj4s4OjHS-vUU45": {
             "apelido": "Dudu",
             "ativo": true,
             "classe": "C",
@@ -566,7 +558,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ahm_3KSYAaLRIkM3": {
+          "-OwsQslSttafyvbAlUSu": {
             "apelido": "Elenilson",
             "ativo": true,
             "classe": "",
@@ -576,7 +568,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ahou2qhTcQC9kuZd": {
+          "-OwsQsnoQwsQwZ1VKOtx": {
             "apelido": "Elisa Voj",
             "ativo": true,
             "classe": "C",
@@ -586,7 +578,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ahrGdl8n_0Vbi8vf": {
+          "-OwsQsqAIwAVM1s0Y_F5": {
             "apelido": "Erick",
             "ativo": true,
             "classe": "",
@@ -599,7 +591,7 @@
             "socio": "visitante",
             "whatsapp": ""
           },
-          "-Ov1ahta02hnObT2qXR6": {
+          "-OwsQssVuO_hadrITyeW": {
             "apelido": "Fabiana",
             "ativo": true,
             "classe": "C",
@@ -609,7 +601,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ahvwVZLWdU6jb18b": {
+          "-OwsQsus-n-7HIdqslh-": {
             "apelido": "Fabio Batista",
             "ativo": true,
             "classe": "C",
@@ -619,7 +611,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ahyKTrHwHVRylrco": {
+          "-OwsQsxCWZsnCCJUp2j6": {
             "apelido": "Felipe Parente",
             "ativo": true,
             "classe": "B",
@@ -629,7 +621,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ai-d5s_S_ZKcFHze": {
+          "-OwsQsz_6Vz5IzimjqHU": {
             "apelido": "Felipe Mikuska",
             "ativo": true,
             "classe": "B",
@@ -639,7 +631,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ai1xlNBX68emforA": {
+          "-OwsQt0ye4kHAIvsAL9l": {
             "apelido": "Felipe Muraski",
             "ativo": true,
             "classe": "C",
@@ -649,7 +641,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ai4G8X6GZeTC-rDg": {
+          "-OwsQt3Kik4oGLDmV4wj": {
             "apelido": "Fernando Cavalheiro",
             "ativo": true,
             "classe": "C",
@@ -659,7 +651,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ai6akCR4xduTzzcE": {
+          "-OwsQt5flVeKlS6iY7c_": {
             "apelido": "Flavia Titon",
             "ativo": true,
             "classe": "C",
@@ -669,7 +661,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ai8uQ22SeiwWK-jA": {
+          "-OwsQt8-T51F68mIYMD7": {
             "apelido": "Flavio Ferraz",
             "ativo": true,
             "classe": "A",
@@ -679,7 +671,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aiBD6GvQKc6oemBv": {
+          "-OwsQtAJ3SeAxvIl_HON": {
             "apelido": "Frank Fast",
             "ativo": true,
             "classe": "A",
@@ -689,7 +681,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aiDa_c8ZQaN26pC0": {
+          "-OwsQtCgWRYfLxq6ihlh": {
             "apelido": "Frank Heinrichs",
             "ativo": true,
             "classe": "C",
@@ -699,7 +691,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aiFwN86nYbalVdCF": {
+          "-OwsQtF4hb0Ew-7lS5SG": {
             "apelido": "Gabriel Martins",
             "ativo": true,
             "classe": "B",
@@ -709,7 +701,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1aiIIzVcyOYOmm4fL": {
+          "-OwsQtHT0OJlmsk9-sQ7": {
             "apelido": "Geraldo Junior",
             "ativo": true,
             "classe": "C",
@@ -719,7 +711,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aiKc7jvsNz1ny2t2": {
+          "-OwsQtJqo8TaORLGnbie": {
             "apelido": "Gilson Oliveira",
             "ativo": true,
             "classe": "C",
@@ -729,7 +721,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aiMzoTHphYWuK4fQ": {
+          "-OwsQtMB4fTIjFi6OZgQ": {
             "apelido": "Giovani Lima",
             "ativo": true,
             "classe": "B",
@@ -739,7 +731,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aiPIqjhLpCtaD0jT": {
+          "-OwsQtO_9gj3CLeV3o2u": {
             "apelido": "Gustavo Carvalho",
             "ativo": true,
             "classe": "A",
@@ -749,7 +741,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aiRbd2ZmN2G3xaR7": {
+          "-OwsQtQuBXF1BUd0BBcM": {
             "apelido": "Gustavo Ferraz",
             "ativo": true,
             "classe": "A",
@@ -759,7 +751,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aiTvqKtw9Vu5eONY": {
+          "-OwsQtTERZKOjYitCIN3": {
             "apelido": "Helio Oliveira",
             "ativo": true,
             "classe": "B",
@@ -769,7 +761,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aiWFknOpy11zpEgF": {
+          "-OwsQtVYgRUuhkdbD5Cd": {
             "apelido": "Heloisa Silva",
             "ativo": true,
             "classe": "C",
@@ -779,7 +771,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1aiYdmcDyEZ4HpEem": {
+          "-OwsQtXsASY38QuWtfnj": {
             "apelido": "Henrique Santos",
             "ativo": true,
             "classe": "C",
@@ -789,7 +781,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ai_zsbC9IsOifXxf": {
+          "-OwsQtbxPNJJvqw40pzg": {
             "apelido": "Isa",
             "ativo": true,
             "classe": "C",
@@ -799,7 +791,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1aicJBAY1oCk2QOTa": {
+          "-OwsQteNrhWIwqEi7-mF": {
             "apelido": "Isabelle Balboa",
             "ativo": true,
             "classe": "C",
@@ -809,7 +801,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1aiecS-YtcUJOYwWH": {
+          "-OwsQtgkerjzt0PrSdMM": {
             "apelido": "Ivan Balboa",
             "ativo": true,
             "classe": "A",
@@ -819,7 +811,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aigwXfpYt6WT-tzW": {
+          "-OwsQtj96DcwJym5U-3k": {
             "apelido": "Jaison",
             "ativo": true,
             "classe": "B",
@@ -829,7 +821,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aijHpGkBCjeqBohb": {
+          "-OwsQtlZ2sCxZXJUbkA8": {
             "apelido": "Jean Souza",
             "ativo": true,
             "classe": "A",
@@ -839,7 +831,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aileJ740ztBtHFzq": {
+          "-OwsQtnuR5s3v1VM2ZBi": {
             "apelido": "Joao Bento",
             "ativo": true,
             "classe": "",
@@ -849,7 +841,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aio1c5cQZdrFBryr": {
+          "-OwsQtqJpPm042fY7ola": {
             "apelido": "Joao Dario",
             "ativo": true,
             "classe": "",
@@ -859,7 +851,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aiqQV-psEL3-8Qzz": {
+          "-OwsQtsjLSDkSYil8aUf": {
             "apelido": "Joao Francisco",
             "ativo": true,
             "classe": "",
@@ -869,7 +861,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aiskNlY7Szlg0tiT": {
+          "-OwsQtv3EWCTQ8ooLB-8": {
             "apelido": "Joao Maria",
             "ativo": true,
             "classe": "",
@@ -879,7 +871,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aiv40jQGrHmFLgh4": {
+          "-OwsQtxQsfJAcHq-iqQL": {
             "apelido": "Bigode",
             "ativo": true,
             "classe": "B",
@@ -889,7 +881,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aixTp8RHaeyKCmHK": {
+          "-OwsQtzklZBp4IPvHueu": {
             "apelido": "Kaiser",
             "ativo": true,
             "classe": "C",
@@ -899,7 +891,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aizox8PFMJtd9FCk": {
+          "-OwsQu13O-WUnB-aeTQe": {
             "apelido": "Josiane Kamiya",
             "ativo": true,
             "classe": "C",
@@ -909,7 +901,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1aj1AR7Y--e4Yin-M": {
+          "-OwsQu3SSspN0g9suJvW": {
             "apelido": "Julia Voj",
             "ativo": true,
             "classe": "C",
@@ -919,7 +911,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1aj3VnCmGmzpdXh3U": {
+          "-OwsQu5qshSRKp5Eo1qi": {
             "apelido": "Kauan",
             "ativo": true,
             "classe": "C",
@@ -929,7 +921,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aj5oZp7s7A3rBod7": {
+          "-OwsQu8C80s-HjctaxJQ": {
             "apelido": "Leo Carrara",
             "ativo": false,
             "classe": "A",
@@ -942,7 +934,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aj8B1GZE44HkPt-R": {
+          "-OwsQuAYh061hRIvdl1e": {
             "apelido": "Leonardo Zamprogna",
             "ativo": true,
             "classe": "B",
@@ -952,7 +944,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajAaSzCZgu87xouL": {
+          "-OwsQuCsG60XfLQbRVTU": {
             "apelido": "Lucas Titon",
             "ativo": true,
             "classe": "B",
@@ -962,7 +954,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajCuewx5ykkz4fIH": {
+          "-OwsQuFH9f37pOI0YSi9": {
             "apelido": "Luciane Vieira",
             "ativo": true,
             "classe": "C",
@@ -972,7 +964,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ajFHUjVlP90D3sm_": {
+          "-OwsQuHcKmbtjtsiAqc0": {
             "apelido": "Luciano Cavalheiro",
             "ativo": true,
             "classe": "C",
@@ -982,7 +974,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajHf7pU0ZoNc9IbF": {
+          "-OwsQuK1Je0qiHypy8lv": {
             "apelido": "Luis Warkentin",
             "ativo": true,
             "classe": "A",
@@ -992,7 +984,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajK0__UfkrC6ldec": {
+          "-OwsQuMNj9TlugaGeCVm": {
             "apelido": "Luiz Carlos",
             "ativo": true,
             "classe": "A",
@@ -1002,7 +994,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajMMMU5urPbgRrQB": {
+          "-OwsQuOjWCdThuwUp40j": {
             "apelido": "Luiza Martins",
             "ativo": true,
             "classe": "C",
@@ -1012,7 +1004,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ajOjMA37VGvRl-N6": {
+          "-OwsQuR5Qf0agczEfQsp": {
             "apelido": "Maico",
             "ativo": true,
             "classe": "C",
@@ -1022,7 +1014,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajR3vIKIAFrXNrDi": {
+          "-OwsQuTR7QFEM1jOGQrx": {
             "apelido": "Manu",
             "ativo": true,
             "classe": "C",
@@ -1032,7 +1024,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ajTRWCHOcBo9Qtcb": {
+          "-OwsQuVrkW9QJDn1YEXp": {
             "apelido": "Marcelo Silva",
             "ativo": true,
             "classe": "B",
@@ -1042,7 +1034,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajVpTMbQwiJ5Dmc9": {
+          "-OwsQuYHNiZam_-ddAee": {
             "apelido": "Makoto",
             "ativo": true,
             "classe": "A",
@@ -1052,7 +1044,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajY8qGlsB2t3-fhi": {
+          "-OwsQu_cOC2xFTqSm0ul": {
             "apelido": "Zoti",
             "ativo": true,
             "classe": "",
@@ -1062,7 +1054,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aj_YgJ7kmzCPIBZl": {
+          "-OwsQubxDqaXq79Z8FWL": {
             "apelido": "Marco Ribeiro",
             "ativo": true,
             "classe": "A",
@@ -1072,7 +1064,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajbtvgpRa2y7o0jj": {
+          "-OwsQueLbw0QllBfdzfm": {
             "apelido": "Marcos Colombo",
             "ativo": true,
             "classe": "C",
@@ -1082,7 +1074,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajeEf4jWR8TEcCp1": {
+          "-OwsQugkay5QkIsOuoDq": {
             "apelido": "Marcus Scauri",
             "ativo": true,
             "classe": "C",
@@ -1092,7 +1084,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajggs7VGXKiTqGFD": {
+          "-OwsQuj717eD_r3rk0Q-": {
             "apelido": "Michele Moraes",
             "ativo": true,
             "classe": "C",
@@ -1102,7 +1094,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ajj4BNYr0jIvCL31": {
+          "-OwsQulYo1IVmBpG7nB9": {
             "apelido": "Natan",
             "ativo": true,
             "classe": "A",
@@ -1112,7 +1104,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajlQspFuQ8T_S2Pw": {
+          "-OwsQuntbzz9zH0iahHZ": {
             "apelido": "Nivaldo",
             "ativo": true,
             "classe": "A",
@@ -1122,7 +1114,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajnp7ClZSidN1RUr": {
+          "-OwsQuqD6svTBklCi-cE": {
             "apelido": "Pamela Balboa",
             "ativo": true,
             "classe": "C",
@@ -1132,7 +1124,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ajq8z_0vL9wkyZXX": {
+          "-OwsQusZgYpT2N9SkHng": {
             "apelido": "Paulinho",
             "ativo": true,
             "classe": "B",
@@ -1142,7 +1134,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajsZd0Ol4RDdI3Km": {
+          "-OwsQuutIHlhMCWorONL": {
             "apelido": "Pedro Azevedo",
             "ativo": true,
             "classe": "C",
@@ -1152,7 +1144,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajutECrTV_L3sBOo": {
+          "-OwsQuxJz3PYmV7-LTLv": {
             "apelido": "Pedro Lachowski",
             "ativo": true,
             "classe": "C",
@@ -1162,7 +1154,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajxDk6s0Kasp7K1g": {
+          "-OwsQuziSdW-DIbpGbkg": {
             "apelido": "Rafael Gregorio",
             "ativo": true,
             "classe": "B",
@@ -1172,7 +1164,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ajzYIR0yIUrAPxNh": {
+          "-OwsQv15_noZ0_17TTS3": {
             "apelido": "Nadal",
             "ativo": true,
             "classe": "A",
@@ -1182,7 +1174,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ak2q42RG2YtEuH7J": {
+          "-OwsQv3RKgugEyZqFgVV": {
             "apelido": "Raianne Kamiya",
             "ativo": true,
             "classe": "C",
@@ -1192,7 +1184,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ak5I-vDb--SnEQJ1": {
+          "-OwsQv5mK6wTAZf2VedX": {
             "apelido": "Ricardo Lima",
             "ativo": true,
             "classe": "C",
@@ -1202,7 +1194,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1ak7ernjQ5Irn3XOa": {
+          "-OwsQv8BNqkAbMz9mC2U": {
             "apelido": "Rildo",
             "ativo": true,
             "classe": "A",
@@ -1215,7 +1207,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1akA72tnue6iicgQX": {
+          "-OwsQvAXmKj61Pv_xvk6": {
             "apelido": "Robert Menendez",
             "ativo": true,
             "classe": "C",
@@ -1225,7 +1217,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1akCZWncKEMRt1IjD": {
+          "-OwsQvCy-sMpAlCrUfnc": {
             "apelido": "Robson Schneider",
             "ativo": true,
             "classe": "A",
@@ -1235,7 +1227,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1akEtfqt22mGxM5lJ": {
+          "-OwsQvFMbQ-4IGGbOr8M": {
             "apelido": "Rodrigo Pereira",
             "ativo": true,
             "classe": "C",
@@ -1245,7 +1237,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1akHDKKKLV3WXoGLl": {
+          "-OwsQvHgvPqD-yLZJnMt": {
             "apelido": "Rodrigo Voj",
             "ativo": true,
             "classe": "B",
@@ -1255,7 +1247,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1akJYVJYKI6S85qbO": {
+          "-OwsQvK8SjuHH9mWJR7l": {
             "apelido": "Rodrigo Weich",
             "ativo": true,
             "classe": "B",
@@ -1265,7 +1257,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1akLshp-SV2CGga0i": {
+          "-OwsQvMVzLwctTR5roUp": {
             "apelido": "Federer",
             "ativo": true,
             "classe": "A",
@@ -1275,7 +1267,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1akOGT_bRhTaCHVDa": {
+          "-OwsQvOr7QzXUpmd3IkP": {
             "apelido": "Ronaldo Bitencourt",
             "ativo": true,
             "classe": "B",
@@ -1285,20 +1277,20 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1akQajsv1Luk3n_mt": {
-            "apelido": "Rone",
+          "-OwsQvRC5SUsj7fZ-cLY": {
+            "apelido": "Taborda",
             "ativo": true,
             "classe": "A",
-            "email": "ronaldo.taborda@gmail.com",
+            "email": "",
             "niver": "26/05/1973",
             "nomeCompleto": "RONALDO TABORDA",
             "perfis": {
               "Admin": true
             },
             "socio": "titular",
-            "whatsapp": "(41) 99917-6972"
+            "whatsapp": ""
           },
-          "-Ov1akT0qrwnJZ73Me0D": {
+          "-OwsQvTZJroP0YqJ_787": {
             "apelido": "Rony Duck",
             "ativo": true,
             "classe": "B",
@@ -1308,7 +1300,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1akVM9ENgvXvqoFD7": {
+          "-OwsQvW12C9M3BL3WWQ1": {
             "apelido": "Sidnei Novack",
             "ativo": true,
             "classe": "B",
@@ -1318,7 +1310,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1akXkihnAduJn0V79": {
+          "-OwsQvYPdjo0w3VLCBPo": {
             "apelido": "Silvane",
             "ativo": true,
             "classe": "C",
@@ -1328,7 +1320,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1ak_5H7n-3VjkUJLt": {
+          "-OwsQv_p4NPXiva_haAh": {
             "apelido": "Silvanio Pereira",
             "ativo": true,
             "classe": "C",
@@ -1338,7 +1330,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1akbPnMY-QfkaclcW": {
+          "-OwsQvcDLSHVqIiUMec2": {
             "apelido": "Stefany Ferreira",
             "ativo": true,
             "classe": "C",
@@ -1348,7 +1340,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1akdjxXoyujTSxT5p": {
+          "-OwsQveZl-cGGAJCldCX": {
             "apelido": "Susan",
             "ativo": true,
             "classe": "C",
@@ -1358,7 +1350,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1akg36u7GO_l-6idR": {
+          "-OwsQvguWgOg13ZMCJLn": {
             "apelido": "Santos",
             "ativo": true,
             "classe": "",
@@ -1368,7 +1360,7 @@
             "socio": "visitante",
             "whatsapp": ""
           },
-          "-Ov1akiNOkYxdRBBd4dI": {
+          "-OwsQvjECijbqwEaEym4": {
             "apelido": "Thais Freitas",
             "ativo": true,
             "classe": "C",
@@ -1378,7 +1370,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1akkjII9cD3vSMlhK": {
+          "-OwsQvl_4Do48ltGN3q3": {
             "apelido": "Thomas August",
             "ativo": true,
             "classe": "C",
@@ -1388,7 +1380,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1akn3DjRtLM5gbdlP": {
+          "-OwsQvo46wurcz40jfzk": {
             "apelido": "Thomas Warkentin",
             "ativo": true,
             "classe": "B",
@@ -1398,7 +1390,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1akpP_GUgGj0hQeX-": {
+          "-OwsQvqYbLVxXb6Xfd3w": {
             "apelido": "Timo",
             "ativo": true,
             "classe": "C",
@@ -1408,7 +1400,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1akrj44UClLW2QzIb": {
+          "-OwsQvtVmQHPoJIY2DWm": {
             "apelido": "Toni Olimpico",
             "ativo": true,
             "classe": "",
@@ -1418,7 +1410,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1aku3lbZvvh5QLGOd": {
+          "-OwsQvvxM_miEdZi0Pll": {
             "apelido": "Buiu",
             "ativo": true,
             "classe": "B",
@@ -1428,20 +1420,21 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1akwOIeDWtHEsA7ME": {
+          "-OwsQvyOzfcs0l55dRE2": {
             "apelido": "Vania",
             "ativo": true,
             "classe": "C",
-            "email": "vstaborda@gmail.com",
+            "email": "",
             "niver": "04/10/1979",
             "nomeCompleto": "VANIA TABORDA",
             "perfis": {
-              "Admin": true
+              "Admin": true,
+              "Professor": true
             },
             "socio": "titular",
-            "whatsapp": "(41) 99124-6606"
+            "whatsapp": ""
           },
-          "-Ov1akyiFWFQJ3kiFwCJ": {
+          "-OwsQw-ldbqv0ziE3afG": {
             "apelido": "Veridiane Voj",
             "ativo": true,
             "classe": "B",
@@ -1451,7 +1444,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1al062u5_rcM2nIu2": {
+          "-OwsQw27VIh1YXzmGJ7a": {
             "apelido": "Victoria Zeni",
             "ativo": true,
             "classe": "B",
@@ -1461,7 +1454,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1al2Vbx7-yi6ID6tv": {
+          "-OwsQw4aP2jNceh_H7CX": {
             "apelido": "Vitor Zamprogna",
             "ativo": true,
             "classe": "B",
@@ -1471,7 +1464,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1al4sBkhJojnadVM8": {
+          "-OwsQw71qL591v7fZP3o": {
             "apelido": "Vivianne Laverde",
             "ativo": true,
             "classe": "C",
@@ -1481,7 +1474,7 @@
             "socio": "dependente",
             "whatsapp": ""
           },
-          "-Ov1al7FOO3tdXo53_-m": {
+          "-OwsQw9UEKSxZpMFdXo7": {
             "apelido": "Wilmar",
             "ativo": true,
             "classe": "C",
@@ -1491,7 +1484,7 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-Ov1al9c_wGkwuUCSRHa": {
+          "-OwsQwBvgH5rsXASs2ba": {
             "apelido": "Yuri",
             "ativo": true,
             "classe": "C",
@@ -1500,125 +1493,1458 @@
             "nomeCompleto": "YURI HARDER",
             "socio": "titular",
             "whatsapp": ""
-          },
-          "-OwU02YKh46AbiOCa9VZ": {
-            "apelido": "Rone",
-            "ativo": true,
-            "classe": "A",
-            "email": "ronaldo.taborda@gmail.com",
-            "niver": "01/01/2001",
-            "nomeCompleto": "RONE COSTA",
-            "socio": "titular",
-            "whatsapp": "(41) 99917-6972"
-          },
-          "-OwUDqdls2l_Q_MgsoJi": {
-            "apelido": "Teste",
-            "ativo": true,
-            "classe": "C",
-            "email": "oi@trste",
-            "niver": "01/01/2001",
-            "nomeCompleto": "ALEX TESTE",
-            "socio": "titular",
-            "whatsapp": "(41) 99999-9888"
-          }
-        },
-        "reservas": {
-          "Quadra - 1": {
-            "1_10": {
-              "confirmacoes": {
-                "Adriano Feitosa": true
-              },
-              "dataCompleta": "2026-07-06",
-              "dia": 1,
-              "duracao": 2,
-              "hora": 10,
-              "jogadores": "Adriano Feitosa, Alessandro Xavier, Alice Pereira",
-              "jogadores_completo": "ADRIANO GOMES FEITOSA, ALESSANDRO ROMERO XAVIER, ALICE ALMEIDA PEREIRA",
-              "organizador": "ADRIANO GOMES FEITOSA",
-              "status": "confirmada"
-            },
-            "1_6": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Joao Bento": true
-              },
-              "dataCompleta": "2026-07-06",
-              "dia": 1,
-              "duracao": 1,
-              "hora": 6,
-              "jogadores": "Joao Bento",
-              "jogadores_completo": "JOAO BENTO PEREIRA",
-              "organizador": "JOAO BENTO PEREIRA",
-              "status": "confirmada"
-            },
-            "1_7": {
-              "borda": "2h",
-              "confirmacoes": {
-                "An Alice": true
-              },
-              "dataCompleta": "2026-07-06",
-              "dia": 1,
-              "duracao": 2,
-              "hora": 7,
-              "jogadores": "An Alice, Ana Maria Marinho",
-              "jogadores_completo": "ANA LICE DOURADO, ANA MARIA MARINHO GOMES",
-              "organizador": "ANA LICE DOURADO",
-              "status": "confirmada"
-            },
-            "1_8": {
-              "confirmacoes": {
-                "An Alice": true
-              },
-              "dataCompleta": "2026-07-06",
-              "dia": 1,
-              "duracao": 2,
-              "hora": 8,
-              "jogadores": "An Alice, Ana Maria Marinho",
-              "jogadores_completo": "ANA LICE DOURADO, ANA MARIA MARINHO GOMES",
-              "organizador": "ANA LICE DOURADO",
-              "status": "confirmada"
-            },
-            "1_9": {
-              "borda": "2h",
-              "confirmacoes": {
-                "Adriano Feitosa": true
-              },
-              "dataCompleta": "2026-07-06",
-              "dia": 1,
-              "duracao": 2,
-              "hora": 9,
-              "jogadores": "Adriano Feitosa, Alessandro Xavier, Alice Pereira",
-              "jogadores_completo": "ADRIANO GOMES FEITOSA, ALESSANDRO ROMERO XAVIER, ALICE ALMEIDA PEREIRA",
-              "organizador": "ADRIANO GOMES FEITOSA",
-              "status": "confirmada"
-            },
-            "2_8": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Vania": true
-              },
-              "dataCompleta": "2026-07-07",
-              "dia": 2,
-              "duracao": 1,
-              "hora": 8,
-              "jogadores": "Vania, Rone",
-              "jogadores_completo": "VANIA TABORDA, RONALDO TABORDA",
-              "organizador": "VANIA TABORDA",
-              "status": "confirmada"
-            }
           }
         }
       }
     },
-    "NIKE21": {
+    "NIKEI10": {
       "info_clube": {
         "email_contato": "ronaldo.taborda@tre-pr.jus.br",
-        "gestor_uid": "iCDyBLdGYjY8xRKlhCxDRz5OoDZ2",
-        "nome": "Clube Nikkeyone"
+        "gestor_uid": "ZF2ZAugF0dX746kzcHgwPNCGic73",
+        "nome": "Arena Nikey"
       },
       "sistemas": {
         "config": {
-          "Abrir": true
+          "Abrir": true,
+          "Horarios": {
+            "Padrao": [
+              null,
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "20:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "20:00",
+                "status": "aberto"
+              }
+            ]
+          },
+          "Quadras": {
+            "nomes": {
+              "1": {
+                "arquibancada": false,
+                "capacidade": "",
+                "esportes": {
+                  "tenis": true
+                },
+                "iluminacao": true,
+                "nome": "Quadra 1 - Central",
+                "piso": "Saibro",
+                "vip": false
+              },
+              "2": "Quadra 2",
+              "3": "Quadra 3",
+              "4": "Quadra 4",
+              "5": "Quadra 5",
+              "status_5": "interditada"
+            },
+            "quantidade": 5,
+            "visibilidadeGlobal": {
+              "arqui": false,
+              "luz": false,
+              "piso": true,
+              "vip": false
+            }
+          }
+        },
+        "jogadores": {
+          "-OwsT_hYXGTXUmup4Qhg": {
+            "apelido": "Adriano Feitosa",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "ADRIANO GOMES FEITOSA",
+            "perfis": {
+              "Admin": true,
+              "Financeiro": true,
+              "Professor": true
+            },
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsT_jx5PpPP08jTgOk": {
+            "apelido": "Alessandro Xavier",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "04/04/1975",
+            "nomeCompleto": "ALESSANDRO ROMERO XAVIER",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsT_mHIMRlRpU_i5NI": {
+            "apelido": "Alexa",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "11/03/1975",
+            "nomeCompleto": "ALEXANDRA AVILA",
+            "perfis": {
+              "Árbitro": true
+            },
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsT_obbsQObhGPg6Ny": {
+            "apelido": "Avila",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "21/09/1974",
+            "nomeCompleto": "ALEXANDRE AVILA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsT_qzzMdD3Xxl8zZD": {
+            "apelido": "Alexandre Camargo",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "21/03/1995",
+            "nomeCompleto": "ALEXANDRE CAMARGO",
+            "perfis": {
+              "Árbitro": true
+            },
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsT_tIj_aBJ_UHKbvW": {
+            "apelido": "Alexandre Voj",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "08/12/2007",
+            "nomeCompleto": "ALEXANDRE VOJCIECHOVSKI",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsT_vbrrWwdGNgq7K3": {
+            "apelido": "Alice Pereira",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "04/11/2016",
+            "nomeCompleto": "ALICE ALMEIDA PEREIRA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsT_xvtcKEtB6OJai_": {
+            "apelido": "Alice Duck",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "25/02/1996",
+            "nomeCompleto": "ALICE DUCK",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTa-X9e6ekgZzEtVV": {
+            "apelido": "Aline Garcia",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "27/02/1990",
+            "nomeCompleto": "ALINE MULLER GARCIA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTa1r_xq39THeFNcH": {
+            "apelido": "Aline Sato",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "09/03/1990",
+            "nomeCompleto": "ALINE SATO",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTa4ICMbtLuiX_0pO": {
+            "apelido": "Aline Mazzant",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "21/06/1990",
+            "nomeCompleto": "ALINE SILVA MAZZANT",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTa6eplWybmlr4LhC": {
+            "apelido": "Allana Barbosa",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "13/04/1996",
+            "nomeCompleto": "ALLANA BARBOSA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTa92vKN_HqQtjSCM": {
+            "apelido": "Almir",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "10/07/1964",
+            "nomeCompleto": "ALMIR ALVES DA CRUZ",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTaBpxK7DforhX1fe": {
+            "apelido": "Ana Francisca",
+            "ativo": true,
+            "classe": "",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "ANA FRANCISCA SANTOS",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTaEHLOoYCdNrnhqh": {
+            "apelido": "Ana Julia",
+            "ativo": true,
+            "classe": "",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "ANA JULIA MARTINS",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTaGvg24tiAnYFIIz": {
+            "apelido": "An Alice",
+            "ativo": true,
+            "classe": "",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "ANA LICE DOURADO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTaJPXwKNPGy2xkiT": {
+            "apelido": "Ana Maria Marinho",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "ANA MARIA MARINHO GOMES",
+            "perfis": {
+              "Financeiro": true
+            },
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTaLqOSnDIC6fTbTc": {
+            "apelido": "Ana Paula Pereira",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "07/06/2000",
+            "nomeCompleto": "ANA PAULA KESSLER PEREIRA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTaODRSUtFLmGd7zM": {
+            "apelido": "Andre Guzik",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "27/03/1997",
+            "nomeCompleto": "ANDRE GUZIK",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTaQ_ZeYIOE7Ujp7y": {
+            "apelido": "Andreia Almeida",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "14/02/1996",
+            "nomeCompleto": "ANDREIA ANSELMO DE ALMEIDA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTaSuYm885dfSk_-P": {
+            "apelido": "Xara",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "01/01/1963",
+            "nomeCompleto": "ARNOLD DUCK",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTaVG3XrmJB0oUP5D": {
+            "apelido": "Arnold",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "31/03/1970",
+            "nomeCompleto": "ARNOLD WINTER",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTaXd14Mbb3BJDB96": {
+            "apelido": "Arthur Amorim",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "10/03/1995",
+            "nomeCompleto": "ARTHUR AMORIM MODESTO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTa_1g9DfCG0BZK9S": {
+            "apelido": "Arthur Warkentin",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "21/07/2008",
+            "nomeCompleto": "ARTHUR WARKENTIN",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTabQv9Eg-Mf6Co6o": {
+            "apelido": "Ben August",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "01/06/2011",
+            "nomeCompleto": "BEN LUCCA AUGUST",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTaduTgSnygcLW8Ll": {
+            "apelido": "Bernardo",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "29/09/2008",
+            "nomeCompleto": "BERNARDO CARRARA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTagEcooqWLrBEZmz": {
+            "apelido": "Bianca",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "17/05/2002",
+            "nomeCompleto": "BIANCA KROKER",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTaibv_nHmxC8xIUx": {
+            "apelido": "Caina Balboa",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "03/09/2003",
+            "nomeCompleto": "CAINA BALBOA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTakxzgvkeS3RkUdE": {
+            "apelido": "Caroline Charnei",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "16/07/1998",
+            "nomeCompleto": "CAROLINE CHARNEI",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTanJxVlsNSxaIHWZ": {
+            "apelido": "Claudio Warkentin",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "11/06/1980",
+            "nomeCompleto": "CLAUDIO WARKENTIN",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTapfSRahodg1DKJw": {
+            "apelido": "Clodoaldo",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "27/12/1970",
+            "nomeCompleto": "CLODOALDO MOREIRA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTas3BeecwyiEPCoU": {
+            "apelido": "Convidado",
+            "ativo": true,
+            "classe": "",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "CONVIDADO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTauVb0gevqba1zdH": {
+            "apelido": "Cristina Pirachovski",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "24/01/1987",
+            "nomeCompleto": "CRISTINA PIRACHOVSKI",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTawpi7irN3KMXYLf": {
+            "apelido": "Danielle Pereira",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "30/07/1979",
+            "nomeCompleto": "DANIELLE ISAAK PEREIRA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTaz8p8aZ_QYsb67w": {
+            "apelido": "Davi Voj",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "26/10/2013",
+            "nomeCompleto": "DAVI VOJCIECHOVSKI",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTb0UHX_9OCrxdbj2": {
+            "apelido": "Diego Paraiso",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "13/11/1988",
+            "nomeCompleto": "DIEGO MATIAS PARAISO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTb3wISqm_F4V1qMW": {
+            "apelido": "Diosnei",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "21/09/1990",
+            "nomeCompleto": "DIOSNEI KOMAN",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTb6Kx7gF7zwAkEwp": {
+            "apelido": "Doug",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "03/08/1984",
+            "nomeCompleto": "DOUGLAS S MARTINS",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTb8lJk5ys-e75qL9": {
+            "apelido": "Edemar",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "07/10/1957",
+            "nomeCompleto": "EDEMAR TITSCHKOWSKI",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbBAU60YneuQ3dqx": {
+            "apelido": "Edna Bittencourt",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "11/06/1997",
+            "nomeCompleto": "EDNA BITTENCOURT",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTbDWruGIvdMeRBMA": {
+            "apelido": "Amora",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "EDNILSON RIBEIRO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbFqjZ_PedsbIJXI": {
+            "apelido": "Dudu",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "30/07/1999",
+            "nomeCompleto": "EDUARDO BERGMAN",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbICwqx-sG78QjL0": {
+            "apelido": "Elenilson",
+            "ativo": true,
+            "classe": "",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "ELENILSON CARVALHO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbKaFk2UZXt4bibN": {
+            "apelido": "Elisa Voj",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "27/10/2016",
+            "nomeCompleto": "ELISA BULLA VOJCIECHOVSKI",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTbN32vzWVwZlUmPF": {
+            "apelido": "Erick",
+            "ativo": true,
+            "classe": "",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "ERICK CLUBE",
+            "perfis": {
+              "Manutenção": true
+            },
+            "socio": "visitante",
+            "whatsapp": ""
+          },
+          "-OwsTbPSUuUjANircJzB": {
+            "apelido": "Fabiana",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "10/12/1985",
+            "nomeCompleto": "FABIANA VILLATORRE",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTbRp7sT2BXYDNzu4": {
+            "apelido": "Fabio Batista",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "07/05/1980",
+            "nomeCompleto": "FABIO BATISTA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbUGtG_GOk0kZXV-": {
+            "apelido": "Felipe Parente",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "21/05/1979",
+            "nomeCompleto": "FELIPE ANDRADE PARENTE",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbWnaQSHk1fhiKTg": {
+            "apelido": "Felipe Mikuska",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "25/09/1991",
+            "nomeCompleto": "FELIPE MIKUSKA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbZDFLAn3vZKbdJH": {
+            "apelido": "Felipe Muraski",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "14/04/1983",
+            "nomeCompleto": "FELIPE PRETTO MURASKI",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbahkHYP1PSymG6K": {
+            "apelido": "Fernando Cavalheiro",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "14/04/2000",
+            "nomeCompleto": "FERNANDO LEONARDO CAVALHEIRO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbd4VHBifcKb_toD": {
+            "apelido": "Flavia Titon",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "07/10/1996",
+            "nomeCompleto": "FLAVIA AVILA TITON",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTbfPgfHtJnQGgNut": {
+            "apelido": "Flavio Ferraz",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "27/03/1972",
+            "nomeCompleto": "FLAVIO FERRAZ",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbhj4coAdEJ9crH9": {
+            "apelido": "Frank Fast",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "FRANK FAST",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbkF6sL4THUmFIkl": {
+            "apelido": "Frank Heinrichs",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "27/06/1980",
+            "nomeCompleto": "FRANK HEINRICHS",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbnC7u8LANeC368R": {
+            "apelido": "Gabriel Martins",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "06/06/1995",
+            "nomeCompleto": "GABRIEL MARTINS LACHOWSKI",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTbq084LCKHryORVe": {
+            "apelido": "Geraldo Junior",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "02/05/1998",
+            "nomeCompleto": "GERALDO SOARES JUNIOR",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbsa6VY2ACOovb2r": {
+            "apelido": "Gilson Oliveira",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "11/07/1967",
+            "nomeCompleto": "GILSON OLIVEIRA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbuxo3fz8us2xuUc": {
+            "apelido": "Giovani Lima",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "23/07/1991",
+            "nomeCompleto": "GIOVANI SOARES DE LIMA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbxP_zSztoix8Knv": {
+            "apelido": "Gustavo Carvalho",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "GUSTAVO CARVALHO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTbzkBBLMWbkBqC9y": {
+            "apelido": "Gustavo Ferraz",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "16/06/1977",
+            "nomeCompleto": "GUSTAVO FERRAZ",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTc19LeP0Z7yVcfMS": {
+            "apelido": "Helio Oliveira",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "24/10/1984",
+            "nomeCompleto": "HELIO LEANDRO DE OLIVEIRA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTc3UUA4rtc5oFyN9": {
+            "apelido": "Heloisa Silva",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "18/10/2008",
+            "nomeCompleto": "HELOISA VIEIRA DA SILVA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTc5oEpVlUPXDnMGv": {
+            "apelido": "Henrique Santos",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "11/12/2011",
+            "nomeCompleto": "HENRIQUE SANTOS",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTc8HNqtYxv0UJN4O": {
+            "apelido": "Isa",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "02/06/1995",
+            "nomeCompleto": "ISABELA REICHARDT",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTcAdG8a1U1FP-9UG": {
+            "apelido": "Isabelle Balboa",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "06/09/2006",
+            "nomeCompleto": "ISABELLE BALBOA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTcD6nwd3e-NxRTos": {
+            "apelido": "Ivan Balboa",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "07/09/1981",
+            "nomeCompleto": "IVAN BALBOA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTcFUOVUdsgIJSrpM": {
+            "apelido": "Jaison",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "08/01/1981",
+            "nomeCompleto": "JAISON URLIAN KLUG",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTcHqN1N2xXkNKroK": {
+            "apelido": "Jean Souza",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "25/06/1982",
+            "nomeCompleto": "JEAN CARLO DE SOUZA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTcKCQVKnLK_pddJI": {
+            "apelido": "Joao Bento",
+            "ativo": true,
+            "classe": "",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "JOAO BENTO PEREIRA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTcMZwASw0j5R-H8L": {
+            "apelido": "Joao Dario",
+            "ativo": true,
+            "classe": "",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "JOAO DARIO DINIZ",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTcOwHMjBjpclwqX_": {
+            "apelido": "Joao Francisco",
+            "ativo": true,
+            "classe": "",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "JOAO FRANCISCO DA SILVA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTcRJTTLr664blvmp": {
+            "apelido": "Joao Maria",
+            "ativo": true,
+            "classe": "",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "JOAO MARIA SOBRINHO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTcTd9CW8FNJbQT-G": {
+            "apelido": "Bigode",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "12/06/1994",
+            "nomeCompleto": "JOAO PAULO DA SILVA VIEIRA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTcWCmUVrX2VBas4B": {
+            "apelido": "Kaiser",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "19/07/1994",
+            "nomeCompleto": "JOAO PAULO KAISER",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTcYdNG88jPpUN8VR": {
+            "apelido": "Josiane Kamiya",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "19/09/1975",
+            "nomeCompleto": "JOSIANE TEREZINHA KAMIYA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTc_zLZzUKOu4FpI2": {
+            "apelido": "Julia Voj",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "05/05/2008",
+            "nomeCompleto": "JULIA BULLA VOJCIECHOVSKI",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTccLiJrneBxw7dUv": {
+            "apelido": "Kauan",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "07/03/1990",
+            "nomeCompleto": "KAUAN",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTcegp4p2SDW8_qj4": {
+            "apelido": "Leo Carrara",
+            "ativo": false,
+            "classe": "A",
+            "email": "",
+            "niver": "13/04/1975",
+            "nomeCompleto": "LEONARDO CARRARA",
+            "perfis": {
+              "Árbitro": true
+            },
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTch1UzkOJBbyOBaY": {
+            "apelido": "Leonardo Zamprogna",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "12/12/1998",
+            "nomeCompleto": "LEONARDO ZAMPROGNA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTcjNMl1JMitCyZBD": {
+            "apelido": "Lucas Titon",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "07/07/1996",
+            "nomeCompleto": "LUCAS SETIM TITON",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTcliaP8ITaV_sfcx": {
+            "apelido": "Luciane Vieira",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "29/10/1976",
+            "nomeCompleto": "LUCIANE VIEIRA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTco92YyItJdi-G7N": {
+            "apelido": "Luciano Cavalheiro",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "04/11/1995",
+            "nomeCompleto": "LUCIANO CAVALHEIRO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTcqf3TlLi4m6BZO1": {
+            "apelido": "Luis Warkentin",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "06/09/1978",
+            "nomeCompleto": "LUIS CARLOS WARKENTIN",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTct2w4HLun1qXpuG": {
+            "apelido": "Luiz Carlos",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "LUIZ CARLOS DE NOBREGA XAVIER",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTcvV0W84v6oc1g2B": {
+            "apelido": "Luiza Martins",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "17/04/1985",
+            "nomeCompleto": "LUIZA M S MARTINS",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTcy-hKohkEcfdxdF": {
+            "apelido": "Maico",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "31/08/1981",
+            "nomeCompleto": "MAICO ALI ZEIN",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTd-P62sVrilad7Sh": {
+            "apelido": "Manu",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "28/06/2000",
+            "nomeCompleto": "MANUELA KROKER",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTd1j4WM3wXn_xmSp": {
+            "apelido": "Marcelo Silva",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "28/11/1975",
+            "nomeCompleto": "MARCELO DA SILVA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTd43Cum-p75Uq43M": {
+            "apelido": "Makoto",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "07/02/1975",
+            "nomeCompleto": "MARCELO MAKOTO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTd6QKOzytSuIielm": {
+            "apelido": "Zoti",
+            "ativo": true,
+            "classe": "",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "MARCELO ZOTI",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTd9fHvQeNbrwMMbm": {
+            "apelido": "Marco Ribeiro",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "18/01/1978",
+            "nomeCompleto": "MARCO RIBEIRO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdC0XdlANSJ2uXpo": {
+            "apelido": "Marcos Colombo",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "01/09/1969",
+            "nomeCompleto": "MARCOS FERNANDO COLOMBO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdEVQO77WNMkPZql": {
+            "apelido": "Marcus Scauri",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "09/08/1986",
+            "nomeCompleto": "MARCUS SCAURI",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdGsaisInyuLVc0c": {
+            "apelido": "Michele Moraes",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "02/09/1998",
+            "nomeCompleto": "MICHELE MORAES",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTdJVDUm7elgOCwQi": {
+            "apelido": "Natan",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "23/12/1998",
+            "nomeCompleto": "NATAN ARAUJO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdLviEJpiipHNM_H": {
+            "apelido": "Nivaldo",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "27/10/1970",
+            "nomeCompleto": "NIVALDO PEREIRA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdONQBhp7GUjRmfZ": {
+            "apelido": "Pamela Balboa",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "20/04/1984",
+            "nomeCompleto": "PAMELA BALBOA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTdQmFKQUVXoXFfzB": {
+            "apelido": "Paulinho",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "29/06/1986",
+            "nomeCompleto": "PAULO CARLOS DA CRUZ",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdTBc43TmCJ2LTqf": {
+            "apelido": "Pedro Azevedo",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "13/04/2000",
+            "nomeCompleto": "PEDRO ALCATRAO DE AZEVEDO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdVZ-0jOyGlSswHG": {
+            "apelido": "Pedro Lachowski",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "08/06/1997",
+            "nomeCompleto": "PEDRO MARTINS LACHOWSKI",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdXyco4Too7SKJvt": {
+            "apelido": "Rafael Gregorio",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "19/03/1991",
+            "nomeCompleto": "RAFAEL GREGORIO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTd_Jy0B7rkFC_HtS": {
+            "apelido": "Nadal",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "RAFAL NADAL DE SOUZA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdbgVTYnKbgbyUjm": {
+            "apelido": "Raianne Kamiya",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "31/07/2006",
+            "nomeCompleto": "RAIANNE KAMIYA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTde4SaAMXByFkC-z": {
+            "apelido": "Ricardo Lima",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "09/12/1996",
+            "nomeCompleto": "RICARDO ALVES DE LIMA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdgSZfzAWeYAfcvY": {
+            "apelido": "Rildo",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "08/07/1969",
+            "nomeCompleto": "RILDO SANTOS",
+            "perfis": {
+              "Professor": true
+            },
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdipOCFDI1Wjgwie": {
+            "apelido": "Robert Menendez",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "08/01/1990",
+            "nomeCompleto": "ROBERT MENENDEZ",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdlC7aZeTXmWMPtm": {
+            "apelido": "Robson Schneider",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "02/04/1982",
+            "nomeCompleto": "ROBSON SCHNEIDER DA NATIVIDADE",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdnbEz3XtMYDgW36": {
+            "apelido": "Rodrigo Pereira",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "27/11/1998",
+            "nomeCompleto": "RODRIGO ISAAK PEREIRA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdpysvpvUiEZiqPr": {
+            "apelido": "Rodrigo Voj",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "23/03/1989",
+            "nomeCompleto": "RODRIGO VOJCIECHOVSKI",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdsMTWQogOHDuf2l": {
+            "apelido": "Rodrigo Weich",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "20/03/1986",
+            "nomeCompleto": "RODRIGO WEICH",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTduh6ucRS4ACUGcz": {
+            "apelido": "Federer",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "ROGER FEDERER",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTdx4KqBrzk0Xs93b": {
+            "apelido": "Ronaldo Bitencourt",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "02/03/1987",
+            "nomeCompleto": "RONALDO BITENCOURT",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTe2SlxUM6hiVTtAF": {
+            "apelido": "Taborda",
+            "ativo": true,
+            "classe": "A",
+            "email": "",
+            "niver": "26/05/1973",
+            "nomeCompleto": "RONALDO TABORDA",
+            "perfis": {
+              "Admin": true
+            },
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTe4phesi44ZEd3JM": {
+            "apelido": "Rony Duck",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "14/04/1970",
+            "nomeCompleto": "RONY WILMAR DUCK",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTe7EMF4vfaekeK3V": {
+            "apelido": "Sidnei Novack",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "02/07/1994",
+            "nomeCompleto": "SIDNEI NOVACK JUNIOR",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTe9ijPz-AA2LDHBI": {
+            "apelido": "Silvane",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "25/02/1973",
+            "nomeCompleto": "SILVANE CORREA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTeC894-VtN41fi6S": {
+            "apelido": "Silvanio Pereira",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "20/03/1971",
+            "nomeCompleto": "SILVANIO PEREIRA FILHO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTeEWNsYSf5V28zrO": {
+            "apelido": "Stefany Ferreira",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "07/05/1996",
+            "nomeCompleto": "STEFANY RIBEIRO FERREIRA",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTeIbE_3xEGxS430z": {
+            "apelido": "Susan",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "30/10/1981",
+            "nomeCompleto": "SUSAN AUGUST",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTeL0tF-4GkBXynJC": {
+            "apelido": "Santos",
+            "ativo": true,
+            "classe": "",
+            "email": "",
+            "niver": "01/01/2001",
+            "nomeCompleto": "TESTE DA SILVA SANTOS",
+            "socio": "visitante",
+            "whatsapp": ""
+          },
+          "-OwsTeNZSCdI-VZVqD_y": {
+            "apelido": "Thais Freitas",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "27/04/1995",
+            "nomeCompleto": "THAIS FREITAS",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTeQ4BKJKgn8K9nNX": {
+            "apelido": "Thomas August",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "15/05/1981",
+            "nomeCompleto": "THOMAS AUGUST",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTeS_cPTofZ_SQ2g7": {
+            "apelido": "Thomas Warkentin",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "21/07/2008",
+            "nomeCompleto": "THOMAS WARKENTIN",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTeVHKjnI8BlqzgIC": {
+            "apelido": "Timo",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "25/08/2008",
+            "nomeCompleto": "TIMO AUGUST",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTeXnXrVMC5I14iRb": {
+            "apelido": "Toni Olimpico",
+            "ativo": true,
+            "classe": "",
+            "email": "",
+            "niver": "30/07/1978",
+            "nomeCompleto": "TONI OLIMPICO",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTe_G-lbkBcZDmoof": {
+            "apelido": "Buiu",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "25/01/1977",
+            "nomeCompleto": "VALTEIR ZACARIAS DE SOUZA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTece6mbMKk-4aaCh": {
+            "apelido": "Vania",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "04/10/1979",
+            "nomeCompleto": "VANIA TABORDA",
+            "perfis": {
+              "Admin": true,
+              "Professor": true
+            },
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTef-T4ywGCzPgkgt": {
+            "apelido": "Veridiane Voj",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "08/04/1990",
+            "nomeCompleto": "VERIDIANE BULLA VOJCIECHOVSKI",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTehaZ-nmJUPgqiA6": {
+            "apelido": "Victoria Zeni",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "20/11/1998",
+            "nomeCompleto": "VICTORIA ZENI LEONOR",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTejxuqsM5MrvEWR9": {
+            "apelido": "Vitor Zamprogna",
+            "ativo": true,
+            "classe": "B",
+            "email": "",
+            "niver": "19/03/1996",
+            "nomeCompleto": "VITOR ZAMPROGNA",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTeme_lpQnoyjP3W2": {
+            "apelido": "Vivianne Laverde",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "26/03/1990",
+            "nomeCompleto": "VIVIANNE LAVERDE",
+            "socio": "dependente",
+            "whatsapp": ""
+          },
+          "-OwsTep9wH3q302alKG_": {
+            "apelido": "Wilmar",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "28/06/1971",
+            "nomeCompleto": "WILMAR KROKER",
+            "socio": "titular",
+            "whatsapp": ""
+          },
+          "-OwsTerXh8k4dgBLnxyR": {
+            "apelido": "Yuri",
+            "ativo": true,
+            "classe": "C",
+            "email": "",
+            "niver": "13/09/1999",
+            "nomeCompleto": "YURI HARDER",
+            "socio": "titular",
+            "whatsapp": ""
+          }
         }
       }
     }
