@@ -15,16 +15,46 @@
                 "Ativo": true,
                 "Grade": {
                   "1_20": "Adriano",
+                  "2_17": "Adriano",
+                  "2_18": "Adriano",
                   "2_6": "Rildo",
                   "2_7": "Rildo",
                   "2_8": "Rildo",
-                  "2_9": "Rildo"
+                  "2_9": "Rildo",
+                  "4_10": "Rildo",
+                  "4_11": "Rildo",
+                  "4_6": "Adriano",
+                  "4_7": "Rildo",
+                  "4_8": "Rildo",
+                  "4_9": "Rildo"
                 }
               }
             },
+            "Convidados": {
+              "ChavePix": "",
+              "Quadra1": {
+                "Ativo": true,
+                "Grade": {
+                  "7_10": true,
+                  "7_11": true,
+                  "7_12": true,
+                  "7_8": true,
+                  "7_9": true
+                }
+              },
+              "Recebedor": "Arena",
+              "Taxa": "",
+              "Whatsapp": ""
+            },
             "Duplas": {
               "Quadra1": {
-                "Ativo": false
+                "Ativo": true,
+                "Grade": {
+                  "2_19": true,
+                  "2_20": true,
+                  "5_15": true,
+                  "5_16": true
+                }
               }
             },
             "Padrao": [
@@ -95,13 +125,44 @@
                 "capacidade": "",
                 "iluminacao": true,
                 "nome": "Quadra 3 - Coberta",
+                "piso": "Quadra Rápida",
+                "vip": false
+              },
+              "4": {
+                "arquibancada": false,
+                "capacidade": "",
+                "iluminacao": true,
+                "nome": "Quadra 4 - Roger Federer",
                 "piso": "Saibro",
                 "vip": false
               },
-              "4": "Quadra 4",
-              "5": "Quadra 5",
-              "6": "Quadra 6",
-              "7": "Quadra 7",
+              "5": {
+                "arquibancada": false,
+                "capacidade": "",
+                "iluminacao": true,
+                "nome": "Quadra 5 - Rafael Nadal",
+                "piso": "Saibro",
+                "vip": false
+              },
+              "6": {
+                "arquibancada": false,
+                "capacidade": "",
+                "iluminacao": true,
+                "nome": "Quadra 6 - Nokak Djokovic",
+                "piso": "Saibro",
+                "vip": false
+              },
+              "7": {
+                "arquibancada": false,
+                "capacidade": "",
+                "esportes": {
+                  "tenis": true
+                },
+                "iluminacao": true,
+                "nome": "Quadra 7 - kids",
+                "piso": "Saibro",
+                "vip": false
+              },
               "8": "Quadra 8",
               "9": {
                 "arquibancada": false,
@@ -112,6 +173,8 @@
                 "vip": false
               },
               "status_2": "interditada",
+              "status_5": "interditada",
+              "status_7": "bloqueada",
               "status_9": "liberada"
             },
             "quantidade": 9,
@@ -1493,6 +1556,78 @@
             "nomeCompleto": "YURI HARDER",
             "socio": "titular",
             "whatsapp": ""
+          }
+        },
+        "reservas": {
+          "Quadra - 1": {
+            "2_19": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Adriano Feitosa": true
+              },
+              "dataCompleta": "2026-07-07",
+              "dia": 2,
+              "duracao": 2,
+              "hora": 19,
+              "jogadores": "Adriano Feitosa, Alice Duck, Almir, Avila",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, ALICE DUCK, ALMIR ALVES DA CRUZ, ALEXANDRE AVILA",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada"
+            },
+            "2_20": {
+              "confirmacoes": {
+                "Adriano Feitosa": true
+              },
+              "dataCompleta": "2026-07-07",
+              "dia": 2,
+              "duracao": 2,
+              "hora": 20,
+              "jogadores": "Adriano Feitosa, Alice Duck, Almir, Avila",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, ALICE DUCK, ALMIR ALVES DA CRUZ, ALEXANDRE AVILA",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada"
+            },
+            "2_21": {
+              "borda": "1h",
+              "confirmacoes": {
+                "An Alice": true
+              },
+              "dataCompleta": "2026-07-07",
+              "dia": 2,
+              "duracao": 1,
+              "hora": 21,
+              "jogadores": "An Alice",
+              "jogadores_completo": "ANA LICE DOURADO",
+              "organizador": "ANA LICE DOURADO",
+              "status": "confirmada"
+            },
+            "3_19": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Ronaldo Taborda Costa": true
+              },
+              "dataCompleta": "2026-07-08",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 19,
+              "jogadores": "Ronaldo Taborda Costa, Alexandre Voj",
+              "jogadores_completo": "Ronaldo Taborda Costa, ALEXANDRE VOJCIECHOVSKI",
+              "organizador": "Ronaldo Taborda Costa",
+              "status": "confirmada"
+            },
+            "3_20": {
+              "confirmacoes": {
+                "Ronaldo Taborda Costa": true
+              },
+              "dataCompleta": "2026-07-08",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 20,
+              "jogadores": "Ronaldo Taborda Costa, Alexandre Voj",
+              "jogadores_completo": "Ronaldo Taborda Costa, ALEXANDRE VOJCIECHOVSKI",
+              "organizador": "Ronaldo Taborda Costa",
+              "status": "confirmada"
+            }
           }
         }
       }
