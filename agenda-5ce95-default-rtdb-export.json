@@ -8,7 +8,9 @@
       },
       "sistemas": {
         "config": {
-          "Abrir": true,
+          "Abrir": false,
+          "DiasLimpezaLogs": 15,
+          "DiasParaLimpar": 3,
           "Horarios": {
             "Aulas": {
               "Quadra1": {
@@ -95,6 +97,11 @@
                 "status": "aberto"
               }
             ]
+          },
+          "LimpezaMural": 7,
+          "OrganizadorEdicao": false,
+          "OtimizacaoHorarios": {
+            "ativa": false
           },
           "Quadras": {
             "nomes": {
@@ -184,7 +191,9 @@
               "piso": true,
               "vip": false
             }
-          }
+          },
+          "ReservasPorConfirmacao": false,
+          "horasParaExpirar": 2
         },
         "jogadores": {
           "-OwsQrDpFbGx4981OGtl": {
@@ -1007,16 +1016,6 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-OwsQuCsG60XfLQbRVTU": {
-            "apelido": "Lucas Titon",
-            "ativo": true,
-            "classe": "B",
-            "email": "",
-            "niver": "07/07/1996",
-            "nomeCompleto": "LUCAS SETIM TITON",
-            "socio": "titular",
-            "whatsapp": ""
-          },
           "-OwsQuFH9f37pOI0YSi9": {
             "apelido": "Luciane Vieira",
             "ativo": true,
@@ -1360,16 +1359,6 @@
             "email": "",
             "niver": "14/04/1970",
             "nomeCompleto": "RONY WILMAR DUCK",
-            "socio": "titular",
-            "whatsapp": ""
-          },
-          "-OwsQvW12C9M3BL3WWQ1": {
-            "apelido": "Sidnei Novack",
-            "ativo": true,
-            "classe": "B",
-            "email": "",
-            "niver": "02/07/1994",
-            "nomeCompleto": "SIDNEI NOVACK JUNIOR",
             "socio": "titular",
             "whatsapp": ""
           },
