@@ -8,9 +8,10 @@
       },
       "sistemas": {
         "config": {
-          "Abrir": false,
-          "DiasLimpezaLogs": 15,
+          "Abrir": true,
+          "DiasLimpezaLogs": 30,
           "DiasParaLimpar": 3,
+          "DuracaoPermitida": "1_2",
           "Horarios": {
             "Aulas": {
               "Quadra1": {
@@ -19,13 +20,14 @@
                   "1_20": "Adriano",
                   "2_17": "Adriano",
                   "2_18": "Adriano",
+                  "2_19": "Adriano",
+                  "2_20": "Adriano",
+                  "2_21": "Adriano",
+                  "2_22": "Adriano",
                   "2_6": "Rildo",
                   "2_7": "Rildo",
                   "2_8": "Rildo",
                   "2_9": "Rildo",
-                  "4_10": "Rildo",
-                  "4_11": "Rildo",
-                  "4_6": "Adriano",
                   "4_7": "Rildo",
                   "4_8": "Rildo",
                   "4_9": "Rildo"
@@ -37,9 +39,11 @@
               "Quadra1": {
                 "Ativo": true,
                 "Grade": {
-                  "7_10": true,
-                  "7_11": true,
-                  "7_12": true,
+                  "6_16": true,
+                  "6_17": true,
+                  "6_18": true,
+                  "6_19": true,
+                  "6_20": true,
                   "7_8": true,
                   "7_9": true
                 }
@@ -52,10 +56,12 @@
               "Quadra1": {
                 "Ativo": true,
                 "Grade": {
+                  "2_15": true,
+                  "2_16": true,
                   "2_19": true,
                   "2_20": true,
-                  "5_15": true,
-                  "5_16": true
+                  "7_15": true,
+                  "7_16": true
                 }
               }
             },
@@ -98,11 +104,14 @@
               }
             ]
           },
-          "LimpezaMural": 7,
-          "OrganizadorEdicao": false,
+          "LimiteReservas": 1,
+          "LimpezaMural": 3,
+          "OrganizadorEdicao": true,
           "OtimizacaoHorarios": {
-            "ativa": false
+            "ativa": true
           },
+          "PartidasAbertas": false,
+          "PrivacidadeLGPD": true,
           "Quadras": {
             "nomes": {
               "1": {
@@ -192,7 +201,9 @@
               "vip": false
             }
           },
-          "ReservasPorConfirmacao": false,
+          "ReservasPorConfirmacao": true,
+          "RestricaoNobre": false,
+          "ToleranciaAtraso": 30,
           "horasParaExpirar": 2
         },
         "jogadores": {
@@ -1549,72 +1560,72 @@
         },
         "reservas": {
           "Quadra - 1": {
-            "2_19": {
-              "borda": "2h",
-              "confirmacoes": {
-                "Adriano Feitosa": true
-              },
-              "dataCompleta": "2026-07-07",
-              "dia": 2,
-              "duracao": 2,
-              "hora": 19,
-              "jogadores": "Adriano Feitosa, Alice Duck, Almir, Avila",
-              "jogadores_completo": "ADRIANO GOMES FEITOSA, ALICE DUCK, ALMIR ALVES DA CRUZ, ALEXANDRE AVILA",
-              "organizador": "ADRIANO GOMES FEITOSA",
-              "status": "confirmada"
-            },
-            "2_20": {
-              "confirmacoes": {
-                "Adriano Feitosa": true
-              },
-              "dataCompleta": "2026-07-07",
-              "dia": 2,
-              "duracao": 2,
-              "hora": 20,
-              "jogadores": "Adriano Feitosa, Alice Duck, Almir, Avila",
-              "jogadores_completo": "ADRIANO GOMES FEITOSA, ALICE DUCK, ALMIR ALVES DA CRUZ, ALEXANDRE AVILA",
-              "organizador": "ADRIANO GOMES FEITOSA",
-              "status": "confirmada"
-            },
-            "2_21": {
+            "5_6": {
               "borda": "1h",
               "confirmacoes": {
-                "An Alice": true
+                "Adriano Feitosa": true
               },
-              "dataCompleta": "2026-07-07",
-              "dia": 2,
+              "dataCompleta": "2026-07-10",
+              "dia": 5,
               "duracao": 1,
-              "hora": 21,
-              "jogadores": "An Alice",
-              "jogadores_completo": "ANA LICE DOURADO",
-              "organizador": "ANA LICE DOURADO",
+              "hora": 6,
+              "jogadores": "Adriano Feitosa",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA",
+              "organizador": "ADRIANO GOMES FEITOSA",
               "status": "confirmada"
             },
-            "3_19": {
+            "5_7": {
               "borda": "2h",
               "confirmacoes": {
-                "Ronaldo Taborda Costa": true
+                "Ana Francisca": true
               },
-              "dataCompleta": "2026-07-08",
-              "dia": 3,
+              "dataCompleta": "2026-07-10",
+              "dia": 5,
               "duracao": 2,
-              "hora": 19,
-              "jogadores": "Ronaldo Taborda Costa, Alexandre Voj",
-              "jogadores_completo": "Ronaldo Taborda Costa, ALEXANDRE VOJCIECHOVSKI",
-              "organizador": "Ronaldo Taborda Costa",
+              "hora": 7,
+              "jogadores": "Ana Francisca, Alessandro Xavier",
+              "jogadores_completo": "ANA FRANCISCA SANTOS, ALESSANDRO ROMERO XAVIER",
+              "organizador": "ANA FRANCISCA SANTOS",
               "status": "confirmada"
             },
-            "3_20": {
+            "5_8": {
               "confirmacoes": {
-                "Ronaldo Taborda Costa": true
+                "Ana Francisca": true
               },
-              "dataCompleta": "2026-07-08",
-              "dia": 3,
+              "dataCompleta": "2026-07-10",
+              "dia": 5,
               "duracao": 2,
-              "hora": 20,
-              "jogadores": "Ronaldo Taborda Costa, Alexandre Voj",
-              "jogadores_completo": "Ronaldo Taborda Costa, ALEXANDRE VOJCIECHOVSKI",
-              "organizador": "Ronaldo Taborda Costa",
+              "hora": 8,
+              "jogadores": "Ana Francisca, Alessandro Xavier",
+              "jogadores_completo": "ANA FRANCISCA SANTOS, ALESSANDRO ROMERO XAVIER",
+              "organizador": "ANA FRANCISCA SANTOS",
+              "status": "confirmada"
+            },
+            "7_15": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Ana Julia": true
+              },
+              "dataCompleta": "2026-07-12",
+              "dia": 7,
+              "duracao": 2,
+              "hora": 15,
+              "jogadores": "Ana Julia, Aline Sato, Almir, Andreia Almeida",
+              "jogadores_completo": "ANA JULIA MARTINS, ALINE SATO, ALMIR ALVES DA CRUZ, ANDREIA ANSELMO DE ALMEIDA",
+              "organizador": "ANA JULIA MARTINS",
+              "status": "confirmada"
+            },
+            "7_16": {
+              "confirmacoes": {
+                "Ana Julia": true
+              },
+              "dataCompleta": "2026-07-12",
+              "dia": 7,
+              "duracao": 2,
+              "hora": 16,
+              "jogadores": "Ana Julia, Aline Sato, Almir, Andreia Almeida",
+              "jogadores_completo": "ANA JULIA MARTINS, ALINE SATO, ALMIR ALVES DA CRUZ, ANDREIA ANSELMO DE ALMEIDA",
+              "organizador": "ANA JULIA MARTINS",
               "status": "confirmada"
             }
           }
@@ -4245,7 +4256,7 @@
     "config": {
       "Abrir": true,
       "DiasLimpezaLogs": 7,
-      "DiasParaLimpar": 3,
+      "DiasParaLimpar": 2,
       "Horarios": {
         "Aulas": {
           "Quadra1": {
@@ -4729,39 +4740,6 @@
         "id": "-Omoo821Z0DXTQckXJ4R",
         "texto": "Teste",
         "titulo": "Novo"
-      }
-    },
-    "reservas": {
-      "Quadra 1 - Coberta": {
-        "7_15": {
-          "borda": "2h",
-          "confirmacoes": {
-            "An Alice": true,
-            "Ana Paula Pereira": true
-          },
-          "dataCompleta": "2026-07-05",
-          "dia": 7,
-          "duracao": 2,
-          "hora": 15,
-          "jogadores": "An Alice",
-          "jogadores_completo": "An Alice, Ana Paula Pereira",
-          "organizador": "An Alice",
-          "status": "confirmada"
-        },
-        "7_16": {
-          "confirmacoes": {
-            "An Alice": true,
-            "Ana Paula Pereira": true
-          },
-          "dataCompleta": "2026-07-05",
-          "dia": 7,
-          "duracao": 2,
-          "hora": 16,
-          "jogadores": "Ana Paula Pereira",
-          "jogadores_completo": "An Alice, Ana Paula Pereira",
-          "organizador": "An Alice",
-          "status": "confirmada"
-        }
       }
     },
     "version": "v2.2.4"
