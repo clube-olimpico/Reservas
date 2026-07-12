@@ -11,7 +11,7 @@
           "Abrir": true,
           "DiasLimpezaLogs": 7,
           "DiasParaLimpar": 3,
-          "DuracaoPermitida": "1_2",
+          "DuracaoPermitida": "1",
           "Horarios": {
             "Aulas": {
               "Quadra1": {
@@ -32,20 +32,39 @@
                   "4_8": "Rildo",
                   "4_9": "Rildo"
                 }
+              },
+              "Quadra3": {
+                "Ativo": true
               }
             },
             "Convidados": {
               "ChavePix": "",
               "Quadra1": {
+                "Ativo": false
+              },
+              "Quadra2": {
+                "Ativo": false
+              },
+              "Quadra3": {
+                "Ativo": false
+              },
+              "Quadra4": {
                 "Ativo": true,
                 "Grade": {
-                  "6_16": true,
-                  "6_17": true,
-                  "6_18": true,
-                  "6_19": true,
-                  "6_20": true,
+                  "7_10": true,
+                  "7_11": true,
+                  "7_12": true,
                   "7_8": true,
                   "7_9": true
+                }
+              },
+              "Quadra6": {
+                "Ativo": false
+              },
+              "Quadra8": {
+                "Ativo": true,
+                "Grade": {
+                  "5_6": true
                 }
               },
               "Recebedor": "Arena",
@@ -63,6 +82,9 @@
                   "7_15": true,
                   "7_16": true
                 }
+              },
+              "Quadra9": {
+                "Ativo": true
               }
             },
             "Padrao": [
@@ -106,9 +128,9 @@
           },
           "LimiteReservas": 1,
           "LimpezaMural": 2,
-          "OrganizadorEdicao": true,
+          "OrganizadorEdicao": false,
           "OtimizacaoHorarios": {
-            "ativa": true
+            "ativa": false
           },
           "PartidasAbertas": false,
           "PrivacidadeLGPD": true,
@@ -1560,6 +1582,20 @@
         },
         "reservas": {
           "Quadra - 1": {
+            "2_15": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Ronaldo Taborda Costa": true
+              },
+              "dataCompleta": "2026-07-14",
+              "dia": 2,
+              "duracao": 1,
+              "hora": 15,
+              "jogadores": "Ronaldo Taborda Costa, Aline Mazzant, Ana Francisca, An Alice",
+              "jogadores_completo": "Ronaldo Taborda Costa, ALINE SILVA MAZZANT, ANA FRANCISCA SANTOS, ANA LICE DOURADO",
+              "organizador": "Ronaldo Taborda Costa",
+              "status": "confirmada"
+            },
             "5_6": {
               "borda": "1h",
               "confirmacoes": {
@@ -1601,6 +1637,46 @@
               "organizador": "ANA FRANCISCA SANTOS",
               "status": "confirmada"
             },
+            "7_10": {
+              "confirmacoes": {
+                "Ronaldo Taborda Costa": true
+              },
+              "dataCompleta": "2026-07-12",
+              "dia": 7,
+              "duracao": 2,
+              "hora": 10,
+              "jogadores": "Ronaldo Taborda Costa, Alexandre Voj",
+              "jogadores_completo": "Ronaldo Taborda Costa, ALEXANDRE VOJCIECHOVSKI",
+              "organizador": "Ronaldo Taborda Costa",
+              "status": "confirmada"
+            },
+            "7_11": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Ronaldo Taborda Costa": true
+              },
+              "dataCompleta": "2026-07-12",
+              "dia": 7,
+              "duracao": 2,
+              "hora": 11,
+              "jogadores": "Ronaldo Taborda Costa, Alice Duck, Aline Mazzant",
+              "jogadores_completo": "Ronaldo Taborda Costa, ALICE DUCK, ALINE SILVA MAZZANT",
+              "organizador": "Ronaldo Taborda Costa",
+              "status": "confirmada"
+            },
+            "7_12": {
+              "confirmacoes": {
+                "Ronaldo Taborda Costa": true
+              },
+              "dataCompleta": "2026-07-12",
+              "dia": 7,
+              "duracao": 2,
+              "hora": 12,
+              "jogadores": "Ronaldo Taborda Costa, Alice Duck, Aline Mazzant",
+              "jogadores_completo": "Ronaldo Taborda Costa, ALICE DUCK, ALINE SILVA MAZZANT",
+              "organizador": "Ronaldo Taborda Costa",
+              "status": "confirmada"
+            },
             "7_15": {
               "borda": "2h",
               "confirmacoes": {
@@ -1626,6 +1702,63 @@
               "jogadores": "Ana Julia, Aline Sato, Almir, Andreia Almeida",
               "jogadores_completo": "ANA JULIA MARTINS, ALINE SATO, ALMIR ALVES DA CRUZ, ANDREIA ANSELMO DE ALMEIDA",
               "organizador": "ANA JULIA MARTINS",
+              "status": "confirmada"
+            },
+            "7_8": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Ronaldo Taborda Costa": true
+              },
+              "dataCompleta": "2026-07-12",
+              "dia": 7,
+              "duracao": 1,
+              "hora": 8,
+              "jogadores": "Ronaldo Taborda Costa",
+              "jogadores_completo": "Ronaldo Taborda Costa",
+              "organizador": "Ronaldo Taborda Costa",
+              "status": "confirmada"
+            },
+            "7_9": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Ronaldo Taborda Costa": true
+              },
+              "dataCompleta": "2026-07-12",
+              "dia": 7,
+              "duracao": 2,
+              "hora": 9,
+              "jogadores": "Ronaldo Taborda Costa, Alexandre Voj",
+              "jogadores_completo": "Ronaldo Taborda Costa, ALEXANDRE VOJCIECHOVSKI",
+              "organizador": "Ronaldo Taborda Costa",
+              "status": "confirmada"
+            }
+          },
+          "Quadra - 3": {
+            "7_8": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Ronaldo Taborda Costa": true
+              },
+              "dataCompleta": "2026-07-12",
+              "dia": 7,
+              "duracao": 2,
+              "hora": 8,
+              "jogadores": "Ronaldo Taborda Costa, Alice Duck, Xara, Davi Voj",
+              "jogadores_completo": "Ronaldo Taborda Costa, ALICE DUCK, ARNOLD DUCK, DAVI VOJCIECHOVSKI",
+              "organizador": "Ronaldo Taborda Costa",
+              "status": "confirmada"
+            },
+            "7_9": {
+              "confirmacoes": {
+                "Ronaldo Taborda Costa": true
+              },
+              "dataCompleta": "2026-07-12",
+              "dia": 7,
+              "duracao": 2,
+              "hora": 9,
+              "jogadores": "Ronaldo Taborda Costa, Alice Duck, Xara, Davi Voj",
+              "jogadores_completo": "Ronaldo Taborda Costa, ALICE DUCK, ARNOLD DUCK, DAVI VOJCIECHOVSKI",
+              "organizador": "Ronaldo Taborda Costa",
               "status": "confirmada"
             }
           }
