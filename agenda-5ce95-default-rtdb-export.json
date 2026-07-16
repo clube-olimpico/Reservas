@@ -1582,61 +1582,6 @@
         },
         "reservas": {
           "Quadra - 1": {
-            "2_15": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Ronaldo Taborda Costa": true
-              },
-              "dataCompleta": "2026-07-14",
-              "dia": 2,
-              "duracao": 1,
-              "hora": 15,
-              "jogadores": "Ronaldo Taborda Costa, Aline Mazzant, Ana Francisca, An Alice",
-              "jogadores_completo": "Ronaldo Taborda Costa, ALINE SILVA MAZZANT, ANA FRANCISCA SANTOS, ANA LICE DOURADO",
-              "organizador": "Ronaldo Taborda Costa",
-              "status": "confirmada"
-            },
-            "5_6": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Adriano Feitosa": true
-              },
-              "dataCompleta": "2026-07-10",
-              "dia": 5,
-              "duracao": 1,
-              "hora": 6,
-              "jogadores": "Adriano Feitosa",
-              "jogadores_completo": "ADRIANO GOMES FEITOSA",
-              "organizador": "ADRIANO GOMES FEITOSA",
-              "status": "confirmada"
-            },
-            "5_7": {
-              "borda": "2h",
-              "confirmacoes": {
-                "Ana Francisca": true
-              },
-              "dataCompleta": "2026-07-10",
-              "dia": 5,
-              "duracao": 2,
-              "hora": 7,
-              "jogadores": "Ana Francisca, Alessandro Xavier",
-              "jogadores_completo": "ANA FRANCISCA SANTOS, ALESSANDRO ROMERO XAVIER",
-              "organizador": "ANA FRANCISCA SANTOS",
-              "status": "confirmada"
-            },
-            "5_8": {
-              "confirmacoes": {
-                "Ana Francisca": true
-              },
-              "dataCompleta": "2026-07-10",
-              "dia": 5,
-              "duracao": 2,
-              "hora": 8,
-              "jogadores": "Ana Francisca, Alessandro Xavier",
-              "jogadores_completo": "ANA FRANCISCA SANTOS, ALESSANDRO ROMERO XAVIER",
-              "organizador": "ANA FRANCISCA SANTOS",
-              "status": "confirmada"
-            },
             "7_10": {
               "confirmacoes": {
                 "Ronaldo Taborda Costa": true
@@ -1729,35 +1674,6 @@
               "hora": 9,
               "jogadores": "Ronaldo Taborda Costa, Alexandre Voj",
               "jogadores_completo": "Ronaldo Taborda Costa, ALEXANDRE VOJCIECHOVSKI",
-              "organizador": "Ronaldo Taborda Costa",
-              "status": "confirmada"
-            }
-          },
-          "Quadra - 3": {
-            "7_8": {
-              "borda": "2h",
-              "confirmacoes": {
-                "Ronaldo Taborda Costa": true
-              },
-              "dataCompleta": "2026-07-12",
-              "dia": 7,
-              "duracao": 2,
-              "hora": 8,
-              "jogadores": "Ronaldo Taborda Costa, Alice Duck, Xara, Davi Voj",
-              "jogadores_completo": "Ronaldo Taborda Costa, ALICE DUCK, ARNOLD DUCK, DAVI VOJCIECHOVSKI",
-              "organizador": "Ronaldo Taborda Costa",
-              "status": "confirmada"
-            },
-            "7_9": {
-              "confirmacoes": {
-                "Ronaldo Taborda Costa": true
-              },
-              "dataCompleta": "2026-07-12",
-              "dia": 7,
-              "duracao": 2,
-              "hora": 9,
-              "jogadores": "Ronaldo Taborda Costa, Alice Duck, Xara, Davi Voj",
-              "jogadores_completo": "Ronaldo Taborda Costa, ALICE DUCK, ARNOLD DUCK, DAVI VOJCIECHOVSKI",
               "organizador": "Ronaldo Taborda Costa",
               "status": "confirmada"
             }
@@ -3215,6 +3131,9 @@
           }
         }
       }
+    },
+    "SaaS_Config": {
+      "githubToken": "***SEGREDO_REMOVIDO***"
     }
   },
   "sistemas": {
@@ -4873,6 +4792,24 @@
         "id": "-Omoo821Z0DXTQckXJ4R",
         "texto": "Teste",
         "titulo": "Novo"
+      }
+    },
+    "reservas": {
+      "Quadra 1 - Coberta": {
+        "4_7": {
+          "borda": "1h",
+          "confirmacoes": {
+            "An Alice": true
+          },
+          "dataCompleta": "2026-07-16",
+          "dia": 4,
+          "duracao": 1,
+          "hora": 7,
+          "jogadores": "An Alice",
+          "jogadores_completo": "An Alice",
+          "organizador": "An Alice",
+          "status": "confirmada"
+        }
       }
     },
     "version": "v2.2.4"
