@@ -141,6 +141,60 @@
             "ativa": false
           },
           "PartidasAbertas": false,
+          "Perfis": {
+            "Admin": {
+              "abreviacao": "Admin",
+              "cor": "#dc3545",
+              "descricao": "Criado via Configurações",
+              "permissoes": {
+                "controle_quadras": false,
+                "gerir_reservas": false,
+                "gestao_jogadores": false,
+                "gestor_aulas": false,
+                "gestor_torneios": false,
+                "super_admin": true
+              }
+            },
+            "Manutenção": {
+              "abreviacao": "Manut",
+              "cor": "#007bff",
+              "descricao": "Criado via Configurações",
+              "permissoes": {
+                "controle_quadras": true,
+                "gerir_reservas": true,
+                "gestao_jogadores": false,
+                "gestor_aulas": true,
+                "gestor_torneios": true,
+                "super_admin": false
+              }
+            },
+            "Professor": {
+              "abreviacao": "Prof",
+              "cor": "#fd7e14",
+              "descricao": "Criado via Configurações",
+              "permissoes": {
+                "controle_quadras": false,
+                "gerir_reservas": false,
+                "gestao_jogadores": false,
+                "gestor_aulas": true,
+                "gestor_torneios": false,
+                "super_admin": false
+              }
+            },
+            "Árbitro": {
+              "abreviacao": "Juiz",
+              "cor": "#6f42c1",
+              "descricao": "Criado via Configurações",
+              "permissoes": {
+                "controle_quadras": false,
+                "gerir_reservas": false,
+                "gestao_jogadores": false,
+                "gestor_aulas": false,
+                "gestor_torneios": true,
+                "super_admin": false
+              }
+            }
+          },
           "PrivacidadeLGPD": true,
           "Quadras": {
             "nomes": {
@@ -255,11 +309,14 @@
             "apelido": "Alessandro Xavier",
             "ativo": true,
             "classe": "C",
-            "email": "",
+            "email": "ert@err",
             "niver": "04/04/1975",
             "nomeCompleto": "ALESSANDRO ROMERO XAVIER",
+            "perfis": {
+              "Teste": true
+            },
             "socio": "titular",
-            "whatsapp": ""
+            "whatsapp": "(99) 99998-8888"
           },
           "-OwsQrId7sCtuoC6ue3p": {
             "apelido": "Alexa",
@@ -411,14 +468,11 @@
             "apelido": "Ana Maria Marinho",
             "ativo": true,
             "classe": "C",
-            "email": "",
+            "email": "we@sd",
             "niver": "01/01/2001",
             "nomeCompleto": "ANA MARIA MARINHO GOMES",
-            "perfis": {
-              "Financeiro": true
-            },
             "socio": "titular",
-            "whatsapp": ""
+            "whatsapp": "(99) 99999-9999"
           },
           "-OwsQrqqDAqb8ti_auhu": {
             "apelido": "Ana Paula Pereira",
@@ -1617,88 +1671,6 @@
               "organizador": "ADRIANO GOMES FEITOSA",
               "status": "confirmada"
             },
-            "5_10": {
-              "borda": "2h",
-              "confirmacoes": {
-                "Ronaldo Taborda Costa": true
-              },
-              "dataCompleta": "2026-07-17",
-              "dia": 5,
-              "duracao": 2,
-              "hora": 10,
-              "jogadores": "Ronaldo Taborda Costa, Alessandro Xavier",
-              "jogadores_completo": "Ronaldo Taborda Costa, ALESSANDRO ROMERO XAVIER",
-              "organizador": "Ronaldo Taborda Costa",
-              "status": "confirmada"
-            },
-            "5_11": {
-              "confirmacoes": {
-                "Ronaldo Taborda Costa": true
-              },
-              "dataCompleta": "2026-07-17",
-              "dia": 5,
-              "duracao": 2,
-              "hora": 11,
-              "jogadores": "Ronaldo Taborda Costa, Alessandro Xavier",
-              "jogadores_completo": "Ronaldo Taborda Costa, ALESSANDRO ROMERO XAVIER",
-              "organizador": "Ronaldo Taborda Costa",
-              "status": "confirmada"
-            },
-            "5_22": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Ana Maria Marinho": true
-              },
-              "dataCompleta": "2026-07-17",
-              "dia": 5,
-              "duracao": 1,
-              "hora": 22,
-              "jogadores": "Ana Maria Marinho",
-              "jogadores_completo": "ANA MARIA MARINHO GOMES",
-              "organizador": "ANA MARIA MARINHO GOMES",
-              "status": "confirmada"
-            },
-            "5_6": {
-              "borda": "2h",
-              "confirmacoes": {
-                "Ana Francisca": true
-              },
-              "dataCompleta": "2026-07-17",
-              "dia": 5,
-              "duracao": 2,
-              "hora": 6,
-              "jogadores": "Ana Francisca, Alice Pereira, Allana Barbosa",
-              "jogadores_completo": "ANA FRANCISCA SANTOS, ALICE ALMEIDA PEREIRA, ALLANA BARBOSA",
-              "organizador": "ANA FRANCISCA SANTOS",
-              "status": "confirmada"
-            },
-            "5_7": {
-              "confirmacoes": {
-                "Ana Francisca": true
-              },
-              "dataCompleta": "2026-07-17",
-              "dia": 5,
-              "duracao": 2,
-              "hora": 7,
-              "jogadores": "Ana Francisca, Alice Pereira, Allana Barbosa",
-              "jogadores_completo": "ANA FRANCISCA SANTOS, ALICE ALMEIDA PEREIRA, ALLANA BARBOSA",
-              "organizador": "ANA FRANCISCA SANTOS",
-              "status": "confirmada"
-            },
-            "5_8": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Ana Francisca": true
-              },
-              "dataCompleta": "2026-07-17",
-              "dia": 5,
-              "duracao": 1,
-              "hora": 8,
-              "jogadores": "Ana Francisca",
-              "jogadores_completo": "ANA FRANCISCA SANTOS",
-              "organizador": "ANA FRANCISCA SANTOS",
-              "status": "confirmada"
-            },
             "6_7": {
               "borda": "2h",
               "confirmacoes": {
@@ -1755,89 +1727,6 @@
             }
           },
           "Quadra - 3": {
-            "5_10": {
-              "confirmacoes": {
-                "An Alice": true
-              },
-              "dataCompleta": "2026-07-17",
-              "dia": 5,
-              "duracao": 2,
-              "hora": 10,
-              "jogadores": "An Alice, Almir",
-              "jogadores_completo": "ANA LICE DOURADO, ALMIR ALVES DA CRUZ",
-              "organizador": "ANA LICE DOURADO",
-              "status": "confirmada"
-            },
-            "5_22": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Ana Julia": true
-              },
-              "dataCompleta": "2026-07-17",
-              "dia": 5,
-              "duracao": 1,
-              "hora": 22,
-              "jogadores": "Ana Julia, Arnold",
-              "jogadores_completo": "ANA JULIA MARTINS, ARNOLD WINTER",
-              "organizador": "ANA JULIA MARTINS",
-              "status": "confirmada"
-            },
-            "5_6": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Ana Maria Marinho": true
-              },
-              "dataCompleta": "2026-07-17",
-              "dia": 5,
-              "duracao": 1,
-              "hora": 6,
-              "jogadores": "Ana Maria Marinho, Fernando Cavalheiro, Arnold, Heloisa Silva",
-              "jogadores_completo": "ANA MARIA MARINHO GOMES, FERNANDO LEONARDO CAVALHEIRO, ARNOLD WINTER, HELOISA VIEIRA DA SILVA",
-              "organizador": "ANA MARIA MARINHO GOMES",
-              "status": "confirmada"
-            },
-            "5_7": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Ana Maria Marinho": true
-              },
-              "dataCompleta": "2026-07-17",
-              "dia": 5,
-              "duracao": 1,
-              "hora": 7,
-              "jogadores": "Ana Maria Marinho, Gustavo Ferraz, Frank Fast, Joao Dario",
-              "jogadores_completo": "ANA MARIA MARINHO GOMES, GUSTAVO FERRAZ, FRANK FAST, JOAO DARIO DINIZ",
-              "organizador": "ANA MARIA MARINHO GOMES",
-              "status": "confirmada"
-            },
-            "5_8": {
-              "borda": "1h",
-              "confirmacoes": {
-                "An Alice": true
-              },
-              "dataCompleta": "2026-07-17",
-              "dia": 5,
-              "duracao": 1,
-              "hora": 8,
-              "jogadores": "An Alice",
-              "jogadores_completo": "ANA LICE DOURADO",
-              "organizador": "ANA LICE DOURADO",
-              "status": "confirmada"
-            },
-            "5_9": {
-              "borda": "2h",
-              "confirmacoes": {
-                "An Alice": true
-              },
-              "dataCompleta": "2026-07-17",
-              "dia": 5,
-              "duracao": 2,
-              "hora": 9,
-              "jogadores": "An Alice, Almir",
-              "jogadores_completo": "ANA LICE DOURADO, ALMIR ALVES DA CRUZ",
-              "organizador": "ANA LICE DOURADO",
-              "status": "confirmada"
-            },
             "6_19": {
               "borda": "2h",
               "confirmacoes": {
