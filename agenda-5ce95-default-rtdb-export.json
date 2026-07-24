@@ -195,6 +195,13 @@
               }
             }
           },
+          "PermiteAgendar": {
+            "Convidado": false,
+            "Dependente": true,
+            "Professor": false,
+            "Staff": false,
+            "Titular": true
+          },
           "PrivacidadeLGPD": true,
           "Quadras": {
             "nomes": {
@@ -1806,34 +1813,13 @@
               "jogadores_completo": "ANA JULIA MARTINS, ALICE DUCK",
               "organizador": "ANA JULIA MARTINS",
               "status": "confirmada"
-            },
-            "7_10": {
-              "confirmacoes": {
-                "Adriano Feitosa": true
-              },
-              "dataCompleta": "2026-07-19",
-              "dia": 7,
-              "duracao": 2,
-              "hora": 10,
-              "jogadores": "Adriano Feitosa, Alexandre Camargo",
-              "jogadores_completo": "ADRIANO GOMES FEITOSA, ALEXANDRE CAMARGO",
-              "organizador": "ADRIANO GOMES FEITOSA",
-              "status": "confirmada"
-            },
-            "7_9": {
-              "borda": "2h",
-              "confirmacoes": {
-                "Adriano Feitosa": true
-              },
-              "dataCompleta": "2026-07-19",
-              "dia": 7,
-              "duracao": 2,
-              "hora": 9,
-              "jogadores": "Adriano Feitosa, Alexandre Camargo",
-              "jogadores_completo": "ADRIANO GOMES FEITOSA, ALEXANDRE CAMARGO",
-              "organizador": "ADRIANO GOMES FEITOSA",
-              "status": "confirmada"
             }
+          }
+        },
+        "usuariosOnline": {
+          "GESTOR": {
+            "isGestor": true,
+            "usuario": "Gestor Mestre"
           }
         }
       }
@@ -4953,19 +4939,21 @@
     },
     "reservas": {
       "Quadra 1 - Coberta": {
-        "2_6": {
+        "6_7": {
           "borda": "1h",
           "confirmacoes": {
-            "An Alice": true
+            "An Alice": true,
+            "Ana Julia": false
           },
-          "dataCompleta": "2026-07-21",
-          "dia": 2,
+          "dataCompleta": "2026-07-25",
+          "dia": 6,
           "duracao": 1,
-          "hora": 6,
-          "jogadores": "An Alice",
-          "jogadores_completo": "An Alice",
+          "expiraEm": 1784855074297,
+          "hora": 7,
+          "jogadores": "An Alice, Ana Julia",
+          "jogadores_completo": "An Alice, Ana Julia",
           "organizador": "An Alice",
-          "status": "confirmada"
+          "status": "pendente"
         }
       }
     },
