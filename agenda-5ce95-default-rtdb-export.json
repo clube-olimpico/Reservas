@@ -294,7 +294,7 @@
           "ReservasPorConfirmacao": true,
           "RestricaoNobre": false,
           "ToleranciaAtraso": 30,
-          "horasParaExpirar": 1
+          "horasParaExpirar": 2
         },
         "jogadores": {
           "-OwsQrDpFbGx4981OGtl": {
@@ -1576,15 +1576,14 @@
             "apelido": "Vania",
             "ativo": true,
             "classe": "C",
-            "email": "",
+            "email": "vania@teste",
             "niver": "04/10/1979",
             "nomeCompleto": "VANIA TABORDA",
             "perfis": {
-              "Admin": true,
               "Professor": true
             },
             "socio": "titular",
-            "whatsapp": ""
+            "whatsapp": "(41) 99999-9988"
           },
           "-OwsQw-ldbqv0ziE3afG": {
             "apelido": "Veridiane Voj",
@@ -1649,17 +1648,95 @@
         },
         "reservas": {
           "Quadra - 1": {
-            "6_20": {
+            "1_6": {
+              "borda": "1h",
+              "confirmacoes": {
+                "An Alice": false,
+                "Ana Francisca": true
+              },
+              "dataCompleta": "2026-07-27",
+              "dia": 1,
+              "duracao": 1,
+              "expiraEm": 1785126535992,
+              "hora": 6,
+              "jogadores": "Ana Francisca, An Alice",
+              "jogadores_completo": "ANA FRANCISCA SANTOS, ANA LICE DOURADO",
+              "organizador": "ANA FRANCISCA SANTOS",
+              "status": "pendente"
+            },
+            "3_10": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Ana Julia": false
+              },
+              "dataCompleta": "2026-07-29",
+              "dia": 3,
+              "duracao": 2,
+              "expiraEm": 1785131474045,
+              "hora": 10,
+              "jogadores": "Adriano Feitosa, Ana Julia",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA JULIA MARTINS",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "pendente"
+            },
+            "3_11": {
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Ana Julia": false
+              },
+              "dataCompleta": "2026-07-29",
+              "dia": 3,
+              "duracao": 2,
+              "expiraEm": 1785131474045,
+              "hora": 11,
+              "jogadores": "Adriano Feitosa, Ana Julia",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA JULIA MARTINS",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "pendente"
+            },
+            "3_6": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Ana Julia": true,
+                "Vania": true
+              },
+              "dataCompleta": "2026-07-29",
+              "dia": 3,
+              "duracao": 2,
+              "expiraEm": 1785118688969,
+              "hora": 6,
+              "jogadores": "Ana Julia, Vania",
+              "jogadores_completo": "ANA JULIA MARTINS, VANIA TABORDA",
+              "organizador": "ANA JULIA MARTINS",
+              "status": "confirmada"
+            },
+            "3_7": {
+              "confirmacoes": {
+                "Ana Julia": true,
+                "Vania": true
+              },
+              "dataCompleta": "2026-07-29",
+              "dia": 3,
+              "duracao": 2,
+              "expiraEm": 1785118688969,
+              "hora": 7,
+              "jogadores": "Ana Julia, Vania",
+              "jogadores_completo": "ANA JULIA MARTINS, VANIA TABORDA",
+              "organizador": "ANA JULIA MARTINS",
+              "status": "confirmada"
+            },
+            "3_8": {
               "borda": "1h",
               "confirmacoes": {
                 "Adriano Feitosa": true,
                 "An Alice": false
               },
-              "dataCompleta": "2026-07-25",
-              "dia": 6,
+              "dataCompleta": "2026-07-29",
+              "dia": 3,
               "duracao": 1,
-              "expiraEm": 1785026393672,
-              "hora": 20,
+              "expiraEm": 1785131001882,
+              "hora": 8,
               "jogadores": "Adriano Feitosa, An Alice",
               "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA LICE DOURADO",
               "organizador": "ADRIANO GOMES FEITOSA",
@@ -1668,49 +1745,78 @@
             "7_10": {
               "confirmacoes": {
                 "Adriano Feitosa": true,
-                "Ana Julia": false
+                "Ana Julia": true
               },
               "dataCompleta": "2026-07-26",
               "dia": 7,
               "duracao": 2,
-              "expiraEm": 1785026322272,
               "hora": 10,
               "jogadores": "Adriano Feitosa, Ana Julia",
               "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA JULIA MARTINS",
               "organizador": "ADRIANO GOMES FEITOSA",
-              "status": "pendente"
+              "status": "confirmada"
+            },
+            "7_15": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "An Alice": true,
+                "Ana Francisca": true,
+                "Ana Julia": true
+              },
+              "dataCompleta": "2026-07-26",
+              "dia": 7,
+              "duracao": 2,
+              "hora": 15,
+              "jogadores": "Adriano Feitosa, Ana Julia, Ana Francisca, An Alice",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA JULIA MARTINS, ANA FRANCISCA SANTOS, ANA LICE DOURADO",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada"
+            },
+            "7_16": {
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "An Alice": true,
+                "Ana Francisca": true,
+                "Ana Julia": true
+              },
+              "dataCompleta": "2026-07-26",
+              "dia": 7,
+              "duracao": 2,
+              "hora": 16,
+              "jogadores": "Adriano Feitosa, Ana Julia, Ana Francisca, An Alice",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA JULIA MARTINS, ANA FRANCISCA SANTOS, ANA LICE DOURADO",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada"
             },
             "7_8": {
               "borda": "1h",
               "confirmacoes": {
-                "Adriano Feitosa": true,
-                "Ana Julia": false
+                "Adriano Feitosa": true
               },
               "dataCompleta": "2026-07-26",
               "dia": 7,
               "duracao": 1,
-              "expiraEm": 1785026307711,
               "hora": 8,
-              "jogadores": "Adriano Feitosa, Ana Julia",
-              "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA JULIA MARTINS",
+              "jogadores": "Adriano Feitosa",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA",
               "organizador": "ADRIANO GOMES FEITOSA",
-              "status": "pendente"
+              "status": "confirmada"
             },
             "7_9": {
               "borda": "2h",
               "confirmacoes": {
                 "Adriano Feitosa": true,
-                "Ana Julia": false
+                "Ana Julia": true
               },
               "dataCompleta": "2026-07-26",
               "dia": 7,
               "duracao": 2,
-              "expiraEm": 1785026322272,
               "hora": 9,
               "jogadores": "Adriano Feitosa, Ana Julia",
               "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA JULIA MARTINS",
               "organizador": "ADRIANO GOMES FEITOSA",
-              "status": "pendente"
+              "status": "confirmada"
             }
           }
         }
@@ -4847,13 +4953,6 @@
           "organizador": "An Alice",
           "status": "pendente"
         }
-      }
-    },
-    "usuariosOnline": {
-      "xllafuafw": {
-        "sessionId": "xllafuafw",
-        "timestamp": 1784983397273,
-        "usuario": "ANA LICE DOURADO"
       }
     },
     "version": "v2.2.4"
