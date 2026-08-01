@@ -1,5 +1,39 @@
 {
   "Clubes": {
+    "BRAZOTTI10": {
+      "info_clube": {
+        "email_contato": "marcelozoti@yahoo.com.br",
+        "gestor_uid": "WSFWSmQnOaT1tb2yqZrZr3J3AF62",
+        "nome": "Brazotti"
+      },
+      "sistemas": {
+        "config": {
+          "Abrir": true,
+          "Quadras": {
+            "nomes": {
+              "1": {
+                "arquibancada": false,
+                "capacidade": "",
+                "iluminacao": true,
+                "nome": "Quadra 1",
+                "piso": "Saibro",
+                "vip": false
+              },
+              "2": {
+                "arquibancada": false,
+                "capacidade": "",
+                "iluminacao": true,
+                "nome": "Quadra 2",
+                "piso": "Saibro",
+                "vip": false
+              },
+              "status_2": "liberada"
+            },
+            "quantidade": 2
+          }
+        }
+      }
+    },
     "ECO21": {
       "info_clube": {
         "email_contato": "ronaldo.taborda@gmail.com",
@@ -62,12 +96,6 @@
               "Quadra6": {
                 "Ativo": false
               },
-              "Quadra8": {
-                "Ativo": true,
-                "Grade": {
-                  "5_6": true
-                }
-              },
               "Recebedor": "Arena",
               "Taxa": "",
               "Whatsapp": ""
@@ -94,9 +122,6 @@
                   "5_6": true,
                   "5_7": true
                 }
-              },
-              "Quadra9": {
-                "Ativo": true
               }
             },
             "Padrao": [
@@ -271,21 +296,11 @@
                 "piso": "Saibro",
                 "vip": false
               },
-              "8": "Quadra 8",
-              "9": {
-                "arquibancada": false,
-                "capacidade": "",
-                "iluminacao": true,
-                "nome": "Quadra 9",
-                "piso": "Saibro",
-                "vip": false
-              },
               "status_2": "interditada",
               "status_5": "interditada",
-              "status_7": "bloqueada",
-              "status_9": "liberada"
+              "status_7": "bloqueada"
             },
-            "quantidade": 9,
+            "quantidade": 7,
             "visibilidadeGlobal": {
               "arqui": false,
               "luz": false,
@@ -1648,6 +1663,125 @@
             "nomeCompleto": "YURI HARDER",
             "socio": "titular",
             "whatsapp": ""
+          }
+        },
+        "logs_pendentes": {
+          "-OyvIm1-i2Ck5x4RA4sx": {
+            "acao": "EXPIRAÇÃO_CONVITE",
+            "autor": "Rotina Automática de Sistema",
+            "clube": "ECO21",
+            "confirmacoes": {
+              "Ana Francisca": false,
+              "Ana Julia": true
+            },
+            "data": "03-08-2026",
+            "dataLocal": "01/08/2026, 00:12:31",
+            "duracao": "2 Horas",
+            "horario": "06:00 - 08:00",
+            "jogadores": "Ana Julia, Ana Francisca",
+            "jogadores_completo": "ANA JULIA MARTINS, ANA FRANCISCA SANTOS",
+            "motivo": "Convite expirado (Cancelada por falta de quórum: Exigido 2, Confirmado(s) 1)",
+            "organizadorDaReserva": "ANA JULIA MARTINS",
+            "origem": "sistema",
+            "quadra": "Quadra 1 - Coberta",
+            "slotsExcluidos": [
+              {
+                "dia": 1,
+                "hora": 6,
+                "quadra": "Quadra - 1"
+              },
+              {
+                "dia": 1,
+                "hora": 7,
+                "quadra": "Quadra - 1"
+              }
+            ],
+            "statusNoMomentoDaExclusao": "pendente",
+            "timestamp": "2026-08-01T03:12:31.348Z"
+          },
+          "-OyvIm1bN3eT3ibxegDH": {
+            "acao": "EXPIRAÇÃO_CONVITE",
+            "autor": "Rotina Automática de Sistema",
+            "clube": "ECO21",
+            "confirmacoes": {
+              "Ana Francisca": false,
+              "Ana Julia": true
+            },
+            "data": "03-08-2026",
+            "dataLocal": "01/08/2026, 00:12:31",
+            "duracao": "2 Horas",
+            "horario": "06:00 - 08:00",
+            "jogadores": "Ana Julia, Ana Francisca",
+            "jogadores_completo": "ANA JULIA MARTINS, ANA FRANCISCA SANTOS",
+            "motivo": "Convite expirado (Cancelada por falta de quórum: Exigido 2, Confirmado(s) 1)",
+            "organizadorDaReserva": "ANA JULIA MARTINS",
+            "origem": "sistema",
+            "quadra": "Quadra 1 - Coberta",
+            "slotsExcluidos": [
+              {
+                "dia": 1,
+                "hora": 6,
+                "quadra": "Quadra - 1"
+              },
+              {
+                "dia": 1,
+                "hora": 7,
+                "quadra": "Quadra - 1"
+              }
+            ],
+            "statusNoMomentoDaExclusao": "pendente",
+            "timestamp": "2026-08-01T03:12:31.257Z"
+          },
+          "-OyvIm2TYdp4ndMyxln6": {
+            "acao": "EXPIRAÇÃO_CONVITE",
+            "autor": "Rotina Automática de Sistema",
+            "clube": "ECO21",
+            "confirmacoes": {
+              "Ana Francisca": false,
+              "Ana Julia": true
+            },
+            "data": "03-08-2026",
+            "dataLocal": "01/08/2026, 00:12:31",
+            "duracao": "2 Horas",
+            "horario": "06:00 - 08:00",
+            "jogadores": "Ana Julia, Ana Francisca",
+            "jogadores_completo": "ANA JULIA MARTINS, ANA FRANCISCA SANTOS",
+            "motivo": "Convite expirado (Cancelada por falta de quórum: Exigido 2, Confirmado(s) 1)",
+            "organizadorDaReserva": "ANA JULIA MARTINS",
+            "origem": "sistema",
+            "quadra": "Quadra 1 - Coberta",
+            "slotsExcluidos": [
+              {
+                "dia": 1,
+                "hora": 6,
+                "quadra": "Quadra - 1"
+              },
+              {
+                "dia": 1,
+                "hora": 7,
+                "quadra": "Quadra - 1"
+              }
+            ],
+            "statusNoMomentoDaExclusao": "pendente",
+            "timestamp": "2026-08-01T03:12:31.276Z"
+          }
+        },
+        "reservas": {
+          "Quadra - 1": {
+            "7_8": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Ana Julia": true
+              },
+              "dataCompleta": "2026-08-02",
+              "dia": 7,
+              "duracao": 1,
+              "hora": 8,
+              "jogadores": "Ana Julia",
+              "jogadores_completo": "ANA JULIA MARTINS",
+              "organizador": "ANA JULIA MARTINS",
+              "status": "confirmada"
+            }
           }
         }
       }
@@ -3104,7 +3238,39 @@
       }
     },
     "SaaS_Config": {
-      "githubToken": "***SEGREDO_REMOVIDO***"
+      "githubToken": "***SEGREDO_REMOVIDO***",
+      "versao_web": "1.106"
+    },
+    "TESTE10": {
+      "info_clube": {
+        "email_contato": "testearena@gmail.com",
+        "gestor_uid": "sfuTQgSuliQXL3MnB9c1iDS15rW2",
+        "nome": "Teste Arena Clube"
+      },
+      "sistemas": {
+        "config": {
+          "Abrir": true,
+          "Quadras": {
+            "nomes": [
+              null,
+              "Quadra 1"
+            ],
+            "quantidade": 1
+          }
+        },
+        "jogadores": {
+          "-OyvAlDbj1W-s9ptNsbL": {
+            "apelido": "Rone",
+            "ativo": true,
+            "classe": "A",
+            "email": "rone@teste",
+            "niver": "01/01/2001",
+            "nomeCompleto": "RONALDO TESBODA",
+            "socio": "titular",
+            "whatsapp": "(42) 99999-9999"
+          }
+        }
+      }
     }
   },
   "sistemas": {
