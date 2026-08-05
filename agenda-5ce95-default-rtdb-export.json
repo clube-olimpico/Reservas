@@ -76,7 +76,7 @@
     },
     "ECO21": {
       "info_clube": {
-        "ativo": false,
+        "ativo": true,
         "email_contato": "ronaldo.taborda@gmail.com",
         "gestor_uid": "ivXNVOYbYsPOzm2K8QIJpjW3mJ03",
         "nome": "Clube Olimpico",
@@ -1727,8 +1727,142 @@
         }
       }
     },
+    "GUGU": {
+      "info_clube": {
+        "email_contato": "gugcarvalho.84@gmail.com",
+        "gestor_uid": "6Rvzbs2l93hlGn0hlqjjGptMh8u1",
+        "nome": "Clube do Gugu",
+        "whatsapp": "41996417799"
+      },
+      "sistemas": {
+        "config": {
+          "Abrir": true,
+          "Horarios": {
+            "Padrao": [
+              null,
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              }
+            ]
+          },
+          "Quadras": {
+            "nomes": [
+              null,
+              "Quadra 1",
+              "Quadra 2",
+              "Quadra 3"
+            ],
+            "quantidade": 3
+          }
+        },
+        "jogadores": {
+          "-OzENpBEE1C9NW5tXpjH": {
+            "apelido": "Taborda",
+            "ativo": true,
+            "classe": "A",
+            "email": "ronaldo.taborda@gmaol.com",
+            "niver": "26/05/1973",
+            "nomeCompleto": "RONALDO TABORDA",
+            "socio": "titular",
+            "whatsapp": "(42) 99917-6972"
+          },
+          "-OzEOZXT42SjN6xeggL2": {
+            "apelido": "Gustavo",
+            "ativo": true,
+            "classe": "A",
+            "email": "gugcarvalho.84@gmail.com",
+            "niver": "10/01/1984",
+            "nomeCompleto": "GUSTAVO",
+            "socio": "titular",
+            "whatsapp": "(41) 99641-7799"
+          }
+        },
+        "reservas": {
+          "Quadra - 1": {
+            "2_21": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Ronaldo Taborda Costa": true
+              },
+              "dataCompleta": "2026-08-04",
+              "dia": 2,
+              "duracao": 1,
+              "hora": 21,
+              "jogadores": "Ronaldo Taborda Costa",
+              "jogadores_completo": "Ronaldo Taborda Costa",
+              "organizador": "Ronaldo Taborda Costa",
+              "status": "confirmada"
+            },
+            "3_7": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Gustavo": true,
+                "Ronaldo Taborda Costa": true
+              },
+              "dataCompleta": "2026-08-05",
+              "dia": 3,
+              "duracao": 2,
+              "expiraEm": 1785898280636,
+              "hora": 7,
+              "jogadores": "Ronaldo Taborda Costa, Gustavo",
+              "jogadores_completo": "Ronaldo Taborda Costa, GUSTAVO",
+              "organizador": "Ronaldo Taborda Costa",
+              "status": "confirmada"
+            },
+            "3_8": {
+              "confirmacoes": {
+                "Gustavo": true,
+                "Ronaldo Taborda Costa": true
+              },
+              "dataCompleta": "2026-08-05",
+              "dia": 3,
+              "duracao": 2,
+              "expiraEm": 1785898280636,
+              "hora": 8,
+              "jogadores": "Ronaldo Taborda Costa, Gustavo",
+              "jogadores_completo": "Ronaldo Taborda Costa, GUSTAVO",
+              "organizador": "Ronaldo Taborda Costa",
+              "status": "confirmada"
+            }
+          }
+        }
+      }
+    },
     "NIKEI10": {
       "info_clube": {
+        "ativo": true,
         "email_contato": "ronaldo.taborda@tre-pr.jus.br",
         "gestor_uid": "ZF2ZAugF0dX746kzcHgwPNCGic73",
         "nome": "Arena Nikey",
@@ -3181,7 +3315,7 @@
     },
     "SaaS_Config": {
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "versao_web": "1.0.1"
+      "versao_web": "1.0.5"
     },
     "TESTE10": {
       "info_clube": {
