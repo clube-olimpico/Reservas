@@ -1709,6 +1709,52 @@
         },
         "reservas": {
           "Quadra - 1": {
+            "6_7": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Ana Julia": true
+              },
+              "dataCompleta": "2026-08-08",
+              "dia": 6,
+              "duracao": 2,
+              "expiraEm": 1785958299041,
+              "hora": 7,
+              "jogadores": "Adriano Feitosa, Ana Julia",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA JULIA MARTINS",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada"
+            },
+            "6_8": {
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Ana Julia": true
+              },
+              "dataCompleta": "2026-08-08",
+              "dia": 6,
+              "duracao": 2,
+              "expiraEm": 1785958299041,
+              "hora": 8,
+              "jogadores": "Adriano Feitosa, Ana Julia",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA JULIA MARTINS",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada"
+            },
+            "6_9": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Adriano Feitosa": true
+              },
+              "dataCompleta": "2026-08-08",
+              "dia": 6,
+              "duracao": 1,
+              "expiraEm": 1785958684903,
+              "hora": 9,
+              "jogadores": "Adriano Feitosa",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada"
+            },
             "7_8": {
               "borda": "1h",
               "confirmacoes": {
@@ -1723,6 +1769,16 @@
               "organizador": "ANA JULIA MARTINS",
               "status": "confirmada"
             }
+          }
+        },
+        "usuariosOnline": {
+          "-OwsQrDpFbGx4981OGtl": {
+            "id": "-OwsQrDpFbGx4981OGtl",
+            "usuario": "ADRIANO GOMES FEITOSA"
+          },
+          "GESTOR": {
+            "isGestor": true,
+            "usuario": "Gestor Mestre"
           }
         }
       }
@@ -1853,6 +1909,20 @@
               "hora": 8,
               "jogadores": "Ronaldo Taborda Costa, Gustavo",
               "jogadores_completo": "Ronaldo Taborda Costa, GUSTAVO",
+              "organizador": "Ronaldo Taborda Costa",
+              "status": "confirmada"
+            },
+            "4_7": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Ronaldo Taborda Costa": true
+              },
+              "dataCompleta": "2026-08-06",
+              "dia": 4,
+              "duracao": 1,
+              "hora": 7,
+              "jogadores": "Ronaldo Taborda Costa",
+              "jogadores_completo": "Ronaldo Taborda Costa",
               "organizador": "Ronaldo Taborda Costa",
               "status": "confirmada"
             }
@@ -5006,6 +5076,70 @@
         "id": "-Omoo821Z0DXTQckXJ4R",
         "texto": "Teste",
         "titulo": "Novo"
+      }
+    },
+    "reservas": {
+      "Quadra 1 - Coberta": {
+        "3_16": {
+          "borda": "2h",
+          "confirmacoes": {
+            "An Alice": true,
+            "Vania": true
+          },
+          "dataCompleta": "2026-08-05",
+          "dia": 3,
+          "duracao": 3,
+          "hora": 16,
+          "jogadores": "An Alice",
+          "jogadores_completo": "An Alice, Vania",
+          "organizador": "An Alice",
+          "resultado": {
+            "dataInformado": "2026-08-05T20:32:58.943Z",
+            "informadoPor": ": An Alice",
+            "perdedor": "Vania",
+            "set1": {
+              "placar": "6x1",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "4x6",
+              "tiebreak": ""
+            },
+            "set3": "10x3",
+            "tipo": "Placar Normal",
+            "vencedor": "An Alice"
+          },
+          "status": "resultado_pendente"
+        },
+        "3_17": {
+          "confirmacoes": {
+            "An Alice": true,
+            "Vania": true
+          },
+          "dataCompleta": "2026-08-05",
+          "dia": 3,
+          "hora": 17,
+          "jogadores": "Vania",
+          "jogadores_completo": "An Alice, Vania",
+          "organizador": "An Alice",
+          "resultado": {
+            "dataInformado": "2026-08-05T20:32:58.943Z",
+            "informadoPor": ": An Alice",
+            "perdedor": "Vania",
+            "set1": {
+              "placar": "6x1",
+              "tiebreak": ""
+            },
+            "set2": {
+              "placar": "4x6",
+              "tiebreak": ""
+            },
+            "set3": "10x3",
+            "tipo": "Placar Normal",
+            "vencedor": "An Alice"
+          },
+          "status": "resultado_pendente"
+        }
       }
     },
     "version": "v2.2.4"
