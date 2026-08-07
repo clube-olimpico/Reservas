@@ -355,7 +355,49 @@
           "ReservasPorConfirmacao": true,
           "RestricaoNobre": false,
           "ToleranciaAtraso": 30,
-          "horasParaExpirar": 1
+          "horasParaExpirar": 1,
+          "ranking": {
+            "ativo": true,
+            "barragem": {
+              "pontosDerrota": 1,
+              "pontosVitoria": 3,
+              "pontosWO": 0
+            },
+            "divisaoGenero": "separado",
+            "duracaoPartida": 2,
+            "financeiro": {
+              "chavePix": "",
+              "cobrarTaxa": false,
+              "recebedorPix": "",
+              "valorTaxa": ""
+            },
+            "grupos": {
+              "cabecasChave": "ranking",
+              "classificadosGrupo": "2",
+              "criterioDesempate": "games_confronto_sorteio",
+              "estouroPrazo": "sorteio",
+              "prazoRodada": 7,
+              "tamanhoGrupo": 4,
+              "tratarDesistência": "anular"
+            },
+            "maxJogosSemana": 2,
+            "modeloAtivo": "grupos",
+            "piramide": {
+              "aceiteMinimo": 2,
+              "alcanceTipo": "linha",
+              "entradaInscritos": "fim",
+              "limiteMensal": 4,
+              "limitePosicoes": 3,
+              "mecanicaTroca": "direta"
+            },
+            "prazoInatividadeDias": 15,
+            "sumula": {
+              "formatoPartida": "set_unico_6",
+              "prazoAutoconf": 24,
+              "toleranciaAtraso": 15,
+              "vantagemGames": "com_vantagem"
+            }
+          }
         },
         "jogadores": {
           "-OwsQrDpFbGx4981OGtl": {
@@ -1709,6 +1751,55 @@
         },
         "reservas": {
           "Quadra - 1": {
+            "4_18": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Adriano Feitosa": true
+              },
+              "dataCompleta": "2026-08-06",
+              "dia": 4,
+              "duracao": 1,
+              "hora": 18,
+              "isRanking": false,
+              "jogadores": "Adriano Feitosa",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada",
+              "tipo": "comum"
+            },
+            "4_19": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Ana Francisca": true
+              },
+              "dataCompleta": "2026-08-06",
+              "dia": 4,
+              "duracao": 2,
+              "hora": 19,
+              "isRanking": true,
+              "jogadores": "Adriano Feitosa, Ana Francisca",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA FRANCISCA SANTOS",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada",
+              "tipo": "ranking"
+            },
+            "4_20": {
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Ana Francisca": true
+              },
+              "dataCompleta": "2026-08-06",
+              "dia": 4,
+              "duracao": 2,
+              "hora": 20,
+              "isRanking": true,
+              "jogadores": "Adriano Feitosa, Ana Francisca",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA FRANCISCA SANTOS",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada",
+              "tipo": "ranking"
+            },
             "6_7": {
               "borda": "2h",
               "confirmacoes": {
@@ -1739,43 +1830,10 @@
               "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA JULIA MARTINS",
               "organizador": "ADRIANO GOMES FEITOSA",
               "status": "confirmada"
-            },
-            "6_9": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Adriano Feitosa": true
-              },
-              "dataCompleta": "2026-08-08",
-              "dia": 6,
-              "duracao": 1,
-              "expiraEm": 1785958684903,
-              "hora": 9,
-              "jogadores": "Adriano Feitosa",
-              "jogadores_completo": "ADRIANO GOMES FEITOSA",
-              "organizador": "ADRIANO GOMES FEITOSA",
-              "status": "confirmada"
-            },
-            "7_8": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Ana Julia": true
-              },
-              "dataCompleta": "2026-08-02",
-              "dia": 7,
-              "duracao": 1,
-              "hora": 8,
-              "jogadores": "Ana Julia",
-              "jogadores_completo": "ANA JULIA MARTINS",
-              "organizador": "ANA JULIA MARTINS",
-              "status": "confirmada"
             }
           }
         },
         "usuariosOnline": {
-          "-OwsQrDpFbGx4981OGtl": {
-            "id": "-OwsQrDpFbGx4981OGtl",
-            "usuario": "ADRIANO GOMES FEITOSA"
-          },
           "GESTOR": {
             "isGestor": true,
             "usuario": "Gestor Mestre"
