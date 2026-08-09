@@ -354,7 +354,6 @@
           "Quorum2h": 2,
           "ReservasPorConfirmacao": true,
           "RestricaoNobre": false,
-          "ToleranciaAtraso": 30,
           "horasParaExpirar": 1,
           "ranking": {
             "ativo": true,
@@ -392,9 +391,9 @@
             },
             "prazoInatividadeDias": 15,
             "sumula": {
-              "formatoPartida": "set_unico_6",
+              "decisaoTerceiroSet": "super_tiebreak",
+              "formatoPartida": "m3_tradicional_6",
               "prazoAutoconf": 24,
-              "toleranciaAtraso": 15,
               "vantagemGames": "com_vantagem"
             }
           }
@@ -1828,45 +1827,21 @@
               "status": "confirmada",
               "tipo": "ranking"
             },
-            "6_7": {
-              "borda": "2h",
+            "7_8": {
+              "borda": "1h",
               "confirmacoes": {
-                "Adriano Feitosa": true,
-                "Ana Julia": true
+                "Ana Francisca": true
               },
-              "dataCompleta": "2026-08-08",
-              "dia": 6,
-              "duracao": 2,
-              "hora": 7,
-              "isRanking": true,
-              "jogadores": "Adriano Feitosa, Ana Julia",
-              "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA JULIA MARTINS",
-              "organizador": "ADRIANO GOMES FEITOSA",
-              "status": "confirmada",
-              "tipo": "ranking"
-            },
-            "6_8": {
-              "confirmacoes": {
-                "Adriano Feitosa": true,
-                "Ana Julia": true
-              },
-              "dataCompleta": "2026-08-08",
-              "dia": 6,
-              "duracao": 2,
+              "dataCompleta": "2026-08-09",
+              "dia": 7,
+              "duracao": 1,
+              "expiraEm": 1786222718562,
               "hora": 8,
-              "isRanking": true,
-              "jogadores": "Adriano Feitosa, Ana Julia",
-              "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA JULIA MARTINS",
-              "organizador": "ADRIANO GOMES FEITOSA",
-              "status": "confirmada",
-              "tipo": "ranking"
+              "jogadores": "Ana Francisca",
+              "jogadores_completo": "ANA FRANCISCA SANTOS",
+              "organizador": "ANA FRANCISCA SANTOS",
+              "status": "confirmada"
             }
-          }
-        },
-        "usuariosOnline": {
-          "GESTOR": {
-            "isGestor": true,
-            "usuario": "Gestor Mestre"
           }
         }
       }
