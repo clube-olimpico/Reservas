@@ -381,6 +381,13 @@
             },
             "maxJogosSemana": 2,
             "modeloAtivo": "barragem",
+            "permiteArbitrar": {
+              "Admin": true,
+              "Arbitro": true,
+              "Dev": false,
+              "Gestor": false,
+              "Professor": false
+            },
             "piramide": {
               "aceiteMinimo": 2,
               "alcanceTipo": "linha",
@@ -552,6 +559,13 @@
             "genero": "FEMININO",
             "niver": "01/01/2001",
             "nomeCompleto": "ANA FRANCISCA SANTOS",
+            "notificacoes": {
+              "-Ozzg23jXqVJyrZQw2fb": {
+                "mensagem": "🔴 Arbitragem: A sua partida foi ANULADA. Motivo: Partida agendada incorretamente.",
+                "timestamp": 1786701164830,
+                "tipo": "error"
+              }
+            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": ""
@@ -579,6 +593,13 @@
             "genero": "FEMININO",
             "niver": "01/01/2001",
             "nomeCompleto": "ANA LICE DOURADO",
+            "notificacoes": {
+              "-Ozzg23eABnG6Uc_Fbgo": {
+                "mensagem": "🔴 Arbitragem: A sua partida foi ANULADA. Motivo: Partida agendada incorretamente.",
+                "timestamp": 1786701164830,
+                "tipo": "error"
+              }
+            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": ""
@@ -1164,6 +1185,13 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "JOAO MARIA SOBRINHO",
+            "notificacoes": {
+              "-OzzeIIMm8xiS89y3hCM": {
+                "mensagem": "🟡 Arbitragem: O placar da sua partida foi CORRIGIDO. Novo resultado: 7/6(1) 6/7(10) 1/10",
+                "timestamp": 1786700707062,
+                "tipo": "warning"
+              }
+            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": ""
@@ -1924,10 +1952,8 @@
               "status": "confirmada",
               "statusPlacar": "anulado",
               "tipo": "ranking"
-            }
-          },
-          "Quadra - 4": {
-            "4_14": {
+            },
+            "5_14": {
               "borda": "2h",
               "confirmacoes": {
                 "Adriano Feitosa": true,
@@ -1936,12 +1962,12 @@
               "dadosPlacar": {
                 "arbitroResponsavel": "ANA JULIA MARTINS",
                 "autorSumula": "JOAO FRANCISCO DA SILVA",
-                "dataHoraArbitragem": 1786641142224,
-                "dataHoraContestacao": 1786641113415,
-                "dataHoraLancamento": 1786641108623,
+                "dataHoraArbitragem": 1786727090619,
+                "dataHoraContestacao": 1786727054297,
+                "dataHoraLancamento": 1786727052510,
                 "decisaoArbitro": "anulado_pelo_arbitro",
-                "expiraValidacaoAt": 1786727508623,
-                "motivoAnulacao": "teste de arbitragem!",
+                "expiraValidacaoAt": 1786813452510,
+                "motivoAnulacao": "estou apenas fazendo um testes.",
                 "parciais": {
                   "set1": {
                     "j1": 6,
@@ -1957,8 +1983,8 @@
                 "vencedor": "Joao Francisco",
                 "vencedorCodigo": "J1"
               },
-              "dataCompleta": "2026-08-13",
-              "dia": 4,
+              "dataCompleta": "2026-08-14",
+              "dia": 5,
               "duracao": 2,
               "hora": 14,
               "isRanking": true,
@@ -1969,7 +1995,7 @@
               "statusPlacar": "anulado",
               "tipo": "ranking"
             },
-            "4_15": {
+            "5_15": {
               "confirmacoes": {
                 "Adriano Feitosa": true,
                 "Joao Francisco": true
@@ -1977,12 +2003,12 @@
               "dadosPlacar": {
                 "arbitroResponsavel": "ANA JULIA MARTINS",
                 "autorSumula": "JOAO FRANCISCO DA SILVA",
-                "dataHoraArbitragem": 1786641142224,
-                "dataHoraContestacao": 1786641113415,
-                "dataHoraLancamento": 1786641108623,
+                "dataHoraArbitragem": 1786727090619,
+                "dataHoraContestacao": 1786727054297,
+                "dataHoraLancamento": 1786727052510,
                 "decisaoArbitro": "anulado_pelo_arbitro",
-                "expiraValidacaoAt": 1786727508623,
-                "motivoAnulacao": "teste de arbitragem!",
+                "expiraValidacaoAt": 1786813452510,
+                "motivoAnulacao": "estou apenas fazendo um testes.",
                 "parciais": {
                   "set1": {
                     "j1": 6,
@@ -1998,8 +2024,8 @@
                 "vencedor": "Joao Francisco",
                 "vencedorCodigo": "J1"
               },
-              "dataCompleta": "2026-08-13",
-              "dia": 4,
+              "dataCompleta": "2026-08-14",
+              "dia": 5,
               "duracao": 2,
               "hora": 15,
               "isRanking": true,
@@ -2010,12 +2036,89 @@
               "statusPlacar": "anulado",
               "tipo": "ranking"
             }
+          },
+          "Quadra - 4": {
+            "5_18": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Joao Francisco": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "JOAO FRANCISCO DA SILVA",
+                "dataHoraContestacao": 1786742893822,
+                "dataHoraLancamento": 1786742891711,
+                "expiraValidacaoAt": 1786829291711,
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 0
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 0
+                  }
+                },
+                "placarFormatado": "6/0 6/0",
+                "statusPlacar": "contestado",
+                "vencedor": "Joao Francisco",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-08-14",
+              "dia": 5,
+              "duracao": 2,
+              "hora": 18,
+              "isRanking": true,
+              "jogadores": "Joao Francisco, Adriano Feitosa",
+              "jogadores_completo": "JOAO FRANCISCO DA SILVA, ADRIANO GOMES FEITOSA",
+              "organizador": "JOAO FRANCISCO DA SILVA",
+              "status": "confirmada",
+              "statusPlacar": "contestado",
+              "tipo": "ranking"
+            },
+            "5_19": {
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Joao Francisco": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "JOAO FRANCISCO DA SILVA",
+                "dataHoraContestacao": 1786742893822,
+                "dataHoraLancamento": 1786742891711,
+                "expiraValidacaoAt": 1786829291711,
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 0
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 0
+                  }
+                },
+                "placarFormatado": "6/0 6/0",
+                "statusPlacar": "contestado",
+                "vencedor": "Joao Francisco",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-08-14",
+              "dia": 5,
+              "duracao": 2,
+              "hora": 19,
+              "isRanking": true,
+              "jogadores": "Joao Francisco, Adriano Feitosa",
+              "jogadores_completo": "JOAO FRANCISCO DA SILVA, ADRIANO GOMES FEITOSA",
+              "organizador": "JOAO FRANCISCO DA SILVA",
+              "status": "confirmada",
+              "statusPlacar": "contestado",
+              "tipo": "ranking"
+            }
           }
         },
         "usuariosOnline": {
-          "-OwsQrDpFbGx4981OGtl": {
-            "id": "-OwsQrDpFbGx4981OGtl",
-            "usuario": "ADRIANO GOMES FEITOSA"
+          "GESTOR": {
+            "isGestor": true,
+            "usuario": "Gestor Mestre"
           }
         }
       }
@@ -2073,9 +2176,36 @@
           "Quadras": {
             "nomes": [
               null,
-              "Quadra 1",
-              "Quadra 2",
-              "Quadra 3"
+              {
+                "arquibancada": false,
+                "capacidade": "",
+                "esportes": {
+                  "tenis": true
+                },
+                "iluminacao": true,
+                "nome": "Quadra 1 - Gugu",
+                "piso": "Saibro",
+                "vip": false
+              },
+              {
+                "arquibancada": false,
+                "capacidade": "",
+                "esportes": {
+                  "tenis": true
+                },
+                "iluminacao": true,
+                "nome": "Quadra 2 - Taborda",
+                "piso": "Saibro",
+                "vip": false
+              },
+              {
+                "arquibancada": false,
+                "capacidade": "",
+                "iluminacao": true,
+                "nome": "Quadra 3 - Aulas",
+                "piso": "Saibro",
+                "vip": false
+              }
             ],
             "quantidade": 3
           }
@@ -2100,69 +2230,6 @@
             "nomeCompleto": "GUSTAVO",
             "socio": "titular",
             "whatsapp": "(41) 99641-7799"
-          }
-        },
-        "reservas": {
-          "Quadra - 1": {
-            "2_21": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Ronaldo Taborda Costa": true
-              },
-              "dataCompleta": "2026-08-04",
-              "dia": 2,
-              "duracao": 1,
-              "hora": 21,
-              "jogadores": "Ronaldo Taborda Costa",
-              "jogadores_completo": "Ronaldo Taborda Costa",
-              "organizador": "Ronaldo Taborda Costa",
-              "status": "confirmada"
-            },
-            "3_7": {
-              "borda": "2h",
-              "confirmacoes": {
-                "Gustavo": true,
-                "Ronaldo Taborda Costa": true
-              },
-              "dataCompleta": "2026-08-05",
-              "dia": 3,
-              "duracao": 2,
-              "expiraEm": 1785898280636,
-              "hora": 7,
-              "jogadores": "Ronaldo Taborda Costa, Gustavo",
-              "jogadores_completo": "Ronaldo Taborda Costa, GUSTAVO",
-              "organizador": "Ronaldo Taborda Costa",
-              "status": "confirmada"
-            },
-            "3_8": {
-              "confirmacoes": {
-                "Gustavo": true,
-                "Ronaldo Taborda Costa": true
-              },
-              "dataCompleta": "2026-08-05",
-              "dia": 3,
-              "duracao": 2,
-              "expiraEm": 1785898280636,
-              "hora": 8,
-              "jogadores": "Ronaldo Taborda Costa, Gustavo",
-              "jogadores_completo": "Ronaldo Taborda Costa, GUSTAVO",
-              "organizador": "Ronaldo Taborda Costa",
-              "status": "confirmada"
-            },
-            "4_7": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Ronaldo Taborda Costa": true
-              },
-              "dataCompleta": "2026-08-06",
-              "dia": 4,
-              "duracao": 1,
-              "hora": 7,
-              "jogadores": "Ronaldo Taborda Costa",
-              "jogadores_completo": "Ronaldo Taborda Costa",
-              "organizador": "Ronaldo Taborda Costa",
-              "status": "confirmada"
-            }
           }
         }
       }
@@ -3622,7 +3689,7 @@
     },
     "SaaS_Config": {
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "versao_web": "1.0.6"
+      "versao_web": "1.0.8"
     },
     "TESTE10": {
       "info_clube": {
