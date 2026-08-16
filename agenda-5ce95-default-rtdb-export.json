@@ -85,7 +85,7 @@
       "sistemas": {
         "config": {
           "Abrir": true,
-          "DiasLimpezaLogs": 30,
+          "DiasLimpezaLogs": 7,
           "DiasParaExibir": 3,
           "DiasParaLimpar": 3,
           "DuracaoPermitida": "1_2",
@@ -195,7 +195,7 @@
               },
               {
                 "abertura": "07:00",
-                "fechamento": "21:00",
+                "fechamento": "23:00",
                 "status": "aberto"
               },
               {
@@ -363,7 +363,7 @@
               "pontosWO": 0
             },
             "divisaoGenero": "separado",
-            "duracaoPartida": 2,
+            "duracaoPartida": 1,
             "financeiro": {
               "chavePix": "",
               "cobrarTaxa": false,
@@ -382,7 +382,7 @@
             "maxJogosSemana": 2,
             "modeloAtivo": "barragem",
             "permiteArbitrar": {
-              "Admin": true,
+              "Admin": false,
               "Arbitro": true,
               "Dev": false,
               "Gestor": false,
@@ -396,11 +396,12 @@
               "limitePosicoes": 3,
               "mecanicaTroca": "direta"
             },
-            "prazoInatividadeDias": 15,
+            "prazoInatividadeDias": 30,
             "sumula": {
               "decisaoTerceiroSet": "super_tiebreak",
               "formatoPartida": "m3_tradicional_6",
               "prazoAutoconf": 24,
+              "toleranciaWO": 15,
               "vantagemGames": "com_vantagem"
             }
           }
@@ -2035,90 +2036,124 @@
               "status": "confirmada",
               "statusPlacar": "anulado",
               "tipo": "ranking"
-            }
-          },
-          "Quadra - 4": {
-            "5_18": {
+            },
+            "6_10": {
               "borda": "2h",
               "confirmacoes": {
                 "Adriano Feitosa": true,
                 "Joao Francisco": true
               },
               "dadosPlacar": {
+                "arbitroResponsavel": "ANA JULIA MARTINS",
                 "autorSumula": "JOAO FRANCISCO DA SILVA",
-                "dataHoraContestacao": 1786742893822,
-                "dataHoraLancamento": 1786742891711,
-                "expiraValidacaoAt": 1786829291711,
+                "dataHoraArbitragem": 1786800108224,
+                "dataHoraLancamento": 1786800055164,
+                "decisaoArbitro": "editado_pelo_arbitro",
+                "expiraValidacaoAt": 1786886508224,
                 "parciais": {
                   "set1": {
                     "j1": 6,
-                    "j2": 0
+                    "j2": 1
                   },
                   "set2": {
                     "j1": 6,
-                    "j2": 0
+                    "j2": 4
                   }
                 },
-                "placarFormatado": "6/0 6/0",
-                "statusPlacar": "contestado",
+                "placarFormatado": "6/1 6/4",
+                "statusPlacar": "consolidado",
                 "vencedor": "Joao Francisco",
                 "vencedorCodigo": "J1"
               },
-              "dataCompleta": "2026-08-14",
-              "dia": 5,
+              "dataCompleta": "2026-08-15",
+              "dia": 6,
               "duracao": 2,
-              "hora": 18,
+              "hora": 10,
               "isRanking": true,
               "jogadores": "Joao Francisco, Adriano Feitosa",
               "jogadores_completo": "JOAO FRANCISCO DA SILVA, ADRIANO GOMES FEITOSA",
               "organizador": "JOAO FRANCISCO DA SILVA",
               "status": "confirmada",
-              "statusPlacar": "contestado",
+              "statusPlacar": "consolidado",
               "tipo": "ranking"
             },
-            "5_19": {
+            "6_11": {
               "confirmacoes": {
                 "Adriano Feitosa": true,
                 "Joao Francisco": true
               },
               "dadosPlacar": {
+                "arbitroResponsavel": "ANA JULIA MARTINS",
                 "autorSumula": "JOAO FRANCISCO DA SILVA",
-                "dataHoraContestacao": 1786742893822,
-                "dataHoraLancamento": 1786742891711,
-                "expiraValidacaoAt": 1786829291711,
+                "dataHoraArbitragem": 1786800108224,
+                "dataHoraLancamento": 1786800055164,
+                "decisaoArbitro": "editado_pelo_arbitro",
+                "expiraValidacaoAt": 1786886508224,
                 "parciais": {
                   "set1": {
                     "j1": 6,
-                    "j2": 0
+                    "j2": 1
                   },
                   "set2": {
                     "j1": 6,
-                    "j2": 0
+                    "j2": 4
                   }
                 },
-                "placarFormatado": "6/0 6/0",
-                "statusPlacar": "contestado",
+                "placarFormatado": "6/1 6/4",
+                "statusPlacar": "consolidado",
                 "vencedor": "Joao Francisco",
                 "vencedorCodigo": "J1"
               },
-              "dataCompleta": "2026-08-14",
-              "dia": 5,
+              "dataCompleta": "2026-08-15",
+              "dia": 6,
               "duracao": 2,
-              "hora": 19,
+              "hora": 11,
               "isRanking": true,
               "jogadores": "Joao Francisco, Adriano Feitosa",
               "jogadores_completo": "JOAO FRANCISCO DA SILVA, ADRIANO GOMES FEITOSA",
               "organizador": "JOAO FRANCISCO DA SILVA",
               "status": "confirmada",
-              "statusPlacar": "contestado",
+              "statusPlacar": "consolidado",
+              "tipo": "ranking"
+            }
+          },
+          "Quadra - 4": {
+            "6_22": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Joao Francisco": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ADRIANO GOMES FEITOSA",
+                "dataHoraLancamento": 1786843296942,
+                "dataHoraValidacao": 1786843300413,
+                "expiraValidacaoAt": 1786929696942,
+                "isWO": true,
+                "motivoWO": "Ausência / Não comparecimento",
+                "placarFormatado": "W.O. (Ausência / Não comparecimento)",
+                "statusPlacar": "consolidado",
+                "vencedor": "Adriano Feitosa",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-08-15",
+              "dia": 6,
+              "duracao": 1,
+              "hora": 22,
+              "isRanking": true,
+              "jogadores": "Adriano Feitosa, Joao Francisco",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, JOAO FRANCISCO DA SILVA",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
               "tipo": "ranking"
             }
           }
         },
         "usuariosOnline": {
-          "GESTOR": {
-            "isGestor": true,
-            "usuario": "Gestor Mestre"
+          "-OwsQtsjLSDkSYil8aUf": {
+            "id": "-OwsQtsjLSDkSYil8aUf",
+            "usuario": "JOAO FRANCISCO DA SILVA"
           }
         }
       }
@@ -3689,14 +3724,14 @@
     },
     "SaaS_Config": {
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "versao_web": "1.0.8"
+      "versao_web": "1.1.1"
     },
     "TESTE10": {
       "info_clube": {
-        "email_contato": "testearena@gmail.com",
-        "gestor_uid": "sfuTQgSuliQXL3MnB9c1iDS15rW2",
-        "nome": "Teste Arena Clube",
-        "whatsapp": "41999176972"
+        "email_contato": "teste-arena@gmail.com",
+        "gestor_uid": "bVEGHSZgl1QHJts4c2CVKv3g7jG2",
+        "nome": "Teste arena clube",
+        "whatsapp": "(41) 99917-6972"
       },
       "sistemas": {
         "config": {
@@ -3710,15 +3745,15 @@
           }
         },
         "jogadores": {
-          "-OyvAlDbj1W-s9ptNsbL": {
-            "apelido": "Rone",
+          "-P-5E2JqpfQASnw77p1W": {
+            "apelido": "Teste",
             "ativo": true,
             "classe": "A",
-            "email": "rone@teste",
+            "email": "@a.com",
             "niver": "01/01/2001",
-            "nomeCompleto": "RONALDO TESBODA",
+            "nomeCompleto": "TESTE",
             "socio": "titular",
-            "whatsapp": "(42) 99999-9999"
+            "whatsapp": "(41) 99999-9999"
           }
         }
       }
@@ -5384,63 +5419,49 @@
     },
     "reservas": {
       "Quadra 1 - Coberta": {
-        "4_18": {
+        "6_13": {
           "borda": "2h",
           "confirmacoes": {
             "An Alice": true,
             "Vania": true
           },
-          "dataCompleta": "2026-08-13",
-          "dia": 4,
+          "dataCompleta": "2026-08-15",
+          "dia": 6,
           "duracao": 3,
-          "hora": 18,
+          "hora": 13,
           "jogadores": "An Alice",
           "jogadores_completo": "An Alice, Vania",
           "organizador": "An Alice",
           "resultado": {
-            "dataInformado": "2026-08-13T21:49:52.455Z",
+            "dataInformado": "2026-08-15T17:46:10.793Z",
             "informadoPor": ": An Alice",
+            "motivoWo": "Não comparecimento",
             "perdedor": "Vania",
-            "set1": {
-              "placar": "7x6",
-              "tiebreak": "7-5"
-            },
-            "set2": {
-              "placar": "6x7",
-              "tiebreak": "1-7"
-            },
-            "set3": "10x6",
-            "tipo": "Placar Normal",
-            "vencedor": "An Alice"
+            "tipo": "W.O.",
+            "vencedor": "An Alice",
+            "vencedorWo": "An Alice"
           },
           "status": "resultado_pendente"
         },
-        "4_19": {
+        "6_14": {
           "confirmacoes": {
             "An Alice": true,
             "Vania": true
           },
-          "dataCompleta": "2026-08-13",
-          "dia": 4,
-          "hora": 19,
+          "dataCompleta": "2026-08-15",
+          "dia": 6,
+          "hora": 14,
           "jogadores": "Vania",
           "jogadores_completo": "An Alice, Vania",
           "organizador": "An Alice",
           "resultado": {
-            "dataInformado": "2026-08-13T21:49:52.455Z",
+            "dataInformado": "2026-08-15T17:46:10.793Z",
             "informadoPor": ": An Alice",
+            "motivoWo": "Não comparecimento",
             "perdedor": "Vania",
-            "set1": {
-              "placar": "7x6",
-              "tiebreak": "7-5"
-            },
-            "set2": {
-              "placar": "6x7",
-              "tiebreak": "1-7"
-            },
-            "set3": "10x6",
-            "tipo": "Placar Normal",
-            "vencedor": "An Alice"
+            "tipo": "W.O.",
+            "vencedor": "An Alice",
+            "vencedorWo": "An Alice"
           },
           "status": "resultado_pendente"
         }
