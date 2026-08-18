@@ -426,13 +426,12 @@
           "-OwsQrGGmuPBaD-rCgIg": {
             "apelido": "Alessandro Xavier",
             "ativo": true,
-            "classe": "C",
+            "classe": "A",
             "email": "ert@err",
+            "genero": "MASCULINO",
             "niver": "04/04/1975",
             "nomeCompleto": "ALESSANDRO ROMERO XAVIER",
-            "perfis": {
-              "Teste": true
-            },
+            "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99998-8888"
           },
@@ -1170,13 +1169,13 @@
             "apelido": "Joao Francisco",
             "ativo": true,
             "classe": "B",
-            "email": "",
+            "email": "joao@jpoao",
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "JOAO FRANCISCO DA SILVA",
             "participaRanking": true,
             "socio": "titular",
-            "whatsapp": ""
+            "whatsapp": "(41) 99999-9999"
           },
           "-OwsQtv3EWCTQ8ooLB-8": {
             "apelido": "Joao Maria",
@@ -1803,10 +1802,25 @@
             "nomeCompleto": "YURI HARDER",
             "socio": "titular",
             "whatsapp": ""
+          },
+          "-P-GYG4T_1xhRw7NZw1O": {
+            "apelido": "Teste",
+            "ativo": true,
+            "classe": "",
+            "email": "teste@teste",
+            "genero": "NAO_INFORMAR",
+            "niver": "01/01/2001",
+            "nomeCompleto": "TESTE DA SILVA",
+            "participaRanking": false,
+            "socio": "titular",
+            "whatsapp": "(99) 99999-9999"
           }
         },
         "ranking": {
           "tabelas": {
+            "A_MASCULINO": [
+              "-OwsQrGGmuPBaD-rCgIg"
+            ],
             "B_FEMININO": [
               "-OwsQrhU1OU0PeArJpdX",
               "-OwsQrjn7GfNwbVpBEIx",
@@ -1818,10 +1832,10 @@
               "-OwsQrDpFbGx4981OGtl",
               "-OwsQtnuR5s3v1VM2ZBi",
               "-OwsQtqJpPm042fY7ola",
-              "-OwsQtsjLSDkSYil8aUf",
               "-OwsQtv3EWCTQ8ooLB-8",
               "-OwsQu_cOC2xFTqSm0ul",
-              "-OwsQtO_9gj3CLeV3o2u"
+              "-OwsQtO_9gj3CLeV3o2u",
+              "-OwsQtsjLSDkSYil8aUf"
             ]
           }
         },
@@ -2035,28 +2049,33 @@
             }
           },
           "Quadra - 4": {
-            "6_22": {
-              "borda": "1h",
+            "1_13": {
+              "borda": "2h",
               "confirmacoes": {
                 "Adriano Feitosa": true,
                 "Joao Francisco": true
               },
               "dadosPlacar": {
+                "arbitroResponsavel": "ANA JULIA MARTINS",
                 "autorSumula": "ADRIANO GOMES FEITOSA",
-                "dataHoraLancamento": 1786843296942,
-                "dataHoraValidacao": 1786843300413,
-                "expiraValidacaoAt": 1786929696942,
+                "dataHoraArbitragem": 1786991399975,
+                "dataHoraLancamento": 1786990705453,
+                "decisaoArbitro": "editado_pelo_arbitro",
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1787077799975,
+                "isRET": false,
                 "isWO": true,
+                "motivoRET": "",
                 "motivoWO": "Ausência / Não comparecimento",
                 "placarFormatado": "W.O. (Ausência / Não comparecimento)",
                 "statusPlacar": "consolidado",
                 "vencedor": "Adriano Feitosa",
                 "vencedorCodigo": "J1"
               },
-              "dataCompleta": "2026-08-15",
-              "dia": 6,
-              "duracao": 1,
-              "hora": 22,
+              "dataCompleta": "2026-08-17",
+              "dia": 1,
+              "duracao": 2,
+              "hora": 13,
               "isRanking": true,
               "jogadores": "Adriano Feitosa, Joao Francisco",
               "jogadores_completo": "ADRIANO GOMES FEITOSA, JOAO FRANCISCO DA SILVA",
@@ -2065,34 +2084,30 @@
               "statusPlacar": "consolidado",
               "tipo": "ranking"
             },
-            "7_14": {
-              "borda": "2h",
+            "1_14": {
               "confirmacoes": {
                 "Adriano Feitosa": true,
                 "Joao Francisco": true
               },
               "dadosPlacar": {
+                "arbitroResponsavel": "ANA JULIA MARTINS",
                 "autorSumula": "ADRIANO GOMES FEITOSA",
-                "dataHoraLancamento": 1786910700930,
-                "desistenteCodigo": "J1",
-                "expiraValidacaoAt": 1786997100930,
-                "isRET": true,
-                "isWO": false,
-                "motivoRET": "Lesão / Contusão muscular",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 5,
-                    "j2": 3
-                  }
-                },
-                "placarFormatado": "5/3 (RET)",
-                "statusPlacar": "pendente_validacao",
-                "vencedor": "Joao Francisco",
-                "vencedorCodigo": "J2"
+                "dataHoraArbitragem": 1786991399975,
+                "dataHoraLancamento": 1786990705453,
+                "decisaoArbitro": "editado_pelo_arbitro",
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1787077799975,
+                "isRET": false,
+                "isWO": true,
+                "motivoRET": "",
+                "motivoWO": "Ausência / Não comparecimento",
+                "placarFormatado": "W.O. (Ausência / Não comparecimento)",
+                "statusPlacar": "consolidado",
+                "vencedor": "Adriano Feitosa",
+                "vencedorCodigo": "J1"
               },
-              "dataCompleta": "2026-08-16",
-              "dia": 7,
+              "dataCompleta": "2026-08-17",
+              "dia": 1,
               "duracao": 2,
               "hora": 14,
               "isRanking": true,
@@ -2100,58 +2115,16 @@
               "jogadores_completo": "ADRIANO GOMES FEITOSA, JOAO FRANCISCO DA SILVA",
               "organizador": "ADRIANO GOMES FEITOSA",
               "status": "confirmada",
-              "statusPlacar": "pendente_validacao",
-              "tipo": "ranking"
-            },
-            "7_15": {
-              "confirmacoes": {
-                "Adriano Feitosa": true,
-                "Joao Francisco": true
-              },
-              "dadosPlacar": {
-                "autorSumula": "ADRIANO GOMES FEITOSA",
-                "dataHoraLancamento": 1786910700930,
-                "desistenteCodigo": "J1",
-                "expiraValidacaoAt": 1786997100930,
-                "isRET": true,
-                "isWO": false,
-                "motivoRET": "Lesão / Contusão muscular",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 5,
-                    "j2": 3
-                  }
-                },
-                "placarFormatado": "5/3 (RET)",
-                "statusPlacar": "pendente_validacao",
-                "vencedor": "Joao Francisco",
-                "vencedorCodigo": "J2"
-              },
-              "dataCompleta": "2026-08-16",
-              "dia": 7,
-              "duracao": 2,
-              "hora": 15,
-              "isRanking": true,
-              "jogadores": "Adriano Feitosa, Joao Francisco",
-              "jogadores_completo": "ADRIANO GOMES FEITOSA, JOAO FRANCISCO DA SILVA",
-              "organizador": "ADRIANO GOMES FEITOSA",
-              "status": "confirmada",
-              "statusPlacar": "pendente_validacao",
+              "statusPlacar": "consolidado",
               "tipo": "ranking"
             }
           }
         },
         "usuariosOnline": {
-          "-OwsQrDpFbGx4981OGtl": {
-            "id": "-OwsQrDpFbGx4981OGtl",
-            "lastSeen": 1786925130873,
-            "usuario": "ADRIANO GOMES FEITOSA"
-          },
-          "-OwsQtsjLSDkSYil8aUf": {
-            "id": "-OwsQtsjLSDkSYil8aUf",
-            "lastSeen": 1786924911168,
-            "usuario": "JOAO FRANCISCO DA SILVA"
+          "GESTOR": {
+            "isGestor": true,
+            "lastSeen": 1787024952203,
+            "usuario": "Gestor Mestre"
           }
         }
       }
@@ -3722,7 +3695,7 @@
     },
     "SaaS_Config": {
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "versao_web": "1.1.2"
+      "versao_web": "1.1.4"
     },
     "TESTE10": {
       "info_clube": {
@@ -5417,52 +5390,6 @@
     },
     "reservas": {
       "Quadra 1 - Coberta": {
-        "6_13": {
-          "borda": "2h",
-          "confirmacoes": {
-            "An Alice": true,
-            "Vania": true
-          },
-          "dataCompleta": "2026-08-15",
-          "dia": 6,
-          "duracao": 3,
-          "hora": 13,
-          "jogadores": "An Alice",
-          "jogadores_completo": "An Alice, Vania",
-          "organizador": "An Alice",
-          "resultado": {
-            "dataInformado": "2026-08-15T17:46:10.793Z",
-            "informadoPor": ": An Alice",
-            "motivoWo": "Não comparecimento",
-            "perdedor": "Vania",
-            "tipo": "W.O.",
-            "vencedor": "An Alice",
-            "vencedorWo": "An Alice"
-          },
-          "status": "resultado_pendente"
-        },
-        "6_14": {
-          "confirmacoes": {
-            "An Alice": true,
-            "Vania": true
-          },
-          "dataCompleta": "2026-08-15",
-          "dia": 6,
-          "hora": 14,
-          "jogadores": "Vania",
-          "jogadores_completo": "An Alice, Vania",
-          "organizador": "An Alice",
-          "resultado": {
-            "dataInformado": "2026-08-15T17:46:10.793Z",
-            "informadoPor": ": An Alice",
-            "motivoWo": "Não comparecimento",
-            "perdedor": "Vania",
-            "tipo": "W.O.",
-            "vencedor": "An Alice",
-            "vencedorWo": "An Alice"
-          },
-          "status": "resultado_pendente"
-        },
         "7_8": {
           "borda": "2h",
           "confirmacoes": {
