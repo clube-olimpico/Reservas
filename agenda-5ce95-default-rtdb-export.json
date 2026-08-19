@@ -406,6 +406,30 @@
             }
           }
         },
+        "convites_ranking": {
+          "dataAbertura": 1787106721531,
+          "pendentes": {
+            "-OwsQrDpFbGx4981OGtl": true,
+            "-OwsQrGGmuPBaD-rCgIg": true,
+            "-OwsQrNLH_WQE5_SCVCl": true,
+            "-OwsQrf9a9Xl8nyK-bdG": true,
+            "-OwsQrhU1OU0PeArJpdX": true,
+            "-OwsQrjn7GfNwbVpBEIx": true,
+            "-OwsQrm7Bwu6dgj-KdTt": true,
+            "-OwsQroTvdNBY94IW81q": true,
+            "-OwsQs1ZnFrqnpZ5crBh": true,
+            "-OwsQtO_9gj3CLeV3o2u": true,
+            "-OwsQtnuR5s3v1VM2ZBi": true,
+            "-OwsQtqJpPm042fY7ola": true,
+            "-OwsQtsjLSDkSYil8aUf": true,
+            "-OwsQtv3EWCTQ8ooLB-8": true,
+            "-OwsQu_cOC2xFTqSm0ul": true,
+            "-OwsQvyOzfcs0l55dRE2": true
+          },
+          "status": "aberto",
+          "temporadaId": "2026_T1787106721531",
+          "tipoOrdenacao": "herdada"
+        },
         "jogadores": {
           "-OwsQrDpFbGx4981OGtl": {
             "apelido": "Adriano Feitosa",
@@ -426,7 +450,7 @@
           "-OwsQrGGmuPBaD-rCgIg": {
             "apelido": "Alessandro Xavier",
             "ativo": true,
-            "classe": "A",
+            "classe": "B",
             "email": "ert@err",
             "genero": "MASCULINO",
             "niver": "04/04/1975",
@@ -461,15 +485,17 @@
           "-OwsQrNLH_WQE5_SCVCl": {
             "apelido": "Alexandre Camargo",
             "ativo": true,
-            "classe": "C",
-            "email": "",
+            "classe": "B",
+            "email": "ale@le",
+            "genero": "MASCULINO",
             "niver": "21/03/1995",
             "nomeCompleto": "ALEXANDRE CAMARGO",
+            "participaRanking": true,
             "perfis": {
               "Árbitro": true
             },
             "socio": "titular",
-            "whatsapp": ""
+            "whatsapp": "(99) 99999-9999"
           },
           "-OwsQrPgZKMJLDccbVRB": {
             "apelido": "Alexandre Voj",
@@ -545,11 +571,13 @@
             "apelido": "Almir",
             "ativo": true,
             "classe": "A",
-            "email": "",
+            "email": "allir@al",
+            "genero": "MASCULINO",
             "niver": "10/07/1964",
             "nomeCompleto": "ALMIR ALVES DA CRUZ",
+            "participaRanking": true,
             "socio": "titular",
-            "whatsapp": ""
+            "whatsapp": "(99) 99999-9999"
           },
           "-OwsQrhU1OU0PeArJpdX": {
             "apelido": "Ana Francisca",
@@ -669,12 +697,14 @@
           "-OwsQs1ZnFrqnpZ5crBh": {
             "apelido": "Arthur Amorim",
             "ativo": true,
-            "classe": "C",
-            "email": "",
+            "classe": "A",
+            "email": "ar@arthur",
+            "genero": "MASCULINO",
             "niver": "10/03/1995",
             "nomeCompleto": "ARTHUR AMORIM MODESTO",
+            "participaRanking": true,
             "socio": "titular",
-            "whatsapp": ""
+            "whatsapp": "(99) 99999-9999"
           },
           "-OwsQs3s6h6cFW7rATbV": {
             "apelido": "Arthur Warkentin",
@@ -1819,7 +1849,7 @@
         "ranking": {
           "tabelas": {
             "A_MASCULINO": [
-              "-OwsQrGGmuPBaD-rCgIg"
+              "-OwsQrf9a9Xl8nyK-bdG"
             ],
             "B_FEMININO": [
               "-OwsQrhU1OU0PeArJpdX",
@@ -1835,7 +1865,9 @@
               "-OwsQtv3EWCTQ8ooLB-8",
               "-OwsQu_cOC2xFTqSm0ul",
               "-OwsQtO_9gj3CLeV3o2u",
-              "-OwsQtsjLSDkSYil8aUf"
+              "-OwsQtsjLSDkSYil8aUf",
+              "-OwsQrNLH_WQE5_SCVCl",
+              "-OwsQrGGmuPBaD-rCgIg"
             ]
           }
         },
@@ -1884,168 +1916,6 @@
                 "vencedorCodigo": "J1"
               },
               "statusPlacar": "pendente_validacao"
-            },
-            "5_14": {
-              "borda": "2h",
-              "confirmacoes": {
-                "Adriano Feitosa": true,
-                "Joao Francisco": true
-              },
-              "dadosPlacar": {
-                "arbitroResponsavel": "ANA JULIA MARTINS",
-                "autorSumula": "JOAO FRANCISCO DA SILVA",
-                "dataHoraArbitragem": 1786727090619,
-                "dataHoraContestacao": 1786727054297,
-                "dataHoraLancamento": 1786727052510,
-                "decisaoArbitro": "anulado_pelo_arbitro",
-                "expiraValidacaoAt": 1786813452510,
-                "motivoAnulacao": "estou apenas fazendo um testes.",
-                "parciais": {
-                  "set1": {
-                    "j1": 6,
-                    "j2": 0
-                  },
-                  "set2": {
-                    "j1": 6,
-                    "j2": 0
-                  }
-                },
-                "placarFormatado": "6/0 6/0",
-                "statusPlacar": "anulado",
-                "vencedor": "Joao Francisco",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-08-14",
-              "dia": 5,
-              "duracao": 2,
-              "hora": 14,
-              "isRanking": true,
-              "jogadores": "Joao Francisco, Adriano Feitosa",
-              "jogadores_completo": "JOAO FRANCISCO DA SILVA, ADRIANO GOMES FEITOSA",
-              "organizador": "JOAO FRANCISCO DA SILVA",
-              "status": "confirmada",
-              "statusPlacar": "anulado",
-              "tipo": "ranking"
-            },
-            "5_15": {
-              "confirmacoes": {
-                "Adriano Feitosa": true,
-                "Joao Francisco": true
-              },
-              "dadosPlacar": {
-                "arbitroResponsavel": "ANA JULIA MARTINS",
-                "autorSumula": "JOAO FRANCISCO DA SILVA",
-                "dataHoraArbitragem": 1786727090619,
-                "dataHoraContestacao": 1786727054297,
-                "dataHoraLancamento": 1786727052510,
-                "decisaoArbitro": "anulado_pelo_arbitro",
-                "expiraValidacaoAt": 1786813452510,
-                "motivoAnulacao": "estou apenas fazendo um testes.",
-                "parciais": {
-                  "set1": {
-                    "j1": 6,
-                    "j2": 0
-                  },
-                  "set2": {
-                    "j1": 6,
-                    "j2": 0
-                  }
-                },
-                "placarFormatado": "6/0 6/0",
-                "statusPlacar": "anulado",
-                "vencedor": "Joao Francisco",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-08-14",
-              "dia": 5,
-              "duracao": 2,
-              "hora": 15,
-              "isRanking": true,
-              "jogadores": "Joao Francisco, Adriano Feitosa",
-              "jogadores_completo": "JOAO FRANCISCO DA SILVA, ADRIANO GOMES FEITOSA",
-              "organizador": "JOAO FRANCISCO DA SILVA",
-              "status": "confirmada",
-              "statusPlacar": "anulado",
-              "tipo": "ranking"
-            },
-            "6_10": {
-              "borda": "2h",
-              "confirmacoes": {
-                "Adriano Feitosa": true,
-                "Joao Francisco": true
-              },
-              "dadosPlacar": {
-                "arbitroResponsavel": "ANA JULIA MARTINS",
-                "autorSumula": "JOAO FRANCISCO DA SILVA",
-                "dataHoraArbitragem": 1786800108224,
-                "dataHoraLancamento": 1786800055164,
-                "decisaoArbitro": "editado_pelo_arbitro",
-                "expiraValidacaoAt": 1786886508224,
-                "parciais": {
-                  "set1": {
-                    "j1": 6,
-                    "j2": 1
-                  },
-                  "set2": {
-                    "j1": 6,
-                    "j2": 4
-                  }
-                },
-                "placarFormatado": "6/1 6/4",
-                "statusPlacar": "consolidado",
-                "vencedor": "Joao Francisco",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-08-15",
-              "dia": 6,
-              "duracao": 2,
-              "hora": 10,
-              "isRanking": true,
-              "jogadores": "Joao Francisco, Adriano Feitosa",
-              "jogadores_completo": "JOAO FRANCISCO DA SILVA, ADRIANO GOMES FEITOSA",
-              "organizador": "JOAO FRANCISCO DA SILVA",
-              "status": "confirmada",
-              "statusPlacar": "consolidado",
-              "tipo": "ranking"
-            },
-            "6_11": {
-              "confirmacoes": {
-                "Adriano Feitosa": true,
-                "Joao Francisco": true
-              },
-              "dadosPlacar": {
-                "arbitroResponsavel": "ANA JULIA MARTINS",
-                "autorSumula": "JOAO FRANCISCO DA SILVA",
-                "dataHoraArbitragem": 1786800108224,
-                "dataHoraLancamento": 1786800055164,
-                "decisaoArbitro": "editado_pelo_arbitro",
-                "expiraValidacaoAt": 1786886508224,
-                "parciais": {
-                  "set1": {
-                    "j1": 6,
-                    "j2": 1
-                  },
-                  "set2": {
-                    "j1": 6,
-                    "j2": 4
-                  }
-                },
-                "placarFormatado": "6/1 6/4",
-                "statusPlacar": "consolidado",
-                "vencedor": "Joao Francisco",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-08-15",
-              "dia": 6,
-              "duracao": 2,
-              "hora": 11,
-              "isRanking": true,
-              "jogadores": "Joao Francisco, Adriano Feitosa",
-              "jogadores_completo": "JOAO FRANCISCO DA SILVA, ADRIANO GOMES FEITOSA",
-              "organizador": "JOAO FRANCISCO DA SILVA",
-              "status": "confirmada",
-              "statusPlacar": "consolidado",
-              "tipo": "ranking"
             }
           },
           "Quadra - 4": {
@@ -2123,7 +1993,7 @@
         "usuariosOnline": {
           "GESTOR": {
             "isGestor": true,
-            "lastSeen": 1787024952203,
+            "lastSeen": 1787113664099,
             "usuario": "Gestor Mestre"
           }
         }
@@ -3695,7 +3565,7 @@
     },
     "SaaS_Config": {
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "versao_web": "1.1.4"
+      "versao_web": "1.1.5"
     },
     "TESTE10": {
       "info_clube": {
@@ -4006,7 +3876,7 @@
           "classe": "",
           "jogosDeDuplasJogados": 0,
           "niver": "01/01/2001",
-          "piramide": "83",
+          "piramide": "69",
           "socio": "titular",
           "vitoriasEmDuplas": 0
         },
@@ -4791,7 +4661,7 @@
           "apelido": "Susan",
           "classe": "C",
           "niver": "30/10/1981",
-          "piramide": "69",
+          "piramide": "83",
           "socio": "dependente"
         },
         "TESTE DA SILVA SANTOS": {
@@ -5386,76 +5256,6 @@
         "id": "-Omoo821Z0DXTQckXJ4R",
         "texto": "Teste",
         "titulo": "Novo"
-      }
-    },
-    "reservas": {
-      "Quadra 1 - Coberta": {
-        "7_8": {
-          "borda": "2h",
-          "confirmacoes": {
-            "An Alice": true,
-            "Susan": true
-          },
-          "dataCompleta": "2026-08-16",
-          "dia": 7,
-          "duracao": 3,
-          "hora": 8,
-          "jogadores": "An Alice",
-          "jogadores_completo": "An Alice, Susan",
-          "organizador": "An Alice",
-          "resultado": {
-            "dataInformado": "2026-08-16T12:00:03.136Z",
-            "desistente": "Susan",
-            "informadoPor": ": An Alice",
-            "motivo": "Lesão durante o jogo",
-            "motivoDesistencia": "Lesão durante o jogo",
-            "perdedor": "Susan",
-            "set1": {
-              "placar": "3x0",
-              "tiebreak": "0-0"
-            },
-            "set2": {
-              "placar": "0x0",
-              "tiebreak": "0-0"
-            },
-            "set3": "",
-            "tipo": "Desistência",
-            "vencedor": "An Alice"
-          },
-          "status": "resultado_pendente"
-        },
-        "7_9": {
-          "confirmacoes": {
-            "An Alice": true,
-            "Susan": true
-          },
-          "dataCompleta": "2026-08-16",
-          "dia": 7,
-          "hora": 9,
-          "jogadores": "Susan",
-          "jogadores_completo": "An Alice, Susan",
-          "organizador": "An Alice",
-          "resultado": {
-            "dataInformado": "2026-08-16T12:00:03.136Z",
-            "desistente": "Susan",
-            "informadoPor": ": An Alice",
-            "motivo": "Lesão durante o jogo",
-            "motivoDesistencia": "Lesão durante o jogo",
-            "perdedor": "Susan",
-            "set1": {
-              "placar": "3x0",
-              "tiebreak": "0-0"
-            },
-            "set2": {
-              "placar": "0x0",
-              "tiebreak": "0-0"
-            },
-            "set3": "",
-            "tipo": "Desistência",
-            "vencedor": "An Alice"
-          },
-          "status": "resultado_pendente"
-        }
       }
     },
     "version": "v2.2.4"
