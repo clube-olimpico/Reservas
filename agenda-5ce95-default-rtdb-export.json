@@ -380,7 +380,7 @@
               "tratarDesistência": "anular"
             },
             "maxJogosSemana": 2,
-            "modeloAtivo": "barragem",
+            "modeloAtivo": "piramide",
             "permiteArbitrar": {
               "Admin": false,
               "Arbitro": true,
@@ -407,7 +407,7 @@
           }
         },
         "convites_ranking": {
-          "dataAbertura": 1787283125053,
+          "dataAbertura": 1787308905514,
           "pendentes": {
             "-OwsQrGGmuPBaD-rCgIg": true,
             "-OwsQrNLH_WQE5_SCVCl": true,
@@ -420,14 +420,13 @@
             "-OwsQtO_9gj3CLeV3o2u": true,
             "-OwsQtnuR5s3v1VM2ZBi": true,
             "-OwsQtqJpPm042fY7ola": true,
-            "-OwsQtsjLSDkSYil8aUf": true,
             "-OwsQtv3EWCTQ8ooLB-8": true,
             "-OwsQu_cOC2xFTqSm0ul": true,
             "-OwsQvyOzfcs0l55dRE2": true
           },
           "status": "aberto",
-          "temporadaId": "2026_T1787283125053",
-          "tipoOrdenacao": "livre"
+          "temporadaId": "2026_T1787308905514",
+          "tipoOrdenacao": "herdada"
         },
         "jogadores": {
           "-OwsQrDpFbGx4981OGtl": {
@@ -1890,13 +1889,98 @@
               "organizador": "ADRIANO GOMES FEITOSA",
               "status": "confirmada",
               "tipo": "comum"
+            },
+            "5_19": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Alessandro Xavier": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ADRIANO GOMES FEITOSA",
+                "dataHoraLancamento": 1787350367963,
+                "dataHoraValidacao": 1787350407209,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1787436767963,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 0
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 0
+                  }
+                },
+                "placarFormatado": "6/0 6/0",
+                "statusPlacar": "consolidado",
+                "vencedor": "Adriano Feitosa",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-08-21",
+              "dia": 5,
+              "duracao": 2,
+              "hora": 19,
+              "isRanking": true,
+              "jogadores": "Adriano Feitosa, Alessandro Xavier",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, ALESSANDRO ROMERO XAVIER",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tipo": "ranking"
+            },
+            "5_20": {
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Alessandro Xavier": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ADRIANO GOMES FEITOSA",
+                "dataHoraLancamento": 1787350367963,
+                "dataHoraValidacao": 1787350407209,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1787436767963,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 0
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 0
+                  }
+                },
+                "placarFormatado": "6/0 6/0",
+                "statusPlacar": "consolidado",
+                "vencedor": "Adriano Feitosa",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-08-21",
+              "dia": 5,
+              "duracao": 2,
+              "hora": 20,
+              "isRanking": true,
+              "jogadores": "Adriano Feitosa, Alessandro Xavier",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, ALESSANDRO ROMERO XAVIER",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tipo": "ranking"
             }
           }
         },
         "usuariosOnline": {
           "GESTOR": {
             "isGestor": true,
-            "lastSeen": 1787285777374,
+            "lastSeen": 1787372130169,
             "usuario": "Gestor Mestre"
           }
         }
@@ -3468,7 +3552,7 @@
     },
     "SaaS_Config": {
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "versao_web": "1.1.2"
+      "versao_web": "1.1.7"
     },
     "TESTE10": {
       "info_clube": {
