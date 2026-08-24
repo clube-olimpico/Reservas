@@ -376,11 +376,11 @@
               "criterioDesempate": "games_confronto_sorteio",
               "estouroPrazo": "sorteio",
               "prazoRodada": 7,
-              "tamanhoGrupo": 4,
+              "tamanhoGrupo": 3,
               "tratarDesistência": "anular"
             },
             "maxJogosSemana": 2,
-            "modeloAtivo": "piramide",
+            "modeloAtivo": "grupos",
             "permiteArbitrar": {
               "Admin": false,
               "Arbitro": true,
@@ -1849,14 +1849,24 @@
               "jogador2Id": "-OwsQtnuR5s3v1VM2ZBi",
               "status": "finalizada",
               "vencedorId": "-OwsQtv3EWCTQ8ooLB-8"
+            },
+            "partida_B_MASCULINO_7_8_-OwsQrGGmuPBaD-rCgIg_-OwsQtv3EWCTQ8ooLB-8": {
+              "categoria": "B_MASCULINO",
+              "dataHora": 1787484916935,
+              "gamesP1": 13,
+              "gamesP2": 9,
+              "jogador1Id": "-OwsQrGGmuPBaD-rCgIg",
+              "jogador2Id": "-OwsQtv3EWCTQ8ooLB-8",
+              "status": "finalizada",
+              "vencedorId": "-OwsQrGGmuPBaD-rCgIg"
             }
           },
           "tabelas": {
             "B_MASCULINO": [
               "-OwsQtv3EWCTQ8ooLB-8",
               "-OwsQrDpFbGx4981OGtl",
-              "-OwsQtnuR5s3v1VM2ZBi",
-              "-OwsQrGGmuPBaD-rCgIg"
+              "-OwsQrGGmuPBaD-rCgIg",
+              "-OwsQtnuR5s3v1VM2ZBi"
             ]
           }
         },
@@ -1943,6 +1953,95 @@
               "jogadores": "Joao Maria, Joao Bento",
               "jogadores_completo": "JOAO MARIA SOBRINHO, JOAO BENTO PEREIRA",
               "organizador": "JOAO MARIA SOBRINHO",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tipo": "ranking"
+            },
+            "7_8": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Alessandro Xavier": true,
+                "Joao Maria": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ALESSANDRO ROMERO XAVIER",
+                "dataHoraLancamento": 1787484912128,
+                "dataHoraValidacao": 1787484916776,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1787571312128,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 3
+                  },
+                  "set2": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 7,
+                    "tbJ2": 1
+                  }
+                },
+                "placarFormatado": "6/3 7/6(1)",
+                "statusPlacar": "consolidado",
+                "vencedor": "Alessandro Xavier",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-08-23",
+              "dia": 7,
+              "duracao": 2,
+              "hora": 8,
+              "isRanking": true,
+              "jogadores": "Alessandro Xavier, Joao Maria",
+              "jogadores_completo": "ALESSANDRO ROMERO XAVIER, JOAO MARIA SOBRINHO",
+              "organizador": "ALESSANDRO ROMERO XAVIER",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tipo": "ranking"
+            },
+            "7_9": {
+              "confirmacoes": {
+                "Alessandro Xavier": true,
+                "Joao Maria": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ALESSANDRO ROMERO XAVIER",
+                "dataHoraLancamento": 1787484912128,
+                "dataHoraValidacao": 1787484916776,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1787571312128,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 3
+                  },
+                  "set2": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 7,
+                    "tbJ2": 1
+                  }
+                },
+                "placarFormatado": "6/3 7/6(1)",
+                "statusPlacar": "consolidado",
+                "vencedor": "Alessandro Xavier",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-08-23",
+              "dia": 7,
+              "duracao": 2,
+              "hora": 9,
+              "isRanking": true,
+              "jogadores": "Alessandro Xavier, Joao Maria",
+              "jogadores_completo": "ALESSANDRO ROMERO XAVIER, JOAO MARIA SOBRINHO",
+              "organizador": "ALESSANDRO ROMERO XAVIER",
               "status": "confirmada",
               "statusPlacar": "consolidado",
               "tipo": "ranking"
@@ -2037,9 +2136,14 @@
           }
         },
         "usuariosOnline": {
+          "-OwsQrGGmuPBaD-rCgIg": {
+            "id": "-OwsQrGGmuPBaD-rCgIg",
+            "lastSeen": 1787529721518,
+            "usuario": "ALESSANDRO ROMERO XAVIER"
+          },
           "GESTOR": {
             "isGestor": true,
-            "lastSeen": 1787457648512,
+            "lastSeen": 1787545625792,
             "usuario": "Gestor Mestre"
           }
         }
@@ -3611,7 +3715,7 @@
     },
     "SaaS_Config": {
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "versao_web": "1.1.7"
+      "versao_web": "1.1.8"
     },
     "TESTE10": {
       "info_clube": {
