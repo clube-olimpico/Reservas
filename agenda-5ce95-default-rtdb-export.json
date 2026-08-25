@@ -380,7 +380,7 @@
               "tratarDesistência": "anular"
             },
             "maxJogosSemana": 2,
-            "modeloAtivo": "grupos",
+            "modeloAtivo": "barragem",
             "permiteArbitrar": {
               "Admin": false,
               "Arbitro": true,
@@ -407,7 +407,7 @@
           }
         },
         "convites_ranking": {
-          "dataAbertura": 1787437738593,
+          "dataAbertura": 1787596263986,
           "pendentes": {
             "-OwsQrNLH_WQE5_SCVCl": true,
             "-OwsQrf9a9Xl8nyK-bdG": true,
@@ -417,14 +417,15 @@
             "-OwsQroTvdNBY94IW81q": true,
             "-OwsQs1ZnFrqnpZ5crBh": true,
             "-OwsQtO_9gj3CLeV3o2u": true,
+            "-OwsQtnuR5s3v1VM2ZBi": true,
             "-OwsQtqJpPm042fY7ola": true,
-            "-OwsQtsjLSDkSYil8aUf": true,
+            "-OwsQtv3EWCTQ8ooLB-8": true,
             "-OwsQu_cOC2xFTqSm0ul": true,
             "-OwsQvyOzfcs0l55dRE2": true
           },
           "status": "aberto",
-          "temporadaId": "2026_T1787437738593",
-          "tipoOrdenacao": "livre"
+          "temporadaId": "2026_T1787596263986",
+          "tipoOrdenacao": "herdada"
         },
         "jogadores": {
           "-OwsQrDpFbGx4981OGtl": {
@@ -435,13 +436,6 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "ADRIANO GOMES FEITOSA",
-            "notificacoes": {
-              "-P-fbA1hcjJCAnIBNQNx": {
-                "adversario": "Joao Maria",
-                "categoria": "confirmado",
-                "timestamp": 1787438084418
-              }
-            },
             "participaRanking": true,
             "perfis": {
               "Admin": true,
@@ -1872,6 +1866,39 @@
         },
         "reservas": {
           "Quadra - 1": {
+            "1_10": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Alice Duck": true
+              },
+              "dataCompleta": "2026-08-24",
+              "dia": 1,
+              "duracao": 2,
+              "hora": 10,
+              "isRanking": false,
+              "jogadores": "Adriano Feitosa, Alice Duck",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, ALICE DUCK",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada",
+              "tipo": "comum"
+            },
+            "1_11": {
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Alice Duck": true
+              },
+              "dataCompleta": "2026-08-24",
+              "dia": 1,
+              "duracao": 2,
+              "hora": 11,
+              "isRanking": false,
+              "jogadores": "Adriano Feitosa, Alice Duck",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, ALICE DUCK",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada",
+              "tipo": "comum"
+            },
             "6_19": {
               "borda": "2h",
               "confirmacoes": {
@@ -2136,14 +2163,14 @@
           }
         },
         "usuariosOnline": {
-          "-OwsQrGGmuPBaD-rCgIg": {
-            "id": "-OwsQrGGmuPBaD-rCgIg",
-            "lastSeen": 1787529721518,
-            "usuario": "ALESSANDRO ROMERO XAVIER"
+          "-OwsQtsjLSDkSYil8aUf": {
+            "id": "-OwsQtsjLSDkSYil8aUf",
+            "lastSeen": 1787602001487,
+            "usuario": "JOAO FRANCISCO DA SILVA"
           },
           "GESTOR": {
             "isGestor": true,
-            "lastSeen": 1787545625792,
+            "lastSeen": 1787631187586,
             "usuario": "Gestor Mestre"
           }
         }
