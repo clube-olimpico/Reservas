@@ -362,8 +362,21 @@
               "pontosVitoria": 3,
               "pontosWO": 0
             },
+            "calendario": {
+              "categoriasHabilitadas": [
+                "CLASSE_A"
+              ],
+              "fimInscricoes": "2026-08-26",
+              "fimTorneio": "2026-08-28",
+              "inicioInscricoes": "2026-08-25",
+              "inicioJogos": "2026-08-27",
+              "limiteVagas": 32,
+              "modeloDisputa": "piramide",
+              "nomeTorneio": "Torneio da amizade"
+            },
             "divisaoGenero": "separado",
             "duracaoPartida": 2,
+            "faseAtual": 4,
             "financeiro": {
               "chavePix": "",
               "cobrarTaxa": false,
@@ -379,8 +392,25 @@
               "tamanhoGrupo": 3,
               "tratarDesistência": "anular"
             },
+            "inscritosConfirmados": {
+              "-OwsQrDpFbGx4981OGtl": {
+                "dataAceite": 1787700759059,
+                "nome": "ADRIANO GOMES FEITOSA",
+                "pixPago": true
+              },
+              "-OwsQrGGmuPBaD-rCgIg": {
+                "dataAceite": 1787700594407,
+                "nome": "ALESSANDRO ROMERO XAVIER",
+                "pixPago": true
+              },
+              "-OwsQs1ZnFrqnpZ5crBh": {
+                "dataAceite": 1787700731632,
+                "nome": "ARTHUR AMORIM MODESTO",
+                "pixPago": true
+              }
+            },
             "maxJogosSemana": 2,
-            "modeloAtivo": "barragem",
+            "modeloAtivo": "piramide",
             "permiteArbitrar": {
               "Admin": false,
               "Arbitro": true,
@@ -407,31 +437,19 @@
           }
         },
         "convites_ranking": {
-          "dataAbertura": 1787596263986,
+          "dataAbertura": 1787700458600,
           "pendentes": {
-            "-OwsQrNLH_WQE5_SCVCl": true,
-            "-OwsQrf9a9Xl8nyK-bdG": true,
-            "-OwsQrhU1OU0PeArJpdX": true,
-            "-OwsQrjn7GfNwbVpBEIx": true,
-            "-OwsQrm7Bwu6dgj-KdTt": true,
-            "-OwsQroTvdNBY94IW81q": true,
-            "-OwsQs1ZnFrqnpZ5crBh": true,
-            "-OwsQtO_9gj3CLeV3o2u": true,
-            "-OwsQtnuR5s3v1VM2ZBi": true,
-            "-OwsQtqJpPm042fY7ola": true,
-            "-OwsQtv3EWCTQ8ooLB-8": true,
-            "-OwsQu_cOC2xFTqSm0ul": true,
-            "-OwsQvyOzfcs0l55dRE2": true
+            "-OwsQrf9a9Xl8nyK-bdG": true
           },
           "status": "aberto",
-          "temporadaId": "2026_T1787596263986",
+          "temporadaId": "2026_T1787700458600",
           "tipoOrdenacao": "herdada"
         },
         "jogadores": {
           "-OwsQrDpFbGx4981OGtl": {
             "apelido": "Adriano Feitosa",
             "ativo": true,
-            "classe": "B",
+            "classe": "A",
             "email": "jog@gamail.com",
             "genero": "MASCULINO",
             "niver": "01/01/2001",
@@ -447,7 +465,7 @@
           "-OwsQrGGmuPBaD-rCgIg": {
             "apelido": "Alessandro Xavier",
             "ativo": true,
-            "classe": "B",
+            "classe": "A",
             "email": "ert@err",
             "genero": "MASCULINO",
             "niver": "04/04/1975",
@@ -1856,10 +1874,13 @@
             }
           },
           "tabelas": {
+            "A_MASCULINO": [
+              "-OwsQrGGmuPBaD-rCgIg",
+              "-OwsQs1ZnFrqnpZ5crBh",
+              "-OwsQrDpFbGx4981OGtl"
+            ],
             "B_MASCULINO": [
               "-OwsQtv3EWCTQ8ooLB-8",
-              "-OwsQrDpFbGx4981OGtl",
-              "-OwsQrGGmuPBaD-rCgIg",
               "-OwsQtnuR5s3v1VM2ZBi"
             ]
           }
@@ -2163,14 +2184,9 @@
           }
         },
         "usuariosOnline": {
-          "-OwsQtsjLSDkSYil8aUf": {
-            "id": "-OwsQtsjLSDkSYil8aUf",
-            "lastSeen": 1787602001487,
-            "usuario": "JOAO FRANCISCO DA SILVA"
-          },
           "GESTOR": {
             "isGestor": true,
-            "lastSeen": 1787631187586,
+            "lastSeen": 1787716757811,
             "usuario": "Gestor Mestre"
           }
         }
