@@ -1132,14 +1132,6 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "ADRIANO GOMES FEITOSA",
-            "notificacoes": {
-              "-P0JcH-s0ysJ7djK_jnx": {
-                "categoria": "inicio_temporada",
-                "detalhe": "Tabela do 6 Torneio Piramide Olimpico 2026 liberada.\nAgende sua partida de ranking no app.",
-                "timestamp": 1788126240961,
-                "titulo": "A temporada começou!"
-              }
-            },
             "participaRanking": true,
             "perfis": {
               "Admin": true,
@@ -1156,6 +1148,24 @@
             "genero": "MASCULINO",
             "niver": "04/04/1975",
             "nomeCompleto": "ALESSANDRO ROMERO XAVIER",
+            "notificacoes": {
+              "-P0Nq-01Ofwfmqkbf_oO": {
+                "adversario": "Adriano Feitosa",
+                "categoria": "confirmado",
+                "timestamp": 1788196946155
+              },
+              "-P0Nq5e7x-8sJm3rnLVy": {
+                "adversario": "Alexandre Camargo",
+                "categoria": "recusado",
+                "timestamp": 1788196973362
+              },
+              "-P0NqBe904637ALXMUN4": {
+                "adversario": "Alexandre Camargo",
+                "categoria": "homologado_arb",
+                "detalhe": "",
+                "timestamp": 1788196997950
+              }
+            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99998-8888"
@@ -1192,11 +1202,11 @@
             "niver": "21/03/1995",
             "nomeCompleto": "ALEXANDRE CAMARGO",
             "notificacoes": {
-              "-P0JcH-s0ysJ7djK_jnz": {
-                "categoria": "inicio_temporada",
-                "detalhe": "Tabela do 6 Torneio Piramide Olimpico 2026 liberada.\nAgende sua partida de ranking no app.",
-                "timestamp": 1788126240961,
-                "titulo": "A temporada começou!"
+              "-P0NqBeFCE72mOhnjuyi": {
+                "adversario": "Alexandre Camargo",
+                "categoria": "homologado_arb",
+                "detalhe": "",
+                "timestamp": 1788196997950
               }
             },
             "participaRanking": true,
@@ -2548,6 +2558,46 @@
         },
         "ranking": {
           "partidas": {
+            "partida_B_MASCULINO_Quadra1_1_6_-OwsQrGGmuPBaD-rCgIg_-OwsQrDpFbGx4981OGtl": {
+              "categoria": "B_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "ALESSANDRO ROMERO XAVIER",
+                "dataHoraLancamento": 1788196914058,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1788283314058,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 10,
+                    "tbJ2": 8
+                  },
+                  "set2": {
+                    "j1": 1,
+                    "j2": 6
+                  },
+                  "set3": {
+                    "j1": 10,
+                    "j2": 8
+                  }
+                },
+                "placarFormatado": "7/6(8) 1/6 10/8",
+                "statusPlacar": "pendente_validacao",
+                "vencedor": "Alessandro Xavier",
+                "vencedorCodigo": "J1"
+              },
+              "dataHora": 1788196946159,
+              "gamesP1": 18,
+              "gamesP2": 20,
+              "jogador1Id": "-OwsQrGGmuPBaD-rCgIg",
+              "jogador2Id": "-OwsQrDpFbGx4981OGtl",
+              "status": "finalizada",
+              "vencedorId": "-OwsQrGGmuPBaD-rCgIg"
+            },
             "partida_B_MASCULINO_Quadra1_7_19_-OwsQtnuR5s3v1VM2ZBi_-OwsQrGGmuPBaD-rCgIg": {
               "categoria": "B_MASCULINO",
               "dadosPlacar": {
@@ -2604,8 +2654,8 @@
             "B_MASCULINO": [
               "-OwsQtnuR5s3v1VM2ZBi",
               "-OwsQrNLH_WQE5_SCVCl",
-              "-OwsQrDpFbGx4981OGtl",
-              "-OwsQrGGmuPBaD-rCgIg"
+              "-OwsQrGGmuPBaD-rCgIg",
+              "-OwsQrDpFbGx4981OGtl"
             ]
           }
         },
@@ -2617,6 +2667,37 @@
                 "Adriano Feitosa": true,
                 "Alessandro Xavier": true
               },
+              "dadosPlacar": {
+                "autorSumula": "ALESSANDRO ROMERO XAVIER",
+                "dataHoraLancamento": 1788196914058,
+                "dataHoraValidacao": 1788196946002,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1788283314058,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 10,
+                    "tbJ2": 8
+                  },
+                  "set2": {
+                    "j1": 1,
+                    "j2": 6
+                  },
+                  "set3": {
+                    "j1": 10,
+                    "j2": 8
+                  }
+                },
+                "placarFormatado": "7/6(8) 1/6 10/8",
+                "statusPlacar": "consolidado",
+                "vencedor": "Alessandro Xavier",
+                "vencedorCodigo": "J1"
+              },
               "dataCompleta": "2026-08-31",
               "dia": 1,
               "duracao": 1,
@@ -2626,6 +2707,7 @@
               "jogadores_completo": "ALESSANDRO ROMERO XAVIER, ADRIANO GOMES FEITOSA",
               "organizador": "ALESSANDRO ROMERO XAVIER",
               "status": "confirmada",
+              "statusPlacar": "consolidado",
               "tipo": "ranking"
             },
             "1_7": {
@@ -2633,6 +2715,34 @@
               "confirmacoes": {
                 "Alessandro Xavier": true,
                 "Alexandre Camargo": true
+              },
+              "dadosPlacar": {
+                "arbitroResponsavel": "ANA JULIA MARTINS",
+                "autorSumula": "ALESSANDRO ROMERO XAVIER",
+                "dataHoraArbitragem": 1788196997785,
+                "dataHoraContestacao": 1788196973210,
+                "dataHoraLancamento": 1788196930092,
+                "decisaoArbitro": "mantido_pelo_arbitro",
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1788283330092,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 0
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 0
+                  }
+                },
+                "placarFormatado": "6/0 6/0",
+                "statusPlacar": "consolidado",
+                "vencedor": "Alessandro Xavier",
+                "vencedorCodigo": "J1"
               },
               "dataCompleta": "2026-08-31",
               "dia": 1,
@@ -2643,6 +2753,7 @@
               "jogadores_completo": "ALESSANDRO ROMERO XAVIER, ALEXANDRE CAMARGO",
               "organizador": "ALESSANDRO ROMERO XAVIER",
               "status": "confirmada",
+              "statusPlacar": "consolidado",
               "tipo": "ranking"
             },
             "7_19": {
@@ -2697,9 +2808,14 @@
           }
         },
         "usuariosOnline": {
+          "-OwsQrDpFbGx4981OGtl": {
+            "id": "-OwsQrDpFbGx4981OGtl",
+            "lastSeen": 1788229204211,
+            "usuario": "ADRIANO GOMES FEITOSA"
+          },
           "GESTOR": {
             "isGestor": true,
-            "lastSeen": 1788169059808,
+            "lastSeen": 1788250722507,
             "usuario": "Gestor Mestre"
           }
         }
