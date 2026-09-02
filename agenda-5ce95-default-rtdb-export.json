@@ -96,8 +96,6 @@
                 "Grade": {
                   "1_20": "Adriano",
                   "2_17": "Adriano",
-                  "2_18": "Adriano",
-                  "2_19": "Adriano",
                   "2_20": "Adriano",
                   "2_21": "Adriano",
                   "2_22": "Adriano",
@@ -148,7 +146,6 @@
                 "Grade": {
                   "2_15": true,
                   "2_16": true,
-                  "2_19": true,
                   "2_20": true
                 }
               },
@@ -365,13 +362,13 @@
                 "CLASSE_B",
                 "MASCULINO"
               ],
-              "fimInscricoes": "2026-08-31",
-              "fimTorneio": "2026-09-02",
-              "inicioInscricoes": "2026-08-30",
-              "inicioJogos": "2026-09-01",
-              "limiteVagas": 32,
-              "modeloDisputa": "piramide",
-              "nomeTorneio": "6 Torneio Piramide Olimpico 2026"
+              "fimInscricoes": "2026-09-02",
+              "fimTorneio": "2026-09-04",
+              "inicioInscricoes": "2026-09-01",
+              "inicioJogos": "2026-09-03",
+              "limiteVagas": 0,
+              "modeloDisputa": "barragem",
+              "nomeTorneio": "4 Torneio de Barragem 2026"
             },
             "divisaoGenero": "separado",
             "duracaoPartida": 1,
@@ -393,28 +390,33 @@
             },
             "inscritosConfirmados": {
               "-OwsQrDpFbGx4981OGtl": {
-                "dataAceite": 1788126152347,
+                "dataAceite": 1788298504241,
                 "nome": "ADRIANO GOMES FEITOSA",
                 "pixPago": true
               },
               "-OwsQrGGmuPBaD-rCgIg": {
-                "dataAceite": 1788126193672,
+                "dataAceite": 1788298485896,
                 "nome": "ALESSANDRO ROMERO XAVIER",
                 "pixPago": true
               },
               "-OwsQrNLH_WQE5_SCVCl": {
-                "dataAceite": 1788126213823,
+                "dataAceite": 1788298536137,
                 "nome": "ALEXANDRE CAMARGO",
                 "pixPago": true
               },
               "-OwsQtnuR5s3v1VM2ZBi": {
-                "dataAceite": 1788126233005,
+                "dataAceite": 1788298562320,
                 "nome": "JOAO BENTO PEREIRA",
+                "pixPago": true
+              },
+              "-OwsQtqJpPm042fY7ola": {
+                "dataAceite": 1788298585057,
+                "nome": "JOAO DARIO DINIZ",
                 "pixPago": true
               }
             },
             "maxJogosSemana": 2,
-            "modeloAtivo": "piramide",
+            "modeloAtivo": "barragem",
             "permiteArbitrar": {
               "Admin": false,
               "Arbitro": true,
@@ -441,16 +443,15 @@
           }
         },
         "convites_ranking": {
-          "dataAbertura": 1788126129298,
+          "dataAbertura": 1788298481992,
           "pendentes": {
             "-OwsQtO_9gj3CLeV3o2u": true,
-            "-OwsQtqJpPm042fY7ola": true,
             "-OwsQtsjLSDkSYil8aUf": true,
             "-OwsQtv3EWCTQ8ooLB-8": true,
             "-OwsQu_cOC2xFTqSm0ul": true
           },
           "status": "aberto",
-          "temporadaId": "2026_T1788126129298",
+          "temporadaId": "2026_T1788298481992",
           "tipoOrdenacao": "herdada"
         },
         "hall_de_campeoes": {
@@ -487,6 +488,13 @@
               "campeao": "-OwsQrDpFbGx4981OGtl",
               "terceiro": "-OwsQrNLH_WQE5_SCVCl",
               "vice": "-OwsQtv3EWCTQ8ooLB-8"
+            }
+          },
+          "2026_6_Torneio_Piramide_Olimpico_2026": {
+            "B_MASCULINO": {
+              "campeao": "-OwsQtnuR5s3v1VM2ZBi",
+              "terceiro": "-OwsQrNLH_WQE5_SCVCl",
+              "vice": "-OwsQrGGmuPBaD-rCgIg"
             }
           }
         },
@@ -1121,6 +1129,151 @@
                 "status": "anulado"
               }
             }
+          },
+          "2026_6_Torneio_Piramide_Olimpico_2026": {
+            "classificacaoFinal": {
+              "B_MASCULINO": [
+                "-OwsQtnuR5s3v1VM2ZBi",
+                "-OwsQrGGmuPBaD-rCgIg",
+                "-OwsQrNLH_WQE5_SCVCl",
+                "-OwsQrDpFbGx4981OGtl"
+              ]
+            },
+            "contrato": {
+              "categoriasHabilitadas": [
+                "CLASSE_B",
+                "MASCULINO"
+              ],
+              "fimInscricoes": "2026-08-31",
+              "fimTorneio": "2026-09-02",
+              "inicioInscricoes": "2026-08-30",
+              "inicioJogos": "2026-09-01",
+              "limiteVagas": 32,
+              "modeloDisputa": "piramide",
+              "nomeTorneio": "6 Torneio Piramide Olimpico 2026"
+            },
+            "dataHomologacao": 1788298391679,
+            "modelo": "piramide",
+            "partidas": {
+              "partida_B_MASCULINO_Quadra1_1_6_-OwsQrGGmuPBaD-rCgIg_-OwsQrDpFbGx4981OGtl": {
+                "categoria": "B_MASCULINO",
+                "dadosPlacar": {
+                  "autorSumula": "ALESSANDRO ROMERO XAVIER",
+                  "dataHoraLancamento": 1788196914058,
+                  "desistenteCodigo": "",
+                  "expiraValidacaoAt": 1788283314058,
+                  "isRET": false,
+                  "isWO": false,
+                  "motivoRET": "",
+                  "motivoWO": "",
+                  "parciais": {
+                    "set1": {
+                      "j1": 7,
+                      "j2": 6,
+                      "tbJ1": 10,
+                      "tbJ2": 8
+                    },
+                    "set2": {
+                      "j1": 1,
+                      "j2": 6
+                    },
+                    "set3": {
+                      "j1": 10,
+                      "j2": 8
+                    }
+                  },
+                  "placarFormatado": "7/6(8) 1/6 10/8",
+                  "statusPlacar": "pendente_validacao",
+                  "vencedor": "Alessandro Xavier",
+                  "vencedorCodigo": "J1"
+                },
+                "dataHora": 1788196946159,
+                "gamesP1": 18,
+                "gamesP2": 20,
+                "jogador1Id": "-OwsQrGGmuPBaD-rCgIg",
+                "jogador2Id": "-OwsQrDpFbGx4981OGtl",
+                "status": "finalizada",
+                "vencedorId": "-OwsQrGGmuPBaD-rCgIg"
+              },
+              "partida_B_MASCULINO_Quadra1_7_19_-OwsQtnuR5s3v1VM2ZBi_-OwsQrGGmuPBaD-rCgIg": {
+                "categoria": "B_MASCULINO",
+                "dadosPlacar": {
+                  "autorSumula": "JOAO BENTO PEREIRA",
+                  "dataHoraLancamento": 1788128036559,
+                  "desistenteCodigo": "",
+                  "expiraValidacaoAt": 1788214436559,
+                  "isRET": false,
+                  "isWO": false,
+                  "motivoRET": "",
+                  "motivoWO": "",
+                  "parciais": {
+                    "set1": {
+                      "j1": 7,
+                      "j2": 6,
+                      "tbJ1": 7,
+                      "tbJ2": 4
+                    },
+                    "set2": {
+                      "j1": 1,
+                      "j2": 6
+                    },
+                    "set3": {
+                      "j1": 10,
+                      "j2": 8
+                    }
+                  },
+                  "placarFormatado": "7/6(4) 1/6 10/8",
+                  "statusPlacar": "pendente_validacao",
+                  "vencedor": "Joao Bento",
+                  "vencedorCodigo": "J1"
+                },
+                "dataHora": 1788128057630,
+                "gamesP1": 18,
+                "gamesP2": 20,
+                "jogador1Id": "-OwsQtnuR5s3v1VM2ZBi",
+                "jogador2Id": "-OwsQrGGmuPBaD-rCgIg",
+                "status": "finalizada",
+                "vencedorId": "-OwsQtnuR5s3v1VM2ZBi"
+              },
+              "partida_B_MASCULINO_Quadra3_2_18_-OwsQrGGmuPBaD-rCgIg_-OwsQrNLH_WQE5_SCVCl": {
+                "categoria": "B_MASCULINO",
+                "dadosPlacar": {
+                  "arbitroResponsavel": "ANA JULIA MARTINS",
+                  "autorSumula": "ALESSANDRO ROMERO XAVIER",
+                  "dataHoraArbitragem": 1788298164159,
+                  "dataHoraContestacao": 1788298121488,
+                  "dataHoraLancamento": 1788298094573,
+                  "decisaoArbitro": "mantido_pelo_arbitro",
+                  "desistenteCodigo": "",
+                  "expiraValidacaoAt": 1788384494573,
+                  "isRET": false,
+                  "isWO": false,
+                  "motivoRET": "",
+                  "motivoWO": "",
+                  "parciais": {
+                    "set1": {
+                      "j1": 6,
+                      "j2": 0
+                    },
+                    "set2": {
+                      "j1": 6,
+                      "j2": 0
+                    }
+                  },
+                  "placarFormatado": "6/0 6/0",
+                  "statusPlacar": "consolidado",
+                  "vencedor": "Alessandro Xavier",
+                  "vencedorCodigo": "J1"
+                },
+                "dataHora": 1788298164320,
+                "gamesP1": 12,
+                "gamesP2": 0,
+                "jogador1Id": "-OwsQrGGmuPBaD-rCgIg",
+                "jogador2Id": "-OwsQrNLH_WQE5_SCVCl",
+                "status": "finalizada",
+                "vencedorId": "-OwsQrGGmuPBaD-rCgIg"
+              }
+            }
           }
         },
         "jogadores": {
@@ -1148,24 +1301,6 @@
             "genero": "MASCULINO",
             "niver": "04/04/1975",
             "nomeCompleto": "ALESSANDRO ROMERO XAVIER",
-            "notificacoes": {
-              "-P0Nq-01Ofwfmqkbf_oO": {
-                "adversario": "Adriano Feitosa",
-                "categoria": "confirmado",
-                "timestamp": 1788196946155
-              },
-              "-P0Nq5e7x-8sJm3rnLVy": {
-                "adversario": "Alexandre Camargo",
-                "categoria": "recusado",
-                "timestamp": 1788196973362
-              },
-              "-P0NqBe904637ALXMUN4": {
-                "adversario": "Alexandre Camargo",
-                "categoria": "homologado_arb",
-                "detalhe": "",
-                "timestamp": 1788196997950
-              }
-            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99998-8888"
@@ -1202,11 +1337,11 @@
             "niver": "21/03/1995",
             "nomeCompleto": "ALEXANDRE CAMARGO",
             "notificacoes": {
-              "-P0NqBeFCE72mOhnjuyi": {
-                "adversario": "Alexandre Camargo",
-                "categoria": "homologado_arb",
-                "detalhe": "",
-                "timestamp": 1788196997950
+              "-P0TtmMM1nCsttHPG47N": {
+                "categoria": "inicio_temporada",
+                "detalhe": "Tabela do 4 Torneio de Barragem 2026 liberada.\nAgende sua partida de ranking no app.",
+                "timestamp": 1788298602022,
+                "titulo": "A temporada começou!"
               }
             },
             "participaRanking": true,
@@ -1881,13 +2016,6 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "JOAO BENTO PEREIRA",
-            "notificacoes": {
-              "-P0JjCX8lZoEIy_Nqi-a": {
-                "adversario": "Alessandro Xavier",
-                "categoria": "confirmado",
-                "timestamp": 1788128057624
-              }
-            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(41) 99999-9999"
@@ -1900,14 +2028,6 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "JOAO DARIO DINIZ",
-            "notificacoes": {
-              "-P0JYV4sNaYknz4TX08q": {
-                "adversario": "Joao Bento",
-                "categoria": "anulado_arb",
-                "detalhe": "jogo invalido",
-                "timestamp": 1788124987917
-              }
-            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(41) 99999-9999"
@@ -2558,173 +2678,17 @@
         },
         "ranking": {
           "partidas": {
-            "partida_B_MASCULINO_Quadra1_1_6_-OwsQrGGmuPBaD-rCgIg_-OwsQrDpFbGx4981OGtl": {
+            "partida_B_MASCULINO_Quadra1_2_18_-OwsQtqJpPm042fY7ola_-OwsQtnuR5s3v1VM2ZBi": {
               "categoria": "B_MASCULINO",
-              "dadosPlacar": {
-                "autorSumula": "ALESSANDRO ROMERO XAVIER",
-                "dataHoraLancamento": 1788196914058,
-                "desistenteCodigo": "",
-                "expiraValidacaoAt": 1788283314058,
-                "isRET": false,
-                "isWO": false,
-                "motivoRET": "",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 7,
-                    "j2": 6,
-                    "tbJ1": 10,
-                    "tbJ2": 8
-                  },
-                  "set2": {
-                    "j1": 1,
-                    "j2": 6
-                  },
-                  "set3": {
-                    "j1": 10,
-                    "j2": 8
-                  }
-                },
-                "placarFormatado": "7/6(8) 1/6 10/8",
-                "statusPlacar": "pendente_validacao",
-                "vencedor": "Alessandro Xavier",
-                "vencedorCodigo": "J1"
-              },
-              "dataHora": 1788196946159,
-              "gamesP1": 18,
-              "gamesP2": 20,
-              "jogador1Id": "-OwsQrGGmuPBaD-rCgIg",
-              "jogador2Id": "-OwsQrDpFbGx4981OGtl",
-              "status": "finalizada",
-              "vencedorId": "-OwsQrGGmuPBaD-rCgIg"
-            },
-            "partida_B_MASCULINO_Quadra1_7_19_-OwsQtnuR5s3v1VM2ZBi_-OwsQrGGmuPBaD-rCgIg": {
-              "categoria": "B_MASCULINO",
-              "dadosPlacar": {
-                "autorSumula": "JOAO BENTO PEREIRA",
-                "dataHoraLancamento": 1788128036559,
-                "desistenteCodigo": "",
-                "expiraValidacaoAt": 1788214436559,
-                "isRET": false,
-                "isWO": false,
-                "motivoRET": "",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 7,
-                    "j2": 6,
-                    "tbJ1": 7,
-                    "tbJ2": 4
-                  },
-                  "set2": {
-                    "j1": 1,
-                    "j2": 6
-                  },
-                  "set3": {
-                    "j1": 10,
-                    "j2": 8
-                  }
-                },
-                "placarFormatado": "7/6(4) 1/6 10/8",
-                "statusPlacar": "pendente_validacao",
-                "vencedor": "Joao Bento",
-                "vencedorCodigo": "J1"
-              },
-              "dataHora": 1788128057630,
-              "gamesP1": 18,
-              "gamesP2": 20,
-              "jogador1Id": "-OwsQtnuR5s3v1VM2ZBi",
-              "jogador2Id": "-OwsQrGGmuPBaD-rCgIg",
-              "status": "finalizada",
-              "vencedorId": "-OwsQtnuR5s3v1VM2ZBi"
-            }
-          },
-          "ranking_geral": {
-            "B_MASCULINO": [
-              "-OwsQtv3EWCTQ8ooLB-8",
-              "-OwsQrGGmuPBaD-rCgIg",
-              "-OwsQrNLH_WQE5_SCVCl",
-              "-OwsQrDpFbGx4981OGtl",
-              "-OwsQtsjLSDkSYil8aUf",
-              "-OwsQtqJpPm042fY7ola",
-              "-OwsQtnuR5s3v1VM2ZBi"
-            ]
-          },
-          "tabelas": {
-            "B_MASCULINO": [
-              "-OwsQtnuR5s3v1VM2ZBi",
-              "-OwsQrNLH_WQE5_SCVCl",
-              "-OwsQrGGmuPBaD-rCgIg",
-              "-OwsQrDpFbGx4981OGtl"
-            ]
-          }
-        },
-        "reservas": {
-          "Quadra - 1": {
-            "1_6": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Adriano Feitosa": true,
-                "Alessandro Xavier": true
-              },
-              "dadosPlacar": {
-                "autorSumula": "ALESSANDRO ROMERO XAVIER",
-                "dataHoraLancamento": 1788196914058,
-                "dataHoraValidacao": 1788196946002,
-                "desistenteCodigo": "",
-                "expiraValidacaoAt": 1788283314058,
-                "isRET": false,
-                "isWO": false,
-                "motivoRET": "",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 7,
-                    "j2": 6,
-                    "tbJ1": 10,
-                    "tbJ2": 8
-                  },
-                  "set2": {
-                    "j1": 1,
-                    "j2": 6
-                  },
-                  "set3": {
-                    "j1": 10,
-                    "j2": 8
-                  }
-                },
-                "placarFormatado": "7/6(8) 1/6 10/8",
-                "statusPlacar": "consolidado",
-                "vencedor": "Alessandro Xavier",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-08-31",
-              "dia": 1,
-              "duracao": 1,
-              "hora": 6,
-              "isRanking": true,
-              "jogadores": "Alessandro Xavier, Adriano Feitosa",
-              "jogadores_completo": "ALESSANDRO ROMERO XAVIER, ADRIANO GOMES FEITOSA",
-              "organizador": "ALESSANDRO ROMERO XAVIER",
-              "status": "confirmada",
-              "statusPlacar": "consolidado",
-              "tipo": "ranking"
-            },
-            "1_7": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Alessandro Xavier": true,
-                "Alexandre Camargo": true
-              },
               "dadosPlacar": {
                 "arbitroResponsavel": "ANA JULIA MARTINS",
-                "autorSumula": "ALESSANDRO ROMERO XAVIER",
-                "dataHoraArbitragem": 1788196997785,
-                "dataHoraContestacao": 1788196973210,
-                "dataHoraLancamento": 1788196930092,
+                "autorSumula": "JOAO DARIO DINIZ",
+                "dataHoraArbitragem": 1788298810454,
+                "dataHoraContestacao": 1788298761007,
+                "dataHoraLancamento": 1788298737831,
                 "decisaoArbitro": "mantido_pelo_arbitro",
                 "desistenteCodigo": "",
-                "expiraValidacaoAt": 1788283330092,
+                "expiraValidacaoAt": 1788385137831,
                 "isRET": false,
                 "isWO": false,
                 "motivoRET": "",
@@ -2741,33 +2705,28 @@
                 },
                 "placarFormatado": "6/0 6/0",
                 "statusPlacar": "consolidado",
-                "vencedor": "Alessandro Xavier",
+                "vencedor": "Joca",
                 "vencedorCodigo": "J1"
               },
-              "dataCompleta": "2026-08-31",
-              "dia": 1,
-              "duracao": 1,
-              "hora": 7,
-              "isRanking": true,
-              "jogadores": "Alessandro Xavier, Alexandre Camargo",
-              "jogadores_completo": "ALESSANDRO ROMERO XAVIER, ALEXANDRE CAMARGO",
-              "organizador": "ALESSANDRO ROMERO XAVIER",
-              "status": "confirmada",
-              "statusPlacar": "consolidado",
-              "tipo": "ranking"
+              "dataHora": 1788298810623,
+              "gamesP1": 12,
+              "gamesP2": 0,
+              "jogador1Id": "-OwsQtqJpPm042fY7ola",
+              "jogador2Id": "-OwsQtnuR5s3v1VM2ZBi",
+              "status": "finalizada",
+              "vencedorId": "-OwsQtqJpPm042fY7ola"
             },
-            "7_19": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Alessandro Xavier": true,
-                "Joao Bento": true
-              },
+            "partida_B_MASCULINO_Quadra3_2_18_-OwsQrGGmuPBaD-rCgIg_-OwsQrDpFbGx4981OGtl": {
+              "categoria": "B_MASCULINO",
               "dadosPlacar": {
-                "autorSumula": "JOAO BENTO PEREIRA",
-                "dataHoraLancamento": 1788128036559,
-                "dataHoraValidacao": 1788128057445,
+                "arbitroResponsavel": "ANA JULIA MARTINS",
+                "autorSumula": "ALESSANDRO ROMERO XAVIER",
+                "dataHoraArbitragem": 1788299391238,
+                "dataHoraContestacao": 1788299372885,
+                "dataHoraLancamento": 1788299352511,
+                "decisaoArbitro": "mantido_pelo_arbitro",
                 "desistenteCodigo": "",
-                "expiraValidacaoAt": 1788214436559,
+                "expiraValidacaoAt": 1788385752511,
                 "isRET": false,
                 "isWO": false,
                 "motivoRET": "",
@@ -2780,27 +2739,151 @@
                     "tbJ2": 4
                   },
                   "set2": {
-                    "j1": 1,
-                    "j2": 6
+                    "j1": 6,
+                    "j2": 7,
+                    "tbJ1": 0,
+                    "tbJ2": 7
                   },
                   "set3": {
                     "j1": 10,
-                    "j2": 8
+                    "j2": 0
                   }
                 },
-                "placarFormatado": "7/6(4) 1/6 10/8",
+                "placarFormatado": "7/6(4) 6/7(0) 10/0",
                 "statusPlacar": "consolidado",
-                "vencedor": "Joao Bento",
+                "vencedor": "Alessandro Xavier",
                 "vencedorCodigo": "J1"
               },
-              "dataCompleta": "2026-08-30",
-              "dia": 7,
+              "dataHora": 1788299391402,
+              "gamesP1": 23,
+              "gamesP2": 13,
+              "jogador1Id": "-OwsQrGGmuPBaD-rCgIg",
+              "jogador2Id": "-OwsQrDpFbGx4981OGtl",
+              "status": "finalizada",
+              "vencedorId": "-OwsQrGGmuPBaD-rCgIg"
+            }
+          },
+          "ranking_geral": {
+            "B_MASCULINO": [
+              "-OwsQtnuR5s3v1VM2ZBi",
+              "-OwsQrGGmuPBaD-rCgIg",
+              "-OwsQrNLH_WQE5_SCVCl",
+              "-OwsQrDpFbGx4981OGtl",
+              "-OwsQtv3EWCTQ8ooLB-8",
+              "-OwsQtsjLSDkSYil8aUf",
+              "-OwsQtqJpPm042fY7ola"
+            ]
+          },
+          "tabelas": {
+            "B_MASCULINO": [
+              "-OwsQtqJpPm042fY7ola",
+              "-OwsQrGGmuPBaD-rCgIg",
+              "-OwsQrDpFbGx4981OGtl",
+              "-OwsQtnuR5s3v1VM2ZBi",
+              "-OwsQrNLH_WQE5_SCVCl"
+            ]
+          }
+        },
+        "reservas": {
+          "Quadra - 1": {
+            "2_18": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Joao Bento": true,
+                "Joca": true
+              },
+              "dadosPlacar": {
+                "arbitroResponsavel": "ANA JULIA MARTINS",
+                "autorSumula": "JOAO DARIO DINIZ",
+                "dataHoraArbitragem": 1788298810454,
+                "dataHoraContestacao": 1788298761007,
+                "dataHoraLancamento": 1788298737831,
+                "decisaoArbitro": "mantido_pelo_arbitro",
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1788385137831,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 0
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 0
+                  }
+                },
+                "placarFormatado": "6/0 6/0",
+                "statusPlacar": "consolidado",
+                "vencedor": "Joca",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-01",
+              "dia": 2,
               "duracao": 1,
-              "hora": 19,
+              "hora": 18,
               "isRanking": true,
-              "jogadores": "Joao Bento, Alessandro Xavier",
-              "jogadores_completo": "JOAO BENTO PEREIRA, ALESSANDRO ROMERO XAVIER",
-              "organizador": "JOAO BENTO PEREIRA",
+              "jogadores": "Joca, Joao Bento",
+              "jogadores_completo": "JOAO DARIO DINIZ, JOAO BENTO PEREIRA",
+              "organizador": "JOAO DARIO DINIZ",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tipo": "ranking"
+            }
+          },
+          "Quadra - 3": {
+            "2_18": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Alessandro Xavier": true
+              },
+              "dadosPlacar": {
+                "arbitroResponsavel": "ANA JULIA MARTINS",
+                "autorSumula": "ALESSANDRO ROMERO XAVIER",
+                "dataHoraArbitragem": 1788299391238,
+                "dataHoraContestacao": 1788299372885,
+                "dataHoraLancamento": 1788299352511,
+                "decisaoArbitro": "mantido_pelo_arbitro",
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1788385752511,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 7,
+                    "tbJ2": 4
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 7,
+                    "tbJ1": 0,
+                    "tbJ2": 7
+                  },
+                  "set3": {
+                    "j1": 10,
+                    "j2": 0
+                  }
+                },
+                "placarFormatado": "7/6(4) 6/7(0) 10/0",
+                "statusPlacar": "consolidado",
+                "vencedor": "Alessandro Xavier",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-01",
+              "dia": 2,
+              "duracao": 1,
+              "hora": 18,
+              "isRanking": true,
+              "jogadores": "Alessandro Xavier, Adriano Feitosa",
+              "jogadores_completo": "ALESSANDRO ROMERO XAVIER, ADRIANO GOMES FEITOSA",
+              "organizador": "ALESSANDRO ROMERO XAVIER",
               "status": "confirmada",
               "statusPlacar": "consolidado",
               "tipo": "ranking"
@@ -2810,12 +2893,12 @@
         "usuariosOnline": {
           "-OwsQrDpFbGx4981OGtl": {
             "id": "-OwsQrDpFbGx4981OGtl",
-            "lastSeen": 1788229204211,
+            "lastSeen": 1788330586192,
             "usuario": "ADRIANO GOMES FEITOSA"
           },
           "GESTOR": {
             "isGestor": true,
-            "lastSeen": 1788250722507,
+            "lastSeen": 1788335852636,
             "usuario": "Gestor Mestre"
           }
         }
@@ -4387,7 +4470,7 @@
     },
     "SaaS_Config": {
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "versao_web": "1.2.0"
+      "versao_web": "1.2.1"
     },
     "TESTE10": {
       "info_clube": {
