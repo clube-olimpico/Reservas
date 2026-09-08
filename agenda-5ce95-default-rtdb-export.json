@@ -366,12 +366,12 @@
               "fimTorneio": "2026-09-10",
               "inicioInscricoes": "2026-09-07",
               "inicioJogos": "2026-09-09",
-              "limiteVagas": 0,
-              "modeloDisputa": "barragem",
-              "nomeTorneio": "teste"
+              "limiteVagas": 32,
+              "modeloDisputa": "grupos",
+              "nomeTorneio": "1 Torneio de Grupos Olimpico 2026"
             },
             "divisaoGenero": "separado",
-            "duracaoPartida": 1,
+            "duracaoPartida": 2,
             "faseAtual": 4,
             "financeiro": {
               "chavePix": "",
@@ -390,18 +390,33 @@
             },
             "inscritosConfirmados": {
               "-OwsQrDpFbGx4981OGtl": {
-                "dataAceite": 1788726424829,
+                "dataAceite": 1788779828240,
                 "nome": "ADRIANO GOMES FEITOSA",
                 "pixPago": true
               },
-              "-OwsQrGGmuPBaD-rCgIg": {
-                "dataAceite": 1788726409688,
-                "nome": "ALESSANDRO ROMERO XAVIER",
+              "-OwsQrNLH_WQE5_SCVCl": {
+                "dataAceite": 1788779984235,
+                "nome": "ALEXANDRE CAMARGO",
+                "pixPago": true
+              },
+              "-OwsQrf9a9Xl8nyK-bdG": {
+                "dataAceite": 1788779955789,
+                "nome": "ALMIR ALVES DA CRUZ",
+                "pixPago": true
+              },
+              "-OwsQtqJpPm042fY7ola": {
+                "dataAceite": 1788780014633,
+                "nome": "JOAO DARIO DINIZ",
+                "pixPago": true
+              },
+              "-OwsQtsjLSDkSYil8aUf": {
+                "dataAceite": 1788779822211,
+                "nome": "JOAO FRANCISCO DA SILVA",
                 "pixPago": true
               }
             },
             "maxJogosSemana": 2,
-            "modeloAtivo": "barragem",
+            "modeloAtivo": "grupos",
             "permiteArbitrar": {
               "Admin": false,
               "Arbitro": true,
@@ -428,18 +443,16 @@
           }
         },
         "convites_ranking": {
-          "dataAbertura": 1788726406612,
+          "dataAbertura": 1788779814162,
           "pendentes": {
-            "-OwsQrf9a9Xl8nyK-bdG": true,
+            "-OwsQrGGmuPBaD-rCgIg": true,
             "-OwsQtO_9gj3CLeV3o2u": true,
             "-OwsQtnuR5s3v1VM2ZBi": true,
-            "-OwsQtqJpPm042fY7ola": true,
-            "-OwsQtsjLSDkSYil8aUf": true,
             "-OwsQtv3EWCTQ8ooLB-8": true,
             "-OwsQu_cOC2xFTqSm0ul": true
           },
           "status": "aberto",
-          "temporadaId": "2026_T1788726406612",
+          "temporadaId": "2026_T1788779814162",
           "tipoOrdenacao": "herdada"
         },
         "hall_de_campeoes": {
@@ -2062,6 +2075,14 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "ADRIANO GOMES FEITOSA",
+            "notificacoes": {
+              "-P0vaEdBrGDN9NPPfGAC": {
+                "categoria": "inicio_temporada",
+                "detalhe": "Tabela do 1 Torneio de Grupos Olimpico 2026 liberada.\nAgende sua partida de ranking no app.",
+                "timestamp": 1788780018875,
+                "titulo": "A temporada começou!"
+              }
+            },
             "participaRanking": true,
             "perfis": {
               "Admin": true,
@@ -2113,6 +2134,13 @@
             "genero": "MASCULINO",
             "niver": "21/03/1995",
             "nomeCompleto": "ALEXANDRE CAMARGO",
+            "notificacoes": {
+              "-P0vcMftxaeHW84cikSJ": {
+                "adversario": "Adriano Feitosa",
+                "categoria": "confirmado",
+                "timestamp": 1788780576103
+              }
+            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -2809,13 +2837,6 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "JOAO FRANCISCO DA SILVA",
-            "notificacoes": {
-              "-P0sIU0n32tH7KUBi6Mr": {
-                "adversario": "Adriano Feitosa",
-                "categoria": "confirmado",
-                "timestamp": 1788724768983
-              }
-            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(41) 99999-9999"
@@ -3454,13 +3475,47 @@
         },
         "ranking": {
           "partidas": {
-            "partida_B_MASCULINO_Quadra3_7_17_-OwsQrDpFbGx4981OGtl_-OwsQrGGmuPBaD-rCgIg": {
+            "partida_B_MASCULINO_Quadra1_1_8_-OwsQtqJpPm042fY7ola_-OwsQrf9a9Xl8nyK-bdG": {
               "categoria": "B_MASCULINO",
               "dadosPlacar": {
-                "autorSumula": "ADRIANO GOMES FEITOSA",
-                "dataHoraLancamento": 1788726525805,
+                "autorSumula": "JOAO DARIO DINIZ",
+                "dataHoraLancamento": 1788780365428,
                 "desistenteCodigo": "",
-                "expiraValidacaoAt": 1788812925805,
+                "expiraValidacaoAt": 1788866765428,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 3
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 4
+                  }
+                },
+                "placarFormatado": "6/3 6/4",
+                "statusPlacar": "pendente_validacao",
+                "vencedor": "Joca",
+                "vencedorCodigo": "J1"
+              },
+              "dataHora": 1788780417583,
+              "gamesP1": 12,
+              "gamesP2": 7,
+              "jogador1Id": "-OwsQtqJpPm042fY7ola",
+              "jogador2Id": "-OwsQrf9a9Xl8nyK-bdG",
+              "status": "finalizada",
+              "vencedorId": "-OwsQtqJpPm042fY7ola"
+            },
+            "partida_B_MASCULINO_Quadra1_1_9_-OwsQtsjLSDkSYil8aUf_-OwsQrNLH_WQE5_SCVCl": {
+              "categoria": "B_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "JOAO FRANCISCO DA SILVA",
+                "dataHoraLancamento": 1788785132128,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1788871532128,
                 "isRET": false,
                 "isWO": false,
                 "motivoRET": "",
@@ -3477,16 +3532,54 @@
                 },
                 "placarFormatado": "6/0 6/0",
                 "statusPlacar": "pendente_validacao",
-                "vencedor": "Adriano Feitosa",
+                "vencedor": "Joao Francisco",
                 "vencedorCodigo": "J1"
               },
-              "dataHora": 1788726546142,
+              "dataHora": 1788785133831,
               "gamesP1": 12,
               "gamesP2": 0,
-              "jogador1Id": "-OwsQrDpFbGx4981OGtl",
-              "jogador2Id": "-OwsQrGGmuPBaD-rCgIg",
+              "jogador1Id": "-OwsQtsjLSDkSYil8aUf",
+              "jogador2Id": "-OwsQrNLH_WQE5_SCVCl",
               "status": "finalizada",
-              "vencedorId": "-OwsQrDpFbGx4981OGtl"
+              "vencedorId": "-OwsQtsjLSDkSYil8aUf"
+            },
+            "partida_B_MASCULINO_Quadra3_1_8_-OwsQrNLH_WQE5_SCVCl_-OwsQrDpFbGx4981OGtl": {
+              "categoria": "B_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "ALEXANDRE CAMARGO",
+                "dataHoraLancamento": 1788780574200,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1788866974200,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 1,
+                    "j2": 6
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 4
+                  },
+                  "set3": {
+                    "j1": 15,
+                    "j2": 13
+                  }
+                },
+                "placarFormatado": "1/6 6/4 15/13",
+                "statusPlacar": "pendente_validacao",
+                "vencedor": "Alexandre Camargo",
+                "vencedorCodigo": "J1"
+              },
+              "dataHora": 1788780576108,
+              "gamesP1": 22,
+              "gamesP2": 23,
+              "jogador1Id": "-OwsQrNLH_WQE5_SCVCl",
+              "jogador2Id": "-OwsQrDpFbGx4981OGtl",
+              "status": "finalizada",
+              "vencedorId": "-OwsQrNLH_WQE5_SCVCl"
             }
           },
           "pontos_geral": {
@@ -3511,13 +3604,126 @@
           },
           "tabelas": {
             "B_MASCULINO": [
+              "-OwsQrNLH_WQE5_SCVCl",
+              "-OwsQtsjLSDkSYil8aUf",
               "-OwsQrDpFbGx4981OGtl",
-              "-OwsQrGGmuPBaD-rCgIg"
+              "-OwsQtqJpPm042fY7ola",
+              "-OwsQrf9a9Xl8nyK-bdG"
             ]
           }
         },
         "reservas": {
           "Quadra - 1": {
+            "1_10": {
+              "confirmacoes": {
+                "Alexandre Camargo": true,
+                "Joao Francisco": true
+              },
+              "dadosPlacar": {
+                "dataHoraValidacao": 1788785133657,
+                "statusPlacar": "consolidado"
+              },
+              "dataCompleta": "2026-09-07",
+              "dia": 1,
+              "duracao": 2,
+              "hora": 10,
+              "isRanking": true,
+              "jogadores": "Joao Francisco, Alexandre Camargo",
+              "jogadores_completo": "JOAO FRANCISCO DA SILVA, ALEXANDRE CAMARGO",
+              "organizador": "JOAO FRANCISCO DA SILVA",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            },
+            "1_8": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Almir": true,
+                "Joca": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "JOAO DARIO DINIZ",
+                "dataHoraLancamento": 1788780365428,
+                "dataHoraValidacao": 1788780417300,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1788866765428,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 3
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 4
+                  }
+                },
+                "placarFormatado": "6/3 6/4",
+                "statusPlacar": "consolidado",
+                "vencedor": "Joca",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-07",
+              "dia": 1,
+              "duracao": 1,
+              "hora": 8,
+              "isRanking": true,
+              "jogadores": "Joca, Almir",
+              "jogadores_completo": "JOAO DARIO DINIZ, ALMIR ALVES DA CRUZ",
+              "organizador": "JOAO DARIO DINIZ",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagGrupoRanking": "G2",
+              "tipo": "ranking"
+            },
+            "1_9": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Alexandre Camargo": true,
+                "Joao Francisco": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "JOAO FRANCISCO DA SILVA",
+                "dataHoraLancamento": 1788785132128,
+                "dataHoraValidacao": 1788785133657,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1788871532128,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 0
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 0
+                  }
+                },
+                "placarFormatado": "6/0 6/0",
+                "statusPlacar": "consolidado",
+                "vencedor": "Joao Francisco",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-07",
+              "dia": 1,
+              "duracao": 2,
+              "hora": 9,
+              "isRanking": true,
+              "jogadores": "Joao Francisco, Alexandre Camargo",
+              "jogadores_completo": "JOAO FRANCISCO DA SILVA, ALEXANDRE CAMARGO",
+              "organizador": "JOAO FRANCISCO DA SILVA",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            },
             "7_16": {
               "borda": "1h",
               "confirmacoes": {
@@ -3565,6 +3771,54 @@
             }
           },
           "Quadra - 3": {
+            "1_8": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Alexandre Camargo": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ALEXANDRE CAMARGO",
+                "dataHoraLancamento": 1788780574200,
+                "dataHoraValidacao": 1788780575886,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1788866974200,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 1,
+                    "j2": 6
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 4
+                  },
+                  "set3": {
+                    "j1": 15,
+                    "j2": 13
+                  }
+                },
+                "placarFormatado": "1/6 6/4 15/13",
+                "statusPlacar": "consolidado",
+                "vencedor": "Alexandre Camargo",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-07",
+              "dia": 1,
+              "duracao": 1,
+              "hora": 8,
+              "isRanking": true,
+              "jogadores": "Alexandre Camargo, Adriano Feitosa",
+              "jogadores_completo": "ALEXANDRE CAMARGO, ADRIANO GOMES FEITOSA",
+              "organizador": "ALEXANDRE CAMARGO",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            },
             "7_17": {
               "borda": "1h",
               "confirmacoes": {
@@ -3613,14 +3867,14 @@
           }
         },
         "usuariosOnline": {
-          "-OwsQrGGmuPBaD-rCgIg": {
-            "id": "-OwsQrGGmuPBaD-rCgIg",
-            "lastSeen": 1788734741192,
-            "usuario": "ALESSANDRO ROMERO XAVIER"
+          "-OwsQtsjLSDkSYil8aUf": {
+            "id": "-OwsQtsjLSDkSYil8aUf",
+            "lastSeen": 1788825780006,
+            "usuario": "JOAO FRANCISCO DA SILVA"
           },
           "GESTOR": {
             "isGestor": true,
-            "lastSeen": 1788769545817,
+            "lastSeen": 1788855795646,
             "usuario": "Gestor Mestre"
           }
         }
