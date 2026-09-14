@@ -191,8 +191,8 @@
                 "status": "aberto"
               },
               {
-                "abertura": "08:00",
-                "fechamento": "20:00",
+                "abertura": "06:00",
+                "fechamento": "23:00",
                 "status": "aberto"
               }
             ]
@@ -330,9 +330,9 @@
                 "piso": "Saibro",
                 "vip": false
               },
-              "status_2": "interditada",
-              "status_5": "interditada",
-              "status_7": "bloqueada"
+              "status_2": "liberada",
+              "status_5": "liberada",
+              "status_7": "liberada"
             },
             "quantidade": 7,
             "visibilidadeGlobal": {
@@ -354,9 +354,22 @@
               "pontosVitoria": 3,
               "pontosWO": 0
             },
+            "calendario": {
+              "categoriasHabilitadas": [
+                "CLASSE_B",
+                "MASCULINO"
+              ],
+              "fimInscricoes": "2026-09-14",
+              "fimTorneio": "2026-09-16",
+              "inicioInscricoes": "2026-09-13",
+              "inicioJogos": "2026-09-15",
+              "limiteVagas": 0,
+              "modeloDisputa": "grupos",
+              "nomeTorneio": "5 Torneio de Grupos"
+            },
             "divisaoGenero": "separado",
             "duracaoPartida": 1,
-            "faseAtual": 1,
+            "faseAtual": 4,
             "financeiro": {
               "chavePix": "",
               "cobrarTaxa": false,
@@ -371,6 +384,53 @@
               "prazoRodada": 7,
               "tamanhoGrupo": 3,
               "tratarDesistência": "anular"
+            },
+            "inscritosConfirmados": {
+              "-OwsQrDpFbGx4981OGtl": {
+                "dataAceite": 1789350270500,
+                "nome": "ADRIANO GOMES FEITOSA",
+                "pixPago": true
+              },
+              "-OwsQrGGmuPBaD-rCgIg": {
+                "dataAceite": 1789350286036,
+                "nome": "ALESSANDRO ROMERO XAVIER",
+                "pixPago": true
+              },
+              "-OwsQrNLH_WQE5_SCVCl": {
+                "dataAceite": 1789350321228,
+                "nome": "ALEXANDRE CAMARGO",
+                "pixPago": true
+              },
+              "-OwsQrPgZKMJLDccbVRB": {
+                "dataAceite": 1789350337630,
+                "nome": "ALEXANDRE VOJCIECHOVSKI",
+                "pixPago": true
+              },
+              "-OwsQrf9a9Xl8nyK-bdG": {
+                "dataAceite": 1789350354736,
+                "nome": "ALMIR ALVES DA CRUZ",
+                "pixPago": true
+              },
+              "-OwsQrjn7GfNwbVpBEIx": {
+                "dataAceite": 1789350388406,
+                "nome": "ANA JULIA MARTINS",
+                "pixPago": true
+              },
+              "-OwsQrm7Bwu6dgj-KdTt": {
+                "dataAceite": 1789350405868,
+                "nome": "ANA LICE DOURADO",
+                "pixPago": true
+              },
+              "-OwsQroTvdNBY94IW81q": {
+                "dataAceite": 1789350442196,
+                "nome": "ANA MARIA MARINHO GOMES",
+                "pixPago": true
+              },
+              "-P1MhjNePKAaolM6NOO7": {
+                "dataAceite": 1789350302682,
+                "nome": "ALEX SOUZA",
+                "pixPago": true
+              }
             },
             "maxJogosSemana": 2,
             "modeloAtivo": "grupos",
@@ -399,21 +459,21 @@
             }
           }
         },
+        "convites_ranking": {
+          "dataAbertura": 1789350241298,
+          "pendentes": {
+            "-OwsQtO_9gj3CLeV3o2u": true,
+            "-OwsQtnuR5s3v1VM2ZBi": true,
+            "-OwsQtqJpPm042fY7ola": true,
+            "-OwsQtsjLSDkSYil8aUf": true,
+            "-OwsQtv3EWCTQ8ooLB-8": true,
+            "-OwsQu_cOC2xFTqSm0ul": true
+          },
+          "status": "aberto",
+          "temporadaId": "2026_T1789350241298",
+          "tipoOrdenacao": "herdada"
+        },
         "hall_de_campeoes": {
-          "2026_1_Toneio_Novo_Modelo_de_pontos": {
-            "B_MASCULINO": {
-              "campeao": "-OwsQrGGmuPBaD-rCgIg",
-              "terceiro": "-OwsQtnuR5s3v1VM2ZBi",
-              "vice": "-OwsQrDpFbGx4981OGtl"
-            }
-          },
-          "2026_1_Toneio_de_barragem_2026": {
-            "B_MASCULINO": {
-              "campeao": "-OwsQtsjLSDkSYil8aUf",
-              "terceiro": "-OwsQtnuR5s3v1VM2ZBi",
-              "vice": "-OwsQrNLH_WQE5_SCVCl"
-            }
-          },
           "2026_1_Torneio_de_Grupos_-_testes_-_2026": {
             "B_MASCULINO": {
               "campeao": "-OwsQrm7Bwu6dgj-KdTt",
@@ -426,6 +486,13 @@
               "campeao": "-OwsQrDpFbGx4981OGtl",
               "terceiro": "-OwsQrGGmuPBaD-rCgIg",
               "vice": "-OwsQtsjLSDkSYil8aUf"
+            }
+          },
+          "2026_3_Toneio_de_Grupos_-_novo_teste_-_de_novo_-_2026": {
+            "B_MASCULINO": {
+              "campeao": "-OwsQtnuR5s3v1VM2ZBi",
+              "terceiro": "-OwsQrGGmuPBaD-rCgIg",
+              "vice": "-OwsQroTvdNBY94IW81q"
             }
           },
           "2026_3_Torneio_de_Barragem_Olimpico_2026": {
@@ -463,6 +530,13 @@
               "vice": "-OwsQtv3EWCTQ8ooLB-8"
             }
           },
+          "2026_5_Torneio_de_Grupos_-_2026": {
+            "B_MASCULINO": {
+              "campeao": "-P1MhjNePKAaolM6NOO7",
+              "terceiro": "-OwsQrDpFbGx4981OGtl",
+              "vice": "-OwsQrjn7GfNwbVpBEIx"
+            }
+          },
           "2026_6_Torneio_Piramide_Olimpico_2026": {
             "B_MASCULINO": {
               "campeao": "-OwsQtnuR5s3v1VM2ZBi",
@@ -470,29 +544,9 @@
               "vice": "-OwsQrGGmuPBaD-rCgIg"
             }
           },
-          "2026_7_Toneio_Piramide": {
-            "B_MASCULINO": {
-              "campeao": "-OwsQrNLH_WQE5_SCVCl",
-              "terceiro": "-OwsQrGGmuPBaD-rCgIg",
-              "vice": "-OwsQtsjLSDkSYil8aUf"
-            }
-          },
           "2026_Toneio_da_amizade": {
             "B_MASCULINO": {
               "campeao": "-OwsQrDpFbGx4981OGtl"
-            }
-          },
-          "2026_Torneio_Teste_para_a_fase_de_Grupos": {
-            "B_MASCULINO": {
-              "campeao": "-OwsQrNLH_WQE5_SCVCl",
-              "terceiro": "-OwsQrDpFbGx4981OGtl",
-              "vice": "-OwsQtsjLSDkSYil8aUf"
-            }
-          },
-          "2026_teste": {
-            "B_MASCULINO": {
-              "campeao": "-OwsQrDpFbGx4981OGtl",
-              "vice": "-OwsQrGGmuPBaD-rCgIg"
             }
           }
         },
@@ -1114,409 +1168,6 @@
               }
             }
           },
-          "2026_4_Torneio_de_Barragem_2026": {
-            "classificacaoFinal": {
-              "B_MASCULINO": [
-                "-OwsQrGGmuPBaD-rCgIg",
-                "-OwsQtqJpPm042fY7ola",
-                "-OwsQtnuR5s3v1VM2ZBi",
-                "-OwsQrDpFbGx4981OGtl",
-                "-OwsQrNLH_WQE5_SCVCl"
-              ]
-            },
-            "contrato": {
-              "categoriasHabilitadas": [
-                "CLASSE_B",
-                "MASCULINO"
-              ],
-              "fimInscricoes": "2026-09-02",
-              "fimTorneio": "2026-09-04",
-              "inicioInscricoes": "2026-09-01",
-              "inicioJogos": "2026-09-03",
-              "limiteVagas": 0,
-              "modeloDisputa": "barragem",
-              "nomeTorneio": "4 Torneio de Barragem 2026"
-            },
-            "dataHomologacao": 1788546354091,
-            "modelo": "barragem",
-            "partidas": {
-              "partida_B_MASCULINO_Quadra1_2_18_-OwsQtqJpPm042fY7ola_-OwsQtnuR5s3v1VM2ZBi": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "arbitroResponsavel": "ANA JULIA MARTINS",
-                  "autorSumula": "JOAO DARIO DINIZ",
-                  "dataHoraArbitragem": 1788298810454,
-                  "dataHoraContestacao": 1788298761007,
-                  "dataHoraLancamento": 1788298737831,
-                  "decisaoArbitro": "mantido_pelo_arbitro",
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1788385137831,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 6,
-                      "j2": 0
-                    },
-                    "set2": {
-                      "j1": 6,
-                      "j2": 0
-                    }
-                  },
-                  "placarFormatado": "6/0 6/0",
-                  "statusPlacar": "consolidado",
-                  "vencedor": "Joca",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1788298810623,
-                "gamesP1": 12,
-                "gamesP2": 0,
-                "jogador1Id": "-OwsQtqJpPm042fY7ola",
-                "jogador2Id": "-OwsQtnuR5s3v1VM2ZBi",
-                "status": "finalizada",
-                "vencedorId": "-OwsQtqJpPm042fY7ola"
-              },
-              "partida_B_MASCULINO_Quadra1_3_13_-OwsQrDpFbGx4981OGtl_-OwsQtnuR5s3v1VM2ZBi": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "arbitroResponsavel": "ANA JULIA MARTINS",
-                  "autorSumula": "ADRIANO GOMES FEITOSA",
-                  "dataHoraArbitragem": 1788367069592,
-                  "dataHoraLancamento": 1788366988209,
-                  "decisaoArbitro": "editado_pelo_arbitro",
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1788453469592,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 6,
-                      "j2": 4
-                    },
-                    "set2": {
-                      "j1": 7,
-                      "j2": 6,
-                      "tbJ1": 7,
-                      "tbJ2": 1
-                    }
-                  },
-                  "placarFormatado": "6/4 7/6(1)",
-                  "statusPlacar": "consolidado",
-                  "vencedor": "Adriano Feitosa",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1788367069748,
-                "gamesP1": 13,
-                "gamesP2": 10,
-                "jogador1Id": "-OwsQrDpFbGx4981OGtl",
-                "jogador2Id": "-OwsQtnuR5s3v1VM2ZBi",
-                "status": "finalizada",
-                "vencedorId": "-OwsQrDpFbGx4981OGtl"
-              },
-              "partida_B_MASCULINO_Quadra1_3_14_-OwsQrNLH_WQE5_SCVCl_-OwsQrDpFbGx4981OGtl": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "autorSumula": "ALEXANDRE CAMARGO",
-                  "dataHoraLancamento": 1788369417880,
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1788455817880,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 6,
-                      "j2": 4
-                    },
-                    "set2": {
-                      "j1": 6,
-                      "j2": 2
-                    }
-                  },
-                  "placarFormatado": "6/4 6/2",
-                  "statusPlacar": "pendente_validacao",
-                  "vencedor": "Alexandre Camargo",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1788369435179,
-                "gamesP1": 12,
-                "gamesP2": 6,
-                "jogador1Id": "-OwsQrNLH_WQE5_SCVCl",
-                "jogador2Id": "-OwsQrDpFbGx4981OGtl",
-                "status": "finalizada",
-                "vencedorId": "-OwsQrNLH_WQE5_SCVCl"
-              },
-              "partida_B_MASCULINO_Quadra1_3_18_-OwsQrGGmuPBaD-rCgIg_-OwsQtnuR5s3v1VM2ZBi": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "autorSumula": "ALESSANDRO ROMERO XAVIER",
-                  "dataHoraLancamento": 1788384141730,
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1788470541730,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 6,
-                      "j2": 0
-                    },
-                    "set2": {
-                      "j1": 6,
-                      "j2": 0
-                    }
-                  },
-                  "placarFormatado": "6/0 6/0",
-                  "statusPlacar": "pendente_validacao",
-                  "vencedor": "Alessandro Xavier",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1788384158133,
-                "gamesP1": 12,
-                "gamesP2": 0,
-                "jogador1Id": "-OwsQrGGmuPBaD-rCgIg",
-                "jogador2Id": "-OwsQtnuR5s3v1VM2ZBi",
-                "status": "finalizada",
-                "vencedorId": "-OwsQrGGmuPBaD-rCgIg"
-              },
-              "partida_B_MASCULINO_Quadra1_4_13_-OwsQtnuR5s3v1VM2ZBi_-OwsQrNLH_WQE5_SCVCl": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "arbitroResponsavel": "ANA JULIA MARTINS",
-                  "autorSumula": "JOAO BENTO PEREIRA",
-                  "dataHoraArbitragem": 1788452074188,
-                  "dataHoraLancamento": 1788451999030,
-                  "decisaoArbitro": "editado_pelo_arbitro",
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1788538474188,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 6,
-                      "j2": 1
-                    },
-                    "set2": {
-                      "j1": 6,
-                      "j2": 1
-                    }
-                  },
-                  "placarFormatado": "6/1 6/1",
-                  "statusPlacar": "consolidado",
-                  "vencedor": "Joao Bento",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1788452074480,
-                "gamesP1": 12,
-                "gamesP2": 2,
-                "jogador1Id": "-OwsQtnuR5s3v1VM2ZBi",
-                "jogador2Id": "-OwsQrNLH_WQE5_SCVCl",
-                "status": "finalizada",
-                "vencedorId": "-OwsQtnuR5s3v1VM2ZBi"
-              },
-              "partida_B_MASCULINO_Quadra3_2_18_-OwsQrGGmuPBaD-rCgIg_-OwsQrDpFbGx4981OGtl": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "arbitroResponsavel": "ANA JULIA MARTINS",
-                  "autorSumula": "ALESSANDRO ROMERO XAVIER",
-                  "dataHoraArbitragem": 1788299391238,
-                  "dataHoraContestacao": 1788299372885,
-                  "dataHoraLancamento": 1788299352511,
-                  "decisaoArbitro": "mantido_pelo_arbitro",
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1788385752511,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 7,
-                      "j2": 6,
-                      "tbJ1": 7,
-                      "tbJ2": 4
-                    },
-                    "set2": {
-                      "j1": 6,
-                      "j2": 7,
-                      "tbJ1": 0,
-                      "tbJ2": 7
-                    },
-                    "set3": {
-                      "j1": 10,
-                      "j2": 0
-                    }
-                  },
-                  "placarFormatado": "7/6(4) 6/7(0) 10/0",
-                  "statusPlacar": "consolidado",
-                  "vencedor": "Alessandro Xavier",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1788299391402,
-                "gamesP1": 23,
-                "gamesP2": 13,
-                "jogador1Id": "-OwsQrGGmuPBaD-rCgIg",
-                "jogador2Id": "-OwsQrDpFbGx4981OGtl",
-                "status": "finalizada",
-                "vencedorId": "-OwsQrGGmuPBaD-rCgIg"
-              },
-              "partida_B_MASCULINO_Quadra3_3_13_-OwsQrGGmuPBaD-rCgIg_-OwsQrNLH_WQE5_SCVCl": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "arbitroResponsavel": "ANA JULIA MARTINS",
-                  "autorSumula": "ALESSANDRO ROMERO XAVIER",
-                  "dataHoraArbitragem": 1788367188208,
-                  "dataHoraContestacao": 1788367154488,
-                  "dataHoraLancamento": 1788367133721,
-                  "decisaoArbitro": "anulado_pelo_arbitro",
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1788453533721,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoAnulacao": "partida inválida.",
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 6,
-                      "j2": 0
-                    },
-                    "set2": {
-                      "j1": 6,
-                      "j2": 0
-                    }
-                  },
-                  "placarFormatado": "6/0 6/0",
-                  "statusPlacar": "anulado",
-                  "vencedor": "Alessandro Xavier",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1788367188208,
-                "gamesP1": 0,
-                "gamesP2": 0,
-                "jogador1Id": "-OwsQrGGmuPBaD-rCgIg",
-                "jogador2Id": "-OwsQrNLH_WQE5_SCVCl",
-                "status": "anulado"
-              },
-              "partida_B_MASCULINO_Quadra3_4_13_-OwsQrGGmuPBaD-rCgIg_-OwsQtqJpPm042fY7ola": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "autorSumula": "ALESSANDRO ROMERO XAVIER",
-                  "dataHoraLancamento": 1788452126645,
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1788538526645,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 6,
-                      "j2": 0
-                    },
-                    "set2": {
-                      "j1": 6,
-                      "j2": 0
-                    }
-                  },
-                  "placarFormatado": "6/0 6/0",
-                  "statusPlacar": "pendente_validacao",
-                  "vencedor": "Alessandro Xavier",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1788452143307,
-                "gamesP1": 12,
-                "gamesP2": 0,
-                "jogador1Id": "-OwsQrGGmuPBaD-rCgIg",
-                "jogador2Id": "-OwsQtqJpPm042fY7ola",
-                "status": "finalizada",
-                "vencedorId": "-OwsQrGGmuPBaD-rCgIg"
-              },
-              "partida_B_MASCULINO_Quadra6_4_14_-OwsQrDpFbGx4981OGtl_-OwsQtqJpPm042fY7ola": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "arbitroResponsavel": "ANA JULIA MARTINS",
-                  "autorSumula": "ADRIANO GOMES FEITOSA",
-                  "dataHoraArbitragem": 1788456836315,
-                  "dataHoraLancamento": 1788456788860,
-                  "decisaoArbitro": "editado_pelo_arbitro",
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1788543236315,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 0,
-                      "j2": 6
-                    },
-                    "set2": {
-                      "j1": 0,
-                      "j2": 6
-                    }
-                  },
-                  "placarFormatado": "0/6 0/6",
-                  "statusPlacar": "consolidado",
-                  "vencedor": "Joca",
-                  "vencedorCodigo": "J2"
-                },
-                "dataHora": 1788456836480,
-                "gamesP1": 0,
-                "gamesP2": 12,
-                "jogador1Id": "-OwsQrDpFbGx4981OGtl",
-                "jogador2Id": "-OwsQtqJpPm042fY7ola",
-                "status": "finalizada",
-                "vencedorId": "-OwsQtqJpPm042fY7ola"
-              },
-              "partida_B_MASCULINO_Quadra6_5_15_-OwsQrGGmuPBaD-rCgIg_-OwsQrNLH_WQE5_SCVCl": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "autorSumula": "ALESSANDRO ROMERO XAVIER",
-                  "dataHoraLancamento": 1788545678067,
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1788632078067,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 6,
-                      "j2": 3
-                    },
-                    "set2": {
-                      "j1": 1,
-                      "j2": 6
-                    },
-                    "set3": {
-                      "j1": 10,
-                      "j2": 8
-                    }
-                  },
-                  "placarFormatado": "6/3 1/6 10/8",
-                  "statusPlacar": "pendente_validacao",
-                  "vencedor": "Alessandro Xavier",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1788545692898,
-                "gamesP1": 17,
-                "gamesP2": 17,
-                "jogador1Id": "-OwsQrGGmuPBaD-rCgIg",
-                "jogador2Id": "-OwsQrNLH_WQE5_SCVCl",
-                "status": "finalizada",
-                "vencedorId": "-OwsQrGGmuPBaD-rCgIg"
-              }
-            }
-          },
           "2026_4_Torneio_de_Piramide_2026": {
             "classificacaoFinal": {
               "B_MASCULINO": [
@@ -1608,16 +1259,19 @@
               }
             }
           },
-          "2026_5_Torneio_Piramide_Olimpico_2026": {
+          "2026_5_Torneio_de_Grupos_-_2026": {
             "classificacaoFinal": {
               "B_MASCULINO": [
+                "-P1MhjNePKAaolM6NOO7",
+                "-OwsQrjn7GfNwbVpBEIx",
                 "-OwsQrDpFbGx4981OGtl",
-                "-OwsQtv3EWCTQ8ooLB-8",
-                "-OwsQrNLH_WQE5_SCVCl",
+                "-OwsQrm7Bwu6dgj-KdTt",
+                "-OwsQrhU1OU0PeArJpdX",
+                "-OwsQrPgZKMJLDccbVRB",
+                "-OwsQrf9a9Xl8nyK-bdG",
                 "-OwsQrGGmuPBaD-rCgIg",
-                "-OwsQtsjLSDkSYil8aUf",
-                "-OwsQtqJpPm042fY7ola",
-                "-OwsQtnuR5s3v1VM2ZBi"
+                "-OwsQrNLH_WQE5_SCVCl",
+                "-OwsQroTvdNBY94IW81q"
               ]
             },
             "contrato": {
@@ -1625,62 +1279,24 @@
                 "CLASSE_B",
                 "MASCULINO"
               ],
-              "fimInscricoes": "2026-08-31",
-              "fimTorneio": "2026-09-02",
-              "inicioInscricoes": "2026-08-30",
-              "inicioJogos": "2026-09-01",
+              "fimInscricoes": "2026-09-14",
+              "fimTorneio": "2026-09-16",
+              "inicioInscricoes": "2026-09-13",
+              "inicioJogos": "2026-09-15",
               "limiteVagas": 0,
-              "modeloDisputa": "piramide",
-              "nomeTorneio": "5 Torneio Piramide Olimpico 2026"
+              "modeloDisputa": "grupos",
+              "nomeTorneio": "5 Torneio de Grupos - 2026"
             },
-            "dataHomologacao": 1788120240126,
-            "modelo": "piramide",
+            "dataHomologacao": 1789340846624,
+            "modelo": "grupos",
             "partidas": {
-              "partida_B_MASCULINO_Quadra1_7_16_-OwsQtnuR5s3v1VM2ZBi_-OwsQtqJpPm042fY7ola": {
+              "partida_B_MASCULINO_Quadra1_7_16_-OwsQroTvdNBY94IW81q_-OwsQrf9a9Xl8nyK-bdG": {
                 "categoria": "B_MASCULINO",
                 "dadosPlacar": {
-                  "arbitroResponsavel": "VANIA TABORDA",
-                  "autorSumula": "JOAO BENTO PEREIRA",
-                  "dataHoraArbitragem": 1788119462456,
-                  "dataHoraContestacao": 1788119350400,
-                  "dataHoraLancamento": 1788119328992,
-                  "decisaoArbitro": "anulado_pelo_arbitro",
+                  "autorSumula": "ANA MARIA MARINHO GOMES",
+                  "dataHoraLancamento": 1789326400120,
                   "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1788205728992,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoAnulacao": "partida anulada",
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 6,
-                      "j2": 0
-                    },
-                    "set2": {
-                      "j1": 6,
-                      "j2": 0
-                    }
-                  },
-                  "placarFormatado": "6/0 6/0",
-                  "statusPlacar": "anulado",
-                  "vencedor": "Joao Bento",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1788119462456,
-                "gamesP1": 0,
-                "gamesP2": 0,
-                "jogador1Id": "-OwsQtnuR5s3v1VM2ZBi",
-                "jogador2Id": "-OwsQtqJpPm042fY7ola",
-                "status": "anulado"
-              },
-              "partida_B_MASCULINO_Quadra1_7_16_-OwsQtv3EWCTQ8ooLB-8_-OwsQtsjLSDkSYil8aUf": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "autorSumula": "JOAO MARIA SOBRINHO",
-                  "dataHoraLancamento": 1788118949241,
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1788205349241,
+                  "expiraValidacaoAt": 1789412800120,
                   "isRET": false,
                   "isWO": false,
                   "motivoRET": "",
@@ -1688,40 +1304,37 @@
                   "parciais": {
                     "set1": {
                       "j1": 6,
-                      "j2": 0
+                      "j2": 3
                     },
                     "set2": {
                       "j1": 6,
                       "j2": 4
                     }
                   },
-                  "placarFormatado": "6/0 6/4",
+                  "placarFormatado": "6/3 6/4",
                   "statusPlacar": "pendente_validacao",
-                  "vencedor": "Joao Maria",
+                  "tagGrupoRanking": "G4",
+                  "vencedor": "Ana Maria Marinho",
                   "vencedorCodigo": "J1"
                 },
-                "dataHora": 1788118977384,
+                "dataHora": 1789326436303,
                 "gamesP1": 12,
-                "gamesP2": 4,
-                "jogador1Id": "-OwsQtv3EWCTQ8ooLB-8",
-                "jogador2Id": "-OwsQtsjLSDkSYil8aUf",
+                "gamesP2": 7,
+                "jogador1Id": "-OwsQroTvdNBY94IW81q",
+                "jogador2Id": "-OwsQrf9a9Xl8nyK-bdG",
                 "status": "finalizada",
-                "vencedorId": "-OwsQtv3EWCTQ8ooLB-8"
+                "tagGrupoRanking": "G4",
+                "vencedorId": "-OwsQroTvdNBY94IW81q"
               },
-              "partida_B_MASCULINO_Quadra1_7_17_-OwsQtv3EWCTQ8ooLB-8_-OwsQrDpFbGx4981OGtl": {
+              "partida_B_MASCULINO_Quadra1_7_17_-OwsQrjn7GfNwbVpBEIx_-OwsQrDpFbGx4981OGtl": {
                 "categoria": "B_MASCULINO",
                 "dadosPlacar": {
-                  "arbitroResponsavel": "VANIA TABORDA",
-                  "autorSumula": "JOAO MARIA SOBRINHO",
-                  "dataHoraArbitragem": 1788120184426,
-                  "dataHoraContestacao": 1788120085991,
-                  "dataHoraLancamento": 1788120071591,
-                  "decisaoArbitro": "anulado_pelo_arbitro",
+                  "autorSumula": "ANA JULIA MARTINS",
+                  "dataHoraLancamento": 1789330391531,
                   "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1788206471591,
+                  "expiraValidacaoAt": 1789416791531,
                   "isRET": false,
                   "isWO": false,
-                  "motivoAnulacao": "partida anulada",
                   "motivoRET": "",
                   "motivoWO": "",
                   "parciais": {
@@ -1735,54 +1348,431 @@
                     }
                   },
                   "placarFormatado": "6/0 6/0",
-                  "statusPlacar": "anulado",
-                  "vencedor": "Joao Maria",
+                  "statusPlacar": "pendente_validacao",
+                  "tagGrupoRanking": "G1",
+                  "vencedor": "Ana Julia",
                   "vencedorCodigo": "J1"
                 },
-                "dataHora": 1788120184426,
-                "gamesP1": 0,
+                "dataHora": 1789330408313,
+                "gamesP1": 12,
                 "gamesP2": 0,
-                "jogador1Id": "-OwsQtv3EWCTQ8ooLB-8",
+                "jogador1Id": "-OwsQrjn7GfNwbVpBEIx",
                 "jogador2Id": "-OwsQrDpFbGx4981OGtl",
-                "status": "anulado"
+                "status": "finalizada",
+                "tagGrupoRanking": "G1",
+                "vencedorId": "-OwsQrjn7GfNwbVpBEIx"
               },
-              "partida_B_MASCULINO_Quadra4_7_16_-OwsQtnuR5s3v1VM2ZBi_-OwsQtqJpPm042fY7ola": {
+              "partida_B_MASCULINO_Quadra1_7_18_-OwsQrjn7GfNwbVpBEIx_-OwsQrf9a9Xl8nyK-bdG": {
                 "categoria": "B_MASCULINO",
                 "dadosPlacar": {
-                  "arbitroResponsavel": "VANIA TABORDA",
-                  "autorSumula": "JOAO BENTO PEREIRA",
-                  "dataHoraArbitragem": 1788119511434,
-                  "dataHoraContestacao": 1788119350400,
-                  "dataHoraLancamento": 1788119328992,
-                  "decisaoArbitro": "anulado_pelo_arbitro",
+                  "autorSumula": "ANA JULIA MARTINS",
+                  "dataHoraLancamento": 1789333423820,
                   "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1788205728992,
+                  "expiraValidacaoAt": 1789419823820,
                   "isRET": false,
                   "isWO": false,
-                  "motivoAnulacao": "teste",
                   "motivoRET": "",
                   "motivoWO": "",
                   "parciais": {
                     "set1": {
                       "j1": 6,
-                      "j2": 0
+                      "j2": 4
+                    },
+                    "set2": {
+                      "j1": 1,
+                      "j2": 6
+                    },
+                    "set3": {
+                      "j1": 10,
+                      "j2": 7
+                    }
+                  },
+                  "placarFormatado": "6/4 1/6 10/7",
+                  "statusPlacar": "pendente_validacao",
+                  "vencedor": "Ana Julia",
+                  "vencedorCodigo": "J1"
+                },
+                "dataHora": 1789333425219,
+                "gamesP1": 17,
+                "gamesP2": 17,
+                "jogador1Id": "-OwsQrjn7GfNwbVpBEIx",
+                "jogador2Id": "-OwsQrf9a9Xl8nyK-bdG",
+                "status": "finalizada",
+                "vencedorId": "-OwsQrjn7GfNwbVpBEIx"
+              },
+              "partida_B_MASCULINO_Quadra1_7_19_-OwsQrjn7GfNwbVpBEIx_-OwsQrhU1OU0PeArJpdX": {
+                "categoria": "B_MASCULINO",
+                "dadosPlacar": {
+                  "autorSumula": "ANA JULIA MARTINS",
+                  "dataHoraLancamento": 1789337405351,
+                  "desistenteCodigo": "",
+                  "expiraValidacaoAt": 1789423805351,
+                  "isRET": false,
+                  "isWO": false,
+                  "motivoRET": "",
+                  "motivoWO": "",
+                  "parciais": {
+                    "set1": {
+                      "j1": 6,
+                      "j2": 3
+                    },
+                    "set2": {
+                      "j1": 6,
+                      "j2": 3
+                    }
+                  },
+                  "placarFormatado": "6/3 6/3",
+                  "statusPlacar": "pendente_validacao",
+                  "vencedor": "Ana Julia",
+                  "vencedorCodigo": "J1"
+                },
+                "dataHora": 1789337430702,
+                "gamesP1": 12,
+                "gamesP2": 6,
+                "jogador1Id": "-OwsQrjn7GfNwbVpBEIx",
+                "jogador2Id": "-OwsQrhU1OU0PeArJpdX",
+                "status": "finalizada",
+                "vencedorId": "-OwsQrjn7GfNwbVpBEIx"
+              },
+              "partida_B_MASCULINO_Quadra1_7_20_-P1MhjNePKAaolM6NOO7_-OwsQrjn7GfNwbVpBEIx": {
+                "categoria": "B_MASCULINO",
+                "dadosPlacar": {
+                  "autorSumula": "ALEX SOUZA",
+                  "dataHoraLancamento": 1789340471846,
+                  "desistenteCodigo": "",
+                  "expiraValidacaoAt": 1789426871846,
+                  "isRET": false,
+                  "isWO": false,
+                  "motivoRET": "",
+                  "motivoWO": "",
+                  "parciais": {
+                    "set1": {
+                      "j1": 6,
+                      "j2": 4
+                    },
+                    "set2": {
+                      "j1": 6,
+                      "j2": 7,
+                      "tbJ1": 1,
+                      "tbJ2": 7
+                    },
+                    "set3": {
+                      "j1": 10,
+                      "j2": 3
+                    }
+                  },
+                  "placarFormatado": "6/4 6/7(1) 10/3",
+                  "statusPlacar": "pendente_validacao",
+                  "vencedor": "Alex",
+                  "vencedorCodigo": "J1"
+                },
+                "dataHora": 1789340512318,
+                "gamesP1": 22,
+                "gamesP2": 14,
+                "jogador1Id": "-P1MhjNePKAaolM6NOO7",
+                "jogador2Id": "-OwsQrjn7GfNwbVpBEIx",
+                "status": "finalizada",
+                "vencedorId": "-P1MhjNePKAaolM6NOO7"
+              },
+              "partida_B_MASCULINO_Quadra2_7_15_-OwsQrDpFbGx4981OGtl_-OwsQrm7Bwu6dgj-KdTt": {
+                "categoria": "B_MASCULINO",
+                "dadosPlacar": {
+                  "autorSumula": "ANA LICE DOURADO",
+                  "dataHoraLancamento": 1789326138538,
+                  "desistenteCodigo": "",
+                  "expiraValidacaoAt": 1789412538538,
+                  "isRET": false,
+                  "isWO": false,
+                  "motivoRET": "",
+                  "motivoWO": "",
+                  "parciais": {
+                    "set1": {
+                      "j1": 4,
+                      "j2": 6
+                    },
+                    "set2": {
+                      "j1": 0,
+                      "j2": 6
+                    }
+                  },
+                  "placarFormatado": "4/6 0/6",
+                  "statusPlacar": "pendente_validacao",
+                  "tagGrupoRanking": "G1",
+                  "vencedor": "An Alice",
+                  "vencedorCodigo": "J2"
+                },
+                "dataHora": 1789326164155,
+                "gamesP1": 4,
+                "gamesP2": 12,
+                "jogador1Id": "-OwsQrDpFbGx4981OGtl",
+                "jogador2Id": "-OwsQrm7Bwu6dgj-KdTt",
+                "status": "finalizada",
+                "tagGrupoRanking": "G1",
+                "vencedorId": "-OwsQrm7Bwu6dgj-KdTt"
+              },
+              "partida_B_MASCULINO_Quadra2_7_16_-OwsQrPgZKMJLDccbVRB_-OwsQrNLH_WQE5_SCVCl": {
+                "categoria": "B_MASCULINO",
+                "dadosPlacar": {
+                  "autorSumula": "ALEXANDRE VOJCIECHOVSKI",
+                  "dataHoraLancamento": 1789326241175,
+                  "desistenteCodigo": "",
+                  "expiraValidacaoAt": 1789412641175,
+                  "isRET": false,
+                  "isWO": false,
+                  "motivoRET": "",
+                  "motivoWO": "",
+                  "parciais": {
+                    "set1": {
+                      "j1": 7,
+                      "j2": 6,
+                      "tbJ1": 7,
+                      "tbJ2": 0
                     },
                     "set2": {
                       "j1": 6,
                       "j2": 0
                     }
                   },
-                  "placarFormatado": "6/0 6/0",
-                  "statusPlacar": "anulado",
-                  "vencedor": "Joao Bento",
+                  "placarFormatado": "7/6(0) 6/0",
+                  "statusPlacar": "pendente_validacao",
+                  "tagGrupoRanking": "G3",
+                  "vencedor": "Alexandre Voj",
                   "vencedorCodigo": "J1"
                 },
-                "dataHora": 1788119511434,
-                "gamesP1": 0,
-                "gamesP2": 0,
-                "jogador1Id": "-OwsQtnuR5s3v1VM2ZBi",
-                "jogador2Id": "-OwsQtqJpPm042fY7ola",
-                "status": "anulado"
+                "dataHora": 1789326271601,
+                "gamesP1": 13,
+                "gamesP2": 6,
+                "jogador1Id": "-OwsQrPgZKMJLDccbVRB",
+                "jogador2Id": "-OwsQrNLH_WQE5_SCVCl",
+                "status": "finalizada",
+                "tagGrupoRanking": "G3",
+                "vencedorId": "-OwsQrPgZKMJLDccbVRB"
+              },
+              "partida_B_MASCULINO_Quadra2_7_17_-OwsQrm7Bwu6dgj-KdTt_-OwsQroTvdNBY94IW81q": {
+                "categoria": "B_MASCULINO",
+                "dadosPlacar": {
+                  "autorSumula": "ANA LICE DOURADO",
+                  "dataHoraLancamento": 1789330951312,
+                  "desistenteCodigo": "",
+                  "expiraValidacaoAt": 1789417351312,
+                  "isRET": false,
+                  "isWO": false,
+                  "motivoRET": "",
+                  "motivoWO": "",
+                  "parciais": {
+                    "set1": {
+                      "j1": 6,
+                      "j2": 3
+                    },
+                    "set2": {
+                      "j1": 4,
+                      "j2": 6
+                    },
+                    "set3": {
+                      "j1": 10,
+                      "j2": 1
+                    }
+                  },
+                  "placarFormatado": "6/3 4/6 10/1",
+                  "statusPlacar": "pendente_validacao",
+                  "vencedor": "An Alice",
+                  "vencedorCodigo": "J1"
+                },
+                "dataHora": 1789330976128,
+                "gamesP1": 20,
+                "gamesP2": 10,
+                "jogador1Id": "-OwsQrm7Bwu6dgj-KdTt",
+                "jogador2Id": "-OwsQroTvdNBY94IW81q",
+                "status": "finalizada",
+                "vencedorId": "-OwsQrm7Bwu6dgj-KdTt"
+              },
+              "partida_B_MASCULINO_Quadra2_7_18_-OwsQrhU1OU0PeArJpdX_-OwsQrNLH_WQE5_SCVCl": {
+                "categoria": "B_MASCULINO",
+                "dadosPlacar": {
+                  "autorSumula": "ANA FRANCISCA SANTOS",
+                  "dataHoraLancamento": 1789333243113,
+                  "desistenteCodigo": "",
+                  "expiraValidacaoAt": 1789419643113,
+                  "isRET": false,
+                  "isWO": false,
+                  "motivoRET": "",
+                  "motivoWO": "",
+                  "parciais": {
+                    "set1": {
+                      "j1": 6,
+                      "j2": 1
+                    },
+                    "set2": {
+                      "j1": 6,
+                      "j2": 2
+                    }
+                  },
+                  "placarFormatado": "6/1 6/2",
+                  "statusPlacar": "pendente_validacao",
+                  "vencedor": "Ana Francisca",
+                  "vencedorCodigo": "J1"
+                },
+                "dataHora": 1789333244499,
+                "gamesP1": 12,
+                "gamesP2": 3,
+                "jogador1Id": "-OwsQrhU1OU0PeArJpdX",
+                "jogador2Id": "-OwsQrNLH_WQE5_SCVCl",
+                "status": "finalizada",
+                "vencedorId": "-OwsQrhU1OU0PeArJpdX"
+              },
+              "partida_B_MASCULINO_Quadra2_7_19_-P1MhjNePKAaolM6NOO7_-OwsQrm7Bwu6dgj-KdTt": {
+                "categoria": "B_MASCULINO",
+                "dadosPlacar": {
+                  "autorSumula": "ALEX SOUZA",
+                  "dataHoraLancamento": 1789337546445,
+                  "desistenteCodigo": "",
+                  "expiraValidacaoAt": 1789423946445,
+                  "isRET": false,
+                  "isWO": false,
+                  "motivoRET": "",
+                  "motivoWO": "",
+                  "parciais": {
+                    "set1": {
+                      "j1": 6,
+                      "j2": 1
+                    },
+                    "set2": {
+                      "j1": 7,
+                      "j2": 6,
+                      "tbJ1": 7,
+                      "tbJ2": 3
+                    }
+                  },
+                  "placarFormatado": "6/1 7/6(3)",
+                  "statusPlacar": "pendente_validacao",
+                  "vencedor": "Alex",
+                  "vencedorCodigo": "J1"
+                },
+                "dataHora": 1789337572243,
+                "gamesP1": 13,
+                "gamesP2": 7,
+                "jogador1Id": "-P1MhjNePKAaolM6NOO7",
+                "jogador2Id": "-OwsQrm7Bwu6dgj-KdTt",
+                "status": "finalizada",
+                "vencedorId": "-P1MhjNePKAaolM6NOO7"
+              },
+              "partida_B_MASCULINO_Quadra3_7_16_-OwsQrGGmuPBaD-rCgIg_-OwsQrhU1OU0PeArJpdX": {
+                "categoria": "B_MASCULINO",
+                "dadosPlacar": {
+                  "autorSumula": "ANA FRANCISCA SANTOS",
+                  "dataHoraLancamento": 1789326516261,
+                  "desistenteCodigo": "",
+                  "expiraValidacaoAt": 1789412916261,
+                  "isRET": false,
+                  "isWO": false,
+                  "motivoRET": "",
+                  "motivoWO": "",
+                  "parciais": {
+                    "set1": {
+                      "j1": 6,
+                      "j2": 7,
+                      "tbJ1": 4,
+                      "tbJ2": 7
+                    },
+                    "set2": {
+                      "j1": 6,
+                      "j2": 2
+                    },
+                    "set3": {
+                      "j1": 1,
+                      "j2": 10
+                    }
+                  },
+                  "placarFormatado": "6/7(4) 6/2 1/10",
+                  "statusPlacar": "pendente_validacao",
+                  "tagGrupoRanking": "G2",
+                  "vencedor": "Ana Francisca",
+                  "vencedorCodigo": "J2"
+                },
+                "dataHora": 1789326533629,
+                "gamesP1": 13,
+                "gamesP2": 19,
+                "jogador1Id": "-OwsQrGGmuPBaD-rCgIg",
+                "jogador2Id": "-OwsQrhU1OU0PeArJpdX",
+                "status": "finalizada",
+                "tagGrupoRanking": "G2",
+                "vencedorId": "-OwsQrhU1OU0PeArJpdX"
+              },
+              "partida_B_MASCULINO_Quadra3_7_17_-P1MhjNePKAaolM6NOO7_-OwsQrhU1OU0PeArJpdX": {
+                "categoria": "B_MASCULINO",
+                "dadosPlacar": {
+                  "autorSumula": "ALEX SOUZA",
+                  "dataHoraLancamento": 1789330477146,
+                  "desistenteCodigo": "",
+                  "expiraValidacaoAt": 1789416877146,
+                  "isRET": false,
+                  "isWO": false,
+                  "motivoRET": "",
+                  "motivoWO": "",
+                  "parciais": {
+                    "set1": {
+                      "j1": 6,
+                      "j2": 1
+                    },
+                    "set2": {
+                      "j1": 6,
+                      "j2": 7,
+                      "tbJ1": 7,
+                      "tbJ2": 9
+                    },
+                    "set3": {
+                      "j1": 10,
+                      "j2": 1
+                    }
+                  },
+                  "placarFormatado": "6/1 6/7(7) 10/1",
+                  "statusPlacar": "pendente_validacao",
+                  "tagGrupoRanking": "G2",
+                  "vencedor": "Alex",
+                  "vencedorCodigo": "J1"
+                },
+                "dataHora": 1789330500048,
+                "gamesP1": 22,
+                "gamesP2": 9,
+                "jogador1Id": "-P1MhjNePKAaolM6NOO7",
+                "jogador2Id": "-OwsQrhU1OU0PeArJpdX",
+                "status": "finalizada",
+                "tagGrupoRanking": "G2",
+                "vencedorId": "-P1MhjNePKAaolM6NOO7"
+              },
+              "partida_B_MASCULINO_Quadra3_7_18_-P1MhjNePKAaolM6NOO7_-OwsQrPgZKMJLDccbVRB": {
+                "categoria": "B_MASCULINO",
+                "dadosPlacar": {
+                  "autorSumula": "ALEX SOUZA",
+                  "dataHoraLancamento": 1789333506336,
+                  "desistenteCodigo": "",
+                  "expiraValidacaoAt": 1789419906336,
+                  "isRET": false,
+                  "isWO": false,
+                  "motivoRET": "",
+                  "motivoWO": "",
+                  "parciais": {
+                    "set1": {
+                      "j1": 6,
+                      "j2": 1
+                    },
+                    "set2": {
+                      "j1": 6,
+                      "j2": 2
+                    }
+                  },
+                  "placarFormatado": "6/1 6/2",
+                  "statusPlacar": "pendente_validacao",
+                  "vencedor": "Alex",
+                  "vencedorCodigo": "J1"
+                },
+                "dataHora": 1789333526131,
+                "gamesP1": 12,
+                "gamesP2": 3,
+                "jogador1Id": "-P1MhjNePKAaolM6NOO7",
+                "jogador2Id": "-OwsQrPgZKMJLDccbVRB",
+                "status": "finalizada",
+                "vencedorId": "-P1MhjNePKAaolM6NOO7"
               }
             }
           },
@@ -1930,252 +1920,6 @@
                 "vencedorId": "-OwsQrGGmuPBaD-rCgIg"
               }
             }
-          },
-          "2026_Torneio_Teste_para_a_fase_de_Grupos": {
-            "classificacaoFinal": {
-              "B_MASCULINO": [
-                "-OwsQrNLH_WQE5_SCVCl",
-                "-OwsQtsjLSDkSYil8aUf",
-                "-OwsQrDpFbGx4981OGtl",
-                "-OwsQtv3EWCTQ8ooLB-8",
-                "-OwsQrf9a9Xl8nyK-bdG"
-              ]
-            },
-            "contrato": {
-              "categoriasHabilitadas": [
-                "CLASSE_B",
-                "MASCULINO"
-              ],
-              "fimInscricoes": "2026-09-09",
-              "fimTorneio": "2026-09-11",
-              "inicioInscricoes": "2026-09-08",
-              "inicioJogos": "2026-09-10",
-              "limiteVagas": 32,
-              "modeloDisputa": "grupos",
-              "nomeTorneio": "Torneio Teste para a fase de Grupos"
-            },
-            "dataHomologacao": 1789065875330,
-            "modelo": "grupos",
-            "partidas": {
-              "partida_B_MASCULINO_Quadra1_3_15_-OwsQtv3EWCTQ8ooLB-8_-OwsQtsjLSDkSYil8aUf": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "autorSumula": "JOAO MARIA SOBRINHO",
-                  "dataHoraLancamento": 1788978353764,
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1789064753764,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 6,
-                      "j2": 1
-                    },
-                    "set2": {
-                      "j1": 6,
-                      "j2": 7,
-                      "tbJ1": 4,
-                      "tbJ2": 7
-                    },
-                    "set3": {
-                      "j1": 10,
-                      "j2": 3
-                    }
-                  },
-                  "placarFormatado": "6/1 6/7(4) 10/3",
-                  "statusPlacar": "pendente_validacao",
-                  "vencedor": "Joao Maria",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1788978405335,
-                "gamesP1": 22,
-                "gamesP2": 11,
-                "jogador1Id": "-OwsQtv3EWCTQ8ooLB-8",
-                "jogador2Id": "-OwsQtsjLSDkSYil8aUf",
-                "status": "finalizada",
-                "vencedorId": "-OwsQtv3EWCTQ8ooLB-8"
-              },
-              "partida_B_MASCULINO_Quadra1_3_8_-OwsQrf9a9Xl8nyK-bdG_-OwsQrNLH_WQE5_SCVCl": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "autorSumula": "ALMIR ALVES DA CRUZ",
-                  "dataHoraLancamento": 1788954959614,
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1789041359614,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 6,
-                      "j2": 1
-                    },
-                    "set2": {
-                      "j1": 6,
-                      "j2": 4
-                    }
-                  },
-                  "placarFormatado": "6/1 6/4",
-                  "statusPlacar": "pendente_validacao",
-                  "vencedor": "Almir",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1788954996006,
-                "gamesP1": 12,
-                "gamesP2": 5,
-                "jogador1Id": "-OwsQrf9a9Xl8nyK-bdG",
-                "jogador2Id": "-OwsQrNLH_WQE5_SCVCl",
-                "status": "finalizada",
-                "vencedorId": "-OwsQrf9a9Xl8nyK-bdG"
-              },
-              "partida_B_MASCULINO_Quadra3_2_21_-OwsQtv3EWCTQ8ooLB-8_-OwsQrf9a9Xl8nyK-bdG": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "autorSumula": "JOAO MARIA SOBRINHO",
-                  "dataHoraLancamento": 1788914873153,
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1789001273153,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 6,
-                      "j2": 1
-                    },
-                    "set2": {
-                      "j1": 6,
-                      "j2": 1
-                    }
-                  },
-                  "placarFormatado": "6/1 6/1",
-                  "statusPlacar": "pendente_validacao",
-                  "vencedor": "Joao Maria",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1788914896199,
-                "gamesP1": 12,
-                "gamesP2": 2,
-                "jogador1Id": "-OwsQtv3EWCTQ8ooLB-8",
-                "jogador2Id": "-OwsQrf9a9Xl8nyK-bdG",
-                "status": "finalizada",
-                "vencedorId": "-OwsQtv3EWCTQ8ooLB-8"
-              },
-              "partida_B_MASCULINO_Quadra3_2_22_-OwsQrNLH_WQE5_SCVCl_-OwsQrDpFbGx4981OGtl": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "autorSumula": "ALEXANDRE CAMARGO",
-                  "dataHoraLancamento": 1788915655411,
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1789002055411,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 6,
-                      "j2": 3
-                    },
-                    "set2": {
-                      "j1": 1,
-                      "j2": 6
-                    },
-                    "set3": {
-                      "j1": 15,
-                      "j2": 13
-                    }
-                  },
-                  "placarFormatado": "6/3 1/6 15/13",
-                  "statusPlacar": "pendente_validacao",
-                  "vencedor": "Alexandre Camargo",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1788915671895,
-                "gamesP1": 22,
-                "gamesP2": 22,
-                "jogador1Id": "-OwsQrNLH_WQE5_SCVCl",
-                "jogador2Id": "-OwsQrDpFbGx4981OGtl",
-                "status": "finalizada",
-                "vencedorId": "-OwsQrNLH_WQE5_SCVCl"
-              },
-              "partida_B_MASCULINO_Quadra4_2_21_-OwsQtsjLSDkSYil8aUf_-OwsQrDpFbGx4981OGtl": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "autorSumula": "JOAO FRANCISCO DA SILVA",
-                  "dataHoraLancamento": 1788914959837,
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1789001359837,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 6,
-                      "j2": 4
-                    },
-                    "set2": {
-                      "j1": 0,
-                      "j2": 6
-                    },
-                    "set3": {
-                      "j1": 10,
-                      "j2": 8
-                    }
-                  },
-                  "placarFormatado": "6/4 0/6 10/8",
-                  "statusPlacar": "pendente_validacao",
-                  "vencedor": "Joao Francisco",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1788914977045,
-                "gamesP1": 16,
-                "gamesP2": 18,
-                "jogador1Id": "-OwsQtsjLSDkSYil8aUf",
-                "jogador2Id": "-OwsQrDpFbGx4981OGtl",
-                "status": "finalizada",
-                "vencedorId": "-OwsQtsjLSDkSYil8aUf"
-              },
-              "partida_B_MASCULINO_Quadra6_3_16_-OwsQtv3EWCTQ8ooLB-8_-OwsQrf9a9Xl8nyK-bdG": {
-                "categoria": "B_MASCULINO",
-                "dadosPlacar": {
-                  "autorSumula": "JOAO MARIA SOBRINHO",
-                  "dataHoraLancamento": 1789060307286,
-                  "desistenteCodigo": "",
-                  "expiraValidacaoAt": 1789146707286,
-                  "isRET": false,
-                  "isWO": false,
-                  "motivoRET": "",
-                  "motivoWO": "",
-                  "parciais": {
-                    "set1": {
-                      "j1": 6,
-                      "j2": 0
-                    },
-                    "set2": {
-                      "j1": 6,
-                      "j2": 0
-                    }
-                  },
-                  "placarFormatado": "6/0 6/0",
-                  "statusPlacar": "pendente_validacao",
-                  "vencedor": "Joao Maria",
-                  "vencedorCodigo": "J1"
-                },
-                "dataHora": 1789060323990,
-                "gamesP1": 12,
-                "gamesP2": 0,
-                "jogador1Id": "-OwsQtv3EWCTQ8ooLB-8",
-                "jogador2Id": "-OwsQrf9a9Xl8nyK-bdG",
-                "status": "finalizada",
-                "vencedorId": "-OwsQtv3EWCTQ8ooLB-8"
-              }
-            }
           }
         },
         "jogadores": {
@@ -2188,17 +1932,11 @@
             "niver": "01/01/2001",
             "nomeCompleto": "ADRIANO GOMES FEITOSA",
             "notificacoes": {
-              "-P1CjBZ4PmzLSDKkT8GI": {
+              "-P1SaYKW8mmUGY_a4IP_": {
                 "categoria": "inicio_temporada",
-                "detalhe": "Tabela do 1 Torneio de Grupos - testes - 2026 liberada.\nAgende sua partida de ranking no app.",
-                "timestamp": 1789084354908,
+                "detalhe": "Tabela do 5 Torneio de Grupos liberada.\nAgende sua partida de ranking no app.",
+                "timestamp": 1789350524384,
                 "titulo": "A temporada começou!"
-              },
-              "-P1HRyx8kAXX4U9vCFGI": {
-                "adversario": "Adriano Feitosa",
-                "categoria": "ajustado_arb",
-                "detalhe": "6/3 6/7(5) 10/8",
-                "timestamp": 1789163466648
               }
             },
             "participaRanking": true,
@@ -2218,10 +1956,11 @@
             "niver": "04/04/1975",
             "nomeCompleto": "ALESSANDRO ROMERO XAVIER",
             "notificacoes": {
-              "-P1Clg9LOTfXM7s6eDig": {
-                "adversario": "Adriano Feitosa",
-                "categoria": "confirmado",
-                "timestamp": 1789085008622
+              "-P1SaYKW8mmUGY_a4IPa": {
+                "categoria": "inicio_temporada",
+                "detalhe": "Tabela do 5 Torneio de Grupos liberada.\nAgende sua partida de ranking no app.",
+                "timestamp": 1789350524384,
+                "titulo": "A temporada começou!"
               }
             },
             "participaRanking": true,
@@ -2271,6 +2010,14 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "ALEXANDRE VOJCIECHOVSKI",
+            "notificacoes": {
+              "-P1SaYKW8mmUGY_a4IPc": {
+                "categoria": "inicio_temporada",
+                "detalhe": "Tabela do 5 Torneio de Grupos liberada.\nAgende sua partida de ranking no app.",
+                "timestamp": 1789350524384,
+                "titulo": "A temporada começou!"
+              }
+            },
             "participaRanking": true,
             "socio": "dependente",
             "whatsapp": "(99) 99999-9999"
@@ -2344,10 +2091,11 @@
             "niver": "01/01/2001",
             "nomeCompleto": "ALMIR ALVES DA CRUZ",
             "notificacoes": {
-              "-P1Cm0ACMCKvy-yUSr6o": {
-                "adversario": "Joao Bento",
-                "categoria": "confirmado",
-                "timestamp": 1789085094701
+              "-P1SaYKW8mmUGY_a4IPd": {
+                "categoria": "inicio_temporada",
+                "detalhe": "Tabela do 5 Torneio de Grupos liberada.\nAgende sua partida de ranking no app.",
+                "timestamp": 1789350524384,
+                "titulo": "A temporada começou!"
               }
             },
             "participaRanking": true,
@@ -2362,18 +2110,6 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "ANA FRANCISCA SANTOS",
-            "notificacoes": {
-              "-P1H7ecwzunM7XLEtBNW": {
-                "adversario": "Almir",
-                "categoria": "confirmado",
-                "timestamp": 1789158140575
-              },
-              "-P1HXR5sTBV1WJjeMPQg": {
-                "adversario": "Joao Bento",
-                "categoria": "confirmado",
-                "timestamp": 1789164896778
-              }
-            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -2386,6 +2122,14 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "ANA JULIA MARTINS",
+            "notificacoes": {
+              "-P1SaYKW8mmUGY_a4IPe": {
+                "categoria": "inicio_temporada",
+                "detalhe": "Tabela do 5 Torneio de Grupos liberada.\nAgende sua partida de ranking no app.",
+                "timestamp": 1789350524384,
+                "titulo": "A temporada começou!"
+              }
+            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(41) 99999-9998"
@@ -2399,10 +2143,10 @@
             "niver": "01/01/2001",
             "nomeCompleto": "ANA LICE DOURADO",
             "notificacoes": {
-              "-P1IE8I2gPc8v_elr-xa": {
-                "adversario": "Joao Bento",
+              "-P1SbG5LB3o-y3ftYuT6": {
+                "adversario": "Alessandro Xavier",
                 "categoria": "confirmado",
-                "timestamp": 1789176616222
+                "timestamp": 1789350711831
               }
             },
             "participaRanking": true,
@@ -2417,6 +2161,13 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "ANA MARIA MARINHO GOMES",
+            "notificacoes": {
+              "-P1Sc8cy2dq-PSOQP7jw": {
+                "adversario": "Adriano Feitosa",
+                "categoria": "confirmado",
+                "timestamp": 1789350943426
+              }
+            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -3281,16 +3032,6 @@
             "socio": "titular",
             "whatsapp": ""
           },
-          "-OwsQv15_noZ0_17TTS3": {
-            "apelido": "Nadal",
-            "ativo": true,
-            "classe": "A",
-            "email": "",
-            "niver": "01/01/2001",
-            "nomeCompleto": "RAFAL NADAL DE SOUZA",
-            "socio": "titular",
-            "whatsapp": ""
-          },
           "-OwsQv3RKgugEyZqFgVV": {
             "apelido": "Raianne Kamiya",
             "ativo": true,
@@ -3614,36 +3355,282 @@
             "participaRanking": false,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
+          },
+          "-P1MhjNePKAaolM6NOO7": {
+            "apelido": "Alex",
+            "ativo": true,
+            "classe": "B",
+            "email": "a@a",
+            "genero": "MASCULINO",
+            "niver": "01/01/2001",
+            "nomeCompleto": "ALEX SOUZA",
+            "participaRanking": true,
+            "socio": "titular",
+            "whatsapp": "(99) 99999-9999"
+          },
+          "-P1Sl96ua6y52YN1ZN5P": {
+            "apelido": "Federer",
+            "ativo": true,
+            "classe": "A",
+            "email": "a@a",
+            "genero": "MASCULINO",
+            "niver": "01/01/2001",
+            "nomeCompleto": "ROGER FEDERER",
+            "participaRanking": true,
+            "socio": "titular",
+            "whatsapp": "(99) 99999-9999"
+          },
+          "-P1SlGs7DKlJOQ0TrbIq": {
+            "apelido": "Murray",
+            "ativo": true,
+            "classe": "A",
+            "email": "a@a",
+            "genero": "MASCULINO",
+            "niver": "01/01/2001",
+            "nomeCompleto": "ANDY MURRAY",
+            "participaRanking": true,
+            "socio": "titular",
+            "whatsapp": "(99) 99999-9999"
+          },
+          "-P1SlTeuvrB4Z-v1jo9x": {
+            "apelido": "Del Potro",
+            "ativo": true,
+            "classe": "A",
+            "email": "a@a",
+            "genero": "MASCULINO",
+            "niver": "01/01/2001",
+            "nomeCompleto": "JUAN MARTIN DEL POTRO",
+            "participaRanking": true,
+            "socio": "titular",
+            "whatsapp": "(99) 99999-9999"
+          },
+          "-P1SlmAd5kEnXl7i3BjL": {
+            "apelido": "Verdasco",
+            "ativo": true,
+            "classe": "A",
+            "email": "a@a",
+            "genero": "MASCULINO",
+            "niver": "01/01/2001",
+            "nomeCompleto": "FERNANDO VERDASCO",
+            "participaRanking": true,
+            "socio": "titular",
+            "whatsapp": "(99) 99999-9999"
+          },
+          "-P1Slv00udZbLsSnFlTB": {
+            "apelido": "Nadal",
+            "ativo": true,
+            "classe": "A",
+            "email": "a@a",
+            "genero": "MASCULINO",
+            "niver": "01/01/2001",
+            "nomeCompleto": "RAFAEL NADAL",
+            "participaRanking": true,
+            "socio": "titular",
+            "whatsapp": "(99) 99999-9999"
+          },
+          "-P1Sm5n-TP6R8MRqPDl-": {
+            "apelido": "Djokovic",
+            "ativo": true,
+            "classe": "A",
+            "email": "a@a",
+            "genero": "MASCULINO",
+            "niver": "01/01/2001",
+            "nomeCompleto": "NOVAS DJOKOVIC",
+            "participaRanking": true,
+            "socio": "titular",
+            "whatsapp": "(99) 99999-9999"
+          },
+          "-P1SmG-wUI6_4t_0i8H2": {
+            "apelido": "Davydenko",
+            "ativo": true,
+            "classe": "A",
+            "email": "a@a",
+            "genero": "MASCULINO",
+            "niver": "01/01/2001",
+            "nomeCompleto": "NICOLAY DAVYDENKO",
+            "participaRanking": true,
+            "socio": "titular",
+            "whatsapp": "(99) 99999-9999"
+          },
+          "-P1SmVBfErNgWk7mHc-T": {
+            "apelido": "Soderling",
+            "ativo": true,
+            "classe": "A",
+            "email": "a@a",
+            "genero": "MASCULINO",
+            "niver": "01/01/2001",
+            "nomeCompleto": "ROBIN SODERLING",
+            "participaRanking": true,
+            "socio": "titular",
+            "whatsapp": "(99) 99999-9999"
           }
         },
         "ranking": {
           "chaves": {
             "B_MASCULINO": {
-              "faseAtual": 2,
+              "faseAtual": 8,
               "rodada1": [
                 {
-                  "fase": 2,
-                  "jogador1Id": "-OwsQtnuR5s3v1VM2ZBi",
-                  "jogador2Id": "-OwsQrm7Bwu6dgj-KdTt"
+                  "fase": 8,
+                  "isBye": true,
+                  "jogador1Id": "-OwsQroTvdNBY94IW81q"
+                },
+                {
+                  "fase": 8,
+                  "isBye": false,
+                  "jogador1Id": "-OwsQrm7Bwu6dgj-KdTt",
+                  "jogador2Id": "-OwsQrNLH_WQE5_SCVCl"
+                },
+                {
+                  "fase": 8,
+                  "isBye": false,
+                  "jogador1Id": "-P1MhjNePKAaolM6NOO7",
+                  "jogador2Id": "-OwsQrGGmuPBaD-rCgIg"
+                },
+                {
+                  "fase": 8,
+                  "isBye": "-OwsQrDpFbGx4981OGtl",
+                  "jogador2Id": "-OwsQrDpFbGx4981OGtl"
                 }
               ],
-              "totalClassificados": 7
+              "totalClassificados": 6
+            }
+          },
+          "partidas": {
+            "partida_B_MASCULINO_Quadra5_7_22_-P1MhjNePKAaolM6NOO7_-OwsQrNLH_WQE5_SCVCl": {
+              "categoria": "B_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "ALEX SOUZA",
+                "dataHoraLancamento": 1789350836722,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789437236722,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 4
+                  },
+                  "set2": {
+                    "j1": 2,
+                    "j2": 6
+                  },
+                  "set3": {
+                    "j1": 10,
+                    "j2": 1
+                  }
+                },
+                "placarFormatado": "6/4 2/6 10/1",
+                "statusPlacar": "pendente_validacao",
+                "tagGrupoRanking": "G3",
+                "vencedor": "Alex",
+                "vencedorCodigo": "J1"
+              },
+              "dataHora": 1789350853489,
+              "gamesP1": 18,
+              "gamesP2": 11,
+              "jogador1Id": "-P1MhjNePKAaolM6NOO7",
+              "jogador2Id": "-OwsQrNLH_WQE5_SCVCl",
+              "status": "finalizada",
+              "tagGrupoRanking": "G3",
+              "vencedorId": "-P1MhjNePKAaolM6NOO7"
+            },
+            "partida_B_MASCULINO_Quadra6_7_22_-OwsQroTvdNBY94IW81q_-OwsQrDpFbGx4981OGtl": {
+              "categoria": "B_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "ANA MARIA MARINHO GOMES",
+                "dataHoraLancamento": 1789350917205,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789437317205,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 7,
+                    "tbJ2": 5
+                  },
+                  "set2": {
+                    "j1": 1,
+                    "j2": 6
+                  },
+                  "set3": {
+                    "j1": 10,
+                    "j2": 8
+                  }
+                },
+                "placarFormatado": "7/6(5) 1/6 10/8",
+                "statusPlacar": "pendente_validacao",
+                "tagGrupoRanking": "G1",
+                "vencedor": "Ana Maria Marinho",
+                "vencedorCodigo": "J1"
+              },
+              "dataHora": 1789350943432,
+              "gamesP1": 18,
+              "gamesP2": 20,
+              "jogador1Id": "-OwsQroTvdNBY94IW81q",
+              "jogador2Id": "-OwsQrDpFbGx4981OGtl",
+              "status": "finalizada",
+              "tagGrupoRanking": "G1",
+              "vencedorId": "-OwsQroTvdNBY94IW81q"
+            },
+            "partida_B_MASCULINO_Quadra7_7_22_-OwsQrm7Bwu6dgj-KdTt_-OwsQrGGmuPBaD-rCgIg": {
+              "categoria": "B_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "ANA LICE DOURADO",
+                "dataHoraLancamento": 1789350697440,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789437097440,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 1
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 2
+                  }
+                },
+                "placarFormatado": "6/1 6/2",
+                "statusPlacar": "pendente_validacao",
+                "tagGrupoRanking": "G2",
+                "vencedor": "An Alice",
+                "vencedorCodigo": "J1"
+              },
+              "dataHora": 1789350711833,
+              "gamesP1": 12,
+              "gamesP2": 3,
+              "jogador1Id": "-OwsQrm7Bwu6dgj-KdTt",
+              "jogador2Id": "-OwsQrGGmuPBaD-rCgIg",
+              "status": "finalizada",
+              "tagGrupoRanking": "G2",
+              "vencedorId": "-OwsQrm7Bwu6dgj-KdTt"
             }
           },
           "pontos_geral": {
             "B_MASCULINO": {
-              "-OwsQrDpFbGx4981OGtl": 860,
-              "-OwsQrGGmuPBaD-rCgIg": 730,
-              "-OwsQrNLH_WQE5_SCVCl": 640,
-              "-OwsQrPgZKMJLDccbVRB": 20,
-              "-OwsQrf9a9Xl8nyK-bdG": 100,
-              "-OwsQrhU1OU0PeArJpdX": 20,
-              "-OwsQrjn7GfNwbVpBEIx": 20,
-              "-OwsQrm7Bwu6dgj-KdTt": 20,
-              "-OwsQroTvdNBY94IW81q": 20,
-              "-OwsQtnuR5s3v1VM2ZBi": 180,
+              "-OwsQrDpFbGx4981OGtl": 1000,
+              "-OwsQrGGmuPBaD-rCgIg": 870,
+              "-OwsQrNLH_WQE5_SCVCl": 720,
+              "-OwsQrPgZKMJLDccbVRB": 60,
+              "-OwsQrf9a9Xl8nyK-bdG": 140,
+              "-OwsQrhU1OU0PeArJpdX": 60,
+              "-OwsQrjn7GfNwbVpBEIx": 220,
+              "-OwsQrm7Bwu6dgj-KdTt": 100,
+              "-OwsQroTvdNBY94IW81q": 220,
+              "-OwsQtnuR5s3v1VM2ZBi": 430,
               "-OwsQtsjLSDkSYil8aUf": 360,
-              "-OwsQtv3EWCTQ8ooLB-8": 60
+              "-OwsQtv3EWCTQ8ooLB-8": 60,
+              "-P1MhjNePKAaolM6NOO7": 250
             }
           },
           "ranking_geral": {
@@ -3651,32 +3638,46 @@
               "-OwsQrDpFbGx4981OGtl",
               "-OwsQrGGmuPBaD-rCgIg",
               "-OwsQrNLH_WQE5_SCVCl",
-              "-OwsQtsjLSDkSYil8aUf",
               "-OwsQtnuR5s3v1VM2ZBi",
+              "-OwsQtsjLSDkSYil8aUf",
+              "-P1MhjNePKAaolM6NOO7",
+              "-OwsQrjn7GfNwbVpBEIx",
+              "-OwsQroTvdNBY94IW81q",
               "-OwsQrf9a9Xl8nyK-bdG",
-              "-OwsQtv3EWCTQ8ooLB-8",
+              "-OwsQrm7Bwu6dgj-KdTt",
               "-OwsQrPgZKMJLDccbVRB",
               "-OwsQrhU1OU0PeArJpdX",
+              "-OwsQtv3EWCTQ8ooLB-8"
+            ]
+          },
+          "tabelas": {
+            "B_MASCULINO": [
+              "-OwsQroTvdNBY94IW81q",
+              "-OwsQrDpFbGx4981OGtl",
+              "-OwsQrf9a9Xl8nyK-bdG",
               "-OwsQrm7Bwu6dgj-KdTt",
+              "-OwsQrGGmuPBaD-rCgIg",
               "-OwsQrjn7GfNwbVpBEIx",
-              "-OwsQroTvdNBY94IW81q"
+              "-P1MhjNePKAaolM6NOO7",
+              "-OwsQrNLH_WQE5_SCVCl",
+              "-OwsQrPgZKMJLDccbVRB"
             ]
           }
         },
         "reservas": {
           "Quadra - 1": {
-            "4_20": {
+            "7_16": {
               "borda": "1h",
               "confirmacoes": {
-                "Alexandre Voj": true,
-                "Joao Bento": true
+                "Almir": true,
+                "Ana Maria Marinho": true
               },
               "dadosPlacar": {
-                "autorSumula": "JOAO BENTO PEREIRA",
-                "dataHoraLancamento": 1789084892331,
-                "dataHoraValidacao": 1789084907849,
+                "autorSumula": "ANA MARIA MARINHO GOMES",
+                "dataHoraLancamento": 1789326400120,
+                "dataHoraValidacao": 1789326436141,
                 "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789171292331,
+                "expiraValidacaoAt": 1789412800120,
                 "isRET": false,
                 "isWO": false,
                 "motivoRET": "",
@@ -3687,42 +3688,41 @@
                     "j2": 3
                   },
                   "set2": {
-                    "j1": 7,
-                    "j2": 6,
-                    "tbJ1": 7,
-                    "tbJ2": 1
+                    "j1": 6,
+                    "j2": 4
                   }
                 },
-                "placarFormatado": "6/3 7/6(1)",
+                "placarFormatado": "6/3 6/4",
                 "statusPlacar": "consolidado",
-                "vencedor": "Joao Bento",
+                "vencedor": "Ana Maria Marinho",
                 "vencedorCodigo": "J1"
               },
-              "dataCompleta": "2026-09-10",
-              "dia": 4,
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
               "duracao": 1,
-              "hora": 20,
+              "hora": 16,
               "isRanking": true,
-              "jogadores": "Joao Bento, Alexandre Voj",
-              "jogadores_completo": "JOAO BENTO PEREIRA, ALEXANDRE VOJCIECHOVSKI",
-              "organizador": "JOAO BENTO PEREIRA",
+              "jogadores": "Ana Maria Marinho, Almir",
+              "jogadores_completo": "ANA MARIA MARINHO GOMES, ALMIR ALVES DA CRUZ",
+              "organizador": "ANA MARIA MARINHO GOMES",
               "status": "confirmada",
               "statusPlacar": "consolidado",
-              "tagGrupoRanking": "G2",
+              "tagFaseRanking": "Grupos - G4",
+              "tagGrupoRanking": "G4",
               "tipo": "ranking"
             },
-            "4_21": {
+            "7_17": {
               "borda": "1h",
               "confirmacoes": {
                 "Adriano Feitosa": true,
-                "Alessandro Xavier": true
+                "Ana Julia": true
               },
               "dadosPlacar": {
-                "autorSumula": "ALESSANDRO ROMERO XAVIER",
-                "dataHoraLancamento": 1789084992330,
-                "dataHoraValidacao": 1789085008466,
+                "autorSumula": "ANA JULIA MARTINS",
+                "dataHoraLancamento": 1789330391531,
+                "dataHoraValidacao": 1789330408157,
                 "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789171392330,
+                "expiraValidacaoAt": 1789416791531,
                 "isRET": false,
                 "isWO": false,
                 "motivoRET": "",
@@ -3730,43 +3730,233 @@
                 "parciais": {
                   "set1": {
                     "j1": 6,
-                    "j2": 3
+                    "j2": 0
                   },
                   "set2": {
                     "j1": 6,
                     "j2": 0
                   }
                 },
-                "placarFormatado": "6/3 6/0",
+                "placarFormatado": "6/0 6/0",
                 "statusPlacar": "consolidado",
-                "vencedor": "Alessandro Xavier",
+                "vencedor": "Ana Julia",
                 "vencedorCodigo": "J1"
               },
-              "dataCompleta": "2026-09-10",
-              "dia": 4,
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
               "duracao": 1,
-              "hora": 21,
+              "hora": 17,
               "isRanking": true,
-              "jogadores": "Alessandro Xavier, Adriano Feitosa",
-              "jogadores_completo": "ALESSANDRO ROMERO XAVIER, ADRIANO GOMES FEITOSA",
-              "organizador": "ALESSANDRO ROMERO XAVIER",
+              "jogadores": "Ana Julia, Adriano Feitosa",
+              "jogadores_completo": "ANA JULIA MARTINS, ADRIANO GOMES FEITOSA",
+              "organizador": "ANA JULIA MARTINS",
               "status": "confirmada",
               "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G1",
               "tagGrupoRanking": "G1",
               "tipo": "ranking"
             },
-            "5_15": {
+            "7_18": {
               "borda": "1h",
               "confirmacoes": {
                 "Almir": true,
-                "Ana Francisca": true
+                "Ana Julia": true
               },
               "dadosPlacar": {
-                "autorSumula": "ANA FRANCISCA SANTOS",
-                "dataHoraLancamento": 1789158123520,
-                "dataHoraValidacao": 1789158140417,
+                "autorSumula": "ANA JULIA MARTINS",
+                "dataHoraLancamento": 1789333423820,
+                "dataHoraValidacao": 1789333425050,
                 "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789244523520,
+                "expiraValidacaoAt": 1789419823820,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 4
+                  },
+                  "set2": {
+                    "j1": 1,
+                    "j2": 6
+                  },
+                  "set3": {
+                    "j1": 10,
+                    "j2": 7
+                  }
+                },
+                "placarFormatado": "6/4 1/6 10/7",
+                "statusPlacar": "consolidado",
+                "vencedor": "Ana Julia",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
+              "duracao": 1,
+              "hora": 18,
+              "isRanking": true,
+              "jogadores": "Ana Julia, Almir",
+              "jogadores_completo": "ANA JULIA MARTINS, ALMIR ALVES DA CRUZ",
+              "organizador": "ANA JULIA MARTINS",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - Quartas de Final",
+              "tipo": "ranking"
+            },
+            "7_19": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Ana Francisca": true,
+                "Ana Julia": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ANA JULIA MARTINS",
+                "dataHoraLancamento": 1789337405351,
+                "dataHoraValidacao": 1789337430544,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789423805351,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 3
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 3
+                  }
+                },
+                "placarFormatado": "6/3 6/3",
+                "statusPlacar": "consolidado",
+                "vencedor": "Ana Julia",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
+              "duracao": 1,
+              "hora": 19,
+              "isRanking": true,
+              "jogadores": "Ana Julia, Ana Francisca",
+              "jogadores_completo": "ANA JULIA MARTINS, ANA FRANCISCA SANTOS",
+              "organizador": "ANA JULIA MARTINS",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - Semi-Finais",
+              "tipo": "ranking"
+            },
+            "7_20": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Alex": true,
+                "Ana Julia": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ALEX SOUZA",
+                "dataHoraLancamento": 1789340471846,
+                "dataHoraValidacao": 1789340512158,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789426871846,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 4
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 7,
+                    "tbJ1": 1,
+                    "tbJ2": 7
+                  },
+                  "set3": {
+                    "j1": 10,
+                    "j2": 3
+                  }
+                },
+                "placarFormatado": "6/4 6/7(1) 10/3",
+                "statusPlacar": "consolidado",
+                "vencedor": "Alex",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
+              "duracao": 1,
+              "hora": 20,
+              "isRanking": true,
+              "jogadores": "Alex, Ana Julia",
+              "jogadores_completo": "ALEX SOUZA, ANA JULIA MARTINS",
+              "organizador": "ALEX SOUZA",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - Grande Final",
+              "tipo": "ranking"
+            }
+          },
+          "Quadra - 2": {
+            "7_15": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "An Alice": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ANA LICE DOURADO",
+                "dataHoraLancamento": 1789326138538,
+                "dataHoraValidacao": 1789326163975,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789412538538,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 4,
+                    "j2": 6
+                  },
+                  "set2": {
+                    "j1": 0,
+                    "j2": 6
+                  }
+                },
+                "placarFormatado": "4/6 0/6",
+                "statusPlacar": "consolidado",
+                "vencedor": "An Alice",
+                "vencedorCodigo": "J2"
+              },
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
+              "duracao": 1,
+              "hora": 15,
+              "isRanking": true,
+              "jogadores": "Adriano Feitosa, An Alice",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA, ANA LICE DOURADO",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            },
+            "7_16": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Alexandre Camargo": true,
+                "Alexandre Voj": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ALEXANDRE VOJCIECHOVSKI",
+                "dataHoraLancamento": 1789326241175,
+                "dataHoraValidacao": 1789326271442,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789412641175,
                 "isRET": false,
                 "isWO": false,
                 "motivoRET": "",
@@ -3780,361 +3970,29 @@
                   },
                   "set2": {
                     "j1": 6,
-                    "j2": 7,
-                    "tbJ1": 5,
-                    "tbJ2": 7
-                  },
-                  "set3": {
-                    "j1": 10,
-                    "j2": 4
-                  }
-                },
-                "placarFormatado": "7/6(0) 6/7(5) 10/4",
-                "statusPlacar": "consolidado",
-                "vencedor": "Ana Francisca",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-09-11",
-              "dia": 5,
-              "duracao": 1,
-              "hora": 15,
-              "isRanking": true,
-              "jogadores": "Ana Francisca, Almir",
-              "jogadores_completo": "ANA FRANCISCA SANTOS, ALMIR ALVES DA CRUZ",
-              "organizador": "ANA FRANCISCA SANTOS",
-              "status": "confirmada",
-              "statusPlacar": "consolidado",
-              "tipo": "ranking"
-            },
-            "5_18": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Ana Francisca": true,
-                "Joao Bento": true
-              },
-              "dadosPlacar": {
-                "autorSumula": "ANA FRANCISCA SANTOS",
-                "dataHoraLancamento": 1789164873606,
-                "dataHoraValidacao": 1789164896623,
-                "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789251273606,
-                "isRET": false,
-                "isWO": false,
-                "motivoRET": "",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 6,
-                    "j2": 1
-                  },
-                  "set2": {
-                    "j1": 6,
-                    "j2": 4
-                  }
-                },
-                "placarFormatado": "6/1 6/4",
-                "statusPlacar": "consolidado",
-                "vencedor": "Joao Bento",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-09-11",
-              "dia": 5,
-              "duracao": 1,
-              "hora": 18,
-              "isRanking": true,
-              "jogadores": "Joao Bento, Ana Francisca",
-              "jogadores_completo": "JOAO BENTO PEREIRA, ANA FRANCISCA SANTOS",
-              "organizador": "JOAO BENTO PEREIRA",
-              "status": "confirmada",
-              "statusPlacar": "consolidado",
-              "tipo": "ranking"
-            },
-            "5_22": {
-              "borda": "1h",
-              "confirmacoes": {
-                "An Alice": true,
-                "Joao Bento": true
-              },
-              "dadosPlacar": {
-                "autorSumula": "ANA LICE DOURADO",
-                "dataHoraLancamento": 1789176579725,
-                "dataHoraValidacao": 1789176616069,
-                "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789262979725,
-                "isRET": false,
-                "isWO": false,
-                "motivoRET": "",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 7,
-                    "j2": 6,
-                    "tbJ1": 7,
-                    "tbJ2": 1
-                  },
-                  "set2": {
-                    "j1": 6,
-                    "j2": 7,
-                    "tbJ1": 5,
-                    "tbJ2": 7
-                  },
-                  "set3": {
-                    "j1": 15,
-                    "j2": 13
-                  }
-                },
-                "placarFormatado": "7/6(1) 6/7(5) 15/13",
-                "statusPlacar": "consolidado",
-                "vencedor": "An Alice",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-09-11",
-              "dia": 5,
-              "duracao": 1,
-              "hora": 22,
-              "isRanking": true,
-              "jogadores": "An Alice, Joao Bento",
-              "jogadores_completo": "ANA LICE DOURADO, JOAO BENTO PEREIRA",
-              "organizador": "ANA LICE DOURADO",
-              "status": "confirmada",
-              "statusPlacar": "consolidado",
-              "tipo": "ranking"
-            }
-          },
-          "Quadra - 3": {
-            "4_20": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Adriano Feitosa": true,
-                "Alexandre Camargo": true
-              },
-              "dadosPlacar": {
-                "autorSumula": "ALEXANDRE CAMARGO",
-                "dataHoraLancamento": 1789084788872,
-                "dataHoraValidacao": 1789084819658,
-                "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789171188872,
-                "isRET": false,
-                "isWO": false,
-                "motivoRET": "",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 6,
                     "j2": 0
-                  },
-                  "set2": {
-                    "j1": 3,
-                    "j2": 6
-                  },
-                  "set3": {
-                    "j1": 10,
-                    "j2": 8
                   }
                 },
-                "placarFormatado": "6/0 3/6 10/8",
+                "placarFormatado": "7/6(0) 6/0",
                 "statusPlacar": "consolidado",
-                "vencedor": "Adriano Feitosa",
+                "vencedor": "Alexandre Voj",
                 "vencedorCodigo": "J1"
               },
-              "dataCompleta": "2026-09-10",
-              "dia": 4,
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
               "duracao": 1,
-              "hora": 20,
+              "hora": 16,
               "isRanking": true,
-              "jogadores": "Adriano Feitosa, Alexandre Camargo",
-              "jogadores_completo": "ADRIANO GOMES FEITOSA, ALEXANDRE CAMARGO",
-              "organizador": "ADRIANO GOMES FEITOSA",
+              "jogadores": "Alexandre Voj, Alexandre Camargo",
+              "jogadores_completo": "ALEXANDRE VOJCIECHOVSKI, ALEXANDRE CAMARGO",
+              "organizador": "ALEXANDRE VOJCIECHOVSKI",
               "status": "confirmada",
               "statusPlacar": "consolidado",
-              "tagGrupoRanking": "G1",
-              "tipo": "ranking"
-            },
-            "4_21": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Almir": true,
-                "Joao Bento": true
-              },
-              "dadosPlacar": {
-                "autorSumula": "ALMIR ALVES DA CRUZ",
-                "dataHoraLancamento": 1789085074831,
-                "dataHoraValidacao": 1789085094544,
-                "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789171474831,
-                "isRET": false,
-                "isWO": false,
-                "motivoRET": "",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 6,
-                    "j2": 0
-                  },
-                  "set2": {
-                    "j1": 6,
-                    "j2": 1
-                  }
-                },
-                "placarFormatado": "6/0 6/1",
-                "statusPlacar": "consolidado",
-                "vencedor": "Almir",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-09-10",
-              "dia": 4,
-              "duracao": 1,
-              "hora": 21,
-              "isRanking": true,
-              "jogadores": "Almir, Joao Bento",
-              "jogadores_completo": "ALMIR ALVES DA CRUZ, JOAO BENTO PEREIRA",
-              "organizador": "ALMIR ALVES DA CRUZ",
-              "status": "confirmada",
-              "statusPlacar": "consolidado",
-              "tagGrupoRanking": "G2",
-              "tipo": "ranking"
-            },
-            "5_15": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Alessandro Xavier": true,
-                "Joao Bento": true
-              },
-              "dadosPlacar": {
-                "autorSumula": "JOAO BENTO PEREIRA",
-                "dataHoraLancamento": 1789158232565,
-                "dataHoraValidacao": 1789158247757,
-                "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789244632565,
-                "isRET": false,
-                "isWO": false,
-                "motivoRET": "",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 6,
-                    "j2": 1
-                  },
-                  "set2": {
-                    "j1": 6,
-                    "j2": 1
-                  }
-                },
-                "placarFormatado": "6/1 6/1",
-                "statusPlacar": "consolidado",
-                "vencedor": "Joao Bento",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-09-11",
-              "dia": 5,
-              "duracao": 1,
-              "hora": 15,
-              "isRanking": true,
-              "jogadores": "Joao Bento, Alessandro Xavier",
-              "jogadores_completo": "JOAO BENTO PEREIRA, ALESSANDRO ROMERO XAVIER",
-              "organizador": "JOAO BENTO PEREIRA",
-              "status": "confirmada",
-              "statusPlacar": "consolidado",
-              "tipo": "ranking"
-            },
-            "5_18": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Adriano Feitosa": true,
-                "An Alice": true
-              },
-              "dadosPlacar": {
-                "arbitroResponsavel": "VANIA TABORDA",
-                "autorSumula": "ANA LICE DOURADO",
-                "dataHoraArbitragem": 1789163466498,
-                "dataHoraLancamento": 1789163363289,
-                "decisaoArbitro": "editado_pelo_arbitro",
-                "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789249866498,
-                "isRET": false,
-                "isWO": false,
-                "motivoRET": "",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 6,
-                    "j2": 3
-                  },
-                  "set2": {
-                    "j1": 6,
-                    "j2": 7,
-                    "tbJ1": 5,
-                    "tbJ2": 7
-                  },
-                  "set3": {
-                    "j1": 10,
-                    "j2": 8
-                  }
-                },
-                "placarFormatado": "6/3 6/7(5) 10/8",
-                "statusPlacar": "consolidado",
-                "vencedor": "An Alice",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-09-11",
-              "dia": 5,
-              "duracao": 1,
-              "hora": 18,
-              "isRanking": true,
-              "jogadores": "An Alice, Adriano Feitosa",
-              "jogadores_completo": "ANA LICE DOURADO, ADRIANO GOMES FEITOSA",
-              "organizador": "ANA LICE DOURADO",
-              "status": "confirmada",
-              "statusPlacar": "consolidado",
-              "tipo": "ranking"
-            }
-          },
-          "Quadra - 4": {
-            "4_20": {
-              "borda": "1h",
-              "confirmacoes": {
-                "Ana Francisca": true,
-                "Ana Julia": true
-              },
-              "dadosPlacar": {
-                "autorSumula": "ANA FRANCISCA SANTOS",
-                "dataHoraLancamento": 1789084731984,
-                "dataHoraValidacao": 1789084751781,
-                "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789171131984,
-                "isRET": false,
-                "isWO": false,
-                "motivoRET": "",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 6,
-                    "j2": 1
-                  },
-                  "set2": {
-                    "j1": 6,
-                    "j2": 4
-                  }
-                },
-                "placarFormatado": "6/1 6/4",
-                "statusPlacar": "consolidado",
-                "vencedor": "Ana Francisca",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-09-10",
-              "dia": 4,
-              "duracao": 1,
-              "hora": 20,
-              "isRanking": true,
-              "jogadores": "Ana Francisca, Ana Julia",
-              "jogadores_completo": "ANA FRANCISCA SANTOS, ANA JULIA MARTINS",
-              "organizador": "ANA FRANCISCA SANTOS",
-              "status": "confirmada",
-              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G3",
               "tagGrupoRanking": "G3",
               "tipo": "ranking"
             },
-            "5_15": {
+            "7_17": {
               "borda": "1h",
               "confirmacoes": {
                 "An Alice": true,
@@ -4142,10 +4000,10 @@
               },
               "dadosPlacar": {
                 "autorSumula": "ANA LICE DOURADO",
-                "dataHoraLancamento": 1789157184595,
-                "dataHoraValidacao": 1789157206338,
+                "dataHoraLancamento": 1789330951312,
+                "dataHoraValidacao": 1789330975975,
                 "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789243584595,
+                "expiraValidacaoAt": 1789417351312,
                 "isRET": false,
                 "isWO": false,
                 "motivoRET": "",
@@ -4156,77 +4014,455 @@
                     "j2": 3
                   },
                   "set2": {
-                    "j1": 6,
-                    "j2": 0
+                    "j1": 4,
+                    "j2": 6
+                  },
+                  "set3": {
+                    "j1": 10,
+                    "j2": 1
                   }
                 },
-                "placarFormatado": "6/3 6/0",
+                "placarFormatado": "6/3 4/6 10/1",
                 "statusPlacar": "consolidado",
                 "vencedor": "An Alice",
                 "vencedorCodigo": "J1"
               },
-              "dataCompleta": "2026-09-11",
-              "dia": 5,
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
               "duracao": 1,
-              "hora": 15,
+              "hora": 17,
               "isRanking": true,
               "jogadores": "An Alice, Ana Maria Marinho",
               "jogadores_completo": "ANA LICE DOURADO, ANA MARIA MARINHO GOMES",
               "organizador": "ANA LICE DOURADO",
               "status": "confirmada",
               "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - Quartas de Final",
               "tipo": "ranking"
-            }
-          },
-          "Quadra - 6": {
-            "4_21": {
+            },
+            "7_18": {
               "borda": "1h",
               "confirmacoes": {
-                "An Alice": true,
-                "Ana Julia": true
+                "Alexandre Camargo": true,
+                "Ana Francisca": true
               },
               "dadosPlacar": {
-                "autorSumula": "ANA LICE DOURADO",
-                "dataHoraLancamento": 1789085149936,
-                "dataHoraValidacao": 1789085171614,
+                "autorSumula": "ANA FRANCISCA SANTOS",
+                "dataHoraLancamento": 1789333243113,
+                "dataHoraValidacao": 1789333244335,
                 "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789171549936,
+                "expiraValidacaoAt": 1789419643113,
                 "isRET": false,
                 "isWO": false,
                 "motivoRET": "",
                 "motivoWO": "",
                 "parciais": {
                   "set1": {
-                    "j1": 1,
-                    "j2": 6
+                    "j1": 6,
+                    "j2": 1
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 2
+                  }
+                },
+                "placarFormatado": "6/1 6/2",
+                "statusPlacar": "consolidado",
+                "vencedor": "Ana Francisca",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
+              "duracao": 1,
+              "hora": 18,
+              "isRanking": true,
+              "jogadores": "Ana Francisca, Alexandre Camargo",
+              "jogadores_completo": "ANA FRANCISCA SANTOS, ALEXANDRE CAMARGO",
+              "organizador": "ANA FRANCISCA SANTOS",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - Quartas de Final",
+              "tipo": "ranking"
+            },
+            "7_19": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Alex": true,
+                "An Alice": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ALEX SOUZA",
+                "dataHoraLancamento": 1789337546445,
+                "dataHoraValidacao": 1789337572088,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789423946445,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 1
                   },
                   "set2": {
                     "j1": 7,
                     "j2": 6,
                     "tbJ1": 7,
-                    "tbJ2": 4
+                    "tbJ2": 3
+                  }
+                },
+                "placarFormatado": "6/1 7/6(3)",
+                "statusPlacar": "consolidado",
+                "vencedor": "Alex",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
+              "duracao": 1,
+              "hora": 19,
+              "isRanking": true,
+              "jogadores": "Alex, An Alice",
+              "jogadores_completo": "ALEX SOUZA, ANA LICE DOURADO",
+              "organizador": "ALEX SOUZA",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - Semi-Finais",
+              "tipo": "ranking"
+            }
+          },
+          "Quadra - 3": {
+            "7_16": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Alessandro Xavier": true,
+                "Ana Francisca": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ANA FRANCISCA SANTOS",
+                "dataHoraLancamento": 1789326516261,
+                "dataHoraValidacao": 1789326533471,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789412916261,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 7,
+                    "tbJ1": 4,
+                    "tbJ2": 7
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 2
+                  },
+                  "set3": {
+                    "j1": 1,
+                    "j2": 10
+                  }
+                },
+                "placarFormatado": "6/7(4) 6/2 1/10",
+                "statusPlacar": "consolidado",
+                "vencedor": "Ana Francisca",
+                "vencedorCodigo": "J2"
+              },
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
+              "duracao": 1,
+              "hora": 16,
+              "isRanking": true,
+              "jogadores": "Alessandro Xavier, Ana Francisca",
+              "jogadores_completo": "ALESSANDRO ROMERO XAVIER, ANA FRANCISCA SANTOS",
+              "organizador": "ALESSANDRO ROMERO XAVIER",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "tipo": "ranking"
+            },
+            "7_17": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Alex": true,
+                "Ana Francisca": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ALEX SOUZA",
+                "dataHoraLancamento": 1789330477146,
+                "dataHoraValidacao": 1789330499815,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789416877146,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 1
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 7,
+                    "tbJ1": 7,
+                    "tbJ2": 9
                   },
                   "set3": {
                     "j1": 10,
+                    "j2": 1
+                  }
+                },
+                "placarFormatado": "6/1 6/7(7) 10/1",
+                "statusPlacar": "consolidado",
+                "vencedor": "Alex",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
+              "duracao": 1,
+              "hora": 17,
+              "isRanking": true,
+              "jogadores": "Alex, Ana Francisca",
+              "jogadores_completo": "ALEX SOUZA, ANA FRANCISCA SANTOS",
+              "organizador": "ALEX SOUZA",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "tipo": "ranking"
+            },
+            "7_18": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Alex": true,
+                "Alexandre Voj": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ALEX SOUZA",
+                "dataHoraLancamento": 1789333506336,
+                "dataHoraValidacao": 1789333525980,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789419906336,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 1
+                  },
+                  "set2": {
+                    "j1": 6,
                     "j2": 2
                   }
                 },
-                "placarFormatado": "1/6 7/6(4) 10/2",
+                "placarFormatado": "6/1 6/2",
+                "statusPlacar": "consolidado",
+                "vencedor": "Alex",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
+              "duracao": 1,
+              "hora": 18,
+              "isRanking": true,
+              "jogadores": "Alex, Alexandre Voj",
+              "jogadores_completo": "ALEX SOUZA, ALEXANDRE VOJCIECHOVSKI",
+              "organizador": "ALEX SOUZA",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - Quartas de Final",
+              "tipo": "ranking"
+            }
+          },
+          "Quadra - 5": {
+            "1_6": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Alexandre Camargo": true,
+                "An Alice": true
+              },
+              "dataCompleta": "2026-09-14",
+              "dia": 1,
+              "duracao": 1,
+              "hora": 6,
+              "isRanking": true,
+              "jogadores": "Alexandre Camargo, An Alice",
+              "jogadores_completo": "ALEXANDRE CAMARGO, ANA LICE DOURADO",
+              "organizador": "ALEXANDRE CAMARGO",
+              "status": "confirmada",
+              "tagFaseRanking": "Grupos - Quartas de Final",
+              "tipo": "ranking"
+            },
+            "7_22": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Alex": true,
+                "Alexandre Camargo": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ALEX SOUZA",
+                "dataHoraLancamento": 1789350836722,
+                "dataHoraValidacao": 1789350853321,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789437236722,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 4
+                  },
+                  "set2": {
+                    "j1": 2,
+                    "j2": 6
+                  },
+                  "set3": {
+                    "j1": 10,
+                    "j2": 1
+                  }
+                },
+                "placarFormatado": "6/4 2/6 10/1",
+                "statusPlacar": "consolidado",
+                "vencedor": "Alex",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
+              "duracao": 1,
+              "hora": 22,
+              "isRanking": true,
+              "jogadores": "Alex, Alexandre Camargo",
+              "jogadores_completo": "ALEX SOUZA, ALEXANDRE CAMARGO",
+              "organizador": "ALEX SOUZA",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G3",
+              "tagGrupoRanking": "G3",
+              "tipo": "ranking"
+            }
+          },
+          "Quadra - 6": {
+            "1_6": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Alessandro Xavier": true,
+                "Alex": true
+              },
+              "dataCompleta": "2026-09-14",
+              "dia": 1,
+              "duracao": 1,
+              "hora": 6,
+              "isRanking": true,
+              "jogadores": "Alex, Alessandro Xavier",
+              "jogadores_completo": "ALEX SOUZA, ALESSANDRO ROMERO XAVIER",
+              "organizador": "ALEX SOUZA",
+              "status": "confirmada",
+              "tagFaseRanking": "Grupos - Quartas de Final",
+              "tipo": "ranking"
+            },
+            "7_22": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Ana Maria Marinho": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ANA MARIA MARINHO GOMES",
+                "dataHoraLancamento": 1789350917205,
+                "dataHoraValidacao": 1789350943260,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789437317205,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 7,
+                    "tbJ2": 5
+                  },
+                  "set2": {
+                    "j1": 1,
+                    "j2": 6
+                  },
+                  "set3": {
+                    "j1": 10,
+                    "j2": 8
+                  }
+                },
+                "placarFormatado": "7/6(5) 1/6 10/8",
+                "statusPlacar": "consolidado",
+                "vencedor": "Ana Maria Marinho",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
+              "duracao": 1,
+              "hora": 22,
+              "isRanking": true,
+              "jogadores": "Ana Maria Marinho, Adriano Feitosa",
+              "jogadores_completo": "ANA MARIA MARINHO GOMES, ADRIANO GOMES FEITOSA",
+              "organizador": "ANA MARIA MARINHO GOMES",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            }
+          },
+          "Quadra - 7": {
+            "7_22": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Alessandro Xavier": true,
+                "An Alice": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ANA LICE DOURADO",
+                "dataHoraLancamento": 1789350697440,
+                "dataHoraValidacao": 1789350711668,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789437097440,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 1
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 2
+                  }
+                },
+                "placarFormatado": "6/1 6/2",
                 "statusPlacar": "consolidado",
                 "vencedor": "An Alice",
                 "vencedorCodigo": "J1"
               },
-              "dataCompleta": "2026-09-10",
-              "dia": 4,
+              "dataCompleta": "2026-09-13",
+              "dia": 7,
               "duracao": 1,
-              "hora": 21,
+              "hora": 22,
               "isRanking": true,
-              "jogadores": "An Alice, Ana Julia",
-              "jogadores_completo": "ANA LICE DOURADO, ANA JULIA MARTINS",
+              "jogadores": "An Alice, Alessandro Xavier",
+              "jogadores_completo": "ANA LICE DOURADO, ALESSANDRO ROMERO XAVIER",
               "organizador": "ANA LICE DOURADO",
               "status": "confirmada",
               "statusPlacar": "consolidado",
-              "tagGrupoRanking": "G3",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
               "tipo": "ranking"
             }
           }
@@ -4234,7 +4470,7 @@
         "usuariosOnline": {
           "GESTOR": {
             "isGestor": true,
-            "lastSeen": 1789197965285,
+            "lastSeen": 1789376968916,
             "usuario": "Gestor Mestre"
           }
         }
@@ -5806,7 +6042,7 @@
     },
     "SaaS_Config": {
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "versao_web": "1.4.3"
+      "versao_web": "1.4.4"
     },
     "TESTE10": {
       "info_clube": {
