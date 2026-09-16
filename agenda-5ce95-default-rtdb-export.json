@@ -359,10 +359,10 @@
                 "CLASSE_A",
                 "MASCULINO"
               ],
-              "fimInscricoes": "2026-09-14",
+              "fimInscricoes": "2026-09-16",
               "fimTorneio": "2026-09-18",
-              "inicioInscricoes": "2026-09-14",
-              "inicioJogos": "2026-09-15",
+              "inicioInscricoes": "2026-09-15",
+              "inicioJogos": "2026-09-17",
               "limiteVagas": 8,
               "modeloDisputa": "grupos",
               "nomeTorneio": "ATP Finals 2009"
@@ -382,53 +382,45 @@
               "criterioDesempate": "games_confronto_sorteio",
               "estouroPrazo": "sorteio",
               "prazoRodada": 7,
-              "tamanhoGrupo": 4,
+              "tamanhoGrupo": 3,
               "tratarDesistência": "anular"
             },
             "inscritosConfirmados": {
               "-P1Sl96ua6y52YN1ZN5P": {
-                "dataAceite": 1789433856868,
+                "dataAceite": 1789521997755,
                 "nome": "ROGER FEDERER",
                 "pixPago": true
               },
               "-P1SlGs7DKlJOQ0TrbIq": {
-                "dataAceite": 1789433949345,
+                "dataAceite": 1789522059394,
                 "nome": "ANDY MURRAY",
                 "pixPago": true
               },
-              "-P1SlTeuvrB4Z-v1jo9x": {
-                "dataAceite": 1789433982741,
-                "nome": "JUAN MARTIN DEL POTRO",
-                "pixPago": true
-              },
-              "-P1SlmAd5kEnXl7i3BjL": {
-                "dataAceite": 1789434056146,
-                "nome": "FERNANDO VERDASCO",
-                "pixPago": true
-              },
               "-P1Slv00udZbLsSnFlTB": {
-                "dataAceite": 1789433878607,
+                "dataAceite": 1789522017486,
                 "nome": "RAFAEL NADAL",
                 "pixPago": true
               },
               "-P1Sm5n-TP6R8MRqPDl-": {
-                "dataAceite": 1789433904283,
+                "dataAceite": 1789522038689,
                 "nome": "NOVAK DJOKOVIC",
-                "pixPago": true
-              },
-              "-P1SmG-wUI6_4t_0i8H2": {
-                "dataAceite": 1789434020015,
-                "nome": "NICOLAY DAVYDENKO",
-                "pixPago": true
-              },
-              "-P1SmVBfErNgWk7mHc-T": {
-                "dataAceite": 1789434092303,
-                "nome": "ROBIN SODERLING",
                 "pixPago": true
               }
             },
             "maxJogosSemana": 2,
             "modeloAtivo": "grupos",
+            "parametrosGeral": {
+              "dataAtualizacao": 1789498211663,
+              "descarteAtivo": false,
+              "descarteN": 5,
+              "pontos1": 250,
+              "pontos2": 180,
+              "pontos3": 120,
+              "pontos4": 60,
+              "pontosParticipacao": 20,
+              "validadeAtiva": false,
+              "validadeMeses": 12
+            },
             "permiteArbitrar": {
               "Admin": false,
               "Arbitro": true,
@@ -455,12 +447,15 @@
           }
         },
         "convites_ranking": {
-          "dataAbertura": 1789433828440,
+          "dataAbertura": 1789521828810,
           "pendentes": {
-            "-OwsQs1ZnFrqnpZ5crBh": true
+            "-OwsQs1ZnFrqnpZ5crBh": true,
+            "-P1SlmAd5kEnXl7i3BjL": true,
+            "-P1SmG-wUI6_4t_0i8H2": true,
+            "-P1SmVBfErNgWk7mHc-T": true
           },
           "status": "aberto",
-          "temporadaId": "2026_T1789433828440",
+          "temporadaId": "2026_T1789521828810",
           "tipoOrdenacao": "livre"
         },
         "hall_de_campeoes": {
@@ -3987,10 +3982,10 @@
             "niver": "01/01/2001",
             "nomeCompleto": "ROGER FEDERER",
             "notificacoes": {
-              "-P1X_yCty5Dqsyob4kQT": {
+              "-P1bp4mUrq0E3sXHZHP8": {
                 "categoria": "inicio_temporada",
-                "detalhe": "Tabela do ATP Finals 2009 liberada.\nAgende sua partida de ranking no app.",
-                "timestamp": 1789434258417,
+                "detalhe": "Tabela do ATP Finals 2009 liberada via Sorteio de Potes.\nAgende sua partida no app.",
+                "timestamp": 1789522107643,
                 "titulo": "A temporada começou!"
               }
             },
@@ -4007,11 +4002,16 @@
             "niver": "01/01/2001",
             "nomeCompleto": "ANDY MURRAY",
             "notificacoes": {
-              "-P1X_yCuoyLxCBQ4VJ6x": {
+              "-P1bp4mV6KW1fKtZs49C": {
                 "categoria": "inicio_temporada",
-                "detalhe": "Tabela do ATP Finals 2009 liberada.\nAgende sua partida de ranking no app.",
-                "timestamp": 1789434258417,
+                "detalhe": "Tabela do ATP Finals 2009 liberada via Sorteio de Potes.\nAgende sua partida no app.",
+                "timestamp": 1789522107643,
                 "titulo": "A temporada começou!"
+              },
+              "-P1bqaN3gseSRhoUsuRR": {
+                "adversario": "Federer",
+                "categoria": "confirmado",
+                "timestamp": 1789522503265
               }
             },
             "participaRanking": true,
@@ -4026,14 +4026,6 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "JUAN MARTIN DEL POTRO",
-            "notificacoes": {
-              "-P1X_yCuoyLxCBQ4VJ6y": {
-                "categoria": "inicio_temporada",
-                "detalhe": "Tabela do ATP Finals 2009 liberada.\nAgende sua partida de ranking no app.",
-                "timestamp": 1789434258417,
-                "titulo": "A temporada começou!"
-              }
-            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -4046,14 +4038,6 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "FERNANDO VERDASCO",
-            "notificacoes": {
-              "-P1X_yCuoyLxCBQ4VJ6z": {
-                "categoria": "inicio_temporada",
-                "detalhe": "Tabela do ATP Finals 2009 liberada.\nAgende sua partida de ranking no app.",
-                "timestamp": 1789434258417,
-                "titulo": "A temporada começou!"
-              }
-            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -4066,6 +4050,19 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "RAFAEL NADAL",
+            "notificacoes": {
+              "-P1bp4mV6KW1fKtZs49D": {
+                "categoria": "inicio_temporada",
+                "detalhe": "Tabela do ATP Finals 2009 liberada via Sorteio de Potes.\nAgende sua partida no app.",
+                "timestamp": 1789522107643,
+                "titulo": "A temporada começou!"
+              },
+              "-P1bzgj-_m5aMXr96UUZ": {
+                "adversario": "Djokovic",
+                "categoria": "confirmado",
+                "timestamp": 1789524888613
+              }
+            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -4079,10 +4076,10 @@
             "niver": "01/01/2001",
             "nomeCompleto": "NOVAK DJOKOVIC",
             "notificacoes": {
-              "-P1X_yCuoyLxCBQ4VJ70": {
+              "-P1bp4mV6KW1fKtZs49E": {
                 "categoria": "inicio_temporada",
-                "detalhe": "Tabela do ATP Finals 2009 liberada.\nAgende sua partida de ranking no app.",
-                "timestamp": 1789434258417,
+                "detalhe": "Tabela do ATP Finals 2009 liberada via Sorteio de Potes.\nAgende sua partida no app.",
+                "timestamp": 1789522107643,
                 "titulo": "A temporada começou!"
               }
             },
@@ -4098,14 +4095,6 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "NICOLAY DAVYDENKO",
-            "notificacoes": {
-              "-P1X_yCuoyLxCBQ4VJ71": {
-                "categoria": "inicio_temporada",
-                "detalhe": "Tabela do ATP Finals 2009 liberada.\nAgende sua partida de ranking no app.",
-                "timestamp": 1789434258417,
-                "titulo": "A temporada começou!"
-              }
-            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -4124,6 +4113,91 @@
           }
         },
         "ranking": {
+          "partidas": {
+            "partida_A_MASCULINO_Quadra3_2_22_-P1SlGs7DKlJOQ0TrbIq_-P1Sl96ua6y52YN1ZN5P": {
+              "categoria": "A_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "ANDY MURRAY",
+                "dataHoraLancamento": 1789522478432,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789608878432,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 0
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 0
+                  }
+                },
+                "placarFormatado": "6/0 6/0",
+                "statusPlacar": "pendente_validacao",
+                "tagFaseRanking": "Grupos - G2",
+                "tagGrupoRanking": "G2",
+                "vencedor": "Murray",
+                "vencedorCodigo": "J1"
+              },
+              "dataHora": 1789522503267,
+              "gamesP1": 12,
+              "gamesP2": 0,
+              "jogador1Id": "-P1SlGs7DKlJOQ0TrbIq",
+              "jogador2Id": "-P1Sl96ua6y52YN1ZN5P",
+              "status": "finalizada",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "vencedorId": "-P1SlGs7DKlJOQ0TrbIq"
+            },
+            "partida_A_MASCULINO_Quadra4_2_22_-P1Slv00udZbLsSnFlTB_-P1Sm5n-TP6R8MRqPDl-": {
+              "categoria": "A_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "RAFAEL NADAL",
+                "dataHoraLancamento": 1789524813669,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789611213669,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 7,
+                    "tbJ2": 2
+                  },
+                  "set2": {
+                    "j1": 4,
+                    "j2": 6
+                  },
+                  "set3": {
+                    "j1": 6,
+                    "j2": 2
+                  }
+                },
+                "placarFormatado": "7/6(2) 4/6 6/2",
+                "statusPlacar": "pendente_validacao",
+                "tagFaseRanking": "Grupos - G1",
+                "tagGrupoRanking": "G1",
+                "vencedor": "Nadal",
+                "vencedorCodigo": "J1"
+              },
+              "dataHora": 1789524888614,
+              "gamesP1": 17,
+              "gamesP2": 14,
+              "jogador1Id": "-P1Slv00udZbLsSnFlTB",
+              "jogador2Id": "-P1Sm5n-TP6R8MRqPDl-",
+              "quadra": "Quadra 4",
+              "status": "finalizada",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "vencedorId": "-P1Slv00udZbLsSnFlTB"
+            }
+          },
           "pontos_geral": {
             "B_MASCULINO": {
               "-OwsQrDpFbGx4981OGtl": 1020,
@@ -4162,15 +4236,121 @@
           },
           "tabelas": {
             "A_MASCULINO": [
-              "-P1Sl96ua6y52YN1ZN5P",
-              "-P1SlGs7DKlJOQ0TrbIq",
-              "-P1SlTeuvrB4Z-v1jo9x",
-              "-P1SmVBfErNgWk7mHc-T",
               "-P1Slv00udZbLsSnFlTB",
               "-P1Sm5n-TP6R8MRqPDl-",
-              "-P1SmG-wUI6_4t_0i8H2",
-              "-P1SlmAd5kEnXl7i3BjL"
+              null,
+              "-P1Sl96ua6y52YN1ZN5P",
+              "-P1SlGs7DKlJOQ0TrbIq"
             ]
+          }
+        },
+        "reservas": {
+          "Quadra - 3": {
+            "2_22": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Federer": true,
+                "Murray": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ANDY MURRAY",
+                "dataHoraLancamento": 1789522478432,
+                "dataHoraValidacao": 1789522503113,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789608878432,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 0
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 0
+                  }
+                },
+                "placarFormatado": "6/0 6/0",
+                "statusPlacar": "consolidado",
+                "vencedor": "Murray",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-15",
+              "dia": 2,
+              "duracao": 1,
+              "hora": 22,
+              "isRanking": true,
+              "jogadores": "Murray, Federer",
+              "jogadores_completo": "ANDY MURRAY, ROGER FEDERER",
+              "organizador": "ANDY MURRAY",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "tipo": "ranking"
+            }
+          },
+          "Quadra - 4": {
+            "2_22": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Djokovic": true,
+                "Nadal": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "RAFAEL NADAL",
+                "dataHoraLancamento": 1789524813669,
+                "dataHoraValidacao": 1789524888459,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789611213669,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 7,
+                    "tbJ2": 2
+                  },
+                  "set2": {
+                    "j1": 4,
+                    "j2": 6
+                  },
+                  "set3": {
+                    "j1": 6,
+                    "j2": 2
+                  }
+                },
+                "placarFormatado": "7/6(2) 4/6 6/2",
+                "statusPlacar": "consolidado",
+                "vencedor": "Nadal",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-15",
+              "dia": 2,
+              "duracao": 1,
+              "hora": 22,
+              "isRanking": true,
+              "jogadores": "Nadal, Djokovic",
+              "jogadores_completo": "RAFAEL NADAL, NOVAK DJOKOVIC",
+              "organizador": "RAFAEL NADAL",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            }
+          }
+        },
+        "usuariosOnline": {
+          "GESTOR": {
+            "isGestor": true,
+            "lastSeen": 1789547451269,
+            "usuario": "Gestor Mestre"
           }
         }
       }
@@ -5741,7 +5921,7 @@
     },
     "SaaS_Config": {
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "versao_web": "1.4.5"
+      "versao_web": "1.4.7"
     },
     "TESTE10": {
       "info_clube": {
