@@ -92,18 +92,7 @@
           "Horarios": {
             "Aulas": {
               "Quadra1": {
-                "Ativo": true,
-                "Grade": {
-                  "1_20": "Adriano",
-                  "2_17": "Adriano",
-                  "2_20": "Adriano",
-                  "2_21": "Adriano",
-                  "2_22": "Adriano",
-                  "2_6": "Rildo",
-                  "4_7": "Rildo",
-                  "4_8": "Rildo",
-                  "4_9": "Rildo"
-                }
+                "Ativo": true
               },
               "Quadra3": {
                 "Ativo": true
@@ -139,23 +128,10 @@
             },
             "Duplas": {
               "Quadra1": {
-                "Ativo": true,
-                "Grade": {
-                  "2_15": true,
-                  "2_16": true,
-                  "2_20": true
-                }
+                "Ativo": true
               },
               "Quadra3": {
-                "Ativo": true,
-                "Grade": {
-                  "3_15": true,
-                  "3_16": true,
-                  "4_15": true,
-                  "4_16": true,
-                  "5_6": true,
-                  "5_7": true
-                }
+                "Ativo": true
               }
             },
             "Padrao": [
@@ -359,16 +335,16 @@
                 "CLASSE_A",
                 "MASCULINO"
               ],
-              "fimInscricoes": "2026-09-16",
+              "fimInscricoes": "2026-09-17",
               "fimTorneio": "2026-09-18",
-              "inicioInscricoes": "2026-09-15",
+              "inicioInscricoes": "2026-09-16",
               "inicioJogos": "2026-09-17",
               "limiteVagas": 8,
               "modeloDisputa": "grupos",
               "nomeTorneio": "ATP Finals 2009"
             },
             "divisaoGenero": "separado",
-            "duracaoPartida": 1,
+            "duracaoPartida": 2,
             "faseAtual": 3,
             "financeiro": {
               "chavePix": "",
@@ -382,28 +358,48 @@
               "criterioDesempate": "games_confronto_sorteio",
               "estouroPrazo": "sorteio",
               "prazoRodada": 7,
-              "tamanhoGrupo": 3,
+              "tamanhoGrupo": 4,
               "tratarDesistência": "anular"
             },
             "inscritosConfirmados": {
               "-P1Sl96ua6y52YN1ZN5P": {
-                "dataAceite": 1789521997755,
+                "dataAceite": 1789554272462,
                 "nome": "ROGER FEDERER",
                 "pixPago": true
               },
               "-P1SlGs7DKlJOQ0TrbIq": {
-                "dataAceite": 1789522059394,
+                "dataAceite": 1789554357338,
                 "nome": "ANDY MURRAY",
                 "pixPago": true
               },
+              "-P1SlTeuvrB4Z-v1jo9x": {
+                "dataAceite": 1789554392678,
+                "nome": "JUAN MARTIN DEL POTRO",
+                "pixPago": true
+              },
+              "-P1SlmAd5kEnXl7i3BjL": {
+                "dataAceite": 1789555039501,
+                "nome": "FERNANDO VERDASCO",
+                "pixPago": true
+              },
               "-P1Slv00udZbLsSnFlTB": {
-                "dataAceite": 1789522017486,
+                "dataAceite": 1789554298178,
                 "nome": "RAFAEL NADAL",
                 "pixPago": true
               },
               "-P1Sm5n-TP6R8MRqPDl-": {
-                "dataAceite": 1789522038689,
+                "dataAceite": 1789554322196,
                 "nome": "NOVAK DJOKOVIC",
+                "pixPago": true
+              },
+              "-P1SmG-wUI6_4t_0i8H2": {
+                "dataAceite": 1789555004834,
+                "nome": "NICOLAY DAVYDENKO",
+                "pixPago": true
+              },
+              "-P1SmVBfErNgWk7mHc-T": {
+                "dataAceite": 1789555065261,
+                "nome": "ROBIN SODERLING",
                 "pixPago": true
               }
             },
@@ -440,22 +436,19 @@
             "sumula": {
               "decisaoTerceiroSet": "set_tradicional",
               "formatoPartida": "m3_tradicional_6",
-              "prazoAutoconf": 24,
+              "prazoAutoconf": 12,
               "toleranciaWO": 10,
               "vantagemGames": "com_vantagem"
             }
           }
         },
         "convites_ranking": {
-          "dataAbertura": 1789521828810,
+          "dataAbertura": 1789554259336,
           "pendentes": {
-            "-OwsQs1ZnFrqnpZ5crBh": true,
-            "-P1SlmAd5kEnXl7i3BjL": true,
-            "-P1SmG-wUI6_4t_0i8H2": true,
-            "-P1SmVBfErNgWk7mHc-T": true
+            "-OwsQs1ZnFrqnpZ5crBh": true
           },
           "status": "aberto",
-          "temporadaId": "2026_T1789521828810",
+          "temporadaId": "2026_T1789554259336",
           "tipoOrdenacao": "livre"
         },
         "hall_de_campeoes": {
@@ -3982,11 +3975,10 @@
             "niver": "01/01/2001",
             "nomeCompleto": "ROGER FEDERER",
             "notificacoes": {
-              "-P1bp4mUrq0E3sXHZHP8": {
-                "categoria": "inicio_temporada",
-                "detalhe": "Tabela do ATP Finals 2009 liberada via Sorteio de Potes.\nAgende sua partida no app.",
-                "timestamp": 1789522107643,
-                "titulo": "A temporada começou!"
+              "-P1gwMfHMmIlUHJfzMDO": {
+                "adversario": "Murray",
+                "categoria": "confirmado",
+                "timestamp": 1789607902014
               }
             },
             "participaRanking": true,
@@ -4002,16 +3994,16 @@
             "niver": "01/01/2001",
             "nomeCompleto": "ANDY MURRAY",
             "notificacoes": {
-              "-P1bp4mV6KW1fKtZs49C": {
+              "-P1dnKBJSKy0a_h8Opmv": {
                 "categoria": "inicio_temporada",
                 "detalhe": "Tabela do ATP Finals 2009 liberada via Sorteio de Potes.\nAgende sua partida no app.",
-                "timestamp": 1789522107643,
+                "timestamp": 1789555200832,
                 "titulo": "A temporada começou!"
               },
-              "-P1bqaN3gseSRhoUsuRR": {
-                "adversario": "Federer",
+              "-P1druyRHG9NlRtgc-1D": {
+                "adversario": "Del Potro",
                 "categoria": "confirmado",
-                "timestamp": 1789522503265
+                "timestamp": 1789556404263
               }
             },
             "participaRanking": true,
@@ -4051,16 +4043,11 @@
             "niver": "01/01/2001",
             "nomeCompleto": "RAFAEL NADAL",
             "notificacoes": {
-              "-P1bp4mV6KW1fKtZs49D": {
+              "-P1dnKBJSKy0a_h8Opmy": {
                 "categoria": "inicio_temporada",
                 "detalhe": "Tabela do ATP Finals 2009 liberada via Sorteio de Potes.\nAgende sua partida no app.",
-                "timestamp": 1789522107643,
+                "timestamp": 1789555200832,
                 "titulo": "A temporada começou!"
-              },
-              "-P1bzgj-_m5aMXr96UUZ": {
-                "adversario": "Djokovic",
-                "categoria": "confirmado",
-                "timestamp": 1789524888613
               }
             },
             "participaRanking": true,
@@ -4076,11 +4063,10 @@
             "niver": "01/01/2001",
             "nomeCompleto": "NOVAK DJOKOVIC",
             "notificacoes": {
-              "-P1bp4mV6KW1fKtZs49E": {
-                "categoria": "inicio_temporada",
-                "detalhe": "Tabela do ATP Finals 2009 liberada via Sorteio de Potes.\nAgende sua partida no app.",
-                "timestamp": 1789522107643,
-                "titulo": "A temporada começou!"
+              "-P1gB541EZQ3CfkkdhEV": {
+                "adversario": "Davydenko",
+                "categoria": "confirmado",
+                "timestamp": 1789595247030
               }
             },
             "participaRanking": true,
@@ -4107,6 +4093,13 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "ROBIN SODERLING",
+            "notificacoes": {
+              "-P1gBNogyLdFqptVXD0u": {
+                "adversario": "Nadal",
+                "categoria": "confirmado",
+                "timestamp": 1789595323809
+              }
+            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -4114,64 +4107,68 @@
         },
         "ranking": {
           "partidas": {
-            "partida_A_MASCULINO_Quadra3_2_22_-P1SlGs7DKlJOQ0TrbIq_-P1Sl96ua6y52YN1ZN5P": {
+            "partida_A_MASCULINO_Quadra1_3_15_-P1Sl96ua6y52YN1ZN5P_-P1SlTeuvrB4Z-v1jo9x": {
               "categoria": "A_MASCULINO",
               "dadosPlacar": {
-                "autorSumula": "ANDY MURRAY",
-                "dataHoraLancamento": 1789522478432,
+                "autorSumula": "ROGER FEDERER",
+                "dataHoraLancamento": 1789594692200,
+                "dataHoraValidacao": 1789607772849,
                 "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789608878432,
+                "expiraValidacaoAt": 1789681092200,
                 "isRET": false,
                 "isWO": false,
                 "motivoRET": "",
                 "motivoWO": "",
                 "parciais": {
                   "set1": {
-                    "j1": 6,
-                    "j2": 0
+                    "j1": 2,
+                    "j2": 6
                   },
                   "set2": {
-                    "j1": 6,
-                    "j2": 0
-                  }
-                },
-                "placarFormatado": "6/0 6/0",
-                "statusPlacar": "pendente_validacao",
-                "tagFaseRanking": "Grupos - G2",
-                "tagGrupoRanking": "G2",
-                "vencedor": "Murray",
-                "vencedorCodigo": "J1"
-              },
-              "dataHora": 1789522503267,
-              "gamesP1": 12,
-              "gamesP2": 0,
-              "jogador1Id": "-P1SlGs7DKlJOQ0TrbIq",
-              "jogador2Id": "-P1Sl96ua6y52YN1ZN5P",
-              "status": "finalizada",
-              "tagFaseRanking": "Grupos - G2",
-              "tagGrupoRanking": "G2",
-              "vencedorId": "-P1SlGs7DKlJOQ0TrbIq"
-            },
-            "partida_A_MASCULINO_Quadra4_2_22_-P1Slv00udZbLsSnFlTB_-P1Sm5n-TP6R8MRqPDl-": {
-              "categoria": "A_MASCULINO",
-              "dadosPlacar": {
-                "autorSumula": "RAFAEL NADAL",
-                "dataHoraLancamento": 1789524813669,
-                "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789611213669,
-                "isRET": false,
-                "isWO": false,
-                "motivoRET": "",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
                     "j1": 7,
                     "j2": 6,
                     "tbJ1": 7,
-                    "tbJ2": 2
+                    "tbJ2": 5
+                  },
+                  "set3": {
+                    "j1": 3,
+                    "j2": 6
+                  }
+                },
+                "placarFormatado": "2/6 7/6(5) 3/6",
+                "statusPlacar": "consolidado",
+                "vencedor": "Del Potro",
+                "vencedorCodigo": "J2"
+              },
+              "dataHora": 1789607772849,
+              "gamesP1": 12,
+              "gamesP2": 18,
+              "jogador1Id": "-P1Sl96ua6y52YN1ZN5P",
+              "jogador2Id": "-P1SlTeuvrB4Z-v1jo9x",
+              "quadra": "Quadra - 1",
+              "status": "finalizada",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "vencedorId": "-P1SlTeuvrB4Z-v1jo9x"
+            },
+            "partida_A_MASCULINO_Quadra1_3_7_-P1SlGs7DKlJOQ0TrbIq_-P1SlTeuvrB4Z-v1jo9x": {
+              "categoria": "A_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "ANDY MURRAY",
+                "dataHoraLancamento": 1789556393363,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789642793363,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 3
                   },
                   "set2": {
-                    "j1": 4,
+                    "j1": 3,
                     "j2": 6
                   },
                   "set3": {
@@ -4179,23 +4176,230 @@
                     "j2": 2
                   }
                 },
-                "placarFormatado": "7/6(2) 4/6 6/2",
+                "placarFormatado": "6/3 3/6 6/2",
                 "statusPlacar": "pendente_validacao",
                 "tagFaseRanking": "Grupos - G1",
                 "tagGrupoRanking": "G1",
-                "vencedor": "Nadal",
+                "vencedor": "Murray",
                 "vencedorCodigo": "J1"
               },
-              "dataHora": 1789524888614,
-              "gamesP1": 17,
-              "gamesP2": 14,
-              "jogador1Id": "-P1Slv00udZbLsSnFlTB",
-              "jogador2Id": "-P1Sm5n-TP6R8MRqPDl-",
-              "quadra": "Quadra 4",
+              "dataHora": 1789556404266,
+              "gamesP1": 15,
+              "gamesP2": 11,
+              "jogador1Id": "-P1SlGs7DKlJOQ0TrbIq",
+              "jogador2Id": "-P1SlTeuvrB4Z-v1jo9x",
+              "quadra": "Quadra 1",
               "status": "finalizada",
               "tagFaseRanking": "Grupos - G1",
               "tagGrupoRanking": "G1",
-              "vencedorId": "-P1Slv00udZbLsSnFlTB"
+              "vencedorId": "-P1SlGs7DKlJOQ0TrbIq"
+            },
+            "partida_A_MASCULINO_Quadra1_3_9_-P1SlmAd5kEnXl7i3BjL_-P1SlTeuvrB4Z-v1jo9x": {
+              "categoria": "A_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "FERNANDO VERDASCO",
+                "dataHoraLancamento": 1789582498264,
+                "dataHoraValidacao": 1789607827773,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789668898264,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 4,
+                    "j2": 6
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 3
+                  },
+                  "set3": {
+                    "j1": 6,
+                    "j2": 7,
+                    "tbJ1": 1,
+                    "tbJ2": 7
+                  }
+                },
+                "placarFormatado": "4/6 6/3 6/7(1)",
+                "statusPlacar": "consolidado",
+                "vencedor": "Del Potro",
+                "vencedorCodigo": "J2"
+              },
+              "dataHora": 1789607827773,
+              "gamesP1": 16,
+              "gamesP2": 16,
+              "jogador1Id": "-P1SlmAd5kEnXl7i3BjL",
+              "jogador2Id": "-P1SlTeuvrB4Z-v1jo9x",
+              "quadra": "Quadra 1 - Coberta",
+              "status": "finalizada",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "vencedorId": "-P1SlTeuvrB4Z-v1jo9x"
+            },
+            "partida_A_MASCULINO_Quadra2_3_7_-P1SlmAd5kEnXl7i3BjL_-P1Sl96ua6y52YN1ZN5P": {
+              "categoria": "A_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "FERNANDO VERDASCO",
+                "dataHoraLancamento": 1789556561686,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789642961686,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 4
+                  },
+                  "set2": {
+                    "j1": 5,
+                    "j2": 7
+                  },
+                  "set3": {
+                    "j1": 1,
+                    "j2": 6
+                  }
+                },
+                "placarFormatado": "6/4 5/7 1/6",
+                "statusPlacar": "pendente_validacao",
+                "tagFaseRanking": "Grupos - G1",
+                "tagGrupoRanking": "G1",
+                "vencedor": "Federer",
+                "vencedorCodigo": "J2"
+              },
+              "dataHora": 1789581355363,
+              "gamesP1": 12,
+              "gamesP2": 17,
+              "jogador1Id": "-P1SlmAd5kEnXl7i3BjL",
+              "jogador2Id": "-P1Sl96ua6y52YN1ZN5P",
+              "quadra": "Quadra 2",
+              "status": "finalizada",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "vencedorId": "-P1Sl96ua6y52YN1ZN5P"
+            },
+            "partida_A_MASCULINO_Quadra2_3_9_-P1Sl96ua6y52YN1ZN5P_-P1SlGs7DKlJOQ0TrbIq": {
+              "categoria": "A_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "ROGER FEDERER",
+                "dataHoraLancamento": 1789594613657,
+                "dataHoraValidacao": 1789607901857,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789681013657,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 3
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 4
+                  }
+                },
+                "placarFormatado": "6/3 6/4",
+                "statusPlacar": "consolidado",
+                "vencedor": "Federer",
+                "vencedorCodigo": "J1"
+              },
+              "dataHora": 1789607901857,
+              "gamesP1": 12,
+              "gamesP2": 7,
+              "jogador1Id": "-P1Sl96ua6y52YN1ZN5P",
+              "jogador2Id": "-P1SlGs7DKlJOQ0TrbIq",
+              "quadra": "Quadra - 2",
+              "status": "finalizada",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "vencedorId": "-P1Sl96ua6y52YN1ZN5P"
+            },
+            "partida_A_MASCULINO_Quadra3_3_7_-P1SmVBfErNgWk7mHc-T_-P1Slv00udZbLsSnFlTB": {
+              "categoria": "A_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "ROBIN SODERLING",
+                "dataHoraLancamento": 1789557041414,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789643441414,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 4
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 4
+                  }
+                },
+                "placarFormatado": "6/4 6/4",
+                "statusPlacar": "pendente_validacao",
+                "tagFaseRanking": "Grupos - G2",
+                "tagGrupoRanking": "G2",
+                "vencedor": "Soderling",
+                "vencedorCodigo": "J1"
+              },
+              "dataHora": 1789595323812,
+              "gamesP1": 12,
+              "gamesP2": 8,
+              "jogador1Id": "-P1SmVBfErNgWk7mHc-T",
+              "jogador2Id": "-P1Slv00udZbLsSnFlTB",
+              "quadra": "Quadra 3",
+              "status": "finalizada",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "vencedorId": "-P1SmVBfErNgWk7mHc-T"
+            },
+            "partida_A_MASCULINO_Quadra4_3_7_-P1Sm5n-TP6R8MRqPDl-_-P1SmG-wUI6_4t_0i8H2": {
+              "categoria": "A_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "NOVAK DJOKOVIC",
+                "dataHoraLancamento": 1789595197175,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789681597175,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 3,
+                    "j2": 6
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 4
+                  },
+                  "set3": {
+                    "j1": 7,
+                    "j2": 5
+                  }
+                },
+                "placarFormatado": "3/6 6/4 7/5",
+                "statusPlacar": "pendente_validacao",
+                "tagFaseRanking": "Grupos - G2",
+                "tagGrupoRanking": "G2",
+                "vencedor": "Djokovic",
+                "vencedorCodigo": "J1"
+              },
+              "dataHora": 1789595247031,
+              "gamesP1": 16,
+              "gamesP2": 15,
+              "jogador1Id": "-P1Sm5n-TP6R8MRqPDl-",
+              "jogador2Id": "-P1SmG-wUI6_4t_0i8H2",
+              "quadra": "Quadra 4",
+              "status": "finalizada",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "vencedorId": "-P1Sm5n-TP6R8MRqPDl-"
             }
           },
           "pontos_geral": {
@@ -4236,28 +4440,128 @@
           },
           "tabelas": {
             "A_MASCULINO": [
-              "-P1Slv00udZbLsSnFlTB",
-              "-P1Sm5n-TP6R8MRqPDl-",
-              null,
               "-P1Sl96ua6y52YN1ZN5P",
-              "-P1SlGs7DKlJOQ0TrbIq"
+              "-P1SlTeuvrB4Z-v1jo9x",
+              "-P1SlGs7DKlJOQ0TrbIq",
+              "-P1SlmAd5kEnXl7i3BjL",
+              "-P1SmVBfErNgWk7mHc-T",
+              "-P1Sm5n-TP6R8MRqPDl-",
+              "-P1SmG-wUI6_4t_0i8H2",
+              "-P1Slv00udZbLsSnFlTB"
             ]
           }
         },
         "reservas": {
-          "Quadra - 3": {
-            "2_22": {
-              "borda": "1h",
+          "Quadra - 1": {
+            "3_10": {
               "confirmacoes": {
-                "Federer": true,
+                "Del Potro": true,
+                "Verdasco": true
+              },
+              "dadosPlacar": {
+                "dataHoraValidacao": 1789607827773,
+                "statusPlacar": "consolidado"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 10,
+              "isRanking": true,
+              "jogadores": "Verdasco, Del Potro",
+              "jogadores_completo": "FERNANDO VERDASCO, JUAN MARTIN DEL POTRO",
+              "organizador": "FERNANDO VERDASCO",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            },
+            "3_15": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Del Potro": true,
+                "Federer": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ROGER FEDERER",
+                "dataHoraLancamento": 1789594692200,
+                "dataHoraValidacao": 1789607772849,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789681092200,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 2,
+                    "j2": 6
+                  },
+                  "set2": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 7,
+                    "tbJ2": 5
+                  },
+                  "set3": {
+                    "j1": 3,
+                    "j2": 6
+                  }
+                },
+                "placarFormatado": "2/6 7/6(5) 3/6",
+                "statusPlacar": "consolidado",
+                "vencedor": "Del Potro",
+                "vencedorCodigo": "J2"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 15,
+              "isRanking": true,
+              "jogadores": "Federer, Del Potro",
+              "jogadores_completo": "ROGER FEDERER, JUAN MARTIN DEL POTRO",
+              "organizador": "ROGER FEDERER",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            },
+            "3_16": {
+              "confirmacoes": {
+                "Del Potro": true,
+                "Federer": true
+              },
+              "dadosPlacar": {
+                "dataHoraValidacao": 1789607772849,
+                "statusPlacar": "consolidado"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 16,
+              "isRanking": true,
+              "jogadores": "Federer, Del Potro",
+              "jogadores_completo": "ROGER FEDERER, JUAN MARTIN DEL POTRO",
+              "organizador": "ROGER FEDERER",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            },
+            "3_7": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Del Potro": true,
                 "Murray": true
               },
               "dadosPlacar": {
                 "autorSumula": "ANDY MURRAY",
-                "dataHoraLancamento": 1789522478432,
-                "dataHoraValidacao": 1789522503113,
+                "dataHoraLancamento": 1789556393363,
+                "dataHoraValidacao": 1789556404100,
                 "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789608878432,
+                "expiraValidacaoAt": 1789642793363,
                 "isRET": false,
                 "isWO": false,
                 "motivoRET": "",
@@ -4265,46 +4569,413 @@
                 "parciais": {
                   "set1": {
                     "j1": 6,
-                    "j2": 0
+                    "j2": 3
                   },
                   "set2": {
+                    "j1": 3,
+                    "j2": 6
+                  },
+                  "set3": {
                     "j1": 6,
-                    "j2": 0
+                    "j2": 2
                   }
                 },
-                "placarFormatado": "6/0 6/0",
+                "placarFormatado": "6/3 3/6 6/2",
                 "statusPlacar": "consolidado",
                 "vencedor": "Murray",
                 "vencedorCodigo": "J1"
               },
-              "dataCompleta": "2026-09-15",
-              "dia": 2,
-              "duracao": 1,
-              "hora": 22,
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 7,
               "isRanking": true,
-              "jogadores": "Murray, Federer",
-              "jogadores_completo": "ANDY MURRAY, ROGER FEDERER",
+              "jogadores": "Murray, Del Potro",
+              "jogadores_completo": "ANDY MURRAY, JUAN MARTIN DEL POTRO",
               "organizador": "ANDY MURRAY",
               "status": "confirmada",
               "statusPlacar": "consolidado",
-              "tagFaseRanking": "Grupos - G2",
-              "tagGrupoRanking": "G2",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            },
+            "3_8": {
+              "confirmacoes": {
+                "Del Potro": true,
+                "Murray": true
+              },
+              "dadosPlacar": {
+                "dataHoraValidacao": 1789556404100,
+                "statusPlacar": "consolidado"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 8,
+              "isRanking": true,
+              "jogadores": "Murray, Del Potro",
+              "jogadores_completo": "ANDY MURRAY, JUAN MARTIN DEL POTRO",
+              "organizador": "ANDY MURRAY",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            },
+            "3_9": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Del Potro": true,
+                "Verdasco": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "FERNANDO VERDASCO",
+                "dataHoraLancamento": 1789582498264,
+                "dataHoraValidacao": 1789607827773,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789668898264,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 4,
+                    "j2": 6
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 3
+                  },
+                  "set3": {
+                    "j1": 6,
+                    "j2": 7,
+                    "tbJ1": 1,
+                    "tbJ2": 7
+                  }
+                },
+                "placarFormatado": "4/6 6/3 6/7(1)",
+                "statusPlacar": "consolidado",
+                "vencedor": "Del Potro",
+                "vencedorCodigo": "J2"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 9,
+              "isRanking": true,
+              "jogadores": "Verdasco, Del Potro",
+              "jogadores_completo": "FERNANDO VERDASCO, JUAN MARTIN DEL POTRO",
+              "organizador": "FERNANDO VERDASCO",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
               "tipo": "ranking"
             }
           },
-          "Quadra - 4": {
-            "2_22": {
-              "borda": "1h",
+          "Quadra - 2": {
+            "3_10": {
+              "confirmacoes": {
+                "Federer": true,
+                "Murray": true
+              },
+              "dadosPlacar": {
+                "dataHoraValidacao": 1789607901857,
+                "statusPlacar": "consolidado"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 10,
+              "isRanking": true,
+              "jogadores": "Federer, Murray",
+              "jogadores_completo": "ROGER FEDERER, ANDY MURRAY",
+              "organizador": "ROGER FEDERER",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            },
+            "3_15": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Murray": true,
+                "Verdasco": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ANDY MURRAY",
+                "dataHoraLancamento": 1789607983426,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789651183426,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 4
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 7,
+                    "tbJ1": 4,
+                    "tbJ2": 7
+                  },
+                  "set3": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 7,
+                    "tbJ2": 3
+                  }
+                },
+                "placarFormatado": "6/4 6/7(4) 7/6(3)",
+                "statusPlacar": "pendente_validacao",
+                "vencedor": "Murray",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 15,
+              "isRanking": true,
+              "jogadores": "Murray, Verdasco",
+              "jogadores_completo": "ANDY MURRAY, FERNANDO VERDASCO",
+              "organizador": "ANDY MURRAY",
+              "status": "confirmada",
+              "statusPlacar": "pendente_validacao",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            },
+            "3_16": {
+              "confirmacoes": {
+                "Murray": true,
+                "Verdasco": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ANDY MURRAY",
+                "dataHoraLancamento": 1789607983426,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789651183426,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 4
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 7,
+                    "tbJ1": 4,
+                    "tbJ2": 7
+                  },
+                  "set3": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 7,
+                    "tbJ2": 3
+                  }
+                },
+                "placarFormatado": "6/4 6/7(4) 7/6(3)",
+                "statusPlacar": "pendente_validacao",
+                "vencedor": "Murray",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 16,
+              "isRanking": true,
+              "jogadores": "Murray, Verdasco",
+              "jogadores_completo": "ANDY MURRAY, FERNANDO VERDASCO",
+              "organizador": "ANDY MURRAY",
+              "status": "confirmada",
+              "statusPlacar": "pendente_validacao",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            },
+            "3_7": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Federer": true,
+                "Verdasco": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "FERNANDO VERDASCO",
+                "dataHoraLancamento": 1789556561686,
+                "dataHoraValidacao": 1789581355194,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789642961686,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 4
+                  },
+                  "set2": {
+                    "j1": 5,
+                    "j2": 7
+                  },
+                  "set3": {
+                    "j1": 1,
+                    "j2": 6
+                  }
+                },
+                "placarFormatado": "6/4 5/7 1/6",
+                "statusPlacar": "consolidado",
+                "vencedor": "Federer",
+                "vencedorCodigo": "J2"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 7,
+              "isRanking": true,
+              "jogadores": "Verdasco, Federer",
+              "jogadores_completo": "FERNANDO VERDASCO, ROGER FEDERER",
+              "organizador": "FERNANDO VERDASCO",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            },
+            "3_8": {
+              "confirmacoes": {
+                "Federer": true,
+                "Verdasco": true
+              },
+              "dadosPlacar": {
+                "dataHoraValidacao": 1789581355194,
+                "statusPlacar": "consolidado"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 8,
+              "isRanking": true,
+              "jogadores": "Verdasco, Federer",
+              "jogadores_completo": "FERNANDO VERDASCO, ROGER FEDERER",
+              "organizador": "FERNANDO VERDASCO",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            },
+            "3_9": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Federer": true,
+                "Murray": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ROGER FEDERER",
+                "dataHoraLancamento": 1789594613657,
+                "dataHoraValidacao": 1789607901857,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789681013657,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 3
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 4
+                  }
+                },
+                "placarFormatado": "6/3 6/4",
+                "statusPlacar": "consolidado",
+                "vencedor": "Federer",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 9,
+              "isRanking": true,
+              "jogadores": "Federer, Murray",
+              "jogadores_completo": "ROGER FEDERER, ANDY MURRAY",
+              "organizador": "ROGER FEDERER",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "tipo": "ranking"
+            }
+          },
+          "Quadra - 3": {
+            "3_10": {
+              "confirmacoes": {
+                "Djokovic": true,
+                "Soderling": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "NOVAK DJOKOVIC",
+                "dataHoraLancamento": 1789608132418,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789651332418,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 7,
+                    "tbJ1": 5,
+                    "tbJ2": 7
+                  },
+                  "set2": {
+                    "j1": 1,
+                    "j2": 6
+                  }
+                },
+                "placarFormatado": "6/7(5) 1/6",
+                "statusPlacar": "pendente_validacao",
+                "vencedor": "Soderling",
+                "vencedorCodigo": "J2"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 10,
+              "isRanking": true,
+              "jogadores": "Djokovic, Soderling",
+              "jogadores_completo": "NOVAK DJOKOVIC, ROBIN SODERLING",
+              "organizador": "NOVAK DJOKOVIC",
+              "status": "confirmada",
+              "statusPlacar": "pendente_validacao",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "tipo": "ranking"
+            },
+            "3_15": {
+              "borda": "2h",
               "confirmacoes": {
                 "Djokovic": true,
                 "Nadal": true
               },
               "dadosPlacar": {
-                "autorSumula": "RAFAEL NADAL",
-                "dataHoraLancamento": 1789524813669,
-                "dataHoraValidacao": 1789524888459,
+                "autorSumula": "NOVAK DJOKOVIC",
+                "dataHoraLancamento": 1789608179938,
                 "desistenteCodigo": "",
-                "expiraValidacaoAt": 1789611213669,
+                "expiraValidacaoAt": 1789651379938,
                 "isRET": false,
                 "isWO": false,
                 "motivoRET": "",
@@ -4314,42 +4985,350 @@
                     "j1": 7,
                     "j2": 6,
                     "tbJ1": 7,
-                    "tbJ2": 2
+                    "tbJ2": 5
                   },
                   "set2": {
-                    "j1": 4,
-                    "j2": 6
-                  },
-                  "set3": {
                     "j1": 6,
-                    "j2": 2
+                    "j2": 3
                   }
                 },
-                "placarFormatado": "7/6(2) 4/6 6/2",
-                "statusPlacar": "consolidado",
-                "vencedor": "Nadal",
+                "placarFormatado": "7/6(5) 6/3",
+                "statusPlacar": "pendente_validacao",
+                "vencedor": "Djokovic",
                 "vencedorCodigo": "J1"
               },
-              "dataCompleta": "2026-09-15",
-              "dia": 2,
-              "duracao": 1,
-              "hora": 22,
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 15,
               "isRanking": true,
-              "jogadores": "Nadal, Djokovic",
-              "jogadores_completo": "RAFAEL NADAL, NOVAK DJOKOVIC",
-              "organizador": "RAFAEL NADAL",
+              "jogadores": "Djokovic, Nadal",
+              "jogadores_completo": "NOVAK DJOKOVIC, RAFAEL NADAL",
+              "organizador": "NOVAK DJOKOVIC",
+              "status": "confirmada",
+              "statusPlacar": "pendente_validacao",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "tipo": "ranking"
+            },
+            "3_16": {
+              "confirmacoes": {
+                "Djokovic": true,
+                "Nadal": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "NOVAK DJOKOVIC",
+                "dataHoraLancamento": 1789608179938,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789651379938,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 7,
+                    "tbJ2": 5
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 3
+                  }
+                },
+                "placarFormatado": "7/6(5) 6/3",
+                "statusPlacar": "pendente_validacao",
+                "vencedor": "Djokovic",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 16,
+              "isRanking": true,
+              "jogadores": "Djokovic, Nadal",
+              "jogadores_completo": "NOVAK DJOKOVIC, RAFAEL NADAL",
+              "organizador": "NOVAK DJOKOVIC",
+              "status": "confirmada",
+              "statusPlacar": "pendente_validacao",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "tipo": "ranking"
+            },
+            "3_7": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Nadal": true,
+                "Soderling": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "ROBIN SODERLING",
+                "dataHoraLancamento": 1789557041414,
+                "dataHoraValidacao": 1789595323653,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789643441414,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 4
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 4
+                  }
+                },
+                "placarFormatado": "6/4 6/4",
+                "statusPlacar": "consolidado",
+                "vencedor": "Soderling",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 7,
+              "isRanking": true,
+              "jogadores": "Soderling, Nadal",
+              "jogadores_completo": "ROBIN SODERLING, RAFAEL NADAL",
+              "organizador": "ROBIN SODERLING",
               "status": "confirmada",
               "statusPlacar": "consolidado",
-              "tagFaseRanking": "Grupos - G1",
-              "tagGrupoRanking": "G1",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "tipo": "ranking"
+            },
+            "3_8": {
+              "confirmacoes": {
+                "Nadal": true,
+                "Soderling": true
+              },
+              "dadosPlacar": {
+                "dataHoraValidacao": 1789595323653,
+                "statusPlacar": "consolidado"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 8,
+              "isRanking": true,
+              "jogadores": "Soderling, Nadal",
+              "jogadores_completo": "ROBIN SODERLING, RAFAEL NADAL",
+              "organizador": "ROBIN SODERLING",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "tipo": "ranking"
+            },
+            "3_9": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Djokovic": true,
+                "Soderling": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "NOVAK DJOKOVIC",
+                "dataHoraLancamento": 1789608132418,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789651332418,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 7,
+                    "tbJ1": 5,
+                    "tbJ2": 7
+                  },
+                  "set2": {
+                    "j1": 1,
+                    "j2": 6
+                  }
+                },
+                "placarFormatado": "6/7(5) 1/6",
+                "statusPlacar": "pendente_validacao",
+                "vencedor": "Soderling",
+                "vencedorCodigo": "J2"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 9,
+              "isRanking": true,
+              "jogadores": "Djokovic, Soderling",
+              "jogadores_completo": "NOVAK DJOKOVIC, ROBIN SODERLING",
+              "organizador": "NOVAK DJOKOVIC",
+              "status": "confirmada",
+              "statusPlacar": "pendente_validacao",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "tipo": "ranking"
+            }
+          },
+          "Quadra - 4": {
+            "3_10": {
+              "confirmacoes": {
+                "Davydenko": true,
+                "Nadal": true
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 10,
+              "isRanking": true,
+              "jogadores": "Davydenko, Nadal",
+              "jogadores_completo": "NICOLAY DAVYDENKO, RAFAEL NADAL",
+              "organizador": "NICOLAY DAVYDENKO",
+              "status": "confirmada",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "tipo": "ranking"
+            },
+            "3_15": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Davydenko": true,
+                "Soderling": true
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 15,
+              "isRanking": true,
+              "jogadores": "Davydenko, Soderling",
+              "jogadores_completo": "NICOLAY DAVYDENKO, ROBIN SODERLING",
+              "organizador": "NICOLAY DAVYDENKO",
+              "status": "confirmada",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "tipo": "ranking"
+            },
+            "3_16": {
+              "confirmacoes": {
+                "Davydenko": true,
+                "Soderling": true
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 16,
+              "isRanking": true,
+              "jogadores": "Davydenko, Soderling",
+              "jogadores_completo": "NICOLAY DAVYDENKO, ROBIN SODERLING",
+              "organizador": "NICOLAY DAVYDENKO",
+              "status": "confirmada",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "tipo": "ranking"
+            },
+            "3_7": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Davydenko": true,
+                "Djokovic": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "NOVAK DJOKOVIC",
+                "dataHoraLancamento": 1789595197175,
+                "dataHoraValidacao": 1789595246877,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1789681597175,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 3,
+                    "j2": 6
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 4
+                  },
+                  "set3": {
+                    "j1": 7,
+                    "j2": 5
+                  }
+                },
+                "placarFormatado": "3/6 6/4 7/5",
+                "statusPlacar": "consolidado",
+                "vencedor": "Djokovic",
+                "vencedorCodigo": "J1"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 7,
+              "isRanking": true,
+              "jogadores": "Djokovic, Davydenko",
+              "jogadores_completo": "NOVAK DJOKOVIC, NICOLAY DAVYDENKO",
+              "organizador": "NOVAK DJOKOVIC",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "tipo": "ranking"
+            },
+            "3_8": {
+              "confirmacoes": {
+                "Davydenko": true,
+                "Djokovic": true
+              },
+              "dadosPlacar": {
+                "dataHoraValidacao": 1789595246877,
+                "statusPlacar": "consolidado"
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 8,
+              "isRanking": true,
+              "jogadores": "Djokovic, Davydenko",
+              "jogadores_completo": "NOVAK DJOKOVIC, NICOLAY DAVYDENKO",
+              "organizador": "NOVAK DJOKOVIC",
+              "status": "confirmada",
+              "statusPlacar": "consolidado",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
+              "tipo": "ranking"
+            },
+            "3_9": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Davydenko": true,
+                "Nadal": true
+              },
+              "dataCompleta": "2026-09-16",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 9,
+              "isRanking": true,
+              "jogadores": "Davydenko, Nadal",
+              "jogadores_completo": "NICOLAY DAVYDENKO, RAFAEL NADAL",
+              "organizador": "NICOLAY DAVYDENKO",
+              "status": "confirmada",
+              "tagFaseRanking": "Grupos - G2",
+              "tagGrupoRanking": "G2",
               "tipo": "ranking"
             }
           }
         },
         "usuariosOnline": {
+          "-P1Slv00udZbLsSnFlTB": {
+            "id": "-P1Slv00udZbLsSnFlTB",
+            "lastSeen": 1789595888331,
+            "usuario": "RAFAEL NADAL"
+          },
           "GESTOR": {
             "isGestor": true,
-            "lastSeen": 1789547451269,
+            "lastSeen": 1789634796754,
             "usuario": "Gestor Mestre"
           }
         }
@@ -5921,7 +6900,7 @@
     },
     "SaaS_Config": {
       "githubToken": "***SEGREDO_REMOVIDO***",
-      "versao_web": "1.4.7"
+      "versao_web": "1.4.8"
     },
     "TESTE10": {
       "info_clube": {
