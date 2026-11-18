@@ -1,11 +1,83 @@
 {
   "Clubes": {
+    "ARENATEST1": {
+      "info_clube": {
+        "ativo": true,
+        "dia_vencimento": 10,
+        "email_contato": "teste@arenateste.com",
+        "exibir_anuncios": true,
+        "gestor_uid": "7oICgRip5da2GUifylP6iOiNW8l2",
+        "nome": "Arena Teste",
+        "plano_b2b": "starter",
+        "status_pagamento": "isento",
+        "valor_mensal": 0,
+        "whatsapp": "(11) 99999-8888"
+      },
+      "sistemas": {
+        "config": {
+          "Abrir": true,
+          "Horarios": {
+            "Padrao": [
+              null,
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              },
+              {
+                "abertura": "06:00",
+                "fechamento": "23:00",
+                "status": "aberto"
+              }
+            ]
+          },
+          "Quadras": {
+            "nomes": [
+              null,
+              "Quadra 1"
+            ],
+            "quantidade": 1
+          },
+          "limiteIaDiario": 5
+        }
+      }
+    },
     "ECO21": {
       "info_clube": {
         "ativo": true,
+        "dia_vencimento": 10,
         "email_contato": "ronaldo.taborda@gmail.com",
+        "exibir_anuncios": false,
         "gestor_uid": "ivXNVOYbYsPOzm2K8QIJpjW3mJ03",
         "nome": "Clube Olimpico",
+        "plano_b2b": "pro",
+        "status_pagamento": "em_dia",
+        "valor_mensal": 149.9,
         "whatsapp": "41999176972"
       },
       "sistemas": {
@@ -5413,11 +5485,12 @@
             "ativo": true,
             "classe": "B",
             "email": "a@a",
-            "fcmToken": "fjicZVWf6Q6rvQz4PQzPNT:APA91bEr2LgkQjcXttStTezUeSarr50Ai9iaufFuAnKVHxOwxWSs9ZulkaanNFVbB2MNBXWk23369dN8WmrdSPpc_qW58CHm1WT4bu_r26ZX8cIWR77g4UA",
+            "fcmToken": "fjicZVWf6Q6rvQz4PQzPNT:APA91bEB7gf2YVFXiCqHgtJrDqL8zWIE6WrBhW5cLpAfB95txFYiDzSTG9jTje3oxvFvM3VTxynVtuHtJckfqAPmr7mDR8H5gykN-Un_tqameLzlTaW1zak",
             "fcmTokens": {
-              "fjicZVWf6Q6rvQz4PQzPNT:APA91bEr2LgkQjcXttStTezUeSarr50Ai9iaufFuAnKVHxOwxWSs9ZulkaanNFVbB2MNBXWk23369dN8WmrdSPpc_qW58CHm1WT4bu_r26ZX8cIWR77g4UA": true
+              "fjicZVWf6Q6rvQz4PQzPNT:APA91bEB7gf2YVFXiCqHgtJrDqL8zWIE6WrBhW5cLpAfB95txFYiDzSTG9jTje3oxvFvM3VTxynVtuHtJckfqAPmr7mDR8H5gykN-Un_tqameLzlTaW1zak": true
             },
             "genero": "NAO_INFORMAR",
+            "isPro": false,
             "niver": "01/01/2001",
             "nomeCompleto": "ALEX SOUZA",
             "participaRanking": true,
@@ -5542,20 +5615,14 @@
             "ativo": true,
             "classe": "A",
             "email": "a@a",
-            "fcmToken": "fwNRElYa4VL5d_lS9vL-Zr:APA91bEZPjQR9Egb9XeWvtxzSRnQ7K_IAS_zRpg5qLt3leiX2WeM_j93H_NW3QcUigbx_zgdaMwV4TuyLDMfuSKHCbQKM8WSSO9onp2rpOVsnxKMhNdcR8A",
+            "fcmToken": "elos0X2aPudqFe2O5mtJAl:APA91bGl6htdVG9ervqZ5t9RW0AAGVZFKGRgO__b1yOR_OSOvloJL-BPF_7uhNBgz6o13qQtCcix5BlNw-7nrN9Bk6jALuUtZG-HhgcBC7l4-rQ5oKJjQ3I",
             "fcmTokens": {
+              "elos0X2aPudqFe2O5mtJAl:APA91bGl6htdVG9ervqZ5t9RW0AAGVZFKGRgO__b1yOR_OSOvloJL-BPF_7uhNBgz6o13qQtCcix5BlNw-7nrN9Bk6jALuUtZG-HhgcBC7l4-rQ5oKJjQ3I": true,
               "fwNRElYa4VL5d_lS9vL-Zr:APA91bEZPjQR9Egb9XeWvtxzSRnQ7K_IAS_zRpg5qLt3leiX2WeM_j93H_NW3QcUigbx_zgdaMwV4TuyLDMfuSKHCbQKM8WSSO9onp2rpOVsnxKMhNdcR8A": true
             },
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "BEN SHELTON",
-            "notificacoes": {
-              "-P6YV8mGg4j49AkOvIVp": {
-                "categoria": "partida_confirmada",
-                "detalhe": "Terça-feira, das 16:00 às 18:00 hs, na quadra 1 - coberta",
-                "timestamp": 1794818219122
-              }
-            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -5568,13 +5635,6 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "ARTHUR FILS",
-            "notificacoes": {
-              "-P6YUiZBwljmaSLckE1g": {
-                "categoria": "partida_confirmada",
-                "detalhe": "Terça-feira, das 10:00 às 12:00 hs, na quadra 1 - coberta",
-                "timestamp": 1794818107637
-              }
-            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -5643,23 +5703,9 @@
             "ativo": true,
             "classe": "A",
             "email": "a@a",
-            "fcmToken": "elos0X2aPudqFe2O5mtJAl:APA91bGl6htdVG9ervqZ5t9RW0AAGVZFKGRgO__b1yOR_OSOvloJL-BPF_7uhNBgz6o13qQtCcix5BlNw-7nrN9Bk6jALuUtZG-HhgcBC7l4-rQ5oKJjQ3I",
-            "fcmTokens": {
-              "elos0X2aPudqFe2O5mtJAl:APA91bGl6htdVG9ervqZ5t9RW0AAGVZFKGRgO__b1yOR_OSOvloJL-BPF_7uhNBgz6o13qQtCcix5BlNw-7nrN9Bk6jALuUtZG-HhgcBC7l4-rQ5oKJjQ3I": true
-            },
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "FRANCES TIAFOE",
-            "notificacoes": {
-              "-P6ZjLRwo9BDWCN3fH3t": {
-                "adversario": "O Gestor",
-                "categoria": "lancado_direto",
-                "detalhe": "6/2 6/2",
-                "ehVitoria": false,
-                "nomeAdversarioPartida": "Alcaraz",
-                "timestamp": 1794838980330
-              }
-            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(41) 99999-9999"
@@ -7348,6 +7394,307 @@
               "usuarioId": "-P6PqN87CooWp-xKKQkb",
               "vinculo": "titular"
             }
+          },
+          "2026-11-17": {
+            "-P6e0o8zGoZUS_eX8Ous": {
+              "entrada": 1794927706893,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794928007392,
+              "status": "offline",
+              "ultimaAtividade": 1794927947385,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P6eDrvgBHlNrPh-sFcq": {
+              "entrada": 1794931130223,
+              "motivoSaida": "App fechado / Desconexão",
+              "plataforma": "Web PC",
+              "saida": 1794931478672,
+              "status": "offline",
+              "ultimaAtividade": 1794931130223,
+              "usuario": "FRANCES TIAFOE",
+              "usuarioId": "-P6PqN87CooWp-xKKQkb",
+              "vinculo": "titular"
+            },
+            "-P6eF82EaDx2nSziEM48": {
+              "entrada": 1794931462482,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1794931478046,
+              "status": "offline",
+              "ultimaAtividade": 1794931462482,
+              "usuario": "FRANCES TIAFOE",
+              "usuarioId": "-P6PqN87CooWp-xKKQkb",
+              "vinculo": "titular"
+            },
+            "-P6eFETMiU9-9bovkocP": {
+              "entrada": 1794931488802,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1794931619168,
+              "status": "offline",
+              "ultimaAtividade": 1794931596132,
+              "usuario": "ARTHUR FILS",
+              "usuarioId": "-P6PpmqceIlKxHOHlXy7",
+              "vinculo": "titular"
+            },
+            "-P6eFLN0ShpB0Uep_oc1": {
+              "entrada": 1794931517071,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1794931533870,
+              "status": "offline",
+              "ultimaAtividade": 1794931517071,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P6eFle6RitHs3jP04Ct": {
+              "entrada": 1794931628819,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794932060087,
+              "status": "offline",
+              "ultimaAtividade": 1794931759164,
+              "usuario": "RAFAEL JODAR",
+              "usuarioId": "-P6PpuLxBDYghZjjYutd",
+              "vinculo": "titular"
+            },
+            "-P6eGj3mUgRsUfb54gGX": {
+              "entrada": 1794931880454,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794932217381,
+              "status": "offline",
+              "ultimaAtividade": 1794931890531,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P6ePtf2UzV7q58a3ALn": {
+              "entrada": 1794934283159,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794934749381,
+              "status": "offline",
+              "ultimaAtividade": 1794934429354,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P6eTRfx3iPy6Eey8i_9": {
+              "entrada": 1794935213037,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794935513383,
+              "status": "offline",
+              "ultimaAtividade": 1794935213037,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P6eXgHhQqS-SJcEG5Kc": {
+              "entrada": 1794936325433,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794936626419,
+              "status": "offline",
+              "ultimaAtividade": 1794936325433,
+              "usuario": "RAFAEL JODAR",
+              "usuarioId": "-P6PpuLxBDYghZjjYutd",
+              "vinculo": "titular"
+            },
+            "-P6eYULSBPDewVjBoCTw": {
+              "entrada": 1794936534670,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794936836404,
+              "status": "offline",
+              "ultimaAtividade": 1794936534670,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P6eZqsRnlekwyVDD6Lf": {
+              "entrada": 1794936893197,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794937401390,
+              "status": "offline",
+              "ultimaAtividade": 1794937100412,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P6ebdeXYv2WD_L-LXsX": {
+              "entrada": 1794937625491,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794938091382,
+              "status": "offline",
+              "ultimaAtividade": 1794937764185,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P6elmzTWN3bMgf3yg4w": {
+              "entrada": 1794940285135,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794940643383,
+              "status": "offline",
+              "ultimaAtividade": 1794940342239,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P6ex16xjZy9tjZcNSK1": {
+              "entrada": 1794943230702,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794943757384,
+              "status": "offline",
+              "ultimaAtividade": 1794943453222,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P6ezP9ohgU5t2PWDlJj": {
+              "entrada": 1794943853476,
+              "motivoSaida": "App fechado / Desconexão",
+              "plataforma": "Web PC",
+              "saida": 1794944089594,
+              "status": "offline",
+              "ultimaAtividade": 1794944083948,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P6f1eObr17HZNWM2NsA": {
+              "entrada": 1794944706281,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794945014390,
+              "status": "offline",
+              "ultimaAtividade": 1794944712566,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P6f4Rr7OiIwQFjN7vAu": {
+              "entrada": 1794945437268,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794945737503,
+              "status": "offline",
+              "ultimaAtividade": 1794945437268,
+              "usuario": "RAFAEL JODAR",
+              "usuarioId": "-P6PpuLxBDYghZjjYutd",
+              "vinculo": "titular"
+            },
+            "-P6f4TigBVVBW8gtP9bP": {
+              "entrada": 1794945444930,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794945750387,
+              "status": "offline",
+              "ultimaAtividade": 1794945449635,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P6f6jFFOJSmtTR8VZFC": {
+              "entrada": 1794946036902,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794946368390,
+              "status": "offline",
+              "ultimaAtividade": 1794946066911,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P6f8q3ZaDmjDQpjIy9y": {
+              "entrada": 1794946589097,
+              "motivoSaida": "App fechado / Desconexão",
+              "plataforma": "Web PC",
+              "saida": 1794946597486,
+              "status": "offline",
+              "ultimaAtividade": 1794946593077,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P6fMyjefRBGrtyfCzHE": {
+              "entrada": 1794950294645,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1794950308648,
+              "status": "offline",
+              "ultimaAtividade": 1794950305128,
+              "usuario": "RAFAEL JODAR",
+              "usuarioId": "-P6PpuLxBDYghZjjYutd",
+              "vinculo": "titular"
+            },
+            "-P6fN39BBCmUwiynB8bn": {
+              "entrada": 1794950316814,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1794950592061,
+              "status": "offline",
+              "ultimaAtividade": 1794950574813,
+              "usuario": "ALEXANDER ZVEREV",
+              "usuarioId": "-P6PpUgpEBiSCzRYAdQE",
+              "vinculo": "titular"
+            },
+            "-P6fO8REdb8MNtU0zwCL": {
+              "entrada": 1794950600593,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794951122346,
+              "status": "offline",
+              "ultimaAtividade": 1794950755777,
+              "usuario": "BEN SHELTON",
+              "usuarioId": "-P6PpdprxlTvD3cWZlGc",
+              "vinculo": "titular"
+            },
+            "-P6fRZlSevGdZjnP6xks": {
+              "entrada": 1794951498974,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794951809825,
+              "status": "offline",
+              "ultimaAtividade": 1794951502892,
+              "usuario": "BEN SHELTON",
+              "usuarioId": "-P6PpdprxlTvD3cWZlGc",
+              "vinculo": "titular"
+            },
+            "-P6fUwHoT4zq07NCde-W": {
+              "entrada": 1794952381750,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794952688490,
+              "status": "offline",
+              "ultimaAtividade": 1794952381750,
+              "usuario": "BEN SHELTON",
+              "usuarioId": "-P6PpdprxlTvD3cWZlGc",
+              "vinculo": "titular"
+            }
+          },
+          "2026-11-18": {
+            "-P6ibJJYWTs3kN1F9l1C": {
+              "entrada": 1795004644656,
+              "motivoSaida": "App fechado / Desconexão",
+              "plataforma": "iPhone PWA",
+              "saida": 1795004651324,
+              "status": "offline",
+              "ultimaAtividade": 1795004644656,
+              "usuario": "BEN SHELTON",
+              "usuarioId": "-P6PpdprxlTvD3cWZlGc",
+              "vinculo": "titular"
+            }
           }
         },
         "ranking": {
@@ -7435,6 +7782,94 @@
               "tagFaseRanking": "Grupos - G2",
               "tagGrupoRanking": "G2",
               "vencedorId": "-P6Pq8bD389W6jPusZ6I"
+            },
+            "partida_A_MASCULINO_Quadra1_2_10_-P6PpmqceIlKxHOHlXy7_-P6PpuLxBDYghZjjYutd": {
+              "categoria": "A_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "Gestor",
+                "categoria": "A_MASCULINO",
+                "dataHoraLancamento": 1794931590854,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1795104390854,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 4,
+                    "j2": 6
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 2
+                  },
+                  "set3": {
+                    "j1": 6,
+                    "j2": 2
+                  }
+                },
+                "placarFormatado": "4/6 6/2 6/2",
+                "posicaoP1": "6",
+                "posicaoP2": "8",
+                "prazoAutoHoras": 48,
+                "statusPlacar": "consolidado",
+                "vencedor": "Arthur Fils",
+                "vencedorCodigo": "J1"
+              },
+              "dataHora": 1794931590854,
+              "gamesP1": 16,
+              "gamesP2": 10,
+              "jogador1Id": "-P6PpmqceIlKxHOHlXy7",
+              "jogador2Id": "-P6PpuLxBDYghZjjYutd",
+              "quadra": "Quadra 1 - Coberta",
+              "status": "finalizada",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "vencedorId": "-P6PpmqceIlKxHOHlXy7"
+            },
+            "partida_A_MASCULINO_Quadra1_2_16_-P6PpUgpEBiSCzRYAdQE_-P6PpdprxlTvD3cWZlGc": {
+              "categoria": "A_MASCULINO",
+              "dadosPlacar": {
+                "autorSumula": "Gestor",
+                "categoria": "A_MASCULINO",
+                "dataHoraLancamento": 1794950560679,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1795123360679,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 2
+                  },
+                  "set2": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 7,
+                    "tbJ2": 4
+                  }
+                },
+                "placarFormatado": "6/2 7/6(4)",
+                "posicaoP1": "1",
+                "posicaoP2": "3",
+                "prazoAutoHoras": 48,
+                "statusPlacar": "consolidado",
+                "vencedor": "Alexander Zverev",
+                "vencedorCodigo": "J1"
+              },
+              "dataHora": 1794950560679,
+              "gamesP1": 13,
+              "gamesP2": 8,
+              "jogador1Id": "-P6PpUgpEBiSCzRYAdQE",
+              "jogador2Id": "-P6PpdprxlTvD3cWZlGc",
+              "quadra": "Quadra 1 - Coberta",
+              "status": "finalizada",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "vencedorId": "-P6PpUgpEBiSCzRYAdQE"
             },
             "partida_A_MASCULINO_Quadra1_7_10_-P6PpuLxBDYghZjjYutd_-P6PpUgpEBiSCzRYAdQE": {
               "categoria": "A_MASCULINO",
@@ -7653,9 +8088,9 @@
           "tabelas": {
             "A_MASCULINO": [
               "-P6PpUgpEBiSCzRYAdQE",
+              "-P6PpmqceIlKxHOHlXy7",
               "-P6PpdprxlTvD3cWZlGc",
               "-P6PpuLxBDYghZjjYutd",
-              "-P6PpmqceIlKxHOHlXy7",
               "-P6Pq1yd4QuveqJVmNGU",
               "-P6Pq8bD389W6jPusZ6I",
               "-P6PqH-vPw6EAr8pZykp",
@@ -7903,6 +8338,38 @@
                 "Fils": true,
                 "Jodar": true
               },
+              "dadosPlacar": {
+                "autorSumula": "Gestor",
+                "categoria": "A_MASCULINO",
+                "dataHoraLancamento": 1794931590854,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1795104390854,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 4,
+                    "j2": 6
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 2
+                  },
+                  "set3": {
+                    "j1": 6,
+                    "j2": 2
+                  }
+                },
+                "placarFormatado": "4/6 6/2 6/2",
+                "posicaoP1": "6",
+                "posicaoP2": "8",
+                "prazoAutoHoras": 48,
+                "statusPlacar": "consolidado",
+                "vencedor": "Arthur Fils",
+                "vencedorCodigo": "J1"
+              },
               "dataCompleta": "2026-11-17",
               "dia": 2,
               "duracao": 2,
@@ -7915,6 +8382,7 @@
               "posicaoP1": "6",
               "posicaoP2": "8",
               "status": "confirmada",
+              "statusPlacar": "consolidado",
               "tagFaseRanking": "Grupos - G1",
               "tagGrupoRanking": "G1",
               "temporadaId": "2026_T1794687926058",
@@ -7925,6 +8393,38 @@
               "confirmacoes": {
                 "Fils": true,
                 "Jodar": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "Gestor",
+                "categoria": "A_MASCULINO",
+                "dataHoraLancamento": 1794931590854,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1795104390854,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 4,
+                    "j2": 6
+                  },
+                  "set2": {
+                    "j1": 6,
+                    "j2": 2
+                  },
+                  "set3": {
+                    "j1": 6,
+                    "j2": 2
+                  }
+                },
+                "placarFormatado": "4/6 6/2 6/2",
+                "posicaoP1": "6",
+                "posicaoP2": "8",
+                "prazoAutoHoras": 48,
+                "statusPlacar": "consolidado",
+                "vencedor": "Arthur Fils",
+                "vencedorCodigo": "J1"
               },
               "dataCompleta": "2026-11-17",
               "dia": 2,
@@ -7938,6 +8438,7 @@
               "posicaoP1": "6",
               "posicaoP2": "8",
               "status": "confirmada",
+              "statusPlacar": "consolidado",
               "tagFaseRanking": "Grupos - G1",
               "tagGrupoRanking": "G1",
               "temporadaId": "2026_T1794687926058",
@@ -7949,6 +8450,36 @@
               "confirmacoes": {
                 "Shelton": true,
                 "Zverev": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "Gestor",
+                "categoria": "A_MASCULINO",
+                "dataHoraLancamento": 1794950560679,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1795123360679,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 2
+                  },
+                  "set2": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 7,
+                    "tbJ2": 4
+                  }
+                },
+                "placarFormatado": "6/2 7/6(4)",
+                "posicaoP1": "1",
+                "posicaoP2": "3",
+                "prazoAutoHoras": 48,
+                "statusPlacar": "consolidado",
+                "vencedor": "Alexander Zverev",
+                "vencedorCodigo": "J1"
               },
               "dataCompleta": "2026-11-17",
               "dia": 2,
@@ -7962,6 +8493,7 @@
               "posicaoP1": "1",
               "posicaoP2": "3",
               "status": "confirmada",
+              "statusPlacar": "consolidado",
               "tagFaseRanking": "Grupos - G1",
               "tagGrupoRanking": "G1",
               "temporadaId": "2026_T1794687926058",
@@ -7972,6 +8504,36 @@
               "confirmacoes": {
                 "Shelton": true,
                 "Zverev": true
+              },
+              "dadosPlacar": {
+                "autorSumula": "Gestor",
+                "categoria": "A_MASCULINO",
+                "dataHoraLancamento": 1794950560679,
+                "desistenteCodigo": "",
+                "expiraValidacaoAt": 1795123360679,
+                "isRET": false,
+                "isWO": false,
+                "motivoRET": "",
+                "motivoWO": "",
+                "parciais": {
+                  "set1": {
+                    "j1": 6,
+                    "j2": 2
+                  },
+                  "set2": {
+                    "j1": 7,
+                    "j2": 6,
+                    "tbJ1": 7,
+                    "tbJ2": 4
+                  }
+                },
+                "placarFormatado": "6/2 7/6(4)",
+                "posicaoP1": "1",
+                "posicaoP2": "3",
+                "prazoAutoHoras": 48,
+                "statusPlacar": "consolidado",
+                "vencedor": "Alexander Zverev",
+                "vencedorCodigo": "J1"
               },
               "dataCompleta": "2026-11-17",
               "dia": 2,
@@ -7985,6 +8547,7 @@
               "posicaoP1": "1",
               "posicaoP2": "3",
               "status": "confirmada",
+              "statusPlacar": "consolidado",
               "tagFaseRanking": "Grupos - G1",
               "tagGrupoRanking": "G1",
               "temporadaId": "2026_T1794687926058",
@@ -8081,6 +8644,104 @@
               "status": "confirmada",
               "tagFaseRanking": "Grupos - G2",
               "tagGrupoRanking": "G2",
+              "temporadaId": "2026_T1794687926058",
+              "tipo": "ranking"
+            },
+            "4_10": {
+              "borda": "2h",
+              "categoria": "A_MASCULINO",
+              "confirmacoes": {
+                "Jodar": false,
+                "Shelton": false
+              },
+              "dataCompleta": "2026-11-19",
+              "dia": 4,
+              "duracao": 2,
+              "expiraEm": 1795011863324,
+              "hora": 10,
+              "isRanking": true,
+              "jogadores": "Shelton, Jodar",
+              "jogadores_completo": "BEN SHELTON, RAFAEL JODAR",
+              "modelo": "grupos",
+              "organizador": "Administração (Gestor)",
+              "posicaoP1": "3",
+              "posicaoP2": "8",
+              "status": "pendente",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "temporadaId": "2026_T1794687926058",
+              "tipo": "ranking"
+            },
+            "4_11": {
+              "categoria": "A_MASCULINO",
+              "confirmacoes": {
+                "Jodar": false,
+                "Shelton": false
+              },
+              "dataCompleta": "2026-11-19",
+              "dia": 4,
+              "duracao": 2,
+              "expiraEm": 1795011863324,
+              "hora": 11,
+              "isRanking": true,
+              "jogadores": "Shelton, Jodar",
+              "jogadores_completo": "BEN SHELTON, RAFAEL JODAR",
+              "modelo": "grupos",
+              "organizador": "Administração (Gestor)",
+              "posicaoP1": "3",
+              "posicaoP2": "8",
+              "status": "pendente",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "temporadaId": "2026_T1794687926058",
+              "tipo": "ranking"
+            },
+            "4_16": {
+              "borda": "2h",
+              "categoria": "A_MASCULINO",
+              "confirmacoes": {
+                "Fils": false,
+                "Zverev": false
+              },
+              "dataCompleta": "2026-11-19",
+              "dia": 4,
+              "duracao": 2,
+              "expiraEm": 1795011891068,
+              "hora": 16,
+              "isRanking": true,
+              "jogadores": "Zverev, Fils",
+              "jogadores_completo": "ALEXANDER ZVEREV, ARTHUR FILS",
+              "modelo": "grupos",
+              "organizador": "Administração (Gestor)",
+              "posicaoP1": "1",
+              "posicaoP2": "6",
+              "status": "pendente",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
+              "temporadaId": "2026_T1794687926058",
+              "tipo": "ranking"
+            },
+            "4_17": {
+              "categoria": "A_MASCULINO",
+              "confirmacoes": {
+                "Fils": false,
+                "Zverev": false
+              },
+              "dataCompleta": "2026-11-19",
+              "dia": 4,
+              "duracao": 2,
+              "expiraEm": 1795011891068,
+              "hora": 17,
+              "isRanking": true,
+              "jogadores": "Zverev, Fils",
+              "jogadores_completo": "ALEXANDER ZVEREV, ARTHUR FILS",
+              "modelo": "grupos",
+              "organizador": "Administração (Gestor)",
+              "posicaoP1": "1",
+              "posicaoP2": "6",
+              "status": "pendente",
+              "tagFaseRanking": "Grupos - G1",
+              "tagGrupoRanking": "G1",
               "temporadaId": "2026_T1794687926058",
               "tipo": "ranking"
             },
@@ -8401,9 +9062,15 @@
             "ativo": true,
             "classe": "A",
             "email": "ronaldo.taborda@gmaol.com",
-            "fcmToken": "d5HVaIemS1KfuvNuKzHbCa:APA91bHdMSTg-NkuHwsVhIt4BERaOApn1qZ7Z-E3WVdZ_ZN70h0OOokfMTMDPVWxgHjDGsH2Vat8qAq0PN6I4vI-AojQvUqw51djmCHmik5g0ysV2PkPfvE",
+            "isPro": true,
             "niver": "26/05/1973",
             "nomeCompleto": "RONALDO TABORDA",
+            "proAssinaturaInfo": {
+              "atualizadoEm": 1794946780985,
+              "orderId": "",
+              "origem": "simulacao_web",
+              "produtoId": "setpoint_pro_mensal"
+            },
             "receber_notificacoes": true,
             "socio": "titular",
             "whatsapp": "(42) 99917-6972"
@@ -8426,6 +9093,56 @@
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(41) 99641-7799"
+          }
+        },
+        "logs_acesso": {
+          "2026-11-17": {
+            "-P6f93m2ZiDlzJfEGPve": {
+              "entrada": 1794946649350,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1794947092394,
+              "status": "offline",
+              "ultimaAtividade": 1794946791850,
+              "usuario": "RONALDO TABORDA",
+              "usuarioId": "-OzENpBEE1C9NW5tXpjH",
+              "vinculo": "titular"
+            },
+            "-P6fNVT1l-2kAxFEHE3s": {
+              "entrada": 1794950432771,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1794950525143,
+              "status": "offline",
+              "ultimaAtividade": 1794950520007,
+              "usuario": "RONALDO TABORDA",
+              "usuarioId": "-OzENpBEE1C9NW5tXpjH",
+              "vinculo": "titular"
+            },
+            "-P6gL8XXGNAAV8VYbomT": {
+              "entrada": 1794966591612,
+              "motivoSaida": "App fechado / Desconexão",
+              "plataforma": "Android App",
+              "saida": 1794966668539,
+              "status": "offline",
+              "ultimaAtividade": 1794966591612,
+              "usuario": "RONALDO TABORDA",
+              "usuarioId": "-OzENpBEE1C9NW5tXpjH",
+              "vinculo": "titular"
+            }
+          },
+          "2026-11-18": {
+            "-P6iap82M8SjYNzOcNfK": {
+              "entrada": 1795004519007,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Android App",
+              "saida": 1795004523568,
+              "status": "offline",
+              "ultimaAtividade": 1795004519311,
+              "usuario": "RONALDO TABORDA",
+              "usuarioId": "-OzENpBEE1C9NW5tXpjH",
+              "vinculo": "titular"
+            }
           }
         }
       }
@@ -8482,8 +9199,9 @@
             ]
           },
           "Quadras": {
-            "nomes": {
-              "1": {
+            "nomes": [
+              null,
+              {
                 "arquibancada": false,
                 "capacidade": "",
                 "esportes": {
@@ -8493,14 +9211,9 @@
                 "nome": "Quadra 1 - Central",
                 "piso": "Saibro",
                 "vip": false
-              },
-              "2": "Quadra 2",
-              "3": "Quadra 3",
-              "4": "Quadra 4",
-              "5": "Quadra 5",
-              "status_5": "interditada"
-            },
-            "quantidade": 5,
+              }
+            ],
+            "quantidade": 1,
             "visibilidadeGlobal": {
               "arqui": false,
               "luz": false,
