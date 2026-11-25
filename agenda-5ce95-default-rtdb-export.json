@@ -92,12 +92,12 @@
         "ativo": true,
         "dia_vencimento": 10,
         "email_contato": "ronaldo.taborda@gmail.com",
-        "exibir_anuncios": false,
+        "exibir_anuncios": true,
         "gestor_uid": "ivXNVOYbYsPOzm2K8QIJpjW3mJ03",
         "nome": "Clube Olimpico",
-        "plano_b2b": "pro",
-        "status_pagamento": "em_dia",
-        "valor_mensal": 149.9,
+        "plano_b2b": "starter",
+        "status_pagamento": "isento",
+        "valor_mensal": 0,
         "whatsapp": "41999176972"
       },
       "sistemas": {
@@ -4607,11 +4607,8 @@
             "ativo": true,
             "classe": "B",
             "email": "jog@gamail.com",
-            "fcmToken": "elos0X2aPudqFe2O5mtJAl:APA91bGl6htdVG9ervqZ5t9RW0AAGVZFKGRgO__b1yOR_OSOvloJL-BPF_7uhNBgz6o13qQtCcix5BlNw-7nrN9Bk6jALuUtZG-HhgcBC7l4-rQ5oKJjQ3I",
-            "fcmTokens": {
-              "elos0X2aPudqFe2O5mtJAl:APA91bGl6htdVG9ervqZ5t9RW0AAGVZFKGRgO__b1yOR_OSOvloJL-BPF_7uhNBgz6o13qQtCcix5BlNw-7nrN9Bk6jALuUtZG-HhgcBC7l4-rQ5oKJjQ3I": true
-            },
             "genero": "MASCULINO",
+            "isPro": false,
             "niver": "01/01/2001",
             "nomeCompleto": "ADRIANO GOMES FEITOSA",
             "participaRanking": true,
@@ -4699,6 +4696,13 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "ALICE DUCK",
+            "notificacoes": {
+              "-P7EM9Wjoq4G3q8xaSmF": {
+                "categoria": "remocao_jogador",
+                "detalhe": "A partida do dia 24/11/2026, das 18:00 às 19:00 na quadra 1 - coberta, foi cancelada pelo organizador.",
+                "timestamp": 1795554060484
+              }
+            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -4751,6 +4755,13 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "ALLANA BARBOSA",
+            "notificacoes": {
+              "-P7EN00b6Q_bxCspCH7l": {
+                "categoria": "remocao_jogador",
+                "detalhe": "A partida do dia 24/11/2026, das 18:00 às 19:00 na quadra 1 - coberta, foi cancelada pelo organizador.",
+                "timestamp": 1795554283708
+              }
+            },
             "participaRanking": true,
             "socio": "dependente",
             "whatsapp": "(99) 99999-9999"
@@ -4763,6 +4774,13 @@
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "ALMIR ALVES DA CRUZ",
+            "notificacoes": {
+              "-P7EM8tchgzQfSc0_vdm": {
+                "categoria": "remocao_jogador",
+                "detalhe": "A partida do dia 24/11/2026, das 19:00 às 20:00 na quadra 1 - coberta, foi cancelada pelo organizador.",
+                "timestamp": 1795554057917
+              }
+            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -4775,6 +4793,13 @@
             "genero": "FEMININO",
             "niver": "01/01/2001",
             "nomeCompleto": "ANA FRANCISCA SANTOS",
+            "notificacoes": {
+              "-P7ER7hp8pn4dBW7CAoN": {
+                "categoria": "remocao_jogador",
+                "detalhe": "A partida do dia 24/11/2026, das 19:00 às 21:00 na quadra 1 - coberta, foi cancelada pelo organizador.",
+                "timestamp": 1795555363749
+              }
+            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -4811,6 +4836,13 @@
             "genero": "FEMININO",
             "niver": "01/01/2001",
             "nomeCompleto": "ANA MARIA MARINHO GOMES",
+            "notificacoes": {
+              "-P7EMzukG6EIo7t1Uvp2": {
+                "categoria": "remocao_jogador",
+                "detalhe": "A partida do dia 24/11/2026, das 20:00 às 22:00 na quadra 1 - coberta, foi cancelada pelo organizador.",
+                "timestamp": 1795554279173
+              }
+            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -4834,6 +4866,13 @@
             "email": "",
             "niver": "27/03/1997",
             "nomeCompleto": "ANDRE GUZIK",
+            "notificacoes": {
+              "-P7EN-Ube5OAx2BRPpcx": {
+                "categoria": "remocao_jogador",
+                "detalhe": "A partida do dia 24/11/2026, das 19:00 às 20:00 na quadra 1 - coberta, foi cancelada pelo organizador.",
+                "timestamp": 1795554281532
+              }
+            },
             "socio": "titular",
             "whatsapp": ""
           },
@@ -6116,7 +6155,7 @@
             "classe": "A",
             "email": "a@a",
             "genero": "MASCULINO",
-            "isPro": true,
+            "isPro": false,
             "niver": "01/01/2001",
             "nomeCompleto": "ALEXANDER ZVEREV",
             "participaRanking": true,
@@ -6263,316 +6302,6 @@
           }
         },
         "logs_acesso": {
-          "2026-11-16": {
-            "-P6YUOjDQz1BQRdYXq5f": {
-              "entrada": 1794818022426,
-              "motivoSaida": "Saída manual",
-              "plataforma": "iPhone PWA",
-              "saida": 1794818140837,
-              "status": "offline",
-              "ultimaAtividade": 1794818023126,
-              "usuario": "ARTHUR FILS",
-              "usuarioId": "-P6PpmqceIlKxHOHlXy7",
-              "vinculo": "titular"
-            },
-            "-P6YU_MGE5TU43z6WlDz": {
-              "entrada": 1794818069939,
-              "motivoSaida": "Saída manual",
-              "plataforma": "Android App",
-              "saida": 1794818078612,
-              "status": "offline",
-              "ultimaAtividade": 1794818070152,
-              "usuario": "BEN SHELTON",
-              "usuarioId": "-P6PpdprxlTvD3cWZlGc",
-              "vinculo": "titular"
-            },
-            "-P6YUh1UmSje-wIkSw1_": {
-              "entrada": 1794818101384,
-              "motivoSaida": "Saída manual",
-              "plataforma": "Android App",
-              "saida": 1794818119845,
-              "status": "offline",
-              "ultimaAtividade": 1794818101384,
-              "usuario": "RAFAEL JODAR",
-              "usuarioId": "-P6PpuLxBDYghZjjYutd",
-              "vinculo": "titular"
-            },
-            "-P6YUnxnAKkfTOAoGeBH": {
-              "entrada": 1794818129748,
-              "motivoSaida": "App fechado / Desconexão",
-              "plataforma": "Android App",
-              "saida": 1794818248131,
-              "status": "offline",
-              "ultimaAtividade": 1794818217164,
-              "usuario": "ALEXANDER ZVEREV",
-              "usuarioId": "-P6PpUgpEBiSCzRYAdQE",
-              "vinculo": "titular"
-            },
-            "-P6YUxh63LODSHQ4ygGT": {
-              "entrada": 1794818169700,
-              "motivoSaida": "Inatividade",
-              "plataforma": "iPhone PWA",
-              "saida": 1794818504578,
-              "status": "offline",
-              "ultimaAtividade": 1794818409982,
-              "usuario": "BEN SHELTON",
-              "usuarioId": "-P6PpdprxlTvD3cWZlGc",
-              "vinculo": "titular"
-            },
-            "-P6YVWoNepPCqJr7N8Zc": {
-              "entrada": 1794818317676,
-              "motivoSaida": "App fechado / Desconexão",
-              "plataforma": "Android PWA",
-              "saida": 1794818440601,
-              "status": "offline",
-              "ultimaAtividade": 1794818405219,
-              "usuario": "ALINE SILVA MAZZANT",
-              "usuarioId": "-OwsQraOOC9PXWAfCatL",
-              "vinculo": "dependente"
-            },
-            "-P6ZHemFkVgWo9CXQwp9": {
-              "entrada": 1794831461460,
-              "motivoSaida": "App fechado / Desconexão",
-              "plataforma": "Android App",
-              "saida": 1794831519569,
-              "status": "offline",
-              "ultimaAtividade": 1794831461708,
-              "usuario": "ALEXANDER ZVEREV",
-              "usuarioId": "-P6PpUgpEBiSCzRYAdQE",
-              "vinculo": "titular"
-            },
-            "-P6Zin8HhESlSopYWb7f": {
-              "entrada": 1794838835734,
-              "motivoSaida": "Saída manual",
-              "plataforma": "Android App",
-              "saida": 1794838842610,
-              "status": "offline",
-              "ultimaAtividade": 1794838838083,
-              "usuario": "ALEXANDER ZVEREV",
-              "usuarioId": "-P6PpUgpEBiSCzRYAdQE",
-              "vinculo": "titular"
-            },
-            "-P6ZjWJQQJ5KAxEMjs1M": {
-              "entrada": 1794839024836,
-              "motivoSaida": "Saída manual",
-              "plataforma": "Android App",
-              "saida": 1794839050979,
-              "status": "offline",
-              "ultimaAtividade": 1794839024836,
-              "usuario": "CARLOS ALCARAZ",
-              "usuarioId": "-P6Pq1yd4QuveqJVmNGU",
-              "vinculo": "titular"
-            },
-            "-P6Zt-CChwhrgAYaQI1K": {
-              "entrada": 1794841510856,
-              "motivoSaida": "Inatividade",
-              "plataforma": "Web PC",
-              "saida": 1794841892426,
-              "status": "offline",
-              "ultimaAtividade": 1794841549923,
-              "usuario": "ALICE ALMEIDA PEREIRA",
-              "usuarioId": "-OwsQrS3a_T8Pf8JQxLY",
-              "vinculo": "titular"
-            },
-            "-P6_KsPvoKW6I2IuG43n": {
-              "entrada": 1794849081184,
-              "motivoSaida": "Inatividade",
-              "plataforma": "Web PC",
-              "saida": 1794849554498,
-              "status": "offline",
-              "ultimaAtividade": 1794849243835,
-              "usuario": "ALEX SOUZA",
-              "usuarioId": "-P1MhjNePKAaolM6NOO7",
-              "vinculo": "titular"
-            },
-            "-P6_Qn-9uoKlJNfMxRea": {
-              "entrada": 1794850631855,
-              "motivoSaida": "Inatividade",
-              "plataforma": "Web PC",
-              "saida": 1794850954489,
-              "status": "offline",
-              "ultimaAtividade": 1794850631855,
-              "usuario": "ALEX SOUZA",
-              "usuarioId": "-P1MhjNePKAaolM6NOO7",
-              "vinculo": "titular"
-            },
-            "-P6_TFiBZuPNuF48LWOH": {
-              "entrada": 1794851277874,
-              "motivoSaida": "Saída manual",
-              "plataforma": "Web PC",
-              "saida": 1794851292442,
-              "status": "offline",
-              "ultimaAtividade": 1794851281836,
-              "usuario": "ALEX SOUZA",
-              "usuarioId": "-P1MhjNePKAaolM6NOO7",
-              "vinculo": "titular"
-            },
-            "-P6_V6C-8o4EQmdnYCrQ": {
-              "entrada": 1794851763417,
-              "motivoSaida": "App fechado / Desconexão",
-              "plataforma": "Web PC",
-              "saida": 1794870811583,
-              "status": "offline",
-              "ultimaAtividade": 1794851763417,
-              "usuario": "ALICE ALMEIDA PEREIRA",
-              "usuarioId": "-OwsQrS3a_T8Pf8JQxLY",
-              "vinculo": "titular"
-            },
-            "-P6_mhWKwgOTcgIp_kIH": {
-              "entrada": 1794856638959,
-              "motivoSaida": "Inatividade",
-              "plataforma": "Web PC",
-              "saida": 1794856943827,
-              "status": "offline",
-              "ultimaAtividade": 1794856638959,
-              "usuario": "ALICE ALMEIDA PEREIRA",
-              "usuarioId": "-OwsQrS3a_T8Pf8JQxLY",
-              "vinculo": "titular"
-            },
-            "-P6_qTJT7OErHO7dmWe5": {
-              "entrada": 1794857625270,
-              "motivoSaida": "Inatividade",
-              "plataforma": "Web PC",
-              "saida": 1794858089780,
-              "status": "offline",
-              "ultimaAtividade": 1794857720577,
-              "usuario": "ALICE ALMEIDA PEREIRA",
-              "usuarioId": "-OwsQrS3a_T8Pf8JQxLY",
-              "vinculo": "titular"
-            },
-            "-P6_uVoe7xkS1mP3qUtV": {
-              "entrada": 1794858684099,
-              "motivoSaida": "Inatividade",
-              "plataforma": "Web PC",
-              "saida": 1794858985549,
-              "status": "offline",
-              "ultimaAtividade": 1794858684099,
-              "usuario": "ALICE ALMEIDA PEREIRA",
-              "usuarioId": "-OwsQrS3a_T8Pf8JQxLY",
-              "vinculo": "titular"
-            },
-            "-P6acgItISmRDlmxfk7G": {
-              "entrada": 1794870789494,
-              "motivoSaida": "App fechado / Desconexão",
-              "plataforma": "Android App",
-              "saida": 1794870924506,
-              "status": "offline",
-              "ultimaAtividade": 1794870894831,
-              "usuario": "DANIIL MEDVEDEV",
-              "usuarioId": "-P6Pq8bD389W6jPusZ6I",
-              "vinculo": "titular"
-            },
-            "-P6acjkqAmo5BKPwojie": {
-              "entrada": 1794870803920,
-              "motivoSaida": "Saída manual",
-              "plataforma": "Web PC",
-              "saida": 1794870810955,
-              "status": "offline",
-              "ultimaAtividade": 1794870803920,
-              "usuario": "ALICE ALMEIDA PEREIRA",
-              "usuarioId": "-OwsQrS3a_T8Pf8JQxLY",
-              "vinculo": "titular"
-            },
-            "-P6acqB-5KwX11tnn0M_": {
-              "entrada": 1794870829950,
-              "motivoSaida": "Inatividade",
-              "plataforma": "Web PC",
-              "saida": 1794871206434,
-              "status": "offline",
-              "ultimaAtividade": 1794870868367,
-              "usuario": "FLAVIO COBOLLI",
-              "usuarioId": "-P6PqH-vPw6EAr8pZykp",
-              "vinculo": "titular"
-            },
-            "-P6adJRjjyryxmFtPgTF": {
-              "entrada": 1794870953902,
-              "motivoSaida": "Saída manual",
-              "plataforma": "Web PC",
-              "saida": 1794871410314,
-              "status": "offline",
-              "ultimaAtividade": 1794871404259,
-              "usuario": "ALEX SOUZA",
-              "usuarioId": "-P1MhjNePKAaolM6NOO7",
-              "vinculo": "titular"
-            },
-            "-P6aeqzb0XjSD8MfVKBN": {
-              "entrada": 1794871357541,
-              "motivoSaida": "Saída manual",
-              "plataforma": "Web PC",
-              "saida": 1794871758784,
-              "status": "offline",
-              "ultimaAtividade": 1794871753130,
-              "usuario": "FLAVIO COBOLLI",
-              "usuarioId": "-P6PqH-vPw6EAr8pZykp",
-              "vinculo": "titular"
-            },
-            "-P6afj43oHsOhqmJJ3-j": {
-              "entrada": 1794871587221,
-              "motivoSaida": "App fechado / Desconexão",
-              "plataforma": "Android App",
-              "saida": 1794871600289,
-              "status": "offline",
-              "ultimaAtividade": 1794871587788,
-              "usuario": "DANIIL MEDVEDEV",
-              "usuarioId": "-P6Pq8bD389W6jPusZ6I",
-              "vinculo": "titular"
-            },
-            "-P6agG2wAxSGevFa05oP": {
-              "entrada": 1794871726459,
-              "motivoSaida": "Saída manual",
-              "plataforma": "Web PC",
-              "saida": 1794871741965,
-              "status": "offline",
-              "ultimaAtividade": 1794871735035,
-              "usuario": "CARLOS ALCARAZ",
-              "usuarioId": "-P6Pq1yd4QuveqJVmNGU",
-              "vinculo": "titular"
-            },
-            "-P6agQlA2B3RnUh4d9lo": {
-              "entrada": 1794871770317,
-              "motivoSaida": "Inatividade",
-              "plataforma": "Web PC",
-              "saida": 1794872436540,
-              "status": "offline",
-              "ultimaAtividade": 1794872134874,
-              "usuario": "FRANCES TIAFOE",
-              "usuarioId": "-P6PqN87CooWp-xKKQkb",
-              "vinculo": "titular"
-            },
-            "-P6ahPdIwRzt2fxjBL9B": {
-              "entrada": 1794872027896,
-              "motivoSaida": "Inatividade",
-              "plataforma": "Web PC",
-              "saida": 1794872378453,
-              "status": "offline",
-              "ultimaAtividade": 1794872077936,
-              "usuario": "ALEX SOUZA",
-              "usuarioId": "-P1MhjNePKAaolM6NOO7",
-              "vinculo": "titular"
-            },
-            "-P6ahjgYhz2_IpMI7A--": {
-              "entrada": 1794872114039,
-              "motivoSaida": "App fechado / Desconexão",
-              "plataforma": "Android App",
-              "saida": 1794872144092,
-              "status": "offline",
-              "ultimaAtividade": 1794872114495,
-              "usuario": "DANIIL MEDVEDEV",
-              "usuarioId": "-P6Pq8bD389W6jPusZ6I",
-              "vinculo": "titular"
-            },
-            "-P6aj6RPzjQ3PqpcsJ27": {
-              "entrada": 1794872473502,
-              "motivoSaida": "Inatividade",
-              "plataforma": "Web PC",
-              "saida": 1794872774603,
-              "status": "offline",
-              "ultimaAtividade": 1794872473502,
-              "usuario": "FRANCES TIAFOE",
-              "usuarioId": "-P6PqN87CooWp-xKKQkb",
-              "vinculo": "titular"
-            }
-          },
           "2026-11-17": {
             "-P6e0o8zGoZUS_eX8Ous": {
               "entrada": 1794927706893,
@@ -8402,8 +8131,10 @@
             },
             "-P78WP-NRdjRPkNKfpc0": {
               "entrada": 1795456082086,
+              "motivoSaida": "App fechado / Desconexão",
               "plataforma": "Web PC",
-              "status": "online",
+              "saida": 1795542344954,
+              "status": "offline",
               "ultimaAtividade": 1795456318672,
               "usuario": "ADRIANO GOMES FEITOSA",
               "usuarioId": "-OwsQrDpFbGx4981OGtl",
@@ -8433,8 +8164,10 @@
             },
             "-P79NQVfwCPkyVGJZOO2": {
               "entrada": 1795470506168,
+              "motivoSaida": "App fechado / Desconexão",
               "plataforma": "Web PC",
-              "status": "online",
+              "saida": 1795542344954,
+              "status": "offline",
               "ultimaAtividade": 1795470794679,
               "usuario": "ADRIANO GOMES FEITOSA",
               "usuarioId": "-OwsQrDpFbGx4981OGtl",
@@ -8449,6 +8182,228 @@
               "ultimaAtividade": 1795473718668,
               "usuario": "ADRIANO GOMES FEITOSA",
               "usuarioId": "-OwsQrDpFbGx4981OGtl",
+              "vinculo": "titular"
+            }
+          },
+          "2026-11-24": {
+            "-P7DOYUa3PpqPZrty5bV": {
+              "entrada": 1795537909875,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1795538212389,
+              "status": "offline",
+              "ultimaAtividade": 1795537909875,
+              "usuario": "ADRIANO GOMES FEITOSA",
+              "usuarioId": "-OwsQrDpFbGx4981OGtl",
+              "vinculo": "titular"
+            },
+            "-P7DR6B1_Gq1DPkxBHVw": {
+              "entrada": 1795538580368,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1795538903869,
+              "status": "offline",
+              "ultimaAtividade": 1795538596296,
+              "usuario": "ADRIANO GOMES FEITOSA",
+              "usuarioId": "-OwsQrDpFbGx4981OGtl",
+              "vinculo": "titular"
+            },
+            "-P7DeSLUFiUifg6eBNgO": {
+              "entrada": 1795542341164,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1795543622991,
+              "status": "offline",
+              "ultimaAtividade": 1795543319715,
+              "usuario": "ADRIANO GOMES FEITOSA",
+              "usuarioId": "-OwsQrDpFbGx4981OGtl",
+              "vinculo": "titular"
+            },
+            "-P7DvcNjt0EeC06VQBPz": {
+              "entrada": 1795546842782,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1795547212194,
+              "status": "offline",
+              "ultimaAtividade": 1795546910201,
+              "usuario": "ADRIANO GOMES FEITOSA",
+              "usuarioId": "-OwsQrDpFbGx4981OGtl",
+              "vinculo": "titular"
+            },
+            "-P7Dz20Q4VW0MRr2Zjky": {
+              "entrada": 1795547738315,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1795548572196,
+              "status": "offline",
+              "ultimaAtividade": 1795548270719,
+              "usuario": "ADRIANO GOMES FEITOSA",
+              "usuarioId": "-OwsQrDpFbGx4981OGtl",
+              "vinculo": "titular"
+            },
+            "-P7E1KJPjKwL_lB8yVRv": {
+              "entrada": 1795548599688,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1795548936197,
+              "status": "offline",
+              "ultimaAtividade": 1795548605352,
+              "usuario": "ADRIANO GOMES FEITOSA",
+              "usuarioId": "-OwsQrDpFbGx4981OGtl",
+              "vinculo": "titular"
+            },
+            "-P7E2jJrpWAh-_DGUJ6u": {
+              "entrada": 1795548968357,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1795549006232,
+              "status": "offline",
+              "ultimaAtividade": 1795549002048,
+              "usuario": "ADRIANO GOMES FEITOSA",
+              "usuarioId": "-OwsQrDpFbGx4981OGtl",
+              "vinculo": "titular"
+            },
+            "-P7E2uYoz3aI_RQmrZ4z": {
+              "entrada": 1795549014450,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1795549368198,
+              "status": "offline",
+              "ultimaAtividade": 1795549067638,
+              "usuario": "ALESSANDRO ROMERO XAVIER",
+              "usuarioId": "-OwsQrGGmuPBaD-rCgIg",
+              "vinculo": "titular"
+            },
+            "-P7E4l2o_SqWl-wdaJkn": {
+              "entrada": 1795549499826,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1795549606359,
+              "status": "offline",
+              "ultimaAtividade": 1795549567888,
+              "usuario": "ALESSANDRO ROMERO XAVIER",
+              "usuarioId": "-OwsQrGGmuPBaD-rCgIg",
+              "vinculo": "titular"
+            },
+            "-P7E5D2KnfTd6OO7fNc7": {
+              "entrada": 1795549618504,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1795549700077,
+              "status": "offline",
+              "ultimaAtividade": 1795549697055,
+              "usuario": "ADRIANO GOMES FEITOSA",
+              "usuarioId": "-OwsQrDpFbGx4981OGtl",
+              "vinculo": "titular"
+            },
+            "-P7E5ZmM9ydx0Ru1X29y": {
+              "entrada": 1795549711736,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1795550021190,
+              "status": "offline",
+              "ultimaAtividade": 1795549720784,
+              "usuario": "ADRIANO GOMES FEITOSA",
+              "usuarioId": "-OwsQrDpFbGx4981OGtl",
+              "vinculo": "titular"
+            },
+            "-P7E7_aiByVjM6v8WTCY": {
+              "entrada": 1795550239375,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1795550301452,
+              "status": "offline",
+              "ultimaAtividade": 1795550295747,
+              "usuario": "ADRIANO GOMES FEITOSA",
+              "usuarioId": "-OwsQrDpFbGx4981OGtl",
+              "vinculo": "titular"
+            },
+            "-P7E84jokTrCMJCkYeXf": {
+              "entrada": 1795550371049,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1795550379957,
+              "status": "offline",
+              "ultimaAtividade": 1795550376002,
+              "usuario": "ADRIANO GOMES FEITOSA",
+              "usuarioId": "-OwsQrDpFbGx4981OGtl",
+              "vinculo": "titular"
+            },
+            "-P7EA1udxatcX39spJLg": {
+              "entrada": 1795550883758,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1795551006371,
+              "status": "offline",
+              "ultimaAtividade": 1795550992638,
+              "usuario": "ALEXANDER ZVEREV",
+              "usuarioId": "-P6PpUgpEBiSCzRYAdQE",
+              "vinculo": "titular"
+            },
+            "-P7EAY--Djz-99oeeU4i": {
+              "entrada": 1795551015093,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1795551334435,
+              "status": "offline",
+              "ultimaAtividade": 1795551330180,
+              "usuario": "ALEX DE SOUZA",
+              "usuarioId": "-P6kMsBfbuEFl8n0Mdx3",
+              "vinculo": "titular"
+            },
+            "-P7EBmpmsZCeg6o6ojiD": {
+              "entrada": 1795551342157,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1795551765710,
+              "status": "offline",
+              "ultimaAtividade": 1795551461300,
+              "usuario": "ALEXANDRE VOJCIECHOVSKI",
+              "usuarioId": "-OwsQrPgZKMJLDccbVRB",
+              "vinculo": "dependente"
+            },
+            "-P7EJOyulWyrOPAKBmJd": {
+              "entrada": 1795553337350,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1795554017557,
+              "status": "offline",
+              "ultimaAtividade": 1795554011412,
+              "usuario": "ALEXANDRE VOJCIECHOVSKI",
+              "usuarioId": "-OwsQrPgZKMJLDccbVRB",
+              "vinculo": "dependente"
+            },
+            "-P7EM0yfuUS59r-a8gDI": {
+              "entrada": 1795554025472,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1795554288629,
+              "status": "offline",
+              "ultimaAtividade": 1795554256231,
+              "usuario": "ALICE ALMEIDA PEREIRA",
+              "usuarioId": "-OwsQrS3a_T8Pf8JQxLY",
+              "vinculo": "titular"
+            },
+            "-P7EN3SdVHpMAgCHmIPZ": {
+              "entrada": 1795554297920,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1795554641756,
+              "status": "offline",
+              "ultimaAtividade": 1795554339508,
+              "usuario": "ANA JULIA MARTINS",
+              "usuarioId": "-OwsQrjn7GfNwbVpBEIx",
+              "vinculo": "titular"
+            },
+            "-P7ER55VWIiiCfYsF0cB": {
+              "entrada": 1795555353150,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Web PC",
+              "saida": 1795555373057,
+              "status": "offline",
+              "ultimaAtividade": 1795555358275,
+              "usuario": "ANA JULIA MARTINS",
+              "usuarioId": "-OwsQrjn7GfNwbVpBEIx",
               "vinculo": "titular"
             }
           }
@@ -8653,216 +8608,6 @@
               "statusPlacar": "consolidado",
               "tagFaseRanking": "Grupos - Grande Final",
               "temporadaId": "2026_T1795397291611",
-              "tipo": "ranking"
-            },
-            "5_10": {
-              "borda": "2h",
-              "categoria": "A_MASCULINO",
-              "confirmacoes": {
-                "Alcaraz": true,
-                "Cobolli": true
-              },
-              "dadosPlacar": {
-                "autorSumula": "Gestor",
-                "categoria": "A_MASCULINO",
-                "dataHoraLancamento": 1795197808440,
-                "desistenteCodigo": "",
-                "expiraValidacaoAt": 1795370608440,
-                "isRET": false,
-                "isWO": false,
-                "motivoRET": "",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 6,
-                    "j2": 4
-                  },
-                  "set2": {
-                    "j1": 6,
-                    "j2": 1
-                  }
-                },
-                "placarFormatado": "6/4 6/1",
-                "posicaoP1": "2",
-                "posicaoP2": "5",
-                "prazoAutoHoras": 48,
-                "statusPlacar": "consolidado",
-                "vencedor": "Carlos Alcaraz",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-11-20",
-              "dia": 5,
-              "duracao": 2,
-              "hora": 10,
-              "isRanking": true,
-              "jogadores": "Alcaraz, Cobolli",
-              "jogadores_completo": "CARLOS ALCARAZ, FLAVIO COBOLLI",
-              "modelo": "grupos",
-              "organizador": "Administração (Gestor)",
-              "posicaoP1": "2",
-              "posicaoP2": "5",
-              "status": "confirmada",
-              "statusPlacar": "consolidado",
-              "tagFaseRanking": "Grupos - G2",
-              "tagGrupoRanking": "G2",
-              "temporadaId": "2026_T1794687926058",
-              "tipo": "ranking"
-            },
-            "5_11": {
-              "categoria": "A_MASCULINO",
-              "confirmacoes": {
-                "Alcaraz": true,
-                "Cobolli": true
-              },
-              "dadosPlacar": {
-                "autorSumula": "Gestor",
-                "categoria": "A_MASCULINO",
-                "dataHoraLancamento": 1795197808440,
-                "desistenteCodigo": "",
-                "expiraValidacaoAt": 1795370608440,
-                "isRET": false,
-                "isWO": false,
-                "motivoRET": "",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 6,
-                    "j2": 4
-                  },
-                  "set2": {
-                    "j1": 6,
-                    "j2": 1
-                  }
-                },
-                "placarFormatado": "6/4 6/1",
-                "posicaoP1": "2",
-                "posicaoP2": "5",
-                "prazoAutoHoras": 48,
-                "statusPlacar": "consolidado",
-                "vencedor": "Carlos Alcaraz",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-11-20",
-              "dia": 5,
-              "duracao": 2,
-              "hora": 11,
-              "isRanking": true,
-              "jogadores": "Alcaraz, Cobolli",
-              "jogadores_completo": "CARLOS ALCARAZ, FLAVIO COBOLLI",
-              "modelo": "grupos",
-              "organizador": "Administração (Gestor)",
-              "posicaoP1": "2",
-              "posicaoP2": "5",
-              "status": "confirmada",
-              "statusPlacar": "consolidado",
-              "tagFaseRanking": "Grupos - G2",
-              "tagGrupoRanking": "G2",
-              "temporadaId": "2026_T1794687926058",
-              "tipo": "ranking"
-            },
-            "5_16": {
-              "borda": "2h",
-              "categoria": "A_MASCULINO",
-              "confirmacoes": {
-                "Medvedev": true,
-                "Tiafoe": true
-              },
-              "dadosPlacar": {
-                "autorSumula": "Gestor",
-                "categoria": "A_MASCULINO",
-                "dataHoraLancamento": 1795209615806,
-                "desistenteCodigo": "",
-                "expiraValidacaoAt": 1795382415806,
-                "isRET": false,
-                "isWO": false,
-                "motivoRET": "",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 6,
-                    "j2": 3
-                  },
-                  "set2": {
-                    "j1": 6,
-                    "j2": 4
-                  }
-                },
-                "placarFormatado": "6/3 6/4",
-                "posicaoP1": "4",
-                "posicaoP2": "7",
-                "prazoAutoHoras": 48,
-                "statusPlacar": "consolidado",
-                "vencedor": "Daniil Medvedev",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-11-20",
-              "dia": 5,
-              "duracao": 2,
-              "hora": 16,
-              "isRanking": true,
-              "jogadores": "Medvedev, Tiafoe",
-              "jogadores_completo": "DANIIL MEDVEDEV, FRANCES TIAFOE",
-              "modelo": "grupos",
-              "organizador": "Administração (Gestor)",
-              "posicaoP1": "4",
-              "posicaoP2": "7",
-              "status": "confirmada",
-              "statusPlacar": "consolidado",
-              "tagFaseRanking": "Grupos - G2",
-              "tagGrupoRanking": "G2",
-              "temporadaId": "2026_T1794687926058",
-              "tipo": "ranking"
-            },
-            "5_17": {
-              "categoria": "A_MASCULINO",
-              "confirmacoes": {
-                "Medvedev": true,
-                "Tiafoe": true
-              },
-              "dadosPlacar": {
-                "autorSumula": "Gestor",
-                "categoria": "A_MASCULINO",
-                "dataHoraLancamento": 1795209615806,
-                "desistenteCodigo": "",
-                "expiraValidacaoAt": 1795382415806,
-                "isRET": false,
-                "isWO": false,
-                "motivoRET": "",
-                "motivoWO": "",
-                "parciais": {
-                  "set1": {
-                    "j1": 6,
-                    "j2": 3
-                  },
-                  "set2": {
-                    "j1": 6,
-                    "j2": 4
-                  }
-                },
-                "placarFormatado": "6/3 6/4",
-                "posicaoP1": "4",
-                "posicaoP2": "7",
-                "prazoAutoHoras": 48,
-                "statusPlacar": "consolidado",
-                "vencedor": "Daniil Medvedev",
-                "vencedorCodigo": "J1"
-              },
-              "dataCompleta": "2026-11-20",
-              "dia": 5,
-              "duracao": 2,
-              "hora": 17,
-              "isRanking": true,
-              "jogadores": "Medvedev, Tiafoe",
-              "jogadores_completo": "DANIIL MEDVEDEV, FRANCES TIAFOE",
-              "modelo": "grupos",
-              "organizador": "Administração (Gestor)",
-              "posicaoP1": "4",
-              "posicaoP2": "7",
-              "status": "confirmada",
-              "statusPlacar": "consolidado",
-              "tagFaseRanking": "Grupos - G2",
-              "tagGrupoRanking": "G2",
-              "temporadaId": "2026_T1794687926058",
               "tipo": "ranking"
             },
             "6_16": {
@@ -9526,13 +9271,6 @@
               "temporadaId": "2026_T1795397291611",
               "tipo": "ranking"
             }
-          }
-        },
-        "usuariosOnline": {
-          "GESTOR": {
-            "isGestor": true,
-            "lastSeen": 1795530243434,
-            "usuario": "Gestor Mestre"
           }
         }
       }
@@ -10436,6 +10174,10 @@
             "ativo": true,
             "classe": "B",
             "email": "jog@gamail.com",
+            "fcmToken": "egZSuoqOQOyRYmHIXWjqLz:APA91bGiSJKMihkcoJN46bbpYVJ-OXPqlNOwKfXtghrVN4EaKa3793A1Vb78mBOja4pUNzBpgzonGkkTdRKHBbOddm7l4MpmhJJQVg4RVbdud0WmcFB9WTw",
+            "fcmTokens": {
+              "egZSuoqOQOyRYmHIXWjqLz:APA91bGiSJKMihkcoJN46bbpYVJ-OXPqlNOwKfXtghrVN4EaKa3793A1Vb78mBOja4pUNzBpgzonGkkTdRKHBbOddm7l4MpmhJJQVg4RVbdud0WmcFB9WTw": true
+            },
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "ADRIANO GOMES FEITOSA",
@@ -11795,16 +11537,14 @@
             "ativo": true,
             "classe": "A",
             "email": "ar@ar",
+            "fcmToken": "elos0X2aPudqFe2O5mtJAl:APA91bGl6htdVG9ervqZ5t9RW0AAGVZFKGRgO__b1yOR_OSOvloJL-BPF_7uhNBgz6o13qQtCcix5BlNw-7nrN9Bk6jALuUtZG-HhgcBC7l4-rQ5oKJjQ3I",
+            "fcmTokens": {
+              "cPxwrjyAxZ12OP1LcSvbpu:APA91bEXbgwq1y1fPLEmG-RQf_2hE2Dv2IrQasnf-uOzU1u8qddX71jtig4tldXfqE0k9xWlo8wh2H5kDG-D0RppKvTGUMTiz8y1roSonXQ_YyD36Wz3hZE": true,
+              "elos0X2aPudqFe2O5mtJAl:APA91bGl6htdVG9ervqZ5t9RW0AAGVZFKGRgO__b1yOR_OSOvloJL-BPF_7uhNBgz6o13qQtCcix5BlNw-7nrN9Bk6jALuUtZG-HhgcBC7l4-rQ5oKJjQ3I": true
+            },
             "genero": "MASCULINO",
             "niver": "26/05/1973",
             "nomeCompleto": "RONALDO TABORDA",
-            "notificacoes": {
-              "reserva_expirada_3_8": {
-                "categoria": "reserva_expirada",
-                "detalhe": "Quarta-feira, das 08:00 às 10:00 hs, na quadra Rafael Martins",
-                "timestamp": 1795518512322
-              }
-            },
             "participaRanking": false,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -12054,17 +11794,13 @@
             "ativo": true,
             "classe": "B",
             "email": "a@a",
+            "fcmToken": "fjicZVWf6Q6rvQz4PQzPNT:APA91bGtfWwn_qKGgwqLvS8rLhCSTSLfWUYAxoYTsnEiorX73lDfs-b5pb0Z4w2hQJzwMAHG6RFwn_CNKxAnw1C6UoF2o_MXu_FRnqz8LPmRMdhpTTwHyGY",
+            "fcmTokens": {
+              "fjicZVWf6Q6rvQz4PQzPNT:APA91bGtfWwn_qKGgwqLvS8rLhCSTSLfWUYAxoYTsnEiorX73lDfs-b5pb0Z4w2hQJzwMAHG6RFwn_CNKxAnw1C6UoF2o_MXu_FRnqz8LPmRMdhpTTwHyGY": true
+            },
             "genero": "MASCULINO",
             "niver": "01/01/2001",
             "nomeCompleto": "ALEX SOUZA",
-            "notificacoes": {
-              "-P73Wo2Bmva0U-cykwmb": {
-                "categoria": "inicio_temporada",
-                "detalhe": "Tabelas do Toneio da Amizade liberadas.\nAgende sua partida no app.",
-                "timestamp": 1795372302703,
-                "titulo": "A temporada começou!"
-              }
-            },
             "participaRanking": true,
             "socio": "titular",
             "whatsapp": "(99) 99999-9999"
@@ -12416,6 +12152,212 @@
               "usuarioId": "-OwsQvRC5SUsj7fZ-cLY",
               "vinculo": "titular"
             }
+          },
+          "2026-11-24": {
+            "-P7DaxeaHGGc8FkcWuCE": {
+              "entrada": 1795541424881,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Android App",
+              "saida": 1795541439365,
+              "status": "offline",
+              "ultimaAtividade": 1795541424881,
+              "usuario": "RONALDO TABORDA",
+              "usuarioId": "-OwsQvRC5SUsj7fZ-cLY",
+              "vinculo": "titular"
+            },
+            "-P7DbDJqfUvnDwqC-eDE": {
+              "entrada": 1795541493123,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Android App",
+              "saida": 1795541548928,
+              "status": "offline",
+              "ultimaAtividade": 1795541493123,
+              "usuario": "RONALDO TABORDA",
+              "usuarioId": "-OwsQvRC5SUsj7fZ-cLY",
+              "vinculo": "titular"
+            },
+            "-P7DcQg6wXL5tyUUPYbL": {
+              "entrada": 1795541810015,
+              "motivoSaida": "App fechado / Desconexão",
+              "plataforma": "Android App",
+              "saida": 1795541906622,
+              "status": "offline",
+              "ultimaAtividade": 1795541810015,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P7Dj9q1JPYctL9Ue4J_": {
+              "entrada": 1795543576026,
+              "motivoSaida": "App fechado / Desconexão",
+              "plataforma": "Android App",
+              "saida": 1795543582582,
+              "status": "offline",
+              "ultimaAtividade": 1795543576648,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P7E6JGfoqT8x_W-TX5q": {
+              "entrada": 1795549906134,
+              "motivoSaida": "App fechado / Desconexão",
+              "plataforma": "Web PC",
+              "saida": 1795550260853,
+              "status": "offline",
+              "ultimaAtividade": 1795549951577,
+              "usuario": "RONALDO TABORDA",
+              "usuarioId": "-OwsQvRC5SUsj7fZ-cLY",
+              "vinculo": "titular"
+            },
+            "-P7E7dvrxqP09EkbxIp6": {
+              "entrada": 1795550256994,
+              "motivoSaida": "App fechado / Desconexão",
+              "plataforma": "Web PC",
+              "saida": 1795550292609,
+              "status": "offline",
+              "ultimaAtividade": 1795550262115,
+              "usuario": "RONALDO TABORDA",
+              "usuarioId": "-OwsQvRC5SUsj7fZ-cLY",
+              "vinculo": "titular"
+            },
+            "-P7E7v0ZRrgU4xdY0Fv9": {
+              "entrada": 1795550327079,
+              "motivoSaida": "Saída manual",
+              "perfis": {
+                "Professor": true
+              },
+              "plataforma": "Web PC",
+              "saida": 1795550429611,
+              "status": "offline",
+              "ultimaAtividade": 1795550375376,
+              "usuario": "ADRIANO GOMES FEITOSA",
+              "usuarioId": "-OwsQrDpFbGx4981OGtl",
+              "vinculo": "titular"
+            },
+            "-P7E8Dye-NK2Int1kkUX": {
+              "entrada": 1795550408733,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1795550807015,
+              "status": "offline",
+              "ultimaAtividade": 1795550723590,
+              "usuario": "RONALDO TABORDA",
+              "usuarioId": "-OwsQvRC5SUsj7fZ-cLY",
+              "vinculo": "titular"
+            },
+            "-P7E9wJs2zFJ_gw7PBf9": {
+              "entrada": 1795550856619,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1795551157483,
+              "status": "offline",
+              "ultimaAtividade": 1795550856619,
+              "usuario": "RONALDO TABORDA",
+              "usuarioId": "-OwsQvRC5SUsj7fZ-cLY",
+              "vinculo": "titular"
+            },
+            "-P7EBgBBoUq1jjyiOo1C": {
+              "entrada": 1795551314815,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1795551752374,
+              "status": "offline",
+              "ultimaAtividade": 1795551452112,
+              "usuario": "RONALDO TABORDA",
+              "usuarioId": "-OwsQvRC5SUsj7fZ-cLY",
+              "vinculo": "titular"
+            },
+            "-P7EEXjFILwjbaOtHaWE": {
+              "entrada": 1795552062489,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Android App",
+              "saida": 1795552067348,
+              "status": "offline",
+              "ultimaAtividade": 1795552063139,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P7EHv_aIxd7FWWQxZh0": {
+              "entrada": 1795552950382,
+              "motivoSaida": "App fechado / Desconexão",
+              "plataforma": "Android App",
+              "saida": 1795553090769,
+              "status": "offline",
+              "ultimaAtividade": 1795552950677,
+              "usuario": "RAFAEL MARTINS",
+              "usuarioId": "-P3bnpBXbnLtN1Lw-_Tq",
+              "vinculo": "titular"
+            },
+            "-P7EIkMTtceWQCQrZkxO": {
+              "entrada": 1795553167071,
+              "motivoSaida": "App fechado / Desconexão",
+              "plataforma": "Web PC",
+              "saida": 1795553467601,
+              "status": "offline",
+              "ultimaAtividade": 1795553351431,
+              "usuario": "RONALDO TABORDA",
+              "usuarioId": "-OwsQvRC5SUsj7fZ-cLY",
+              "vinculo": "titular"
+            },
+            "-P7ERPcD5nn6iPH9biIA": {
+              "entrada": 1795555437107,
+              "motivoSaida": "Inatividade",
+              "plataforma": "Web PC",
+              "saida": 1795555791689,
+              "status": "offline",
+              "ultimaAtividade": 1795555490053,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P7EW5Su55KGBGAetGQv": {
+              "entrada": 1795556665108,
+              "motivoSaida": "App fechado / Desconexão",
+              "plataforma": "Web PC",
+              "saida": 1795556891872,
+              "status": "offline",
+              "ultimaAtividade": 1795556889417,
+              "usuario": "ALEX SOUZA",
+              "usuarioId": "-P1MhjNePKAaolM6NOO7",
+              "vinculo": "titular"
+            },
+            "-P7EW6oGPC8UjMFrA9lq": {
+              "entrada": 1795556670768,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Android App",
+              "saida": 1795556699119,
+              "status": "offline",
+              "ultimaAtividade": 1795556670768,
+              "usuario": "ALICE DUCK",
+              "usuarioId": "-OwsQrUPZ77I0Po1fo-K",
+              "vinculo": "titular"
+            },
+            "-P7EWGJ6AmZgBZNfg3Iu": {
+              "entrada": 1795556709671,
+              "motivoSaida": "Saída manual",
+              "plataforma": "Android App",
+              "saida": 1795556832276,
+              "status": "offline",
+              "ultimaAtividade": 1795556826037,
+              "usuario": "ALICE ALMEIDA PEREIRA",
+              "usuarioId": "-OwsQrS3a_T8Pf8JQxLY",
+              "vinculo": "titular"
+            },
+            "-P7EWlR1FeA9C1AJ-C1v": {
+              "entrada": 1795556841248,
+              "motivoSaida": "App fechado / Desconexão",
+              "perfis": {
+                "Professor": true
+              },
+              "plataforma": "Android App",
+              "saida": 1795556866256,
+              "status": "offline",
+              "ultimaAtividade": 1795556841248,
+              "usuario": "ADRIANO GOMES FEITOSA",
+              "usuarioId": "-OwsQrDpFbGx4981OGtl",
+              "vinculo": "titular"
+            }
           }
         },
         "ranking": {
@@ -12497,6 +12439,81 @@
               "status": "confirmada",
               "tipo": "aula"
             },
+            "2_19": {
+              "borda": "2h",
+              "categoria": "B_MASCULINO",
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Alex": true
+              },
+              "dataCompleta": "2026-11-24",
+              "dia": 2,
+              "duracao": 2,
+              "hora": 19,
+              "isRanking": true,
+              "jogadores": "Alex, Adriano Feitosa",
+              "jogadores_completo": "ALEX SOUZA, ADRIANO GOMES FEITOSA",
+              "modelo": "piramide",
+              "organizador": "ALEX SOUZA",
+              "posicaoP1": "2º",
+              "posicaoP2": "1º",
+              "status": "confirmada",
+              "temporadaId": "2026_T1795372039747",
+              "tipo": "ranking"
+            },
+            "2_20": {
+              "categoria": "B_MASCULINO",
+              "confirmacoes": {
+                "Adriano Feitosa": true,
+                "Alex": true
+              },
+              "dataCompleta": "2026-11-24",
+              "dia": 2,
+              "duracao": 2,
+              "hora": 20,
+              "isRanking": true,
+              "jogadores": "Alex, Adriano Feitosa",
+              "jogadores_completo": "ALEX SOUZA, ADRIANO GOMES FEITOSA",
+              "modelo": "piramide",
+              "organizador": "ALEX SOUZA",
+              "posicaoP1": "2º",
+              "posicaoP2": "1º",
+              "status": "confirmada",
+              "temporadaId": "2026_T1795372039747",
+              "tipo": "ranking"
+            },
+            "2_21": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Alice Duck": true
+              },
+              "dataCompleta": "2026-11-24",
+              "dia": 2,
+              "duracao": 1,
+              "hora": 21,
+              "isRanking": false,
+              "jogadores": "Alice Duck",
+              "jogadores_completo": "ALICE DUCK",
+              "organizador": "ALICE DUCK",
+              "status": "confirmada",
+              "tipo": "comum"
+            },
+            "2_22": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Alice Duck": true
+              },
+              "dataCompleta": "2026-11-24",
+              "dia": 2,
+              "duracao": 1,
+              "hora": 22,
+              "isRanking": false,
+              "jogadores": "Alice Duck",
+              "jogadores_completo": "ALICE DUCK",
+              "organizador": "ALICE DUCK",
+              "status": "confirmada",
+              "tipo": "comum"
+            },
             "2_6": {
               "borda": "1h",
               "confirmacoes": {
@@ -12530,6 +12547,119 @@
               "organizador": "Erick",
               "status": "confirmada",
               "tipo": "manutencao"
+            },
+            "3_8": {
+              "borda": "2h",
+              "confirmacoes": {
+                "Rafa": true,
+                "Taborda": true
+              },
+              "dataCompleta": "2026-11-25",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 8,
+              "isRanking": false,
+              "jogadores": "Taborda, Rafa",
+              "jogadores_completo": "RONALDO TABORDA, RAFAEL MARTINS",
+              "organizador": "RONALDO TABORDA",
+              "status": "confirmada",
+              "tipo": "comum"
+            },
+            "3_9": {
+              "confirmacoes": {
+                "Rafa": true,
+                "Taborda": true
+              },
+              "dataCompleta": "2026-11-25",
+              "dia": 3,
+              "duracao": 2,
+              "hora": 9,
+              "isRanking": false,
+              "jogadores": "Taborda, Rafa",
+              "jogadores_completo": "RONALDO TABORDA, RAFAEL MARTINS",
+              "organizador": "RONALDO TABORDA",
+              "status": "confirmada",
+              "tipo": "comum"
+            },
+            "4_6": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Alice Pereira": true
+              },
+              "dataCompleta": "2026-11-26",
+              "dia": 4,
+              "duracao": 1,
+              "hora": 6,
+              "isRanking": false,
+              "jogadores": "Alice Pereira",
+              "jogadores_completo": "ALICE ALMEIDA PEREIRA",
+              "organizador": "ALICE ALMEIDA PEREIRA",
+              "status": "confirmada",
+              "tipo": "comum"
+            },
+            "4_7": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Alice Pereira": true
+              },
+              "dataCompleta": "2026-11-26",
+              "dia": 4,
+              "duracao": 1,
+              "hora": 7,
+              "isRanking": false,
+              "jogadores": "Alice Pereira",
+              "jogadores_completo": "ALICE ALMEIDA PEREIRA",
+              "organizador": "ALICE ALMEIDA PEREIRA",
+              "status": "confirmada",
+              "tipo": "comum"
+            },
+            "4_8": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Alice Pereira": true
+              },
+              "dataCompleta": "2026-11-26",
+              "dia": 4,
+              "duracao": 1,
+              "hora": 8,
+              "isRanking": false,
+              "jogadores": "Alice Pereira",
+              "jogadores_completo": "ALICE ALMEIDA PEREIRA",
+              "organizador": "ALICE ALMEIDA PEREIRA",
+              "status": "confirmada",
+              "tipo": "comum"
+            },
+            "5_6": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Adriano Feitosa": true
+              },
+              "dataCompleta": "2026-11-27",
+              "dia": 5,
+              "duracao": 1,
+              "hora": 6,
+              "isRanking": false,
+              "jogadores": "Adriano Feitosa",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada",
+              "tipo": "comum"
+            },
+            "5_7": {
+              "borda": "1h",
+              "confirmacoes": {
+                "Adriano Feitosa": true
+              },
+              "dataCompleta": "2026-11-27",
+              "dia": 5,
+              "duracao": 1,
+              "hora": 7,
+              "isRanking": false,
+              "jogadores": "Adriano Feitosa",
+              "jogadores_completo": "ADRIANO GOMES FEITOSA",
+              "organizador": "ADRIANO GOMES FEITOSA",
+              "status": "confirmada",
+              "tipo": "comum"
             }
           }
         }
@@ -12557,19 +12687,27 @@
       }
     },
     "SaaS_Config": {
+      "admob": {
+        "ativo": true,
+        "bannerId": "ca-app-pub-3940256099942544/6300978111",
+        "carenciaTrialDias": 15,
+        "interstitialId": "ca-app-pub-3940256099942544/1033173712",
+        "intervaloMinutos": 60,
+        "rewardedId": "ca-app-pub-3940256099942544/5224354917"
+      },
       "canal_distribuicao": "APK_DIRETO",
       "forcar_atualizacao": false,
       "url_apk": "https://setpoint-gestor.github.io/app/app-debug.apk",
-      "versao_web": "2.1.5"
+      "versao_web": "2.1.6"
     },
-    "TESTE": {
+    "TESTAR": {
       "info_clube": {
         "ativo": true,
         "dia_vencimento": 10,
-        "email_contato": "setpoint@teste.com",
+        "email_contato": "testar@gmail.com",
         "exibir_anuncios": true,
-        "gestor_uid": "Rcube8nefNUeCPoAfqxFsFvppc53",
-        "nome": "Clube de Testes",
+        "gestor_uid": "XtwYGARyXeduOu2PByFmokyBDT33",
+        "nome": "Testar",
         "plano_b2b": "starter",
         "status_pagamento": "isento",
         "valor_mensal": 0,
@@ -12578,100 +12716,6 @@
       "sistemas": {
         "config": {
           "Abrir": true,
-          "Quadras": {
-            "nomes": [
-              null,
-              "Quadra 1"
-            ],
-            "quantidade": 1
-          },
-          "limiteIaDiario": 5
-        },
-        "jogadores": {
-          "-P6k0zAAvHuwILEkd-DI": {
-            "apelido": "Jog-Teste",
-            "ativo": true,
-            "classe": "",
-            "email": "a@a",
-            "genero": "NAO_INFORMAR",
-            "niver": "01/01/2001",
-            "nomeCompleto": "JOGADOR-TESTE",
-            "participaRanking": true,
-            "socio": "titular",
-            "whatsapp": "(99) 99999-9999"
-          }
-        },
-        "logs_acesso": {
-          "2026-11-18": {
-            "-P6k3gpbZGaJyUpNM1fG": {
-              "entrada": 1795029126605,
-              "motivoSaida": "Inatividade",
-              "plataforma": "Web PC",
-              "saida": 1795029812338,
-              "status": "offline",
-              "ultimaAtividade": 1795029505184,
-              "usuario": "JOGADOR-TESTE",
-              "usuarioId": "-P6k0zAAvHuwILEkd-DI",
-              "vinculo": "titular"
-            },
-            "-P6k8zk6FOoGpaVZQRtv": {
-              "entrada": 1795030514797,
-              "motivoSaida": "Saída manual",
-              "plataforma": "Web PC",
-              "saida": 1795030650247,
-              "status": "offline",
-              "ultimaAtividade": 1795030643628,
-              "usuario": "JOGADOR-TESTE",
-              "usuarioId": "-P6k0zAAvHuwILEkd-DI",
-              "vinculo": "titular"
-            }
-          }
-        }
-      }
-    },
-    "TESTE2": {
-      "info_clube": {
-        "ativo": true,
-        "dia_vencimento": 10,
-        "email_contato": "teste2@teste.com",
-        "exibir_anuncios": true,
-        "gestor_uid": "dscWYaEHGSgv8CFcWWU1a3lm4Af2",
-        "nome": "teste2",
-        "plano_b2b": "starter",
-        "status_pagamento": "isento",
-        "valor_mensal": 0,
-        "whatsapp": "(41) 99999-9999"
-      },
-      "sistemas": {
-        "config": {
-          "Abrir": true,
-          "limiteIaDiario": 5
-        }
-      }
-    },
-    "TESTE99": {
-      "info_clube": {
-        "ativo": true,
-        "dia_vencimento": 10,
-        "email_contato": "teste@email.com",
-        "exibir_anuncios": true,
-        "gestor_uid": "uQZ3KZKAm8WcMMAYzXOnLI5gJho2",
-        "nome": "Clube Teste",
-        "plano_b2b": "starter",
-        "status_pagamento": "isento",
-        "valor_mensal": 0,
-        "whatsapp": "(11) 99999-8888"
-      },
-      "sistemas": {
-        "config": {
-          "Abrir": true,
-          "Quadras": {
-            "nomes": [
-              null,
-              "Quadra 1"
-            ],
-            "quantidade": 1
-          },
           "limiteIaDiario": 5
         }
       }
